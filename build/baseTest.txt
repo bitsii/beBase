@@ -1,0 +1,9 @@
+--deployPath
+deploy
+--buildPath
+target
+--mainClass
+Test:BaseTest:Current
+--buildFile
+build/baseTestShared.txt
+-run

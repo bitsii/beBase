@@ -1,0 +1,12 @@
+-run
+--useLibrary
+deploy/Base
+--deployPath
+deploy
+--buildPath
+target
+--libraryName
+BenchmarkBinaryTrees
+--mainClass
+Benchmark:BinaryTrees
+source/test/BinaryTrees.be

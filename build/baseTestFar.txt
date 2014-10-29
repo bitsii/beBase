@@ -1,0 +1,6 @@
+--useLibrary
+deploy/Base
+--libraryName
+BaseTestsFar
+--buildFile
+build/baseTest.txt

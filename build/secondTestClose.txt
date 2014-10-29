@@ -1,0 +1,8 @@
+--useLibraryClose
+deploy/Base
+--useLibraryClose
+deploy/BaseTestsClose
+--libraryName
+SecondTestsClose
+--buildFile
+build/secondTest.txt

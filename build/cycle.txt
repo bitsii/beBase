@@ -1,0 +1,12 @@
+#Executes a full test cycle (a full regression), 3 full builds (each building the next) followed by extended test run (from last build)
+#remove "cycle" directory before each run
+--deployPath
+cycle/deploy0
+--buildPath
+cycle/target0
+#main needs to come before build because the first one is used (it's overriding the one in there)
+-mainClass=Build:Cycle:Main
+--buildFile
+build/build.txt
+-run
+source/build/Cycle.be

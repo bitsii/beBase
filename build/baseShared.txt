@@ -1,0 +1,14 @@
+--includePath
+include
+--deployFileFrom
+include/BER_Base.h
+--deployFileTo
+BER_Base.h
+--deployFileFrom
+include/BER_Inc.h
+--deployFileTo
+BER_Inc.h
+--deployFile
+include/BER_Inc.h
+--emitFileHeader
+LICENSE.txt

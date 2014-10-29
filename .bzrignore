@@ -1,0 +1,10 @@
+deploy*
+target*
+testLog*
+cycle*
+err
+u8*html
+./misc/*
+./misc/*/*
+./test/data
+*.class

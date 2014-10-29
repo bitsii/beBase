@@ -1,0 +1,12 @@
+-run
+--useLibrary
+deploy/Base
+--deployPath
+deploy
+--buildPath
+target
+--libraryName
+HelloWorld
+--mainClass
+Test:TestHelloWorld
+Base/Tests/TestHelloWorld.be

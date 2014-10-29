@@ -1,0 +1,11 @@
+-deployPath=deployExtended
+-buildPath=targetExtended
+-libraryName=Base
+-mainClass=System:Main
+-buildFile=build/baseSource.txt
+-buildFile=build/baseShared.txt
+-buildFile=build/extendedShared.txt
+#-compiler=msvc
+#-compiler=g++
+
+

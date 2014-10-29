@@ -1,0 +1,6 @@
+--useLibrary
+deployExtended/Base
+--libraryName
+ExtendedTestsFar
+--buildFile
+build/extendedTest.txt

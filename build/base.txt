@@ -1,0 +1,10 @@
+-deployPath=deploy
+-buildPath=target
+-libraryName=Base
+-mainClass=System:Main
+-buildFile=build/baseSource.txt
+-buildFile=build/baseShared.txt
+#-compiler=msvc
+#-compiler=g++
+
+

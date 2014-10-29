@@ -1,0 +1,6 @@
+--useLibraryClose
+deploy/Base
+--libraryName
+BaseTestsClose
+--buildFile
+build/baseTest.txt

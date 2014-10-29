@@ -1,0 +1,12 @@
+source/test/BaseTests.be
+source/test/BTMath.be
+source/test/BTArray.be
+source/test/BTNull.be
+source/test/BTGc.be
+source/test/BTParseCorners.be
+source/test/BTEmitCheck.be
+source/test/BTQuickCheck.be
+source/test/BTCalls.be
+source/test/BTInvoke.be
+source/test/BTLinkedList.be
+source/test/TFunctions.be

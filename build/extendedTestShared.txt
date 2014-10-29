@@ -1,0 +1,12 @@
+source/extendedTest/ExtendedTests.be
+source/extendedTest/TJson.be
+source/extendedTest/BTTime.be
+source/extendedTest/BTProperties.be
+source/extendedTest/BTSerialize.be
+source/extendedTest/BTText.be
+source/extendedTest/BTEncode.be
+source/extendedTest/BTIO.be
+source/extendedTest/BTMainLogParam.be
+source/extendedTest/BTXml.be
+source/extendedTest/BTTemplate.be
+source/extendedTest/BTMisc.be

@@ -1,0 +1,10 @@
+--deployPath
+deployExtended
+--buildPath
+targetExtended
+--mainClass
+Test:ExtendedTest:Current
+--buildFile
+build/baseTestShared.txt
+--buildFile
+build/extendedTestShared.txt

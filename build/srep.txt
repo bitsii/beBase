@@ -1,0 +1,12 @@
+-run
+--useLibrary
+deploy/Base
+--deployPath
+deploy
+--buildPath
+target
+--libraryName
+Utilities_SRep
+--mainClass
+System:StartupWithParameters
+source/test/SRep.be

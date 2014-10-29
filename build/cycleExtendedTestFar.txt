@@ -1,0 +1,7 @@
+-deployPath=cycle/deployExtended
+-buildPath=cycle/targetExtended
+-useLibrary=cycle/deployExtended/Base
+--libraryName
+ExtendedTestsFar
+--buildFile
+build/extendedTest.txt

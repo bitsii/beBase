@@ -1,0 +1,24 @@
+--c_source_mswin
+source/extended/Win.be
+--c_source_linux
+source/extended/Nix.be
+--jv_source_mswin
+source/extended/EcPlat.be
+--cs_source_mswin
+source/extended/EcPlat.be
+--js_source_mswin
+source/extended/EcPlat.be
+#below for build
+source/extended/Serialize.be
+source/extended/FilePath.be
+source/extended/FileReadWrite.be
+source/extended/Startup.be
+source/extended/Command.be
+#below for apps
+source/extended/Log.be
+source/extended/Json.be
+source/extended/Template.be
+source/extended/Properties.be
+#source/extended/SubProcess.be
+#source/extended/FileFind.be
+source/extended/Xml.be

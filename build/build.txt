@@ -1,0 +1,14 @@
+--libraryName
+Base
+--exeName
+Build
+--mainClass
+Build:Build
+--buildFile
+build/baseSource.txt
+--buildFile
+build/baseShared.txt
+--buildFile
+build/extendedShared.txt
+--buildFile
+build/buildSource.txt

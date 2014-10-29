@@ -1,0 +1,6 @@
+--deployPath
+deploy3
+--buildPath
+target3
+--buildFile
+build/build.txt

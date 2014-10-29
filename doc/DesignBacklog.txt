@@ -1,0 +1,408 @@
+
+output original (be) input file and line
+
+  nlc and nlec local arrays (not static or whatever)
+  overriden (base) object call which returns int arrays for 2 methods - genned native call to get them,
+  retular (final) object method which calls that and converts
+  override those methods, return the arrays
+  in except, check static (exceptions?) map for them (holds two array of arrays), if no present, set them up, then
+  return
+
+for buid to be threadsafe, 
+   nodes and syns needs threadsafe fixes
+
+make it possible to skip calls and link up assignments betw org and final
+
+iteratorGet can't be typed, that's a problem, esp foreach
+ 
+drop "a" from abe (just be)
+beag, bec - small - beag.org avail, becpl, bec-pl, etc
+license like rust, mit + apache  
+
+just set newline to unx, get rid of plat stuff
+
+do oc
+  
+  make activate output of tables conditional (if len 0 in excepts no op)
+
+=~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
+ make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
+
+ allcalls missing some, self ref node thinking
+ 
+  get rid of calls to once and many
+   get rid of auto-once for literal, require manual use
+   first output all cases where it is being done (where not manual), and do them all manually
+
+change getInstance to construct
+
+get rid of implied new calls in generated code (mark as implied, skip them)
+
+final for static members (?) - readonly for c#
+     onceDeced it's ok, not for not once deced (need to distinguish)
+
+gratuitous returns - var for untyped, rest as now (self, typed).
+ enable var return type
+ find and fix all cases of return without declaration
+ find and fix all cases of typed assign from non-declared return
+ remove autoreturn for no declared return (void)
+ dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... 
+
+direct member get/set, dump gen accessors
+-dynamic accessor like dynamic call, for untyped
+
+ direct use of onces, no tmp var assign (will then have mechanism to suppress existence
+ of tmp vars, unnecessary assignments/use other variables, alias)
+ extend call et all to get the info through ("skip"))
+ skip unneeded temp/assigns
+ drop tmp vars for simple calls, chain where possible
+ 
+native operations, dropping literals
+ have add, subtract, multiply, divide which work on literals directly (addValue, etc)
+ for all those uses, get rid of onces, constructs, tmp vars, etc 
+
+utf8 in code (vars, classes, methods), encoding for < > ascii
+  http://www.cprogramming.com/tutorial/unicode.html
+  
+proxies could work for typed calls
+  if the method is not present but a special "proxy" method is defined, translate
+  into a call to that
+
+info for embedders - main needs to run before start, outer thread should hold lock
+  on lib
+  
+more concurrency
+  semaphore
+  queue
+  worker threads
+  futures (promises)
+  atomic int ops
+  
+optimize notting of typed boolean in if (drop call, just do lang native notting of value)
+finish notnull cleanup (reused by default logic, but improperly named, still looked for compile, syn + class mbr, etc)
+ 
+bugs:
+something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
+copy needs to be return type self
+castTo is wrong in at least some once cases, checkTypes must be wrong somehow
+byteiterator is much much slower than just doing getInt on a string by length, something is wrong there
+// Bug with initial elif
+// math with parens inside a method call is broken
+// this doesn't work for (Int j = 0;j < dnumargs && j < maxDynArgs;j=j++) {
+// numargs - maxDynArgs + 1 !== (numargs - maxDynArgs) + 1
+// if undef(self[n]) doesn't seem to work (at least in Array)
+// this includes negative values for indexes
+// test once assign with not combination
+// Method redefinition not caught by Build et all
+string hash for javascript seems to be different than for others
+
+?get rid of all the capacity/size copy crap in string, just treat size as immutable
+
+apNew to just new for file, file path (have pNew for plat if you must, or directNew, napNew, or platNew)
+
+inlines optimization possiblities (templated? in code, generalized? could do lookup during call, get from existing or new (existing eaiser) code)
+-calls with native literals (at least Int) can skip obj creation altogether (addvalue, add etc - only create what needs to be (the end result...))
+--could have native in-method int where possible could even do native in some between method cases (mark with the argument var dec, @ or somesuch, and wrap in dynamic calls))
+singletons and onces need to be threadsafe init
+-onces of some classes can be constructed at startup/classload/firstconstruct (int, string, literals etc) - as static, no sync (literals, no members for sure, anything made up of only things which can be initted that way), others, sync. 
+-also greedy init (both of these types can skip syncronization during runtime)
+-singleton not nulls init at startup (?already), no sync needed, otherwise access is sync
+-overall init needs to be in a sync, any thread start also
+
+objc/cc
+
+-need to do objc, cc won't do the trick (both, ultimately)
+
+ .. means to back to last target (can be explicit or return from a . call) 
+
+
+some way to re-use ints in math where neither operand is used (where the left hand of = is used as the target - either as an optimization w/o indication, or some way to indicate it (mark on the instance, quality of the assign =) - could work out to only have one set of operator calls which take the 3 args, and where indicator is missing a newed instance is passed in... the current += just becomes a special case of that)
+I think can() could be better than iterating methods :-( (will need to gen something like invoke but with just t/f)
+FASTER where there are range checks in the lang (cs, jv), skip them in the external logic (may need to change except behavior for this to work)
+
+programattic access to compiler (incl after a base tree is loaded), mostly for
+ testing invalid code cases, maybe for other things too
+
+closure? callback? lamda?
+callback/event, mtd, concurrency
+finally is good for all emit lang (jv, cs, oc, js, php) cpp has destructors
+
+EcPlat can drop c emit stuff
+
+args to if must be boolean if they are typed
+
+get test testMisc working for js 
+-js needs to check types on assign Look for formCast/checkTypes, need to rearrange call assign stuff a bit
+-check assigns
+-js on typed calls check during arg build, untyped calls have a descriptor obj genned which is checked
+
+last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
+
+method alias - for typed, all references replaced with the other name, for dynamic, that name also calls the alias method (just like the real one...), only one instance of method, no double calls
+
+this /* num */ I can't use... dump them.
+
+support no file gen for (esp for js) (all in mem string in/out), and work out how to include pregenned stuff (libs)
+libs for cs and jv
+
+unify foreach and for, behavior based on parens contents
+support properties method, all vars within are properties, always called at instance creation if present (bit like default)
+
+packaging, node.js packaging is great (npm install ...) mavenish
+
+oc? cp (cc)? php?
+
+lang-notes:
+
+objc arc > cpp refcount
+cpp refcount - intrusive for string, external for weak
+
+js:
+http://jsperf.com/object-create-vs-crockford-vs-jorge-vs-constructor/10
+http://ejohn.org/apps/learn/#64
+
+perf
+THE NEXT LINE IS THE JS SPEEDUP ONE!!! (prototype actually looks to be fastest...)
+http://coding.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
+http://stackoverflow.com/questions/3493252/javascript-prototype-operator-performance-saves-memory-but-is-it-faster
+
+back strings with regular js Array type of js integers (unsigned 8bit) for now.
+Converting from this to js string:  http://stackoverflow.com/questions/14028148/convert-integer-array-to-string-at-javascript
+https://stackoverflow.com/questions/2647867/how-to-determine-if-variable-is-undefined-or-null
+More complete stack traces (opera, ie): http://www.eriwen.com/javascript/js-stack-trace/
+
+later(sooner?) support js typed arrays conditionally (should be much faster/better)
+
+cc:
+-try out whatever options in c, c++, and objc before starting-
+(may be easier to just do both c++ and objc)...
+http://c-faq.com/struct/oop.jxh.html (casting)
+http://www.deleveld.dds.nl/inherit.htm (union, double def, no cast)
+https://stackoverflow.com/questions/1114349/struct-inheritance-in-c
+for class and instances (ptr to class type), genned class
+all c/synthetic naming
+support exceptions from cpp, objc, set/long jump
+native backtrace (gcc glibc backtrace())
+refcount
+can do wrapper gen for cpp/objc (header, typeconf) for particular classes (entry/waypoints)
+cpp finally using destructors
+
+all:
+baseclass above object
+no members related to class/framework - (autogen) calls to get if needed
+once assign - class static members
+compiler commands in code (no make), only build changed outputs
+dynamic calls:
+method with switch which then calls (double-call + lookup overhead, but looks to be best and common to all)
+inline - support downstream-lang-specific inline based on method dec keyword in lang - there's a c# attribute, for c++ use the keyword for the lang and place into header
+
+cc:
+static linking first, dynamic later/maybe
+there are ways to get stack traces...
+http://sourceforge.net/projects/smieciuch/ - garbage collection with smart-pointer like thing for cpp
+c++ with support for shared_ptr, different ptr/refcount options
+cycle detect
+cycle finder - in lang, "interceptors" for calls trigger at method entry (match class/call, glob?) - compile time - for assign to member for n steps out look for self to find cycles
+lang specific for mtd dec, calls, construct, detail of refcounting
+static variables for once assign
+mobile-multi-plat:
+http://blog.burhum.com/post/36166554007/cross-platform-ios-android-mobile-app-development
+iphone-ios-osx:
+http://robnapier.net/blog/wrapping-cppfinal-edition-759
+http://philjordan.eu/article/strategies-for-using-c++-in-objective-c-projects
+for mac - cocotron, cocos2dx http://paralaxer.com/cpp-vs-objective-c/
+http://stackoverflow.com/questions/18334547/using-the-same-c-code-on-android-and-ios
+http://stackoverflow.com/questions/10289890/how-to-write-ios-app-purely-in-c
+http://www.cplusplus.com/forum/general/57876/
+http://blog.burhum.com/post/36166554007/cross-platform-ios-android-mobile-app-development
+
+oc:
+apportable
+static lib (ios req)
+dynamic calls w/out switch (use built-in)
+name mangling all in names (no ns available)
+forwarding calls - https://www.mikeash.com/pyblog/friday-qa-2009-03-27-objective-c-message-forwarding.html
+objc on message calls variable names are optional, can just do positions with : 
+supposedly no difference in performance between typed pointers and untyped pointers for calls
+http://stackoverflow.com/questions/907843/cost-of-message-dispatch-in-objective-c
+arc linux - http://lists.gnu.org/archive/html/discuss-gnustep/2014-05/msg00049.html
+  http://stackoverflow.com/questions/19895777/objective-c-how-is-arc-enabled-within-gnustep
+arc - http://solarianprogrammer.com/2012/03/21/clang-objective-c-windows/
+http://www.dev-smart.com/archives/401
+(for older ios/os vers which don't do weak)
+http://stackoverflow.com/questions/6893038/how-do-i-replace-weak-references-when-using-arc-and-targeting-ios-4-0
+-http://longweekendmobile.com/2011/09/07/objc-automatic-reference-counting-in-xcode-explained/
+-fobjc-arc-exceptions
+http://clang.llvm.org/docs/AutomaticReferenceCounting.html#exceptions
+-compatible weak impl for ios4 isx 10.6
+http://www.mikeash.com/pyblog/introducing-plweakcompatibility.html
+https://github.com/plausiblelabs/PLWeakCompatibility
+http://woboq.com/blog/objective-c-for-qt-developers.html
+no varname arg syntax - http://stackoverflow.com/questions/722651/how-do-i-pass-multiple-parameters-in-objective-c
+
+op
+http://cocoadev.com/ObjectiveCPlusPlus
+
+other options for dynamic calls (jv, cs):
+-inner class which just invokes (interface)
+-dexmaker android
+-cgilib reflectasm java invokedynamic
+-reflection - setaccessable true, http://inferretuation.blogspot.com/2008/11/in-jit-we-trust.html reflect inflation speedup properties
+
+end lang-notes:
+
+lang-plats:
+jv - android, blberry, ouya, web
+cs - windows, winphone
+oc - ios, osx, linux, pnacl (chromebook), oss
+cc(?) - bada, tizen, sailfish, uphone, uphone, qt, osx, ios, linux, oss
+js - browser, mozphone, web, chromebook, uphone, qt, oss
+
+-common web framework- -common embedded web app framework-
+-native app support + ui all plats (mobile, desktop)-
+
+int 32bit (c int, int32_t), float 32bit (c float), add long 64 (c long long) and double 64 (c double) (after conversion?)
+
+allow signatures to mark arguments as safe - as not incorporated into members, not mutated, not passed along
+
+only do the omission of checks for initial where there is no initialize call for closelibs
+if can is fast enough enforce not setting the initial value in initialSet
+FASTER make it possible to pre-set initials then skip the check for them during construct (always just use them, no null check/construct
+fallthrough)
+FASTER if closelib and isFinal or isLocal and call is empty skip it altogether (new, create, once, many, etc)
+
+functional:
+first class functions - alwaysForward for all dynamic calls always forwarding (the way to use functions)
+for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
+distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
+? keep function stack state? optionally?
+anonymous functions? closures? (case inside (no), capture everything used and make them all args/held state (yes)) 
+switch invoke over?
+
+in practice now, int is 32, long varies long long is 64
+float is 32, double is 64
+unicode is max 4 bytes, fits in 32bit int
+have unsigned int value, for java, postive part of 64bit (long) - better because does not depend on 
+signed implementation being something in particular (2s complement) for byte manipulation
+shiftLeft, shiftRight, shiftRightLogical
+
+
+cpp objc memory management possibilty - stack ref count (count of references from stack, for roots), ow just counting
+support weak ref for c++ objc, diff modes
+find reference cycles by seeing if two types have members of one-another
+
+recursive file - dir delete
+
+Build class needs to become Builder
+
+need more tests for time and interval
+
+?ifNotEmit?
+
+map-like get put on obj could use accessors to get/put, index too (using prop iter)
+
+have a convention (?based on namepath) to allow direct use of ?c, c++ and objc as if it was native be code
+auto reference to c, cpp, objc based on package name
+
+with mutable literals convention is for the mutator to assure safety of references by copying them, assuming that unknown code may depend on the value not changing
+
+support stream parsing along side string parsing for xml, json
+
+support for getting all method and/or member names
+-need to have a way to get all methods (iterator?)
+have a class which finds all descendents of a particular class and then runs them if they support the desired method (main args params)
+-will have to have a way of getting all descendents of a class
+
+nice ideas:
+hibernate/resume for programs
+upgrade without restart
+
+db, 
+sqlite
+mysql, mariadb
+
+utf8
+link for escape/unescape source
+http://www.cprogramming.com/tutorial/unicode.html
+a table with lots
+http://www.utf8-chartable.de/
+online encoder
+http://www.htmlescape.net/stringescape_tool.html
+
+easy initialization of lists and maps
+have a descendent of Assertions which has a main which runs all methods which begin with (or end with) "t(T)est"
+
+no arg and single arg calls (at least) w/out parens (return...)
+use all the way down to a call, like Class.call syntax, possibly generallized macro (maybe not use, maybe let, define?), also use...as
+import to bring in methods of another class, somehow need to add self to calls (make a member?  Prefix to calls)
+ would mean having an implicit member of that class, calls are created (like gets/sets)
+anon methods, become instances of system-method and can only be used/referenced via assignment (when genning them,
+ have a different prefix for function - and they are not in any vtables, call maps, etc (they're unnamed as such, only referencable
+ via variables)
+
+smart, oldfart, ideas http://scottlocklin.wordpress.com/2013/07/28/ruins-of-forgotten-empires-apl-languages/
+
+use private to mean a class which is only visible in it's own library 
+(none of it's interface/syn goes to deploy)
+
+think about how to support binary serialization
+
+add files by directory/match to build list
+
+multi value return
+
+arbitrary precision arithmetic
+btrees, binary search trees
+
+method invocations which are final for object should be handled in a final way for untyped vars as for typed vars
+
+support "and" and "or" along side && and || (just like you can do "not" as .not())
+? foreach handle nulls gracefully (no iter) ?
+
+closures using instances (auto-prefix)
+
+interpreted mode for rapid dev, arrange ways for native targets
+
+ifEmit(c:boo), ifEmit(all:foo)
+
+// each/multiassign/return...
+// library versions, part of "name", major/minor
+
+generics (generic type) (functionality covers interfaces, generics, mixins)
+
+signature of generic must be defined
+whether or not a type supports an generic is determined by if it is ever initialized for that generic (constructed for it...)
+
+generic can make calls on any of it's instantiated types functions and get/set variables.
+
+each generic has a struct of all functions and offsets it needs (will be specific to type(s)...), a static version for each actual combination of types instantiated will be generated at runtime.
+
+all of the calls/accessors of generic must be satisfied by a type at compiletime for it to be able to be instantiated 
+
+generic indistinguishable from regular types during calls, etc, only at declaration and construction is it different
+
+if a generic call just calls an internal object of that type, it can be optimized to elminate the double-call
+
+if a variable loses it's generic type definition in declaration any function signature which needs it can no longer be called
+
+DoIt<T>(T held) DoIt {
+
+   return(self);
+   
+   doIt() {
+      held.doIt();
+   }
+}
+
+DoIt d = DoIt<AType>(at); //at is of type AType
+
+d.doIt(); //doIt called on held inst (interface case)
+
+type inference (auto)
+
+code generation with hooks into generator for type/method generation given an ast node (inlining)
+hooks into compiler (passes?) so that features can be added (existing features are just those :-) ) 
+-pretty sure this will need to be some sort of recursion to stability, to deal with things being resolved and added during compilation at successive states
+
+?line continuations less common than one line, newline or ; ends stmt, \ continues, " " span
+packaging, etc

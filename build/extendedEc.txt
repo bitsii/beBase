@@ -1,0 +1,5 @@
+-deployPath=deployEc
+-buildPath=targetEc
+-buildFile=build/extendedEcEc.txt
+
+

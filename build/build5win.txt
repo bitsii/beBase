@@ -1,0 +1,13 @@
+--platform
+mswin
+--emitFileHeader
+LICENSE.txt
+-genOnly
+--deployPath
+deploy5
+--buildPath
+target5
+--buildFile
+build/build.txt
+-jsInclude=system/js/abe/BELS_Base/BECS_Runtime.js
+-jsInclude=system/js/abe/BELS_Base/BECS_Object.js

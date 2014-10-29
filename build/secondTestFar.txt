@@ -1,0 +1,8 @@
+--useLibrary
+deploy/Base
+--useLibrary
+deploy/BaseTestsFar
+--libraryName
+SecondTestsFar
+--buildFile
+build/secondTest.txt
