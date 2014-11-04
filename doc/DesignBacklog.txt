@@ -1,3 +1,6 @@
+bel
+bel-lang.com
+belang.org
 
 output original (be) input file and line
 
