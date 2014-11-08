@@ -321,6 +321,7 @@ final class Build:Constants {
       
       rwords = Map.new();
       rwords.put("use", ntypes.USE);
+      rwords.put("as", ntypes.AS);
       rwords.put("class", ntypes.CLASS);
       //rwords.put("method", ntypes.METHOD);
       rwords.put("final", ntypes.DEFMOD);

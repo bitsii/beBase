@@ -101,6 +101,16 @@ final class Visit:Pass5(Visit:Visitor) {
                throw(VisitError.new("Error improper use statement, target of incorrect type.", node));
             }
             
+            String alias = null;
+            var mas = nnode.nextPeer;
+            if (mas.typename == ntypes.AS) {
+              nnode = mas.nextPeer;
+              if (nnode.typename != ntypes.ID) {
+                throw(VisitError.new("Error improper use statement, alias does not follow -as-.", node));
+              }
+              alias = nnode.held;
+            }
+            
             if (undef(clnode)) {
                var gnext = nnode.nextPeer;
                nnode.delete();
@@ -121,7 +131,10 @@ final class Visit:Pass5(Visit:Visitor) {
                throw(VisitError.new("Error improper statement, not within translation unit", node));
             }
             
-            tnode.held.aliased.put(namepath.label, namepath);
+            if (undef(alias)) {
+              alias = namepath.label;
+            }
+            tnode.held.aliased.put(alias, namepath);
             
             return(gnext);
          }

@@ -37,7 +37,6 @@ use Container:Array;
 use Container:Map;
 use System:Parameters;
 use Text:String;
-use Text:String;
 
 use Test:Assertions;
 use Test:Failure;

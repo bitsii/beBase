@@ -42,7 +42,7 @@ use System:Serializer;
 use Container:Set;
 use Container:Map;
 use Container:Array;
-use Container:LinkedList;
+use Container:LinkedList as LL;
 
 use Test:BaseTest;
 use Test:Failure;
@@ -78,7 +78,7 @@ class Test:ToSerialize {
          var j = Set.new();
          var m = Map.new();
          var v = Array.new(vi);
-         var l = LinkedList.new();
+         var l = LL.new();
          var t = true;
          var f = false;
       }
@@ -479,7 +479,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       assertEquals(y[3], "Spoke");
       
       sbuf.clear();
-      inst = LinkedList.new();
+      inst = LL.new();
       inst += "Hi";
       inst += "Spoke";
       s.serialize(inst, sbuf);
@@ -598,7 +598,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       
       sbuf.clear();
       
-      inst = LinkedList.new();
+      inst = LL.new();
       inst += "Hi";
       inst += "Spoke";
       s.serialize(inst, sbuf);

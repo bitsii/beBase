@@ -106,6 +106,7 @@ final class Build:NodeTypes {
          Int FOREACH = 53;
          Int BLOCK = 72;
          Int USE = 54;
+         Int AS = 55;
          Int SEMI = 56;
          Int EXPR = 57;
          Int COMMA = 58;
