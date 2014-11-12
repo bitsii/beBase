@@ -521,7 +521,23 @@ size_t i;
       }
    }
    
-   //find would niavely find
+   //find (or has) niavely finds
+   find(value) Int {
+     for (Int i = 0;i < length;i++=) {
+       var aval = get(i);
+       if (def(aval) && value == aval) {
+         return(i);
+       }
+     }
+     return(null);
+   }
+   
+   has(value) Bool {
+     if (def(find(value))) {
+       return(true);
+     }
+     return(false);
+   }
    
    //find the index of the given value
    //this can only be used if the array is sorted
