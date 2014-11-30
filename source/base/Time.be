@@ -349,6 +349,10 @@ class Interval {
       return(self.minutes.toString() + " minutes, " + self.secondInMinute + " seconds and " + millis + " milliseconds");
    }
    
+   toShortString() String {
+     return(secs.toString() + ":" + millis.toString());
+   }
+   
    toString() String {
       return(secs.toString() + " seconds and " + millis + " milliseconds");
    }

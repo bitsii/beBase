@@ -75,16 +75,15 @@ class Assertions {
      }
    }
    assertEquals(v1, v2) {
-      if (v1 != v2) {
-         throw(Failure.new("Values which must be EQUAL are not"));
-      }
+      return(assertEqual(v1, v2));
    }
    assertNotEquals(v1, v2) {
-      if (v1 == v2) {
-         throw(Failure.new("Values which must be UNEQUAL are not"));
-      }
+      return(assertNotEqual(v1, v2));
    }
    assertEqual(v1, v2) {
+     if (undef(v1)) {
+       throw(Failure.new("Values which must be EQUAL are not, first value is null."));
+     }
       if (v1 != v2) {
          if (def(v1)) {
             String v1v = v1.toString();
