@@ -1256,6 +1256,13 @@ final class Text:Strings {
       return(a.substring(0, i));
    }
    
+   notEmpty(String value) Bool {
+     if (def(value) && value != "") {
+       return(true);
+     }
+     return(false);
+   }
+   
 }
 
 local class Text:ByteIterator {
