@@ -3,6 +3,7 @@ bel-lang.com
 belang.org
 
 see how typescript and dart translate into js
+need volatile
 
 output original (be) input file and line
 
@@ -150,7 +151,7 @@ this /* num */ I can't use... dump them.
 support no file gen for (esp for js) (all in mem string in/out), and work out how to include pregenned stuff (libs)
 libs for cs and jv
 
-unify foreach and for, behavior based on parens contents
+unify foreach and for, behavior based on parens contents, dump foreach kw
 support properties method, all vars within are properties, always called at instance creation if present (bit like default)
 
 packaging, node.js packaging is great (npm install ...) mavenish
