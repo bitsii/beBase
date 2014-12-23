@@ -1256,6 +1256,13 @@ final class Text:Strings {
       return(a.substring(0, i));
    }
    
+   isEmpty(String value) Bool {
+     if (undef(value) || value.size < 1) {
+       return(true);
+     }
+     return(false);
+   }
+   
    notEmpty(String value) Bool {
      if (def(value) && value != "") {
        return(true);
