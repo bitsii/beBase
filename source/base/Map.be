@@ -379,7 +379,7 @@ local class Set {
       }
    }
    
-   has(k) {
+   has(k) Bool {
       Array slt = slots;
       Int modu = slt.size;
       Int hval = rel.getHash(k);
