@@ -795,3 +795,135 @@ use final class System:Thread:Lock {
 
 }
 
+use System:Thread:ContainerLocker as CLocker;
+class CLocker {
+  
+  new(_container) self {
+    vars {
+      Lock lock = Lock.new();
+      var container;
+    }
+    lock.lock();
+    try {
+      container = _container;
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+  }
+  
+  has(key) Bool {
+    lock.lock();
+    try {
+      Bool r = container.has(key);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  get(key) {
+    lock.lock();
+    try {
+      var r = container.get(key);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  put(key) {
+    lock.lock();
+    try {
+      var r = container.put(key);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  put(key, value) {
+    lock.lock();
+    try {
+      var r = container.put(key, value);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  sizeGet() Int {
+    lock.lock();
+    try {
+      Int r = container.sizeGet();
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+}
+
+use System:Thread:ObjectLocker as OLocker;
+class OLocker {
+  
+  new(_obj) self {
+    vars {
+      Lock lock = Lock.new();
+      var obj;
+    }
+    lock.lock();
+    try {
+      obj = _obj;
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+  }
+  
+  oGet() {
+    lock.lock();
+    try {
+      var r = obj;
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  oSet(_obj) {
+    lock.lock();
+    try {
+      obj = _obj;
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+  }
+  
+  objectGet() {
+    return(oGet());
+  }
+  
+  objectSet(_obj) {
+    return(oSet(_obj));
+  }
+  
+}
+
+

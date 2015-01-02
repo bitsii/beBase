@@ -2,6 +2,8 @@ bel
 bel-lang.com
 belang.org
 
+finally
+
 see how typescript and dart translate into js
   example programs, compile to js, look at them
   https://developers.google.com/closure/compiler/
@@ -23,6 +25,8 @@ output original (be) input file and line
 
 for buid to be threadsafe, 
    nodes and syns needs threadsafe fixes
+   
+volatile (?well, there isn't one in go... sync? maybe we don't need it)
 
 make it possible to skip calls and link up assignments betw org and final
 

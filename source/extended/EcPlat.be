@@ -162,6 +162,14 @@ void** bevl_tov;
       return(r);
    }
    
+   //because I'm constantly forgetting which it is
+   mkdirs() {
+     makeDirs();
+   }
+   mkdir() {
+     makeDirs();
+   }
+   
    makeDirs() {
       emit(c) {
       """
@@ -454,7 +462,7 @@ use final class System:Environment {
 
 use IO:File:DirectoryIterator;
 
-final DirectoryIterator {
+final class DirectoryIterator {
 
    emit(cs) {
    """
