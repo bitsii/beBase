@@ -48,7 +48,7 @@ use Math:Float;
 use Logic:Bool;
 use Text:String;
 
-local class SetNode {
+class SetNode {
    
    new(_hval, _key, _value) self {
    
@@ -69,7 +69,7 @@ local class SetNode {
    
 }
 
-local class MapNode(SetNode) {
+class MapNode(SetNode) {
    
    new(_hval, _key, _value) self {
       super.new(_hval, _key, _value);
@@ -119,7 +119,7 @@ class IdentityRelations(Relations) {
    
 }
 
-local class IdentityMap(Map) {
+class IdentityMap(Map) {
    
    new() self {
       self.new(11);
@@ -136,7 +136,7 @@ local class IdentityMap(Map) {
 }
 
 //FASTER switch to using mutable int and hash(int)
-local class Map(Set) {
+class Map(Set) {
 
    new() self {
       self.new(11);
@@ -213,7 +213,7 @@ local class Map(Set) {
    }
 }
 
-local class IdentitySet(Set) {
+class IdentitySet(Set) {
    
    new() self {
       self.new(11);
@@ -229,7 +229,7 @@ local class IdentitySet(Set) {
    }
 }
 
-local class Set {
+class Set {
    
    new() self {
       self.new(11);
@@ -532,7 +532,7 @@ local class Set {
    
 }
 
-local class Set:KeyIterator(Set:NodeIterator) {
+class Set:KeyIterator(Set:NodeIterator) {
    
    nextGet() {
       var tr = super.nextGet();
@@ -543,7 +543,7 @@ local class Set:KeyIterator(Set:NodeIterator) {
    }
 }
 
-local class Set:SerializationIterator(Set:KeyIterator) {
+class Set:SerializationIterator(Set:KeyIterator) {
 
    new(Set _set) Set:SerializationIterator {
       properties {
@@ -570,7 +570,7 @@ local class Set:SerializationIterator(Set:KeyIterator) {
    
 }
 
-local class Map:SerializationIterator(Map:KeyValueIterator) {
+class Map:SerializationIterator(Map:KeyValueIterator) {
 
    new(Set _set) Map:SerializationIterator {
       properties {
@@ -601,7 +601,7 @@ local class Map:SerializationIterator(Map:KeyValueIterator) {
    
 }
 
-local class Map:KeyValueIterator(Set:NodeIterator) {
+class Map:KeyValueIterator(Set:NodeIterator) {
    
    new(Set _set) Map:KeyValueIterator {
       properties {
@@ -632,7 +632,7 @@ local class Map:KeyValueIterator(Set:NodeIterator) {
    
 }
 
-local class Map:ValueIterator(Set:NodeIterator) {
+class Map:ValueIterator(Set:NodeIterator) {
    
    nextGet() {
       var tr = super.nextGet();
@@ -644,7 +644,7 @@ local class Map:ValueIterator(Set:NodeIterator) {
    
 }
 
-local class Set:NodeIterator {
+class Set:NodeIterator {
    
    new(Set _set) Set:NodeIterator {
       

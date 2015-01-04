@@ -796,7 +796,7 @@ use final class System:Thread:Lock {
 }
 
 use System:Thread:ContainerLocker as CLocker;
-class CLocker {
+class System:Thread:ContainerLocker {
   
   new(_container) self {
     vars {
@@ -825,6 +825,18 @@ class CLocker {
     return(r);
   }
   
+  get() {
+    lock.lock();
+    try {
+      var r = container.get();
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
   get(key) {
     lock.lock();
     try {
@@ -837,7 +849,30 @@ class CLocker {
     return(r);
   }
   
-  put(key) {
+  get(p, k) {
+    lock.lock();
+    try {
+      var r = container.get(p, k);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  addValue(key) self {
+    lock.lock();
+    try {
+      container.addValue(key);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+  }
+  
+  putReturn(key) {
     lock.lock();
     try {
       var r = container.put(key);
@@ -849,7 +884,18 @@ class CLocker {
     return(r);
   }
   
-  put(key, value) {
+  put(key) self {
+    lock.lock();
+    try {
+      container.put(key);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+  }
+  
+  putReturn(key, value) {
     lock.lock();
     try {
       var r = container.put(key, value);
@@ -861,10 +907,68 @@ class CLocker {
     return(r);
   }
   
+  put(key, value) self {
+    lock.lock();
+    try {
+      container.put(key, value);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+  }
+  
+  put(p, k, v) self {
+    lock.lock();
+    try {
+      container.put(p, k, v);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+  }
+  
+  delete(key) {
+    lock.lock();
+    try {
+      var r = container.delete(key);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  delete(p, k) {
+    lock.lock();
+    try {
+      var r = container.delete(p, k);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
   sizeGet() Int {
     lock.lock();
     try {
-      Int r = container.sizeGet();
+      Int r = container.size;
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  isEmptyGet() Bool {
+    lock.lock();
+    try {
+      Bool r = container.isEmpty;
       lock.unlock();
     } catch (var e) {
       lock.unlock();
@@ -876,11 +980,17 @@ class CLocker {
 }
 
 use System:Thread:ObjectLocker as OLocker;
-class OLocker {
+class System:Thread:ObjectLocker {
   
-  new(_obj) self {
+  new() self {
     vars {
       Lock lock = Lock.new();
+    }
+  }
+  
+  new(_obj) self {
+    new();
+    vars {
       var obj;
     }
     lock.lock();
@@ -903,6 +1013,35 @@ class OLocker {
       throw(e);
     }
     return(r);
+  }
+  
+  getAndClear() {
+    lock.lock();
+    try {
+      var r = obj;
+      r = null;
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  setIfClear(_obj) Bool {
+    lock.lock();
+    Bool res = false;
+    try {
+      if (undef(obj)) {
+        obj = _obj;
+        res = true;
+      }
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(res);
   }
   
   oSet(_obj) {

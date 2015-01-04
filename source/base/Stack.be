@@ -37,6 +37,7 @@ use Container:Stack;
 use Container:Stack:Node;
 use Container:Queue;
 use Logic:Bool;
+use Math:Int;
 
 local class Stack:Node {
 
@@ -54,13 +55,14 @@ local class Stack:Node {
 
 /*Need trim for these and or automated way of bounding retained free nodes*/
 //LIFO
-local class Stack {
+class Stack {
    
    new() self {
       
       properties {
          Node top;
          Node holder;
+         Int size = 0;
       }
    
    }
@@ -81,6 +83,7 @@ local class Stack {
          top = top.next;
       }
       top.held = item;
+      size = size++;
    }
    
    pop() {
@@ -97,6 +100,7 @@ local class Stack {
       }
       var item = last.held;
       last.held = null;
+      size = size--;
       return(item);
    }
    
@@ -115,10 +119,25 @@ local class Stack {
       push(item);
    }
    
+   get() {
+      return(pop());
+   }
+   
+   get(Bool pop) {
+     if (pop) {
+       return(pop());
+     }
+     return(peek());
+   }
+   
+   put(item) {
+      push(item);
+   }
+   
 }
 
 //FIFO
-local class Queue {
+class Queue {
 
    new() self {
    
@@ -126,6 +145,7 @@ local class Queue {
          Node top; //top of queue, last of live items where items are enqueued
          Node bottom; //bottom of queue, first of live items where items are dequeued
          Node end; //top of queue where items may or may not be live, where dequeues put nodes for reuse
+         Int size = 0;
       }
    
    }
@@ -152,6 +172,7 @@ local class Queue {
          bottom = top;
       }
       top.held = item;
+      size = size++;
    }
    
    dequeue() {
@@ -171,6 +192,7 @@ local class Queue {
          end.next = last;
          end = last;
       }
+      size = size--;
       return(item);
    }
    
@@ -178,6 +200,31 @@ local class Queue {
       return(undef(bottom));
    }
    
+   get() {
+      return(dequeue());
+   }
+   
+   put(item) {
+      return(enqueue(item));
+   }
+   
+}
+
+use Container:BoundedQueue as BQueue;
+class BQueue(Queue) {
+    new() self {
+      super.new();
+      vars {
+        Int max = 99;
+      }
+    }
+    enqueue(item) {
+      super.enqueue(item);
+      if (size > max) {
+        return(dequeue());
+      }
+      return(null);
+    }
 }
 
 use System:Test:Extendable;
