@@ -4,6 +4,8 @@ belang.org
 
 finally
 
+for ios, java + go(lang) - robovm first/now, go later/option 2
+
 see how typescript and dart translate into js
   example programs, compile to js, look at them
   https://developers.google.com/closure/compiler/
