@@ -463,6 +463,7 @@ class Set {
    
    clear() {
       slots.clear();
+      size = 0;
    }
    
    iteratorGet() {

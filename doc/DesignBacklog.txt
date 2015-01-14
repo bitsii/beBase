@@ -2,7 +2,9 @@ bel
 bel-lang.com
 belang.org
 
-finally
+set/map size should be value int (other containers also...)
+
+clocker iterator, can share lock with clocker
 
 for ios, java + go(lang) - robovm first/now, go later/option 2
 
@@ -15,6 +17,8 @@ get rid of transitive namepath thing ? (always just what it is) (only resolve if
 do our own sessions for web
 extended path for web (or just call it path?)  have web version of path/namepath?
 direct ip, also the one which checks headers
+
+finally
 
 output original (be) input file and line
 

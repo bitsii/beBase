@@ -680,7 +680,7 @@ class System:Platform {
 //getresult (optional time to wait) (save result in lock, lock will be needed for this)
 //also queue/task/worker (queue in, out, things go in, things come out, # workers)
 
-use final class System:Thread {
+use local class System:ThinThread {
   
    //start (calls passed obj's main())
    //wait, wait(int millis) (bool true if worked, false if timed out) (see what happens when joining
@@ -692,7 +692,7 @@ use final class System:Thread {
    """
    volatile public Thread bevi_thread;
    public static void bems_run(object sysThreadInst) {
-     BEC_6_6_SystemThread st = (BEC_6_6_SystemThread) sysThreadInst;
+     BEC_6_10_SystemThinThread st = (BEC_6_10_SystemThinThread) sysThreadInst;
      st.bem_main_0();
    }
    """
@@ -701,14 +701,15 @@ use final class System:Thread {
    """
    volatile public Thread bevi_thread;
    static class BECS_Runnable implements Runnable {
-    volatile BEC_6_6_SystemThread bevi_sysThread = null;
-    BECS_Runnable(BEC_6_6_SystemThread bevi_sysThread) {
+    volatile BEC_6_10_SystemThinThread bevi_sysThread = null;
+    BECS_Runnable(BEC_6_10_SystemThinThread bevi_sysThread) {
       this.bevi_sysThread = bevi_sysThread;
     }
     public void run() {
       try {
         bevi_sysThread.bem_main_0();
       } catch (Throwable t) {
+        throw new RuntimeException(t.getMessage(), t);
       }
     }
    }
@@ -724,7 +725,7 @@ use final class System:Thread {
    start() self {
      emit(cs) {
      """
-     bevi_thread = new Thread(BEC_6_6_SystemThread.bems_run);
+     bevi_thread = new Thread(BEC_6_10_SystemThinThread.bems_run);
      bevi_thread.Start(this);
      """
      }
@@ -738,7 +739,11 @@ use final class System:Thread {
    }
    
    main() {
-     toRun.main();
+     var e;
+     try { 
+      toRun.main();
+     } catch (e) {
+     }
    }
    
    wait() Bool {
@@ -756,6 +761,40 @@ use final class System:Thread {
    }
    
 }
+
+use final class System:Thread(ThinThread) {
+
+  new(_toRun) self {
+     properties {
+       OLocker started = OLocker.new(false);
+       OLocker finished = OLocker.new(false);
+       OLocker threwException = OLocker.new();
+       OLocker returned = OLocker.new();
+       OLocker exception = OLocker.new();
+     }
+     super.new(_toRun);
+   }
+   
+   main() {
+     var e;
+     try { 
+      started.o = true;
+      returned.o = toRun.main();
+      threwException.o = false;
+      finished.o = true;
+     } catch (e) {
+      threwException.o = true;
+      exception.o = e;
+      finished.o = true;
+     }
+   }
+
+}
+
+//nanny - wraps thread, starts, wait for it to start, does join
+//on join see's if own start was called, if not, restarts internal
+//in new thread - first calls "finished" then, if except "failed" with except
+//stop on nanny sets it to stop and results in a call to it's inner
 
 use final class System:Thread:Lock {
 
@@ -841,6 +880,19 @@ class System:Thread:ContainerLocker {
     lock.lock();
     try {
       var r = container.get(key);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  getAndClear(key) {
+    lock.lock();
+    try {
+      var r = container.get(key);
+      container.delete(key);
       lock.unlock();
     } catch (var e) {
       lock.unlock();
@@ -969,6 +1021,18 @@ class System:Thread:ContainerLocker {
     lock.lock();
     try {
       Bool r = container.isEmpty;
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
+  copyContainer() {
+    lock.lock();
+    try {
+      var r = container.copy();
       lock.unlock();
     } catch (var e) {
       lock.unlock();
