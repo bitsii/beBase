@@ -1083,7 +1083,7 @@ class System:Thread:ObjectLocker {
     lock.lock();
     try {
       var r = obj;
-      r = null;
+      obj = null;
       lock.unlock();
     } catch (var e) {
       lock.unlock();

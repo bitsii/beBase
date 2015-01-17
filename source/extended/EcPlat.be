@@ -455,6 +455,14 @@ use final class System:Environment {
             }
         """
         }
+        emit(jv) {
+        """
+            String value = System.getenv().get(beva_name.bems_toJvString());
+            if (value != null) {
+                bevl_value = new BEC_4_6_TextString(value);
+            }
+        """
+        }
         return(value);
     }
 

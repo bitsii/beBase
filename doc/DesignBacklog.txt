@@ -2,23 +2,19 @@ bel
 bel-lang.com
 belang.org
 
+c++ + gc (can do own if needed), simple clean straightforward
+
 set/map size should be value int (other containers also...)
 
 clocker iterator, can share lock with clocker
 
-for ios, java + go(lang) - robovm first/now, go later/option 2
-
-see how typescript and dart translate into js
-  example programs, compile to js, look at them
-  https://developers.google.com/closure/compiler/
-need volatile
 get rid of transitive namepath thing ? (always just what it is) (only resolve if wasn't namepath to start with)
+
+ifEmit to ifSet, ifUnset, prefix lang (?em: or em. lang, like em.jv)
 
 do our own sessions for web
 extended path for web (or just call it path?)  have web version of path/namepath?
 direct ip, also the one which checks headers
-
-finally
 
 output original (be) input file and line
 
@@ -32,7 +28,10 @@ output original (be) input file and line
 for buid to be threadsafe, 
    nodes and syns needs threadsafe fixes
    
-volatile (?well, there isn't one in go... sync? maybe we don't need it)
+see how typescript and dart translate into js
+  example programs, compile to js, look at them
+  https://developers.google.com/closure/compiler/
+  (or don't, js is just for the browser...)
 
 make it possible to skip calls and link up assignments betw org and final
 
@@ -44,7 +43,8 @@ license like rust, mit + apache
 
 just set newline to unx, get rid of plat stuff
 
-do oc
+c++ database (soci), direct sqlite
+
   
   make activate output of tables conditional (if len 0 in excepts no op)
 
@@ -148,7 +148,6 @@ programattic access to compiler (incl after a base tree is loaded), mostly for
 
 closure? callback? lamda?
 callback/event, mtd, concurrency
-finally is good for all emit lang (jv, cs, oc, js, php) cpp has destructors
 
 EcPlat can drop c emit stuff
 
@@ -208,7 +207,6 @@ support exceptions from cpp, objc, set/long jump
 native backtrace (gcc glibc backtrace())
 refcount
 can do wrapper gen for cpp/objc (header, typeconf) for particular classes (entry/waypoints)
-cpp finally using destructors
 
 all:
 baseclass above object
@@ -319,8 +317,6 @@ recursive file - dir delete
 Build class needs to become Builder
 
 need more tests for time and interval
-
-?ifNotEmit?
 
 map-like get put on obj could use accessors to get/put, index too (using prop iter)
 
