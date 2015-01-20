@@ -480,6 +480,13 @@ final class DirectoryIterator {
    """
    }
    
+   emit(jv) {
+   """
+   java.io.File[] bevi_dir;
+   int bevi_pos = 0;
+   """
+   }
+   
    new() self {
    
       properties {
@@ -523,6 +530,17 @@ final class DirectoryIterator {
       }
       """
       }
+      emit(jv) {
+      """
+      java.io.File bevls_f = new java.io.File(bevl_path.bems_toJvString());
+      bevi_dir = bevls_f.listFiles();
+      bevi_pos = 0;
+      if (bevi_dir != null && bevi_dir.length > bevi_pos) {
+        bevl_newName = new BEC_4_6_TextString(bevi_dir[bevi_pos].getPath());
+        bevi_pos++;
+      }
+      """
+      }
       if (def(newName)) {
          //("open succeeded " + dir.path + " " + newName).print();
          opened = true;
@@ -562,6 +580,14 @@ final class DirectoryIterator {
       }
       """
       }
+      emit(jv) {
+      """
+      if (bevi_dir != null && bevi_dir.length > bevi_pos) {
+        bevl_newName = new BEC_4_6_TextString(bevi_dir[bevi_pos].getPath());
+        bevi_pos++;
+      }
+      """
+      }
       if (def(newName)) {
          opened = true;
          current = File.apNew(newName);
@@ -577,6 +603,12 @@ final class DirectoryIterator {
       """
       bevi_dir.Dispose();
       bevi_dir = null;
+      """
+      }
+      emit(jv) {
+      """
+      bevi_dir = null;
+      bevi_pos = 0;
       """
       }
    }
