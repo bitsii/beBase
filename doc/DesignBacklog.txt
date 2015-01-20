@@ -2,15 +2,69 @@ bel
 bel-lang.com
 belang.org
 
-c++ + gc (can do own if needed), simple clean straightforward
+c++ + gc (can do own if needed), simple clean straightforward (ref count + less frequent gc an option?)
 
-set/map size should be value int (other containers also...)
+perf things begin
 
-clocker iterator, can share lock with clocker
+---- lang change req ----
+
+iteratorGet can't be typed, that's a problem, esp foreach
+  ?type obj iterator, others will have to extend  
+get rid of auto-once for literal, require manual use
+   first output all cases where it is being done (where not manual), and do them all manually
+get rid of implied new calls in generated code (mark as implied, skip them)
+gratuitous returns - var for untyped, rest as now (self, typed).
+ enable var return type
+ find and fix all cases of return without declaration
+ find and fix all cases of assign from non-declared return for typed calls
+ remove autoreturn for no declared return (void)
+ dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
+native int, bool, ?float
+  int become immutable
+    ?get rid of all the capacity/size copy crap in string, just treat size as immutable
+  js will need to have untyped call thing (return wrapping) (?arg wrapping?   
+    should happen pre-call)
+    can then have proxy again
+  will need to have not null types
+   just have current default types always assign those instead of null (so, no new type)? def and undef checks always return t/f w/out actual check (warn option)?  sp assign check? disallow assign from literal null (or trip the null assign logic, also with warn?)
+  conversion assign from any different types (incl untyped) have "special          
+    behavior" for null and wrapping / unwrapping int.  conversion assign from type to untype also
+  optimization, where assigning back to a value can reuse the instance
+    (i = i++ -> i++, i = i + 1 -> i += 1)
+  default for unimplement calls could be to create an instance and call the
+    mtd on it
+  could have a "to(Type)" check (and from(Type))" which handles the conversion
+    as an override ! (?toVar fromVar?) (from(Type)?) ft must always return an instance for cases where is immutable (maybe same inst when mutable...), use "Object" for var
+    
+---- no lang change req ----
+
+may be worth doing if(x!) to unless conversion
+final for static members (?) - readonly for c#
+     onceDeced it's ok, not for not once deced (need to distinguish)
+get rid of calls to once and many
+make it possible to skip calls and link up assignments betw org and final
+tmp var reduction
+ direct use of onces, no tmp var assign (will then have mechanism to suppress existence
+ of tmp vars, unnecessary assignments/use other variables, alias)
+ extend call et all to get the info through ("skip"))
+ skip unneeded temp/assigns
+ drop tmp vars for simple calls, chain where possible
+direct member get/set where possible (typed, final or local w/o override), keep gen accessors
+see how typescript and dart translate into js
+  example programs, compile to js, look at them
+  https://developers.google.com/closure/compiler/
+  (or don't, js is just for the browser...)
+ 
+perf things end
+
+change getInstance to construct
+
+clocker iterator, share lock with clocker
 
 get rid of transitive namepath thing ? (always just what it is) (only resolve if wasn't namepath to start with)
 
 ifEmit to ifSet, ifUnset, prefix lang (?em: or em. lang, like em.jv)
+(or just keep ifEmit, and support external flags - this)
 
 do our own sessions for web
 extended path for web (or just call it path?)  have web version of path/namepath?
@@ -28,15 +82,6 @@ output original (be) input file and line
 for buid to be threadsafe, 
    nodes and syns needs threadsafe fixes
    
-see how typescript and dart translate into js
-  example programs, compile to js, look at them
-  https://developers.google.com/closure/compiler/
-  (or don't, js is just for the browser...)
-
-make it possible to skip calls and link up assignments betw org and final
-
-iteratorGet can't be typed, that's a problem, esp foreach
- 
 drop "a" from abe (just be)
 beag, bec - small - beag.org avail, becpl, bec-pl, etc
 license like rust, mit + apache  
@@ -45,44 +90,22 @@ just set newline to unx, get rid of plat stuff
 
 c++ database (soci), direct sqlite
 
-  
   make activate output of tables conditional (if len 0 in excepts no op)
 
+if obj int kept begin
+
+switch all if's which are notted to "unless"
+finish notnull cleanup (reused by default logic, but improperly named, still looked for compile, syn + class mbr, etc)
 =~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
  make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
-
- allcalls missing some, self ref node thinking
- 
-  get rid of calls to once and many
-   get rid of auto-once for literal, require manual use
-   first output all cases where it is being done (where not manual), and do them all manually
-
-change getInstance to construct
-
-get rid of implied new calls in generated code (mark as implied, skip them)
-
-final for static members (?) - readonly for c#
-     onceDeced it's ok, not for not once deced (need to distinguish)
-
-gratuitous returns - var for untyped, rest as now (self, typed).
- enable var return type
- find and fix all cases of return without declaration
- find and fix all cases of typed assign from non-declared return
- remove autoreturn for no declared return (void)
- dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... 
-
-direct member get/set, dump gen accessors
--dynamic accessor like dynamic call, for untyped
-
- direct use of onces, no tmp var assign (will then have mechanism to suppress existence
- of tmp vars, unnecessary assignments/use other variables, alias)
- extend call et all to get the info through ("skip"))
- skip unneeded temp/assigns
- drop tmp vars for simple calls, chain where possible
- 
+set/map size should be value int (other containers also...)
 native operations, dropping literals
  have add, subtract, multiply, divide which work on literals directly (addValue, etc)
  for all those uses, get rid of onces, constructs, tmp vars, etc 
+
+if obj int kept end
+
+allcalls missing some, self ref node thinking
 
 utf8 in code (vars, classes, methods), encoding for < > ascii
   http://www.cprogramming.com/tutorial/unicode.html
@@ -100,10 +123,7 @@ more concurrency
   worker threads
   futures (promises)
   atomic int ops
-  
-optimize notting of typed boolean in if (drop call, just do lang native notting of value)
-finish notnull cleanup (reused by default logic, but improperly named, still looked for compile, syn + class mbr, etc)
- 
+   
 bugs:
 something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
 copy needs to be return type self
@@ -118,8 +138,6 @@ byteiterator is much much slower than just doing getInt on a string by length, s
 // test once assign with not combination
 // Method redefinition not caught by Build et all
 string hash for javascript seems to be different than for others
-
-?get rid of all the capacity/size copy crap in string, just treat size as immutable
 
 apNew to just new for file, file path (have pNew for plat if you must, or directNew, napNew, or platNew)
 
