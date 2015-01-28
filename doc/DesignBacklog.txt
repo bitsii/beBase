@@ -2,46 +2,29 @@ bel
 bel-lang.com
 belang.org
 
+put check for null (having called new()) for marshall/unmarshall
+at least put line numbers in code in comments
+finish exception stuff
+
 c++ + gc (can do own if needed), simple clean straightforward (ref count + less frequent gc an option?)
 
 perf things begin
 
 ---- lang change req ----
 
-iteratorGet can't be typed, that's a problem, esp foreach
-  ?type obj iterator, others will have to extend  
-get rid of auto-once for literal, require manual use
-   first output all cases where it is being done (where not manual), and do them all manually
-get rid of implied new calls in generated code (mark as implied, skip them)
 gratuitous returns - var for untyped, rest as now (self, typed).
  enable var return type
  find and fix all cases of return without declaration
  find and fix all cases of assign from non-declared return for typed calls
  remove autoreturn for no declared return (void)
  dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
-native int, bool, ?float
-  int become immutable
-    ?get rid of all the capacity/size copy crap in string, just treat size as immutable
-  js will need to have untyped call thing (return wrapping) (?arg wrapping?   
-    should happen pre-call)
-    can then have proxy again
-  will need to have not null types
-   just have current default types always assign those instead of null (so, no new type)? def and undef checks always return t/f w/out actual check (warn option)?  sp assign check? disallow assign from literal null (or trip the null assign logic, also with warn?)
-  conversion assign from any different types (incl untyped) have "special          
-    behavior" for null and wrapping / unwrapping int.  conversion assign from type to untype also
-  optimization, where assigning back to a value can reuse the instance
-    (i = i++ -> i++, i = i + 1 -> i += 1)
-  default for unimplement calls could be to create an instance and call the
-    mtd on it
-  could have a "to(Type)" check (and from(Type))" which handles the conversion
-    as an override ! (?toVar fromVar?) (from(Type)?) ft must always return an instance for cases where is immutable (maybe same inst when mutable...), use "Object" for var
+iteratorGet can't be typed, that's a problem, esp foreach
+  ?type obj iterator, others will have to extend  
+get rid of implied new calls in generated code (mark as implied, skip them,   
+  I think it's only for literals now anyway)
     
 ---- no lang change req ----
 
-may be worth doing if(x!) to unless conversion
-final for static members (?) - readonly for c#
-     onceDeced it's ok, not for not once deced (need to distinguish)
-get rid of calls to once and many
 make it possible to skip calls and link up assignments betw org and final
 tmp var reduction
  direct use of onces, no tmp var assign (will then have mechanism to suppress existence
@@ -49,6 +32,24 @@ tmp var reduction
  extend call et all to get the info through ("skip"))
  skip unneeded temp/assigns
  drop tmp vars for simple calls, chain where possible
+switch all if's which are notted to "unless"
+set/map size should be value int (other containers also...)
+native operations, dropping literals
+ have add, subtract, multiply, divide which work on literals directly (addValue, etc) (for when a literal is just immediately used with an int, etc,
+   as second arg to call)
+ for all those uses, get rid of onces, constructs, tmp vars, etc
+ also, for many calls can avoid the call even if not literals (int add, sub, etc)
+ in some cases (no escape (local vars, not called out except to "safe" mtds))   
+   could do native ints, bools, same with local/final int/bool members  
+=~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
+ make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
+final for static members (?) - readonly for c#
+     onceDeced it's ok, not for not once deced (need to distinguish)
+get rid of calls to once and many
+get rid of calls to new where local/final and is not overridden from obj
+get rid of auto-once for literal, require manual use
+   do after native add/sub/etc for literals (below) to minimise impact
+   output all cases where it is being done (where not manual and not optimized away), and do them all manually
 direct member get/set where possible (typed, final or local w/o override), keep gen accessors
 see how typescript and dart translate into js
   example programs, compile to js, look at them
@@ -92,18 +93,7 @@ c++ database (soci), direct sqlite
 
   make activate output of tables conditional (if len 0 in excepts no op)
 
-if obj int kept begin
-
-switch all if's which are notted to "unless"
 finish notnull cleanup (reused by default logic, but improperly named, still looked for compile, syn + class mbr, etc)
-=~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
- make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
-set/map size should be value int (other containers also...)
-native operations, dropping literals
- have add, subtract, multiply, divide which work on literals directly (addValue, etc)
- for all those uses, get rid of onces, constructs, tmp vars, etc 
-
-if obj int kept end
 
 allcalls missing some, self ref node thinking
 
