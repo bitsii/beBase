@@ -725,7 +725,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
         String ccMethods = String.new();
         Array superCalls = Array.new();
         Int nativeCSlots = 0;
-        String inFileNamed = node.held.fromFile.toStringWithSeparator("/");
+        String inFilePathed = node.held.fromFile.toStringWithSeparator("/");
      }
      
      var te = node.transUnit.held.emits;
@@ -960,7 +960,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
 
 buildClassInfo() self {
     buildClassInfo("clname", cnode.held.namepath.toString());
-    buildClassInfo("clfile", inFileNamed);
+    buildClassInfo("clfile", inFilePathed);
 }
  
 buildClassInfo(String belsBase, String lival) self {
@@ -1015,7 +1015,8 @@ buildClassInfoMethod(String belsBase) {
        } else {
           extends = extend("abe.BELS_Base.BECS_Object");
        }
-       String clb = self.klassDec += classConf.emitName += extends += " {" += nl; //}
+       String clb = "/* File: " += inFilePathed += " */" += nl;
+       clb += self.klassDec += classConf.emitName += extends += " {" += nl; //}
        clb += "public " += classConf.emitName += "() {";
        clb += " }" += nl; //default constructor
        if(emitting("cs")) {
@@ -1043,11 +1044,20 @@ buildClassInfoMethod(String belsBase) {
     return("");
   }
   
+  getTraceInfo(Node node) {
+    String trInfo = String.new();
+    if (def(node) && def(node.nlc)) {
+      trInfo += "Line: " += node.nlc.toString();
+    }
+    return(trInfo);
+  }
+  
   acceptBraces(Node node) {
       if (def(node.container)) {
          Int typename = node.container.typename;
          if (typename != ntypes.METHOD && typename != ntypes.CLASS && typename != ntypes.EXPR && typename != ntypes.PROPERTIES && typename != ntypes.CATCH) {
-            methodBody += " /* " += typename.toString() += " */ {" += nl; //}
+            
+            methodBody += " /* " += getTraceInfo(node) += " */ {" += nl; //}
          }
       }
   }
@@ -1101,7 +1111,7 @@ buildClassInfoMethod(String belsBase) {
            }
         } elif (typename != ntypes.EXPR && typename != ntypes.PROPERTIES && typename != ntypes.CLASS) {
             //{
-           methodBody += "} /* " += typename.toString() += " */" += nl;
+           methodBody += "} /* " += getTraceInfo(node) += " */" += nl;
         }
       }
   }
