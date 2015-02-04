@@ -970,6 +970,40 @@ class System:Thread:ContainerLocker {
     }
   }
   
+  putIfAbsent(key, value) Bool {
+    lock.lock();
+    try {
+      if (container.has(key)) {
+        Bool didPut = false;
+      } else {
+        container.put(key, value);
+        didPut = true;
+      }
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(didPut);
+  }
+  
+  getOrPut(key, value) {
+    lock.lock();
+    try {
+      if (container.has(key)) {
+        var result = container.get(key);
+      } else {
+        container.put(key, value);
+        result = value;
+      }
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(result);
+  }
+  
   put(p, k, v) self {
     lock.lock();
     try {
