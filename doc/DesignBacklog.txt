@@ -2,6 +2,11 @@ bel
 bel-lang.com
 belang.org
 
+ThinThread to LightThread
+
+encode/decode base 64 to use instead of hex
+http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
+
 put check for null (having called new()) for marshall/unmarshall
 at least put line numbers in code in comments
 finish exception stuff

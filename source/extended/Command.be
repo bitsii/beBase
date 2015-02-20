@@ -84,10 +84,32 @@ void** bevl_rvali;
       """
       }
       
-      emit(cs) {
-      """
-      
-      """
+      ifEmit(cs) {
+        Int sp = command.find(" ");
+        if (def(sp)) {
+          String cmdRun = command.substring(0, sp);
+          String cmdArgs = command.substring(sp + 1);
+         } else {
+          cmdRun = command;
+          cmdArgs = "";
+         }
+         ("cmdRun " + cmdRun).print();
+         ("cmdArgs " + cmdArgs).print();
+          emit(cs) {
+          """
+          Process p = new Process();
+          p.StartInfo.FileName = bevl_cmdRun.bems_toCsString();
+          p.StartInfo.Arguments = bevl_cmdArgs.bems_toCsString();
+          p.StartInfo.CreateNoWindow = true;
+          //p.StartInfo.UseShellExecute = false;
+          //p.StartInfo.RedirectStandardOutput = true;   
+          //p.StartInfo.WorkingDirectory = strWorkingDirectory;
+          p.Start();
+          //p.StandardOutput.ReadToEnd();
+          //p.WaitForExit();
+          //bevl_rvali.bevi_int = p.ExitCode;
+          """
+          }
       }
       
       return(rvali);
