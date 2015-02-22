@@ -338,12 +338,18 @@ use class Json:Marshaller {
     }
     
     marshall(inst) String {
+        if (undef(str)) {
+          new();
+        }
         String bb = String.new();
         marshallWriteInst(inst, bb);
         return(bb.toString());
     }
     
     marshallWrite(inst, writer) {
+        if (undef(str)) {
+          new();
+        }
         marshallWriteInst(inst, writer);
     }
     
@@ -499,6 +505,9 @@ use class Json:Unmarshaller {
     }
 
     unmarshall(String str) {
+        if (undef(parser)) {
+          new();
+        }
         key = null;
         top = null;
         stack = Container:Stack.new();

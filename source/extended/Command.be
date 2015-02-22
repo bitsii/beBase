@@ -50,6 +50,18 @@ using System.Diagnostics;
 }
 
 final class Command {
+
+   emit(cs) {
+   """
+   public Process bevi_p;
+   """
+   }
+   
+   emit(jv) {
+   """
+   public Process bevi_p;
+   """
+   }
    
    new(String _command) self {
       properties {
@@ -63,26 +75,7 @@ final class Command {
    }
    
    run() Int {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-void** bevl_toRun;
-void** bevl_rvali;
-      """
-      }
-      String _command;
-      Int rvali;
-      
-      _command = command;
-      rvali = Int.new();
-      
-      emit(c) {
-      """
-      bevl_toRun = $_command&*;
-      bevl_rvali = $rvali&*;
-      *((BEINT*) bevl_rvali + bercps) = system(((char*) bevl_toRun[bercps]));
-      """
-      }
+      Int res;  //get rid of res
       
       ifEmit(cs) {
         Int sp = command.find(" ");
@@ -93,26 +86,77 @@ void** bevl_rvali;
           cmdRun = command;
           cmdArgs = "";
          }
-         ("cmdRun " + cmdRun).print();
-         ("cmdArgs " + cmdArgs).print();
+         //("cmdRun " + cmdRun).print();
+         //("cmdArgs " + cmdArgs).print();
           emit(cs) {
           """
-          Process p = new Process();
-          p.StartInfo.FileName = bevl_cmdRun.bems_toCsString();
-          p.StartInfo.Arguments = bevl_cmdArgs.bems_toCsString();
-          p.StartInfo.CreateNoWindow = true;
-          //p.StartInfo.UseShellExecute = false;
-          //p.StartInfo.RedirectStandardOutput = true;   
-          //p.StartInfo.WorkingDirectory = strWorkingDirectory;
-          p.Start();
-          //p.StandardOutput.ReadToEnd();
-          //p.WaitForExit();
-          //bevl_rvali.bevi_int = p.ExitCode;
+          bevi_p = new Process();
+          bevi_p.StartInfo.FileName = bevl_cmdRun.bems_toCsString();
+          bevi_p.StartInfo.Arguments = bevl_cmdArgs.bems_toCsString();
+          bevi_p.StartInfo.CreateNoWindow = true;
+          bevi_p.StartInfo.UseShellExecute = false;
+          bevi_p.StartInfo.RedirectStandardOutput = true;   
+          //bevi_p.StartInfo.WorkingDirectory = strWorkingDirectory;
+          bevi_p.Start();
+          //bevi_p.StandardOutput.ReadToEnd();
+          //bevi_p.WaitForExit();
           """
           }
       }
       
-      return(rvali);
+      emit(jv) {
+      """
+      bevi_p = Runtime.getRuntime().exec(bevp_command.bems_toJvString());
+      """
+      }
+      return(res);
+   }
+   
+   open() self {
+     run();
+   }
+   
+   outputGet() IO:File:Reader {
+     vars {
+      IO:File:Reader outputReader;
+     }
+     if (def(outputReader)) {
+       return(outputReader);
+     }
+     outputReader = IO:File:Reader.new();
+     emit(cs) {
+     """
+     bevp_outputReader.bevi_is = bevi_p.StandardOutput.BaseStream;
+     """
+     }
+     emit(jv) {
+     """
+     bevp_outputReader.bevi_is = bevi_p.getInputStream();
+     """
+     }
+     outputReader.extOpen();
+     return(outputReader);
+   }
+   
+   closeOutput() {
+     if (def(outputReader)) {
+       outputReader.close();
+       outputReader = null;
+     }
+   }
+   
+   close() {
+     closeOutput();
+     emit(cs) {
+     """
+     bevi_p = null;
+     """
+     }
+     emit(jv) {
+     """
+     bevi_p = null;
+     """
+     }
    }
 }
 
