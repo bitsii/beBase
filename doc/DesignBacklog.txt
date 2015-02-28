@@ -9,7 +9,9 @@ http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 
 finish exception stuff
 
-c++ + gc (can do own if needed), simple clean straightforward (ref count + less frequent gc an option?)
+objc (or swift) c++
+  gc or rc
+  ref cycle check on types
 
 perf things begin
 
