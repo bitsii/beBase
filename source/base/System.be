@@ -267,6 +267,7 @@ final class Random {
       
    }
    
+   //needs to be "getIntoInt", "getInt" makes a new one
    getInt(Int value) Int {
       emit(c) {
       """
