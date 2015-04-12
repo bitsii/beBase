@@ -109,7 +109,7 @@ use final class Build:JVEmitter(Build:EmitCommon) {
         String ms = "public static void main(String[] args)" + exceptDec + " {" + nl;//}
         ms += "synchronized (" += libEmitName += ".class) {" += nl;//}
         ms += "abe.BELS_Base.BECS_Runtime.args = args;" += nl;
-        ms += "abe.BELS_Base.BECS_Runtime.platformName = \"" += build.platform.name += "\";" += nl;
+        ms += "abe.BELS_Base.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
         return(ms);
    }
     

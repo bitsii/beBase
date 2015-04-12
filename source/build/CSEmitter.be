@@ -104,7 +104,7 @@ use final class Build:CSEmitter(Build:EmitCommon) {
         String ms = "public static void Main(string[] args)" + exceptDec + " {" + nl; //}
         ms += "lock (typeof(" += libEmitName += ")) {" += nl;//}
         ms += "abe.BELS_Base.BECS_Runtime.args = args;" += nl;
-        ms += "abe.BELS_Base.BECS_Runtime.platformName = \"" += build.platform.name += "\";" += nl;
+        ms += "abe.BELS_Base.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
         return(ms);
    }
   

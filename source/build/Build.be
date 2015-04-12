@@ -64,6 +64,7 @@ final class Build:Build {
          LinkedList extLinkObjects;
          var fromFile;
          var platform;
+         var outputPlatform;
          var emitLibrary;
          var usedLibrarysStr;
          var closeLibrariesStr;
@@ -198,6 +199,7 @@ final class Build:Build {
       buildPath.addStep("target");
       includePath = File.new(params.get("includePath", "include").first).path;
       platform = System:Platform.new(params.get("platform", System:CurrentPlatform.new().name).first);
+      outputPlatform = System:Platform.new(params.get("outputPlatform", platform.name).first);
       dynConditionsAll = Bool.new(params.get("dynConditionsAll", "false").first);
       
       mainName = params["mainClass"].first;

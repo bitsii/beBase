@@ -208,7 +208,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         String main = "";
         main += "var mc = new " += maincc.fullEmitName += "();" += nl;
         main += "abe_BELS_Base_BECS_Runtime.prototype.args = process.argv;" += nl;
-        main += "abe_BELS_Base_BECS_Runtime.prototype.platformName = \"" += build.platform.name += "\";" += nl;
+        main += "abe_BELS_Base_BECS_Runtime.prototype.platformName = \"" += build.outputPlatform.name += "\";" += nl;
         //main += self.procStart;
         libe.write(main);
         main = "";
