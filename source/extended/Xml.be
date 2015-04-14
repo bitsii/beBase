@@ -156,10 +156,7 @@ class XTokenizer {
       String tokString = "<>=/?! \"";
       properties {
          Tokenizer tok = Tokenizer.new(tokString, true);
-         IO:Log log;
       }
-      //log = IO:Log.new(IO:LogLevels.debug, IO:File.new("xml.log").writer.open());
-      log = IO:Log.new().clearAppenders();
    }
 }
 
@@ -219,22 +216,13 @@ class TagIterator {
       } else {
          nxt = iter.next;
       }
-      if (debug) {
-         if (undef(nxt)) {
-            xt.log.debug("1 nxt null");
-         } else {
-            xt.log.debug("1 " + nxt);
-         }
-      }
       String accum = String.new();
       if (def(nxt) && textNode) {
          while (nxt != "<") {
             accum += nxt;
             nxt = iter.next;
-            if (debug) { xt.log.debug("2 " + nxt); }
          }
          textNode = false;
-         if (debug) { xt.log.debug(" t:" + accum.toString() + ":"); }
          skip = true;
          return(TextNode.new(accum.extractString()));
       } elif (def(nxt)) {
@@ -282,11 +270,9 @@ class TagIterator {
                }
                if (tagName) {
                   nxt = iter.next;
-                  if (debug) { xt.log.debug("3 " + nxt); }
                   while (nxt == " " || nxt == nl) {
                      if (nxt == nl) { line = line++; }
                      nxt = iter.next;
-                     if (debug) { xt.log.debug("4 " + nxt); }
                   }
                   if (nxt == "?") {
                      isStart = false;
@@ -294,24 +280,20 @@ class TagIterator {
                      nxt = iter.next;
                      accum.extractString();
                      accum += "<?";
-                     if (debug) { xt.log.debug("15 " + nxt); }
                   } elif (nxt == "!") {
                      isStart = false;
                      comment = true;
                      nxt = iter.next;
                      accum.extractString();
                      accum += "<!";
-                     if (debug) { xt.log.debug("15 " + nxt); }
                   } else {
                      if (nxt == "/") {
                         isStart = false;
                         nxt = iter.next;
-                        if (debug) { xt.log.debug("5 " + nxt); }
                      }
                      while (nxt != " " && nxt != nl && nxt != ">" && nxt != "/") {
                         accum += nxt;
                         nxt = iter.next;
-                        if (debug) { xt.log.debug("6 " + nxt); }
                      }
                      if (nxt == nl) { line = line++; }
                      tagName = false;
@@ -319,12 +301,10 @@ class TagIterator {
                         StartElement myElement = StartElement.new();
                         Tag myTag = myElement;
                         myElement.name = accum.extractString();
-                        if (debug) { xt.log.debug(" StartElement " + myElement.name); }
                      } else {
                         EndElement myEndElement = EndElement.new();
                         myEndElement.name = accum.extractString();
                         myTag = myEndElement;
-                        if (debug) { xt.log.debug(" EndElement " + myEndElement.name); }
                      }
                      if (nxt == ">") {
                         attributeName = false;
@@ -344,16 +324,13 @@ class TagIterator {
                }
                if (attributeName) {
                   nxt = iter.next;
-                  if (debug) { xt.log.debug("7 " + nxt); }
                   while (nxt == " " || nxt == nl) {
                      if (nxt == nl) { line = line++; }
                      nxt = iter.next;
-                     if (debug) { xt.log.debug("8 " + nxt); }
                   }
                   while (nxt != " " && nxt != nl && nxt != ">" && nxt != "/" && nxt != "=") {
                      accum += nxt;
                      nxt = iter.next;
-                     if (debug) { xt.log.debug("9 " + nxt); }
                   }
                   attributeName = false;
                   if (nxt == nl) { line = line++; }
@@ -364,38 +341,31 @@ class TagIterator {
                      attributeValue = false;
                      myElement.isClosed = true;
                      nxt = iter.next;
-                     if (debug) { xt.log.debug("14 " + nxt); }
                   } else {
-                     if (debug) { xt.log.debug(" an:" + accum.toString() + ":"); }
                      myElement.addAttributeName(accum.extractString());
                      attributeValue = true;
                   }
                }
                if (attributeValue) {
                   nxt = iter.next;
-                  if (debug) { xt.log.debug("10 " + nxt); }
                   while (nxt == " " || nxt == nl || nxt == "=") {
                      //Check for = ?
                      if (nxt == nl) { line = line++; }
                      nxt = iter.next;
-                     if (debug) { xt.log.debug("11 " + nxt); }
                   }
                   if (nxt != q) {
                      throw(Xml:TagIteratorException.new("Malformed Xml, incorrect attributeeter def at line " + line.toString()));
                   }
                   nxt = iter.next;
-                  if (debug) { xt.log.debug("11.5 " + nxt); }
                   while (nxt != q) {
                      if (nxt == nl) { line = line++; }
                      accum += nxt;
                      nxt = iter.next;
-                     if (debug) { xt.log.debug("12 " + nxt); }
                   }
                   if (nxt != q) {
                      throw(Xml:TagIteratorException.new("Malformed Xml, incorrect attributeeter def at line " + line.toString()));
                   }
                   attributeValue = false;
-                  if (debug) { xt.log.debug(" av:" + accum.toString() + ":"); }
                   myElement.addAttributeValue(accum.extractString());
                   attributeName = true;
                }

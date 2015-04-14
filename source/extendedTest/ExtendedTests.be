@@ -123,8 +123,18 @@ class Test:ExtendedTest:EC(BaseTest) {
         //e.print();
      //}
      
+     testLog();
+     
      ("Test:ExtendedTest:Ec:main completed successfully").print();
       
+   }
+   
+   testLog() {
+     Int lev = IO:Log.debug;
+     IO:Log log = IO:Log.new();
+     log.log(lev, "Don't see this");
+     log.level = lev;
+     log.log(lev, "Do see this");
    }
    
    testLocks() {

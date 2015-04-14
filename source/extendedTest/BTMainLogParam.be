@@ -74,60 +74,6 @@ class Test:BaseTest:System(BaseTest) {
    
 }
 
-
-use IO:Log;
-use IO:Logs;
-use IO:LogLevels;
-
-class Test:BaseTest:Log(BaseTest) {
-   
-   main() {
-         ("Test:BaseTest:Log:main").print();
-         String comp1 = String.new();
-         String app1 = String.new();
-         String nl = Text:Strings.new().newline;
-         
-         Log log1 = Log.new();
-         log1.clearAppenders();
-         log1.addAppender(app1);
-         //log1.level = LogLevels.new().warn;
-         
-         log1.debug("NoOutput");
-         log1.warn("Output");
-         comp1 += "Output" += nl;
-         assertEquals(comp1, app1);
-         
-         Log log2 = Log.new();
-         Logs logs = Logs.new();
-         logs["test"] = log2;
-         Log log3 = logs["test"];
-         assertEquals(log2, log3);
-         
-         Log log4 = logs["not"];
-         assertNotEquals(log4, log3);
-         
-         Log log = log1;
-         comp1 = app1.copy();
-         try {
-            throwHereForStack();
-         } catch (var e) {
-            log.log(0, "Caught Exception " + e.toString());
-         }
-         assertNotEquals(comp1, app1);
-         
-         "Should now output something".print();
-         log2.warn("SOMETHING");
-         "output something done".print();
-   }
-   
-   throwHereForStack() {
-      if (true) {
-      throw(System:Exception.new("Thrown from here"));
-      }
-   }
-   
-}
-
 use Container:Array;
 class Test:BaseTest:Parameters(BaseTest) {
    
