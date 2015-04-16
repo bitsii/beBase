@@ -21,36 +21,36 @@ public class BECS_ThrowBack extends RuntimeException {
         if (theThrow != null) {
             
             //comment these when all done wrapping/handling cases
-            System.err.println(theThrow.getMessage());
-            theThrow.printStackTrace();
-            
+            //System.err.println(theThrow.getMessage());
+            //theThrow.printStackTrace();
+            BEC_6_6_SystemObject thrown;
             if (theThrow instanceof BECS_ThrowBack) {
-                if (((BECS_ThrowBack)theThrow).thrown instanceof BEC_6_9_SystemException) {
-                    BEC_6_9_SystemException bes = (BEC_6_9_SystemException)((BECS_ThrowBack)theThrow).thrown;
-                    //setup stack trace
-                    BEC_4_6_TextString lang = new BEC_4_6_TextString("jv");
-                    bes.bem_langSet_1(lang);
-                    StackTraceElement[] jframes = theThrow.getStackTrace();
-                    for (int i = 0;i < jframes.length;i++) {
-                        StackTraceElement jf = jframes[i];
-                        bes.bem_addFrame_4(new BEC_4_6_TextString(jf.getClassName()),
-                                            new BEC_4_6_TextString(jf.getMethodName()),
-                                            new BEC_4_6_TextString(jf.getFileName()),
-                                            new BEC_4_3_MathInt(jf.getLineNumber()));
-                    }
-                    return bes;
-                } else {
-                    //you can throw whatever...
-                    return ((BECS_ThrowBack)theThrow).thrown;
-                }
+              thrown = ((BECS_ThrowBack)theThrow).thrown;
             } else {
-                System.err.println("handleThrow received non-be exception");
-                //TODO wrap in an appropo exception, map well knowns,
-                //have a general for others
-                return null;
+              BEC_6_9_SystemException throwne = new BEC_6_9_SystemException();
+              throwne.bem_new_1(new BEC_4_6_TextString(theThrow.getMessage()));
+              thrown = throwne;
+            }
+            if (thrown instanceof BEC_6_9_SystemException) {
+                BEC_6_9_SystemException bes = (BEC_6_9_SystemException)thrown;
+                //setup stack trace
+                BEC_4_6_TextString lang = new BEC_4_6_TextString("jv");
+                bes.bem_langSet_1(lang);
+                StackTraceElement[] jframes = theThrow.getStackTrace();
+                for (int i = 0;i < jframes.length;i++) {
+                    StackTraceElement jf = jframes[i];
+                    bes.bem_addFrame_4(new BEC_4_6_TextString(jf.getClassName()),
+                                        new BEC_4_6_TextString(jf.getMethodName()),
+                                        new BEC_4_6_TextString(jf.getFileName()),
+                                        new BEC_4_3_MathInt(jf.getLineNumber()));
+                }
+                return bes;
+            } else {
+                //you can throw whatever...
+                return ((BECS_ThrowBack)theThrow).thrown;
             }
         } else {
-            System.err.println("handleThrow received null");
+            //System.err.println("handleThrow received null");
             //TODO put in appropo exception
         }
         return null;

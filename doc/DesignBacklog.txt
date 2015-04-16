@@ -4,6 +4,8 @@ belang.org
 
 ThinThread to LightThread
 
+log - level for class, config based (optional)
+
 encode/decode base 64 to use instead of hex
 http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 

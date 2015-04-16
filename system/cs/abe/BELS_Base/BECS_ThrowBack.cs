@@ -20,30 +20,29 @@ public class BECS_ThrowBack : Exception {
         if (theThrowArg != null) {
             
             //comment these when all done wrapping/handling cases
-            Console.Error.WriteLine(theThrowArg.Message);
-            Console.Error.WriteLine(theThrowArg.StackTrace);
+            //Console.Error.WriteLine(theThrowArg.Message);
+            //Console.Error.WriteLine(theThrowArg.StackTrace);
             
+            BEC_6_9_SystemException bes;
             var theThrow = theThrowArg as BECS_ThrowBack;
             if (theThrow != null) {
-                var bes = theThrow.thrown as BEC_6_9_SystemException;
-                if (bes != null) {
-                    //setup stack trace
-                    BEC_4_6_TextString lang = new BEC_4_6_TextString("cs");
-                    bes.bem_langSet_1(lang);
-                    bes.bem_framesTextSet_1(new BEC_4_6_TextString(theThrow.StackTrace));
-                    return bes;
-                } else {
-                    //you can throw whatever...
-                    return theThrow.thrown;
-                }
+              bes = theThrow.thrown as BEC_6_9_SystemException;
             } else {
-                Console.Error.WriteLine("handleThrow received non-be exception");
-                //TODO wrap in an appropo exception, map well knowns,
-                //have a general for others
-                return null;
+              bes = new BEC_6_9_SystemException();
+              bes.bem_new_1(new BEC_4_6_TextString(theThrowArg.Message));
+            }
+            if (bes != null) {
+                //setup stack trace
+                BEC_4_6_TextString lang = new BEC_4_6_TextString("cs");
+                bes.bem_langSet_1(lang);
+                bes.bem_framesTextSet_1(new BEC_4_6_TextString(theThrowArg.StackTrace));
+                return bes;
+            } else {
+                //you can throw whatever...
+                return theThrow.thrown;
             }
         } else {
-            Console.Error.WriteLine("handleThrow received null");
+            //Console.Error.WriteLine("handleThrow received null");
             //TODO put in appropo exception
         }
         return null;
