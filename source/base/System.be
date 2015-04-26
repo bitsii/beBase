@@ -865,6 +865,18 @@ class System:Thread:ContainerLocker {
     return(r);
   }
   
+  has(key, key2) Bool {
+    lock.lock();
+    try {
+      Bool r = container.has(key, key2);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(r);
+  }
+  
   get() {
     lock.lock();
     try {
