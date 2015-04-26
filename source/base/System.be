@@ -1088,6 +1088,17 @@ class System:Thread:ContainerLocker {
     return(r);
   }
   
+  clear() self {
+    lock.lock();
+    try {
+      container.clear();
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+  }
+  
 }
 
 use System:Thread:ObjectLocker as OLocker;
