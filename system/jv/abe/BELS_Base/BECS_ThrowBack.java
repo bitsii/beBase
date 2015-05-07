@@ -28,22 +28,28 @@ public class BECS_ThrowBack extends RuntimeException {
               thrown = ((BECS_ThrowBack)theThrow).thrown;
             } else {
               BEC_6_9_SystemException throwne = new BEC_6_9_SystemException();
-              throwne.bem_new_1(new BEC_4_6_TextString(theThrow.getMessage()));
+              if (theThrow.getMessage() == null) {
+                throwne.bem_new_0();
+              } else {
+                throwne.bem_new_1(new BEC_4_6_TextString(theThrow.getMessage()));
+              }
               thrown = throwne;
             }
             if (thrown instanceof BEC_6_9_SystemException) {
                 BEC_6_9_SystemException bes = (BEC_6_9_SystemException)thrown;
-                //setup stack trace
-                BEC_4_6_TextString lang = new BEC_4_6_TextString("jv");
-                bes.bem_langSet_1(lang);
-                StackTraceElement[] jframes = theThrow.getStackTrace();
-                for (int i = 0;i < jframes.length;i++) {
-                    StackTraceElement jf = jframes[i];
-                    bes.bem_addFrame_4(new BEC_4_6_TextString(jf.getClassName()),
-                                        new BEC_4_6_TextString(jf.getMethodName()),
-                                        new BEC_4_6_TextString(jf.getFileName()),
-                                        new BEC_4_3_MathInt(jf.getLineNumber()));
-                }
+                try {
+                  //setup stack trace
+                  BEC_4_6_TextString lang = new BEC_4_6_TextString("jv");
+                  bes.bem_langSet_1(lang);
+                  StackTraceElement[] jframes = theThrow.getStackTrace();
+                  for (int i = 0;i < jframes.length;i++) {
+                      StackTraceElement jf = jframes[i];
+                      bes.bem_addFrame_4(new BEC_4_6_TextString(jf.getClassName()),
+                                          new BEC_4_6_TextString(jf.getMethodName()),
+                                          new BEC_4_6_TextString(jf.getFileName()),
+                                          new BEC_4_3_MathInt(jf.getLineNumber()));
+                  }
+                } catch (Exception sfe) { }
                 return bes;
             } else {
                 //you can throw whatever...
