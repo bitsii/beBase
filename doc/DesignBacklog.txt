@@ -4,6 +4,9 @@ belang.org
 
 ThinThread to LightThread
 
+? null check for equals, not equals for String & Objecct?
+? add another override type which does null checks?
+
 log - level for class, config based (optional)
 
 encode/decode base 64 to use instead of hex

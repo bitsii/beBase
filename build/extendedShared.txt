@@ -4,6 +4,10 @@ source/extended/Win.be
 source/extended/Nix.be
 --jv_source_mswin
 source/extended/EcPlat.be
+--jv_source_linux
+source/extended/EcPlat.be
+--jv_source_macos
+source/extended/EcPlat.be
 --cs_source_mswin
 source/extended/EcPlat.be
 --js_source_mswin

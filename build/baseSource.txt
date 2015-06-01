@@ -23,6 +23,10 @@ source/base/Process.be
 source/base/Process.be
 --jv_source_mswin
 source/base/EcProcess.be
+--jv_source_linux
+source/base/EcProcess.be
+--jv_source_macos
+source/base/EcProcess.be
 --cs_source_mswin
 source/base/EcProcess.be
 --js_source_mswin
