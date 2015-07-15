@@ -1,8 +1,5 @@
 
-cycle jv
-change the path
-get project parent to both
-regularize testing
+get testing going
 get all lang going
 add machine name getter
 license

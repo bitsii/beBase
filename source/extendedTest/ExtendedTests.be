@@ -71,7 +71,7 @@ class Test:ExtendedTest:EC(BaseTest) {
       if (def(args)) {
           foreach (String arg in args) {
             ("Running test  " + arg).print();
-            getInstance(arg).new().main();
+            //getInstance(arg).new().main();
           }
       }
       
