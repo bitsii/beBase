@@ -1,27 +1,65 @@
-bel
-bel-lang.com
-belang.org
+
+cycle jv
+change the path
+get project parent to both
+regularize testing
+get all lang going
+add machine name getter
+license
+drop "a" from abe (just be)
+
+library/library version (onces and such not version specific)
+
+convenience syntax, arrays, no { } ( ) where skippable, fix [ ] bug
+
+have a way of denoting that something should be a native int, array (someday) and except if it fails (limited/restricted use)
 
 ThinThread to LightThread
 
-? null check for equals, not equals for String & Objecct?
+? null check for equals, not equals for String & Object?
 ? add another override type which does null checks?
 
-log - level for class, config based (optional)
+log - level for class, config based (optional), time stamp (optional)
+
+change getInstance to construct or create (find existing cases of create with arg)
+
+bugs:
+something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
+copy needs to be return type self
+castTo is wrong in at least some once cases, checkTypes must be wrong somehow
+byteiterator is much much slower than just doing getInt on a string by length, something is wrong there
+// Bug with initial elif
+// math with parens inside a method call is broken
+// this doesn't work for (Int j = 0;j < dnumargs && j < maxDynArgs;j=j++) {
+// numargs - maxDynArgs + 1 !== (numargs - maxDynArgs) + 1
+// if undef(self[n]) doesn't seem to work (at least in Array)
+// this includes negative values for indexes
+// test once assign with not combination
+string hash for javascript seems to be different than for others
+
+apNew to just new for file, file path (have pNew for plat if you must, or directNew, napNew, or platNew)
+
+cpp intrusive faster but no weak (make_shared fast) (objc compat)
+cpp if never set to prop or into arry reg stack ptr
+
+int only if restricted set of calls can be just native all langs
 
 encode/decode base 64 to use instead of hex
 http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 
 finish exception stuff
 
-oc and cp, ref counted
-  ref cycle check on types
+save/resube app state - app state doc, load at start, help/whatnot to return ui et all to state
+
+simple array construct for multi call / return
 
 perf things begin
 
 ---- lang change req ----
 
 gratuitous returns - var for untyped, rest as now (self, typed).
+   void type to allow explicit def
+   return; ok (void) (same as return(void);)
  enable var return type
  find and fix all cases of return without declaration
  find and fix all cases of assign from non-declared return for typed calls
@@ -33,7 +71,9 @@ get rid of implied new calls in generated code (mark as implied, skip them,
   I think it's only for literals now anyway)
     
 ---- no lang change req ----
-
+get rid of auto-once for literal, require manual use
+   do after native add/sub/etc for literals (below) to minimise impact
+   output all cases where it is being done (where not manual and not optimized away), and do them all manually
 make it possible to skip calls and link up assignments betw org and final
 tmp var reduction
  direct use of onces, no tmp var assign (will then have mechanism to suppress existence
@@ -56,9 +96,7 @@ final for static members (?) - readonly for c#
      onceDeced it's ok, not for not once deced (need to distinguish)
 get rid of calls to once and many
 get rid of calls to new where local/final and is not overridden from obj
-get rid of auto-once for literal, require manual use
-   do after native add/sub/etc for literals (below) to minimise impact
-   output all cases where it is being done (where not manual and not optimized away), and do them all manually
+
 direct member get/set where possible (typed, final or local w/o override), keep gen accessors
 see how typescript and dart translate into js
   example programs, compile to js, look at them
@@ -66,8 +104,6 @@ see how typescript and dart translate into js
   (or don't, js is just for the browser...)
  
 perf things end
-
-change getInstance to construct
 
 clocker iterator, share lock with clocker
 
@@ -92,15 +128,8 @@ output original (be) input file and line
 for buid to be threadsafe, 
    nodes and syns needs threadsafe fixes
    
-drop "a" from abe (just be)
-beag, bec - small - beag.org avail, becpl, bec-pl, etc
-license like rust, mit + apache  
 
 just set newline to unx, get rid of plat stuff
-
-c++ database (soci), direct sqlite
-
-  make activate output of tables conditional (if len 0 in excepts no op)
 
 finish notnull cleanup (reused by default logic, but improperly named, still looked for compile, syn + class mbr, etc)
 
@@ -110,8 +139,7 @@ utf8 in code (vars, classes, methods), encoding for < > ascii
   http://www.cprogramming.com/tutorial/unicode.html
   
 proxies could work for typed calls
-  if the method is not present but a special "proxy" method is defined, translate
-  into a call to that
+  if the method is not present but a special "proxy" method is defined, translate into a call to that
 
 info for embedders - main needs to run before start, outer thread should hold lock
   on lib
@@ -122,23 +150,6 @@ more concurrency
   worker threads
   futures (promises)
   atomic int ops
-   
-bugs:
-something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
-copy needs to be return type self
-castTo is wrong in at least some once cases, checkTypes must be wrong somehow
-byteiterator is much much slower than just doing getInt on a string by length, something is wrong there
-// Bug with initial elif
-// math with parens inside a method call is broken
-// this doesn't work for (Int j = 0;j < dnumargs && j < maxDynArgs;j=j++) {
-// numargs - maxDynArgs + 1 !== (numargs - maxDynArgs) + 1
-// if undef(self[n]) doesn't seem to work (at least in Array)
-// this includes negative values for indexes
-// test once assign with not combination
-// Method redefinition not caught by Build et all
-string hash for javascript seems to be different than for others
-
-apNew to just new for file, file path (have pNew for plat if you must, or directNew, napNew, or platNew)
 
 inlines optimization possiblities (templated? in code, generalized? could do lookup during call, get from existing or new (existing eaiser) code)
 -calls with native literals (at least Int) can skip obj creation altogether (addvalue, add etc - only create what needs to be (the end result...))
@@ -148,10 +159,6 @@ singletons and onces need to be threadsafe init
 -also greedy init (both of these types can skip syncronization during runtime)
 -singleton not nulls init at startup (?already), no sync needed, otherwise access is sync
 -overall init needs to be in a sync, any thread start also
-
-objc/cc
-
--need to do objc, cc won't do the trick (both, ultimately)
 
  .. means to back to last target (can be explicit or return from a . call) 
 
@@ -167,6 +174,8 @@ closure? callback? lamda?
 callback/event, mtd, concurrency
 
 EcPlat can drop c emit stuff
+
+https://github.com/int6/uhttpsharp c# embedded ws
 
 args to if must be boolean if they are typed
 
@@ -212,47 +221,9 @@ More complete stack traces (opera, ie): http://www.eriwen.com/javascript/js-stac
 
 later(sooner?) support js typed arrays conditionally (should be much faster/better)
 
-cc:
--try out whatever options in c, c++, and objc before starting-
-(may be easier to just do both c++ and objc)...
-http://c-faq.com/struct/oop.jxh.html (casting)
-http://www.deleveld.dds.nl/inherit.htm (union, double def, no cast)
-https://stackoverflow.com/questions/1114349/struct-inheritance-in-c
-for class and instances (ptr to class type), genned class
-all c/synthetic naming
-support exceptions from cpp, objc, set/long jump
-native backtrace (gcc glibc backtrace())
-refcount
-can do wrapper gen for cpp/objc (header, typeconf) for particular classes (entry/waypoints)
-
-all:
-baseclass above object
-no members related to class/framework - (autogen) calls to get if needed
-once assign - class static members
-compiler commands in code (no make), only build changed outputs
-dynamic calls:
-method with switch which then calls (double-call + lookup overhead, but looks to be best and common to all)
-inline - support downstream-lang-specific inline based on method dec keyword in lang - there's a c# attribute, for c++ use the keyword for the lang and place into header
-
-cc:
-static linking first, dynamic later/maybe
-there are ways to get stack traces...
-http://sourceforge.net/projects/smieciuch/ - garbage collection with smart-pointer like thing for cpp
-c++ with support for shared_ptr, different ptr/refcount options
 cycle detect
 cycle finder - in lang, "interceptors" for calls trigger at method entry (match class/call, glob?) - compile time - for assign to member for n steps out look for self to find cycles
-lang specific for mtd dec, calls, construct, detail of refcounting
 static variables for once assign
-mobile-multi-plat:
-http://blog.burhum.com/post/36166554007/cross-platform-ios-android-mobile-app-development
-iphone-ios-osx:
-http://robnapier.net/blog/wrapping-cppfinal-edition-759
-http://philjordan.eu/article/strategies-for-using-c++-in-objective-c-projects
-for mac - cocotron, cocos2dx http://paralaxer.com/cpp-vs-objective-c/
-http://stackoverflow.com/questions/18334547/using-the-same-c-code-on-android-and-ios
-http://stackoverflow.com/questions/10289890/how-to-write-ios-app-purely-in-c
-http://www.cplusplus.com/forum/general/57876/
-http://blog.burhum.com/post/36166554007/cross-platform-ios-android-mobile-app-development
 
 oc:
 apportable
@@ -277,9 +248,6 @@ http://www.mikeash.com/pyblog/introducing-plweakcompatibility.html
 https://github.com/plausiblelabs/PLWeakCompatibility
 http://woboq.com/blog/objective-c-for-qt-developers.html
 no varname arg syntax - http://stackoverflow.com/questions/722651/how-do-i-pass-multiple-parameters-in-objective-c
-
-op
-http://cocoadev.com/ObjectiveCPlusPlus
 
 other options for dynamic calls (jv, cs):
 -inner class which just invokes (interface)
@@ -324,11 +292,6 @@ have unsigned int value, for java, postive part of 64bit (long) - better because
 signed implementation being something in particular (2s complement) for byte manipulation
 shiftLeft, shiftRight, shiftRightLogical
 
-
-cpp objc memory management possibilty - stack ref count (count of references from stack, for roots), ow just counting
-support weak ref for c++ objc, diff modes
-find reference cycles by seeing if two types have members of one-another
-
 recursive file - dir delete
 
 Build class needs to become Builder
@@ -337,7 +300,7 @@ need more tests for time and interval
 
 map-like get put on obj could use accessors to get/put, index too (using prop iter)
 
-have a convention (?based on namepath) to allow direct use of ?c, c++ and objc as if it was native be code
+have a convention (?based on namepath) to allow direct use of emit lang as if it was native be code
 auto reference to c, cpp, objc based on package name
 
 with mutable literals convention is for the mutator to assure safety of references by copying them, assuming that unknown code may depend on the value not changing
@@ -352,10 +315,6 @@ have a class which finds all descendents of a particular class and then runs the
 nice ideas:
 hibernate/resume for programs
 upgrade without restart
-
-db, 
-sqlite
-mysql, mariadb
 
 utf8
 link for escape/unescape source
