@@ -10,6 +10,8 @@ source/extended/EcPlat.be
 source/extended/EcPlat.be
 --cs_source_mswin
 source/extended/EcPlat.be
+--cs_source_macos
+source/extended/EcPlat.be
 --js_source_mswin
 source/extended/EcPlat.be
 #below for build

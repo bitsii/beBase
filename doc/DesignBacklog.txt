@@ -1,9 +1,11 @@
 
-get testing going
-get all lang going
+get all lang going (js)
+--(lang)_source (no plat) works for all plats of lang
 add machine name getter
 license
 drop "a" from abe (just be)
+
+add debug to mcs throughout
 
 library/library version (onces and such not version specific)
 

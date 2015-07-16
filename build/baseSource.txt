@@ -29,5 +29,7 @@ source/base/EcProcess.be
 source/base/EcProcess.be
 --cs_source_mswin
 source/base/EcProcess.be
+--cs_source_macos
+source/base/EcProcess.be
 --js_source_mswin
 source/base/EcProcess.be
