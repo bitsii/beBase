@@ -2,17 +2,11 @@
 source/extended/Win.be
 --c_source_linux
 source/extended/Nix.be
---jv_source_mswin
+--jv_source
 source/extended/EcPlat.be
---jv_source_linux
+--cs_source
 source/extended/EcPlat.be
---jv_source_macos
-source/extended/EcPlat.be
---cs_source_mswin
-source/extended/EcPlat.be
---cs_source_macos
-source/extended/EcPlat.be
---js_source_mswin
+--js_source
 source/extended/EcPlat.be
 #below for build
 source/extended/Serialize.be

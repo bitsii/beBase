@@ -1,11 +1,12 @@
 
-get all lang going (js)
---(lang)_source (no plat) works for all plats of lang
-add machine name getter
 license
 drop "a" from abe (just be)
 
 add debug to mcs throughout
+
+apNew to just new for file, file path (have pNew for plat if you must, or directNew, napNew, or platNew)
+
+add machine name getter
 
 library/library version (onces and such not version specific)
 
@@ -14,6 +15,8 @@ convenience syntax, arrays, no { } ( ) where skippable, fix [ ] bug
 have a way of denoting that something should be a native int, array (someday) and except if it fails (limited/restricted use)
 
 ThinThread to LightThread
+
+for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
 
 ? null check for equals, not equals for String & Object?
 ? add another override type which does null checks?
@@ -35,8 +38,6 @@ byteiterator is much much slower than just doing getInt on a string by length, s
 // this includes negative values for indexes
 // test once assign with not combination
 string hash for javascript seems to be different than for others
-
-apNew to just new for file, file path (have pNew for plat if you must, or directNew, napNew, or platNew)
 
 cpp intrusive faster but no weak (make_shared fast) (objc compat)
 cpp if never set to prop or into arry reg stack ptr
@@ -278,7 +279,6 @@ FASTER if closelib and isFinal or isLocal and call is empty skip it altogether (
 
 functional:
 first class functions - alwaysForward for all dynamic calls always forwarding (the way to use functions)
-for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
 distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
 ? keep function stack state? optionally?
 anonymous functions? closures? (case inside (no), capture everything used and make them all args/held state (yes)) 

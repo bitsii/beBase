@@ -282,6 +282,11 @@ final class Build:Build {
 		 params.ordered.addAll(platformSources);
       }
       
+      var langSources = params[outLang + "_source"];
+      if (def(langSources)) {
+		 params.ordered.addAll(langSources);
+      }
+      
       toBuild = LinkedList.new();
       foreach (istr in params.ordered) {
          toBuild += File:Path.new(istr);
