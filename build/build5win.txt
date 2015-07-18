@@ -1,7 +1,5 @@
 --platform
 mswin
---emitFileHeader
-LICENSE.txt
 -genOnly
 --deployPath
 deploy5

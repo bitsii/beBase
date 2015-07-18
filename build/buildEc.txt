@@ -1,8 +1,6 @@
 --platform
 mswin
 source/extended/Win.be
---emitFileHeader
-LICENSE.txt
 -genOnly
 --deployPath
 deployEc

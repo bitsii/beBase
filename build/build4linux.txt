@@ -1,7 +1,5 @@
 --platform
 linux
---emitFileHeader
-LICENSE.txt
 -genOnly
 --deployPath
 deploy4

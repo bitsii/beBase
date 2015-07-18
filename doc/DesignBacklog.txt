@@ -1,27 +1,18 @@
 
-license
-drop "a" from abe (just be)
-
 add debug to mcs throughout
 
-apNew to just new for file, file path (have pNew for plat if you must, or directNew, napNew, or platNew)
+drop "a" from abe (just be)
+license
 
 add machine name getter
 
-library/library version (onces and such not version specific)
-
-convenience syntax, arrays, no { } ( ) where skippable, fix [ ] bug
-
-have a way of denoting that something should be a native int, array (someday) and except if it fails (limited/restricted use)
+for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
+make js and others same behave
 
 ThinThread to LightThread
 
-for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
-
-? null check for equals, not equals for String & Object?
-? add another override type which does null checks?
-
-log - level for class, config based (optional), time stamp (optional)
+check obj to null == != behavior for Objects across langs (add a test)
+null check for eq/neq for String
 
 change getInstance to construct or create (find existing cases of create with arg)
 
@@ -39,24 +30,19 @@ byteiterator is much much slower than just doing getInt on a string by length, s
 // test once assign with not combination
 string hash for javascript seems to be different than for others
 
-cpp intrusive faster but no weak (make_shared fast) (objc compat)
-cpp if never set to prop or into arry reg stack ptr
-
-int only if restricted set of calls can be just native all langs
-
 encode/decode base 64 to use instead of hex
 http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 
 finish exception stuff
 
-save/resube app state - app state doc, load at start, help/whatnot to return ui et all to state
-
-simple array construct for multi call / return
-
-perf things begin
-
 ---- lang change req ----
-
+not null types
+  defaults no arg construct
+extend Int with IInt (immutable)
+  excepts on mutation calls
+  for int no wrapobj/native if IInt
+  wrap/unwrap going to/from Int and untyped
+  literal ints immutable?
 gratuitous returns - var for untyped, rest as now (self, typed).
    void type to allow explicit def
    return; ok (void) (same as return(void);)
@@ -69,8 +55,11 @@ iteratorGet can't be typed, that's a problem, esp foreach
   ?type obj iterator, others will have to extend  
 get rid of implied new calls in generated code (mark as implied, skip them,   
   I think it's only for literals now anyway)
-    
----- no lang change req ----
+library/library version (onces and such not version specific)  
+---- no lang change req / additive ----
+
+simple array construct for multi call / return
+convenience syntax, arrays, no { } ( ) where skippable, fix [ ] bug
 get rid of auto-once for literal, require manual use
    do after native add/sub/etc for literals (below) to minimise impact
    output all cases where it is being done (where not manual and not optimized away), and do them all manually
@@ -81,8 +70,8 @@ tmp var reduction
  extend call et all to get the info through ("skip"))
  skip unneeded temp/assigns
  drop tmp vars for simple calls, chain where possible
-switch all if's which are notted to "unless"
 set/map size should be value int (other containers also...)
+work out string size
 native operations, dropping literals
  have add, subtract, multiply, divide which work on literals directly (addValue, etc) (for when a literal is just immediately used with an int, etc,
    as second arg to call)
@@ -96,6 +85,8 @@ final for static members (?) - readonly for c#
      onceDeced it's ok, not for not once deced (need to distinguish)
 get rid of calls to once and many
 get rid of calls to new where local/final and is not overridden from obj
+
+log - level for class, config based (optional), time stamp (optional)
 
 direct member get/set where possible (typed, final or local w/o override), keep gen accessors
 see how typescript and dart translate into js
@@ -112,10 +103,6 @@ get rid of transitive namepath thing ? (always just what it is) (only resolve if
 ifEmit to ifSet, ifUnset, prefix lang (?em: or em. lang, like em.jv)
 (or just keep ifEmit, and support external flags - this)
 
-do our own sessions for web
-extended path for web (or just call it path?)  have web version of path/namepath?
-direct ip, also the one which checks headers
-
 output original (be) input file and line
 
   nlc and nlec local arrays (not static or whatever)
@@ -127,9 +114,6 @@ output original (be) input file and line
 
 for buid to be threadsafe, 
    nodes and syns needs threadsafe fixes
-   
-
-just set newline to unx, get rid of plat stuff
 
 finish notnull cleanup (reused by default logic, but improperly named, still looked for compile, syn + class mbr, etc)
 
@@ -137,9 +121,6 @@ allcalls missing some, self ref node thinking
 
 utf8 in code (vars, classes, methods), encoding for < > ascii
   http://www.cprogramming.com/tutorial/unicode.html
-  
-proxies could work for typed calls
-  if the method is not present but a special "proxy" method is defined, translate into a call to that
 
 info for embedders - main needs to run before start, outer thread should hold lock
   on lib
@@ -150,18 +131,7 @@ more concurrency
   worker threads
   futures (promises)
   atomic int ops
-
-inlines optimization possiblities (templated? in code, generalized? could do lookup during call, get from existing or new (existing eaiser) code)
--calls with native literals (at least Int) can skip obj creation altogether (addvalue, add etc - only create what needs to be (the end result...))
---could have native in-method int where possible could even do native in some between method cases (mark with the argument var dec, @ or somesuch, and wrap in dynamic calls))
-singletons and onces need to be threadsafe init
--onces of some classes can be constructed at startup/classload/firstconstruct (int, string, literals etc) - as static, no sync (literals, no members for sure, anything made up of only things which can be initted that way), others, sync. 
--also greedy init (both of these types can skip syncronization during runtime)
--singleton not nulls init at startup (?already), no sync needed, otherwise access is sync
--overall init needs to be in a sync, any thread start also
-
  .. means to back to last target (can be explicit or return from a . call) 
-
 
 some way to re-use ints in math where neither operand is used (where the left hand of = is used as the target - either as an optimization w/o indication, or some way to indicate it (mark on the instance, quality of the assign =) - could work out to only have one set of operator calls which take the 3 args, and where indicator is missing a newed instance is passed in... the current += just becomes a special case of that)
 I think can() could be better than iterating methods :-( (will need to gen something like invoke but with just t/f)
@@ -230,7 +200,6 @@ apportable
 static lib (ios req)
 dynamic calls w/out switch (use built-in)
 name mangling all in names (no ns available)
-forwarding calls - https://www.mikeash.com/pyblog/friday-qa-2009-03-27-objective-c-message-forwarding.html
 objc on message calls variable names are optional, can just do positions with : 
 supposedly no difference in performance between typed pointers and untyped pointers for calls
 http://stackoverflow.com/questions/907843/cost-of-message-dispatch-in-objective-c
@@ -257,16 +226,6 @@ other options for dynamic calls (jv, cs):
 
 end lang-notes:
 
-lang-plats:
-jv - android, blberry, ouya, web
-cs - windows, winphone
-oc - ios, osx, linux, pnacl (chromebook), oss
-cc(?) - bada, tizen, sailfish, uphone, uphone, qt, osx, ios, linux, oss
-js - browser, mozphone, web, chromebook, uphone, qt, oss
-
--common web framework- -common embedded web app framework-
--native app support + ui all plats (mobile, desktop)-
-
 int 32bit (c int, int32_t), float 32bit (c float), add long 64 (c long long) and double 64 (c double) (after conversion?)
 
 allow signatures to mark arguments as safe - as not incorporated into members, not mutated, not passed along
@@ -280,7 +239,6 @@ FASTER if closelib and isFinal or isLocal and call is empty skip it altogether (
 functional:
 first class functions - alwaysForward for all dynamic calls always forwarding (the way to use functions)
 distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
-? keep function stack state? optionally?
 anonymous functions? closures? (case inside (no), capture everything used and make them all args/held state (yes)) 
 switch invoke over?
 
@@ -364,20 +322,11 @@ ifEmit(c:boo), ifEmit(all:foo)
 
 generics (generic type) (functionality covers interfaces, generics, mixins)
 
-signature of generic must be defined
+through incorporation
+calls on it like dynamic calls, goes to incorporated type
+check that calls of generic satisfied by incorporated type at compile time
 whether or not a type supports an generic is determined by if it is ever initialized for that generic (constructed for it...)
-
-generic can make calls on any of it's instantiated types functions and get/set variables.
-
-each generic has a struct of all functions and offsets it needs (will be specific to type(s)...), a static version for each actual combination of types instantiated will be generated at runtime.
-
-all of the calls/accessors of generic must be satisfied by a type at compiletime for it to be able to be instantiated 
-
-generic indistinguishable from regular types during calls, etc, only at declaration and construction is it different
-
-if a generic call just calls an internal object of that type, it can be optimized to elminate the double-call
-
-if a variable loses it's generic type definition in declaration any function signature which needs it can no longer be called
+generic indistinguishable from regular types during calls, etc (source wise, emitted code different for calls), only at declaration and construction is it different
 
 DoIt<T>(T held) DoIt {
 
@@ -393,10 +342,3 @@ DoIt d = DoIt<AType>(at); //at is of type AType
 d.doIt(); //doIt called on held inst (interface case)
 
 type inference (auto)
-
-code generation with hooks into generator for type/method generation given an ast node (inlining)
-hooks into compiler (passes?) so that features can be added (existing features are just those :-) ) 
--pretty sure this will need to be some sort of recursion to stability, to deal with things being resolved and added during compilation at successive states
-
-?line continuations less common than one line, newline or ; ends stmt, \ continues, " " span
-packaging, etc

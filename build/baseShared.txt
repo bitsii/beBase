@@ -10,5 +10,3 @@ include/BER_Inc.h
 BER_Inc.h
 --deployFile
 include/BER_Inc.h
---emitFileHeader
-LICENSE.txt
