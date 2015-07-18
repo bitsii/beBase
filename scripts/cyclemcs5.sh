@@ -1,4 +1,4 @@
-mono target5/BEL_4_Base_mcs.exe --buildFile build/buildbuild.txt --deployPath cycle/deploy0 --buildPath cycle/target0 --emitLang cs
+mono --debug target5/BEL_4_Base_mcs.exe --buildFile build/buildbuild.txt --deployPath cycle/deploy0 --buildPath cycle/target0 --emitLang cs
 mcs -debug:pdbonly -warn:0 -out:cycle/target0/BEL_4_Base_mcs.exe system/cs/abe/BELS_Base/*.cs cycle/target0/Base/target/cs/abe/BEL_4_Base/*.cs
 
 mono --debug cycle/target0/BEL_4_Base_mcs.exe --buildFile build/buildbuild.txt --deployPath cycle/deploy1 --buildPath cycle/target1 --emitLang cs

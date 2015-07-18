@@ -1,6 +1,4 @@
 
-add debug to mcs throughout
-
 drop "a" from abe (just be)
 license
 
@@ -56,6 +54,7 @@ iteratorGet can't be typed, that's a problem, esp foreach
 get rid of implied new calls in generated code (mark as implied, skip them,   
   I think it's only for literals now anyway)
 library/library version (onces and such not version specific)  
+
 ---- no lang change req / additive ----
 
 simple array construct for multi call / return
@@ -86,6 +85,8 @@ final for static members (?) - readonly for c#
 get rid of calls to once and many
 get rid of calls to new where local/final and is not overridden from obj
 
+
+add debug to mcs throughout .bat
 log - level for class, config based (optional), time stamp (optional)
 
 direct member get/set where possible (typed, final or local w/o override), keep gen accessors
