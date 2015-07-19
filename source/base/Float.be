@@ -254,7 +254,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       }
       emit(js) {
       """
-      if (this.bevi_float === beva_xi.bevi_float) {
+      if (beva_xi !== null && this.bevi_float === beva_xi.bevi_float) {
         return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
@@ -268,7 +268,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       }
       emit(jv) {
       """
-      if (beva_xi instanceof BEC_4_5_MathFloat && this.bevi_float != ((BEC_4_5_MathFloat)beva_xi).bevi_float) {
+      if (!(beva_xi instanceof BEC_4_5_MathFloat) || this.bevi_float != ((BEC_4_5_MathFloat)beva_xi).bevi_float) {
         return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
@@ -276,14 +276,14 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(cs) {
       """
       var bevls_xi = beva_xi as BEC_4_5_MathFloat;
-      if (bevls_xi != null && this.bevi_float != bevls_xi.bevi_float) {
+      if (bevls_xi == null || this.bevi_float != bevls_xi.bevi_float) {
         return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(js) {
       """
-      if (this.bevi_float !== beva_xi.bevi_float) {
+      if (beva_xi === null || this.bevi_float !== beva_xi.bevi_float) {
         return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """

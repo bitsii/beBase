@@ -52,6 +52,13 @@ class Test:ExtendedTest:EC(BaseTest) {
         "Had args, ran tests from args, returning".print();
         return(self);
       }
+      
+      
+      //testNullEquals();
+      
+      //if (true) {
+      //  return(self);
+      //}
    
       Test:BaseTest:All.new().main();
       
@@ -85,6 +92,10 @@ class Test:ExtendedTest:EC(BaseTest) {
          
       BaseTest:Time.new().main();
       
+      testNullEquals();
+      
+      testLog();
+      
       ifEmit(jv, cs) {
         BaseTest:System.new().main(); //random not impl for all
         testSha256();
@@ -96,10 +107,25 @@ class Test:ExtendedTest:EC(BaseTest) {
         //e.print();
      //}
      
-     testLog();
      
      ("Test:ExtendedTest:Ec:main completed successfully").print();
       
+   }
+   
+   testNullEquals() {
+     
+     System:Object o = System:Object.new();
+     assertTrue(o != null);
+     assertFalse(o == null);
+     
+     String s = "Hi";
+     assertTrue(s != null);
+     assertFalse(s == null);
+     
+     Int i = 10;
+     assertTrue(i != null);
+     assertFalse(i == null);
+     
    }
    
    testLog() {

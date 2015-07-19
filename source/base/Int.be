@@ -629,7 +629,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(js) {
       """
       //console.log("in equals for js " + this.bevi_int + " " +  beva_xi.bevi_int);
-      if (this.bevi_int === beva_xi.bevi_int) {
+      if (beva_xi !== null && this.bevi_int === beva_xi.bevi_int) {
         //console.log("is eq");
         return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
@@ -645,7 +645,7 @@ this.bevi_int = beva_xi.bevi_int;
       }
       emit(jv) {
       """
-      if (beva_xi instanceof BEC_4_3_MathInt && this.bevi_int != ((BEC_4_3_MathInt)beva_xi).bevi_int) {
+      if (!(beva_xi instanceof BEC_4_3_MathInt) || this.bevi_int != ((BEC_4_3_MathInt)beva_xi).bevi_int) {
         return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
@@ -653,14 +653,14 @@ this.bevi_int = beva_xi.bevi_int;
       emit(cs) {
       """
       var bevls_xi = beva_xi as BEC_4_3_MathInt;
-      if (bevls_xi != null && this.bevi_int != bevls_xi.bevi_int) {
+      if (bevls_xi == null || this.bevi_int != bevls_xi.bevi_int) {
         return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(js) {
       """
-      if (this.bevi_int !== beva_xi.bevi_int) {
+      if (beva_xi === null || this.bevi_int !== beva_xi.bevi_int) {
         return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """

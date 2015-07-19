@@ -1,11 +1,6 @@
 
 for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
-make js and others same behave
-
-ThinThread to LightThread
-
-check obj to null == != behavior for Objects across langs (add a test)
-null check for eq/neq for String
+make js and others same behaviour
 
 change getInstance to construct or create (find existing cases of create with arg)
 
