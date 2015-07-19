@@ -1,8 +1,4 @@
 
-license
-
-add machine name getter
-
 for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
 make js and others same behave
 
