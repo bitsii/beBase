@@ -135,7 +135,7 @@ void** bevl_fhpatha;
         java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
         this.bevi_is = new java.io.FileInputStream(bevls_f);
       }
-      bevp_isClosed = abe.BELS_Base.BECS_Runtime.boolFalse;
+      bevp_isClosed = be.BELS_Base.BECS_Runtime.boolFalse;
       """
       }
       emit(cs) {
@@ -144,7 +144,7 @@ void** bevl_fhpatha;
         string bevls_spath = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
         this.bevi_is = new FileStream(bevls_spath, FileMode.Open);
       }
-      bevp_isClosed = abe.BELS_Base.BECS_Runtime.boolFalse;
+      bevp_isClosed = be.BELS_Base.BECS_Runtime.boolFalse;
       """
       }
       emit(js) {
@@ -153,7 +153,7 @@ void** bevl_fhpatha;
         var bevls_spath = this.bems_stringToJsString_1(this.bevp_path.bevp_path);
         this.bevi_is = fs.openSync(bevls_spath, 'r');
       }
-      this.bevp_isClosed = abe_BELS_Base_BECS_Runtime.prototype.boolFalse;
+      this.bevp_isClosed = be_BELS_Base_BECS_Runtime.prototype.boolFalse;
       """
       }
       if (undef(isClosed) || isClosed) {
@@ -454,7 +454,7 @@ void** bevl_mode;
         java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
         this.bevi_os = new java.io.FileOutputStream(bevls_f, bevl_append.bevi_bool);
       }
-      bevp_isClosed = abe.BELS_Base.BECS_Runtime.boolFalse;
+      bevp_isClosed = be.BELS_Base.BECS_Runtime.boolFalse;
       """
       }
       emit(cs) {
@@ -467,7 +467,7 @@ void** bevl_mode;
             this.bevi_os = new FileStream(bevls_spath, FileMode.Create);
         }
       }
-      bevp_isClosed = abe.BELS_Base.BECS_Runtime.boolFalse;
+      bevp_isClosed = be.BELS_Base.BECS_Runtime.boolFalse;
       """
       }
       emit(js) {
@@ -480,7 +480,7 @@ void** bevl_mode;
             this.bevi_os = fs.openSync(bevls_spath, 'w');
         }
       }
-      this.bevp_isClosed = abe_BELS_Base_BECS_Runtime.prototype.boolFalse;
+      this.bevp_isClosed = be_BELS_Base_BECS_Runtime.prototype.boolFalse;
       """
       }
       ifEmit(c) {

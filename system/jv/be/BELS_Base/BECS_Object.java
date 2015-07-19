@@ -1,9 +1,9 @@
-package abe.BELS_Base;
+package be.BELS_Base;
 
 //Native / generated Object, rather than this class is the untyped/var type to avoid unnecessary casting
 
-import abe.BEL_4_Base.BEC_6_6_SystemObject;
-import abe.BEL_4_Base.BEC_6_11_SystemForwardCall;
+import be.BEL_4_Base.BEC_6_6_SystemObject;
+import be.BEL_4_Base.BEC_6_11_SystemForwardCall;
 
 public class BECS_Object {
     

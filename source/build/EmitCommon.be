@@ -133,8 +133,8 @@ use local class Build:EmitCommon(Visit:Visitor) {
           
           //Commonly needed values
           
-          String trueValue = "abe.BELS_Base.BECS_Runtime.boolTrue";
-          String falseValue = "abe.BELS_Base.BECS_Runtime.boolFalse";
+          String trueValue = "be.BELS_Base.BECS_Runtime.boolTrue";
+          String falseValue = "be.BELS_Base.BECS_Runtime.boolFalse";
           
           String instanceEqual = " == ";
           String instanceNotEqual = " != ";
@@ -142,7 +142,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
           //Shared library code genned based on lib contents
           String libEmitName = libEmitName(build.libName);
           String fullLibEmitName = fullLibEmitName(build.libName);
-          File:Path libEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("abe").addStep(libEmitName(build.libName)).addStep(libEmitName + fileExt);
+          File:Path libEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName(build.libName)).addStep(libEmitName + fileExt);
           
           String methodBody = String.new();
           Int lastMethodBodySize = 0;
@@ -174,7 +174,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
     }
     
     runtimeInitGet() String {
-        return("abe.BELS_Base.BECS_Runtime.init();" + nl);
+        return("be.BELS_Base.BECS_Runtime.init();" + nl);
     }
     
     libEmitName(String libName) {
@@ -484,7 +484,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
         
         File:Writer libe = getLibOutput();
         libe.write(self.beginNs());
-        String extends = extend("abe.BELS_Base.BECS_Lib");
+        String extends = extend("be.BELS_Base.BECS_Lib");
         libe.write(self.klassDec + libEmitName + extends + "  {" + nl);
         libe.write(self.spropDec + self.boolType + " isInitted = false;" + nl);
         
@@ -502,18 +502,18 @@ use local class Build:EmitCommon(Visit:Visitor) {
             var clnode = ci.next;
             
             if(emitting("jv")) {
-                typeInstances += "abe.BELS_Base.BECS_Runtime.typeInstances.put(" += q += clnode.held.namepath.toString() += q += ", Class.forName(" += q += getClassConfig(clnode.held.namepath).fullEmitName += q += "));" += nl;
+                typeInstances += "be.BELS_Base.BECS_Runtime.typeInstances.put(" += q += clnode.held.namepath.toString() += q += ", Class.forName(" += q += getClassConfig(clnode.held.namepath).fullEmitName += q += "));" += nl;
             }
             if(emitting("cs")) {
-                typeInstances += "abe.BELS_Base.BECS_Runtime.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ");" += nl;
+                typeInstances += "be.BELS_Base.BECS_Runtime.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ");" += nl;
                 typeInstances += "typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ")";
                 typeInstances += ".GetField(" += q += "bevs_inst" += q += ").GetValue(null);" += nl;
             }
             
             if (clnode.held.syn.hasDefault) {
                 String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
-                notNullInitConstruct += "abe.BELS_Base.BECS_Runtime.initializer.bem_notNullInitConstruct_1(" += nc += ");" += nl;
-                notNullInitDefault += "abe.BELS_Base.BECS_Runtime.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
+                notNullInitConstruct += "be.BELS_Base.BECS_Runtime.initializer.bem_notNullInitConstruct_1(" += nc += ");" += nl;
+                notNullInitDefault += "be.BELS_Base.BECS_Runtime.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
             }
         }
         
@@ -557,7 +557,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
     }
     
     procStartGet() String {
-        return("(new abe.BEL_4_Base.BEC_6_7_SystemProcess()).bem_default_0();" + nl);
+        return("(new be.BEL_4_Base.BEC_6_7_SystemProcess()).bem_default_0();" + nl);
     }
     
     mainInClassGet() Bool {
@@ -1013,7 +1013,7 @@ buildClassInfoMethod(String belsBase) {
        if (def(parentConf)) {
           String extends = extend(parentConf.relEmitName(build.libName));
        } else {
-          extends = extend("abe.BELS_Base.BECS_Object");
+          extends = extend("be.BELS_Base.BECS_Object");
        }
        String clb = "/* File: " += inFilePathed += " */" += nl;
        clb += self.klassDec += classConf.emitName += extends += " {" += nl; //}
@@ -1218,7 +1218,7 @@ buildClassInfoMethod(String belsBase) {
    }
    
     acceptThrow(Node node) {
-        methodBody += "throw new abe.BELS_Base.BECS_ThrowBack(" += formTarg(node.second) += ");" += nl;
+        methodBody += "throw new be.BELS_Base.BECS_ThrowBack(" += formTarg(node.second) += ");" += nl;
     }
     
     onceVarDec(String count) String {
@@ -1559,9 +1559,9 @@ buildClassInfoMethod(String belsBase) {
    doInitializeIt(String nc) String {
     String ii = "(";
     if(emitting("js")) {
-        ii += "abe_BELS_Base_BECS_Runtime.prototype.initializer.bem_initializeIt_1(" += nc += ")";
+        ii += "be_BELS_Base_BECS_Runtime.prototype.initializer.bem_initializeIt_1(" += nc += ")";
     } else {
-        ii += "abe.BELS_Base.BECS_Runtime.initializer.bem_initializeIt_1(" += nc += ")";
+        ii += "be.BELS_Base.BECS_Runtime.initializer.bem_initializeIt_1(" += nc += ")";
     }
     ii += ")";
     return(ii);
@@ -1743,7 +1743,7 @@ buildClassInfoMethod(String belsBase) {
    }
    
    getNameSpace(String libName) String {
-      return("abe." + libEmitName(libName));
+      return("be." + libEmitName(libName));
    }
    
 }
@@ -1762,7 +1762,7 @@ use local class Build:ClassConfig {
         String nameSpace = emitter.getNameSpace(libName);
         String emitName = emitter.getEmitName(np);
         String fullEmitName = emitter.getFullEmitName(nameSpace, emitName);
-        File:Path classPath = emitPath.copy().addStep(emitter.emitLang).addStep("abe").addStep(emitter.libEmitName(libName)).addStep(emitName + emitter.fileExt);
+        File:Path classPath = emitPath.copy().addStep(emitter.emitLang).addStep("be").addStep(emitter.libEmitName(libName)).addStep(emitName + emitter.fileExt);
         File:Path classDir = classPath.parent; 
         File:Path synPath = classDir.copy().addStep(emitName + ".syn");
       }

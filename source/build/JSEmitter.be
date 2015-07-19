@@ -59,15 +59,15 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         //super new depends on some things we set here, so it must follow
         super.new(_build);
         
-        trueValue = "abe_BELS_Base_BECS_Runtime.prototype.boolTrue";
-        falseValue = "abe_BELS_Base_BECS_Runtime.prototype.boolFalse";
+        trueValue = "be_BELS_Base_BECS_Runtime.prototype.boolTrue";
+        falseValue = "be_BELS_Base_BECS_Runtime.prototype.boolFalse";
         
         instanceEqual = " === ";
         instanceNotEqual = " !== ";
     }
     
     acceptThrow(Node node) {
-        methodBody += "throw new abe_BELS_Base_BECS_ThrowBack(" += formTarg(node.second) += ", new Error());" += nl;
+        methodBody += "throw new be_BELS_Base_BECS_ThrowBack(" += formTarg(node.second) += ", new Error());" += nl;
     }
     
     acceptCatch(Node node) {
@@ -75,7 +75,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     methodCatch = methodCatch++;
     methodBody += " catch (" += catchVar += ") {" += nl; //}
     
-    methodBody += finalAssign(node.contained.first.contained.first, "(abe_BELS_Base_BECS_ThrowBack_handleThrow(" + catchVar + "))", null);
+    methodBody += finalAssign(node.contained.first.contained.first, "(be_BELS_Base_BECS_ThrowBack_handleThrow(" + catchVar + "))", null);
     
    }
    
@@ -170,7 +170,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         
             var clnode = ci.next;
             
-            typeInstances += "abe_BELS_Base_BECS_Runtime.prototype.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;
+            typeInstances += "be_BELS_Base_BECS_Runtime.prototype.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;
             
             if (clnode.held.syn.hasDefault) {
                 //("Class " + clnode.held.namepath + " isNotNull").print();
@@ -180,9 +180,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
                 //} else {
                 //    ("not null no default").print();
                 //}
-                notNullInitConstruct += "abe_BELS_Base_BECS_Runtime.prototype.initializer.bem_notNullInitConstruct_1(" += nc += ");" += nl;
+                notNullInitConstruct += "be_BELS_Base_BECS_Runtime.prototype.initializer.bem_notNullInitConstruct_1(" += nc += ");" += nl;
                 if (clnode.held.syn.hasDefault) {
-                    notNullInitDefault += "abe_BELS_Base_BECS_Runtime.prototype.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
+                    notNullInitDefault += "be_BELS_Base_BECS_Runtime.prototype.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
                 }
             }
             
@@ -192,9 +192,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         
         //("Used lib size " + build.usedLibrarys.size).print();
         if (build.usedLibrarys.size == 0) {
-            libInit += "abe_BELS_Base_BECS_Runtime.prototype.boolTrue = new abe_BEL_4_Base_BEC_5_4_LogicBool().beml_set_bevi_bool(true);" += nl;
-            libInit += "abe_BELS_Base_BECS_Runtime.prototype.boolFalse = new abe_BEL_4_Base_BEC_5_4_LogicBool().beml_set_bevi_bool(false);" += nl;
-            libInit += "abe_BELS_Base_BECS_Runtime.prototype.initializer = new abe_BEL_4_Base_BEC_6_11_SystemInitializer();" += nl;
+            libInit += "be_BELS_Base_BECS_Runtime.prototype.boolTrue = new be_BEL_4_Base_BEC_5_4_LogicBool().beml_set_bevi_bool(true);" += nl;
+            libInit += "be_BELS_Base_BECS_Runtime.prototype.boolFalse = new be_BEL_4_Base_BEC_5_4_LogicBool().beml_set_bevi_bool(false);" += nl;
+            libInit += "be_BELS_Base_BECS_Runtime.prototype.initializer = new be_BEL_4_Base_BEC_6_11_SystemInitializer();" += nl;
         }
         
         libe.write(libInit);
@@ -207,8 +207,8 @@ use final class Build:JSEmitter(Build:EmitCommon) {
             
         String main = "";
         main += "var mc = new " += maincc.fullEmitName += "();" += nl;
-        main += "abe_BELS_Base_BECS_Runtime.prototype.args = process.argv;" += nl;
-        main += "abe_BELS_Base_BECS_Runtime.prototype.platformName = \"" += build.outputPlatform.name += "\";" += nl;
+        main += "be_BELS_Base_BECS_Runtime.prototype.args = process.argv;" += nl;
+        main += "be_BELS_Base_BECS_Runtime.prototype.platformName = \"" += build.outputPlatform.name += "\";" += nl;
         //main += self.procStart;
         libe.write(main);
         main = "";
@@ -223,7 +223,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     }
     
     procStartGet() String {
-        return("(new abe_BEL_4_Base_BEC_6_7_SystemProcess()).bem_default_0();" + nl);
+        return("(new be_BEL_4_Base_BEC_6_7_SystemProcess()).bem_default_0();" + nl);
     }
    
    decForVar(String b, Build:Var v) {
@@ -275,7 +275,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
        if (def(parentConf)) {
           String extends = extend(parentConf.relEmitName(build.libName));
        } else {
-          extends = extend("abe_BELS_Base_BECS_Object");
+          extends = extend("be_BELS_Base_BECS_Object");
        }
        String begin = "var " += classConf.emitName += " = function() {"; 
        //if (csyn.isNotNull) {
@@ -431,7 +431,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
    }
    
    getNameSpace(String libName) String {
-      return("abe_" + libEmitName(libName));
+      return("be_" + libEmitName(libName));
    }
    
    getClassConfig(NamePath np) ClassConfig {

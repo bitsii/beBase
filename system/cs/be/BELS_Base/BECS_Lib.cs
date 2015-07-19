@@ -1,4 +1,4 @@
-namespace abe.BELS_Base {
+namespace be.BELS_Base {
 
 public class BECS_Lib {
     

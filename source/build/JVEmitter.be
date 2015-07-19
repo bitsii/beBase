@@ -62,7 +62,7 @@ use final class Build:JVEmitter(Build:EmitCommon) {
     methodCatch = methodCatch++;
     methodBody += " catch (Throwable " += catchVar += ") {" += nl; //}
     
-    methodBody += finalAssign(node.contained.first.contained.first, "(abe.BELS_Base.BECS_ThrowBack.handleThrow(" + catchVar + "))", null);
+    methodBody += finalAssign(node.contained.first.contained.first, "(be.BELS_Base.BECS_ThrowBack.handleThrow(" + catchVar + "))", null);
 
    }
       
@@ -108,8 +108,8 @@ use final class Build:JVEmitter(Build:EmitCommon) {
    mainStartGet() String {
         String ms = "public static void main(String[] args)" + exceptDec + " {" + nl;//}
         ms += "synchronized (" += libEmitName += ".class) {" += nl;//}
-        ms += "abe.BELS_Base.BECS_Runtime.args = args;" += nl;
-        ms += "abe.BELS_Base.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
+        ms += "be.BELS_Base.BECS_Runtime.args = args;" += nl;
+        ms += "be.BELS_Base.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
         return(ms);
    }
     

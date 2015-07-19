@@ -1,5 +1,4 @@
 
-drop "a" from abe (just be)
 license
 
 add machine name getter

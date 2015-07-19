@@ -157,11 +157,11 @@ final class Array {
    emit(js) {
    """
    
-    abe_BEL_4_Base_BEC_9_5_ContainerArray.prototype.beml_new_array = function(bevi_array) {
+    be_BEL_4_Base_BEC_9_5_ContainerArray.prototype.beml_new_array = function(bevi_array) {
         this.bevi_array = bevi_array;
-        this.bevp_length = new abe_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_array.length);
-        this.bevp_capacity = new abe_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_array.length);
-        this.bevp_multiplier = new abe_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(2);
+        this.bevp_length = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_array.length);
+        this.bevp_capacity = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_array.length);
+        this.bevp_multiplier = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(2);
         return(this);
     }
     

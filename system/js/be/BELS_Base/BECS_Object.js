@@ -1,9 +1,9 @@
 
-var abe_BELS_Base_BECS_Object = function() { }
+var be_BELS_Base_BECS_Object = function() { }
 
-abe_BELS_Base_BECS_Object.prototype.becs_insts = function() { }
+be_BELS_Base_BECS_Object.prototype.becs_insts = function() { }
 
-abe_BELS_Base_BECS_Object.prototype.bems_bytesToString_2 = function(arr, len) {
+be_BELS_Base_BECS_Object.prototype.bems_bytesToString_2 = function(arr, len) {
     for (var i=0, l=len, s='', c; c = arr[i++];)
     s += String.fromCharCode(
         c > 0xdf && c < 0xf0 && i < l-1
@@ -15,15 +15,15 @@ abe_BELS_Base_BECS_Object.prototype.bems_bytesToString_2 = function(arr, len) {
     return(s);
 }
 
-abe_BELS_Base_BECS_Object.prototype.bems_stringToJsString_1 = function(str) {
-    return (abe_BELS_Base_BECS_Object.prototype.bems_bytesToString_2(str.bevi_bytes, str.bevp_size.bevi_int));
+be_BELS_Base_BECS_Object.prototype.bems_stringToJsString_1 = function(str) {
+    return (be_BELS_Base_BECS_Object.prototype.bems_bytesToString_2(str.bevi_bytes, str.bevp_size.bevi_int));
 }
 
-abe_BELS_Base_BECS_Object.prototype.bems_bytesToString_1 = function(arr) {
-    return (abe_BELS_Base_BECS_Object.prototype.bems_bytesToString_2(arr, arr.length));
+be_BELS_Base_BECS_Object.prototype.bems_bytesToString_1 = function(arr) {
+    return (be_BELS_Base_BECS_Object.prototype.bems_bytesToString_2(arr, arr.length));
 }
 
-abe_BELS_Base_BECS_Object.prototype.bems_stringToBytes_1 = function(str) {
+be_BELS_Base_BECS_Object.prototype.bems_stringToBytes_1 = function(str) {
     var utf8 = [];
     for (var i=0; i < str.length; i++) {
         var charcode = str.charCodeAt(i);

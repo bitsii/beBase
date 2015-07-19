@@ -591,18 +591,18 @@ final class System:CurrentPlatform (System:Platform) {
                 String platformName;
                 emit(jv) {
                 """
-                    bevl_platformName = new BEC_4_6_TextString(abe.BELS_Base.BECS_Runtime.platformName.getBytes("UTF-8"));
+                    bevl_platformName = new BEC_4_6_TextString(be.BELS_Base.BECS_Runtime.platformName.getBytes("UTF-8"));
                 """
                 }
                 emit(cs) {
                 """
-                    bevl_platformName = new BEC_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(abe.BELS_Base.BECS_Runtime.platformName));
+                    bevl_platformName = new BEC_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(be.BELS_Base.BECS_Runtime.platformName));
                 """
                 }
                 emit(js) {
                 """
-                    bevls_name = this.bems_stringToBytes_1(abe_BELS_Base_BECS_Runtime.prototype.platformName);
-                    bevl_platformName = new abe_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(bevls_name, bevls_name.length);
+                    bevls_name = this.bems_stringToBytes_1(be_BELS_Base_BECS_Runtime.prototype.platformName);
+                    bevl_platformName = new be_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(bevls_name, bevls_name.length);
                 """
                 }
                 setName(platformName);

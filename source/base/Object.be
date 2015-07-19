@@ -192,7 +192,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
       emit(jv) {
         """
         String key = new String(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int, "UTF-8");
-        Class ti = abe.BELS_Base.BECS_Runtime.typeInstances.get(key);
+        Class ti = be.BELS_Base.BECS_Runtime.typeInstances.get(key);
         if (ti != null) {
             //System.out.println("Getting new instance for |" + key + "|");
             bevl_result = (BEC_6_6_SystemObject) ti.newInstance();
@@ -205,7 +205,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
       emit(cs) {
         """
         string key = System.Text.Encoding.UTF8.GetString(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int);
-        Type ti = abe.BELS_Base.BECS_Runtime.typeInstances[key];
+        Type ti = be.BELS_Base.BECS_Runtime.typeInstances[key];
         if (ti != null) {
             bevl_result = (BEC_6_6_SystemObject) Activator.CreateInstance(ti);
         }
@@ -213,7 +213,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
       }
       emit(js) {
       """
-      var ti = abe_BELS_Base_BECS_Runtime.prototype.typeInstances[this.bems_stringToJsString_1(beva_cname)];
+      var ti = be_BELS_Base_BECS_Runtime.prototype.typeInstances[this.bems_stringToJsString_1(beva_cname)];
       if (null != ti) {
         bevl_result = ti.bemc_create();
       }
@@ -285,12 +285,12 @@ void** bevl_mcall;
       }
       emit(jv) {
         """
-        int ci = abe.BELS_Base.BECS_Ids.callIds.get(new String(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int, "UTF-8"));
+        int ci = be.BELS_Base.BECS_Ids.callIds.get(new String(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int, "UTF-8"));
         """
       }
       emit(cs) {
         """
-        int ci = abe.BELS_Base.BECS_Ids.callIds[System.Text.Encoding.UTF8.GetString(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int)];
+        int ci = be.BELS_Base.BECS_Ids.callIds[System.Text.Encoding.UTF8.GetString(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int)];
         """
       }
       emit(jv,cs) {
@@ -470,7 +470,7 @@ $rval=* $cname*;
       java.lang.reflect.Method[] methods = this.getClass().getMethods();
       for (int i = 0;i < methods.length;i++) {
         if (methods[i].getName().equals(name)) {
-            return abe.BELS_Base.BECS_Runtime.boolTrue;
+            return be.BELS_Base.BECS_Runtime.boolTrue;
         }
       }
       """
@@ -481,7 +481,7 @@ $rval=* $cname*;
       System.Reflection.MethodInfo[] methods = this.GetType().GetMethods();
       for (int i = 0;i < methods.Length;i++) {
         if (methods[i].Name.Equals(name)) {
-            return abe.BELS_Base.BECS_Runtime.boolTrue;
+            return be.BELS_Base.BECS_Runtime.boolTrue;
         }
       }
       """
@@ -489,7 +489,7 @@ $rval=* $cname*;
       emit(js) {
       """
       if (this["bem_" + this.bems_stringToJsString_1(bevl_cname)] != null) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -530,7 +530,7 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       }
       emit(js) {
       """
-      bevl_xi = new abe_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clname, this.becs_insts.becc_clname.length);
+      bevl_xi = new be_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clname, this.becs_insts.becc_clname.length);
       """
       }
       return(xi);
@@ -552,7 +552,7 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       }
       emit(js) {
       """
-      bevl_xi = new abe_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clfile, this.becs_insts.becc_clfile.length);
+      bevl_xi = new be_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clfile, this.becs_insts.becc_clfile.length);
       """
       }
       return(xi);
@@ -576,14 +576,14 @@ void** bevl_x;
       emit(jv,cs) {
       """
       if (this != beva_x) {
-        return abe.BELS_Base.BECS_Runtime.boolFalse;
+        return be.BELS_Base.BECS_Runtime.boolFalse;
       }
       """
       }
       emit(js) {
       """
       if (this !== beva_x) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolFalse;
+        return be_BELS_Base_BECS_Runtime.prototype.boolFalse;
       }
       """
       }
@@ -608,14 +608,14 @@ void** bevl_x;
       emit(jv,cs) {
       """
       if (this != beva_x) {
-        return abe.BELS_Base.BECS_Runtime.boolFalse;
+        return be.BELS_Base.BECS_Runtime.boolFalse;
       }
       """
       }
       emit(js) {
       """
       if (this !== beva_x) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolFalse;
+        return be_BELS_Base_BECS_Runtime.prototype.boolFalse;
       }
       """
       }
@@ -651,7 +651,7 @@ BEINT* bevl_toRet;
       emit(js) {
       """
       if (this.becc_hash == null) {
-        this.becc_hash = abe_BELS_Base_BECS_Runtime.prototype.hashCounter++;
+        this.becc_hash = be_BELS_Base_BECS_Runtime.prototype.hashCounter++;
       }
       bevl_toRet.bevi_int = this.becc_hash;
       """
@@ -768,21 +768,21 @@ void** bevl_other;
       emit(js) {
       """
       if (beva_other !== null && Object.getPrototypeOf(beva_other).isPrototypeOf(this) && Object.getPrototypeOf(this).isPrototypeOf(beva_other)) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
       emit(jv) {
       """
       if (beva_other != null && this.getClass().equals(beva_other.getClass())) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(cs) {
       """
       if (beva_other != null && this.GetType() == beva_other.GetType()) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -827,21 +827,21 @@ BEVReturn(bevl_toRet);
       emit(js) {
       """
       if (beva_other !== null && Object.getPrototypeOf(beva_other).isPrototypeOf(this)) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
       emit(jv) {
       """
       if (beva_other != null && beva_other.getClass().isAssignableFrom(this.getClass())) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(cs) {
       """
       if (beva_other != null && beva_other.GetType().IsAssignableFrom(this.GetType())) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }

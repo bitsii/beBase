@@ -169,22 +169,22 @@ final class String {
    emit(js) {
    """
    
-    abe_BEL_4_Base_BEC_4_6_TextString.prototype.beml_set_bevi_bytes = function(bevi_bytes) {
+    be_BEL_4_Base_BEC_4_6_TextString.prototype.beml_set_bevi_bytes = function(bevi_bytes) {
         this.bevi_bytes = bevi_bytes;
-        this.bevp_size = new abe_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_bytes.length);
-        this.bevp_capacity = new abe_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_bytes.length);
+        this.bevp_size = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_bytes.length);
+        this.bevp_capacity = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_bytes.length);
         return this;
     }
-    abe_BEL_4_Base_BEC_4_6_TextString.prototype.beml_set_bevi_bytes_len = function(bevi_bytes, bevi_length) {
+    be_BEL_4_Base_BEC_4_6_TextString.prototype.beml_set_bevi_bytes_len = function(bevi_bytes, bevi_length) {
         this.bevi_bytes = bevi_bytes;
-        this.bevp_size = new abe_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
-        this.bevp_capacity = new abe_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
+        this.bevp_size = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
+        this.bevp_capacity = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
         return this;
     }
-    abe_BEL_4_Base_BEC_4_6_TextString.prototype.beml_set_bevi_bytes_len_copy = function(bevi_bytes, bevi_length) {
+    be_BEL_4_Base_BEC_4_6_TextString.prototype.beml_set_bevi_bytes_len_copy = function(bevi_bytes, bevi_length) {
         this.bevi_bytes = bevi_bytes.slice(0);
-        this.bevp_size = new abe_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
-        this.bevp_capacity = new abe_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
+        this.bevp_size = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
+        this.bevp_capacity = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
         return this;
     }
     
@@ -855,10 +855,10 @@ void** bevl_sz;
     if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
        for (int i = 0;i < this.bevp_size.bevi_int;i++) {
           if (this.bevi_bytes[i] != bevls_stri.bevi_bytes[i]) {
-            return abe.BELS_Base.BECS_Runtime.boolFalse;
+            return be.BELS_Base.BECS_Runtime.boolFalse;
           }
        }
-       return abe.BELS_Base.BECS_Runtime.boolTrue;
+       return be.BELS_Base.BECS_Runtime.boolTrue;
    }
   }
   """
@@ -870,10 +870,10 @@ void** bevl_sz;
     if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
        for (int i = 0;i < this.bevp_size.bevi_int;i++) {
           if (this.bevi_bytes[i] != bevls_stri.bevi_bytes[i]) {
-            return abe.BELS_Base.BECS_Runtime.boolFalse;
+            return be.BELS_Base.BECS_Runtime.boolFalse;
           }
        }
-       return abe.BELS_Base.BECS_Runtime.boolTrue;
+       return be.BELS_Base.BECS_Runtime.boolTrue;
    }
   }
   """
@@ -883,10 +883,10 @@ void** bevl_sz;
    if (this.bevp_size.bevi_int === beva_stri.bevp_size.bevi_int) {
        for (var i = 0;i < this.bevp_size.bevi_int;i++) {
           if (this.bevi_bytes[i] !== beva_stri.bevi_bytes[i]) {
-            return abe_BELS_Base_BECS_Runtime.prototype.boolFalse;
+            return be_BELS_Base_BECS_Runtime.prototype.boolFalse;
           }
        }
-       return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+       return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
    }
    """
    }

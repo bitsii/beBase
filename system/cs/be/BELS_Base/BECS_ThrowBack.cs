@@ -1,8 +1,8 @@
-namespace abe.BELS_Base {
+namespace be.BELS_Base {
 
 using System;
 using System.Diagnostics;
-using abe.BEL_4_Base;
+using be.BEL_4_Base;
 
 public class BECS_ThrowBack : Exception {
     

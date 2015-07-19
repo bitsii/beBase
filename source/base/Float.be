@@ -58,7 +58,7 @@ final class Float {
    emit(js) {
    """
    
-    abe_BEL_4_Base_BEC_4_5_MathFloat.prototype.beml_set_bevi_float = function(bevi_float) {
+    be_BEL_4_Base_BEC_4_5_MathFloat.prototype.beml_set_bevi_float = function(bevi_float) {
         this.bevi_float = bevi_float;
         return this;
     }
@@ -267,7 +267,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv) {
       """
       if (beva_xi instanceof BEC_4_5_MathFloat && this.bevi_float == ((BEC_4_5_MathFloat)beva_xi).bevi_float) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -275,14 +275,14 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       """
       var bevls_xi = beva_xi as BEC_4_5_MathFloat;
       if (bevls_xi != null && this.bevi_float == bevls_xi.bevi_float) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(js) {
       """
       if (this.bevi_float === beva_xi.bevi_float) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -296,7 +296,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv) {
       """
       if (beva_xi instanceof BEC_4_5_MathFloat && this.bevi_float != ((BEC_4_5_MathFloat)beva_xi).bevi_float) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -304,14 +304,14 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       """
       var bevls_xi = beva_xi as BEC_4_5_MathFloat;
       if (bevls_xi != null && this.bevi_float != bevls_xi.bevi_float) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(js) {
       """
       if (this.bevi_float !== beva_xi.bevi_float) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -325,14 +325,14 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv,cs) {
       """
       if (this.bevi_float > beva_xi.bevi_float) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(js) {
       """
       if (this.bevi_float > beva_xi.bevi_float) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -346,14 +346,14 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv,cs) {
       """
       if (this.bevi_float < beva_xi.bevi_float) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(js) {
       """
       if (this.bevi_float < beva_xi.bevi_float) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -367,14 +367,14 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv,cs) {
       """
       if (this.bevi_float >= beva_xi.bevi_float) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(js) {
       """
       if (this.bevi_float >= beva_xi.bevi_float) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -388,14 +388,14 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv,cs) {
       """
       if (this.bevi_float <= beva_xi.bevi_float) {
-        return abe.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(js) {
       """
       if (this.bevi_float <= beva_xi.bevi_float) {
-        return abe_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
       }
       """
       }

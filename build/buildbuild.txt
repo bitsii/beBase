@@ -1,4 +1,4 @@
 --buildFile
 build/build.txt
--jsInclude=system/js/abe/BELS_Base/BECS_Runtime.js
--jsInclude=system/js/abe/BELS_Base/BECS_Object.js
+-jsInclude=system/js/be/BELS_Base/BECS_Runtime.js
+-jsInclude=system/js/be/BELS_Base/BECS_Object.js

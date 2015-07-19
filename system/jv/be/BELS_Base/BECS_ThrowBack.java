@@ -1,9 +1,9 @@
-package abe.BELS_Base;
+package be.BELS_Base;
 
-import abe.BEL_4_Base.BEC_6_6_SystemObject;
-import abe.BEL_4_Base.BEC_6_9_SystemException;
-import abe.BEL_4_Base.BEC_4_6_TextString;
-import abe.BEL_4_Base.BEC_4_3_MathInt;
+import be.BEL_4_Base.BEC_6_6_SystemObject;
+import be.BEL_4_Base.BEC_6_9_SystemException;
+import be.BEL_4_Base.BEC_4_6_TextString;
+import be.BEL_4_Base.BEC_4_3_MathInt;
 
 public class BECS_ThrowBack extends RuntimeException {
     

@@ -1,8 +1,8 @@
-namespace abe.BELS_Base {
+namespace be.BELS_Base {
 
 //Generated Object, rather than this class is the untyped/var type to avoid unnecessary casting
 
-using abe.BEL_4_Base;
+using be.BEL_4_Base;
 
 public class BECS_Object {
     

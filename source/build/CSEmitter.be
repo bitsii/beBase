@@ -62,7 +62,7 @@ use final class Build:CSEmitter(Build:EmitCommon) {
     methodCatch = methodCatch++;
     methodBody += " catch (System.Exception " += catchVar += ") {" += nl; //}
     
-    methodBody += finalAssign(node.contained.first.contained.first, "(abe.BELS_Base.BECS_ThrowBack.handleThrow(" + catchVar + "))", null);
+    methodBody += finalAssign(node.contained.first.contained.first, "(be.BELS_Base.BECS_ThrowBack.handleThrow(" + catchVar + "))", null);
 
    }
     
@@ -103,8 +103,8 @@ use final class Build:CSEmitter(Build:EmitCommon) {
   mainStartGet() String {
         String ms = "public static void Main(string[] args)" + exceptDec + " {" + nl; //}
         ms += "lock (typeof(" += libEmitName += ")) {" += nl;//}
-        ms += "abe.BELS_Base.BECS_Runtime.args = args;" += nl;
-        ms += "abe.BELS_Base.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
+        ms += "be.BELS_Base.BECS_Runtime.args = args;" += nl;
+        ms += "be.BELS_Base.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
         return(ms);
    }
   

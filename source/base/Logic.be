@@ -59,7 +59,7 @@ final class Bool {
    emit(js) {
    """
    
-    abe_BEL_4_Base_BEC_5_4_LogicBool.prototype.beml_set_bevi_bool = function(bevi_bool) {
+    be_BEL_4_Base_BEC_5_4_LogicBool.prototype.beml_set_bevi_bool = function(bevi_bool) {
         this.bevi_bool = bevi_bool;
         return this;
     }

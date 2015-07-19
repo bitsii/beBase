@@ -1,6 +1,6 @@
 
-//bevt_4_tmpvar_phold = (new abe_BEL_4_Base_BEC_4_6_TextString(bels_1)).bem_new_0();
-//bevt_5_tmpvar_phold = (new abe_BEL_4_Base_BEC_4_3_MathInt(1)).bem_new_0();
+//bevt_4_tmpvar_phold = (new be_BEL_4_Base_BEC_4_6_TextString(bels_1)).bem_new_0();
+//bevt_5_tmpvar_phold = (new be_BEL_4_Base_BEC_4_3_MathInt(1)).bem_new_0();
 
 
 var BECS_Object = function() { }

@@ -104,23 +104,23 @@ final class System:Process {
           args = Container:Array.new();
           emit(jv) {
           """
-            for (int i = 0;i < abe.BELS_Base.BECS_Runtime.args.length;i++) {
-                bevp_args.bem_addValue_1(new BEC_4_6_TextString(abe.BELS_Base.BECS_Runtime.args[i].getBytes("UTF-8")));
+            for (int i = 0;i < be.BELS_Base.BECS_Runtime.args.length;i++) {
+                bevp_args.bem_addValue_1(new BEC_4_6_TextString(be.BELS_Base.BECS_Runtime.args[i].getBytes("UTF-8")));
             }
           """
           }
           emit(cs) {
           """
-            for (int i = 0;i < abe.BELS_Base.BECS_Runtime.args.Length;i++) {
-                bevp_args.bem_addValue_1(new BEC_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(abe.BELS_Base.BECS_Runtime.args[i])));
+            for (int i = 0;i < be.BELS_Base.BECS_Runtime.args.Length;i++) {
+                bevp_args.bem_addValue_1(new BEC_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(be.BELS_Base.BECS_Runtime.args[i])));
             }
           """
           }
           emit(js) {
           """
-            for (var i = abe_BELS_Base_BECS_Runtime.prototype.minArg;i < abe_BELS_Base_BECS_Runtime.prototype.args.length;i++) {
-                var bevls_arg = this.bems_stringToBytes_1(abe_BELS_Base_BECS_Runtime.prototype.args[i]);
-                bevls_arg = new abe_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(bevls_arg, bevls_arg.length);
+            for (var i = be_BELS_Base_BECS_Runtime.prototype.minArg;i < be_BELS_Base_BECS_Runtime.prototype.args.length;i++) {
+                var bevls_arg = this.bems_stringToBytes_1(be_BELS_Base_BECS_Runtime.prototype.args[i]);
+                bevls_arg = new be_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(bevls_arg, bevls_arg.length);
                 this.bevp_args.bem_addValue_1(bevls_arg);
             }
           """
