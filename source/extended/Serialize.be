@@ -273,7 +273,7 @@ final class Serializer {
             } elif (state == 8) {
                Int glassTagVal = Int.new(token);
                String klass = session.classTagMap.get(glassTagVal);
-               var inst = getInstance(klass).deserializeFromStringNew(instString).deserializeFromString(instString);
+               var inst = createInstance(klass).deserializeFromStringNew(instString).deserializeFromString(instString);
                if (undef(rootInst)) {
                   rootInst = inst;
                }

@@ -2,7 +2,44 @@
 for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
 make js and others same behaviour
 
-change getInstance to construct or create (find existing cases of create with arg)
+finish exception stuff
+output original (be) input file and line
+
+  nlc and nlec local arrays (not static or whatever)
+  overriden (base) object call which returns int arrays for 2 methods - genned native call to get them,
+  retular (final) object method which calls that and converts
+  override those methods, return the arrays
+  in except, check static (exceptions?) map for them (holds two array of arrays), if no present, set them up, then
+  return
+  
+finally
+convenience syntax for array, map construction
+dump { } ( ) where unneeded
+
+---- lang change req ----
+not null types
+  defaults no arg construct
+extend Int with IInt (immutable)
+  excepts on mutation calls
+  for int no wrapobj/native if IInt (mbr and local)
+  wrap/unwrap going to/from Int and untyped
+  literal ints immutable?
+IInt for string size, array size, etc
+gratuitous returns - var for untyped, rest as now (self, typed).
+   void type to allow explicit def
+   return; ok (void) (same as return(void);)
+ enable var return type
+ find and fix all cases of return without declaration
+ find and fix all cases of assign from non-declared return for typed calls
+ remove autoreturn for no declared return (void)
+ dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
+iteratorGet can't be typed, that's a problem, esp foreach
+  ?type obj iterator, others will have to extend  
+get rid of implied new calls in generated code (mark as implied, skip them,   
+  I think it's only for literals now anyway)
+library/library version (onces and such not version specific) 
+
+get rid of transitive namepath thing ? (always just what it is) (only resolve if wasn't namepath to start with)
 
 bugs:
 something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
@@ -18,37 +55,7 @@ byteiterator is much much slower than just doing getInt on a string by length, s
 // test once assign with not combination
 string hash for javascript seems to be different than for others
 
-encode/decode base 64 to use instead of hex
-http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
-
-finish exception stuff
-
----- lang change req ----
-not null types
-  defaults no arg construct
-extend Int with IInt (immutable)
-  excepts on mutation calls
-  for int no wrapobj/native if IInt
-  wrap/unwrap going to/from Int and untyped
-  literal ints immutable?
-gratuitous returns - var for untyped, rest as now (self, typed).
-   void type to allow explicit def
-   return; ok (void) (same as return(void);)
- enable var return type
- find and fix all cases of return without declaration
- find and fix all cases of assign from non-declared return for typed calls
- remove autoreturn for no declared return (void)
- dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
-iteratorGet can't be typed, that's a problem, esp foreach
-  ?type obj iterator, others will have to extend  
-get rid of implied new calls in generated code (mark as implied, skip them,   
-  I think it's only for literals now anyway)
-library/library version (onces and such not version specific)  
-
 ---- no lang change req / additive ----
-
-simple array construct for multi call / return
-convenience syntax, arrays, no { } ( ) where skippable, fix [ ] bug
 get rid of auto-once for literal, require manual use
    do after native add/sub/etc for literals (below) to minimise impact
    output all cases where it is being done (where not manual and not optimized away), and do them all manually
@@ -59,8 +66,6 @@ tmp var reduction
  extend call et all to get the info through ("skip"))
  skip unneeded temp/assigns
  drop tmp vars for simple calls, chain where possible
-set/map size should be value int (other containers also...)
-work out string size
 native operations, dropping literals
  have add, subtract, multiply, divide which work on literals directly (addValue, etc) (for when a literal is just immediately used with an int, etc,
    as second arg to call)
@@ -75,6 +80,8 @@ final for static members (?) - readonly for c#
 get rid of calls to once and many
 get rid of calls to new where local/final and is not overridden from obj
 
+encode/decode base 64 to use instead of hex
+http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 
 add debug to mcs throughout .bat
 log - level for class, config based (optional), time stamp (optional)
@@ -84,24 +91,11 @@ see how typescript and dart translate into js
   example programs, compile to js, look at them
   https://developers.google.com/closure/compiler/
   (or don't, js is just for the browser...)
- 
-perf things end
 
 clocker iterator, share lock with clocker
 
-get rid of transitive namepath thing ? (always just what it is) (only resolve if wasn't namepath to start with)
-
 ifEmit to ifSet, ifUnset, prefix lang (?em: or em. lang, like em.jv)
 (or just keep ifEmit, and support external flags - this)
-
-output original (be) input file and line
-
-  nlc and nlec local arrays (not static or whatever)
-  overriden (base) object call which returns int arrays for 2 methods - genned native call to get them,
-  retular (final) object method which calls that and converts
-  override those methods, return the arrays
-  in except, check static (exceptions?) map for them (holds two array of arrays), if no present, set them up, then
-  return
 
 for buid to be threadsafe, 
    nodes and syns needs threadsafe fixes

@@ -88,7 +88,7 @@ void** bevl_ix;
    }
    
    startByName(_name) {
-      var t = getInstance(_name).new();
+      var t = createInstance(_name).new();
       return(start(t));
    }
 

@@ -94,11 +94,11 @@ class System:Object {
       return(result);
    }
    
-   final getInstance(String cname) {
-     return(getInstance(cname, true));
+   final createInstance(String cname) {
+     return(createInstance(cname, true));
    }
    
-   final getInstance(String cname, Bool throwOnFail) {
+   final createInstance(String cname, Bool throwOnFail) {
    emit(c) {
       """
 /*-attr- -dec-*/

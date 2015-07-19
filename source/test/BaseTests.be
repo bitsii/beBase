@@ -24,7 +24,7 @@ class BaseTest(Assertions) {
       ("Test:BaseTest:main").print();
       foreach (var i in args) {
          if (i != self.className) {
-            var x = getInstance(i).new();
+            var x = createInstance(i).new();
             x.main();
          }
       }
@@ -288,7 +288,7 @@ class Test:BaseTest:EC(BaseTest) {
     }
     
     testGi() {
-        var i = getInstance("Math:Int").new();
+        var i = createInstance("Math:Int").new();
         assertTrue(i.sameClass(Math:Int.new()));
     }
     
@@ -699,7 +699,7 @@ class Test:BaseTest:MutString(BaseTest) {
     }
     
     gi() {
-        var x = getInstance("Math:Int").new();
+        var x = createInstance("Math:Int").new();
         x.setValue(10);
         (x + 1).print();
     

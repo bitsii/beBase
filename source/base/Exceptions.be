@@ -206,7 +206,7 @@ class System:Exception {
    
    getSourceFileName(String klassName) String {
      //("getting source file name for " + klassName).print();
-     var i = getInstance(klassName, false);
+     var i = createInstance(klassName, false);
      if (def(i)) {
        //("is def").print();
        return(i.sourceFileName);
