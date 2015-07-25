@@ -17,14 +17,9 @@ convenience syntax for array, map construction
 dump { } ( ) where unneeded
 
 ---- lang change req ----
-not null types
-  defaults no arg construct
-extend Int with IInt (immutable)
-  excepts on mutation calls
-  for int no wrapobj/native if IInt (mbr and local)
-  wrap/unwrap going to/from Int and untyped
-  literal ints immutable?
-IInt for string size, array size, etc
+iteratorGet can't be typed, that's a problem, esp foreach
+  ?type obj iterator, others will have to extend 
+
 gratuitous returns - var for untyped, rest as now (self, typed).
    void type to allow explicit def
    return; ok (void) (same as return(void);)
@@ -32,9 +27,42 @@ gratuitous returns - var for untyped, rest as now (self, typed).
  find and fix all cases of return without declaration
  find and fix all cases of assign from non-declared return for typed calls
  remove autoreturn for no declared return (void)
- dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
-iteratorGet can't be typed, that's a problem, esp foreach
-  ?type obj iterator, others will have to extend  
+ dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead? 
+
+not null types
+  defaults no arg construct
+  no def or undef checks
+  
+Native Bool
+  ?already immutable
+  
+Native Int Options
+
+-IInt from Int
+  - throw excaptions for mutable (could have way to "remove" from interface...)
+  + control of use, both options
+  + ok with mutable, since can't change, but cast in and out an issue
+-Int from IInt
+  -I don't see this working, lots of issues (no check for conversion)
+-Separate Int and IInt (no inherit)
+  + no inherit issues
+  + control of use, both options
+  + easier implementation process
+  - dual signitures
++Make Int immutable
+  + no inherit issues
+  + no confusion, simpler use, more efficient final state
+  + no need for dual signatures
+  - harder implementation process
+  - no option for both
+    wrap when converting to untyped or supertype
+extend Int with IInt (immutable)
+  excepts on mutation calls
+  for int no wrapobj/native if IInt (mbr and local)
+  wrap/unwrap going to/from Int and untyped
+  literal ints immutable?
+  
+Native Int for string size, array size, etc
 get rid of implied new calls in generated code (mark as implied, skip them,   
   I think it's only for literals now anyway)
 library/library version (onces and such not version specific) 
