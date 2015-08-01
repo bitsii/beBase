@@ -3,6 +3,4 @@ deploy*/
 target*/
 include/mswin/
 include/linux/
-*.class
-Hi.exe
 test/tmp

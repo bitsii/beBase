@@ -1,4 +1,5 @@
 
+move built artifacts
 jar for jv, rm .class after
 archive emitted source and include in checkin and add bootstrap build scripts
 
