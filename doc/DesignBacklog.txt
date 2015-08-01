@@ -16,60 +16,7 @@ finally
 convenience syntax for array, map construction
 dump { } ( ) where unneeded
 
----- lang change req ----
-iteratorGet can't be typed, that's a problem, esp foreach
-  ?type obj iterator, others will have to extend 
-
-gratuitous returns - var for untyped, rest as now (self, typed).
-   void type to allow explicit def
-   return; ok (void) (same as return(void);)
- enable var return type
- find and fix all cases of return without declaration
- find and fix all cases of assign from non-declared return for typed calls
- remove autoreturn for no declared return (void)
- dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead? 
-
-not null types
-  defaults no arg construct
-  no def or undef checks
-  
-Native Bool
-  ?already immutable
-  
-Native Int Options
-
--IInt from Int
-  - throw excaptions for mutable (could have way to "remove" from interface...)
-  + control of use, both options
-  + ok with mutable, since can't change, but cast in and out an issue
--Int from IInt
-  -I don't see this working, lots of issues (no check for conversion)
--Separate Int and IInt (no inherit)
-  + no inherit issues
-  + control of use, both options
-  + easier implementation process
-  - dual signitures
-+Make Int immutable
-  + no inherit issues
-  + no confusion, simpler use, more efficient final state
-  + no need for dual signatures
-  - harder implementation process
-  - no option for both
-    wrap when converting to untyped or supertype
-extend Int with IInt (immutable)
-  excepts on mutation calls
-  for int no wrapobj/native if IInt (mbr and local)
-  wrap/unwrap going to/from Int and untyped
-  literal ints immutable?
-  
-Native Int for string size, array size, etc
-get rid of implied new calls in generated code (mark as implied, skip them,   
-  I think it's only for literals now anyway)
-library/library version (onces and such not version specific) 
-
-get rid of transitive namepath thing ? (always just what it is) (only resolve if wasn't namepath to start with)
-
-bugs:
+---- bugs ----
 something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
 copy needs to be return type self
 castTo is wrong in at least some once cases, checkTypes must be wrong somehow
@@ -82,8 +29,34 @@ byteiterator is much much slower than just doing getInt on a string by length, s
 // this includes negative values for indexes
 // test once assign with not combination
 string hash for javascript seems to be different than for others
+last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
+
+---- lang change req ----
+vars to props
+  support both
+  change all 
+  drop vars support
+iteratorGet can't be typed, that's a problem, esp foreach
+  ?type obj iterator, others will have to extend 
+
+gratuitous returns - var for untyped, rest as now (self, typed).
+   void type to allow explicit def
+   return; ok (void) (same as return(void);)
+ enable var return type
+ find and fix all cases of return without declaration
+ find and fix all cases of assign from non-declared return for typed calls
+ remove autoreturn for no declared return (void)
+ dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead? 
+
+get rid of implied new calls in generated code (mark as implied, skip them,   
+  I think it's only for literals now anyway)
+library/library version (onces and such not version specific) 
+
+get rid of transitive namepath thing ? (always just what it is) (only resolve if wasn't namepath to start with)
 
 ---- no lang change req / additive ----
+
+decide on mutating or not len for string et all and do it (thinking do)
 get rid of auto-once for literal, require manual use
    do after native add/sub/etc for literals (below) to minimise impact
    output all cases where it is being done (where not manual and not optimized away), and do them all manually
@@ -107,7 +80,14 @@ final for static members (?) - readonly for c#
      onceDeced it's ok, not for not once deced (need to distinguish)
 get rid of calls to once and many
 get rid of calls to new where local/final and is not overridden from obj
-
+more efficient int
+  direct no call operations (?inline) (no null checking)
+    have a way to mark ok for inlining anywhere, use 
+    text replacement($) to arg vars instead of literal names
+  native ints where completely local, initted at declare/never null, etc
+    -have specific inline for int value above, which can work with direct lits
+  native ints for literal cases (typed oper on literal)
+  
 encode/decode base 64 to use instead of hex
 http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 
@@ -146,7 +126,6 @@ more concurrency
   atomic int ops
  .. means to back to last target (can be explicit or return from a . call) 
 
-some way to re-use ints in math where neither operand is used (where the left hand of = is used as the target - either as an optimization w/o indication, or some way to indicate it (mark on the instance, quality of the assign =) - could work out to only have one set of operator calls which take the 3 args, and where indicator is missing a newed instance is passed in... the current += just becomes a special case of that)
 I think can() could be better than iterating methods :-( (will need to gen something like invoke but with just t/f)
 FASTER where there are range checks in the lang (cs, jv), skip them in the external logic (may need to change except behavior for this to work)
 
@@ -166,8 +145,6 @@ get test testMisc working for js
 -js needs to check types on assign Look for formCast/checkTypes, need to rearrange call assign stuff a bit
 -check assigns
 -js on typed calls check during arg build, untyped calls have a descriptor obj genned which is checked
-
-last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
 
 method alias - for typed, all references replaced with the other name, for dynamic, that name also calls the alias method (just like the real one...), only one instance of method, no double calls
 

@@ -22,6 +22,7 @@ class Test:BaseTest:Encode(BaseTest) {
    main() {
       ("Test:BaseTest:Encode:main").print();
       
+      Encode:Url.encode("Hi ' ").print();
       
       //return(self);
       
