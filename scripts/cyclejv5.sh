@@ -14,3 +14,4 @@ javac system/jv/be/BELS_Base/*.java cycle/targetEc/Base/target/jv/be/BEL_4_Base/
 
 java -classpath cycle/targetEc/Base/target/jv:system/jv be.BEL_4_Base.BEL_4_Base $*
 
+find system -name "*.class" -exec rm {} \;
