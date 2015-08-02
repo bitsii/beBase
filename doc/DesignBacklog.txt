@@ -1,7 +1,7 @@
 
-move built artifacts
-jar for jv, rm .class after
-archive emitted source and include in checkin and add bootstrap build scripts
+mcs bootstrap
+
+get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
 
 for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
 make js and others same behaviour
