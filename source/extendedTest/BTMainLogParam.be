@@ -57,11 +57,11 @@ class Test:BaseTest:Parameters(BaseTest) {
    main() {
       ("Test:BaseTest:Parameters:main").print();
       Array vargs = Array.new(6);
-      vargs[0] = "-bflag";
+      vargs[0] = "-bflag=true";
       vargs[1] = "--skey";
       vargs[2] = "svalue";
       vargs[3] = "sarg";
-      vargs[4] = "-bflag2";
+      vargs[4] = "-bflag2=true";
       vargs[5] = "sargB2";
       Parameters p = Parameters.new(vargs);
       assertTrue(p.isTrue("bflag"));
@@ -80,7 +80,7 @@ class Test:BaseTest:Parameters(BaseTest) {
       assertEquals(v[1], "sargA2");
       
       vargs = Array.new(6);
-      vargs[0] = "-yo";
+      vargs[0] = "-yo=true";
       vargs[1] = "-t=true";
       vargs[2] = "-f=false";
       vargs[3] = "-yippee=dodah";

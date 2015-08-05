@@ -1,4 +1,4 @@
--ftrue
+-ftrue=true
 --farg1
 fvalue1
 slick

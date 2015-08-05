@@ -1,5 +1,13 @@
 
+need a good way to get detailed diagnostics on a particular piece of code when compiling
+  code log container?
+  do print visit on only it each step?
+  per class option?  Per class method? (just as arg)?
+
 get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
+
+library/library version (onces and such not version specific) 
+library versions, part of "name", major/minor
 
 for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
 make js and others same behaviour
@@ -19,6 +27,9 @@ convenience syntax for array, map construction
 dump { } ( ) where unneeded
 
 ---- bugs ----
+default return not picking up when wrong type
+return in loop seen as last return incorrectly (what if no loop...)
+last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
 something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
 copy needs to be return type self
 castTo is wrong in at least some once cases, checkTypes must be wrong somehow
@@ -31,7 +42,6 @@ byteiterator is much much slower than just doing getInt on a string by length, s
 // this includes negative values for indexes
 // test once assign with not combination
 string hash for javascript seems to be different than for others
-last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
 
 ---- lang change req ----
 vars to props
@@ -52,7 +62,6 @@ gratuitous returns - var for untyped, rest as now (self, typed).
 
 get rid of implied new calls in generated code (mark as implied, skip them,   
   I think it's only for literals now anyway)
-library/library version (onces and such not version specific) 
 
 get rid of transitive namepath thing ? (always just what it is) (only resolve if wasn't namepath to start with)
 
@@ -310,7 +319,6 @@ interpreted mode for rapid dev, arrange ways for native targets
 ifEmit(c:boo), ifEmit(all:foo)
 
 // each/multiassign/return...
-// library versions, part of "name", major/minor
 
 generics (generic type) (functionality covers interfaces, generics, mixins)
 

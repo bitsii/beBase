@@ -109,7 +109,6 @@ local class Parameters {
    
       properties {
          Array args;
-         Map bParams;
          Map params;
          Array ordered;
          Text:Tokenizer fileTok = Text:Tokenizer.new("\r\n");
@@ -131,7 +130,6 @@ local class Parameters {
       }
       if (undef(args)) {
          args = _args;
-         bParams = Map.new();
          params = Map.new();
          ordered = Array.new();
       } else {
@@ -166,12 +164,7 @@ local class Parameters {
             if (def(pos)) {
                String key = par.substring(0, pos);
                String value = par.substring(pos + 1);
-               if (def(value) && (value == "true" || value == "false")) {
-                  bParams.put(key, Bool.new(value));
-               }
                addParameter(key, value);
-            } else {
-               bParams.put(par, true);
             }
          } elif (def(fc) && fc == "#--") {
             pname = i.substring(3, i.size);
@@ -210,10 +203,14 @@ local class Parameters {
       }
    }
    
-   isTrue(String name, Bool default) Bool {
-      Bool res = bParams[name];
-      if (def(res)) { return(res); }
-      return(default);
+   isTrue(String name, Bool isit) Bool {
+      String res = getFirst(name);
+      if (def(res)) {
+        //("!!!! IS TRUE GOT " + res).print();
+        isit = Bool.new(res);
+      }
+      //("!!!IS TRUE ISIT " + isit).print();
+      return(isit);
    }
    
    isTrue(String name) Bool {
@@ -250,6 +247,7 @@ local class Parameters {
    }
    
    addParameter(String name, String value) {
+      //("ADDING " + name + " " + value).print();
       LinkedList vals = params[name];
       if (undef(vals)) {
          vals = LinkedList.new();
