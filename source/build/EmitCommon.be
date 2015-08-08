@@ -186,13 +186,15 @@ use local class Build:EmitCommon(Visit:Visitor) {
    }
    
    complete(Node clgen) {
-      ("Completing class " + clgen.held.name).print();
+      if (build.printSteps) {
+        ("Completing class " + clgen.held.name).print();
+      }
       var trans = Build:Transport.new(build, clgen.transUnit);
       
       
       var emvisit;
       
-      if (build.printVisitors) {
+      if (build.printSteps) {
          ". ".echo();
       }
       emvisit = Visit:Rewind.new();
@@ -200,7 +202,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
       emvisit.build = build;
       trans.traverse(emvisit);
       
-      if (build.printVisitors) {
+      if (build.printSteps) {
          ".. ".echo();
       }
       emvisit = Visit:TypeCheck.new();
@@ -208,17 +210,25 @@ use local class Build:EmitCommon(Visit:Visitor) {
       emvisit.build = build;
       trans.traverse(emvisit);
       
-      if (build.printVisitors) {
+      if (build.printSteps) {
          "... ".echo();
+         " ".print();
+      }
+      if (build.printSteps) {
+        //("Begin Emit Visit").print();
+      }
+      trans.traverse(self);
+      if (build.printSteps) {
+        //("End Emit Visit").print();
       }
       
-      ("Begin Emit Visit").print();
-      trans.traverse(self);
-      ("End Emit Visit").print();
-      
-      ("Begin Stack Lines").print();
+      if (build.printSteps) {
+        //("Begin Stack Lines").print();
+      }
       buildStackLines(clgen);
-      ("End Stack Lines").print();
+      if (build.printSteps) {
+        //("End Stack Lines").print();
+      }
       
    }
    
@@ -263,7 +273,9 @@ use local class Build:EmitCommon(Visit:Visitor) {
             clnode = ci.next;
             
             classConf = getLocalClassConfig(clnode.held.namepath);
-            ("will emit " + classConf.np + " " + classConf.emitName).print();
+            if (build.printSteps) {
+              //("will emit " + classConf.np + " " + classConf.emitName).print();
+            }
             
             complete(clnode);
             

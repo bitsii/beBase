@@ -258,7 +258,7 @@ final class Build:CEmitter {
       
       var emvisit;
       
-      if (build.printVisitors) {
+      if (build.printSteps) {
          ". ".echo();
       }
       emvisit = Visit:Rewind.new();
@@ -266,7 +266,7 @@ final class Build:CEmitter {
       emvisit.build = build;
       trans.traverse(emvisit);
       
-      if (build.printVisitors) {
+      if (build.printSteps) {
          ".. ".echo();
       }
       emvisit = Visit:TypeCheck.new();
@@ -274,7 +274,7 @@ final class Build:CEmitter {
       emvisit.build = build;
       trans.traverse(emvisit);
       
-      if (build.printVisitors) {
+      if (build.printSteps) {
          "... ".echo();
       }
       " ".print();

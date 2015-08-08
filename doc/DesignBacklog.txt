@@ -1,17 +1,8 @@
 
 need a good way to get detailed diagnostics on a particular piece of code when compiling
-  code log container?
-  do print visit on only it each step?
-  per class option?  Per class method? (just as arg)?
-
-get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
-
-library/library version (onces and such not version specific) 
-library versions, part of "name", major/minor
-
-for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
-make js and others same behaviour
-
+  per class option print visitor?  Per class method? (just as arg)?
+  consolidate and print them all at once?
+  
 finish exception stuff
 output original (be) input file and line
 
@@ -21,6 +12,16 @@ output original (be) input file and line
   override those methods, return the arrays
   in except, check static (exceptions?) map for them (holds two array of arrays), if no present, set them up, then
   return
+  
+  test native and regular excepts
+
+get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
+
+library/library version (onces and such not version specific) 
+library versions, part of "name", major/minor
+
+for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
+make js and others same behaviour
   
 finally
 convenience syntax for array, map construction

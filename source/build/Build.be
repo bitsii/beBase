@@ -60,7 +60,7 @@ final class Build:Build {
          var includePath;
          Map built = Map.new();
          LinkedList toBuild;
-         Bool printVisitors = false;
+         Bool printSteps = false;
          Bool printAst = false;
          Bool doEmit = false;
          Bool emitDebug = false;
@@ -128,7 +128,9 @@ final class Build:Build {
          buildMessage = "Build Failed with exception " + e;
          whatResult = 1;//in case of failure post-doWhat()
       }
-      buildMessage.print();
+      if (printSteps) {
+        buildMessage.print();
+      }
       return(whatResult);
    }
    
@@ -223,7 +225,7 @@ final class Build:Build {
       } else {
          runArgs = String.new();
       }
-      printVisitors = params.isTrue("printVisitors", true);
+      printSteps = params.isTrue("printSteps", true);
       printAst = params.isTrue("printAst");
       genOnly = params.isTrue("genOnly");
       deployUsedLibraries = params.isTrue("deployUsedLibraries");
@@ -351,7 +353,9 @@ final class Build:Build {
       if (def(deployPath)) {
          deployLibrary = Build:Library.new(deployPath, self, libName, exeName);
          closeLibraries.put(libName);
-         ("Added closelibrary " + libName).print();
+         if (printSteps) {
+           ("Added closelibrary " + libName).print();
+         }
       }
       Set ulibs = Set.new();
       //librarys is a mispelling TODO spell it right libraries
@@ -381,7 +385,9 @@ final class Build:Build {
       }
       //End Timer
       parseTime = Time:Interval.now() - startTime;
-      ("TIME: Parse phase completed in " + parseTime).print();
+      if (printSteps) {
+        ("TIME: Parse phase completed in " + parseTime).print();
+      }
       if (def(self.emitCommon)) {
         //ec way, not for old c, exception is caught by caller, exits with fail
         self.emitCommon.doEmit();
@@ -541,7 +547,9 @@ final class Build:Build {
       Bool parseThis = true;
       emitData.shouldEmit.put(toParse);
       if (parseThis) {
+        if (printSteps) {
          ("Parsing file " + toParse.toString()).print();
+        }
          fromFile = toParse;
          
          var src = toParse.file.reader.open().readBuffer(readBuffer);
@@ -556,68 +564,68 @@ final class Build:Build {
          nodify(trans.outermost, toks);
          
          //VISIT NOW
-         if (printVisitors) {
+         if (printSteps) {
             ". ".echo();
          }
          trans.traverse(Visit:Pass2.new());
-         if (printVisitors) {
+         if (printSteps) {
             ".. ".echo();
          }
          trans.traverse(Visit:Pass3.new());
          //INITIAL CONTAIN
          
-         if (printVisitors) {
+         if (printSteps) {
             "... ".echo();
          }
          trans.contain();
          
-         if (printVisitors) {
+         if (printSteps) {
             ".... ".echo();
          }
          trans.traverse(Visit:Pass4.new());
          
-         if (printVisitors) {
+         if (printSteps) {
             "..... ".echo();
          }
          trans.traverse(Visit:Pass5.new());
          
-         if (printVisitors) {
+         if (printSteps) {
             "...... ".echo();
          }
          trans.traverse(Visit:Pass6.new());
          
-         if (printVisitors) {
+         if (printSteps) {
             "....... ".echo();
          }
          trans.traverse(Visit:Pass7.new());
          
-         if (printVisitors) {
+         if (printSteps) {
             "........ ".echo();
          }
          trans.traverse(Visit:Pass8.new());
          
-         if (printVisitors) {
+         if (printSteps) {
             "......... ".echo();
          }
          trans.traverse(Visit:Pass9.new());
          
-         if (printVisitors) {
+         if (printSteps) {
             ".......... ".echo();
          }
          trans.traverse(Visit:Pass10.new());
          //trans.traverse(Visit:Pass1.new(true, "post.txt"));
-         if (printVisitors) {
+         if (printSteps) {
             "........... ".echo();
          }
          trans.traverse(Visit:Pass11.new());
          
-         if (printVisitors) {
+         if (printSteps) {
             "............ ".echo();
+            " ".print();
          }
-         " ".print();
          trans.traverse(Visit:Pass12.new());
          if (printAst) {
-            if (printVisitors) {
+            if (printSteps) {
                "PrintAST".print();
             }
             trans.traverse(Visit:Pass1.new(printAst));
