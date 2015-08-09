@@ -174,7 +174,14 @@ final class Node {
    }
    
    toString() Text:String {
-     return(toStringCompact());
+     var e;
+     try {
+       String res = toStringCompact();
+     } catch (e) {
+       e.print();
+       throw(e);
+     }
+     return(res);
    }
    
    toStringBig() Text:String {
@@ -194,7 +201,9 @@ final class Node {
    toStringCompact() Text:String {
       var prefix = self.prefix;
       String ret = prefix + "<" + typename.toString() + ">";
-      ret = ret + " line: " + nlc.toString();
+      if (def(nlc)) {
+        ret = ret + " line: " + nlc.toString();
+      }
       if (def(inClassNp)) {
          ret = ret + " Class: " + inClassNp.toString();
       }

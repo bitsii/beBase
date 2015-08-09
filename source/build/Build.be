@@ -63,6 +63,7 @@ final class Build:Build {
          Bool printSteps = false;
          Bool printPlaces = false;
          Bool printAst = false;
+         Bool printAllAst = false;
          Set printAstElements;
          Bool doEmit = false;
          Bool emitDebug = false;
@@ -230,6 +231,7 @@ final class Build:Build {
       printSteps = params.isTrue("printSteps", false);
       printPlaces = params.isTrue("printPlaces", true);
       printAst = params.isTrue("printAst");
+      printAllAst = params.isTrue("printAllAst");
       printAstElements = Set.new()
       LinkedList pacm = params["printAstElement"];
       if (def(pacm) && pacm.isEmpty!) {
@@ -571,73 +573,113 @@ final class Build:Build {
          //toParse.file.reader.close();
          
          //PREPARE VISIT
-         nodify(trans.outermost, toks);
-         
-         //VISIT NOW
          if (printSteps) {
             ". ".echo();
          }
-         trans.traverse(Visit:Pass2.new());
+         nodify(trans.outermost, toks);
+         if (printAllAst) {
+            "printAst post 1 nodify".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
+         //VISIT NOW
          if (printSteps) {
             ".. ".echo();
          }
-         trans.traverse(Visit:Pass3.new());
-         //INITIAL CONTAIN
-         
+         trans.traverse(Visit:Pass2.new());
+         if (printAllAst) {
+            "printAst post 2".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          if (printSteps) {
             "... ".echo();
          }
+         //INITIAL CONTAIN
+         trans.traverse(Visit:Pass3.new());
          trans.contain();
+         if (printAllAst) {
+            "printAst post 3".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          
          if (printSteps) {
             ".... ".echo();
          }
          trans.traverse(Visit:Pass4.new());
+         if (printAllAst) {
+            "printAst post 4".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          
          if (printSteps) {
             "..... ".echo();
          }
          trans.traverse(Visit:Pass5.new());
+         if (printAllAst) {
+            "printAst post 5".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          
          if (printSteps) {
             "...... ".echo();
          }
          trans.traverse(Visit:Pass6.new());
+         if (printAllAst) {
+            "printAst post 6".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          
          if (printSteps) {
             "....... ".echo();
          }
          trans.traverse(Visit:Pass7.new());
+         if (printAllAst) {
+            "printAst post 7".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          
          if (printSteps) {
             "........ ".echo();
          }
          trans.traverse(Visit:Pass8.new());
+         if (printAllAst) {
+            "printAst post 8".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          
          if (printSteps) {
             "......... ".echo();
          }
          trans.traverse(Visit:Pass9.new());
+         if (printAllAst) {
+            "printAst post 9".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          
          if (printSteps) {
             ".......... ".echo();
          }
          trans.traverse(Visit:Pass10.new());
+         if (printAllAst) {
+            "printAst post 10".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          if (printSteps) {
             "........... ".echo();
          }
          trans.traverse(Visit:Pass11.new());
+         if (printAllAst) {
+            "printAst post 11".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
+         }
          
          if (printSteps) {
             "............ ".echo();
             " ".print();
          }
          trans.traverse(Visit:Pass12.new());
-         if (printAst || printAstElements.isEmpty!) {
-            if (printSteps) {
-               "PrintAST".print();
-            }
-            trans.traverse(Visit:Pass1.new(printAst, printAstElements, null));
+         if (printAst || printAllAst) {
+            "printAst post 12".print();
+            trans.traverse(Visit:Pass1.new(printAstElements, null));
          }
          for (var ci = emitData.classes.valueIterator;ci.hasNext;;) {
             var clnode = ci.next;
