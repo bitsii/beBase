@@ -174,6 +174,10 @@ final class Node {
    }
    
    toString() Text:String {
+     return(toStringCompact());
+   }
+   
+   toStringBig() Text:String {
       var prefix = self.prefix;
       var ret = prefix + "<" + typename.toString() + ">";
       ret = ret + Text:Strings.new().newline + prefix + "line: " + nlc.toString();
@@ -183,6 +187,19 @@ final class Node {
       if (def(held)) {
          ret = ret + Text:Strings.new().newline + prefix + " ";
          ret = ret + held.toString();
+      }
+      return(ret);
+   }
+   
+   toStringCompact() Text:String {
+      var prefix = self.prefix;
+      String ret = prefix + "<" + typename.toString() + ">";
+      ret = ret + " line: " + nlc.toString();
+      if (def(inClassNp)) {
+         ret = ret + " Class: " + inClassNp.toString();
+      }
+      if (def(held)) {
+         ret = ret + " " + held.toString();
       }
       return(ret);
    }

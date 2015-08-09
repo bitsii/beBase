@@ -61,7 +61,9 @@ final class Build:Build {
          Map built = Map.new();
          LinkedList toBuild;
          Bool printSteps = false;
+         Bool printPlaces = false;
          Bool printAst = false;
+         Set printAstElements;
          Bool doEmit = false;
          Bool emitDebug = false;
          Bool parse = false;
@@ -225,8 +227,16 @@ final class Build:Build {
       } else {
          runArgs = String.new();
       }
-      printSteps = params.isTrue("printSteps", true);
+      printSteps = params.isTrue("printSteps", false);
+      printPlaces = params.isTrue("printPlaces", true);
       printAst = params.isTrue("printAst");
+      printAstElements = Set.new()
+      LinkedList pacm = params["printAstElement"];
+      if (def(pacm) && pacm.isEmpty!) {
+        foreach (String pa in pacm) {
+          printAstElements.put(pa);
+        }
+      }
       genOnly = params.isTrue("genOnly");
       deployUsedLibraries = params.isTrue("deployUsedLibraries");
       run = params.isTrue("run");
@@ -547,7 +557,7 @@ final class Build:Build {
       Bool parseThis = true;
       emitData.shouldEmit.put(toParse);
       if (parseThis) {
-        if (printSteps) {
+        if (printSteps || printPlaces) {
          ("Parsing file " + toParse.toString()).print();
         }
          fromFile = toParse;
@@ -613,7 +623,6 @@ final class Build:Build {
             ".......... ".echo();
          }
          trans.traverse(Visit:Pass10.new());
-         //trans.traverse(Visit:Pass1.new(true, "post.txt"));
          if (printSteps) {
             "........... ".echo();
          }
@@ -624,11 +633,11 @@ final class Build:Build {
             " ".print();
          }
          trans.traverse(Visit:Pass12.new());
-         if (printAst) {
+         if (printAst || printAstElements.isEmpty!) {
             if (printSteps) {
                "PrintAST".print();
             }
-            trans.traverse(Visit:Pass1.new(printAst));
+            trans.traverse(Visit:Pass1.new(printAst, printAstElements, null));
          }
          for (var ci = emitData.classes.valueIterator;ci.hasNext;;) {
             var clnode = ci.next;

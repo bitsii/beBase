@@ -186,7 +186,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
    }
    
    complete(Node clgen) {
-      if (build.printSteps) {
+      if (build.printSteps || build.printPlaces) {
         ("Completing class " + clgen.held.name).print();
       }
       var trans = Build:Transport.new(build, clgen.transUnit);

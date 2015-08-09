@@ -1,8 +1,4 @@
 
-need a good way to get detailed diagnostics on a particular piece of code when compiling
-  per class option print visitor?  Per class method? (just as arg)?
-  consolidate and print them all at once?
-  
 finish exception stuff
 output original (be) input file and line
 
@@ -64,10 +60,9 @@ gratuitous returns - var for untyped, rest as now (self, typed).
 get rid of implied new calls in generated code (mark as implied, skip them,   
   I think it's only for literals now anyway)
 
-get rid of transitive namepath thing ? (always just what it is) (only resolve if wasn't namepath to start with)
-
 ---- no lang change req / additive ----
 
+add notEmpty to containers
 decide on mutating or not len for string et all and do it (thinking do)
 get rid of auto-once for literal, require manual use
    do after native add/sub/etc for literals (below) to minimise impact
