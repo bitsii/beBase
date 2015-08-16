@@ -13,7 +13,7 @@ use Build:Visit;
 use Build:EmitException;
 use Build:Node;
 use Text:String;
-use Text:String;
+use Text:Strings as TS;
 use Logic:Bool;
 use Build:ClassConfig;
 use Build:NamePath;
@@ -160,6 +160,17 @@ use final class Build:JSEmitter(Build:EmitCommon) {
             }
             
         }
+        
+        String smap = String.new();
+        
+        foreach (String smk in smnlcs.keys) {
+          //("nlcs key " + smk + " nlc " + smnlcs.get(smk) + " nlec " + smnlecs.get(smk)).print();
+          smap += "be_BELS_Base_BECS_Runtime.prototype.putNlcSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlcs.get(smk) += ");" += nl;
+          smap += "be_BELS_Base_BECS_Runtime.prototype.putNlecSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlecs.get(smk) += ");" += nl;
+          //break;
+        }
+        
+        libe.write(smap);
         
         libe.write(typeInstances);
         
@@ -311,6 +322,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
                     File jsi = File:Path.apNew(p).file;
                     String inc = jsi.reader.open().readString();
                     jsi.reader.close();
+                    lineCount += countLines(inc);
                     shlibe.write(inc);
                 }
             }

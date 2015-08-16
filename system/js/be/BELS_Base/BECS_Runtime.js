@@ -18,7 +18,7 @@ var be_BELS_Base_BECS_ThrowBack_handleThrow = function(theThrow) {
         if (theThrow instanceof be_BELS_Base_BECS_ThrowBack) {
           if (null != theThrow.error &&
             null != theThrow.error.stack) {
-            console.log(theThrow.error.stack);
+            //console.log(theThrow.error.stack);
           }
           if (null != theThrow.thrown &&
               theThrow.thrown instanceof be_BEL_4_Base_BEC_6_9_SystemException) {
@@ -32,11 +32,11 @@ var be_BELS_Base_BECS_ThrowBack_handleThrow = function(theThrow) {
             return theThrow.thrown;
           }
         } else {
-          console.log(theThrow);
-          console.log(theThrow.stack);
+          //console.log(theThrow);
+          //console.log(theThrow.stack);
         }
     } else {
-        console.log("handleThrow received null");
+        //console.log("handleThrow received null");
     }
     return null;
 }
@@ -49,3 +49,28 @@ be_BELS_Base_BECS_Runtime.prototype.minArg = 2;
 
 //be_BELS_Base_BECS_Runtime.prototype.typeInstances["tb"] = new be_BELS_Base_BECS_ThrowBack();
 
+be_BELS_Base_BECS_Runtime.prototype.smnlcs = function() { }
+
+be_BELS_Base_BECS_Runtime.prototype.smnlecs = function() { }
+
+be_BELS_Base_BECS_Runtime.prototype.putNlcSourceMap = function(clname, vals) {
+  be_BELS_Base_BECS_Runtime.prototype.smnlcs[clname] = vals;
+}
+
+be_BELS_Base_BECS_Runtime.prototype.putNlecSourceMap = function(clname, vals) {
+  be_BELS_Base_BECS_Runtime.prototype.smnlecs[clname] = vals;
+}
+
+be_BELS_Base_BECS_Runtime.prototype.getNlcForNlec = function(clname, val) {
+  var sls = be_BELS_Base_BECS_Runtime.prototype.smnlcs[clname];
+  var esls = be_BELS_Base_BECS_Runtime.prototype.smnlecs[clname];
+  if (esls !== null) {
+    var eslslen = esls.length;
+    for (var i = 0;i < eslslen;i++) {
+      if (esls[i] == val) {
+        return sls[i];
+      }
+    }
+  }
+  return -1;
+}

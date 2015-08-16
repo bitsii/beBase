@@ -1069,8 +1069,8 @@ stdout.WriteByte(10);
         
         
       } catch (e) {
-        console.log(e);
-        console.log(e.stack);
+        //console.log(e);
+        //console.log(e.stack);
       }
       """
       }

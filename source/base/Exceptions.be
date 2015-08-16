@@ -274,6 +274,7 @@ class System:Exception {
    }
    
    getFrameText() String {
+      translateEmittedException();
       String toRet = String.new();
       LinkedList myFrames = self.frames;
       if (def(myFrames)) {
@@ -351,6 +352,14 @@ final class System:ExceptionBuilder {
      """
      }
      
+     emit(js) {
+     """
+       bevl_line.bevi_int = 
+         be_BELS_Base_BECS_Runtime.prototype.getNlcForNlec(this.bems_stringToJsString_1(beva_klass),
+           beva_eline.bevi_int);
+     """
+     }
+     
      emit(jv) {
      """
        bevl_line.bevi_int = 
@@ -411,6 +420,9 @@ class Exception:Frame {
             Int line;
         }
         ifEmit(cs) {
+          extractLine();
+        }
+        ifEmit(js) {
           extractLine();
         }
     }

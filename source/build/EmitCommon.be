@@ -353,15 +353,16 @@ use local class Build:EmitCommon(Visit:Visitor) {
             }
             lineInfo += "END LINEINFO */" += nl;
             
+            String nlcNName = getClassConfig(clnode.held.namepath).relEmitName(build.libName) + ".";
+            
             if(emitting("js")) {
               String smpref = 
                getClassConfig(clnode.held.namepath).emitName + ".prototype.";
+               nlcNName = smpref;
             }
             
-            String nlcNName = getClassConfig(clnode.held.namepath).relEmitName(build.libName);
-            
-            smnlcs.put(clnode.held.namepath.toString(), nlcNName + ".bevs_smnlc");
-            smnlecs.put(clnode.held.namepath.toString(), nlcNName + ".bevs_smnlec");
+            smnlcs.put(clnode.held.namepath.toString(), nlcNName + "bevs_smnlc");
+            smnlecs.put(clnode.held.namepath.toString(), nlcNName + "bevs_smnlec");
             
             if(emitting("cs")) {
               if (csyn.namepath == objectNp) {
