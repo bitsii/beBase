@@ -55,10 +55,9 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       
       //testNullEquals();
+      //Tests:Exceptions.new().main();
       
-      //if (true) {
-      //  return(self);
-      //}
+      //if (true) { return(self); }
    
       Test:BaseTest:All.new().main();
       

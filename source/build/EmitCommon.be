@@ -17,11 +17,11 @@ use Build:EmitException;
 use Build:NamePath;
 use Build:Node;
 use Text:String;
-use Text:String;
 use Logic:Bool;
 use Math:Int;
 use Build:ClassConfig;
 use Test:Assertions;
+use Text:Strings as TS;
 
 /*
 
@@ -92,7 +92,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
           //A newline, often useful
           String nl = build.nl;
           //And, a quote
-          String q = Text:Strings.quote;
+          String q = TS.quote;
           
           //The ClassConfig cache
           Map ccCache = Map.new();
@@ -142,6 +142,11 @@ use local class Build:EmitCommon(Visit:Visitor) {
           } else {
             instOf = " instanceof "
           }
+          
+          //class to emit lines (first is from source, second is emitted)
+          //for sourcemaps
+          Map smnlcs = Map.new();
+          Map smnlecs = Map.new();
           
         }
     }
@@ -348,8 +353,48 @@ use local class Build:EmitCommon(Visit:Visitor) {
             }
             lineInfo += "END LINEINFO */" += nl;
             
-            methods += "//int[] bevs_nlcs = {" += nlcs += "};" += nl;
-            methods += "//int[] bevs_nlecs = {" += nlecs += "};" += nl;
+            if(emitting("js")) {
+              String smpref = 
+               getClassConfig(clnode.held.namepath).emitName + ".prototype.";
+            }
+            
+            String nlcNName = getClassConfig(clnode.held.namepath).relEmitName(build.libName);
+            
+            smnlcs.put(clnode.held.namepath.toString(), nlcNName + ".bevs_smnlc");
+            smnlecs.put(clnode.held.namepath.toString(), nlcNName + ".bevs_smnlec");
+            
+            if(emitting("cs")) {
+              if (csyn.namepath == objectNp) {
+               methods += "public static int[] bevs_smnlc" += nl;
+              } else {
+               methods += "public static new int[] bevs_smnlc" += nl;
+              }
+             }
+             if(emitting("jv")) {
+               methods += "public static int[] bevs_smnlc" += nl;
+             }
+            if (emitting("js")) {
+              methods += smpref += "bevs_smnlc";
+              methods += " = [" += nlcs += "];" += nl;
+            } else {
+              methods += " = new int[] {" += nlcs += "};" += nl;
+            }
+            if(emitting("cs")) {
+              if (csyn.namepath == objectNp) {
+               methods += "public static int[] bevs_smnlec" += nl;
+              } else {
+               methods += "public static new int[] bevs_smnlec" += nl;
+              }
+             }
+             if(emitting("jv")) {
+               methods += "public static int[] bevs_smnlec" += nl;
+             }
+            if (emitting("js")) {
+              methods += smpref += "bevs_smnlec";
+              methods += " = [" += nlecs += "];" += nl;
+            } else {
+              methods += " = new int[] {" += nlecs += "};" += nl;
+            }
             
             methods += lineInfo;
             
@@ -506,6 +551,16 @@ use local class Build:EmitCommon(Visit:Visitor) {
             libe.write(self.spropDec + "int bevn_" + callName + ";" + nl;);
             getNames += "bevn_" += callName += " = getCallId(" += q += callName += q += ");" += nl;
         }
+        
+        String smap = String.new();
+        
+        foreach (String smk in smnlcs.keys) {
+          //("nlcs key " + smk + " nlc " + smnlcs.get(smk) + " nlec " + smnlecs.get(smk)).print();
+          smap += "putNlcSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlcs.get(smk) += ");" += nl;
+          smap += "putNlecSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlecs.get(smk) += ");" += nl;
+          //break;
+        }
+        
         libe.write(self.baseSmtdDec + "void init()" += exceptDec += " {" + nl);
         if(emitting("jv")) {
           libe.write("synchronized (" + libEmitName + ".class) {" + nl);//}
@@ -516,6 +571,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
         libe.write("isInitted = true;" + nl);
         libe.write(self.runtimeInit);
         libe.write(getNames);
+        libe.write(smap);
         libe.write(initLibs);
         libe.write(typeInstances);
         libe.write(notNullInitConstruct);
@@ -1430,7 +1486,7 @@ buildClassInfoMethod(String belsBase) {
                           if (node.wideString) {
                             String lival = liorg;
                           } else {
-                            lival = Json:Unmarshaller.new().unmarshall("[" + Text:Strings.quote + liorg + Text:Strings.quote + "]").first;
+                            lival = Json:Unmarshaller.new().unmarshall("[" + TS.quote + liorg + TS.quote + "]").first;
                           }
                           
                           Int lisz = lival.size;

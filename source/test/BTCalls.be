@@ -294,6 +294,9 @@ class Tests:Exceptions(BaseTest) {
 
     main() {
       ("Tests:Exceptions").print();
+      
+      //bad.line;
+      
       Logic:Bool caught = false;
       try {
         thrower();

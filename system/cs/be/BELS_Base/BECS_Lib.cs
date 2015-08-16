@@ -22,6 +22,14 @@ public class BECS_Lib {
         }
     }
     
+    public static void putNlcSourceMap(string clname, int[] vals) {
+      BECS_Runtime.smnlcs.Add(clname, vals);
+    }
+    
+    public static void putNlecSourceMap(string clname, int[] vals) {
+      BECS_Runtime.smnlecs.Add(clname, vals);  
+    }
+    
 }
 
 }

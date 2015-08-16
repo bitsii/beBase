@@ -47,7 +47,7 @@ final class Build:Build {
          String newline;
          var runArgs;
          Build:CompilerProfile compilerProfile;
-         Build:CCallAssembler cassem;
+         //Build:CCallAssembler cassem;
          Array args;
          Parameters params;
          Bool buildSucceeded;
@@ -123,15 +123,17 @@ final class Build:Build {
    go() {
       Int whatResult = 1;//default to fail
       config();
+      Bool buildFailed = false;
       try {
          buildMessage = "Build Incomplete";
          whatResult = doWhat();
          buildMessage = "Build Complete";
       } catch (var e) {
+         buildFailed = true;
          buildMessage = "Build Failed with exception " + e;
          whatResult = 1;//in case of failure post-doWhat()
       }
-      if (printSteps) {
+      if (printSteps || buildFailed) {
         buildMessage.print();
       }
       return(whatResult);
@@ -408,7 +410,7 @@ final class Build:Build {
       if (doEmit) {
 		 setClassesToWrite();
          em.libnameInfo;
-         cassem = Build:CCallAssembler.new(self);
+         //cassem = Build:CCallAssembler.new(self);
          for (var ci = emitData.classes.valueIterator;ci.hasNext;;) {
             var clnode = ci.next;
 			em.doEmit(clnode);

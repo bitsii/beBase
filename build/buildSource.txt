@@ -8,7 +8,6 @@ source/build/Constants.be
 source/build/NodeTypes.be
 source/build/CEmitter.be
 source/build/BuildTypes.be
-source/build/CCallAssembler.be
 source/build/Syns.be
 source/build/Visitor.be
 source/build/Pass1.be
@@ -23,7 +22,6 @@ source/build/Pass9.be
 source/build/Pass10.be
 source/build/Pass11.be
 source/build/Pass12.be
-source/build/CEmitVisit.be
 source/build/JVEmitter.be
 source/build/CSEmitter.be
 source/build/JSEmitter.be

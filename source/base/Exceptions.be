@@ -198,6 +198,9 @@ class System:Exception {
             fr.klassName = extractKlassLib(fr.klassName);
             fr.methodName = extractMethod(fr.methodName);
             fr.fileName = getSourceFileName(fr.klassName);
+            ifEmit(jv) {
+              fr.extractLine();
+            }
         }
         emitLang = lang;
         lang = "be";
@@ -216,6 +219,7 @@ class System:Exception {
    }
    
    extractKlassLib(String callPart) String {
+     //("in extractKlassLib " + callPart).print();
      LinkedList parts = callPart.split(".");
      //3rd is class, 4th is method
      return(extractKlass(parts.get(2)));
@@ -324,6 +328,34 @@ final class System:ExceptionBuilder {
       
    }
    
+   getLineForEmitLine(String klass, Int eline) Int {
+   
+     if (undef(klass) || undef(eline)) {
+       return(-1);
+     }
+     
+     Int line = Int.new();
+     
+     emit(cs) {
+     """
+       bevl_line.bevi_int = 
+         be.BELS_Base.BECS_Runtime.getNlcForNlec(beva_klass.bems_toCsString(),
+           beva_eline.bevi_int);
+     """
+     }
+     
+     emit(jv) {
+     """
+       bevl_line.bevi_int = 
+         be.BELS_Base.BECS_Runtime.getNlcForNlec(beva_klass.bems_toJvString(),
+           beva_eline.bevi_int);
+     """
+     }
+     
+     return(line);
+   
+   }
+   
    printException(ex) {
       if (undef(ex)) {
          "Unable to print exception, passed exception is null".print();
@@ -371,6 +403,13 @@ class Exception:Frame {
             String fileName;
             Int line;
         }
+        ifEmit(cs) {
+          extractLine();
+        }
+    }
+    
+    extractLine() {
+      line = System:ExceptionBuilder.getLineForEmitLine(klassName, emitLine);
     }
     
     toString() String {

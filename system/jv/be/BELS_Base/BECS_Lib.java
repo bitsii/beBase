@@ -24,5 +24,13 @@ public class BECS_Lib {
         return id;
     }
     
+    public static void putNlcSourceMap(String clname, int[] vals) {
+      BECS_Runtime.smnlcs.put(clname, vals);
+    }
+    
+    public static void putNlecSourceMap(String clname, int[] vals) {
+      BECS_Runtime.smnlecs.put(clname, vals);  
+    }
+    
 }
 

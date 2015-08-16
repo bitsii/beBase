@@ -36,6 +36,9 @@ public class BECS_Runtime {
     
     public static String[] args;
     
+    public static Map<String, int[]> smnlcs;
+    public static Map<String, int[]> smnlecs;
+    
     public static void init() { 
         if (isInitted) { return; }
         isInitted = true;
@@ -43,7 +46,25 @@ public class BECS_Runtime {
         BECS_Ids.idCalls = new HashMap<Integer, String>();
         BECS_Ids.callIdCounter = 0;
         typeInstances = new HashMap<String, Class>();
+        smnlcs = new HashMap<String, int[]>();
+        smnlecs = new HashMap<String, int[]>();
         initializer = new BEC_6_11_SystemInitializer();
+    }
+    
+    public static int getNlcForNlec(String clname, int val) {
+      int[] sls = smnlcs.get(clname);
+      int[] esls = smnlecs.get(clname);
+      if (esls != null) {
+        int eslslen = esls.length;
+        for (int i = 0;i < eslslen;i++) {
+          if (esls[i] == val) {
+            return sls[i];
+          }
+        }
+      } else {
+        return -2; 
+      }
+      return -1;
     }
     
 }

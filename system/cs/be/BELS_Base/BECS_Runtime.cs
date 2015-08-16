@@ -28,6 +28,9 @@ public class BECS_Runtime {
     
     public static string[] args;
     
+    public static Dictionary<string, int[]> smnlcs;
+    public static Dictionary<string, int[]> smnlecs;
+    
     public static void init() { 
         if (isInitted) { return; }
         isInitted = true;
@@ -35,7 +38,24 @@ public class BECS_Runtime {
         BECS_Ids.idCalls = new Dictionary<int, string>();
         BECS_Ids.callIdCounter = 0;
         typeInstances = new Dictionary<string, Type>();
+        smnlcs = new Dictionary<string, int[]>();
+        smnlecs = new Dictionary<string, int[]>();
         initializer = new BEC_6_11_SystemInitializer();
+    }
+    
+        
+    public static int getNlcForNlec(string clname, int val) {
+      int[] sls = smnlcs[clname];
+      int[] esls = smnlecs[clname];
+      if (esls != null) {
+        int eslslen = esls.Length;
+        for (int i = 0;i < eslslen;i++) {
+          if (esls[i] == val) {
+            return sls[i];
+          }
+        }
+      }
+      return -1;
     }
     
 }

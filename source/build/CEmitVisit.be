@@ -116,7 +116,7 @@ final class Visit:CEmit(Visit:Visitor) {
       //"Setting Emit".print();
       emitter = _emitter;
       nl = emitter.build.newline;
-      cassem = emitter.build.cassem;
+      //cassem = emitter.build.cassem;
       mmbers = nl.copy();
       //{
       textRbnl = "}" + nl;

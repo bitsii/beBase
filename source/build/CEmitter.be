@@ -278,7 +278,7 @@ final class Build:CEmitter {
          "... ".echo();
       }
       " ".print();
-      emvisit = Visit:CEmit.new();
+      //emvisit = Visit:CEmit.new();
       emvisit.emitter = self;
       emvisit.build = build;
       trans.traverse(emvisit);

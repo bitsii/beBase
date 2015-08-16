@@ -1,15 +1,8 @@
 
 finish exception stuff
-output original (be) input file and line
-
-  nlc and nlec local arrays (not static or whatever)
-  overriden (base) object call which returns int arrays for 2 methods - genned native call to get them,
-  retular (final) object method which calls that and converts
-  override those methods, return the arrays
-  in except, check static (exceptions?) map for them (holds two array of arrays), if no present, set them up, then
-  return
-  
-  test native and regular excepts
+  pull out values during stack trace
+    ?need calls to get them
+  ? build maps?
 
 get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
 
@@ -61,7 +54,8 @@ get rid of implied new calls in generated code (mark as implied, skip them,
   I think it's only for literals now anyway)
 
 ---- no lang change req / additive ----
-
+Read–eval–print loop (REPL), code change running instance? (js)?
+  js interpreter running, change on fly at runtime, mixed emit envs
 add notEmpty to containers
 decide on mutating or not len for string et all and do it (thinking do)
 get rid of auto-once for literal, require manual use
