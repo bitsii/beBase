@@ -129,8 +129,9 @@ final class Build:Build {
          whatResult = doWhat();
          buildMessage = "Build Complete";
       } catch (var e) {
+         buildMessage = e.toString();
          buildFailed = true;
-         buildMessage = "Build Failed with exception " + e;
+         buildMessage = "Build Failed with exception " + buildMessage;
          whatResult = 1;//in case of failure post-doWhat()
       }
       if (printSteps || buildFailed) {

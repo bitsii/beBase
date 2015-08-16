@@ -27,6 +27,7 @@ class System:Exception {
          String emitLang;
          LinkedList frames;
          String framesText;
+         Bool translated;
       }
       
       description = descr;
@@ -67,6 +68,10 @@ class System:Exception {
    }
    
    translateEmittedException() {
+     if (def(translated) && translated) {
+       return(self);
+     }
+     translated = true;
      if (def(framesText) && def(lang) && (lang == "cs" || lang == "js")) {
         Text:Tokenizer ltok = Text:Tokenizer.new("\r\n");
         LinkedList lines = ltok.tokenize(framesText);
@@ -204,6 +209,8 @@ class System:Exception {
         }
         emitLang = lang;
         lang = "be";
+     } else {
+       //("TRANSLATION FAILED").print();
      }
    }
    

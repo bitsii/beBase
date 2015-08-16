@@ -1,9 +1,7 @@
 
 finish exception stuff
-  pull out values during stack trace
-    ?need calls to get them
-  ? build maps?
-
+  js
+  
 get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
 
 library/library version (onces and such not version specific) 

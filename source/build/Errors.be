@@ -30,7 +30,7 @@ class Build:VisitError(System:Exception) {
       if (def(node)) {
          toRet = toRet + Text:Strings.new().newline + node.toString();
       }
-      toRet = toRet + getFrameText();
+      toRet = toRet + super.toString();
       return(toRet);
    }
 }
