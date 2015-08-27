@@ -1,15 +1,22 @@
 
+cpp for embedded/universal?
+go finally has libs and stuff :-) go + swift?
+
+all 3 plats going
 get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
 
-library/library version (onces and such not version specific) 
-library versions, part of "name", major/minor
+go to int and other reuse in code as much as possible
+  just look at be code efficiency (base et all)
+  look at build efficiency
+speed up native ints and such
 
-for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
-make js and others same behaviour
-  
-finally
-convenience syntax for array, map construction
-dump { } ( ) where unneeded
+libraries and linking
+library/library version
+version interfaces (things which can span lib vers if needed)
+(minor only tracked in documentation terms?)
+Read–eval–print loop (REPL), code change running instance? (js)?
+  js interpreter running, change on fly at runtime, mixed emit envs
+  embedded js or add interpretor as such based on reflection
 
 ---- bugs ----
 default return not picking up when wrong type
@@ -47,10 +54,14 @@ gratuitous returns - var for untyped, rest as now (self, typed).
 
 get rid of implied new calls in generated code (mark as implied, skip them,   
   I think it's only for literals now anyway)
+  
+dump { } ( ) where unneeded
 
 ---- no lang change req / additive ----
-Read–eval–print loop (REPL), code change running instance? (js)?
-  js interpreter running, change on fly at runtime, mixed emit envs
+finally
+convenience syntax for array, map construction
+for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
+make js and others same behaviour
 add notEmpty to containers
 decide on mutating or not len for string et all and do it (thinking do)
 get rid of auto-once for literal, require manual use

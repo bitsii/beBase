@@ -370,15 +370,18 @@ use local class Build:EmitCommon(Visit:Visitor) {
               } else {
                methods += "public static new int[] bevs_smnlc" += nl;
               }
+              methods += " = new int[] {" += nlcs += "};" += nl;
              }
              if(emitting("jv")) {
+               methods += "public static int[] bems_smnlc() {" += nl;
+               methods += "return new int[] {" += nlcs += "};" += nl;
+               methods += "}" += nl;
                methods += "public static int[] bevs_smnlc" += nl;
+               methods += " = bems_smnlc();" += nl;
              }
             if (emitting("js")) {
               methods += smpref += "bevs_smnlc";
               methods += " = [" += nlcs += "];" += nl;
-            } else {
-              methods += " = new int[] {" += nlcs += "};" += nl;
             }
             if(emitting("cs")) {
               if (csyn.namepath == objectNp) {
@@ -386,15 +389,18 @@ use local class Build:EmitCommon(Visit:Visitor) {
               } else {
                methods += "public static new int[] bevs_smnlec" += nl;
               }
+              methods += " = new int[] {" += nlecs += "};" += nl;
              }
              if(emitting("jv")) {
+               methods += "public static int[] bems_smnlec() {" += nl;
+               methods += "return new int[] {" += nlecs += "};" += nl;
+               methods += "}" += nl;
                methods += "public static int[] bevs_smnlec" += nl;
+               methods += " = bems_smnlec();" += nl;
              }
             if (emitting("js")) {
               methods += smpref += "bevs_smnlec";
               methods += " = [" += nlecs += "];" += nl;
-            } else {
-              methods += " = new int[] {" += nlecs += "};" += nl;
             }
             
             methods += lineInfo;
