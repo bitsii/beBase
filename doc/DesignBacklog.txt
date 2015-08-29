@@ -1,4 +1,6 @@
 
+mutating size for array, map, string, etc
+
 cpp for embedded/universal?
 go finally has libs and stuff :-) go + swift?
 
@@ -24,6 +26,7 @@ return in loop seen as last return incorrectly (what if no loop...)
 last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
 something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
 copy needs to be return type self
+array addValue will recurse into arrays contained in the value to add (all the way down, not intuitive)
 castTo is wrong in at least some once cases, checkTypes must be wrong somehow
 byteiterator is much much slower than just doing getInt on a string by length, something is wrong there
 // Bug with initial elif

@@ -271,24 +271,23 @@ local class LinkedList {
       return(iter.nextNode);
    }
    
-   addWhole(held) {
-      var nn = newNode(held);
-      appendNode(nn);
+   addValueWhole(held) {
+     var nn = newNode(held);
+     appendNode(nn);
    }
    
    addValue(held) {
       if (def(held) && held.sameType(self)) {
          addAll(held);
       } else {
-         var nn = newNode(held);
-         appendNode(nn);
+         addValueWhole(held);
       }
    }
    
    iterateAdd(val) {
       if (def(val)) {
          while (val.hasNext) {
-            addValue(val.next);
+            addValueWhole(val.next);
          }
       }
    }

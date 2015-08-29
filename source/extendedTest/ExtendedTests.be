@@ -20,16 +20,16 @@ use Test:Failure;
 class Test:ExtendedTest:EC(BaseTest) {
    
    main() {
-     //try {
+     try {
        innerMain();
-     //} catch (var e) {
-     //  if (def(e)) {
-     //   e.print();
-     //   throw(e);
-     //  } else {
-     //   throw(System:Exception.new("Failed with null exception"));
-     //  }
-     //}
+     } catch (var e) {
+       if (def(e)) {
+        e.print();
+        throw(e);
+       } else {
+        throw(System:Exception.new("Failed with null exception"));
+       }
+     }
    }
    
    innerMain() {
@@ -75,8 +75,10 @@ class Test:ExtendedTest:EC(BaseTest) {
       BaseTest:Encode.new().main();
       BaseTest:Text.new().main();
       BaseTest:Serialize.new().main();
-      BaseTest:Serialize.new().dirStoreTest();//run here b/c can't be run concurrently, and main is
-      //later run concurrently
+      ifEmit(cs,jv) {
+        BaseTest:Serialize.new().dirStoreTest();//run here b/c can't be run concurrently, and main is
+        //later run concurrently
+      }
       
       
       //works for jv, cs

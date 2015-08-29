@@ -81,18 +81,6 @@ final class Array {
    """
    }
    
-   emit(c) {
-   """
-/*-attr- -freeFirstSlot-*/
-   """
-   }
-   
-   emit(c) {
-   """
-/*-attr- -isArray-*/
-   """
-   }
-   
    emit(jv,cs) {
    """
    
@@ -142,7 +130,7 @@ final class Array {
    }
    
    new() self {
-      self.new(0, 16);
+      self.new(0@, 16@);
    }
    
    new(Int leni) self {
@@ -150,12 +138,6 @@ final class Array {
    }
    
    new(Int leni, Int capi) self {
-emit(c) {
-"""
-/*-attr- -dec-*/
-void** bevl_leni;
-"""
-}
 if (undef(leni) || undef(capi)) {
    throw(System:Exception.new("Attempt to initialize an array with a null length or capacity"));
 }
@@ -166,16 +148,6 @@ if (def(length)) {
       return(self);
    }
 }
-      emit(c) {
-"""
-bevl_leni = $capi&*;
-if (bevs[bercps] != NULL) {
-    BENoFree(bevs[bercps]);
-    bevs[bercps] = NULL;
-}
-bevs[bercps] = (void**)  BENoMalloc(*((BEINT*) (bevl_leni + bercps)) * sizeof(void**));
-"""
-      }
       emit(jv,cs) {
       """
       bevi_array = new BEC_6_6_SystemObject[beva_capi.bevi_int];
@@ -189,9 +161,9 @@ bevs[bercps] = (void**)  BENoMalloc(*((BEINT*) (bevl_leni + bercps)) * sizeof(vo
       
       properties {
          var varray;
-         Int length = leni;
-         Int capacity = capi;
-         Int multiplier = 2;
+         Int length = leni.copy();
+         Int capacity = capi.copy();
+         Int multiplier =@ 2;
       }
    }
    
@@ -233,23 +205,11 @@ bevs[bercps] = (void**)  BENoMalloc(*((BEINT*) (bevl_leni + bercps)) * sizeof(vo
    }
    
    put(Int posi, val) {
-   emit(c) {
-"""
-/*-attr- -dec-*/
-void** bevl_posi;
-"""
-}
       if (posi < 0) {
         throw(System:Exception.new("Attempted put with index less than 0"));
       }
       if (posi >= length) {
          lengthSet(posi + 1);
-      }
-      emit(c) {
-"""
-bevl_posi = $posi&*;
-((void**) bevs[bercps])[*((BEINT*) (bevl_posi + bercps))] = $val*;
-"""
       }
       emit(jv,cs,js) {
       """
@@ -259,20 +219,8 @@ bevl_posi = $posi&*;
    }
    
    get(Int posi) {
-emit(c) {
-"""
-/*-attr- -dec-*/
-void** bevl_posi;
-"""
-}
       var val;
       if ((posi >= 0) && (posi < length)) {
-      emit(c) {
-"""
-bevl_posi = $posi&*;
-$val=* ((void**) bevs[bercps])[*((BEINT*) (bevl_posi + bercps))];
-"""
-      }
       emit(jv,cs,js) {
       """
       bevl_val = this.bevi_array[beva_posi.bevi_int];
@@ -407,39 +355,14 @@ $val=* ((void**) bevs[bercps])[*((BEINT*) (bevl_posi + bercps))];
       }
    }
    
+   capacitySet(Int newcap) {
+     capacity.setValue(newcap);
+   }
+   
    lengthSet(Int newlen) {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-size_t bevl_newcap;
-size_t bevl_oldcap;
-void** bevl_ar;
-size_t i;
-      """
-      }
-      Int newcap;
-      Int oldcap;
-      Int i;
       
-      emit(c) {
-      """
-      bevl_ar = (void**) bevs[bercps];
-      """
-      }
-      
-      if (newlen >= capacity) {
-         newcap = newlen * multiplier;
-         oldcap = capacity;
-         //realloc
-         emit(c) {
-         """
-            bevl_newcap = *((BEINT*) ($newcap&* + bercps));
-            bevl_oldcap = *((BEINT*) ($oldcap&* + bercps));
-            bevl_ar = (void**) bevs[bercps];
-            bevl_ar = (void**) BENoRealloc(bevl_ar, bevl_newcap * sizeof(void*));
-            bevs[bercps] = (void*) bevl_ar;
-         """
-         }
+      if (newlen > capacity) {
+         Int newcap = newlen * multiplier;
          emit(jv) {
          """
          this.bevi_array = java.util.Arrays.copyOf(this.bevi_array, bevl_newcap.bevi_int);
@@ -447,9 +370,7 @@ size_t i;
          }
          emit(cs) {
          """
-         //BEC_6_6_SystemObject[] bevls_array = bevi_array;
          Array.Resize(ref bevi_array, bevl_newcap.bevi_int);
-         //this.bevi_array = bevls_array;
          """
          }
          emit(js) {
@@ -460,7 +381,7 @@ size_t i;
          capacity = newcap;
       }
       //zero extra
-      i = length;
+      Int i = length;
       length = newlen;
       while (i < newlen) {
          put(i, null);
@@ -471,7 +392,7 @@ size_t i;
    iterateAdd(val) self {
       if (def(val)) {
          while (val.hasNext) {
-            addValue(val.next);
+            addValueWhole(val.next);
          }
       }
    }
@@ -482,15 +403,15 @@ size_t i;
       }
    }
    
-   addWhole(val) self {
+   addValueWhole(val) self {
       put(length, val);
    }
    
    addValue(val) self {
       if (def(val) && val.sameType(self)) {
-         addAll(val);
+        addAll(val);
       } else {
-         put(length, val);
+        addValueWhole(val);
       }
    }
    
