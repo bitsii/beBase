@@ -381,12 +381,15 @@ if (def(length)) {
          capacity = newcap;
       }
       //zero extra
-      Int i = length;
-      length = newlen;
-      while (i < newlen) {
-         put(i, null);
-         i = i++;
+      while (length < newlen) {
+        emit(jv,cs,js) {
+         """
+         this.bevi_array[this.bevp_length.bevi_int] = null;
+         """
+         }
+         length++=;
       }
+      length.setValue(newlen);//for length decreasing cases
    }
    
    iterateAdd(val) self {
@@ -404,7 +407,17 @@ if (def(length)) {
    }
    
    addValueWhole(val) self {
-      put(length, val);
+     if (length < capacity) {
+       emit(jv,cs,js) {
+       """
+       this.bevi_array[this.bevp_length.bevi_int] = beva_val;
+       """
+       }
+       length++=;
+     } else {
+       //length may change before put completes, must copy
+       put(length.copy(), val);
+     }
    }
    
    addValue(val) self {

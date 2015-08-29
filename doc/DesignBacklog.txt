@@ -1,5 +1,5 @@
 
-mutating size for array, map, string, etc
+mutating size for map, string, etc
 
 cpp for embedded/universal?
 go finally has libs and stuff :-) go + swift?
@@ -26,7 +26,6 @@ return in loop seen as last return incorrectly (what if no loop...)
 last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
 something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
 copy needs to be return type self
-array addValue will recurse into arrays contained in the value to add (all the way down, not intuitive)
 castTo is wrong in at least some once cases, checkTypes must be wrong somehow
 byteiterator is much much slower than just doing getInt on a string by length, something is wrong there
 // Bug with initial elif
@@ -71,6 +70,7 @@ get rid of auto-once for literal, require manual use
    do after native add/sub/etc for literals (below) to minimise impact
    output all cases where it is being done (where not manual and not optimized away), and do them all manually
 make it possible to skip calls and link up assignments betw org and final
+it looks like Array add could be faster, maybe some other things in Array too
 tmp var reduction
  direct use of onces, no tmp var assign (will then have mechanism to suppress existence
  of tmp vars, unnecessary assignments/use other variables, alias)
