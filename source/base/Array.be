@@ -266,15 +266,12 @@ if (def(length)) {
    create() { return(Array.new(length)); }
    
    add(Array xi) self {
-      Array yi = create(length + xi.length);
-      Int i = 0;
+      Array yi = Array.new(0, length + xi.length);
       foreach (var c in self) {
-         yi.put(i, c);
-         i = i++;
+         yi.addValueWhole(c);
       }
       foreach (c in xi) {
-         yi.put(i, c);
-         i = i++;
+         yi.addValueWhole(c);
       }
       return(yi);
    }
@@ -356,7 +353,9 @@ if (def(length)) {
    }
    
    capacitySet(Int newcap) {
-     capacity.setValue(newcap);
+     if (true) {
+       throw(System:Exception.new("Not Supported"));
+     }
    }
    
    lengthSet(Int newlen) {

@@ -70,7 +70,6 @@ get rid of auto-once for literal, require manual use
    do after native add/sub/etc for literals (below) to minimise impact
    output all cases where it is being done (where not manual and not optimized away), and do them all manually
 make it possible to skip calls and link up assignments betw org and final
-it looks like Array add could be faster, maybe some other things in Array too
 tmp var reduction
  direct use of onces, no tmp var assign (will then have mechanism to suppress existence
  of tmp vars, unnecessary assignments/use other variables, alias)
