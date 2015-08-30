@@ -1,5 +1,9 @@
 
-mutating size for map, string, etc
+libraries and linking
+library/library version
+
+all three extec
+mutating size for map, string, etc, ++= everywhere
 
 cpp for embedded/universal?
 go finally has libs and stuff :-) go + swift?
@@ -7,15 +11,17 @@ go finally has libs and stuff :-) go + swift?
 all 3 plats going
 get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
 
+code inlining, variable references from emits (incl ints)
+
 go to int and other reuse in code as much as possible
   just look at be code efficiency (base et all)
   look at build efficiency
 speed up native ints and such
 
-libraries and linking
-library/library version
 version interfaces (things which can span lib vers if needed)
 (minor only tracked in documentation terms?)
+
+Separate capacity set and len set (support shrink) have put unchecked
 Read–eval–print loop (REPL), code change running instance? (js)?
   js interpreter running, change on fly at runtime, mixed emit envs
   embedded js or add interpretor as such based on reflection
