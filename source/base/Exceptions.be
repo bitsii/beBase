@@ -35,6 +35,7 @@ class System:Exception {
    
    toString() String {
       translateEmittedException();
+      //"in tostring exception".print();
       //self.sourceFileName.print();
       var toRet = "Exception> ";
       if (def(lang)) {
@@ -68,6 +69,17 @@ class System:Exception {
    }
    
    translateEmittedException() {
+     try {
+       translateEmittedExceptionInner();
+     } catch(var e) {
+       ("Exception translation failed").print();
+       if (def(e)) {
+         try { e.print(); } catch (var ee) { }
+       }
+     }
+   }
+   
+   translateEmittedExceptionInner() {
      if (def(translated) && translated) {
        return(self);
      }
@@ -233,6 +245,15 @@ class System:Exception {
    }
    
    extractKlass(String klass) String {
+     try {
+       return(extractKlassInner(klass));
+     } catch (var e) {
+       
+     }
+     return(klass);
+   }
+   
+   extractKlassInner(String klass) String {
     if (undef(klass) || klass.begins("BEC_")!) {
         return(klass);
     }

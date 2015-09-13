@@ -1,6 +1,5 @@
 
-libraries and linking
-library/library version
+add an int to name mangle at the beginning that says how many namepath parts there are
 
 all three extec
 mutating size for map, string, etc, ++= everywhere
@@ -17,6 +16,13 @@ go to int and other reuse in code as much as possible
   just look at be code efficiency (base et all)
   look at build efficiency
 speed up native ints and such
+
+libraries and linking
+  for now, just parse source but don't emit it
+  later, have a way to gen stubs (it's just the return that's an issue, can
+  ignore that when lib)
+library/library version
+tests sep from base lib (2 bld with libs)
 
 version interfaces (things which can span lib vers if needed)
 (minor only tracked in documentation terms?)
