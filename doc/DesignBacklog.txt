@@ -1,6 +1,8 @@
 
 unit test and cycle (jv change)
 
+build a small app to output seconds into file and read back /calculate total and output it
+
 add an int to name mangle at the beginning that says how many namepath parts there are
 
 all three extec
