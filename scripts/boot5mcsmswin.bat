@@ -10,4 +10,4 @@ cd ..\..\..
 
 call mcs /warn:0 -out:target5\BEL_4_Base_mcs.exe system\cs\be\BELS_Base\*.cs target5\Base\target\cs\be\BEL_4_Base\*.cs
 
-rem call scripts\bld4from5mcs.bat
+call scripts\bld4from5mcs.bat
