@@ -1,9 +1,13 @@
 
 unit test and cycle (jv change)
 
+add args to build that read/write times from files and output times for results, put in cycle, have write at start and read/output/delete at end
+
 build a small app to output seconds into file and read back /calculate total and output it
 
 add an int to name mangle at the beginning that says how many namepath parts there are
+
+android, swift/ios
 
 all three extec
 mutating size for map, string, etc, ++= everywhere
