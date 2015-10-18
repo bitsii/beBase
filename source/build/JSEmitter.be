@@ -22,7 +22,7 @@ use Container:Array;
 
 use final class Build:JSEmitter(Build:EmitCommon) {
 
-    
+
     new(Build:Build _build) {
         emitLang = "js";
         fileExt = ".js";
@@ -31,48 +31,48 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         }
         //super new depends on some things we set here, so it must follow
         super.new(_build);
-        
+
         trueValue = "be_BELS_Base_BECS_Runtime.prototype.boolTrue";
         falseValue = "be_BELS_Base_BECS_Runtime.prototype.boolFalse";
-        
+
         instanceEqual = " === ";
         instanceNotEqual = " !== ";
     }
-    
+
     acceptThrow(Node node) {
         methodBody += "throw new be_BELS_Base_BECS_ThrowBack(" += formTarg(node.second) += ", new Error());" += nl;
     }
-    
+
     acceptCatch(Node node) {
     String catchVar = "beve_" + methodCatch.toString();
     methodCatch = methodCatch++;
     methodBody += " catch (" += catchVar += ") {" += nl; //}
-    
+
     methodBody += finalAssign(node.contained.first.contained.first, "(be_BELS_Base_BECS_ThrowBack_handleThrow(" + catchVar + "))", null);
-    
+
    }
-   
+
    buildClassInfoMethod(String belsBase) { }
-   
+
    lstringStart(String sdec, String belsName) {
-   
+
       sdec += classConf.emitName += ".prototype.becs_insts." += belsName += " = ["; //}
    }
-   
+
    buildCreate() {
         ccMethods += classConf.emitName += ".prototype.bemc_create = function() {" += nl;  //}
         ccMethods += "return new " += getClassConfig(cnode.held.namepath).relEmitName(build.libName) += "();" += nl;
         //{
         ccMethods += "}" += nl;
     }
-    
+
     buildPropList() {
-        
+
         Build:ClassSyn syn = cnode.held.syn;
         Array ptyList = syn.ptyList;
-            
+
         ccMethods += classConf.emitName += ".prototype.bepn_pnames = ["; //]
-        
+
         Bool first = true;
         foreach (Build:PtySyn ptySyn in ptyList) {
             if (first) {
@@ -82,69 +82,69 @@ use final class Build:JSEmitter(Build:EmitCommon) {
             }
             ccMethods += q += "bevp_" += ptySyn.name += q;
         }
-    
+
         //[
         ccMethods += "];" += nl;
     }
-    
+
     buildInitial() {
-        
+
         ClassConfig newcc = getClassConfig(cnode.held.namepath);
         String stinst = getInitialInst(newcc);
-            
+
         ccMethods += classConf.emitName += ".prototype.bemc_setInitial = function(becc_inst) {" += nl;  //}
-            
-            
+
+
             ccMethods += stinst += " =  becc_inst;" += nl;
         //{
         ccMethods += "}" += nl;
-        
+
         ccMethods += classConf.emitName += ".prototype.bemc_getInitial = function() {" += nl;  //}
-            
-            
+
+
             ccMethods += "return " += stinst += ";" += nl;
         //{
         ccMethods += "}" += nl;
-        
+
         buildPropList();
     }
-   
+
    lstringByte(String sdec, String lival, Int lipos, Int bcode, String hs) {
-        
+
         lival.getCode(lipos, bcode);
         String bc = bcode.toString();
         sdec += bc;
         //sdec += ","@;
     }
-    
+
     lstringEnd(String sdec) {
         //{
         sdec += "];" += nl;
     }
-    
+
     nameForVar(Build:Var v) String {
-   
+
       if (v.isProperty) {
         return("this.bevp_" + v.name);
       }
       return(super.nameForVar(v));
 
    }
-   
+
     emitLib() {
-    
+
         File:Writer libe = getLibOutput();
-        
+
         String typeInstances = String.new();
         String libInit = String.new();
         String notNullInitConstruct = String.new();
         String notNullInitDefault = String.new();
         for (var ci = classesInDepthOrder.iterator;ci.hasNext;;) {
-        
+
             var clnode = ci.next;
-            
+
             typeInstances += "be_BELS_Base_BECS_Runtime.prototype.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;
-            
+
             if (clnode.held.syn.hasDefault) {
                 //("Class " + clnode.held.namepath + " isNotNull").print();
                 String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
@@ -158,58 +158,62 @@ use final class Build:JSEmitter(Build:EmitCommon) {
                     notNullInitDefault += "be_BELS_Base_BECS_Runtime.prototype.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
                 }
             }
-            
+
         }
-        
+
         String smap = String.new();
-        
+
         foreach (String smk in smnlcs.keys) {
           //("nlcs key " + smk + " nlc " + smnlcs.get(smk) + " nlec " + smnlecs.get(smk)).print();
           smap += "be_BELS_Base_BECS_Runtime.prototype.putNlcSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlcs.get(smk) += ");" += nl;
           smap += "be_BELS_Base_BECS_Runtime.prototype.putNlecSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlecs.get(smk) += ");" += nl;
           //break;
         }
-        
+
         libe.write(smap);
-        
+
         libe.write(typeInstances);
-        
+
         //("Used lib size " + build.usedLibrarys.size).print();
         if (build.usedLibrarys.size == 0) {
             libInit += "be_BELS_Base_BECS_Runtime.prototype.boolTrue = new be_BEL_4_Base_BEC_5_4_LogicBool().beml_set_bevi_bool(true);" += nl;
             libInit += "be_BELS_Base_BECS_Runtime.prototype.boolFalse = new be_BEL_4_Base_BEC_5_4_LogicBool().beml_set_bevi_bool(false);" += nl;
             libInit += "be_BELS_Base_BECS_Runtime.prototype.initializer = new be_BEL_4_Base_BEC_6_11_SystemInitializer();" += nl;
         }
-        
+
         libe.write(libInit);
         libe.write(notNullInitConstruct);
         //libe.write(notNullInitDefault);
-    
+
         NamePath mainClassNp = NamePath.new();
         mainClassNp.fromString(build.mainName);
         ClassConfig maincc = getClassConfig(mainClassNp);
-            
+
         String main = "";
         main += "var mc = new " += maincc.fullEmitName += "();" += nl;
-        main += "be_BELS_Base_BECS_Runtime.prototype.args = process.argv;" += nl;
+        if (build.ownProcess) {
+          main += "be_BELS_Base_BECS_Runtime.prototype.args = process.argv;" += nl;
+        }
         main += "be_BELS_Base_BECS_Runtime.prototype.platformName = \"" += build.outputPlatform.name += "\";" += nl;
         //main += self.procStart;
         libe.write(main);
         main = "";
         libe.write(allOnceDecs);
         libe.write(notNullInitDefault);
-        main += "mc.bem_new_0();" += nl;
-        main += "mc.bem_main_0();" += nl;
+        if (build.ownProcess) {
+          main += "mc.bem_new_0();" += nl;
+          main += "mc.bem_main_0();" += nl;
+        }
         libe.write(main);
-        
+
         finishLibOutput(libe);
-        
+
     }
-    
+
     procStartGet() String {
         return("(new be_BEL_4_Base_BEC_6_7_SystemProcess()).bem_default_0();" + nl);
     }
-   
+
    decForVar(String b, Build:Var v) {
       if (v.isProperty) {
         //b += "public bevp_" + v.name;
@@ -220,48 +224,48 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         b += nameForVar(v);
       }
    }
-   
+
    boolTypeGet() String {
       return("boolean");
    }
-   
+
    mainStartGet() String {
         return("public static void main()" + exceptDec + " {" + nl);
    }
-    
+
     superNameGet() String {
        return("this"); //handled via including parent calls for super call cases prefixed with "bemp_" instead of "bem_" and calling those
        //names for super cases
     }
-    
+
     extend(String parent) String {
         String extstr = classConf.emitName + ".prototype = new " + parent + "();" += nl;
-        extstr = extstr + classConf.emitName + ".prototype.becs_insts = function() { }" += nl; 
+        extstr = extstr + classConf.emitName + ".prototype.becs_insts = function() { }" += nl;
         return(extstr);
     }
-    
+
     lintConstruct(ClassConfig newcc, Node node) String {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_int(" + node.held.literalValue + ")");
    }
-   
+
    lfloatConstruct(ClassConfig newcc, Node node) String {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_float(" + node.held.literalValue + ")");
    }
-   
+
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {
       if (isOnce) {
         return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len(" + classConf.emitName + ".prototype.becs_insts." + belsName + ", " + lisz + ")");
       }
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len_copy(" + classConf.emitName + ".prototype.becs_insts." + belsName + ", " + lisz + ")");
    }
-    
+
     classBeginGet() String {
        if (def(parentConf)) {
           String extends = extend(parentConf.relEmitName(build.libName));
        } else {
           extends = extend("be_BELS_Base_BECS_Object");
        }
-       String begin = "var " += classConf.emitName += " = function() {"; 
+       String begin = "var " += classConf.emitName += " = function() {";
        //if (csyn.isNotNull) {
        //   String stinst = getInitialInst(classConf);
        //   begin += nl;
@@ -273,7 +277,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
        begin += extends;
        return(begin);
     }
-    
+
     emitNameForCall(Node node) String {
         if (node.held.superCall) {
             return("bemp_" + node.held.name);
@@ -300,14 +304,14 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         return(0);
     }
 
-    
+
     getClassOutput() File:Writer {
        return(getLibOutput());
    }
-   
+
    finishClassOutput(File:Writer cle) {
    }
-    
+
     getLibOutput() File:Writer {
         properties { File:Writer shlibe; }
         if (undef(shlibe)) {
@@ -327,51 +331,51 @@ use final class Build:JSEmitter(Build:EmitCommon) {
                 }
             }
             //incorporate incorporate other libs TODO
-            
+
         }
         return(shlibe);
     }
-    
+
     finishLibOutput(File:Writer libe) {
         libe.close();
         shlibe = null;
         //end module
     }
-   
+
    beginNs() String {
         return("");
     }
-    
+
     beginNs(String libName) String {
         return("");
     }
-    
+
     libNs(String libName) String {
         return("");
     }
-    
+
     endNs() String {
         return("");
     }
-    
+
     klassDecGet() String {
         return("export class ");
     }
-    
+
     spropDecGet() String {
         return("");
     }
-    
+
     propDecGet() String {
         return("");
     }
-    
+
     initialDecGet() String {
-       
+
         return("");
-        
+
     }
-    
+
       baseSpropDec(String typeName, String varName) {
          return("");
       }
@@ -379,52 +383,52 @@ use final class Build:JSEmitter(Build:EmitCommon) {
       overrideSpropDec(String typeName, String varName) {
         return("static " + varName + ": " + typeName);
       }
-      
+
       onceDec(String typeName, String varName) {
          return("");
       }
-       
+
        getInitialInst(ClassConfig newcc) String {
         return(newcc.relEmitName(build.libName) + ".prototype.becs_insts.bevs_inst");
        }
-      
-      
+
+
       onceVarDec(String count) String {
         return(classConf.emitName + ".prototype.becs_insts." + "bevo_" + count);
       }
-      
+
       startMethod(String mtdDec, ClassConfig returnType, String mtdName, String argDecs, exceptDec) {
-     
+
          methods += classConf.emitName += ".prototype." += mtdName += " = function(";
-          
+
          methods += argDecs;
-          
+
          methods += ") {" += nl; //}
-        
+
       }
-      
+
       formCast(ClassConfig cc) String {
         return("");
       }
-      
+
       useDynMethodsGet() Bool {
            return(false);
         }
-   
+
    getFullEmitName(String nameSpace, String emitName) {
        return(nameSpace + "_" + emitName);
    }
-   
+
    getNameSpace(String libName) String {
       return("be_" + libEmitName(libName));
    }
-   
+
    getClassConfig(NamePath np) ClassConfig {
       ClassConfig cc = super.getClassConfig(np);
       cc.emitName = cc.fullEmitName;
       return(cc);
    }
-   
+
    getLocalClassConfig(NamePath np) ClassConfig {
       ClassConfig cc = super.getLocalClassConfig(np);
       cc.emitName = cc.fullEmitName;

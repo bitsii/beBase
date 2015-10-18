@@ -1,4 +1,12 @@
 
+toJsString like jv and cs using this.bems_stringToJsString_1(
+
+serialization string utf fix (? to from HEX?)
+  strings already to/from int at position
+  ?int to from hex string, handle sizing (two position)
+  ultimately, string to from hex string
+  hex the string at the serialization level, not in string (to catch other cases)
+
 add args to build that read/write times from files and output times for results, put in cycle, have write at start and read/output/delete at end
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
@@ -58,10 +66,10 @@ string hash for javascript seems to be different than for others
 ---- lang change req ----
 vars to props
   support both
-  change all 
+  change all
   drop vars support
 iteratorGet can't be typed, that's a problem, esp foreach
-  ?type obj iterator, others will have to extend 
+  ?type obj iterator, others will have to extend
 
 gratuitous returns - var for untyped, rest as now (self, typed).
    void type to allow explicit def
@@ -70,11 +78,11 @@ gratuitous returns - var for untyped, rest as now (self, typed).
  find and fix all cases of return without declaration
  find and fix all cases of assign from non-declared return for typed calls
  remove autoreturn for no declared return (void)
- dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead? 
+ dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
 
-get rid of implied new calls in generated code (mark as implied, skip them,   
+get rid of implied new calls in generated code (mark as implied, skip them,
   I think it's only for literals now anyway)
-  
+
 dump { } ( ) where unneeded
 
 ---- no lang change req / additive ----
@@ -99,8 +107,8 @@ native operations, dropping literals
    as second arg to call)
  for all those uses, get rid of onces, constructs, tmp vars, etc
  also, for many calls can avoid the call even if not literals (int add, sub, etc)
- in some cases (no escape (local vars, not called out except to "safe" mtds))   
-   could do native ints, bools, same with local/final int/bool members  
+ in some cases (no escape (local vars, not called out except to "safe" mtds))
+   could do native ints, bools, same with local/final int/bool members
 =~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
  make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
 final for static members (?) - readonly for c#
@@ -109,12 +117,12 @@ get rid of calls to once and many
 get rid of calls to new where local/final and is not overridden from obj
 more efficient int
   direct no call operations (?inline) (no null checking)
-    have a way to mark ok for inlining anywhere, use 
+    have a way to mark ok for inlining anywhere, use
     text replacement($) to arg vars instead of literal names
   native ints where completely local, initted at declare/never null, etc
     -have specific inline for int value above, which can work with direct lits
   native ints for literal cases (typed oper on literal)
-  
+
 encode/decode base 64 to use instead of hex
 http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 
@@ -132,7 +140,7 @@ clocker iterator, share lock with clocker
 ifEmit to ifSet, ifUnset, prefix lang (?em: or em. lang, like em.jv)
 (or just keep ifEmit, and support external flags - this)
 
-for buid to be threadsafe, 
+for buid to be threadsafe,
    nodes and syns needs threadsafe fixes
 
 finish notnull cleanup (reused by default logic, but improperly named, still looked for compile, syn + class mbr, etc)
@@ -144,14 +152,14 @@ utf8 in code (vars, classes, methods), encoding for < > ascii
 
 info for embedders - main needs to run before start, outer thread should hold lock
   on lib
-  
+
 more concurrency
   semaphore
   queue
   worker threads
   futures (promises)
   atomic int ops
- .. means to back to last target (can be explicit or return from a . call) 
+ .. means to back to last target (can be explicit or return from a . call)
 
 I think can() could be better than iterating methods :-( (will need to gen something like invoke but with just t/f)
 FASTER where there are range checks in the lang (cs, jv), skip them in the external logic (may need to change except behavior for this to work)
@@ -168,7 +176,7 @@ https://github.com/int6/uhttpsharp c# embedded ws
 
 args to if must be boolean if they are typed
 
-get test testMisc working for js 
+get test testMisc working for js
 -js needs to check types on assign Look for formCast/checkTypes, need to rearrange call assign stuff a bit
 -check assigns
 -js on typed calls check during arg build, untyped calls have a descriptor obj genned which is checked
@@ -217,7 +225,7 @@ apportable
 static lib (ios req)
 dynamic calls w/out switch (use built-in)
 name mangling all in names (no ns available)
-objc on message calls variable names are optional, can just do positions with : 
+objc on message calls variable names are optional, can just do positions with :
 supposedly no difference in performance between typed pointers and untyped pointers for calls
 http://stackoverflow.com/questions/907843/cost-of-message-dispatch-in-objective-c
 arc linux - http://lists.gnu.org/archive/html/discuss-gnustep/2014-05/msg00049.html
@@ -256,13 +264,13 @@ FASTER if closelib and isFinal or isLocal and call is empty skip it altogether (
 functional:
 first class functions - alwaysForward for all dynamic calls always forwarding (the way to use functions)
 distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
-anonymous functions? closures? (case inside (no), capture everything used and make them all args/held state (yes)) 
+anonymous functions? closures? (case inside (no), capture everything used and make them all args/held state (yes))
 switch invoke over?
 
 in practice now, int is 32, long varies long long is 64
 float is 32, double is 64
 unicode is max 4 bytes, fits in 32bit int
-have unsigned int value, for java, postive part of 64bit (long) - better because does not depend on 
+have unsigned int value, for java, postive part of 64bit (long) - better because does not depend on
 signed implementation being something in particular (2s complement) for byte manipulation
 shiftLeft, shiftRight, shiftRightLogical
 
@@ -311,7 +319,7 @@ anon methods, become instances of system-method and can only be used/referenced 
 
 smart, oldfart, ideas http://scottlocklin.wordpress.com/2013/07/28/ruins-of-forgotten-empires-apl-languages/
 
-use private to mean a class which is only visible in it's own library 
+use private to mean a class which is only visible in it's own library
 (none of it's interface/syn goes to deploy)
 
 think about how to support binary serialization
@@ -347,7 +355,7 @@ generic indistinguishable from regular types during calls, etc (source wise, emi
 DoIt<T>(T held) DoIt {
 
    return(self);
-   
+
    doIt() {
       held.doIt();
    }

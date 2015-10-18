@@ -23,7 +23,7 @@ use Logic:Bool;
 use System:Parameters;
 
 final class Build:Build {
-   
+
    new() self {
       properties {
          String mainName;
@@ -84,7 +84,7 @@ final class Build:Build {
          Build:Library deployLibrary;
          String deployPath;
          Container:LinkedList usedLibrarys = Container:LinkedList.new();
-         //closeLibraries includes all libraries used close and the 
+         //closeLibraries includes all libraries used close and the
          //current library
          Container:Set closeLibraries = Container:Set.new();
          Bool run = false;
@@ -94,32 +94,33 @@ final class Build:Build {
          String makeArgs;
          Bool putLineNumbersInTrace = false;
          Bool dynConditionsAll = false;
+         Bool ownProcess = true;
          Text:String readBuffer = Text:String.new(4096);
       }
    }
-   
+
    isNewish(String name) Bool {
       if (def(name) && (name == "new" || name.ends("New"))) {
          return(true);
       }
       return(false);
    }
-   
+
    process(String arg) {
       return(arg.swap("/", "\\"));
    }
-   
+
    main() {
       Array _args = System:Process.new().args;
       return(main(_args));
    }
-   
+
    main(Array _args) {
       args = _args;
       params = Parameters.new(args);
       return(go());
    }
-   
+
    go() {
       Int whatResult = 1;//default to fail
       config();
@@ -139,7 +140,7 @@ final class Build:Build {
       }
       return(whatResult);
    }
-   
+
    dllhead(String addTo) String {
       if (platform.name == "mswin") {
          addTo = addTo + "#ifdef BENC_" + libName + nl;
@@ -151,11 +152,11 @@ final class Build:Build {
       }
       return(addTo);
    }
-   
+
    config() {
       String istr;
       Set bfiles = Set.new();
-      
+
       String bkey = "buildFile";
       if (def(params[bkey])) {
       foreach (istr in params[bkey]) {
@@ -165,7 +166,7 @@ final class Build:Build {
          }
       }
       }
-      
+
       if (System:CurrentPlatform.new().name == "mswin") {
          params.preProcessor = self;
       }
@@ -182,7 +183,8 @@ final class Build:Build {
       platform = System:Platform.new(params.get("platform", System:CurrentPlatform.new().name).first);
       outputPlatform = System:Platform.new(params.get("outputPlatform", platform.name).first);
       dynConditionsAll = Bool.new(params.get("dynConditionsAll", "false").first);
-      
+      ownProcess = Bool.new(params.get("ownProcess", "true").first);
+
       mainName = params["mainClass"].first;
       deployPath = params["deployPath"].first;
       usedLibrarysStr = params["useLibrary"];
@@ -255,15 +257,15 @@ final class Build:Build {
       doEmit = true;
       prepMake = true;
       make = true;
-      
+
       String outLang;
       if (def(emitLangs)) {
         outLang = emitLangs.first;
       } else {
         outLang = "c";
       }
-      
-      //So that we can have one set of build files which work for all platforms, we have the ability to 
+
+      //So that we can have one set of build files which work for all platforms, we have the ability to
       //add only source files which correspond to our target platform
       //(which is also the current platform unless we are doing a (build4) cross-gen)
       //outLang specific
@@ -271,12 +273,12 @@ final class Build:Build {
       if (def(platformSources)) {
 		 params.ordered.addAll(platformSources);
       }
-      
+
       var langSources = params[outLang + "_source"];
       if (def(langSources)) {
 		 params.ordered.addAll(langSources);
       }
-      
+
       toBuild = LinkedList.new();
       foreach (istr in params.ordered) {
          toBuild += File:Path.new(istr);
@@ -284,7 +286,7 @@ final class Build:Build {
       newline = platform.newline;
       nl = newline;
       compilerProfile = Build:CompilerProfile.new(self);
-      
+
       emitPath = buildPath.copy();
       if (emitPath.file.exists!) {
          emitPath.file.makeDirs();
@@ -295,7 +297,7 @@ final class Build:Build {
          emr.close();
       }
    }
-   
+
    toString() Text:String {
       //self.className.print();
       var toRet = self.className;
@@ -303,7 +305,7 @@ final class Build:Build {
       toRet = toRet + nl + "emitPath is " + emitPath.toString();
       return(toRet);
    }
-   
+
    setClassesToWrite() {
       Set toEmit = Set.new();
       for (var ci = emitData.classes.valueIterator;ci.hasNext;;) {
@@ -328,14 +330,14 @@ final class Build:Build {
             clnode = ci.next;
             clnode.held.shouldWrite = toEmit.has(clnode.held.namepath.toString());
             //("shouldWrite for " + clnode.held.namepath + " is " + clnode.held.shouldWrite).print();
-      }      
+      }
    }
-   
+
    emitCs() Int {
-     
+
      return(0);
    }
-   
+
    emitCommonGet() Build:EmitCommon {
        if (def(emitCommon)) {
           return(emitCommon);
@@ -359,7 +361,7 @@ final class Build:Build {
        }
        return(null);
    }
-   
+
    doWhat() Int {
       //Start Timer
       startTime = Time:Interval.now();
@@ -422,7 +424,7 @@ final class Build:Build {
             clnode = ci.next;
 			em.emitSyn(clnode);
          }
-      
+
       }
       parseEmitTime = Time:Interval.now() - startTime;
       if (def(parseTime)) {
@@ -433,7 +435,7 @@ final class Build:Build {
       //("!!!!!!! prep make deploy library exe " + deployLibrary.exeName).print();
          em.prepMake(deployLibrary);
       }
-      
+
       if (make) {
          if (genOnly!) {
             em.make(deployLibrary);
@@ -468,7 +470,7 @@ final class Build:Build {
          }
       }
       parseEmitCompileTime = Time:Interval.now() - startTime;
-      
+
       if (def(parseTime)) {
          ("TIME: Parse phase completed in " + parseTime).print();
       }
@@ -478,7 +480,7 @@ final class Build:Build {
       if (def(parseEmitCompileTime)) {
          ("TIME: Parse, emit, and compile phases completed in " + parseEmitCompileTime).print();
       }
-      
+
       if (run) {
          ("Should now run").print();
          Int result = em.run(deployLibrary, runArgs);
@@ -487,7 +489,7 @@ final class Build:Build {
       }
       return(0);
    }
-   
+
    buildSyns(em) {
       for (var ci = emitData.justParsed.valueIterator;ci.hasNext;;) {
          var kls = ci.next;
@@ -503,7 +505,7 @@ final class Build:Build {
       }
       emitData.justParsed = Map.new();
    }
-   
+
    getSyn(klass, em) {
       if (def(klass.held.syn)) {
          return(klass.held.syn);
@@ -527,7 +529,7 @@ final class Build:Build {
       emitData.addSynClass(klass.held.namepath.toString(), syn);
       return(syn);
    }
-   
+
    getSynNp(np) Build:ClassSyn {
       var nps = np.toString();
       var syn = emitData.synClasses.get(nps);
@@ -544,15 +546,15 @@ final class Build:Build {
       //}
       //return(null);
    }
-   
-   
+
+
    emitterGet() {
       if (undef(sharedEmitter)) {
          sharedEmitter = Build:CEmitter.new(self);
       }
       return(sharedEmitter);
    }
-   
+
    doParse(toParse) {
       //"in parse".print();
       var trans = Build:Transport.new(self);
@@ -566,15 +568,15 @@ final class Build:Build {
          ("Parsing file " + toParse.toString()).print();
         }
          fromFile = toParse;
-         
+
          var src = toParse.file.reader.open().readBuffer(readBuffer);
          toParse.file.reader.close();
          LinkedList toks = twtok.tokenize(src);
-         
+
          //var src = IO:ByteReader.readerBufferNew(toParse.file.reader.open(), readBuffer);
          //LinkedList toks = twtok.tokenizeIterator(src);
          //toParse.file.reader.close();
-         
+
          //PREPARE VISIT
          if (printSteps) {
             ". ".echo();
@@ -603,7 +605,7 @@ final class Build:Build {
             "printAst post 3".print();
             trans.traverse(Visit:Pass1.new(printAstElements, null));
          }
-         
+
          if (printSteps) {
             ".... ".echo();
          }
@@ -612,7 +614,7 @@ final class Build:Build {
             "printAst post 4".print();
             trans.traverse(Visit:Pass1.new(printAstElements, null));
          }
-         
+
          if (printSteps) {
             "..... ".echo();
          }
@@ -621,7 +623,7 @@ final class Build:Build {
             "printAst post 5".print();
             trans.traverse(Visit:Pass1.new(printAstElements, null));
          }
-         
+
          if (printSteps) {
             "...... ".echo();
          }
@@ -630,7 +632,7 @@ final class Build:Build {
             "printAst post 6".print();
             trans.traverse(Visit:Pass1.new(printAstElements, null));
          }
-         
+
          if (printSteps) {
             "....... ".echo();
          }
@@ -639,7 +641,7 @@ final class Build:Build {
             "printAst post 7".print();
             trans.traverse(Visit:Pass1.new(printAstElements, null));
          }
-         
+
          if (printSteps) {
             "........ ".echo();
          }
@@ -648,7 +650,7 @@ final class Build:Build {
             "printAst post 8".print();
             trans.traverse(Visit:Pass1.new(printAstElements, null));
          }
-         
+
          if (printSteps) {
             "......... ".echo();
          }
@@ -657,7 +659,7 @@ final class Build:Build {
             "printAst post 9".print();
             trans.traverse(Visit:Pass1.new(printAstElements, null));
          }
-         
+
          if (printSteps) {
             ".......... ".echo();
          }
@@ -674,7 +676,7 @@ final class Build:Build {
             "printAst post 11".print();
             trans.traverse(Visit:Pass1.new(printAstElements, null));
          }
-         
+
          if (printSteps) {
             "............ ".echo();
             " ".print();
@@ -699,7 +701,7 @@ final class Build:Build {
          }
       }
    }
-   
+
    nodify(parnode, toks) {
       parnode.reInitContained();
       Container:NodeList con = parnode.contained;
@@ -718,7 +720,5 @@ final class Build:Build {
          }
       }
    }
-   
+
 }
-
-
