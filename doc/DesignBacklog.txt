@@ -1,22 +1,13 @@
 
-toJsString like jv and cs using this.bems_stringToJsString_1(
-
-serialization string utf fix (? to from HEX?)
-  strings already to/from int at position
-  ?int to from hex string, handle sizing (two position)
-  ultimately, string to from hex string
-  hex the string at the serialization level, not in string (to catch other cases)
-
 add args to build that read/write times from files and output times for results, put in cycle, have write at start and read/output/delete at end
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
 
-android, swift/ios, ?lua
-
-lua
-http://lua-users.org/wiki/ObjectOrientationTutorial
+android, swift/ios (pgap for ios?), php
 
 mutating size for map, string, etc, ++= everywhere
+
+inline int, literal adds, etc
 
 cpp for embedded/universal?
 go finally has libs and stuff :-) go + swift?
@@ -45,6 +36,13 @@ Separate capacity set and len set (support shrink) have put unchecked
 Read–eval–print loop (REPL), code change running instance? (js)?
   js interpreter running, change on fly at runtime, mixed emit envs
   embedded js or add interpretor as such based on reflection
+
+  serialization string utf fix (? to from HEX?)
+    strings already to/from int at position
+    ?int to from hex string, handle sizing (two position)
+    ultimately, string to from hex string
+    hex the string at the serialization level, not in string (to catch other cases)
+  
 
 ---- bugs ----
 default return not picking up when wrong type

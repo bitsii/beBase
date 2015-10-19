@@ -160,6 +160,13 @@ final class String {
         this.bevp_capacity = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
         return this;
     }
+    be_BEL_4_Base_BEC_4_6_TextString.prototype.bems_toJsString = function() {
+        return this.bems_stringToJsString_1(this);
+    }
+    be_BEL_4_Base_BEC_4_6_TextString.prototype.bems_new = function(str) {
+      this.beml_set_bevi_bytes(this.bems_stringToBytes_1(str));
+      return this;
+    }
     
    """
    }
