@@ -677,7 +677,7 @@ class Test:BaseTest:Current(BaseTest) {
         
         //BaseTest:OnceMany.new().main();
         
-        BaseTest:MutInt.new().main();
+        Test:BaseTest:MutInt.new().main();
         
         //Test:BaseTest:QuickCheck.new().main();
         
@@ -997,22 +997,22 @@ class Test:BaseTest:All(BaseTest) {
          assertEqual("abcd".substring(1), "bcd");
          //if (true) { return(self); }
          
-         BaseTest:Float.new().main();
+         Test:BaseTest:Float.new().main();
          Test:BaseTest:EC.new().main();
-         BaseTest:MutString.new().main();
-         BaseTest:MutInt.new().main();
-         BaseTest:OnceMany.new().main();
-         BaseTest:Null.new().main();
+         Test:BaseTest:MutString.new().main();
+         Test:BaseTest:MutInt.new().main();
+         Test:BaseTest:OnceMany.new().main();
+         Test:BaseTest:Null.new().main();
          //BaseTest:Class.new().main();
-         BaseTest:Int.new().main();
-         BaseTest:Array.new().main();
-         BaseTest:ParseCorners.new().main();
-         BaseTest:Calls.new().main();
+         Test:BaseTest:Int.new().main();
+         Test:BaseTest:Array.new().main();
+         Test:BaseTest:ParseCorners.new().main();
+         Test:BaseTest:Calls.new().main();
          Tests:CallArgs.new().main();
          Tests:CallArgsFinal.new().main();
          Tests:Exceptions.new().main();
-         BaseTest:Invoke.new().main();
-         BaseTest:Gc.new().main();
+         Test:BaseTest:Invoke.new().main();
+         Test:BaseTest:Gc.new().main();
          Test:CREComp.new();
          //} catch (var e) { 
          //   e.print();

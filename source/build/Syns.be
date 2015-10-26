@@ -66,7 +66,7 @@ final class ClassSyn {
          Build:NamePath superNp;
          Int depth;
          Build:NamePath namepath;
-         File:Path fromFile;
+         IO:File:Path fromFile;
          String libName;
          Bool isLocal;
          Bool isNotNull;

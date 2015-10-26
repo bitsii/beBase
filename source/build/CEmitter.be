@@ -20,11 +20,11 @@ class Build:EmitError(Build:VisitError) {
 
 final class Build:ClassInfo {
    
-   new(Build:NamePath _np, _emitter, File:Path _emitPath, String _libName) self {
+   new(Build:NamePath _np, _emitter, IO:File:Path _emitPath, String _libName) self {
       new(_np, _emitter, _emitPath, _libName, _libName);
    }
    
-   new(Build:NamePath _np, _emitter, File:Path _emitPath, String _libName, String _exeName) self {
+   new(Build:NamePath _np, _emitter, IO:File:Path _emitPath, String _libName, String _exeName) self {
    
       properties {
          
@@ -69,37 +69,37 @@ final class Build:ClassInfo {
          String libNotNullInit = "BEUF_" + midName + "_notNullInit";
          String libNotNullInitDone = "BEUV_" + midName + "_notNullInitDone";
          
-         File:Path emitPath = _emitPath;
+         IO:File:Path emitPath = _emitPath;
          //base file path for all files for class
-         File:Path basePath = _emitPath + nsDir; 
-         File:Path cuBase = _emitPath.copy();
-         File:Path nsDir; //path to files as it will appear from compiler include
+         IO:File:Path basePath = _emitPath + nsDir; 
+         IO:File:Path cuBase = _emitPath.copy();
+         IO:File:Path nsDir; //path to files as it will appear from compiler include
    
          String xbase = "BEX_" + _libName; //clBase name for executable bits
          String lbase = _libName; //clBase name for lib
          String nbase = clBase; //clBase name for name stuff
          String kbase = "BEK_" + clBase; //clBase name for all class files for this class
          
-         File:Path cuinitH = cuBase.copy().addStep(nbase + ".h");
+         IO:File:Path cuinitH = cuBase.copy().addStep(nbase + ".h");
          String namesIncH = nbase + ".h";
-         File:Path cuinit = cuBase.copy().addStep(nbase + cext);
-         File:Path namesO = cuBase.copy().addStep(nbase + oext);
+         IO:File:Path cuinit = cuBase.copy().addStep(nbase + cext);
+         IO:File:Path namesO = cuBase.copy().addStep(nbase + oext);
    
          //File:Path libnameName = cuBase.copy().addStep("name.txt");
          
-         File:Path unitShlib = cuBase.copy().addStep(lbase + cpro.libExt);
-         File:Path unitExeLink = cuBase.copy().addStep(lbase + cpro.exeLibExt);
-         File:Path unitExe = cuBase.copy().addStep(_exeName + cpro.exeExt);
+         IO:File:Path unitShlib = cuBase.copy().addStep(lbase + cpro.libExt);
+         IO:File:Path unitExeLink = cuBase.copy().addStep(lbase + cpro.exeLibExt);
+         IO:File:Path unitExe = cuBase.copy().addStep(_exeName + cpro.exeExt);
    
-         File:Path classExeSrc = basePath.copy().addStep(xbase + cext);
-         File:Path classExeO = basePath.copy().addStep(xbase + oext);
-         File:Path makeSrc = basePath.copy().addStep(xbase + ".make");
+         IO:File:Path classExeSrc = basePath.copy().addStep(xbase + cext);
+         IO:File:Path classExeO = basePath.copy().addStep(xbase + oext);
+         IO:File:Path makeSrc = basePath.copy().addStep(xbase + ".make");
          
-         File:Path classSrc = basePath.copy().addStep(kbase + cext);
-         File:Path classSrcH = basePath.copy().addStep(kbase + ".h");
-         File:Path classIncH = nsDir.copy().addStep(kbase + ".h");
-         File:Path classO = basePath.copy().addStep(kbase + oext);
-         File:Path synSrc = basePath.copy().addStep(kbase + ".syn");
+         IO:File:Path classSrc = basePath.copy().addStep(kbase + cext);
+         IO:File:Path classSrcH = basePath.copy().addStep(kbase + ".h");
+         IO:File:Path classIncH = nsDir.copy().addStep(kbase + ".h");
+         IO:File:Path classO = basePath.copy().addStep(kbase + oext);
+         IO:File:Path synSrc = basePath.copy().addStep(kbase + ".syn");
    
       }
       
@@ -109,7 +109,7 @@ final class Build:ClassInfo {
    }
       
    nsDirDo(String _libName) {
-      nsDir = File:Path.new();
+      nsDir = IO:File:Path.new();
       nsDir.addStep(_libName);
       for (var i = nparSteps.iterator;i.hasNext;;) {
          nsDir.addStep(i.next);
@@ -261,7 +261,7 @@ final class Build:CEmitter {
       if (build.printSteps) {
          ". ".echo();
       }
-      emvisit = Visit:Rewind.new();
+      emvisit = Build:Visit:Rewind.new();
       emvisit.emitter = self;
       emvisit.build = build;
       trans.traverse(emvisit);
@@ -269,7 +269,7 @@ final class Build:CEmitter {
       if (build.printSteps) {
          ".. ".echo();
       }
-      emvisit = Visit:TypeCheck.new();
+      emvisit = Build:Visit:TypeCheck.new();
       emvisit.emitter = self;
       emvisit.build = build;
       trans.traverse(emvisit);
@@ -278,7 +278,7 @@ final class Build:CEmitter {
          "... ".echo();
       }
       " ".print();
-      //emvisit = Visit:CEmit.new();
+      //emvisit = Build:Visit:CEmit.new();
       emvisit.emitter = self;
       emvisit.build = build;
       trans.traverse(emvisit);

@@ -15,7 +15,7 @@ use Build:NamePath;
 use Build:VisitError;
 use Build:Node;
 
-final class Visit:Pass11(Visit:Visitor) {
+final class Build:Visit:Pass11(Build:Visit:Visitor) {
 
    new() self {
       properties {

@@ -15,7 +15,7 @@ use Build:NamePath;
 use Build:VisitError;
 use Build:Node;
 
-final class Visit:Pass2(Visit:Visitor) {
+final class Build:Visit:Pass2(Build:Visit:Visitor) {
    
    begin (transi) {
       super.begin(transi);

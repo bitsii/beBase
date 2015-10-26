@@ -16,7 +16,7 @@ use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;
 
-final class Visit:Pass1(Visit:Visitor) {
+final class Build:Visit:Pass1(Build:Visit:Visitor) {
 
    new() self {
       properties {
@@ -26,7 +26,7 @@ final class Visit:Pass1(Visit:Visitor) {
       }
    }
    
-   new(Set _printAstElements, String _fname) Visit:Pass1 {
+   new(Set _printAstElements, String _fname) Build:Visit:Pass1 {
       printAstElements = _printAstElements;
       allAstElements = printAstElements.isEmpty;
       if (def(_fname)) {

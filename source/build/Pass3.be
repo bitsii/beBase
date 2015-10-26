@@ -16,7 +16,7 @@ use Build:VisitError;
 use Build:Node;
 use Logic:Bool;
 
-final class Visit:Pass3(Visit:Visitor) {
+final class Build:Visit:Pass3(Build:Visit:Visitor) {
 
    //COMBINE
    

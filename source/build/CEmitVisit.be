@@ -48,7 +48,7 @@ and values are set a library initialization time) (this is for non-accessor call
 * 
 
 */
-final class Visit:CEmit(Visit:Visitor) {
+final class Build:Visit:CEmit(Build:Visit:Visitor) {
    
    new() self {
    
@@ -1467,7 +1467,7 @@ final class Visit:CEmit(Visit:Visitor) {
 
 final class CallCursor {
    
-   new(Visit:CEmit _emvisit, Node _node) self {
+   new(Build:Visit:CEmit _emvisit, Node _node) self {
    
       properties {
          Node asnR;
@@ -1488,7 +1488,7 @@ final class CallCursor {
          String utPostCheckBB = String.new();
          String utPostCheckC = String.new();
          String utPostCheckEB = String.new();
-         Visit:CEmit emvisit = _emvisit;
+         Build:Visit:CEmit emvisit = _emvisit;
          Node node = _node;
          Bool checkAssignTypes = false;
          String preOnceEval = String.new();
@@ -1575,7 +1575,7 @@ final class CallCursor {
        return(assignTypeCheck + callAssign);
    }
    
-   new(Visit:CEmit _emvisit, Node _node, Node _asnR, Bool _checkAssignTypes) self {
+   new(Build:Visit:CEmit _emvisit, Node _node, Node _asnR, Bool _checkAssignTypes) self {
       prepCldef = String.new();
       prepMdef = String.new();
       utPreCheck = String.new();

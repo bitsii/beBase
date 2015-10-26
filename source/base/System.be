@@ -9,6 +9,7 @@
  use Text:String;
  use Logic:Bool;
  use Container:LinkedList;
+ use Container:LinkedList:Node;
  use Math:Int;
  use System:Random;
  use System:Identity;
@@ -442,8 +443,8 @@ class System:BasePath {
       if (howMany > 0) {
          makeNonAbsolute();
          LinkedList fpath = path.split(separator);
-         LinkedList:Node current;
-         LinkedList:Node next = fpath.firstNode;
+         Node current;
+         Node next = fpath.firstNode;
          for (Int i = 0;i < howMany;i = i++) {
             if (undef(next)) { break; }
             current = next;

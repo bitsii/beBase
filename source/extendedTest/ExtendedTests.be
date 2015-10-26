@@ -68,15 +68,15 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       //works for all
       
-      BaseTest:Main.new().main(); 
+      Test:BaseTest:Main.new().main(); 
       Tests:Function.new().main();
       Tests:TestJson.new().main();
-      BaseTest:Template.new().main();
-      BaseTest:Encode.new().main();
-      BaseTest:Text.new().main();
-      BaseTest:Serialize.new().main();
+      Test:BaseTest:Template.new().main();
+      Test:BaseTest:Encode.new().main();
+      Test:BaseTest:Text.new().main();
+      Test:BaseTest:Serialize.new().main();
       ifEmit(cs,jv) {
-        BaseTest:Serialize.new().dirStoreTest();//run here b/c can't be run concurrently, and main is
+        Test:BaseTest:Serialize.new().dirStoreTest();//run here b/c can't be run concurrently, and main is
         //later run concurrently
       }
       
@@ -85,20 +85,20 @@ class Test:ExtendedTest:EC(BaseTest) {
       //BaseTest:Misc.new().main(); //js needs to check types for assignments where called for
       
       //io
-      BaseTest:IO.new().main();
+      Test:BaseTest:IO.new().main();
       //BaseTest:Log.new().main(); 
       
       //need to get
-      BaseTest:Parameters.new().main(); 
+      Test:BaseTest:Parameters.new().main(); 
          
-      BaseTest:Time.new().main();
+      Test:BaseTest:Time.new().main();
       
       testNullEquals();
       
       testLog();
       
       ifEmit(jv, cs) {
-        BaseTest:System.new().main(); //random not impl for all
+        Test:BaseTest:System.new().main(); //random not impl for all
         testSha256();
         testThreads();
         testLocks();
@@ -209,10 +209,10 @@ class Test:ETThreads {
   
     Tests:Function.new().main();
     Tests:TestJson.new().main();
-    BaseTest:Template.new().main();
-    BaseTest:Encode.new().main();
-    BaseTest:Text.new().main();
-    BaseTest:Serialize.new().main();
+    Test:BaseTest:Template.new().main();
+    Test:BaseTest:Encode.new().main();
+    Test:BaseTest:Text.new().main();
+    Test:BaseTest:Serialize.new().main();
   
   }
 

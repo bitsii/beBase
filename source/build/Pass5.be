@@ -16,7 +16,7 @@ use Build:VisitError;
 use Logic:Bool;
 use Build:Node;
 
-final class Visit:Pass5(Visit:Visitor) {
+final class Build:Visit:Pass5(Build:Visit:Visitor) {
 
    accept(Build:Node node) Build:Node {
          var err;

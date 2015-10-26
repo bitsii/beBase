@@ -14,7 +14,7 @@ use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;
 
-final class Visit:Pass8(Visit:Visitor) {
+final class Build:Visit:Pass8(Build:Visit:Visitor) {
 
    acceptClass(node) {
          build.emitData.addParsedClass(node);

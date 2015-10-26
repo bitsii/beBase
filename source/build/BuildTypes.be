@@ -41,7 +41,7 @@ final class Build:NamePath(System:BasePath) {
       String fstep = self.firstStep;
       Node tunode = node.transUnit;
       System:BasePath par = tunode.held.aliased.get(fstep);
-      if (def(par)) {
+      if (def(par) && self.path.has(":")!) {
          System:BasePath np2 = self.deleteFirstStep();
          System:BasePath np = par + np2;
          path = np.path;

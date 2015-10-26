@@ -169,8 +169,8 @@ char* twcwd;
       return(cwd);
    }
    
-   workingDirectoryGet() File:Path {
-      return(File:Path.apNew(self.cwd));
+   workingDirectoryGet() IO:File:Path {
+      return(IO:File:Path.apNew(self.cwd));
    }
    
 }

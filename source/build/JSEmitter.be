@@ -133,7 +133,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
     emitLib() {
 
-        File:Writer libe = getLibOutput();
+        IO:File:Writer libe = getLibOutput();
 
         String typeInstances = String.new();
         String libInit = String.new();
@@ -305,15 +305,15 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     }
 
 
-    getClassOutput() File:Writer {
+    getClassOutput() IO:File:Writer {
        return(getLibOutput());
    }
 
-   finishClassOutput(File:Writer cle) {
+   finishClassOutput(IO:File:Writer cle) {
    }
 
-    getLibOutput() File:Writer {
-        properties { File:Writer shlibe; }
+    getLibOutput() IO:File:Writer {
+        properties { IO:File:Writer shlibe; }
         if (undef(shlibe)) {
            lineCount = 0;
            if (libEmitPath.parent.file.exists!) {
@@ -323,7 +323,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
             //incorporate base file - ext lib
             if (build.params.has("jsInclude")) {
                 foreach (String p in build.params["jsInclude"]) {
-                    File jsi = File:Path.apNew(p).file;
+                    File jsi = IO:File:Path.apNew(p).file;
                     String inc = jsi.reader.open().readString();
                     jsi.reader.close();
                     lineCount += countLines(inc);
@@ -336,7 +336,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         return(shlibe);
     }
 
-    finishLibOutput(File:Writer libe) {
+    finishLibOutput(IO:File:Writer libe) {
         libe.close();
         shlibe = null;
         //end module

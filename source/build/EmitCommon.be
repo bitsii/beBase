@@ -72,7 +72,7 @@ THREADS
 
 */
 
-use local class Build:EmitCommon(Visit:Visitor) {
+use local class Build:EmitCommon(Build:Visit:Visitor) {
 
     new(Build:Build _build) {
         build = _build;
@@ -115,7 +115,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
           //Shared library code genned based on lib contents
           String libEmitName = libEmitName(build.libName);
           String fullLibEmitName = fullLibEmitName(build.libName);
-          File:Path libEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName(build.libName)).addStep(libEmitName + fileExt);
+          IO:File:Path libEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName(build.libName)).addStep(libEmitName + fileExt);
           
           String methodBody = String.new();
           Int lastMethodBodySize = 0;
@@ -202,7 +202,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
       if (build.printSteps) {
          ". ".echo();
       }
-      emvisit = Visit:Rewind.new();
+      emvisit = Build:Visit:Rewind.new();
       emvisit.emitter = self;
       emvisit.build = build;
       trans.traverse(emvisit);
@@ -210,7 +210,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
       if (build.printSteps) {
          ".. ".echo();
       }
-      emvisit = Visit:TypeCheck.new();
+      emvisit = Build:Visit:TypeCheck.new();
       emvisit.emitter = self;
       emvisit.build = build;
       trans.traverse(emvisit);
@@ -285,7 +285,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
             complete(clnode);
             
             //open the class output file
-            File:Writer cle = getClassOutput();
+            IO:File:Writer cle = getClassOutput();
             
             //gen into the file
             
@@ -445,7 +445,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
        return(true);
     }
     
-   getClassOutput() File:Writer {
+   getClassOutput() IO:File:Writer {
        properties {
          Int lineCount = 0.copy();
        }
@@ -455,15 +455,15 @@ use local class Build:EmitCommon(Visit:Visitor) {
         return(classConf.classPath.file.writer.open());
    }
    
-   finishClassOutput(File:Writer cle) {
+   finishClassOutput(IO:File:Writer cle) {
         cle.close();
    }
     
-    getLibOutput() File:Writer {
+    getLibOutput() IO:File:Writer {
         return(libEmitPath.file.writer.open())
     }
     
-    finishLibOutput(File:Writer libe) {
+    finishLibOutput(IO:File:Writer libe) {
         libe.close();
     }
     
@@ -519,7 +519,7 @@ use local class Build:EmitCommon(Visit:Visitor) {
         main += "mc.bem_main_0();" += nl;
         main += self.mainEnd;
         
-        File:Writer libe = getLibOutput();
+        IO:File:Writer libe = getLibOutput();
         libe.write(self.beginNs());
         String extends = extend("be.BELS_Base.BECS_Lib");
         libe.write(self.klassDec + libEmitName + extends + "  {" + nl);
@@ -1063,7 +1063,7 @@ buildClassInfoMethod(String belsBase) {
        } else {
           extends = extend("be.BELS_Base.BECS_Object");
        }
-       String clb = "/* File: " += inFilePathed += " */" += nl;
+       String clb = "/* IO:File: " += inFilePathed += " */" += nl;
        clb += self.klassDec += classConf.emitName += extends += " {" += nl; //}
        clb += "public " += classConf.emitName += "() {";
        clb += " }" += nl; //default constructor
@@ -1798,21 +1798,21 @@ buildClassInfoMethod(String belsBase) {
 
 use local class Build:ClassConfig {
    
-   new(Build:NamePath _np, EmitCommon _emitter, File:Path _emitPath, String _libName) self {
+   new(Build:NamePath _np, EmitCommon _emitter, IO:File:Path _emitPath, String _libName) self {
    
       properties {
          
         Build:NamePath np = _np; //name path for class
         EmitCommon emitter = _emitter; //emitter obj
-        File:Path emitPath = _emitPath;
+        IO:File:Path emitPath = _emitPath;
         String libName = _libName;
          
         String nameSpace = emitter.getNameSpace(libName);
         String emitName = emitter.getEmitName(np);
         String fullEmitName = emitter.getFullEmitName(nameSpace, emitName);
-        File:Path classPath = emitPath.copy().addStep(emitter.emitLang).addStep("be").addStep(emitter.libEmitName(libName)).addStep(emitName + emitter.fileExt);
-        File:Path classDir = classPath.parent; 
-        File:Path synPath = classDir.copy().addStep(emitName + ".syn");
+        IO:File:Path classPath = emitPath.copy().addStep(emitter.emitLang).addStep("be").addStep(emitter.libEmitName(libName)).addStep(emitName + emitter.fileExt);
+        IO:File:Path classDir = classPath.parent; 
+        IO:File:Path synPath = classDir.copy().addStep(emitName + ".syn");
       }
    }
    

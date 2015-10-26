@@ -12,7 +12,7 @@ use Logic:Bool;
 use Math:Int;
 use Text:Glob;
 
-local class File:Path(System:BasePath) {
+local class IO:File:Path(System:BasePath) {
    
    
    new(String spath) self {
@@ -67,7 +67,7 @@ local class File:Path(System:BasePath) {
    }
    
    copy() {
-      File:Path other = create();
+      IO:File:Path other = create();
       copyTo(other);
       other.path = path.copy();
       other.file = null;
@@ -81,11 +81,11 @@ local class File:Path(System:BasePath) {
       return(path);
    }
    
-   parentGet() File:Path {
+   parentGet() IO:File:Path {
       return(super.parent);
    }
    
-   makeNonAbsolute() File:Path {
+   makeNonAbsolute() IO:File:Path {
       if (self.isAbsolute) {
          driveLetter = null;
          super.makeNonAbsolute();

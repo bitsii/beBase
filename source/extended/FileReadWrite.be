@@ -61,15 +61,15 @@ use class IO:ByteReader {
 
 }
 
-class File:Reader(IO:Reader) {
+class IO:File:Reader(IO:Reader) {
    
    new(fpath) self {
       new();
       blockSize = 1024;//why?
       properties {
-         File:Path path;
+         IO:File:Path path;
       }
-      self.path = File:Path.new(fpath);
+      self.path = IO:File:Path.new(fpath);
       emit(c) {
       """
          bevs[bercps] = (void*) NULL;
@@ -363,14 +363,14 @@ char* buf;
 
 }
 
-class File:Writer(IO:Writer) {
+class IO:File:Writer(IO:Writer) {
     
     new(fpath) self {
       properties {
-         File:Path path;
+         IO:File:Path path;
       }
       isClosed = true;
-      self.path = File:Path.new(fpath);
+      self.path = IO:File:Path.new(fpath);
       emit(c) {
       """
          bevs[bercps] = (void*) NULL;
@@ -646,18 +646,18 @@ void** bevl_toret;
    
 }
 
-final class File:NamedReaders {
+final class IO:File:NamedReaders {
    create() { }
    
    default() self {
       
       properties {
-         File:Reader input;
+         IO:File:Reader input;
       }
-      self.input = File:Reader:Stdin.new();
+      self.input = IO:File:Reader:Stdin.new();
    }
    
-   inputSet(File:Reader _input) {
+   inputSet(IO:File:Reader _input) {
       input = _input;
       if (input.isClosed) {
          input.open();
@@ -666,35 +666,35 @@ final class File:NamedReaders {
    
 }
 
-final class File:NamedWriters {
+final class IO:File:NamedWriters {
    create() { }
    default() self {
       
       properties {
-         File:Writer output;
-         File:Writer error;
-         File:Writer exceptionConsole;
+         IO:File:Writer output;
+         IO:File:Writer error;
+         IO:File:Writer exceptionConsole;
       }
-      self.output = File:Writer:Stdout.new();
-      self.error = File:Writer:Stderr.new();
-      self.exceptionConsole = File:Writer:NoOutput.new();
+      self.output = IO:File:Writer:Stdout.new();
+      self.error = IO:File:Writer:Stderr.new();
+      self.exceptionConsole = IO:File:Writer:NoOutput.new();
    }
    
-   outputSet(File:Writer _output) {
+   outputSet(IO:File:Writer _output) {
       output = _output;
       if (output.isClosed) {
          output.open();
       }
    }
    
-   errorSet(File:Writer _error) {
+   errorSet(IO:File:Writer _error) {
       error = _error;
       if (error.isClosed) {
          error.open();
       }
    }
    
-   exceptionConsoleSet(File:Writer _exceptionConsole) {
+   exceptionConsoleSet(IO:File:Writer _exceptionConsole) {
       exceptionConsole = _exceptionConsole;
       if (exceptionConsole.isClosed) {
          exceptionConsole.open();
@@ -702,7 +702,7 @@ final class File:NamedWriters {
    }
 }
 
-final class File:Writer:Stdout(File:Writer) {
+final class IO:File:Writer:Stdout(IO:File:Writer) {
 
    emit(c) {
    """
@@ -731,7 +731,7 @@ final class File:Writer:Stdout(File:Writer) {
    close() {   }
 }
 
-final class File:Writer:Stderr(File:Writer) {
+final class IO:File:Writer:Stderr(IO:File:Writer) {
 
    emit(c) {
    """
@@ -760,7 +760,7 @@ final class File:Writer:Stderr(File:Writer) {
    close() {   }
 }
 
-final class File:Reader:Stdin(File:Reader) {
+final class IO:File:Reader:Stdin(IO:File:Reader) {
 
    emit(c) {
    """
@@ -790,7 +790,7 @@ final class File:Reader:Stdin(File:Reader) {
    close() {   }
 }
 
-final class File:Writer:NoOutput(File:Writer) {
+final class IO:File:Writer:NoOutput(IO:File:Writer) {
 
    emit(c) {
    """
@@ -818,7 +818,7 @@ final class File:Writer:NoOutput(File:Writer) {
    close() {   }
 }
 
-final class File:Reader:Command(File:Reader) {
+final class IO:File:Reader:Command(IO:File:Reader) {
 
    emit(c) {
    """

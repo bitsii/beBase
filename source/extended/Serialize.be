@@ -330,7 +330,7 @@ class DirStoreString(DirStore) {
     
     put(String id, object) {
       if (def(id) && id != "") {
-         File:Path p = getPath(id);
+         IO:File:Path p = getPath(id);
          if (def(p)) {
             p.file.contents = object.toString();
          }
@@ -339,7 +339,7 @@ class DirStoreString(DirStore) {
    
    get(String id) {
       if (def(id) && id != "") {
-         File:Path p = getPath(id);
+         IO:File:Path p = getPath(id);
          if (def(p) && p.file.exists) {
             return(p.file.contents);
          }
@@ -359,13 +359,13 @@ class DirStore {
    }
    
    new(String storageDir) self {
-      pathNew(File:Path.apNew(storageDir));
+      pathNew(IO:File:Path.apNew(storageDir));
    }
    
-   pathNew(File:Path _storageDir) self {
+   pathNew(IO:File:Path _storageDir) self {
       properties {
          Serializer ser = Serializer.new();
-         File:Path storageDir = _storageDir;
+         IO:File:Path storageDir = _storageDir;
          var keyEncoder = null;
       }
    }
@@ -380,8 +380,8 @@ class DirStore {
       return(storeId);
    }
    
-   getPath(String id) File:Path {
-      File:Path p;
+   getPath(String id) IO:File:Path {
+      IO:File:Path p;
       if (def(id) && id != "") {
          if (storageDir.file.exists!) {
             storageDir.file.makeDirs();
@@ -394,7 +394,7 @@ class DirStore {
    
    put(String id, object) {
       if (def(id) && id != "") {
-         File:Path p = getPath(id);
+         IO:File:Path p = getPath(id);
          if (def(p)) {
             ser.serialize(object, p.file.writer.open());
             p.file.writer.close();
@@ -404,7 +404,7 @@ class DirStore {
    
    get(String id) {
       if (def(id) && id != "") {
-         File:Path p = getPath(id);
+         IO:File:Path p = getPath(id);
          if (def(p) && p.file.exists) {
             var object = ser.deserialize(p.file.reader.open());
             p.file.reader.close();
@@ -416,7 +416,7 @@ class DirStore {
    
    has(String id) Bool {
       if (undef(id) || id == "") { return(false); }
-      File:Path p = getPath(id);
+      IO:File:Path p = getPath(id);
       if (p.file.exists) {
          return(true);
       }
@@ -424,7 +424,7 @@ class DirStore {
    }
    
    delete(String id) self {
-      File:Path p = getPath(id);
+      IO:File:Path p = getPath(id);
       p.file.delete();
    }
 

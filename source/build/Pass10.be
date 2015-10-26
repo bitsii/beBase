@@ -16,7 +16,7 @@ use Build:VisitError;
 use Logic:Bool;
 use Build:Node;
 
-final class Visit:Pass10(Visit:Visitor) {
+final class Build:Visit:Pass10(Build:Visit:Visitor) {
 
    condCall(condvar, value) {
       var cnode = Node.new(build);

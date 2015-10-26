@@ -15,7 +15,7 @@ use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;
 
-local class Visit:Visitor {
+local class Build:Visit:Visitor {
    
    begin (transi) {
       properties {

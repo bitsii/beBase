@@ -38,7 +38,7 @@ local class File {
    new() self {
       
       properties {
-         File:Path path;
+         IO:File:Path path;
          var reader;
          var writer;
       }
@@ -46,27 +46,27 @@ local class File {
    }
    
    new(fpath) self {
-      self.path = File:Path.new(fpath);
+      self.path = IO:File:Path.new(fpath);
    }
    
    apNew(fpath) self {
-      self.path = File:Path.apNew(fpath);
+      self.path = IO:File:Path.apNew(fpath);
    }
    
-   pathNew(File:Path _path) self {
+   pathNew(IO:File:Path _path) self {
       self.path = _path;
    }
    
    readerGet() {
       if (undef(reader)) {
-         reader = File:Reader.new(path.toString());
+         reader = IO:File:Reader.new(path.toString());
       }
       return(reader);
    }
    
    writerGet() {
       if (undef(writer)) {
-         writer = File:Writer.new(path.toString());
+         writer = IO:File:Writer.new(path.toString());
       }
       return(writer);
    }
@@ -424,10 +424,10 @@ final DirectoryIterator {
       
       if (closed) {
          //all used up, currently, not reusable
-         throw(System:Exception.new("Attempting to re-open a closed File:Iterator is not supported"));
+         throw(System:Exception.new("Attempting to re-open a closed IO:File:Iterator is not supported"));
       }
       if (opened) {
-         throw(System:Exception.new("Only open File:Iterator once"));
+         throw(System:Exception.new("Only open IO:File:Iterator once"));
       }
       emit(c) {
       """

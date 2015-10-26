@@ -15,7 +15,7 @@ use Build:NamePath;
 use Build:VisitError;
 use Build:Node;
 
-final class Visit:Pass9(Visit:Visitor) {
+final class Build:Visit:Pass9(Build:Visit:Visitor) {
 
    accept(Build:Node node) Build:Node {
       //dump expr

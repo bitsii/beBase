@@ -54,7 +54,7 @@ class System:Exception {
          toRet = toRet + " Description: " + description;
       }
       if (def(fileName)) {
-         toRet = toRet + " File: " + fileName;
+         toRet = toRet + " IO:File: " + fileName;
       }
       if (def(lineNumber)) {
          toRet = toRet + " Line: " + lineNumber.toString();
@@ -458,7 +458,7 @@ class Exception:Frame {
         if (def(klassName)) { res += klassName; }
         res += " Method: ";
         if (def(methodName)) { res += methodName; }
-        res += " File: ";
+        res += " IO:File: ";
         if (def(fileName)) { res += fileName; }
         res += " Line: ";
         if (def(line)) { res += line.toString(); }

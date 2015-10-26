@@ -12,7 +12,7 @@ use Container:Queue;
 use Logic:Bool;
 use Math:Int;
 
-local class Stack:Node {
+local class Node {
 
    new() self {
    
@@ -43,13 +43,13 @@ class Stack {
    push(item) {
       if (undef(top)) {
          if (undef(holder)) {
-            top = Stack:Node.new();
+            top = Node.new();
          } else {
             top = holder;
             holder = null;
          }
       } elif (undef(top.next)) {
-         top.next = Stack:Node.new();
+         top.next = Node.new();
          top.next.prior = top;
          top = top.next;
       } else {
@@ -129,12 +129,12 @@ class Queue {
    
    enqueue(item) {
       if (undef(top)) {
-         top = Stack:Node.new();
+         top = Node.new();
          end = top;
          bottom = top;
       } elif (def(bottom)) {
          if (undef(top.next)) {
-            top.next = Stack:Node.new();
+            top.next = Node.new();
             top.next.prior = top;
             top = top.next;
             end = top;

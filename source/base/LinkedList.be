@@ -38,7 +38,7 @@ class Pair {
    }
 }
 
-local class LinkedList:Node {
+local class Node {
    
    new(_held, LinkedList _mylist) self {
    
@@ -96,7 +96,7 @@ local class LinkedList:Node {
    
 }
 
-local class LinkedList:AwareNode(LinkedList:Node) {
+local class Container:LinkedList:AwareNode(Node) {
    
    new(_held, LinkedList _mylist) self {
       held = _held;
@@ -112,8 +112,8 @@ local class LinkedList:AwareNode(LinkedList:Node) {
 
 local class NodeList(LinkedList) {
    
-   newNode(toHold) LinkedList:Node {
-      return(LinkedList:AwareNode.new(toHold, self));
+   newNode(toHold) Node {
+      return(Container:LinkedList:AwareNode.new(toHold, self));
    }
    
 }
@@ -129,8 +129,8 @@ local class LinkedList {
       
    }
    
-   newNode(toHold) LinkedList:Node {
-      return(LinkedList:Node.new(toHold, self));
+   newNode(toHold) Node {
+      return(Node.new(toHold, self));
    }
    
    copy() {

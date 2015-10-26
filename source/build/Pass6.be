@@ -15,7 +15,7 @@ use Build:NamePath;
 use Build:VisitError;
 use Build:Node;
  
-final class Visit:Pass6(Visit:Visitor) {
+final class Build:Visit:Pass6(Build:Visit:Visitor) {
 
    accept(Build:Node node) Build:Node {
       //also nests ifs

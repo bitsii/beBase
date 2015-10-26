@@ -448,7 +448,7 @@ MMM'''; //needs to stay unindented
       bp.subPath(2,4).print();
       assertEquals(bp.subPath(2,4).toString(), "c d");
       
-      File:Path fp = File:Path.apNew("/hi/there");
+      IO:File:Path fp = IO:File:Path.apNew("/hi/there");
       fp.toStringWithSeparator(":").print();
       
       fp.subPath(1).toStringWithSeparator(":").print();

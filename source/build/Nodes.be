@@ -189,7 +189,7 @@ final class Node {
       var ret = prefix + "<" + typename.toString() + ">";
       ret = ret + Text:Strings.new().newline + prefix + "line: " + nlc.toString();
       if (def(inClassNp) && def(inFile)) {
-         ret = ret + Text:Strings.new().newline + prefix + " In Class: " + inClassNp.toString() + " In File: " + inFile + Text:Strings.new().newline;
+         ret = ret + Text:Strings.new().newline + prefix + " In Class: " + inClassNp.toString() + " In IO:File: " + inFile + Text:Strings.new().newline;
       }
       if (def(held)) {
          ret = ret + Text:Strings.new().newline + prefix + " ";

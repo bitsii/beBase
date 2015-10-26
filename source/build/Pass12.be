@@ -18,7 +18,7 @@ use Build:VisitError;
 use Build:Node;
 use Build:ClassSyn;
 
-final class Visit:Pass12(Visit:Visitor) {
+final class Build:Visit:Pass12(Build:Visit:Visitor) {
 
    new() self {
       properties {
@@ -229,7 +229,7 @@ final class Visit:Pass12(Visit:Visitor) {
    
 }
 
-final class Visit:Rewind(Visit:Visitor) {
+final class Build:Visit:Rewind(Build:Visit:Visitor) {
 
    new() self {
       properties {
@@ -350,7 +350,7 @@ final class Visit:Rewind(Visit:Visitor) {
 
 }
 
-final class Visit:TypeCheck(Visit:Visitor) {
+final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
    
    new() self {
       properties {

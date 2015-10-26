@@ -179,7 +179,7 @@ class Test:BaseTest:IO(BaseTest) {
    
    testReadCommand() {
    
-      File:Reader:Command.new("echo 'hi'").open().readString().print();
+      IO:File:Reader:Command.new("echo 'hi'").open().readString().print();
       
    }
    
@@ -267,7 +267,7 @@ class Test:BaseTest:IO(BaseTest) {
    }
    
    testReadStdin() {
-      var r = File:Reader:Stdin.new();
+      var r = IO:File:Reader:Stdin.new();
       String b = r.readBufferLine();
       b.print();
       b = r.readBufferLine();
