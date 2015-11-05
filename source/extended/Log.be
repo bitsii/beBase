@@ -24,19 +24,15 @@ class L {
     }
   }
   
-  levelSet(Int _level) {
-    level = _level + 1;
-  }
-  
   will(Int _level) Logic:Bool {
-    if (_level < level) {
+    if (_level <= level) {
       return(true);
     }
     return(false);
   }
   
   log(Int _level, String msg) {
-    if (_level < level) {
+    if (_level <= level) {
       if (def(msg)) {
         msg.print();
       } else {
