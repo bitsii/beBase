@@ -1,4 +1,7 @@
 
+need to grab message from native exceptions
+need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
+
 add args to build that read/write times from files and output times for results, put in cycle, have write at start and read/output/delete at end
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
