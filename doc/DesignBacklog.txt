@@ -1,6 +1,7 @@
 
 need to grab message from native exceptions
 need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
+mac and linux same build scripts with just change to os name, calling a common one
 
 add args to build that read/write times from files and output times for results, put in cycle, have write at start and read/output/delete at end
 
