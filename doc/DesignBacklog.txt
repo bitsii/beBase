@@ -14,7 +14,8 @@ mutating size for map, string, etc, ++= everywhere
 inline int, literal adds, etc
 
 cpp for embedded/universal?
-go finally has libs and stuff :-) go + swift?
+go finally has libs and stuff :-) go + swift?  
+go on ios/osx - https://medium.com/using-go-in-mobile-apps
 
 all 3 plats going
 get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
