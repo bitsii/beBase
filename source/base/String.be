@@ -285,11 +285,7 @@ char* bevl_nbuf;
    }
    
    addValue(astr) self {
-      if (astr.sameType(System:Types.new().string)!) {
-         String str = astr.toString();
-      } else {
-        str = astr;
-      }
+      String str = astr.toString();
       if (undef(leni)) {
         leni = Int.new();
         sizi = Int.new();
@@ -879,11 +875,7 @@ void** bevl_sz;
    }
    
     add(astr) String {
-        if (astr.sameType(System:Types.new().string)!) {
-            String str = astr.toString();
-        } else {
-            str = astr;
-        }
+        String str = astr.toString();
         String res = String.new(size + str.size);
         res.copyValue(self, 0, size, 0);
         res.copyValue(str, 0, str.size, size);

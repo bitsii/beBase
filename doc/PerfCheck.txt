@@ -1,0 +1,18 @@
+simple performance check - run cycle with a stopwatch:
+
+win
+powershell measure-command { start-process scripts\cyclejv5.bat -Wait }
+powershell measure-command { start-process scripts\cyclemcs5.bat -Wait }
+powershell measure-command { start-process scripts\cyclecsc5.bat -Wait }
+
+nix
+
+time scripts/cyclejv5.sh
+time scripts/cyclemcs5.sh
+
+Times
+
+2015-12-25 Dell E6430 Win7 on power jv javac - 48.766
+2015-12-25 Dell E6430 Win7 on power cs mcs - 26.264
+2015-12-25 Dell E6430 Win7 on power cs csc - 27.617
+

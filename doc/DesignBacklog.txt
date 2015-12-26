@@ -1,24 +1,25 @@
 
-need to grab message from native exceptions
+can, createInstance and invoke - switch to structures which don't depend on underlying reflection
+
+safe navigation (null check then call, "?.")
+
+?swift? 
+  swift should be fine 
+    (cs and jv like js for createInstance, can like invoke)
+  checkout swift syntax, threading, etc
+  - switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
+  or just do c++, method pointers, etc
+  
 need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
 mac and linux same build scripts with just change to os name, calling a common one
 
-add args to build that read/write times from files and output times for results, put in cycle, have write at start and read/output/delete at end
-
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
 
-android, swift/ios (pgap for ios?), php
+android, swift/ios, ?php
 
 mutating size for map, string, etc, ++= everywhere
 
 inline int, literal adds, etc
-
-cpp for embedded/universal?
-go finally has libs and stuff :-) go + swift?  
-go on ios/osx - https://medium.com/using-go-in-mobile-apps
-
-all 3 plats going
-get win, linux, with bootstraps going (have bootstrapgen 5 for all 3 plats, diff is the zip names, all have plat, diff scripts with parent)
 
 code inlining, variable references from emits (incl ints)
 
@@ -38,7 +39,7 @@ version interfaces (things which can span lib vers if needed)
 (minor only tracked in documentation terms?)
 
 Separate capacity set and len set (support shrink) have put unchecked
-Read–eval–print loop (REPL), code change running instance? (js)?
+Read–eval–print loop (REPL), code change running instance? (js, swift)?
   js interpreter running, change on fly at runtime, mixed emit envs
   embedded js or add interpretor as such based on reflection
 
@@ -117,7 +118,6 @@ native operations, dropping literals
 final for static members (?) - readonly for c#
      onceDeced it's ok, not for not once deced (need to distinguish)
 get rid of calls to once and many
-get rid of calls to new where local/final and is not overridden from obj
 more efficient int
   direct no call operations (?inline) (no null checking)
     have a way to mark ok for inlining anywhere, use
@@ -129,7 +129,6 @@ more efficient int
 encode/decode base 64 to use instead of hex
 http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 
-add debug to mcs throughout .bat
 log - level for class, config based (optional), time stamp (optional)
 
 direct member get/set where possible (typed, final or local w/o override), keep gen accessors
@@ -140,8 +139,7 @@ see how typescript and dart translate into js
 
 clocker iterator, share lock with clocker
 
-ifEmit to ifSet, ifUnset, prefix lang (?em: or em. lang, like em.jv)
-(or just keep ifEmit, and support external flags - this)
+ifSet, ifUnset, external compiletime flags
 
 for buid to be threadsafe,
    nodes and syns needs threadsafe fixes
@@ -164,16 +162,11 @@ more concurrency
   atomic int ops
  .. means to back to last target (can be explicit or return from a . call)
 
-I think can() could be better than iterating methods :-( (will need to gen something like invoke but with just t/f)
-FASTER where there are range checks in the lang (cs, jv), skip them in the external logic (may need to change except behavior for this to work)
-
 programattic access to compiler (incl after a base tree is loaded), mostly for
  testing invalid code cases, maybe for other things too
 
 closure? callback? lamda?
 callback/event, mtd, concurrency
-
-EcPlat can drop c emit stuff
 
 https://github.com/int6/uhttpsharp c# embedded ws
 
@@ -188,19 +181,13 @@ method alias - for typed, all references replaced with the other name, for dynam
 
 this /* num */ I can't use... dump them.
 
-support no file gen for (esp for js) (all in mem string in/out), and work out how to include pregenned stuff (libs)
-libs for cs and jv
-
 unify foreach and for, behavior based on parens contents, dump foreach kw
 support properties method, all vars within are properties, always called at instance creation if present (bit like default)
 
 packaging, node.js packaging is great (npm install ...) mavenish
 
-oc? cp (cc)? php?
-
 lang-notes:
 
-objc arc > cpp refcount
 cpp refcount - intrusive for string, external for weak
 
 js:
@@ -246,20 +233,12 @@ https://github.com/plausiblelabs/PLWeakCompatibility
 http://woboq.com/blog/objective-c-for-qt-developers.html
 no varname arg syntax - http://stackoverflow.com/questions/722651/how-do-i-pass-multiple-parameters-in-objective-c
 
-other options for dynamic calls (jv, cs):
--inner class which just invokes (interface)
--dexmaker android
--cgilib reflectasm java invokedynamic
--reflection - setaccessable true, http://inferretuation.blogspot.com/2008/11/in-jit-we-trust.html reflect inflation speedup properties
-
 end lang-notes:
 
 int 32bit (c int, int32_t), float 32bit (c float), add long 64 (c long long) and double 64 (c double) (after conversion?)
 
 allow signatures to mark arguments as safe - as not incorporated into members, not mutated, not passed along
 
-only do the omission of checks for initial where there is no initialize call for closelibs
-if can is fast enough enforce not setting the initial value in initialSet
 FASTER make it possible to pre-set initials then skip the check for them during construct (always just use them, no null check/construct
 fallthrough)
 FASTER if closelib and isFinal or isLocal and call is empty skip it altogether (new, create, once, many, etc)
@@ -278,8 +257,6 @@ signed implementation being something in particular (2s complement) for byte man
 shiftLeft, shiftRight, shiftRightLogical
 
 recursive file - dir delete
-
-Build class needs to become Builder
 
 need more tests for time and interval
 
@@ -309,13 +286,9 @@ http://www.utf8-chartable.de/
 online encoder
 http://www.htmlescape.net/stringescape_tool.html
 
-easy initialization of lists and maps
 have a descendent of Assertions which has a main which runs all methods which begin with (or end with) "t(T)est"
 
 no arg and single arg calls (at least) w/out parens (return...)
-use all the way down to a call, like Class.call syntax, possibly generallized macro (maybe not use, maybe let, define?), also use...as
-import to bring in methods of another class, somehow need to add self to calls (make a member?  Prefix to calls)
- would mean having an implicit member of that class, calls are created (like gets/sets)
 anon methods, become instances of system-method and can only be used/referenced via assignment (when genning them,
  have a different prefix for function - and they are not in any vtables, call maps, etc (they're unnamed as such, only referencable
  via variables)
@@ -326,8 +299,6 @@ use private to mean a class which is only visible in it's own library
 (none of it's interface/syn goes to deploy)
 
 think about how to support binary serialization
-
-add files by directory/match to build list
 
 multi value return
 
@@ -340,10 +311,6 @@ support "and" and "or" along side && and || (just like you can do "not" as .not(
 ? foreach handle nulls gracefully (no iter) ?
 
 closures using instances (auto-prefix)
-
-interpreted mode for rapid dev, arrange ways for native targets
-
-ifEmit(c:boo), ifEmit(all:foo)
 
 // each/multiassign/return...
 
