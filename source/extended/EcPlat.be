@@ -401,6 +401,21 @@ void** bevl_mpath;
       return(tvala);
    }
    
+   absPathGet() IO:File:Path {
+      //jv toRealPath, cs (new Uri(absolute_path)).LocalPath or Path.GetFullPath(absolute_path)
+      //cs except on not exists to keep behavior
+      IO:File:Path absp;
+      String abstr;
+      emit(jv) {
+      """
+      java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+      bevl_abstr = new BEC_4_6_TextString(bevls_f.toPath().toRealPath().toString());
+      """
+      }
+      absp = IO:File:Path.apNew(abstr);
+      return(absp);
+   }
+   
    close() {
       if (def(reader)) {
          reader.close();
