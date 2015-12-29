@@ -67,7 +67,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             node.delete();
             snode.held.addEmit(node);
          }
-         
+        
          return(gnext);
       } elif (node.typename == ntypes.IFEMIT) {
          langs = Container:Set.new();
@@ -78,7 +78,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             toremove.addValue(lang);
          }
          langs.delete(",");
-         node.held = Build:IfEmit.new(langs);
+         node.held = Build:IfEmit.new(langs, node.held);
          for (ii = toremove.iterator;ii.hasNext;;) {
             i = ii.next;
             i.delete();

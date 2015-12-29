@@ -317,6 +317,7 @@ final class Build:Constants {
       rwords.put("in", ntypes.IN);
       rwords.put("emit", ntypes.EMIT);
       rwords.put("ifEmit", ntypes.IFEMIT);
+      rwords.put("ifNotEmit", ntypes.IFEMIT);
       rwords.put("break", ntypes.BREAK);
       rwords.put("continue", ntypes.CONTINUE);
       rwords.put("null", ntypes.NULL);

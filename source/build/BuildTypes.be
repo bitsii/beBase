@@ -87,9 +87,10 @@ final class Build:Emit {
 
 final class Build:IfEmit {
     
-    new(Set _langs) self {
+    new(Set _langs, String _value) self {
         properties {
             Set langs = _langs;
+            String value = _value; //original value, ifEmit, ifNotEmit
         }
     }
 

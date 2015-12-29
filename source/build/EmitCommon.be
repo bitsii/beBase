@@ -1666,10 +1666,39 @@ buildClassInfoMethod(String belsBase) {
    }
    
    acceptIfEmit(Node node) {
-      if (node.held.langs.has(self.emitLang)!) {
-        return(node.nextPeer);
+      Bool include = true;
+      if (node.held.value == "ifNotEmit") {
+        Bool negate = true;
+      } else {
+        negate = false;
       }
-      return(node.nextDescend);
+      if (include) {
+        if (negate && node.held.langs.has(self.emitLang)) {
+          include = false;
+        }
+      }
+      if (include) {
+        if (negate! && node.held.langs.has(self.emitLang)!) {
+          include = false;
+        }
+      }
+      if (def(build.emitFlags)) {
+        foreach (String flag in build.emitFlags) {
+          if (negate) {
+            if (node.held.langs.has(flag)) {
+              include = false;
+            }
+          } else {
+            if (node.held.langs.has(flag)!) {
+              include = false;
+            }
+          }
+        }
+      }
+      if (include) {
+        return(node.nextDescend);
+      }
+      return(node.nextPeer);
    }
       
    accept(Node node) Node {

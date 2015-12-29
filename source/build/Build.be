@@ -90,6 +90,7 @@ final class Build:Build {
          Bool run = false;
          String compiler;
          LinkedList emitLangs;
+         LinkedList emitFlags;
          String makeName;
          String makeArgs;
          Bool putLineNumbersInTrace = false;
@@ -249,6 +250,7 @@ final class Build:Build {
       run = params.isTrue("run");
       putLineNumbersInTrace = params.isTrue("putLineNumbersInTrace", true);
       emitLangs = params["emitLang"];
+      emitFlags = params["emitFlag"];
       compiler = params.get("compiler", "gcc").first;
       makeName = params.get("make", "make").first;
       makeArgs = params.get("makeArgs_" + makeName, "").first;
