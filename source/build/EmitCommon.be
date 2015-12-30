@@ -1672,27 +1672,28 @@ buildClassInfoMethod(String belsBase) {
       } else {
         negate = false;
       }
-      if (include) {
-        if (negate && node.held.langs.has(self.emitLang)) {
+      if (negate) {
+        if (node.held.langs.has(self.emitLang)) {
           include = false;
         }
-      }
-      if (include) {
-        if (negate! && node.held.langs.has(self.emitLang)!) {
-          include = false;
-        }
-      }
-      if (def(build.emitFlags)) {
-        foreach (String flag in build.emitFlags) {
-          if (negate) {
+        if (def(build.emitFlags)) {
+          foreach (String flag in build.emitFlags) {
             if (node.held.langs.has(flag)) {
               include = false;
             }
-          } else {
-            if (node.held.langs.has(flag)!) {
-              include = false;
+          }
+        }
+      } else {
+        Bool foundFlag = false;
+        if (def(build.emitFlags)) {
+          foreach (flag in build.emitFlags) {
+            if (node.held.langs.has(flag)) {
+              foundFlag = true;
             }
           }
+        }
+        if (foundFlag! && node.held.langs.has(self.emitLang)!) {
+          include = false;
         }
       }
       if (include) {
