@@ -406,7 +406,7 @@ void** bevl_mpath;
       //cs except on not exists to keep behavior
       IO:File:Path absp;
       String abstr;
-      ifNotEmit(platAndroid) {
+      ifNotEmit(platDroid) {
         emit(jv) {
         """
         java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
