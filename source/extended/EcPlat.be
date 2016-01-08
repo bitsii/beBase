@@ -410,7 +410,8 @@ void** bevl_mpath;
         emit(jv) {
         """
         java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
-        bevl_abstr = new BEC_4_6_TextString(bevls_f.toPath().toRealPath().toString());
+        //bevl_abstr = new BEC_4_6_TextString(bevls_f.toPath().toRealPath().toString());
+        bevl_abstr = new BEC_4_6_TextString(bevls_f.getCanonicalPath());
         """
         }
       }
