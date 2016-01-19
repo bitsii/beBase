@@ -184,6 +184,16 @@ class Map(Set) {
          }
       }
    }
+   
+   getMap(String prefix) Map {
+     Map toRet = Map.new();
+     foreach (var x in self) {
+      if (x.key.begins(prefix)) {
+        toRet.put(x.key, x.value);
+      }
+     }
+     return(toRet);
+   }
 }
 
 class IdentitySet(Set) {

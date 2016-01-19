@@ -10,6 +10,7 @@
  use Logic:Bool;
  use Container:LinkedList;
  use Container:LinkedList:Node;
+ use Container:Map;
  use Math:Int;
  use System:Random;
  use System:Identity;
@@ -957,6 +958,42 @@ class System:Thread:ContainerLocker {
     }
   }
   
+  testAndPut(key, oldValue, value) {
+    lock.lock();
+    try {
+      var rc = container.testAndPut(key, oldValue, value);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(rc);
+  }
+  
+  getMap() {
+    lock.lock();
+    try {
+      Map rc = container.getMap();
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(rc);
+  }
+  
+  getMap(String prefix) {
+    lock.lock();
+    try {
+      Map rc = container.getMap(prefix);
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(rc);
+  }
+  
   putIfAbsent(key, value) Bool {
     lock.lock();
     try {
@@ -1066,6 +1103,17 @@ class System:Thread:ContainerLocker {
     lock.lock();
     try {
       container.clear();
+      lock.unlock();
+    } catch (var e) {
+      lock.unlock();
+      throw(e);
+    }
+  }
+  
+  close() self {
+    lock.lock();
+    try {
+      container.close();
       lock.unlock();
     } catch (var e) {
       lock.unlock();
