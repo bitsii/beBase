@@ -1124,7 +1124,7 @@ class System:Thread:ContainerLocker {
 }
 
 use System:Thread:ObjectLocker as OLocker;
-class System:Thread:ObjectLocker {
+class OLocker {
   
   new() self {
     vars {

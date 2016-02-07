@@ -1,6 +1,9 @@
 
 "use strict;" js
 
+date strings
+network sockets
+
 Read–eval–print loop (REPL), code change running instance? (underlying lang support?)
   https://github.com/albertlatacz/java-repl
   

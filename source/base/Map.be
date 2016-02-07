@@ -239,6 +239,13 @@ class Set {
       return(false);
    }
    
+   notEmptyGet() Bool {
+      if (size == 0) {
+        return(false);
+      }
+      return(true);
+   }
+   
    serializeToString() String {
       return(modu.toString());
    }
