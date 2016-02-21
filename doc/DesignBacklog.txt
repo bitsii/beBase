@@ -1,4 +1,44 @@
 
+libraries and linking
+library/library version
+tests sep from base lib (2 bld with libs)
+
+dev in browser (js)
+
+dev online (general)
+  app/stack for doing the dev
+  app which will take change and restart (template/base/secret)
+  (can point at self :-)
+  support for git
+  
+get rid of implied new calls in generated code (mark as implied, skip them,
+  I think it's only for literals now anyway)
+
+make it possible to skip calls and link up assignments betw org and final
+tmp var reduction
+ direct use of onces, no tmp var assign (will then have mechanism to suppress existence
+ of tmp vars, unnecessary assignments/use other variables, alias)
+ extend call et all to get the info through ("skip"))
+ skip unneeded temp/assigns
+ drop tmp vars for simple calls, chain where possible
+
+direct member get/set where possible (typed, final or local w/o override), keep gen accessors
+
+=~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
+ make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
+
+code inlining, variable references from emits (incl ints)
+
+inline int, literal adds, etc
+
+speed up native ints and such
+
+go to int and other reuse in code as much as possible
+  just look at be code efficiency (base et all)
+  look at build efficiency
+
+mutating size for map, string, etc, ++= everywhere
+
 "use strict;" js
 
 date strings
@@ -38,27 +78,6 @@ first class functions - alwaysForward for all dynamic calls always forwarding (t
 distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
 anonymous functions? closures? (case inside (no), capture everything used and make them all args/held state (yes))
 switch invoke over?
-
-mutating size for map, string, etc, ++= everywhere
-
-get rid of implied new calls in generated code (mark as implied, skip them,
-  I think it's only for literals now anyway)
-
-inline int, literal adds, etc
-
-code inlining, variable references from emits (incl ints)
-
-go to int and other reuse in code as much as possible
-  just look at be code efficiency (base et all)
-  look at build efficiency
-speed up native ints and such
-
-libraries and linking
-  for now, just parse source but don't emit it
-  later, have a way to gen stubs (it's just the return that's an issue, can
-  ignore that when lib)
-library/library version
-tests sep from base lib (2 bld with libs)
 
 version interfaces (things which can span lib vers if needed)
 (minor only tracked in documentation terms?)
@@ -113,16 +132,6 @@ for typed vars, if they support forward could allow for calls they don't know ab
 make js and others same behaviour
 add notEmpty to containers
 decide on mutating or not len for string et all and do it (thinking do)
-get rid of auto-once for literal, require manual use
-   do after native add/sub/etc for literals (below) to minimise impact
-   output all cases where it is being done (where not manual and not optimized away), and do them all manually
-make it possible to skip calls and link up assignments betw org and final
-tmp var reduction
- direct use of onces, no tmp var assign (will then have mechanism to suppress existence
- of tmp vars, unnecessary assignments/use other variables, alias)
- extend call et all to get the info through ("skip"))
- skip unneeded temp/assigns
- drop tmp vars for simple calls, chain where possible
 native operations, dropping literals
  have add, subtract, multiply, divide which work on literals directly (addValue, etc) (for when a literal is just immediately used with an int, etc,
    as second arg to call)
@@ -130,8 +139,6 @@ native operations, dropping literals
  also, for many calls can avoid the call even if not literals (int add, sub, etc)
  in some cases (no escape (local vars, not called out except to "safe" mtds))
    could do native ints, bools, same with local/final int/bool members
-=~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
- make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
 final for static members (?) - readonly for c#
      onceDeced it's ok, not for not once deced (need to distinguish)
 get rid of calls to once and many
@@ -147,8 +154,9 @@ encode/decode base 64 to use instead of hex
 http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 
 log - level for class, config based (optional), time stamp (optional)
-
-direct member get/set where possible (typed, final or local w/o override), keep gen accessors
+get rid of auto-once for literal, require manual use
+   do after native add/sub/etc for literals (below) to minimise impact
+   output all cases where it is being done (where not manual and not optimized away), and do them all manually
 see how typescript and dart translate into js
   example programs, compile to js, look at them
   https://developers.google.com/closure/compiler/
@@ -186,6 +194,8 @@ closure? callback? lamda?
 callback/event, mtd, concurrency
 
 https://github.com/int6/uhttpsharp c# embedded ws
+http://forums.dotnetfoundation.org/t/net-core-running-asp-net-app-through-apache-tomcat-etc/1129/2
+http://stackoverflow.com/questions/26260728/kestrel-hosting-basics
 
 args to if must be boolean if they are typed
 
