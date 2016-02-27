@@ -1,4 +1,25 @@
 
+allcalls missing some, self ref node thinking
+  check emit against allcalls, error if missing
+  when outputting calls for args make sure they have the call they are in in their allcall, also see if their allcall is null/missing/empty
+  
+make it possible to skip calls and link up assignments betw org and final
+tmp var reduction
+ direct use of onces, no tmp var assign (will then have mechanism to suppress existence
+ of tmp vars, unnecessary assignments/use other variables, alias)
+ extend call et all to get the info through ("skip"))
+ skip unneeded temp/assigns
+ drop tmp vars for simple calls, chain where possible?
+ reuse tmps if same type and only used once
+get rid of implied new calls in generated code (mark as implied, skip them,
+  I think it's only for literals now anyway)
+  
+code inlining, variable references from emits (incl ints)
+
+inline int, literal adds, etc
+
+speed up native ints and such (using inline)
+
 libraries and linking
 library/library version
 tests sep from base lib (2 bld with libs)
@@ -11,27 +32,10 @@ dev online (general)
   (can point at self :-)
   support for git
   
-get rid of implied new calls in generated code (mark as implied, skip them,
-  I think it's only for literals now anyway)
-
-make it possible to skip calls and link up assignments betw org and final
-tmp var reduction
- direct use of onces, no tmp var assign (will then have mechanism to suppress existence
- of tmp vars, unnecessary assignments/use other variables, alias)
- extend call et all to get the info through ("skip"))
- skip unneeded temp/assigns
- drop tmp vars for simple calls, chain where possible
-
 direct member get/set where possible (typed, final or local w/o override), keep gen accessors
 
 =~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
  make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
-
-code inlining, variable references from emits (incl ints)
-
-inline int, literal adds, etc
-
-speed up native ints and such
 
 go to int and other reuse in code as much as possible
   just look at be code efficiency (base et all)
@@ -170,8 +174,6 @@ for buid to be threadsafe,
    nodes and syns needs threadsafe fixes
 
 finish notnull cleanup (reused by default logic, but improperly named, still looked for compile, syn + class mbr, etc)
-
-allcalls missing some, self ref node thinking
 
 utf8 in code (vars, classes, methods), encoding for < > ascii
   http://www.cprogramming.com/tutorial/unicode.html

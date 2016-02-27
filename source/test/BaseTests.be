@@ -1022,3 +1022,10 @@ class Test:BaseTest:All(BaseTest) {
    }
 }
 
+class TestEmit {
+
+  new() self {
+    "hi".print();
+  }
+}
+
