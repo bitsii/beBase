@@ -36,6 +36,12 @@ class Test:ExtendedTest:EC(BaseTest) {
    
       ("Test:ExtendedTest:Ec:main").print();
    
+      //TESTS START HERE
+      
+      System:Command.new("echo hi").open().output.readString().print();
+      
+      //if (true) { return(null); }
+      
       //now done properly by runtime
       //System:Process.new().platformSet(System:CurrentPlatform.new().setName("mswin"));
       

@@ -113,7 +113,7 @@ final class Build:Build {
 
    main() {
       Array _args = System:Process.new().args;
-      return(main(_args));
+      System:Process.exit(main(_args));
    }
 
    main(Array _args) {
