@@ -1,5 +1,12 @@
+#!/bin/bash
+
 java -classpath target4/BEL_system_be_jv.jar:target4/BEL_4_Base_be_jv.jar be.BEL_4_Base.BEL_4_Base --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv
+
+lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
+
 javac system/jv/be/BELS_Base/*.java target5/Base/target/jv/be/BEL_4_Base/*.java
+
+lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 rm -f target5/BEL_system_be_jv.jar
 cd system/jv
