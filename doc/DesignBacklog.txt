@@ -1,4 +1,43 @@
 
+inplace to value
+
+vars to fields (field for single)
+
+type
+field
+function
+
+all optional (unlabeled { is fields })
+
+allcalls missing some, self ref node thinking
+  check emit against allcalls, error if missing
+  might be identity issue with map
+  when outputting calls for args make sure they have the call they are in in their allcall, also see if their allcall is null/missing/empty
+
+Read–eval–print loop (REPL), code change running instance? (underlying lang support?)
+  https://github.com/albertlatacz/java-repl
+
+finally
+convenience syntax for array, map construction
+type inference - auto (in place of var) 
+unify foreach and for, behavior based on parens contents, dump foreach kw
+
+can, createInstance and invoke - switch to structures which don't depend on underlying reflection
+
+safe navigation (null check then call, "?.")
+
+named, optional parameters, ? parameter lists (or just very convenient arrays)
+
+cs and jv like js for createInstance, can like invoke
+switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
+  
+need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
+
+.cp for .copy
+
+switch string to mutating for everything (swap, etc)
+
+copyFile should copy the file (read/write)
 readline find \n and just substring -1 if last is \r
 
 get rid of implied new calls in generated code (mark as implied, skip them,
@@ -7,12 +46,7 @@ get rid of implied new calls in generated code (mark as implied, skip them,
   --default is just something that gets called when that first instance is created, if it exists
   ?all class have default instance used unless there is a call to copy/create?
   ?new in object does a create? - no more special "default" logic? (?create final?)
-  
-allcalls missing some, self ref node thinking
-  check emit against allcalls, error if missing
-  might be identity issue with map
-  when outputting calls for args make sure they have the call they are in in their allcall, also see if their allcall is null/missing/empty
-  
+    
 make it possible to skip calls and link up assignments betw org and final
 tmp var reduction
  direct use of onces, no tmp var assign (will then have mechanism to suppress existence
@@ -55,29 +89,6 @@ mutating size for map, string, etc, ++= everywhere
 
 date strings
 network sockets
-
-Read–eval–print loop (REPL), code change running instance? (underlying lang support?)
-  https://github.com/albertlatacz/java-repl
-  
-vars to ptys (see below)
-  property and pty for single case? properties and ptys for multi?
-
-finally
-convenience syntax for array, map construction
-type inference - auto (in place of var) 
-unify foreach and for, behavior based on parens contents, dump foreach kw
-
-can, createInstance and invoke - switch to structures which don't depend on underlying reflection
-
-safe navigation (null check then call, "?.")
-
-named, optional parameters, ? parameter lists (or just very convenient arrays)
-
-cs and jv like js for createInstance, can like invoke
-switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
-  
-need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
-mac and linux same build scripts with just change to os name, calling a common one
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
 

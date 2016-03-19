@@ -280,7 +280,7 @@ if (def(length)) {
       return(mergeSort());
    }
    
-   sortInPlace() self {
+   sortInPlace() self { //sortValue
       sortInPlace(0, length);
    }
    

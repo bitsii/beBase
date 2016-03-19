@@ -331,28 +331,16 @@ void** bevl_spa;
    }
    
    sizeGet() Int {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-struct stat sa;
-void** bevl_spa;
-BEINT* bevl_sz;
-      """
-      }
-      var spa;
-      Int _size = Int.new();
-      spa = path.toString();
-      if (self.exists) {
-         emit(c) {
-         """
-         bevl_spa = $spa&*;
-         bevl_sz = (BEINT*) ($_size&* + bercps);
-         stat(((char*) bevl_spa[bercps]), &sa);
-         *bevl_sz = sa.st_size;
-         """
-         }
-      }
-      return(_size);
+   
+    Int sz = Int.new();
+    emit(jv) {
+    """
+    java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+    bevl_sz.bevi_int = (int) bevls_f.length();
+    """
+    }
+    return(sz);
+   
    }
    
    existsGet() Bool {
