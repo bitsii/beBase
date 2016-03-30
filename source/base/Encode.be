@@ -121,6 +121,35 @@ use local class Digest:SHA256 {
     }
 
 }
+
+class Encode:Html {
+
+   create() { }
+   
+   default() self {
+      
+   }
+
+  encode(String str) String {
+  
+      String r = String.new(str.size * 2); //?why
+      Text:ByteIterator tb = Text:ByteIterator.new(str);
+      String pt = String.new(2);
+      while (tb.hasNext) {
+         tb.next(pt);
+         Int ac = pt.getCode(0);//TODO instead, tb.currentInt(int), more efficient
+         if (ac > 127 || pt == '"' || pt == '<' || pt == '>' || pt == '&') {
+            r.addValue("&#");
+            r.addValue(ac.toString());
+            r.addValue(";");
+         } else {
+            r.addValue(pt);
+         }
+      }
+      return(r);
+  }
+  
+}
    
 local class Url {
 

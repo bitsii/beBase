@@ -1,11 +1,11 @@
 
+javascript webworker concurrency, same model for cs/jv
+
+for native langs (esp js) generate stubs with "literal names" - ?vars, def methods, autoconvert strings, etc
+
 inplace to value
 
-vars to fields (field for single)
-
-type
-field
-function
+vars to members
 
 all optional (unlabeled { is fields })
 
