@@ -187,7 +187,7 @@ use Container:BoundedQueue as BQueue;
 class BQueue(Queue) {
     new() self {
       super.new();
-      vars {
+      properties {
         Int max = 99;
       }
     }

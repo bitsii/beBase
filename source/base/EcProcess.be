@@ -56,7 +56,7 @@ final class System:Process {
   }
   
   fullExecNameGet() {
-    vars {
+    properties {
         var fullExecName;
     }
     if (undef(fullExecName)) {

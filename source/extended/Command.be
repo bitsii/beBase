@@ -90,7 +90,7 @@ final class Command {
    }
    
    outputGet() IO:File:Reader {
-     vars {
+     properties {
       IO:File:Reader outputReader;
      }
      if (def(outputReader)) {

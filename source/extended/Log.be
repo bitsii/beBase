@@ -14,7 +14,7 @@ use Text:String;
 class L {
 
   default() self {
-    vars {
+    properties {
       Int debug = 400;
       Int info = 300;
       Int warn = 200;

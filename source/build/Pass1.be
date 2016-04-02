@@ -35,7 +35,7 @@ final class Build:Visit:Pass1(Build:Visit:Visitor) {
    }
 
    accept(Build:Node node) Build:Node {
-     vars {
+     properties {
        String inClass;
        String inClassMethod;
      }

@@ -25,7 +25,7 @@ use System:Parameters;
 final class Build:Build {
 
    new() self {
-      properties {
+      fields {
          String mainName;
          String libName;
          String exeName;
@@ -344,7 +344,7 @@ final class Build:Build {
        if (def(emitCommon)) {
           return(emitCommon);
        }
-       properties {
+       fields {
             Build:EmitCommon emitCommon;
        }
        if (def(emitLangs)) {

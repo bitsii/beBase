@@ -814,7 +814,7 @@ use System:Thread:ContainerLocker as CLocker;
 class System:Thread:ContainerLocker {
   
   new(_container) self {
-    vars {
+    properties {
       Lock lock = Lock.new();
       var container;
     }
@@ -1127,14 +1127,14 @@ use System:Thread:ObjectLocker as OLocker;
 class OLocker {
   
   new() self {
-    vars {
+    properties {
       Lock lock = Lock.new();
     }
   }
   
   new(_obj) self {
     new();
-    vars {
+    properties {
       var obj;
     }
     lock.lock();

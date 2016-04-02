@@ -308,7 +308,7 @@ final class Build:Constants {
       rwords.put("else", ntypes.ELSE);
       rwords.put("loop", ntypes.LOOP);
       rwords.put("properties", ntypes.PROPERTIES);
-      rwords.put("vars", ntypes.PROPERTIES);
+      rwords.put("fields", ntypes.PROPERTIES);
       rwords.put("while", ntypes.WHILE);
       rwords.put("until", ntypes.WHILE);
       rwords.put("for", ntypes.FOR);
