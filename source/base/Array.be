@@ -280,11 +280,11 @@ if (def(length)) {
       return(mergeSort());
    }
    
-   sortInPlace() self { //sortValue
-      sortInPlace(0, length);
+   sortValue() self {
+      sortValue(0, length);
    }
    
-   sortInPlace(Int start, Int end) self {
+   sortValue(Int start, Int end) self {
       for (Int i = start;i < end;i = i++) {
          Int c = i;
          for (Int j = i;j < end;j = j++) {

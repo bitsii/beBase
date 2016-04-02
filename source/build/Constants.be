@@ -296,7 +296,7 @@ final class Build:Constants {
       rwords.put("use", ntypes.USE);
       rwords.put("as", ntypes.AS);
       rwords.put("class", ntypes.CLASS);
-      //rwords.put("method", ntypes.METHOD);
+      rwords.put("method", ntypes.METHOD);
       rwords.put("final", ntypes.DEFMOD);
       rwords.put("local", ntypes.DEFMOD);
       rwords.put("notNull", ntypes.DEFMOD);
@@ -308,7 +308,6 @@ final class Build:Constants {
       rwords.put("else", ntypes.ELSE);
       rwords.put("loop", ntypes.LOOP);
       rwords.put("properties", ntypes.PROPERTIES);
-      //rwords.put("props", ntypes.PROPERTIES);
       rwords.put("vars", ntypes.PROPERTIES);
       rwords.put("while", ntypes.WHILE);
       rwords.put("until", ntypes.WHILE);

@@ -14,9 +14,9 @@ use Container:NodeList;
 use Logic:Bool;
 use Math:Int;
 
-class Single {
+Single {
    new() self {
-      properties {
+      {
          var first;
       }
    }
@@ -25,9 +25,9 @@ class Single {
    }
 }
 
-class Pair {
+Pair {
    new() self {
-      properties {
+      {
          var first;
          var second;
       }
@@ -38,11 +38,11 @@ class Pair {
    }
 }
 
-local class Node {
+local Node {
    
    new(_held, LinkedList _mylist) self {
    
-      properties {
+      {
       
             Node prior;
             Node next;
@@ -96,7 +96,7 @@ local class Node {
    
 }
 
-local class Container:LinkedList:AwareNode(Node) {
+local Container:LinkedList:AwareNode(Node) {
    
    new(_held, LinkedList _mylist) self {
       held = _held;
@@ -110,7 +110,7 @@ local class Container:LinkedList:AwareNode(Node) {
    }
 }
 
-local class NodeList(LinkedList) {
+local NodeList(LinkedList) {
    
    newNode(toHold) Node {
       return(Container:LinkedList:AwareNode.new(toHold, self));
@@ -118,11 +118,11 @@ local class NodeList(LinkedList) {
    
 }
 
-local class LinkedList {
+local LinkedList {
    
    new() self {
       
-      properties {
+      {
          Node firstNode;
          Node lastNode;
       }
@@ -428,11 +428,11 @@ local class LinkedList {
    
 }
 
-local class LinkedList:Iterator {
+local LinkedList:Iterator {
    
    new(LinkedList l) LinkedList:Iterator {
    
-      properties {
+      {
          LinkedList list = l;
          Node currNode;
          Bool starting = true;

@@ -1,13 +1,32 @@
 
+vars to fields
+field prefix to var dec makes it a field
+
+finally
+convenience syntax for array, map construction
+type inference - ?auto
+unify foreach and for, behavior based on parens contents, dump foreach kw
+
+simplify default stuff
+???initially an instance of every class (not needed if from Object with no create override, create override sorta== default)
+
+bare class == implied create call
+override create
+  default logic goes there
+  conditional check to assure one time init - super.create
+  all the other stuff goes away
+
+get rid of implied new calls in generated code (mark as implied, skip them,
+  I think it's only for literals now anyway)
+  --needs to be simpler, get rid of isNewish and all auto-new calls (including in reflection / dynamic cases)
+  --default is just something that gets called when that first instance is created, if it exists
+  ?all class have default instance used unless there is a call to copy/create?
+  ?new in object does a create? - no more special "default" logic? (?create final?)
+
 javascript webworker concurrency, same model for cs/jv
+  inbox or queue?
 
 for native langs (esp js) generate stubs with "literal names" - ?vars, def methods, autoconvert strings, etc
-
-inplace to value
-
-vars to members
-
-all optional (unlabeled { is fields })
 
 allcalls missing some, self ref node thinking
   check emit against allcalls, error if missing
@@ -15,12 +34,7 @@ allcalls missing some, self ref node thinking
   when outputting calls for args make sure they have the call they are in in their allcall, also see if their allcall is null/missing/empty
 
 Read–eval–print loop (REPL), code change running instance? (underlying lang support?)
-  https://github.com/albertlatacz/java-repl
-
-finally
-convenience syntax for array, map construction
-type inference - auto (in place of var) 
-unify foreach and for, behavior based on parens contents, dump foreach kw
+  https://github.com/albertlatacz/java-repl (also mono csharp and etc)
 
 can, createInstance and invoke - switch to structures which don't depend on underlying reflection
 
@@ -39,13 +53,6 @@ switch string to mutating for everything (swap, etc)
 
 copyFile should copy the file (read/write)
 readline find \n and just substring -1 if last is \r
-
-get rid of implied new calls in generated code (mark as implied, skip them,
-  I think it's only for literals now anyway)
-  --needs to be simpler, get rid of isNewish and all auto-new calls (including in reflection / dynamic cases)
-  --default is just something that gets called when that first instance is created, if it exists
-  ?all class have default instance used unless there is a call to copy/create?
-  ?new in object does a create? - no more special "default" logic? (?create final?)
     
 make it possible to skip calls and link up assignments betw org and final
 tmp var reduction

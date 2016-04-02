@@ -193,7 +193,7 @@ class Test:BaseTest:Array(BaseTest) {
       ts[7] = 0;
       ts[8] = 1;
       ts[9] = 4;
-      ts.sortInPlace();
+      ts.sortValue();
       foreach (v in ts) { v.print(); }
       for (i = 0;i < ts.length;i = i++) { 
          assertEquals(ts[i], i);

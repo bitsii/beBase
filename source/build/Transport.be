@@ -93,10 +93,20 @@ final class Build:Transport {
                //("Found new method").print();
                Node mnode = Node.new(build);
                mnode.typename = ntypes.METHOD;
-               mnode.held = "mtd";
+               mnode.held = "method";
                curr.addValue(mnode);
                curr = mnode;
             }
+            
+            if (node.typename == ntypes.BRACES && curr.typename == ntypes.BRACES) {
+            //&& curr.container.typename == ntypes.METHOD
+               mnode = Node.new(build);
+               mnode.typename = ntypes.PROPERTIES;
+               mnode.held = "properties";
+               curr.addValue(mnode);
+               curr = mnode;
+            }
+            
             if (node.typename == ntypes.RPARENS) {
                curr = stepBack(curr);
             } elif (node.typename == ntypes.RIDX) {
