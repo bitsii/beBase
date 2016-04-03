@@ -76,7 +76,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
 
     new(Build:Build _build) {
         build = _build;
-        properties {
+        fields {
           
           //current emitting class config and parent, if any
           ClassConfig classConf;
@@ -263,7 +263,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         
         depths = depths.sort();
-        properties {
+        fields {
             Array classesInDepthOrder = Array.new();
         }
         foreach (depth in depths) {
@@ -446,7 +446,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
     
    getClassOutput() IO:File:Writer {
-       properties {
+       fields {
          Int lineCount = 0.copy();
        }
        if (classConf.classDir.file.exists!) {
@@ -638,7 +638,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     //Emit Visit
     begin (transi) {
       super.begin(transi);
-      properties {
+      fields {
          String methods = String.new();
          Array classCalls = Array.new();
          Int lastMethodsSize = 0;
@@ -685,7 +685,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
    }
    
   acceptMethod(Node node) {
-      properties {
+      fields {
         Node mnode = node;
         ClassConfig returnType = null;
         Build:MtdSyn msyn;
@@ -761,7 +761,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
   }
   
   acceptClass(Node node) {
-     properties {
+     fields {
         String preClass = String.new();
         String classEmits = String.new();
         String onceDecs = String.new();
@@ -1830,7 +1830,7 @@ use local class Build:ClassConfig {
    
    new(Build:NamePath _np, EmitCommon _emitter, IO:File:Path _emitPath, String _libName) self {
    
-      properties {
+      fields {
          
         Build:NamePath np = _np; //name path for class
         EmitCommon emitter = _emitter; //emitter obj

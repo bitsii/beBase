@@ -20,7 +20,7 @@ using System;
 final class Array:Iterator {
    
    new() self {
-      properties {
+      fields {
          Int pos = -1;
          Array list = Array.new(1);
       }
@@ -159,7 +159,7 @@ if (def(length)) {
       """
       }
       
-      properties {
+      fields {
          var varray;
          Int length = leni.copy();
          Int capacity = capi.copy();

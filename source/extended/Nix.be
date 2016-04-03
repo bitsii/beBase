@@ -25,7 +25,7 @@ emit(c) {
 local class File {
 
    new() self {
-      properties {
+      fields {
          var path;
          var reader;
          var writer;
@@ -336,7 +336,7 @@ final DirectoryIterator {
    
    new() self {
    
-      properties {
+      fields {
          var fd;
          var handle;
          File dir;

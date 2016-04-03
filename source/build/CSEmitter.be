@@ -24,7 +24,7 @@ use final class Build:CSEmitter(Build:EmitCommon) {
         emitLang = "cs";
         fileExt = ".cs";
         exceptDec = "";
-        properties {
+        fields {
         }
         //super new depends on some things we set here, so it must follow
         super.new(_build);

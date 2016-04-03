@@ -25,7 +25,7 @@ class SetNode {
    
    new(_hval, _key, _value) self {
    
-      properties {
+      fields {
          Int hval = _hval;
          var key = _key;
       }
@@ -47,7 +47,7 @@ class MapNode(SetNode) {
    new(_hval, _key, _value) self {
       super.new(_hval, _key, _value);
       
-      properties {
+      fields {
          var value = _value;
       }
       
@@ -220,7 +220,7 @@ class Set {
    
    new(Int _modu) self {
    
-      properties {
+      fields {
          Array slots = Array.new(_modu);
          Int modu = _modu;
          Int multi = 2;
@@ -537,7 +537,7 @@ class Set:KeyIterator(Set:NodeIterator) {
 class Set:SerializationIterator(Set:KeyIterator) {
 
    new(Set _set) Set:SerializationIterator {
-      properties {
+      fields {
          Array contents = Array.new();
       }
       super.new(_set);
@@ -564,7 +564,7 @@ class Set:SerializationIterator(Set:KeyIterator) {
 class Map:SerializationIterator(Map:KeyValueIterator) {
 
    new(Set _set) Map:SerializationIterator {
-      properties {
+      fields {
          Array contents = Array.new();
       }
       super.new(_set);
@@ -595,7 +595,7 @@ class Map:SerializationIterator(Map:KeyValueIterator) {
 class Map:KeyValueIterator(Set:NodeIterator) {
    
    new(Set _set) Map:KeyValueIterator {
-      properties {
+      fields {
          var onNode;
       }
       super.new(_set);
@@ -639,7 +639,7 @@ class Set:NodeIterator {
    
    new(Set _set) Set:NodeIterator {
       
-      properties {
+      fields {
          Set set = _set;
          Array slots = set.slots;
          Int modu = slots.size;

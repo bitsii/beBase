@@ -23,7 +23,7 @@ use Test:MyTemplate;
 class MyTemplate {
 
    new() self {
-      properties {
+      fields {
          String lala = "lala";
       }
    }

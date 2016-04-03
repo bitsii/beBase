@@ -305,7 +305,7 @@ final class System:Thing {
    
    new() self {
       
-      properties {
+      fields {
          var vthing;
       }
       
@@ -318,7 +318,7 @@ final class System:Types {
    
    default() self {
       
-      properties {
+      fields {
          Math:Int int = Math:Int.new();
          Logic:Bool bool = false;
          Math:Float float = Math:Float.new();
@@ -336,7 +336,7 @@ class System:BasePath {
    
    new() self {
    
-      properties {
+      fields {
          String separator;
          String path;
       }
@@ -607,7 +607,7 @@ class System:Platform {
    
    new() self {
    
-      properties {
+      fields {
          Text:String name;
          Logic:Bool isNix;
          Logic:Bool isWin;
@@ -693,7 +693,7 @@ use local class System:ThinThread {
    }
    
    new(_toRun) self {
-     properties {
+     fields {
        var toRun = _toRun;
      }
    }
@@ -741,7 +741,7 @@ use local class System:ThinThread {
 use final class System:Thread(ThinThread) {
 
   new(_toRun) self {
-     properties {
+     fields {
        OLocker started = OLocker.new(false);
        OLocker finished = OLocker.new(false);
        OLocker threwException = OLocker.new();
@@ -814,7 +814,7 @@ use System:Thread:ContainerLocker as CLocker;
 class System:Thread:ContainerLocker {
   
   new(_container) self {
-    properties {
+    fields {
       Lock lock = Lock.new();
       var container;
     }
@@ -1127,14 +1127,14 @@ use System:Thread:ObjectLocker as OLocker;
 class OLocker {
   
   new() self {
-    properties {
+    fields {
       Lock lock = Lock.new();
     }
   }
   
   new(_obj) self {
     new();
-    properties {
+    fields {
       var obj;
     }
     lock.lock();

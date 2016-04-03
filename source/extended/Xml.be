@@ -29,7 +29,7 @@ class Tag {
 class StartElement(Tag) {
    
    new() self {
-      properties {
+      fields {
          String name;
          Bool isClosed;
          String attName;
@@ -72,7 +72,7 @@ class StartElement(Tag) {
 class EndElement(Tag) {
    
    new() self {
-      properties {
+      fields {
          String name;
       }
    }
@@ -85,7 +85,7 @@ class EndElement(Tag) {
 class TextNode(Tag) {
    
    new(String _contents) self {
-      properties {
+      fields {
          String contents = _contents;
       }
    }
@@ -97,7 +97,7 @@ class TextNode(Tag) {
 class Comment(Tag) {
 
    new(String _contents) self {
-      properties {
+      fields {
          String contents = _contents;
       }
    }
@@ -110,7 +110,7 @@ class Comment(Tag) {
 class ProcessingInstruction(Tag) {
 
    new(String _contents) self {
-      properties {
+      fields {
          String contents = _contents;
       }
    }
@@ -127,7 +127,7 @@ class XTokenizer {
    default() self {
       
       String tokString = "<>=/?! \"";
-      properties {
+      fields {
          Tokenizer tok = Tokenizer.new(tokString, true);
       }
    }
@@ -136,7 +136,7 @@ class XTokenizer {
 class TagIterator {
    
    new() self {
-      properties {
+      fields {
          String xmlString;
          Bool started = false;
          XTokenizer xt = XTokenizer.new();

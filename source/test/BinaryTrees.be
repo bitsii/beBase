@@ -15,7 +15,7 @@ final class TreeNode {
    }
    
    new(Int _item, TreeNode _left, TreeNode _right) TreeNode {
-      properties {
+      fields {
          TreeNode left = _left;
          TreeNode right = _right;
          Int item = _item;

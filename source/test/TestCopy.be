@@ -2,7 +2,7 @@
 class Test:TestCopy:Vars {
    
    prepare() {
-      properties {
+      fields {
          var a = System:Object.new();
          var b = System:Object.new();
       }

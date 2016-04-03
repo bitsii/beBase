@@ -59,7 +59,7 @@ void** bevl_sval;
       """
       }
       }
-      properties {
+      fields {
          var instance;
          Int minField;
          Int maxField;
@@ -318,7 +318,7 @@ void** bevl_na;
       
       numargs = Int.new();
       
-      properties {
+      fields {
          String name;
          Array args;
          Bool notReady = true;

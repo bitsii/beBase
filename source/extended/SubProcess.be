@@ -21,7 +21,7 @@ class SubProcess {
    new() self { }
    
    new(String _klass, String _execName, Array _args) SubProcess {
-      properties {
+      fields {
          Array args = _args;
          String execName = _execName;
          String klass = _klass;

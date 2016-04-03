@@ -92,7 +92,7 @@ void** bevl_posi;
 """
 }
 
-    properties {
+    fields {
         Int propa = 20;
     }
     
@@ -107,7 +107,7 @@ void** bevl_posi;
    }
    
    testIfEmit() {
-      properties {
+      fields {
         Bool did = false;
         Bool didAfter = false;
         Bool didnt = true;
@@ -525,7 +525,7 @@ use final class MyUsedClass2 {
    }
 
    fromMyUsedClass(String input) {
-      properties {
+      fields {
          Bool flag = false;
       }
       return("Out: " + input);
@@ -625,7 +625,7 @@ use class Test:TryThings {
 
 use class Test:InheritFrom {
    
-   new() self { properties {
+   new() self { fields {
    var hi = "wheredef";
    } }
    

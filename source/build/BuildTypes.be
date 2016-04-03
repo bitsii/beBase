@@ -20,7 +20,7 @@ use Build:ClassSyn;
 final class Build:NamePath(System:BasePath) {
    
    new(String spath) self {
-      properties {
+      fields {
          String label;
       }
       separator = Text:Strings.new().colon;
@@ -58,14 +58,14 @@ final class Build:NamePath(System:BasePath) {
 final class Build:TransUnit {
    
    new() self {
-      properties {
+      fields {
          Map aliased = Map.new();
       }
    }
    
    addEmit(node) Build:TransUnit {
       if (undef(emits)) {
-         properties {
+         fields {
             Container:LinkedList emits = Container:LinkedList.new();
          }
       }
@@ -77,7 +77,7 @@ final class Build:TransUnit {
 final class Build:Emit {
     
     new(String _text, Set _langs) self {
-        properties {
+        fields {
             String text = _text;
             Set langs = _langs;
         }
@@ -88,7 +88,7 @@ final class Build:Emit {
 final class Build:IfEmit {
     
     new(Set _langs, String _value) self {
-        properties {
+        fields {
             Set langs = _langs;
             String value = _value; //original value, ifEmit, ifNotEmit
         }
@@ -100,7 +100,7 @@ final class Build:Class {
    
    new() self {
    
-      properties {
+      fields {
          Build:NamePath extends;
          LinkedList emits; //transEmits are in containing transUnit
          String name;
@@ -164,7 +164,7 @@ final class Build:Method {
    
    new() self {
    
-      properties {
+      fields {
          String name;
          String orgName;
          Int numargs;
@@ -200,7 +200,7 @@ final class Build:Method {
 final class Build:Var {
    
    new() self {
-      properties {
+      fields {
          String name;
          Build:NamePath namepath;
          var refs;
@@ -291,7 +291,7 @@ final class Build:Call {
    
    new() self {
    
-      properties {
+      fields {
          String name;
          String orgName;
          String accessorType;
@@ -352,7 +352,7 @@ final class Build:Call {
 final class Build:Accessor {
    
    new() self {
-      properties { String name; }
+      fields { String name; }
    }
    
    toString() String {

@@ -181,7 +181,7 @@ final class String {
    new(Int _capacity) self {
       
       capacitySet(_capacity);
-      properties {
+      fields {
          var vstring;
          Int size;
          Int capacity;
@@ -1146,7 +1146,7 @@ final class Text:Strings {
    
    default() self {
       
-      properties {
+      fields {
          String space = " ";
          String empty = Text:String.new();
          String quote = String.codeNew(34);
@@ -1272,7 +1272,7 @@ local class Text:ByteIterator {
    }
    
    new(String _str) self {
-      properties {
+      fields {
          String str = _str;
          Int pos = 0;
          Int vcopy = Int.new();
@@ -1342,7 +1342,7 @@ local class Text:ByteIterator {
 final class Text:MultiByteIterator(Text:ByteIterator) {
 
    new(String _str) self {
-      properties {
+      fields {
         Int bcount = Int.new();
         Int ival = Int.new();
       }

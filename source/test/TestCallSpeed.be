@@ -26,7 +26,7 @@ class Test:TestCallSpeed {
 
 class Speeder {
    new() self {
-      properties {
+      fields {
          Int i = 0;
       }
    }

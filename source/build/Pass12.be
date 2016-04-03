@@ -21,7 +21,7 @@ use Build:ClassSyn;
 final class Build:Visit:Pass12(Build:Visit:Visitor) {
 
    new() self {
-      properties {
+      fields {
          NamePath classnp;
       }
    }
@@ -232,7 +232,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
 final class Build:Visit:Rewind(Build:Visit:Visitor) {
 
    new() self {
-      properties {
+      fields {
          var tvmap;
          var rmap;
          var inClass;
@@ -353,7 +353,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
 final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
    
    new() self {
-      properties {
+      fields {
          var emitter;   
          Node inClass;
          var inClassNp;

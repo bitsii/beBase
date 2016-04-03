@@ -17,7 +17,7 @@ use Build:NodeTypes;
 final class Build:Transport {
    
    new (Build:Build _build) Build:Transport {
-      properties {
+      fields {
          Build:Build build = _build;
          NodeTypes ntypes = build.constants.ntypes;
          Node outermost = Node.new(build);
@@ -102,7 +102,7 @@ final class Build:Transport {
             //&& curr.container.typename == ntypes.METHOD
                mnode = Node.new(build);
                mnode.typename = ntypes.PROPERTIES;
-               mnode.held = "properties";
+               mnode.held = "fields";
                curr.addValue(mnode);
                curr = mnode;
             }

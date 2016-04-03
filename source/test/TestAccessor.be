@@ -1,13 +1,13 @@
 
 class Test:TAa {
-   new() self { properties {
+   new() self { fields {
       var boo;
       var aac;
    } }
 }
 
 class Test:TAb (Test:TAa) {
-   new() self { properties {
+   new() self { fields {
       var bat;
       var bac;
    } }

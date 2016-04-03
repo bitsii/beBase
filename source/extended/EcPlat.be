@@ -38,7 +38,7 @@ local class File {
 
    new() self {
       
-      properties {
+      fields {
          IO:File:Path path;
          var reader;
          var writer;
@@ -468,7 +468,7 @@ final class DirectoryIterator {
    
    new() self {
    
-      properties {
+      fields {
          File dir;
          Bool opened = false;
          Bool closed = false;

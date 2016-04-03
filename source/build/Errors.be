@@ -15,7 +15,7 @@ class Build:VisitError(System:Exception) {
    }
    
    new(msgi, nodei) self {
-      properties {
+      fields {
          var msg = msgi;
          var node = nodei;
       }

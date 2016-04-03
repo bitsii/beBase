@@ -43,7 +43,7 @@ use final class Function:Mapper {
 use final class Function:MapProxy {
 
     new(_target, _callName) {
-        properties {
+        fields {
             var target = _target;
             String callName = _callName;
             Array args = Array.new(1);

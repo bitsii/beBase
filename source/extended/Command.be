@@ -37,7 +37,7 @@ final class Command {
    }
    
    new(String _command) self {
-      properties {
+      fields {
          String command = _command;
       }
    }
@@ -90,7 +90,7 @@ final class Command {
    }
    
    outputGet() IO:File:Reader {
-     properties {
+     fields {
       IO:File:Reader outputReader;
      }
      if (def(outputReader)) {

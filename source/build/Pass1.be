@@ -19,7 +19,7 @@ use Build:VisitError;
 final class Build:Visit:Pass1(Build:Visit:Visitor) {
 
    new() self {
-      properties {
+      fields {
          Set printAstElements;
          Bool allAstElements;
          var f;
@@ -35,7 +35,7 @@ final class Build:Visit:Pass1(Build:Visit:Visitor) {
    }
 
    accept(Build:Node node) Build:Node {
-     properties {
+     fields {
        String inClass;
        String inClassMethod;
      }

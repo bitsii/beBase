@@ -18,7 +18,7 @@ use Build:Node;
 final class Build:Visit:Pass11(Build:Visit:Visitor) {
 
    new() self {
-      properties {
+      fields {
          Build:Node inMtd;
       }
    }

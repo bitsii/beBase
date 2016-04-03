@@ -17,7 +17,7 @@ class PropertyMap {
    
    new() self {
       
-      properties {
+      fields {
          Map map = Map.new();
       }
       

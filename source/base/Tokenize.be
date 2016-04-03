@@ -17,7 +17,7 @@ use Logic:Bool;
 final class Text:Tokenizer {
    
    new(String delims) self {
-      properties {
+      fields {
          Map tmap; //String key, eq String value
          Bool includeTokens;
       }
@@ -115,7 +115,7 @@ class Glob {
    globSet(String _glob) {
       Text:Tokenizer tok = Text:Tokenizer.new("*?", true);
       LinkedList _splits = tok.tokenize(_glob);
-      properties {
+      fields {
          String glob = _glob;
          LinkedList splits = _splits;
       }

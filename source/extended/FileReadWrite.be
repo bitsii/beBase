@@ -24,7 +24,7 @@ using System.IO;
 use class IO:ByteReader {
 
 	readerBufferNew(IO:Reader _reader, String _buf) self {
-		properties {
+		fields {
 			IO:Reader reader = _reader;
 			String buf = _buf;
 			Text:ByteIterator iter = buf.biter;
@@ -66,7 +66,7 @@ class IO:File:Reader(IO:Reader) {
    new(fpath) self {
       new();
       blockSize = 1024;//why?
-      properties {
+      fields {
          IO:File:Path path;
       }
       self.path = IO:File:Path.new(fpath);
@@ -160,7 +160,7 @@ class IO:Reader {
 
 
     new() self {
-      properties {
+      fields {
          var vfile;
          Bool isClosed = true; 
          Int blockSize = 256;
@@ -366,7 +366,7 @@ char* buf;
 class IO:File:Writer(IO:Writer) {
     
     new(fpath) self {
-      properties {
+      fields {
          IO:File:Path path;
       }
       isClosed = true;
@@ -492,7 +492,7 @@ class IO:Writer {
    
    new() self {
       
-      properties {
+      fields {
          var vfile;
          Bool isClosed = true;
       }
@@ -651,7 +651,7 @@ final class IO:File:NamedReaders {
    
    default() self {
       
-      properties {
+      fields {
          IO:File:Reader input;
       }
       self.input = IO:File:Reader:Stdin.new();
@@ -670,7 +670,7 @@ final class IO:File:NamedWriters {
    create() { }
    default() self {
       
-      properties {
+      fields {
          IO:File:Writer output;
          IO:File:Writer error;
          IO:File:Writer exceptionConsole;
@@ -836,7 +836,7 @@ final class IO:File:Reader:Command(IO:File:Reader) {
    
    commandNew(String _command) self {
       super.new();
-      properties {
+      fields {
          String command = _command;
       }
    }

@@ -17,7 +17,7 @@ class System:Exception {
    
    new(descr) self {
       
-      properties {
+      fields {
          var methodName;
          var klassName;
          var description;
@@ -348,7 +348,7 @@ final class System:ExceptionBuilder {
    
    default() self {
       
-      properties {
+      fields {
          var except = Exception.new();
          var thing = System:Thing.new();
          var int = Math:Int.new();
@@ -432,7 +432,7 @@ final class System:ExceptionBuilder {
 class Exception:Frame {
 
     new(String _klassName, String _methodName, String _emitFileName, Int _emitLine) self {
-        properties {
+        fields {
             String klassName = _klassName;
             String methodName = _methodName;
             String emitFileName = _emitFileName;

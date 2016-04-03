@@ -19,7 +19,7 @@ final class Node {
    
    new(Build:Build _build) self {
    
-      properties {
+      fields {
          NodeList contained;
          Node container;
          var held;

@@ -27,7 +27,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         emitLang = "js";
         fileExt = ".js";
         exceptDec = "";
-        properties {
+        fields {
         }
         //super new depends on some things we set here, so it must follow
         super.new(_build);
@@ -294,7 +294,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     }
 
     writeOnceDecs(cle, onceDecs) {
-        properties {
+        fields {
             String allOnceDecs;
         }
         if (undef(allOnceDecs)) {
@@ -313,7 +313,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
    }
 
     getLibOutput() IO:File:Writer {
-        properties { IO:File:Writer shlibe; }
+        fields { IO:File:Writer shlibe; }
         if (undef(shlibe)) {
            lineCount = 0;
            if (libEmitPath.parent.file.exists!) {

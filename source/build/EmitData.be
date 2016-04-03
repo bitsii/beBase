@@ -16,7 +16,7 @@ final class Build:EmitData {
    
    new() self {
    
-      properties {
+      fields {
       
          Map ptsp = Map.new();
          Map allNames = Map.new();
@@ -71,7 +71,7 @@ final class Build:EmitData {
 
 final Build:PropertyIndex {
    new(Build:ClassSyn _syn, Build:PtySyn _psyn) self {
-      properties {
+      fields {
          //for directProperties, if true or false for one should be true or false 
          //for all in lib
          Build:ClassSyn syn = _syn; 
@@ -96,7 +96,7 @@ final Build:PropertyIndex {
 
 final Build:MethodIndex {
    new(Build:ClassSyn _syn, Build:MtdSyn _msyn) self {
-      properties {
+      fields {
          //for directMethods, if true or false for one should be true or false 
          //for all in lib
          Build:ClassSyn syn = _syn; 

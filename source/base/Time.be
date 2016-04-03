@@ -153,7 +153,7 @@ class Interval {
       //Stored as seconds and millis within the second (abs < 1000)
       //for times, xIny is the x within y (< the number of x's in y) (x % xes in y) 
       //just x is the total interval in x units (to it's level of granularity)
-      properties {
+      fields {
          Int secs = 0;
          Int millis = 0;
       }

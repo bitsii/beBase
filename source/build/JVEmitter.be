@@ -24,7 +24,7 @@ use final class Build:JVEmitter(Build:EmitCommon) {
         emitLang = "jv";
         fileExt = ".java";
         exceptDec = " throws Throwable";
-        properties {
+        fields {
         }
         //super new depends on some things we set here, so it must follow
         super.new(_build);

@@ -35,7 +35,7 @@ final class VarSyn {
    }
    
    varNew(Build:Var full) self {
-      properties {
+      fields {
          String name = full.name;
          NamePath namepath = full.namepath;
          Bool isTyped = full.isTyped;
@@ -62,7 +62,7 @@ final class VarSyn {
 final class ClassSyn {
    
    new() self {
-      properties {
+      fields {
          Build:NamePath superNp;
          Int depth;
          Build:NamePath namepath;
@@ -435,7 +435,7 @@ final class Build:MtdSyn {
       
       var s = snode.held;
       
-      properties {
+      fields {
          Int hpos;
          Int mtdx;
    
@@ -528,7 +528,7 @@ final class Build:PtySyn {
       
       Build:Var v = vnode.held;
       
-      properties {
+      fields {
          Int mpos;
          String name = v.name;
          Build:NamePath origin = _origin;

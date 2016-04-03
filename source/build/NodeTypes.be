@@ -14,7 +14,7 @@ final class Build:NodeTypes {
 
    default() self {
       
-      properties {
+      fields {
          Int TRANSUNIT = 1;
          Int VAR = 2;
          Int NULL = 3;

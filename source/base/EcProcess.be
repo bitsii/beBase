@@ -23,7 +23,7 @@ final class System:Process {
    
    default() self {
       
-      properties {
+      fields {
          Container:Array args;
          Math:Int numArgs;
          var execName;
@@ -56,7 +56,7 @@ final class System:Process {
   }
   
   fullExecNameGet() {
-    properties {
+    fields {
         var fullExecName;
     }
     if (undef(fullExecName)) {

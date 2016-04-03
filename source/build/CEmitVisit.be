@@ -52,7 +52,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
    
    new() self {
    
-      properties {
+      fields {
       
          Build:Node inClass;
          String inClassNamed;
@@ -1469,7 +1469,7 @@ final class CallCursor {
    
    new(Build:Visit:CEmit _emvisit, Node _node) self {
    
-      properties {
+      fields {
          Node asnR;
          Node asnCall;
          String targs;

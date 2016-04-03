@@ -9,7 +9,7 @@ use Container:Array;
 class Test:ToSerialize {
 
    new() self {
-      properties {
+      fields {
          var i = 10;
          var s = "Hi";
          var a = Array.new(4);

@@ -223,7 +223,7 @@ use System:Test:OutExtending;
 class OutExtending(Extendable) {
 
    new() self {
-      properties {
+      fields {
          var prop2a;
       }
    }

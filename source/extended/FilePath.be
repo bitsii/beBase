@@ -17,7 +17,7 @@ local class IO:File:Path(System:BasePath) {
    
    new(String spath) self {
       
-      properties {
+      fields {
          File file;
          String driveLetter; //letter with :, like C:
       }

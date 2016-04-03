@@ -6,7 +6,7 @@ use Container:Array;
 class TestIdx {
    
    new() self {
-      properties {
+      fields {
          var outermem;
       }
    }

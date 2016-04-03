@@ -28,7 +28,7 @@ local class CCallAssembler {
    
       loadBuild(build);
       
-      properties {
+      fields {
          Map fromTypes;
       }
       
@@ -49,7 +49,7 @@ local class CCallAssembler {
    }
    
    loadBuild(_build) {
-      properties {
+      fields {
          var build = _build;
          String nl = _build.nl;
       }
@@ -579,7 +579,7 @@ final class CAssembleString(CCallAssembler) {
 
    new(build) self { 
       loadBuild(build);
-      properties {
+      fields {
          Encode:Url encode = Encode:Url.new(); 
       }
    } //Prevent infinite recursion of super logic

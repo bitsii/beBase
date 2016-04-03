@@ -35,7 +35,7 @@ use Web:Request:Cgi;
 use class Json:Parser {
 
     new() self {
-        properties {
+        fields {
             String quote = Text:Strings.quote;
             String lbrace = "{";
             String rbrace = "}";
@@ -261,7 +261,7 @@ use final class Json:Escapes {
     create() { }
     default() self {
         
-        properties {
+        fields {
             Map toEscapes = Map.new();
             Map fromEscapes = Map.new();
         }
@@ -289,7 +289,7 @@ use final class Json:Escapes {
 use class Json:Marshaller {
 
     new() self {
-        properties {
+        fields {
           //Instances for determining types when marshalling
           String str = String.new();
           //list
@@ -466,7 +466,7 @@ use class Json:Marshaller {
 use class Json:Unmarshaller {
 
     new() self {
-        properties {
+        fields {
             Parser parser = Parser.new();
             LinkedList ll = LinkedList.new();
             
@@ -591,7 +591,7 @@ use class Json:Unmarshaller {
 use class Json:ParseLog {
 
     new() self {
-        properties {
+        fields {
             //IO:Log log = IO:Log.new();
         }
     }

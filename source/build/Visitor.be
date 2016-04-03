@@ -18,7 +18,7 @@ use Build:VisitError;
 local class Build:Visit:Visitor {
    
    begin (transi) {
-      properties {
+      fields {
          Build:Transport trans = transi;
          Build:Build build = trans.build;
          Build:Constants const = build.constants;

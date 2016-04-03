@@ -14,7 +14,7 @@ final class Build:Constants {
     
     new(build) self {
     
-      properties {
+      fields {
       
          Text:Tokenizer twtok;
          Map matchMap;
@@ -307,7 +307,7 @@ final class Build:Constants {
       rwords.put("elif", ntypes.ELIF);
       rwords.put("else", ntypes.ELSE);
       rwords.put("loop", ntypes.LOOP);
-      rwords.put("properties", ntypes.PROPERTIES);
+      //rwords.put("properties", ntypes.PROPERTIES);
       rwords.put("fields", ntypes.PROPERTIES);
       rwords.put("while", ntypes.WHILE);
       rwords.put("until", ntypes.WHILE);

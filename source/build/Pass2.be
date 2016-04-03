@@ -20,7 +20,7 @@ final class Build:Visit:Pass2(Build:Visit:Visitor) {
    begin (transi) {
       super.begin(transi);
       
-      properties {
+      fields {
          Int idType = ntypes.ID;
          Int intType = ntypes.INTL;
          Map matchMap = build.constants.matchMap;

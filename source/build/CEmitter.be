@@ -26,7 +26,7 @@ final class Build:ClassInfo {
    
    new(Build:NamePath _np, _emitter, IO:File:Path _emitPath, String _libName, String _exeName) self {
    
-      properties {
+      fields {
          
          Build:NamePath np = _np; //name path for class
          var emitter = _emitter; //emitter obj
@@ -121,7 +121,7 @@ final class Build:ClassInfo {
 final class Build:CEmitter {
    
    new(Build:Build _build) self {
-         properties {
+         fields {
             var classInfo;
             var cEmitF;
             var mainClassNp;
@@ -821,7 +821,7 @@ class Build:CompilerProfile {
 
    new(build) self {
    
-      properties {
+      fields {
          String exeExt;
          String libExt;
          String ccObj;

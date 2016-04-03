@@ -63,7 +63,7 @@ use notNull class Test:BaseTest:IsNotNullNoDef {
 
 use notNull class Test:BaseTest:IsNotNullHasDef {
     default() self {
-        properties {
+        fields {
             String hooka = "hooka";
         }
     }
@@ -71,7 +71,7 @@ use notNull class Test:BaseTest:IsNotNullHasDef {
 
 use class Test:Pic {
     new() self {
-        properties {
+        fields {
             Math:Int one = 1;
             Text:String a = "a";
         }
@@ -155,7 +155,7 @@ class Test:BaseTest:EC(BaseTest) {
       foreach (var i in fcall.args) {
          ("fcall.arg " + i).print();
       }
-      properties {
+      fields {
         System:ForwardCall lastFc = fcall;
       }
    }
@@ -927,7 +927,7 @@ class Test:BaseTest:OnceMany(BaseTest) {
 
     main() {
     
-        properties {
+        fields {
             Object lastOne;
             Object lastMany;
             String lastHi;

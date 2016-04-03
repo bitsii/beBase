@@ -25,7 +25,7 @@ class Startup {
    
    default() self {
       
-      properties {
+      fields {
         Array args;
       }
    }
@@ -45,7 +45,7 @@ class StartupIfArguments {
    
    default() self {
       
-      properties {
+      fields {
         Array args;
       }
    }
@@ -64,7 +64,7 @@ class StartupWithArguments {
    create() { }
    default() self {
       
-      properties {
+      fields {
          Array args;
       }
       
@@ -84,7 +84,7 @@ class StartupWithParameters {
    create() { }
    default() self {
       
-      properties {
+      fields {
          Array args;
          Parameters params;
       }
@@ -107,7 +107,7 @@ local class Parameters {
    
    new() self {
    
-      properties {
+      fields {
          Array args;
          Map params;
          Array ordered;

@@ -1,6 +1,4 @@
 
-drop "properties"
-
 defaultNew instead of default
 get rid of new()s in default types and their parents (put in default)
 bring back implied new
@@ -54,6 +52,7 @@ in browser code to run
   for js output to string too (no files)
   run in page
   node repl too
+and a shell
 
 
 ---- bugs ----

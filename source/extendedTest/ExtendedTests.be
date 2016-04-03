@@ -192,7 +192,7 @@ use Math:Int;
 class Test:Incr {
 
   new(System:Thread:Lock _l, Int _toInc, Int _count) self {
-    properties {
+    fields {
       System:Thread:Lock l = _l;
       Int toInc = _toInc;
       Int count = _count;

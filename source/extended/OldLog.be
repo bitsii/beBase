@@ -20,7 +20,7 @@ final class Log {
    
    new() self {
    
-      properties {
+      fields {
          Int level = 200;
          LinkedList appenders = LinkedList.new();
          LinkedList fappenders = LinkedList.new();
@@ -140,7 +140,7 @@ final class Logs {
    create() { }
    default() self {
       
-      properties {
+      fields {
          var defaultAppender = IO:File:Writer:Stderr.new();
          Log default = Log.new(LogLevels.new().error, defaultAppender);
          Map logs = Map.new();
@@ -169,7 +169,7 @@ final class LogLevels {
    create() { }
    default() self {
       
-      properties {
+      fields {
          Int debug = 400;
          Int info  = 300;
          Int warn  = 200;

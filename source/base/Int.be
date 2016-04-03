@@ -54,7 +54,7 @@ final class Int {
    
    new() self {
    
-      properties {
+      fields {
          var vint;
       }
       
@@ -807,7 +807,7 @@ void** bevl__min;
       //console.log(bevl__min.bevi_int);
       """
       }
-      properties {
+      fields {
          Int max = _max;
          Int min = _min;
          Int zero = 0;

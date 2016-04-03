@@ -17,7 +17,7 @@ use Build:VisitError;
 final class Build:Visit:Pass7(Build:Visit:Visitor) {
 
    new() self {
-      properties {
+      fields {
          NamePath inClassNp;
          String inFile;
       }

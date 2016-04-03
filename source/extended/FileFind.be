@@ -21,7 +21,7 @@ use IO:File:FilterIterator;
 final RecursiveIterator {
 
    new(File _dir) {
-      properties {
+      fields {
          File dir = _dir;
          RecursiveIterator innerIter = null;
          DirectoryIterator dirIter = DirectoryIterator.new(dir);
@@ -63,7 +63,7 @@ final RecursiveIterator {
 final FilterIterator {
 
    new(_fiter) self {
-      properties {
+      fields {
          var fiter = _fiter;
          Bool needsInit = true;
          File current = null;

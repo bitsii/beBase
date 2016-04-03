@@ -9,7 +9,7 @@
 final class Build:Library {
    
    new(Text:String spath, Build:Build _build) self {
-      properties {
+      fields {
          Text:String libName;
          Text:String exeName;
          Build:ClassInfo libnameInfo;

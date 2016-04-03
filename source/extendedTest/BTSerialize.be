@@ -27,7 +27,7 @@ class Test:NotMuch {
 class Test:Structy {
 
    new() self {
-      properties {
+      fields {
          Int i;
          String s;
          var x;
@@ -43,7 +43,7 @@ class Test:ToSerialize {
    new() self {
       var ai = 4;
       var vi = 3;
-      properties {
+      fields {
          var i = 10;
          var s = "Hi";
          var a = Array.new(ai);
@@ -94,7 +94,7 @@ use Test:HasProps;
 class HasProps {
 
    new() self {
-      properties {
+      fields {
          String alpha = "a";
          String beta = "b";
          String gamma = "c";
@@ -122,7 +122,7 @@ use Test:SerProps;
 class SerProps {
 
    new() self {
-      properties {
+      fields {
          String alpha = "a";
          String beta = "b";
       }

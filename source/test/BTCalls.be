@@ -80,7 +80,7 @@ local class Test:BaseTest:Calls(BaseTest) {
 local class Test:BaseTest:Calls:ClassWith {
 
    new() self {
-      properties {
+      fields {
          Int i = 0;
       }
       new(20);
@@ -94,7 +94,7 @@ local class Test:BaseTest:Calls:ClassWith {
 
 class ImpliedNew {
    
-   new() self { properties { String lx = "AmLx"; Int five = 5; Bool isTrue = true; } }
+   new() self { fields { String lx = "AmLx"; Int five = 5; Bool isTrue = true; } }
    
    doSomething() {
       "Doing Something".print();
@@ -103,14 +103,14 @@ class ImpliedNew {
 
 class ImpliedNewSingle {
    create() { }
-   default() self {  properties { Int myProp = 1; } };
+   default() self {  fields { Int myProp = 1; } };
 }
 
 //Testing call handling for arg values, before at and after maxargs
 class Tests:CallArgs(BaseTest) {
 
     new() self {
-        properties {
+        fields {
             Int fifteen;
             Int sixteen;
             Int seventeen;

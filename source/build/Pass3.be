@@ -23,7 +23,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
    begin (transi) {
       super.begin(transi);
       
-      properties {
+      fields {
          //current holder
          Node container; 
          //int nexted comment depth

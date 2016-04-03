@@ -16,7 +16,7 @@ local class Node {
 
    new() self {
    
-      properties {
+      fields {
          Node next;
          Node prior;
          var held;
@@ -32,7 +32,7 @@ class Stack {
    
    new() self {
       
-      properties {
+      fields {
          Node top;
          Node holder;
          Int size = 0;
@@ -114,7 +114,7 @@ class Queue {
 
    new() self {
    
-      properties {
+      fields {
          Node top; //top of queue, last of live items where items are enqueued
          Node bottom; //bottom of queue, first of live items where items are dequeued
          Node end; //top of queue where items may or may not be live, where dequeues put nodes for reuse
@@ -187,7 +187,7 @@ use Container:BoundedQueue as BQueue;
 class BQueue(Queue) {
     new() self {
       super.new();
-      properties {
+      fields {
         Int max = 99;
       }
     }
@@ -204,7 +204,7 @@ use System:Test:Extendable;
 
 class Extendable {
    new() self {
-      properties {
+      fields {
          var propa;
          var propb;
       }
@@ -220,7 +220,7 @@ use System:Test:InExtending;
 class InExtending(Extendable) {
 
    new() self {
-      properties {
+      fields {
          var prop2a;
       }
    }

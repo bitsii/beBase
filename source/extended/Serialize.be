@@ -29,7 +29,7 @@ use System:Serializer:Session;
 
 class Session {
    new() self {
-      properties {
+      fields {
          Map classTagMap = Map.new();
          Int classTagCount = 1;
          Int serialCount = 1; // Zero reserved for special cases
@@ -66,7 +66,7 @@ final class Serializer {
    
    new(String _group, String _defineReference, String _getReference, String _constructString, String _nullMark, 
    String _getClassTag, String _shift, String _defineClassTag, String _multiNullMark, String _endGroup) Serializer {
-      properties {
+      fields {
          String group = _group;
          String defineReference = _defineReference;
          String getReference = _getReference;
@@ -363,7 +363,7 @@ class DirStore {
    }
    
    pathNew(IO:File:Path _storageDir) self {
-      properties {
+      fields {
          Serializer ser = Serializer.new();
          IO:File:Path storageDir = _storageDir;
          var keyEncoder = null;
@@ -435,7 +435,7 @@ use System:NamedPropertiesIterator;
 final class NamedPropertiesIterator {
    
    new(var _inst, Array _propNames) {
-      properties {
+      fields {
          Array propNames = _propNames;
          Array:Iterator subIter;
          var inst = _inst;

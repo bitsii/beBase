@@ -19,7 +19,7 @@ class Replace:CallStep {
    
    new(LinkedList payloads) self {
       
-      properties {
+      fields {
         String callName = payloads[0];
         Array callArgs = Array.new(payloads.length - 1);
       }
@@ -40,7 +40,7 @@ class Replace:StringStep {
    
    new(String _str) self {
       
-      properties {
+      fields {
          String str = _str;
       }
       
@@ -56,7 +56,7 @@ class Replace {
    
    new() self {
       
-      properties {
+      fields {
          LinkedList steps;
          Int size;
          Bool append = true;
@@ -148,7 +148,7 @@ class Replace:RunStep {
    
    new(Replace _replace, String _str) self {
       
-      properties {
+      fields {
          Replace replace = _replace;
          String str = _str;
       }
@@ -170,7 +170,7 @@ use Template:Runner;
 class Runner {
 
    new() self {
-      properties {
+      fields {
          Replace replace;
          var output;
          var stepIter;

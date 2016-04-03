@@ -47,7 +47,7 @@ final class Float {
    
    new() self { 
    
-      properties {
+      fields {
          var vfloat;
       }
       

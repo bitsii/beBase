@@ -36,7 +36,7 @@ class Test:SecondTest {
      
 class Test:SecondTest:InheritTo(InheritFrom) {
 
-   //new() self { properties {
+   //new() self { fields {
    //var hi;
    //} }
    
