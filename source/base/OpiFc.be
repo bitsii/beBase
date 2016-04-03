@@ -12,8 +12,8 @@ use Math:Int;
 use Container:Array;
 use Container:Pair;
 use System:NonIterator;
-use System:ObjectPropertyIterator;
-use System:CustomPropertyIterator;
+use System:ObjectFieldIterator;
+use System:CustomFieldIterator;
 use System:ForwardCall;
 
 emit(cs) {
@@ -22,15 +22,15 @@ using System;
     """
 }
 
-final class ObjectPropertyIterator {
+final class ObjectFieldIterator {
 
    new() self { }
    
-   new(_instance) ObjectPropertyIterator {
+   new(_instance) ObjectFieldIterator {
       return(new(_instance, false));
    }
    
-   new(_instance, Bool forceFirstSlot) ObjectPropertyIterator {
+   new(_instance, Bool forceFirstSlot) ObjectFieldIterator {
    emit(c) {
       """
 /*-attr- -dec-*/
@@ -38,77 +38,77 @@ BERT_ClassDef* bevl_scldef;
 void** bevl_sval;
       """
       }
-      Int _minProperty;
-      Int _maxProperty;
-      _minProperty = Int.new();
-      _maxProperty = Int.new();
+      Int _minField;
+      Int _maxField;
+      _minField = Int.new();
+      _maxField = Int.new();
       emit(c) {
       """
       bevl_scldef = (BERT_ClassDef*) $_instance&*[berdef];
-      bevl_sval = $_minProperty&*;
-      *((BEINT*) (bevl_sval + bercps)) = bevl_scldef->minProperty;
-      bevl_sval = $_maxProperty&*;
-      *((BEINT*) (bevl_sval + bercps)) = bevl_scldef->maxProperty;
+      bevl_sval = $_minField&*;
+      *((BEINT*) (bevl_sval + bercps)) = bevl_scldef->minField;
+      bevl_sval = $_maxField&*;
+      *((BEINT*) (bevl_sval + bercps)) = bevl_scldef->maxField;
       """
       }
       if (forceFirstSlot) {
       emit(c) {
       """
-      bevl_sval = $_minProperty&*;
+      bevl_sval = $_minField&*;
       *((BEINT*) (bevl_sval + bercps)) = bercps;
       """
       }
       }
       properties {
          var instance;
-         Int minProperty;
-         Int maxProperty;
+         Int minField;
+         Int maxField;
          Int pos;
       }
       emit(jv) {
       """
       String prefix = "bevp_";
       java.lang.reflect.Field[] fields = beva__instance.getClass().getFields();
-      int numprops = 0;
+      int numfields = 0;
       for (int i = 0;i < fields.length;i++) {
         if (fields[i].getName().startsWith(prefix)) {
             //System.out.println("got field named " + fields[i].getName());
-            numprops++;
+            numfields++;
         }
       }
-      bevl__minProperty.bevi_int = 0;
-      bevl__maxProperty.bevi_int = numprops;
+      bevl__minField.bevi_int = 0;
+      bevl__maxField.bevi_int = numfields;
       """
       }
       emit(cs) {
       """
       string prefix = "bevp_";
       System.Reflection.FieldInfo[] fields = beva__instance.GetType().GetFields();
-      int numprops = 0;
+      int numfields = 0;
       for (int i = 0;i < fields.Length;i++) {
         if (fields[i].Name.StartsWith(prefix)) {
-            numprops++;
+            numfields++;
         }
       }
-      bevl__minProperty.bevi_int = 0;
-      bevl__maxProperty.bevi_int = numprops;
+      bevl__minField.bevi_int = 0;
+      bevl__maxField.bevi_int = numfields;
       """
       }
       emit(js) {
       """
-      bevl__minProperty.bevi_int = 0;
-      bevl__maxProperty.bevi_int = beva__instance.bepn_pnames.length;
+      bevl__minField.bevi_int = 0;
+      bevl__maxField.bevi_int = beva__instance.bepn_pnames.length;
       """
       }
       instance = _instance;
-      minProperty = _minProperty;
-      maxProperty = _maxProperty;
-      pos = _minProperty;
-      //("Min " + minProperty + " max " + maxProperty + " pos " + pos + " clname " + instance.className).print();
+      minField = _minField;
+      maxField = _maxField;
+      pos = _minField;
+      //("Min " + minField + " max " + maxField + " pos " + pos + " clname " + instance.className).print();
    }
    
    hasNextGet() Bool {
-      if (pos < maxProperty) {
+      if (pos < maxField) {
          return(true);
       }
       return(false);
@@ -127,7 +127,7 @@ void** bevl_ind;
       var inst;
       _instance = instance;
       _pos = pos;
-      if (pos < maxProperty) {
+      if (pos < maxField) {
          emit(c) {
          """
          bevl_sval = $_instance&*;
@@ -139,14 +139,14 @@ void** bevl_ind;
          """
           String prefix = "bevp_";
           java.lang.reflect.Field[] fields = bevl__instance.getClass().getFields();
-          int numprops = 0;
+          int numfields = 0;
           for (int i = 0;i < fields.length;i++) {
             if (fields[i].getName().startsWith(prefix)) {
-                if (numprops == bevl__pos.bevi_int) {
+                if (numfields == bevl__pos.bevi_int) {
                     bevl_inst = (BEC_6_6_SystemObject) (fields[i].get(bevl__instance));
                     break;
                 }
-                numprops++;
+                numfields++;
             }
           }
          """
@@ -155,14 +155,14 @@ void** bevl_ind;
           """
           string prefix = "bevp_";
           System.Reflection.FieldInfo[] fields = bevl__instance.GetType().GetFields();
-          int numprops = 0;
+          int numfields = 0;
           for (int i = 0;i < fields.Length;i++) {
             if (fields[i].Name.StartsWith(prefix)) {
-                if (numprops == bevl__pos.bevi_int) {
+                if (numfields == bevl__pos.bevi_int) {
                     bevl_inst = (BEC_6_6_SystemObject) (fields[i].GetValue(bevl__instance));
                     break;
                 }
-                numprops++;
+                numfields++;
             }
           }
           """
@@ -193,7 +193,7 @@ void** bevl_ind;
       _instance = instance;
       _pos = pos;
       _value = value;
-      if (pos < maxProperty) {
+      if (pos < maxField) {
          emit(c) {
          """
          bevl_sval = $_instance&*;
@@ -205,14 +205,14 @@ void** bevl_ind;
          """
           String prefix = "bevp_";
           java.lang.reflect.Field[] fields = bevl__instance.getClass().getFields();
-          int numprops = 0;
+          int numfields = 0;
           for (int i = 0;i < fields.length;i++) {
             if (fields[i].getName().startsWith(prefix)) {
-                if (numprops == bevl__pos.bevi_int) {
+                if (numfields == bevl__pos.bevi_int) {
                     fields[i].set(bevl__instance, bevl__value);
                     break;
                 }
-                numprops++;
+                numfields++;
             }
           }
          """
@@ -221,14 +221,14 @@ void** bevl_ind;
           """
           string prefix = "bevp_";
           System.Reflection.FieldInfo[] fields = bevl__instance.GetType().GetFields();
-          int numprops = 0;
+          int numfields = 0;
           for (int i = 0;i < fields.Length;i++) {
             if (fields[i].Name.StartsWith(prefix)) {
-                if (numprops == bevl__pos.bevi_int) {
+                if (numfields == bevl__pos.bevi_int) {
                     fields[i].SetValue(bevl__instance, bevl__value);
                     break;
                 }
-                numprops++;
+                numfields++;
             }
           }
           """
@@ -244,8 +244,8 @@ void** bevl_ind;
    
    skip(Int multiNullCount) {
       pos = pos + multiNullCount;
-      if (pos > maxProperty) {
-         pos = maxProperty;
+      if (pos > maxField) {
+         pos = maxField;
       }
    }
    

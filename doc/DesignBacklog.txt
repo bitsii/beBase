@@ -1,16 +1,19 @@
 
+drop "properties"
+
+defaultNew instead of default
+get rid of new()s in default types and their parents (put in default)
 bring back implied new
   skip calls to new for is construct when not overriden from object and for the literal types
-  get rid of new()s in default types and their parents (put in default)
   bring back the implied new
 
-need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
+auto and finally as keywords that blowup
+
+finally
+convenience syntax for array, map construction
+unify foreach and for, behavior based on parens contents, dump foreach kw
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
-
-switch string to mutating for everything (swap, etc)
-
-copyFile should copy the file (read/write)
 
 =~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
  make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
@@ -20,20 +23,6 @@ go to int and other reuse in code as much as possible
   look at build efficiency
 
 mutating size for map, string, etc, ++= everywhere
-  
-finally
-convenience syntax for array, map construction
-unify foreach and for, behavior based on parens contents, dump foreach kw
-
-libraries and linking
-library/library version
-tests sep from base lib (2 bld with libs)
-
-in browser code to run
-  build read from strings not just files
-  for js output to string too (no files)
-  run in page
-  node repl too
 
 ---- lang change req ----
 iteratorGet can't be typed, that's a problem, esp foreach
@@ -47,6 +36,25 @@ gratuitous returns - var for untyped, rest as now (self, typed).
  find and fix all cases of assign from non-declared return for typed calls
  remove autoreturn for no declared return (void)
  dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
+
+need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
+
+switch string to mutating for everything (swap, etc)
+
+copyFile should copy the file (read/write)
+  
+switch to tar gz for boot (no zip), make sure win works
+
+libraries and linking
+library/library version
+tests sep from base lib (2 bld with libs)
+
+in browser code to run
+  build read from strings not just files
+  for js output to string too (no files)
+  run in page
+  node repl too
+
 
 ---- bugs ----
 default return not picking up when wrong type
@@ -66,7 +74,7 @@ byteiterator is much much slower than just doing getInt on a string by length, s
 string hash for javascript seems to be different than for others
 
 
-field or property prefix to var dec makes it a field
+field prefix to var dec makes it a field
 
 for native langs (esp js) generate stubs with "literal names" - ?vars, def methods, autoconvert strings, etc
 
@@ -102,7 +110,7 @@ speed up native ints and such (using inline)
 
 direct member get/set where possible (typed, final or local w/o override), keep gen accessors
 
-type inference - ?auto
+type inference - "auto"
 javascript webworker concurrency, same model for cs/jv
   inbox or queue?
 

@@ -12,8 +12,8 @@ use Math:Int;
 use Container:Array;
 use Container:Pair;
 use System:NonIterator;
-use System:ObjectPropertyIterator;
-use System:CustomPropertyIterator;
+use System:ObjectFieldIterator;
+use System:CustomFieldIterator;
 use System:ForwardCall;
 
 emit(cs) {
@@ -660,8 +660,8 @@ BEINT* bevl_toRet;
         if (undef(copy)) {
             return(copy);
         }
-        ObjectPropertyIterator siter = ObjectPropertyIterator.new(self, true);
-        ObjectPropertyIterator citer = ObjectPropertyIterator.new(copy, true);
+        ObjectFieldIterator siter = ObjectFieldIterator.new(self, true);
+        ObjectFieldIterator citer = ObjectFieldIterator.new(copy, true);
         while (siter.hasNext) {
             citer.next = siter.next;
         }
@@ -681,11 +681,11 @@ BEINT* bevl_toRet;
    deserializeFromStringNew(String snw) self { }
    
    serializationIteratorGet() {
-      return(System:ObjectPropertyIterator.new(self));
+      return(System:ObjectFieldIterator.new(self));
    }
    
    iteratorGet() {
-      return(System:ObjectPropertyIterator.new(self));
+      return(System:ObjectFieldIterator.new(self));
    }
    
    serializeContents() Bool {
