@@ -1,3 +1,6 @@
+
+set startTime=%time%
+
 target5\BEL_4_Base_mcs.exe --buildFile build\buildbuild.txt --deployPath cycle\deploy0 --buildPath cycle\target0 --emitLang cs
 
 if %errorlevel% neq 0 exit /b %errorlevel%
@@ -33,3 +36,6 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 mono --debug cycle\targetEc\BEL_4_Base_mcs.exe %*
 
 if %errorlevel% neq 0 exit /b %errorlevel%
+
+echo Start Time: %startTime%
+echo Finish Time: %time%

@@ -50,7 +50,7 @@ use final class System:Initializer {
         if (inst.can("default", 0)) {
             return(initializeIt(inst));
         }
-        return(inst);
+        return(inst.new());
     }
     
     //don't you call this, it's just for use by the lang init TODO expose notNull characteristic on the runtime class and key off that
@@ -170,7 +170,7 @@ BERT_ClassDef* bevl_scldef;
          bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];
          $init=* berv_sts->onceInstances[bevl_scldef->classId];
       """
-      }
+      } 
       emit(jv,cs,js) {
       """
       bevl_init = beva_inst.bemc_getInitial();

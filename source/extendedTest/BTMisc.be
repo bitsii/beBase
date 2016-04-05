@@ -520,6 +520,7 @@ use final class MyUsedClass2 {
 
    create() { }
    
+   
    default() self {
       
    }

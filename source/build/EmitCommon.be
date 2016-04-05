@@ -1552,9 +1552,18 @@ buildClassInfoMethod(String belsBase) {
                 } else {
                     Build:ClassSyn asyn = build.getSynNp(newcc.np);
                     if (asyn.hasDefault) {
-                        methodBody += callAssign += stinst += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
+                        String initialTarg = stinst;
+                        //methodBody += callAssign += stinst += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
                     } else {
-                        methodBody += callAssign += target += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
+                        initialTarg = target;
+                        //methodBody += callAssign += target += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
+                    }
+                    Build:MtdSyn msyn = asyn.mtdMap.get("new_0");
+                    if (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "System:Object") {
+                      //("Found a skippable new for class " + asyn.namepath.toString()).print();
+                      methodBody += callAssign += initialTarg += ";" += nl;
+                    } else {
+                      methodBody += callAssign += initialTarg += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
                     }
                 }
           } else {
