@@ -34,9 +34,9 @@ use class Tests:TestJson(Assertions) {
     
         String sl = "\\";
         String str = "[" + Text:Strings.quote + "Hi " + sl + "n bob yoo" + sl + "byo" + sl + "tyar | " + sl + "u00c6 | **" + sl + Text:Strings.quote + " ya " + Text:Strings.quote + "]";
-        var s2 = Json:Unmarshaller.new().unmarshall(str);
+        var s2 = Json:Unmarshaller.unmarshall(str);
         s2.first.print();
-        var s3 = Json:Marshaller.new().marshall(s2.first);
+        var s3 = Json:Marshaller.marshall(s2.first);
         s3.print();
         str.print();
     }
@@ -51,10 +51,10 @@ use class Tests:TestJson(Assertions) {
         ex = '{"k":"str \\ q\"q \/ "}';
         ex.print();
         Json:Parser.new().parse(ex, Json:ParseLog.new());
-        m = Json:Unmarshaller.new().unmarshall(ex);
+        m = Json:Unmarshaller.unmarshall(ex);
         m["k"].print();
         assertEqual(m["k"], 'str \ q"q / '); 
-        ex2 = Json:Marshaller.new().marshall(m);
+        ex2 = Json:Marshaller.marshall(m);
         ex2.print();
         assertEqual(ex, ex2);
         
@@ -63,10 +63,10 @@ use class Tests:TestJson(Assertions) {
         ex.print();
         Json:Parser.new().parse(ex, Json:ParseLog.new());
         "Æ".print();
-        m = Json:Unmarshaller.new().unmarshall(ex);
+        m = Json:Unmarshaller.unmarshall(ex);
         m["k"].print();
         assertEqual(m["k"], "Æ");
-        ex2 = Json:Marshaller.new().marshall(m);
+        ex2 = Json:Marshaller.marshall(m);
         ex2.print();
         assertEqual(ex, ex2);
         
@@ -74,10 +74,10 @@ use class Tests:TestJson(Assertions) {
         ex.print();
         Json:Parser.new().parse(ex, Json:ParseLog.new());
         "あ".print();
-        m = Json:Unmarshaller.new().unmarshall(ex);
+        m = Json:Unmarshaller.unmarshall(ex);
         m["k"].print();
         assertEqual(m["k"], "あ");
-        ex2 = Json:Marshaller.new().marshall(m);
+        ex2 = Json:Marshaller.marshall(m);
         ex2.print();
         assertEqual(ex, ex2);
         
@@ -85,10 +85,10 @@ use class Tests:TestJson(Assertions) {
         ex.print();
         Json:Parser.new().parse(ex, Json:ParseLog.new());
         "𡇙".print();
-        m = Json:Unmarshaller.new().unmarshall(ex);
+        m = Json:Unmarshaller.unmarshall(ex);
         m["k"].print();
         assertEqual(m["k"], "𡇙");
-        ex2 = Json:Marshaller.new().marshall(m);
+        ex2 = Json:Marshaller.marshall(m);
         ex2.print();
         assertEqual(ex, ex2);
         
@@ -96,10 +96,10 @@ use class Tests:TestJson(Assertions) {
         ex.print();
         Json:Parser.new().parse(ex, Json:ParseLog.new());
         "𡇙".print();
-        m = Json:Unmarshaller.new().unmarshall(ex);
+        m = Json:Unmarshaller.unmarshall(ex);
         m["k"].print();
         assertEqual(m["k"], "aÆ bあ c𡇙 ");
-        ex2 = Json:Marshaller.new().marshall(m);
+        ex2 = Json:Marshaller.marshall(m);
         ex2.print();
         assertEqual(ex, ex2);
         
@@ -108,10 +108,10 @@ use class Tests:TestJson(Assertions) {
         ex.print();
         Json:Parser.new().parse(ex, Json:ParseLog.new());
         "𠈓".print();
-        m = Json:Unmarshaller.new().unmarshall(ex);
+        m = Json:Unmarshaller.unmarshall(ex);
         m["k"].print();
         assertEqual(m["k"], "𠈓");
-        ex2 = Json:Marshaller.new().marshall(m);
+        ex2 = Json:Marshaller.marshall(m);
         ex2.print();
         assertEqual(ex, ex2);
     
@@ -162,7 +162,7 @@ use class Tests:TestJson(Assertions) {
         ms = mar.marshall(m);
         ms.print();
         
-        m = Json:Unmarshaller.new().unmarshall(ms);
+        m = Json:Unmarshaller.unmarshall(ms);
         assertEqual(m["age"], 25);
         assertNull(m["car"])
         assertTrue(m["lame"]);
@@ -213,32 +213,32 @@ use class Tests:TestJson(Assertions) {
         String val;
         
         val = '   {"hi":"\"1q"}   ';
-        m = Json:Unmarshaller.new().unmarshall(val);
+        m = Json:Unmarshaller.unmarshall(val);
         val.print();
         m.get("hi").print();
         assertEqual(m.get("hi"), Text:Strings.quote + "1q");
         
         val = '   {"hi":"\\2"}   ';
-        m = Json:Unmarshaller.new().unmarshall(val);
+        m = Json:Unmarshaller.unmarshall(val);
         val.print();
         m.get("hi").print();
         assertEqual(m.get("hi"), "\\" + "2");
         
         val = '''   {"hi":"\\\"3q"}   ''';
-        m = Json:Unmarshaller.new().unmarshall(val);
+        m = Json:Unmarshaller.unmarshall(val);
         val.print();
         m.get("hi").print();
         assertEqual(m.get("hi"), "\\" + Text:Strings.quote + "3q");
         
         //return(self);
         
-        m = Json:Unmarshaller.new().unmarshall('''   {"hi":"there"}   ''');
+        m = Json:Unmarshaller.unmarshall('''   {"hi":"there"}   ''');
         assertEqual(m.get("hi"), "there");
         
-        m = Json:Unmarshaller.new().unmarshall('''   {"hey":{"yo","bobo"}   ''');
+        m = Json:Unmarshaller.unmarshall('''   {"hey":{"yo","bobo"}   ''');
         assertEqual(m.get("hey").get("yo"), "bobo");
         
-        m = Json:Unmarshaller.new().unmarshall(ex1);
+        m = Json:Unmarshaller.unmarshall(ex1);
         assertEqual(m["age"], 25);
         assertNull(m["car"])
         assertTrue(m["lame"]);

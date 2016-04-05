@@ -1493,7 +1493,7 @@ buildClassInfoMethod(String belsBase) {
                           if (node.wideString) {
                             String lival = liorg;
                           } else {
-                            lival = Json:Unmarshaller.new().unmarshall("[" + TS.quote + liorg + TS.quote + "]").first;
+                            lival = Json:Unmarshaller.unmarshall("[" + TS.quote + liorg + TS.quote + "]").first;
                           }
                           
                           Int lisz = lival.size;

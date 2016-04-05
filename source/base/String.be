@@ -427,7 +427,7 @@ char* bevl_nbuf;
    }
    
    swap(String from, String to) {
-      return(Text:Strings.new().join(to, self.split(from)));//so, change the values....TODO and have this be a mutator
+      return(Text:Strings.join(to, self.split(from)));//so, change the values....TODO and have this be a mutator
    }
    
    //UTF 8 point
@@ -732,11 +732,11 @@ BEINT bevl_val;
    }
    
    join(String delim, splits) String {
-      return(Text:Strings.new().join(delim, splits));
+      return(Text:Strings.join(delim, splits));
    }
    
    splitLines() Container:LinkedList {
-      return(Text:Strings.new().lineSplitter.tokenize(self));
+      return(Text:Strings.lineSplitter.tokenize(self));
    }
 
    toString() Text:String {
@@ -1120,7 +1120,7 @@ stdout.WriteByte(10);
    }
    
    strip() {     
-      return(Text:Strings.new().strip(self));
+      return(Text:Strings.strip(self));
    }
    
     reverseBytes() self {
@@ -1256,7 +1256,7 @@ final class Text:Strings {
 local class Text:ByteIterator {
    
    new() self {
-      self.new(Text:Strings.new().empty);
+      self.new(Text:Strings.empty);
    }
    
    containerGet() String {

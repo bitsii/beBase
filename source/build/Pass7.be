@@ -162,26 +162,26 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                if (undef(onode)) {
                   throw(VisitError.new("Error, missing instance for bound call", node));
                } elif (onode.typename == ntypes.NAMEPATH) {
-                  //if (build.isNewish(gc.name)) {
+                  if (build.isNewish(gc.name)) {
                      gc.wasBound = false;
                      gc.bound = false;
                      gc.isConstruct = true;
-                  //} else {
-                  //   createImpliedConstruct(onode, gc);
-                  //}
+                  } else {
+                     createImpliedConstruct(onode, gc);  //was gone
+                  }
                } elif (onode.typename == ntypes.ID && node.transUnit.held.aliased.has(onode.held)) {
                   Build:NamePath namepath = Build:NamePath.new();
                   namepath.addStep(onode.held);
                   onode.held = namepath;
                   onode.typename = ntypes.NAMEPATH;
                   onode.resolveNp();
-                  //if (build.isNewish(gc.name)) {
+                  if (build.isNewish(gc.name)) {
                      gc.wasBound = false;
                      gc.bound = false;
                      gc.isConstruct = true;
-                  //} else {
-                  //   createImpliedConstruct(onode, gc);
-                  //}
+                  } else {
+                     createImpliedConstruct(onode, gc);  //was gone
+                  }
                } elif (gc.name == "return") {
                   throw(VisitError.new("Error, return cannot be a bound call and cannot be called on an object", node));
                } elif (gc.name == "throw") {

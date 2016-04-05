@@ -1,7 +1,4 @@
 
-bring back the implied new
-can then get rid of json:marshall.new()
-
 unify foreach and for, behavior based on parens contents, dump foreach kw
   try a for with an in
 
@@ -16,15 +13,15 @@ gratuitous returns - var for untyped, rest as now (self, typed).
  remove autoreturn for no declared return (void)
  dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
 
-mutating size for map, string, etc, ++= everywhere
-
-named, optional parameters, ? parameter lists (or just very convenient array/map construct)
-
 fixed kw - like local for now, means descendants can't break contract for accessors, new, create, default
 
 iteratorGet can't be typed, that's a problem, esp foreach
   ?type obj iterator, others will have to extend
   not sure it is, auto-inferred type will help, can always set it to a type
+
+mutating size for map, string, etc, ++= everywhere
+
+named, optional parameters, ? parameter lists (or just very convenient array/map construct)
 
 finally
 
