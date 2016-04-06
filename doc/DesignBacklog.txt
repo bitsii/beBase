@@ -1,6 +1,9 @@
 
-unify foreach and for, behavior based on parens contents, dump foreach kw
-  try a for with an in
+app
+
+setup typed iteration
+copy and create self type return
+can bool
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
 
@@ -14,10 +17,6 @@ gratuitous returns - var for untyped, rest as now (self, typed).
  dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
 
 fixed kw - like local for now, means descendants can't break contract for accessors, new, create, default
-
-iteratorGet can't be typed, that's a problem, esp foreach
-  ?type obj iterator, others will have to extend
-  not sure it is, auto-inferred type will help, can always set it to a type
 
 mutating size for map, string, etc, ++= everywhere
 
@@ -73,6 +72,8 @@ string hash for javascript seems to be different than for others
 field prefix to var dec makes it a field
 
 for native langs (esp js) generate stubs with "literal names" - ?vars, def methods, autoconvert strings, etc
+
+classNameSerializationIterator (same treatment as classNameIterator)
 
 allcalls missing some, self ref node thinking
   check emit against allcalls, error if missing

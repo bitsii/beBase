@@ -244,6 +244,25 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
    }
    
    accept(Node node) Node {
+      if (node.typename == ntypes.CALL && node.held.wasForeachGenned) {
+        //("in wasforeachgenned 1").print();
+        if (node.container.typename == ntypes.CALL && node.container.held.orgName == "assign" && node.isSecond) {
+          //("in wasforeachgenned 2").print();
+          if (node.contained.first.typename == ntypes.VAR && node.contained.first.held.isTyped) {
+            NamePath fgnp = node.contained.first.held.namepath;
+            String fgcn = fgnp.steps.last;
+            String fgin = fgcn.substring(0,1).lowerValue() + fgcn.substring(1) + "IteratorGet";
+            //("in wasforeachgenned 3 " + fgin + " for " + fgnp).print();
+            ClassSyn fgsy = build.getSynNp(fgnp);
+            Build:MtdSyn fgms = fgsy.mtdMap.get(fgin + "_0");
+            if (def(fgms)) {
+              //("did foreachgenned for iterator for " + fgnp).print();
+              node.held.orgName = fgin;
+              node.held.name = fgin + "_0";
+            }
+          }
+        }
+      }
       if (node.typename == ntypes.CLASS) {
          inClass = node;
          inClassNp = node.held.namepath;
@@ -317,6 +336,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                            ovar = mtdc.rsyn;
                            if (def(ovar) && ovar.isTyped) {
                               foundone = true;
+                              //("typing a tmpvar a").print();
                               if (ovar.isSelf) {
                                  nv.namepath = targNp;
                               } else {
@@ -338,6 +358,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                      if (targ.isTyped) {
                         //("FOUND REWINDABLE TMPVAR TYPE OPPORTUNITY VAR !!!").print();
                         foundone = true;
+                        //("typing a tmpvar b").print();
                         nv.isTyped = targ.isTyped;
                         nv.namepath = targ.namepath;
                      }

@@ -311,6 +311,7 @@ final class Build:Call {
          Bool checkTypes = true;
          Bool superCall = false; //set late, in emitcommon
          Bool wasImpliedConstruct = false;
+         Bool wasForeachGenned = false;
          
          Array argCasts = Array.new();
          //args which need to be cast for the call, if any, have entries here with namepath (otherwise, null).  starts at 1 as args do elsewhere (target is always 0)

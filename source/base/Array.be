@@ -247,6 +247,10 @@ if (def(length)) {
       return(Array:Iterator.new(self));
    }
    
+   arrayIteratorGet() Array:Iterator {
+      return(Array:Iterator.new(self));
+   }
+   
    clear() self {
       for (Int i = 0;i < length;i = i++) {
          put(i, null);

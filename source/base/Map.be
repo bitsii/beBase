@@ -170,6 +170,10 @@ class Map(Set) {
       return(Set:NodeIterator.new(self));
    }
    
+   mapIteratorGet() Set:NodeIterator {
+      return(Set:NodeIterator.new(self));
+   }
+   
    addValue(other) self {
       if (def(other)) {
         if (other.sameType(self)) {
@@ -460,6 +464,10 @@ class Set {
       return(Set:KeyIterator.new(self));
    }
    
+   setIteratorGet() Set:KeyIterator {
+      return(Set:KeyIterator.new(self));
+   }
+   
    keyIteratorGet() Set:KeyIterator {
       return(Set:KeyIterator.new(self));
    }
@@ -689,6 +697,10 @@ class Set:NodeIterator {
    
    //to enable foreach for other iterators than the default, foreach b in map.blahiterator
    iteratorGet() {
+      return(self);
+   }
+   
+   nodeIteratorIteratorGet() Set:NodeIterator {
       return(self);
    }
    

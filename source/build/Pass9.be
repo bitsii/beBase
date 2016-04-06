@@ -157,6 +157,7 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          var gic = Build:Call.new();
          gin.held = gic;
          gic.name = "iteratorGet";
+         gic.wasForeachGenned = true;
          gin.addValue(toit);
          
          var asn = Node.new(build);

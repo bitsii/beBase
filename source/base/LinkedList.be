@@ -353,6 +353,10 @@ local LinkedList {
       return(LinkedList:Iterator.new(self));
    }
    
+   linkedListIteratorGet() LinkedList:Iterator {
+      return(LinkedList:Iterator.new(self));
+   }
+   
    serializationIteratorGet() {
       return(self.iterator);
    }

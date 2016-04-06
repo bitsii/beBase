@@ -1102,6 +1102,10 @@ stdout.WriteByte(10);
       return(Text:MultiByteIterator.new(self));
    }
    
+   stringIteratorGet() Text:MultiByteIterator {
+      return(Text:MultiByteIterator.new(self));
+   }
+   
    serializeToString() String {
       return(self);
    }
@@ -1337,6 +1341,10 @@ local class Text:ByteIterator {
       return(self);
    }
    
+   byteIteratorIteratorGet() Text:ByteIterator {
+      return(self);
+   }
+   
 }
 
 final class Text:MultiByteIterator(Text:ByteIterator) {
@@ -1375,6 +1383,14 @@ final class Text:MultiByteIterator(Text:ByteIterator) {
         pos.setValue(bcount);
       }
       return(buf);
+   }
+   
+   multiByteIteratorIteratorGet() Text:MultiByteIterator {
+      return(self);
+   }
+   
+   iteratorGet() {
+      return(self);
    }
    
 }

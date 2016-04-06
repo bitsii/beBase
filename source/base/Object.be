@@ -688,6 +688,10 @@ BEINT* bevl_toRet;
       return(System:ObjectFieldIterator.new(self));
    }
    
+   objectIteratorGet() System:ObjectFieldIterator {
+      return(System:ObjectFieldIterator.new(self));
+   }
+   
    serializeContents() Bool {
       return(true);
    }
