@@ -65,7 +65,7 @@ class MapNode(SetNode) {
 
 class Relations {
 
-   create() { }
+   create() self { }
    
    default() self {
       

@@ -137,7 +137,7 @@ use System:Host;
 
 local class Host {
 
-   create() { }
+   create() self { }
    
    default() self {
       

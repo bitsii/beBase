@@ -123,7 +123,7 @@ class ProcessingInstruction(Tag) {
 class TagIteratorException(System:Exception) {}
 
 class XTokenizer {
-   create() { }
+   create() self { }
    default() self {
       
       String tokString = "<>=/?! \"";

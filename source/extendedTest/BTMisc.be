@@ -518,7 +518,7 @@ use class MyUsedClass {
 
 use final class MyUsedClass2 {
 
-   create() { }
+   create() self { }
    
    
    default() self {
@@ -542,7 +542,7 @@ use class MyPackage:MyUsedClass3 {
 
 use class MyPackage:MyUsedClass4 {
 
-   create() { }
+   create() self { }
    
    default() self {
       
@@ -555,7 +555,7 @@ use class MyPackage:MyUsedClass4 {
 
 use class MyPackage:MyUsedClass5(MyUsedClass) {
 
-   create() { }
+   create() self { }
    
    default() self {
       

@@ -66,7 +66,7 @@ final class Int {
       
    }
    
-   create() { return(Int.new()); }
+   create() self { return(Int.new()); }
    
    new(str) self {
       setStringValueDec(str);
@@ -756,7 +756,7 @@ this.bevi_int = beva_xi.bevi_int;
 
 final class Math:Ints {
 
-   create() { }
+   create() self { }
    
    default() self {
       

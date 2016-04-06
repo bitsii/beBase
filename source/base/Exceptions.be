@@ -344,7 +344,7 @@ final class System:InvocationException(System:Exception) {
 
 final class System:ExceptionBuilder {
 
-   create() { }
+   create() self { }
    
    default() self {
       

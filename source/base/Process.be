@@ -12,7 +12,7 @@ use IO:File;
 
 final class System:Process {
    
-    create() { }
+    create() self { }
    
    default() self {
       

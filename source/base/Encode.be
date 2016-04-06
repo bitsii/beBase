@@ -16,7 +16,7 @@ use Encode:Hex;
 
 local class Hex {
 
-    create() { }
+    create() self { }
     
     default() self { }
     
@@ -124,7 +124,7 @@ use local class Digest:SHA256 {
 
 class Encode:Html {
 
-   create() { }
+   create() self { }
    
    default() self {
       
@@ -153,7 +153,7 @@ class Encode:Html {
    
 local class Url {
 
-   create() { }
+   create() self { }
    
    default() self {
       

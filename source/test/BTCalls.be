@@ -102,7 +102,7 @@ class ImpliedNew {
 }
 
 class ImpliedNewSingle {
-   create() { }
+   create() self { }
    default() self {  fields { Int myProp = 1; } };
 }
 

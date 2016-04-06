@@ -882,7 +882,7 @@ void** bevl_sz;
         return(res);
     }
    
-   create() { return(String.new()); }
+   create() self { return(String.new()); }
    
    // Reader:readIntoBuffer (buffer, offset)
    copyValue(String org, Int starti, Int endi, Int dstarti) self {
@@ -1146,7 +1146,7 @@ stdout.WriteByte(10);
 
 final class Text:Strings {
 
-    create() { }
+    create() self { }
    
    default() self {
       

@@ -31,7 +31,7 @@ using System.Threading;
  
 class Time:Sleep {
 
-    create() { }
+    create() self { }
    
    default() self {
       

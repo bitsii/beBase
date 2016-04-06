@@ -267,7 +267,7 @@ if (def(length)) {
    
    create(Int len) { return(Array.new(len)); }
    
-   create() { return(Array.new(length)); }
+   create() self { return(Array.new(length)); }
    
    add(Array xi) self {
       Array yi = Array.new(0, length + xi.length);

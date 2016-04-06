@@ -137,7 +137,7 @@ final class Log {
 }
 
 final class Logs {
-   create() { }
+   create() self { }
    default() self {
       
       fields {
@@ -166,7 +166,7 @@ final class Logs {
 }
 
 final class LogLevels {
-   create() { }
+   create() self { }
    default() self {
       
       fields {

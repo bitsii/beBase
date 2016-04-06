@@ -10,7 +10,7 @@ use Math:Int;
 
 final class Build:NodeTypes {
 
-   create() { }
+   create() self { }
 
    default() self {
       

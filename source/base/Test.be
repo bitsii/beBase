@@ -24,7 +24,7 @@ class Failure (System:Exception) {
 
 class Assertions {
 
-   create() { }
+   create() self { }
    
    default() self {
       

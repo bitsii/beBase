@@ -55,7 +55,7 @@ class PropertyMap {
 final class Env(PropertyMap) {
 
    new() self { }
-   create() { }
+   create() self { }
    
    default() self {
       

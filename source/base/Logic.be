@@ -108,7 +108,7 @@ final class Bool {
 
 final class Logic:Bools {
 
-   create() { }
+   create() self { }
    
    default() self {
       

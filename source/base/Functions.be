@@ -16,7 +16,7 @@ use System:Exception;
 
 use final class Function:Mapper {
 
-    create() { }
+    create() self { }
    
    default() self {
       

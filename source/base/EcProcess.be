@@ -19,7 +19,7 @@ using System.Reflection;
 
 final class System:Process {
    
-    create() { }
+    create() self { }
    
    default() self {
       

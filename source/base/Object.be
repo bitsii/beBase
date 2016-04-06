@@ -384,7 +384,7 @@ $rval=* ((becdx16)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0]
       return(rval);
    }
    
-   can(String name, Int numargs) {
+   can(String name, Int numargs) Bool {
    emit(c) {
       """
 /*-attr- -dec-*/
@@ -697,7 +697,7 @@ BEINT* bevl_toRet;
    }
    //end serialization related
    
-   create() {
+   create() self {
    var copy;
    emit(c) {
       """

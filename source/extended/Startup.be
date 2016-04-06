@@ -21,7 +21,7 @@ use Container:Map;
 use IO:File;
 
 class Startup {
-   create() { }
+   create() self { }
    
    default() self {
       
@@ -41,7 +41,7 @@ class Startup {
 }
 
 class StartupIfArguments {
-   create() { }
+   create() self { }
    
    default() self {
       
@@ -61,7 +61,7 @@ class StartupIfArguments {
 }
 
 class StartupWithArguments {
-   create() { }
+   create() self { }
    default() self {
       
       fields {
@@ -81,7 +81,7 @@ class StartupWithArguments {
 }
 
 class StartupWithParameters {
-   create() { }
+   create() self { }
    default() self {
       
       fields {

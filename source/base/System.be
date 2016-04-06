@@ -32,7 +32,7 @@ import java.util.concurrent.locks.ReentrantLock;
  
 use final class System:Main {
 
-    create() { }
+    create() self { }
    
    default() self {
       
@@ -216,7 +216,7 @@ final class Random {
    """
    }
 
-   create() { }
+   create() self { }
    
    default() self {
       
@@ -314,7 +314,7 @@ final class System:Thing {
 
 final class System:Types {
 
-   create() { }
+   create() self { }
    
    default() self {
       
@@ -540,7 +540,7 @@ class System:BasePath {
 
 final class System:GarbageCollector {
 
-    create() { }
+    create() self { }
    
    default() self {
       
@@ -558,7 +558,7 @@ final class System:GarbageCollector {
 
 final class System:CurrentPlatform (System:Platform) {
 
-    create() { }
+    create() self { }
    
    default() self {
        ifEmit(jv,cs, js) {

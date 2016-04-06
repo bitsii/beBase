@@ -258,7 +258,7 @@ use class Json:Parser {
 }
 
 use final class Json:Escapes {
-    create() { }
+    create() self { }
     default() self {
         
         fields {

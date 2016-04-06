@@ -647,7 +647,7 @@ void** bevl_toret;
 }
 
 final class IO:File:NamedReaders {
-   create() { }
+   create() self { }
    
    default() self {
       
@@ -667,7 +667,7 @@ final class IO:File:NamedReaders {
 }
 
 final class IO:File:NamedWriters {
-   create() { }
+   create() self { }
    default() self {
       
       fields {
@@ -720,7 +720,7 @@ final class IO:File:Writer:Stdout(IO:File:Writer) {
       isClosed = false;
    }
    
-   create() { }
+   create() self { }
    
    isClosedGet() Bool { return(false); }
    
@@ -749,7 +749,7 @@ final class IO:File:Writer:Stderr(IO:File:Writer) {
       isClosed = false;
    }
    
-   create() { }
+   create() self { }
    
    isClosedGet() Bool { return(false); }
    
@@ -779,7 +779,7 @@ final class IO:File:Reader:Stdin(IO:File:Reader) {
       blockSize = 1024;
    }
    
-   create() { }
+   create() self { }
    
    isClosedGet() Bool { return(false); }
    
@@ -807,7 +807,7 @@ final class IO:File:Writer:NoOutput(IO:File:Writer) {
    
    write(String str) { }
    
-   create() { }
+   create() self { }
    
    isClosedGet() Bool { return(false); }
    

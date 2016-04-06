@@ -93,7 +93,7 @@ final class Float {
         return(res);
    }
    
-   create() { return(Float.new()); }
+   create() self { return(Float.new()); }
    
    serializeToString() String {
       return(toString());
