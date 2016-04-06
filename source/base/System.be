@@ -10,6 +10,7 @@
  use Logic:Bool;
  use Container:LinkedList;
  use Container:LinkedList:Node;
+ use Container:LinkedList:Iterator as LIter;
  use Container:Map;
  use Math:Int;
  use System:Random;
@@ -379,7 +380,7 @@ class System:BasePath {
       return(path.split(separator).last);
    }
    
-   add(other) System:BasePath {
+   add(other) self {
       if (other.path == Text:Strings.new().empty) {
          return(copy());
       }
@@ -388,7 +389,7 @@ class System:BasePath {
       }
       LinkedList fpath = path.split(separator);
       LinkedList spath = other.path.split(separator);
-      for (var i = spath.iterator;i.hasNext;;) {
+      for (LIter i = spath.linkedListIterator;i.hasNext;;) {
          var l = i.next;
          fpath.addValue(l);
       }
@@ -406,7 +407,7 @@ class System:BasePath {
       Int rpl = fpath.length;
       rpl = rpl--;
       Int c = 0;
-      for (var i = fpath.iterator;i.hasNext;;) {
+      for (LIter i = fpath.linkedListIterator;i.hasNext;;) {
          if (c < rpl) {
             rpath.addStep(i.next);
          } else {
@@ -428,19 +429,19 @@ class System:BasePath {
       return(false);
    }
    
-   makeNonAbsolute() System:BasePath {
+   makeNonAbsolute() self {
       if (self.isAbsolute) {
          path = path.substring(1, path.size);
       }
    }
    
-   makeAbsolute() System:BasePath {
+   makeAbsolute() self {
       if (self.isAbsolute!) {
          path = separator + path;
       }
    }
    
-   trimParents(Int howMany) System:BasePath {
+   trimParents(Int howMany) self {
       if (howMany > 0) {
          makeNonAbsolute();
          LinkedList fpath = path.split(separator);
@@ -456,13 +457,13 @@ class System:BasePath {
       }
    }
    
-   addStep(step) System:BasePath {
+   addStep(step) self {
       LinkedList fpath = path.split(separator);
       fpath.addValue(step);
       path = path.join(separator, fpath);
    }
    
-   deleteFirstStep() System:BasePath {
+   deleteFirstStep() self {
       Int fp = path.find(separator);
       if (undef(fp)) {
          path = Text:Strings.new().empty;
@@ -473,7 +474,7 @@ class System:BasePath {
    
    addStepList(LinkedList sl) {
       LinkedList fpath = path.split(separator);
-      for (var i = sl.iterator;i.hasNext;;) {
+      for (LIter i = sl.linkedListIterator;i.hasNext;;) {
          fpath.addValue(i.next);
       }
       path = path.join(separator, fpath);

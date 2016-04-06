@@ -1,7 +1,8 @@
 
 app
 
-setup typed iterator
+map, array iterators wrong type (missing Container)
+ByteIterator missing Text, multibyte missing string
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
 

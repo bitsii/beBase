@@ -7,6 +7,7 @@
 // except according to those terms.
 
 use Container:LinkedList;
+use Container:LinkedList:Iterator as LIter;
 use Container:Map;
 use Text:String;
 use Math:Int;
@@ -66,7 +67,7 @@ final class Build:Transport {
       Node curr = outermost;
       LinkedList bfrom = outermost.contained;
       outermost.contained = null;
-      for (var i = bfrom.iterator;i.hasNext;;) {
+      for (LIter i = bfrom.linkedListIterator;i.hasNext;;) {
          //LinkedList:Node lnode = i.nextNode;
          //Node node = lnode.held;
          Node node = i.next;

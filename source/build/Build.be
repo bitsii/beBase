@@ -704,12 +704,12 @@ final class Build:Build {
       }
    }
 
-   nodify(parnode, toks) {
+   nodify(parnode, LinkedList toks) {
       parnode.reInitContained();
       Container:NodeList con = parnode.contained;
       var nlc = 1;
       String cr = Text:Strings.new().cr;
-      for (var i = toks.iterator;i.hasNext;;) {
+      for (Container:LinkedList:Iterator i = toks.linkedListIterator;i.hasNext;;) {
          var node = Build:Node.new(self);
          node.held = i.next;
          node.nlc = nlc;

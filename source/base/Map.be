@@ -263,7 +263,7 @@ class Set {
    }
    
    insertAll(Array ninner, Array ir) {
-      for (var i = ir.iterator;i.hasNext;) {
+      for (Array:Iterator i = ir.arrayIterator;i.hasNext;) {
          SetNode ni = i.next;
          if (def(ni)) {
             if (innerPut(ni.key, null, ni, ninner)!) {

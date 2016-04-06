@@ -10,6 +10,7 @@ use Container:Single;
 use Container:Pair;
 use Container:LinkedList;
 use Container:LinkedList:Node;
+use Container:LinkedList:Iterator;
 use Container:NodeList;
 use Logic:Bool;
 use Math:Int;
@@ -136,7 +137,7 @@ local LinkedList {
    copy() self {
       // I don't think this works
       LinkedList other = create();
-      LinkedList:Iterator iter = self.iterator;
+      Iterator iter = self.linkedListIterator;
       Node f = iter.nextNode;
       if (undef(f)) {
          return(other);
@@ -197,7 +198,7 @@ local LinkedList {
          return(firstNode.held);
       }
       Int i = 0;
-      for (LinkedList:Iterator iter = self.iterator; iter.hasNext;;) {
+      for (Iterator iter = self.linkedListIterator; iter.hasNext;;) {
          if (i < pos) {
             iter.next;
          } else {
@@ -214,7 +215,7 @@ local LinkedList {
    put(Int pos, value) {
       pos = pos + 1;
       Int i = 0;
-      for (LinkedList:Iterator iter = self.iterator; iter.hasNext;;) {
+      for (Iterator iter = self.linkedListIterator; iter.hasNext;;) {
          if (i < pos) {
             iter.next;
          } else {
@@ -257,7 +258,7 @@ local LinkedList {
          return(firstNode);
       }
       Int i = 0;
-      for (LinkedList:Iterator iter = self.iterator; iter.hasNext;;) {
+      for (Iterator iter = self.linkedListIterator; iter.hasNext;;) {
          if (i < pos) {
             iter.next;
          } else {
@@ -305,7 +306,7 @@ local LinkedList {
    
    lengthGet() Int {
       Int cnt = 0;
-      for (var i = self.iterator;i.hasNext;;) {
+      for (Iterator i = self.linkedListIterator;i.hasNext;;) {
          i.next;
          cnt++=;
       }
@@ -327,7 +328,7 @@ local LinkedList {
       Int len = self.length;
       Container:Array toret = Container:Array.new(len);
       Int cnt = 0;
-      for (LinkedList:Iterator i = self.iterator;i.hasNext;;) {
+      for (Iterator i = self.linkedListIterator;i.hasNext;;) {
          if (cnt < len) {
             toret.put(cnt, i.nextNode);
          }
@@ -340,7 +341,7 @@ local LinkedList {
       Int len = self.length;
       Container:Array toret = Container:Array.new(len);
       Int cnt = 0;
-      for (LinkedList:Iterator i = self.iterator;i.hasNext;;) {
+      for (Iterator i = self.linkedListIterator;i.hasNext;;) {
          if (cnt < len) {
             toret.put(cnt, i.nextNode.held);
          }
@@ -350,11 +351,11 @@ local LinkedList {
    }
    
    iteratorGet() {
-      return(LinkedList:Iterator.new(self));
+      return(Iterator.new(self));
    }
    
-   linkedListIteratorGet() LinkedList:Iterator {
-      return(LinkedList:Iterator.new(self));
+   linkedListIteratorGet() Iterator {
+      return(Iterator.new(self));
    }
    
    serializationIteratorGet() {
@@ -370,7 +371,7 @@ local LinkedList {
       if (end <= start) {
          return(res);
       }
-      var iter = self.iterator;
+      Iterator iter = self.linkedListIterator;
       for (Int i = 0;i < end;i++=) {
          if (iter.hasNext!) {
             return(res);
@@ -432,9 +433,9 @@ local LinkedList {
    
 }
 
-local LinkedList:Iterator {
+local Iterator {
    
-   new(LinkedList l) LinkedList:Iterator {
+   new(LinkedList l) Iterator {
    
       {
          LinkedList list = l;

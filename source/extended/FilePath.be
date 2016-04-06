@@ -85,7 +85,7 @@ local class IO:File:Path(System:BasePath) {
       return(super.parent);
    }
    
-   makeNonAbsolute() IO:File:Path {
+   makeNonAbsolute() self {
       if (self.isAbsolute) {
          driveLetter = null;
          super.makeNonAbsolute();

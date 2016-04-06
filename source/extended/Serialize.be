@@ -215,7 +215,7 @@ final class Serializer {
       var rootInst;
       var groupInstIter;
       String defineClassTagName;
-      for (var i = toks.iterator;i.hasNext;) {
+      for (var i = toks.linkedListIterator;i.hasNext;) {
          String token = i.next;
          if (state == 0) {
             if (token == defineReference) {
@@ -446,7 +446,7 @@ final class NamedPropertiesIterator {
    
    subIterGet() Array:Iterator {
       if (undef(subIter)) {
-         subIter = propNames.iterator;
+         subIter = propNames.arrayIterator;
       }
       return(subIter);
    }

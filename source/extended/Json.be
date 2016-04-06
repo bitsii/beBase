@@ -172,7 +172,7 @@ use class Json:Parser {
         
         Map fromEscapes = Escapes.fromEscapes;
         
-        LinkedList:Iterator tokIter = toks.iterator;
+        Container:LinkedList:Iterator tokIter = toks.linkedListIterator;
         
         Int heldValue;
         
