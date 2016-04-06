@@ -439,7 +439,7 @@ class Set {
       }
    }
    
-   copy() {
+   copy() self {
       var other = create();
       copyTo(other);
       other.slots = slots.copy();

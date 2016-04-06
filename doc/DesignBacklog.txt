@@ -1,8 +1,6 @@
 
 app
 
-copy and create self type return
-can bool
 setup typed iterator
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions

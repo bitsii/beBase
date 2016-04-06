@@ -237,7 +237,7 @@ bevl_float = (BEFLOAT*) (bevl_fi + bercps);
       return(res.reverseBytes());
    }
    
-   copy() {
+   copy() self {
      Int c = Int.new();
      c.setValue(self);
      return(c);

@@ -133,7 +133,7 @@ local LinkedList {
       return(Node.new(toHold, self));
    }
    
-   copy() {
+   copy() self {
       // I don't think this works
       LinkedList other = create();
       LinkedList:Iterator iter = self.iterator;

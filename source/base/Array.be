@@ -257,7 +257,7 @@ if (def(length)) {
       }
    }
    
-   copy() {
+   copy() self {
       Array n = create();
       for (Int i = 0;i < length;i = i++) {
          n[i] = self[i];

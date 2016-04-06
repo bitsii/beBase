@@ -166,7 +166,7 @@ class Interval {
       carryMillis();
    }
    
-   copy() {
+   copy() self {
       return(Interval.new(secs, millis));
    }
    

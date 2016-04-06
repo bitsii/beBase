@@ -355,7 +355,7 @@ char* bevl_nbuf;
       return(self);
    }
    
-   copy() {
+   copy() self {
       String c = String.new(size + 1);
       c.addValue(self);
       return(c);

@@ -66,7 +66,7 @@ local class IO:File:Path(System:BasePath) {
       return(file);
    }
    
-   copy() {
+   copy() self {
       IO:File:Path other = create();
       copyTo(other);
       other.path = path.copy();

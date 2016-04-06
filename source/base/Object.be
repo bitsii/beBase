@@ -652,11 +652,11 @@ BEINT* bevl_toRet;
       toString().echo();
    }
    
-   copy() {
+   copy() self {
      return(copyTo(create()));
    }
    
-    copyTo(copy) {
+    copyTo(copy) self {
         if (undef(copy)) {
             return(copy);
         }

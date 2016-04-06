@@ -100,7 +100,7 @@ final class Bool {
       return("false");
    }
    
-   copy() {
+   copy() self {
       return(self);//Bools are immutable
    }
    

@@ -490,7 +490,7 @@ class System:BasePath {
       path = path.join(separator, fpath);
    }
    
-   copy() {
+   copy() self {
       System:BasePath other = create();
       copyTo(other);
       other.path = path.copy();
