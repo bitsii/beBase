@@ -101,7 +101,7 @@ final class ClassSyn {
    
    maxMtdxGet() Int {
 		Int maxMtdx = 0;
-		for (Map:ValueIterator vi = mtdMap.valueIterator;vi.hasNext) {
+		for (Container:Map:ValueIterator vi = mtdMap.valueIterator;vi.hasNext) {
 			Build:MtdSyn ms = vi.next;
 			if (ms.mtdx > maxMtdx) {
 				maxMtdx = ms.mtdx;

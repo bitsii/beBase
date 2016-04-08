@@ -1,10 +1,22 @@
 
-app
-
-map, array iterators wrong type (missing Container)
-ByteIterator missing Text, multibyte missing string
+ex app
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
+
+fixed kw - like local for now, means descendants can't break contract for accessors, new, create, default
+
+finally
+
+mutating size for map, string, etc, ++= everywhere
+
+=~ for setValue (or diff assign form), reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
+ make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
+
+go to int and other reuse in code as much as possible
+  just look at be code efficiency (base et all)
+  look at build efficiency
+  
+switch to tar gz for boot (no zip), make sure win works
 
 gratuitous returns - var for untyped, rest as now (self, typed).
    void type to allow explicit def
@@ -15,41 +27,56 @@ gratuitous returns - var for untyped, rest as now (self, typed).
  remove autoreturn for no declared return (void)
  dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
 
-fixed kw - like local for now, means descendants can't break contract for accessors, new, create, default
-
-mutating size for map, string, etc, ++= everywhere
-
-named, optional parameters, ? parameter lists (or just very convenient array/map construct)
-
-finally
-
-convenience syntax for array, map construction
-
-=~ for setValue, reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
- make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))
-
-go to int and other reuse in code as much as possible
-  just look at be code efficiency (base et all)
-  look at build efficiency
-
-need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
-
-switch string to mutating for everything (swap, etc)
-
-copyFile should copy the file (read/write)
-  
-switch to tar gz for boot (no zip), make sure win works
-
-libraries and linking
-library/library version
-tests sep from base lib (2 bld with libs)
-
 in browser code to run
   build read from strings not just files
   for js output to string too (no files)
   run in page
   node repl too
 and a shell
+
+doc it up
+
+convenience syntax for array, map construction
+
+more ex app
+
+need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
+
+switch string to mutating for everything (swap, etc)
+
+copyFile should copy the file (read/write)
+   
+code inlining, variable references from emits (incl ints)
+
+inline int, literal adds, etc
+
+speed up native ints and such (using inline)
+
+native operations, dropping literals
+ have add, subtract, multiply, divide which work on literals directly (addValue, etc) (for when a literal is just immediately used with an int, etc,
+   as second arg to call)
+ for all those uses, get rid of onces, constructs, tmp vars, etc
+ also, for many calls can avoid the call even if not literals (int add, sub, etc)
+ in some cases (no escape (local vars, not called out except to "safe" mtds))
+   could do native ints, bools, same with local/final int/bool members
+final for static members (?) - readonly for c#
+     onceDeced it's ok, not for not once deced (need to distinguish)
+get rid of calls to once and many
+more efficient int
+  direct no call operations (?inline) (no null checking)
+    have a way to mark ok for inlining anywhere, use
+    text replacement($) to arg vars instead of literal names
+  native ints where completely local, initted at declare/never null, etc
+    -have specific inline for int value above, which can work with direct lits
+  native ints for literal cases (typed oper on literal)
+
+direct member get/set where possible (typed, final or local w/o override), keep gen accessors
+
+named, optional parameters, ? parameter lists (or just very convenient array/map construct)
+
+libraries and linking
+library/library version
+tests sep from base lib (2 bld with libs)
 
 ---- bugs ----
 default return not picking up when wrong type
@@ -96,14 +123,6 @@ tmp var reduction
  drop tmp vars for simple calls, chain where possible?
  reuse tmps if same type and only used once
   
-code inlining, variable references from emits (incl ints)
-
-inline int, literal adds, etc
-
-speed up native ints and such (using inline)
-
-direct member get/set where possible (typed, final or local w/o override), keep gen accessors
-
 type inference - "auto"
 javascript webworker concurrency, same model for cs/jv
   inbox or queue?
@@ -137,24 +156,6 @@ for typed vars, if they support forward could allow for calls they don't know ab
 make js and others same behaviour
 add notEmpty to containers
 decide on mutating or not len for string et all and do it (thinking do)
-native operations, dropping literals
- have add, subtract, multiply, divide which work on literals directly (addValue, etc) (for when a literal is just immediately used with an int, etc,
-   as second arg to call)
- for all those uses, get rid of onces, constructs, tmp vars, etc
- also, for many calls can avoid the call even if not literals (int add, sub, etc)
- in some cases (no escape (local vars, not called out except to "safe" mtds))
-   could do native ints, bools, same with local/final int/bool members
-final for static members (?) - readonly for c#
-     onceDeced it's ok, not for not once deced (need to distinguish)
-get rid of calls to once and many
-more efficient int
-  direct no call operations (?inline) (no null checking)
-    have a way to mark ok for inlining anywhere, use
-    text replacement($) to arg vars instead of literal names
-  native ints where completely local, initted at declare/never null, etc
-    -have specific inline for int value above, which can work with direct lits
-  native ints for literal cases (typed oper on literal)
-
 encode/decode base 64 to use instead of hex
 http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 

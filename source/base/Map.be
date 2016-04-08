@@ -125,7 +125,7 @@ class Map(Set) {
    }
    
    serializationIteratorGet() {
-      return(Map:SerializationIterator.new(self));
+      return(Container:Map:SerializationIterator.new(self));
    }
    
    contentsEqual(Set _other) Bool {
@@ -154,24 +154,24 @@ class Map(Set) {
       }
    }
    
-   valueIteratorGet() Map:ValueIterator {
-      return(Map:ValueIterator.new(self));
+   valueIteratorGet() Container:Map:ValueIterator {
+      return(Container:Map:ValueIterator.new(self));
    }
    
-   valuesGet() Map:ValueIterator {
+   valuesGet() Container:Map:ValueIterator {
       return(self.valueIterator);
    }
    
-   keyValueIteratorGet() Map:KeyValueIterator {
-      return(Map:KeyValueIterator.new(self));
+   keyValueIteratorGet() Container:Map:KeyValueIterator {
+      return(Container:Map:KeyValueIterator.new(self));
    }
    
    iteratorGet() {
-      return(Set:NodeIterator.new(self));
+      return(Container:Set:NodeIterator.new(self));
    }
    
-   mapIteratorGet() Set:NodeIterator {
-      return(Set:NodeIterator.new(self));
+   mapIteratorGet() Container:Set:NodeIterator {
+      return(Container:Set:NodeIterator.new(self));
    }
    
    addValue(other) self {
@@ -259,11 +259,11 @@ class Set {
    }
    
    serializationIteratorGet() {
-      return(Set:SerializationIterator.new(self));
+      return(Container:Set:SerializationIterator.new(self));
    }
    
    insertAll(Array ninner, Array ir) {
-      for (Array:Iterator i = ir.arrayIterator;i.hasNext;) {
+      for (Container:Array:Iterator i = ir.arrayIterator;i.hasNext;) {
          SetNode ni = i.next;
          if (def(ni)) {
             if (innerPut(ni.key, null, ni, ninner)!) {
@@ -461,26 +461,26 @@ class Set {
    }
    
    iteratorGet() {
-      return(Set:KeyIterator.new(self));
+      return(Container:Set:KeyIterator.new(self));
    }
    
-   setIteratorGet() Set:KeyIterator {
-      return(Set:KeyIterator.new(self));
+   setIteratorGet() Container:Set:KeyIterator {
+      return(Container:Set:KeyIterator.new(self));
    }
    
-   keyIteratorGet() Set:KeyIterator {
-      return(Set:KeyIterator.new(self));
+   keyIteratorGet() Container:Set:KeyIterator {
+      return(Container:Set:KeyIterator.new(self));
    }
    
-   keysGet() Set:KeyIterator {
+   keysGet() Container:Set:KeyIterator {
       return(self.keyIterator);
    }
    
-   nodeIteratorGet() Set:NodeIterator {
-      return(Set:NodeIterator.new(self));
+   nodeIteratorGet() Container:Set:NodeIterator {
+      return(Container:Set:NodeIterator.new(self));
    }
    
-   nodesGet() Set:NodeIterator {
+   nodesGet() Container:Set:NodeIterator {
       return(self.nodeIterator);
    }
    
@@ -531,7 +531,7 @@ class Set {
    
 }
 
-class Set:KeyIterator(Set:NodeIterator) {
+class Container:Set:KeyIterator(Container:Set:NodeIterator) {
    
    nextGet() {
       var tr = super.nextGet();
@@ -542,9 +542,9 @@ class Set:KeyIterator(Set:NodeIterator) {
    }
 }
 
-class Set:SerializationIterator(Set:KeyIterator) {
+class Container:Set:SerializationIterator(Container:Set:KeyIterator) {
 
-   new(Set _set) Set:SerializationIterator {
+   new(Set _set) Container:Set:SerializationIterator {
       fields {
          Array contents = Array.new();
       }
@@ -569,9 +569,9 @@ class Set:SerializationIterator(Set:KeyIterator) {
    
 }
 
-class Map:SerializationIterator(Map:KeyValueIterator) {
+class Container:Map:SerializationIterator(Container:Map:KeyValueIterator) {
 
-   new(Set _set) Map:SerializationIterator {
+   new(Set _set) Container:Map:SerializationIterator {
       fields {
          Array contents = Array.new();
       }
@@ -600,9 +600,9 @@ class Map:SerializationIterator(Map:KeyValueIterator) {
    
 }
 
-class Map:KeyValueIterator(Set:NodeIterator) {
+class Container:Map:KeyValueIterator(Container:Set:NodeIterator) {
    
-   new(Set _set) Map:KeyValueIterator {
+   new(Set _set) Container:Map:KeyValueIterator {
       fields {
          var onNode;
       }
@@ -631,7 +631,7 @@ class Map:KeyValueIterator(Set:NodeIterator) {
    
 }
 
-class Map:ValueIterator(Set:NodeIterator) {
+class Container:Map:ValueIterator(Container:Set:NodeIterator) {
    
    nextGet() {
       var tr = super.nextGet();
@@ -643,9 +643,9 @@ class Map:ValueIterator(Set:NodeIterator) {
    
 }
 
-class Set:NodeIterator {
+class Container:Set:NodeIterator {
    
-   new(Set _set) Set:NodeIterator {
+   new(Set _set) Container:Set:NodeIterator {
       
       fields {
          Set set = _set;
@@ -700,7 +700,7 @@ class Set:NodeIterator {
       return(self);
    }
    
-   nodeIteratorIteratorGet() Set:NodeIterator {
+   nodeIteratorIteratorGet() Container:Set:NodeIterator {
       return(self);
    }
    

@@ -437,14 +437,14 @@ final class NamedPropertiesIterator {
    new(var _inst, Array _propNames) {
       fields {
          Array propNames = _propNames;
-         Array:Iterator subIter;
+         Container:Array:Iterator subIter;
          var inst = _inst;
          Array setArgs = Array.new(1);
          Array getArgs = Array.new(0);
       }
    }
    
-   subIterGet() Array:Iterator {
+   subIterGet() Container:Array:Iterator {
       if (undef(subIter)) {
          subIter = propNames.arrayIterator;
       }

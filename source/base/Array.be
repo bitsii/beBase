@@ -17,7 +17,7 @@ using System;
     """
 }
 
-final class Array:Iterator {
+final class Container:Array:Iterator {
    
    new() self {
       fields {
@@ -244,11 +244,11 @@ if (def(length)) {
    }
    
    iteratorGet() {
-      return(Array:Iterator.new(self));
+      return(Container:Array:Iterator.new(self));
    }
    
-   arrayIteratorGet() Array:Iterator {
-      return(Array:Iterator.new(self));
+   arrayIteratorGet() Container:Array:Iterator {
+      return(Container:Array:Iterator.new(self));
    }
    
    clear() self {
