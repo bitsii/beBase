@@ -106,33 +106,16 @@ void** bevl_llpath;
    }
    
    copyFile(other) Bool {
-      emit(c) {
-      """
-/*-attr- -dec-*/
-char* bevl_frc;
-char* bevl_toc;
-void** bevl_frv;
-void** bevl_tov;
-      """
-      }
-      //TODO make sure works across file systems and network
-      String frs = path.toString();
-      String tos = other.path.toString();
-      Bool r = false;
-      Bool t = true;
       other.path.parent.file.makeDirs();
-      emit(c) {
-      """
-      bevl_frv = $frs&*;
-      bevl_tov = $tos&*;
-      bevl_frc = (char*) bevl_frv[bercps];
-      bevl_toc = (char*) bevl_tov[bercps];
-      if (CopyFile(bevl_frc, bevl_toc, 0)) {
-         $r=* $t*;
+      String rwbufE = String.new(4096);
+      IO:File:Writer outw = other.writer.open();
+      IO:File:Reader inr = self.reader.open();
+      while (inr.readIntoBuffer(rwbufE) > 0) {
+        outw.write(rwbufE);
       }
-      """
-      }
-      return(r);
+      inr.close();
+      outw.close();
+      return(true);
    }
    
    //because I'm constantly forgetting which it is

@@ -1,6 +1,8 @@
 
 ex app
 
+why does something = bool expr; not work?
+
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
 
 fixed kw - like local for now, means descendants can't break contract for accessors, new, create, default
@@ -15,8 +17,6 @@ mutating size for map, string, etc, ++= everywhere
 go to int and other reuse in code as much as possible
   just look at be code efficiency (base et all)
   look at build efficiency
-  
-switch to tar gz for boot (no zip), make sure win works
 
 gratuitous returns - var for untyped, rest as now (self, typed).
    void type to allow explicit def
@@ -43,8 +43,6 @@ more ex app
 need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
 
 switch string to mutating for everything (swap, etc)
-
-copyFile should copy the file (read/write)
    
 code inlining, variable references from emits (incl ints)
 
@@ -83,7 +81,6 @@ default return not picking up when wrong type
 return in loop seen as last return incorrectly (what if no loop...)
 last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
 something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
-copy needs to be return type self
 castTo is wrong in at least some once cases, checkTypes must be wrong somehow
 byteiterator is much much slower than just doing getInt on a string by length, something is wrong there
 // Bug with initial elif
