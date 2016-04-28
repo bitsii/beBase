@@ -38,7 +38,7 @@ class Test:ExtendedTest:EC(BaseTest) {
    
       //TESTS START HERE
       
-      System:Command.new("echo hi").open().output.readString().print();
+      //System:Command.new("echo hi").open().output.readString().print();
       
       //if (true) { return(null); }
       

@@ -1,4 +1,7 @@
 
+mutating size for string, ++= everywhere
+readwrite no alloc
+
 ex app
 
 why does something = bool expr; not work?
@@ -9,7 +12,7 @@ fixed kw - like local for now, means descendants can't break contract for access
 
 finally
 
-mutating size for map, string, etc, ++= everywhere
+mutating size for map, etc, ++= everywhere
 
 =~ for setValue (or diff assign form), reuse operand other than participants in calculation (this is more useful than all the others... will make reuse work.)
  make it a 3 argument override (addValue(oper2, intoRes) (first is self...), or better, addValue(oper1, oper2), where self is where the result ends up (and what receives the call))

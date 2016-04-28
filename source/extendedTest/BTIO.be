@@ -179,7 +179,7 @@ class Test:BaseTest:IO(BaseTest) {
    
    testReadCommand() {
    
-      IO:File:Reader:Command.new("echo 'hi'").open().readString().print();
+      //IO:File:Reader:Command.new("echo 'hi'").open().readString().print();
       
    }
    
