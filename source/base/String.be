@@ -263,16 +263,18 @@ char* bevl_nbuf;
       if (def(failed)) {
          throw(System:Exception.new("Buffer reallocation failed"));
       }
-      if (undef(size) || size > ncap) {
-        size = ncap.copy();//TODO setValue
+      if (undef(size)) {
+        size = ncap.copy();
+      } elif (size > ncap) {
+        size.setValue(ncap);
       }
       capacity = ncap;
    }
    
    hexNew(String val) self {
      new(1);
-     size = 1;//TODO setValue
-     setHex(0, val);
+     size.setValue(1@);
+     setHex(0@, val);
    }
    
    getHex(Int pos) String {
@@ -300,7 +302,6 @@ char* bevl_nbuf;
       copyValue(str, 0, str.size, size);
    }
    
-   //TODO this is now redundant
    readBuffer() String {
       return(self);
    }
@@ -323,7 +324,6 @@ char* bevl_nbuf;
    
    //sizeSet TODO check vs capacity, set a null at size + 1
    
-   //TODO this probably no longer has any value
    extractString() String {
       String str = copy();
       clear();
@@ -332,15 +332,15 @@ char* bevl_nbuf;
    
    clear() self {
       if (size > 0) {
-        setIntUnchecked(0, 0);
-        size = 0;
+        setIntUnchecked(0@, 0@);
+        size.setValue(0@);
       }
    }
    
    codeNew(codei) self {
         new(1);
-        size = 1;
-        setCodeUnchecked(0, codei);
+        size.setValue(1@);
+        setCodeUnchecked(0@, codei);
    }
    
    chomp() String {
@@ -682,7 +682,7 @@ BEINT bevl_val;
           Int current2 = Int.new();
           Int end2 = Int.new();
       }
-      
+      Int currentstr2 = Int.new();
       while (current < end) {
          self.getInt(current, myval);
          if (myval == strfirst) {
@@ -696,7 +696,7 @@ BEINT bevl_val;
                 if (end2 > size) {
                     return(null);//doesn't fit
                 }
-                Int currentstr2 = 1;//TODO avoid allocing each time
+                currentstr2.setValue(1@);
                 while (current2 < end2) {
                     self.getInt(current2, myval);
                     str.getInt(currentstr2, strval);
@@ -799,30 +799,8 @@ BEINT bevl_val;
    }
    
    equals(stri) Logic:Bool {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-void** bevl_stri;
-void** bevl_sz;
-      """
-   }
    if (undef(stri)) {
       return(false);
-   }
-   ifEmit(c) {
-   if (stri.otherType(self) || stri.size != size) {
-      return(false);
-   }
-   Int mysize = size;
-      emit(c) {
-"""
-   bevl_stri = $stri&*;
-   bevl_sz = $mysize&*;
-   if (memcmp((char*) bevl_stri[bercps], (char*) bevs[bercps], *((size_t*) (bevl_sz + bercps)) * sizeof(char)) == 0) {
-      BEVReturn(berv_sts->bool_True);
-   }
-"""
-      }
    }
    emit(jv) {
   """
@@ -870,7 +848,6 @@ void** bevl_sz;
    }
    
    notEquals(str) Logic:Bool {
-      //TODO make more efficient
       return(equals(str).not());
    }
    
@@ -983,7 +960,7 @@ BEINT li;
             ifEmit(c) {
                 setIntUnchecked(sizi, 0);
             }
-            size = sizi.copy(); //TODO setValue
+            size.setValue(sizi);
          }
          return(self);
       }
@@ -1172,7 +1149,7 @@ final class Text:Strings {
    }
    
    join(String delim, splits) String {
-      return(joinBuffer(delim, splits).extractString());
+      return(joinBuffer(delim, splits));
    }
    
    joinBuffer(String delim, splits) String {
@@ -1300,7 +1277,7 @@ local class Text:ByteIterator {
             buf.capacitySet(1);
          }
          if (buf.size != 1) {
-            buf.size = 1;//TODO setValue
+            buf.size.setValue(1@);
          }
          buf.setIntUnchecked(0, str.getInt(pos, vcopy));
          ifEmit(c) {
@@ -1376,7 +1353,7 @@ final class Text:MultiByteIterator(Text:ByteIterator) {
             throw(System:Exception.new("Malformed string, utf-8 multibyte sequence is greater than 4 bytes"));
         }
         if (buf.size != bcount) {
-            buf.size = bcount.copy();//TODO set value
+            buf.size.setValue(bcount);
         }
         bcount += pos;
         buf.copyValue(str, pos, bcount, 0);

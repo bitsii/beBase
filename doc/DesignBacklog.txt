@@ -1,5 +1,5 @@
 
-mutating size for string, ++= everywhere
+mutating capacity for string
 readwrite no alloc
 
 ex app
@@ -160,9 +160,6 @@ encode/decode base 64 to use instead of hex
 http://en.wikibooks.org/wiki/Algorithm_Implementation/Miscellaneous/Base64
 
 log - level for class, config based (optional), time stamp (optional)
-get rid of auto-once for literal, require manual use
-   do after native add/sub/etc for literals (below) to minimise impact
-   output all cases where it is being done (where not manual and not optimized away), and do them all manually
 see how typescript and dart translate into js
   example programs, compile to js, look at them
   https://developers.google.com/closure/compiler/
