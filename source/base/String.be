@@ -179,7 +179,7 @@ final class String {
    }
    
    new(Int _capacity) self {
-      
+      size = 0;
       capacitySet(_capacity);
       fields {
          var vstring;
@@ -190,46 +190,17 @@ final class String {
          Int leni;
          Int sizi;
       }
-      size = 0;
    }
    
    new() self {
-      new(0);
+      new(0@);
    }
    
    capacitySet(Int ncap) self {
-      emit(c) {
-      """
-/*-attr- -dec-*/
-void** bevl_ncv;
-BEINT bevl_nc;
-char* bevl_obuf;
-char* bevl_nbuf;
-      """
-      }
-      String failed; //cheap flag to reveal failure
-      if (def(capacity)  && capacity == ncap) {
-         return(self);//nothing to do
-      }
-      emit(c) {
-      """
-      bevl_ncv = $ncap&*;
-      bevl_nc = *((BEINT*) (bevl_ncv + bercps));
-      
-      bevl_obuf = (char*) bevs[bercps];
-      if (bevl_obuf == NULL) {
-         bevl_nbuf = (char*) BENoMalloc(bevl_nc + 1);
-      } else {
-         bevl_nbuf = (char*) BENoRealloc(bevl_obuf, bevl_nc + 1);
-      }
-      if (bevl_nbuf == NULL) {
-         /*realloc failed*/
-         $failed=* bevs;
-      } else {
-         bevl_nbuf[bevl_nc] = '\0';
-         bevs[bercps] = (void*) bevl_nbuf;
-      }
-      """
+      if (undef(capacity)) {
+         capacity = 0;
+      } elif (capacity == ncap) {
+        return(self);//nothing to do
       }
       emit(jv) {
       """
@@ -260,19 +231,14 @@ char* bevl_nbuf;
       }
       """
       }
-      if (def(failed)) {
-         throw(System:Exception.new("Buffer reallocation failed"));
-      }
-      if (undef(size)) {
-        size = ncap.copy();
-      } elif (size > ncap) {
+      if (size > ncap) {
         size.setValue(ncap);
       }
-      capacity = ncap;
+      capacity.setValue(ncap);
    }
    
    hexNew(String val) self {
-     new(1);
+     new(1@);
      size.setValue(1@);
      setHex(0@, val);
    }
@@ -901,7 +867,7 @@ BEINT li;
          sizi += leni;
          
          if (sizi > capacity) {
-            self.capacity = sizi.copy();
+            self.capacity = sizi;
          }
          
          emit(jv) {

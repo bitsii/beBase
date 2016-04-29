@@ -1,7 +1,4 @@
 
-mutating capacity for string
-readwrite no alloc
-
 ex app
 
 why does something = bool expr; not work?

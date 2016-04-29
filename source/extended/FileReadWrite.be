@@ -221,61 +221,29 @@ class IO:Reader {
    }
    
    readIntoBuffer(String readBuf) Int {
-		return(readIntoBuffer(readBuf, 0));
+		return(readIntoBuffer(readBuf, 0@));
    }
    
    readIntoBuffer(String readBuf, Int at) Int {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BEINT at;
-BEINT got;
-BEINT* readsz;
-BEINT blen;
-char* buf;
-      """
-      }
-      Int readsz;
-      String intoi;
-      Int bleni;
-      if (isClosed) {
-         throw(System:Exception.new("File is not open, read attempted."));
-      }
-      readsz = Int.new();
-      intoi = readBuf;
-      bleni = intoi.capacity;
-      if (bleni <= at) {
-         throw(System:Exception.new("Trying to begin read beyond buffer capacity"));
-      }
-      emit(c) {
-      """
-         at = *((BEINT*) ($at&* + bercps));
-         got = 0;
-         readsz = ((BEINT*) ($readsz&* + bercps));
-         buf = (char*) $intoi&*[bercps];
-         buf = buf + (at * sizeof(char));
-         blen = *((BEINT*) ($bleni&* + bercps));
-         if (!feof(((FILE*) bevs[bercps])) && at < blen) {
-            got = fread(buf, 1, blen - at, ((FILE*) bevs[bercps]));
-            at = at + got;
-            buf = buf + (got * sizeof(char));
-         }
-         buf[0] = '\0'; /*not a bug, the actual buffer alloc is always one greater than the capacity*/
-         *readsz = at;
-      """
-      }
+    return(readIntoBuffer(readBuf, at, Int.new()));
+   }
+   
+   readIntoBuffer(String readBuf, Int at, Int readsz) Int {
+      //if (isClosed) {
+      //   throw(System:Exception.new("File is not open, read attempted."));
+      //}
       emit(jv) {
       """
       int bevls_read = this.bevi_is.read(beva_readBuf.bevi_bytes, beva_at.bevi_int, beva_readBuf.bevi_bytes.length - beva_at.bevi_int);
       if (bevls_read < 0) {
         bevls_read = 0;
       }
-      bevl_readsz.bevi_int = bevls_read + beva_at.bevi_int;
+      beva_readsz.bevi_int = bevls_read + beva_at.bevi_int;
       """
       }
       emit(cs) {
       """
-      bevl_readsz.bevi_int = this.bevi_is.Read(beva_readBuf.bevi_bytes, beva_at.bevi_int, beva_readBuf.bevi_bytes.Length - beva_at.bevi_int) + beva_at.bevi_int;
+      beva_readsz.bevi_int = this.bevi_is.Read(beva_readBuf.bevi_bytes, beva_at.bevi_int, beva_readBuf.bevi_bytes.Length - beva_at.bevi_int) + beva_at.bevi_int;
       """
       }
       emit(js) {
@@ -284,7 +252,7 @@ char* buf;
       var bevls_at = beva_at.bevi_int;
       var bevls_rlen = beva_readBuf.bevp_capacity.bevi_int - bevls_at;
       var bevls_rbuf = new Buffer(bevls_rlen);
-      bevl_readsz.bevi_int = fs.readSync(this.bevi_is, bevls_rbuf, 0, bevls_rlen) + bevls_at;
+      beva_readsz.bevi_int = fs.readSync(this.bevi_is, bevls_rbuf, 0, bevls_rlen) + bevls_at;
       //console.log("read this:");
       //console.log(bevls_rbuf.toString());
       for (var i = 0;i < bevls_rlen;i++) {
@@ -293,8 +261,21 @@ char* buf;
       """
       }
       //("read " + readsz).print();
-      intoi.size = readsz;//TODO setValue
+      readBuf.size.setValue(readsz);
       return(readsz);
+   }
+   
+   copyData(IO:Writer outw, String rwbufE, Int rsz) {
+      Int at =@ 0;
+      while (readIntoBuffer(rwbufE, at, rsz) > 0) {
+        outw.write(rwbufE);
+      }
+   }
+   
+   copyData(IO:Writer outw) {
+      String rwbufE = String.new(4096);
+      Int rsz = Int.new();
+      copyData(outw, rwbufE, rsz);
    }
    
    readBuffer() String {
@@ -587,43 +568,6 @@ void** bevl_toret;
    }
    
    write(String stri) {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BEINT blen;
-BEINT at;
-BEINT got;
-char* buf;
-void** bevl_intoi;
-void** bevl_bleni;
-void** bevl_toret;
-      """
-      }
-      Int bleni;
-      var failed;
-      if (isClosed) {
-         throw(System:Exception.new("File is not open, write attempted."));
-      }
-      bleni = stri.size;
-      emit(c) {
-      """
-         bevl_intoi = $stri&*;
-         bevl_bleni = $bleni&*;
-         blen = *((BEINT*) (bevl_bleni + bercps));
-         at = 0;
-         got = 0;
-         buf = (char*) bevl_intoi[bercps];
-         while (at < blen) {
-            got = fwrite(buf, 1, blen - at, ((FILE*) bevs[bercps]));
-            at = at + got;
-            buf = buf + (got * sizeof(char));
-            if (got == 0 && at < blen) {
-               $failed=* $bleni*;
-               break;
-            }
-         }
-      """
-      }
       emit(jv) {
       """
       this.bevi_os.write(beva_stri.bevi_bytes, 0, beva_stri.bevp_size.bevi_int);
@@ -638,9 +582,6 @@ void** bevl_toret;
       """
       fs.writeSync(this.bevi_os,new Buffer(beva_stri.bevi_bytes), 0, beva_stri.bevp_size.bevi_int);
       """
-      }
-      if (def(failed)) {
-         throw(System:Exception.new("Write operation failed."));
       }
    }
    

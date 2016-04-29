@@ -107,12 +107,9 @@ void** bevl_llpath;
    
    copyFile(other) Bool {
       other.path.parent.file.makeDirs();
-      String rwbufE = String.new(4096);
       IO:File:Writer outw = other.writer.open();
       IO:File:Reader inr = self.reader.open();
-      while (inr.readIntoBuffer(rwbufE) > 0) {
-        outw.write(rwbufE);
-      }
+      inr.copyData(outw);
       inr.close();
       outw.close();
       return(true);
