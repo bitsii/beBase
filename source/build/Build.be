@@ -295,7 +295,7 @@ final class Build:Build {
       }
       if (def(emitFileHeader)) {
          var emr = File.new(emitFileHeader).reader;
-         emitFileHeader = emr.open().readString(readBuffer);
+         emitFileHeader = emr.open().readString();
          emr.close();
       }
    }
@@ -574,10 +574,6 @@ final class Build:Build {
          var src = toParse.file.reader.open().readBuffer(readBuffer);
          toParse.file.reader.close();
          LinkedList toks = twtok.tokenize(src);
-
-         //var src = IO:ByteReader.readerBufferNew(toParse.file.reader.open(), readBuffer);
-         //LinkedList toks = twtok.tokenizeIterator(src);
-         //toParse.file.reader.close();
 
          //PREPARE VISIT
          if (printSteps) {

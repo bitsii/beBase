@@ -284,26 +284,15 @@ class IO:Reader {
    
    readBuffer(String builder) String {
       Int at = 0;
-      Int nowAt = readIntoBuffer(builder, at);
+      Int nowAt = Int.new();
+      readIntoBuffer(builder, at, nowAt);
       while (nowAt > at) {
-		 at = nowAt;
-		 if (builder.capacity - at < 2) {
-			Int nsize = ((at + blockSize + 16) * 3) / 2;
-			builder.capacitySet(nsize);
-		 }
-         nowAt = readIntoBuffer(builder, at);
-      }
-      return(builder);
-   }
-   
-   altReadBuffer() String {
-      String rbuf = String.new(blockSize);
-      String builder = String.new();
-      Int got = readIntoBuffer(rbuf);
-      builder += rbuf;
-      while (got != 0) {
-         got = readIntoBuffer(rbuf);
-         builder += rbuf;
+		    at.setValue(nowAt);
+		    if (builder.capacity - at < 2) {
+          Int nsize = ((at + blockSize + 16) * 3) / 2;
+			    builder.capacitySet(nsize);
+		    }
+        readIntoBuffer(builder, at, nowAt);
       }
       return(builder);
    }
@@ -339,7 +328,7 @@ class IO:Reader {
    }
    
    readString(String builder) String {
-      return(readBuffer(builder).copy());//TODO this is no longer a very useful pattern (extra copy)
+      return(readBuffer(builder));
    }
 
 }
@@ -524,47 +513,6 @@ class IO:Writer {
       """
       }
       isClosed = true;
-   }
-   
-   //TODO seems unused, dump it
-   writeIfPossible(stri) {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BEINT blen;
-BEINT at;
-BEINT got;
-char* buf;
-void** bevl_intoi;
-void** bevl_bleni;
-void** bevl_toret;
-      """
-      }
-      Int bleni;
-      if (isClosed || undef(stri)) {
-         return(self);
-      }
-      bleni = stri.size;
-      System:Types types = System:Types.new();
-      if ((stri.sameType(types.string)!) && (stri.sameType(types.byteBuffer)!)) {
-         return(self);
-      }
-      emit(c) {
-      """
-         bevl_intoi = $stri&*;
-         bevl_bleni = $bleni&*;
-         blen = *((BEINT*) (bevl_bleni + bercps));
-         at = 0;
-         got = 0;
-         buf = (char*) bevl_intoi[bercps];
-         while (at < blen) {
-            got = fwrite(buf, 1, blen - at, ((FILE*) bevs[bercps]));
-            at = at + got;
-            buf = buf + (got * sizeof(char));
-         }
-      """
-      }
-      return(self);
    }
    
    write(String stri) {

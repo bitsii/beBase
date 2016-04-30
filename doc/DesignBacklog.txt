@@ -1,6 +1,8 @@
 
 ex app
 
+=~ for setvalue
+
 why does something = bool expr; not work?
 
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
