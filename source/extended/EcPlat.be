@@ -705,6 +705,28 @@ class Socket {
     sw.extOpen();
     return(sw);
   }
+  
+  new(String host, Int port) self {
+  
+    emit(jv) {
+    """
+    bevi_socket = new Socket(beva_host.bems_toJvString(), beva_port.bevi_int);
+    """
+    }
+    
+    emit(cs) {
+    """
+    IPHostEntry ipHostInfo = Dns.Resolve(beva_host.bems_toCsString());
+    IPAddress ipAddress = ipHostInfo.AddressList[0];
+    IPEndPoint remoteEP = new IPEndPoint(ipAddress,beva_port.bevi_int);
+
+    bevi_socket = new Socket(AddressFamily.InterNetwork, 
+        SocketType.Stream, ProtocolType.Tcp );
+    bevi_socket.Connect(remoteEP);
+    """
+    }
+  
+  }
 
 }
 

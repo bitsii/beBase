@@ -300,7 +300,7 @@ class Util:Net:EchoServer {
         ports = "9090";
       }
       ("Listening on " + ports).print();
-      Listener l = Listener.new("127.0.0.1", 9090);
+      Listener l = Listener.new("127.0.0.1", Int.new(ports));
       l.bind();
       ("Waiting for conn").print();
       Socket s = l.accept();
@@ -310,7 +310,8 @@ class Util:Net:EchoServer {
       String buf = String.new(4096);
       sr.readIntoBuffer(buf);
       ("Got from socket " + buf).print();
-      s.writer.write(buf);
+      s.writer.write("Got Message: " + buf);
+      Time:Sleep.sleepSeconds(3);
    }
 
 }
@@ -331,7 +332,11 @@ class Util:Net:EchoClient {
         msg = "Yo";
       }
       ("Sending " + msg + " on " + ports).print();
-      
+      Socket s = Socket.new("127.0.0.1", Int.new(ports));
+      s.writer.write(msg);
+      String reply = String.new(1024);
+      s.reader.readIntoBuffer(reply);
+      ("Reply " + reply).print();
    }
 
 }
