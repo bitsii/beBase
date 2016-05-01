@@ -574,3 +574,109 @@ final class DirectoryIterator {
 
 }
 
+use Net:Listener;
+
+emit(cs) {
+"""
+using System;
+using System.Net;
+using System.Net.Sockets;
+"""
+}
+emit(jv) {
+"""
+import java.net.*;
+"""
+}
+class Listener {
+
+  emit(cs) {
+  """
+  public Socket bevi_listener;
+  """
+  }
+  emit(jv) {
+  """
+  public ServerSocket bevi_listener;
+  """
+  }
+
+  /*
+  cs for listening on all interfaces on a port
+  foreach (var i in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces())
+      foreach (var ua in i.GetIPProperties().UnicastAddresses)
+          Console.WriteLine(ua.Address);
+  */
+
+   
+  new(String _address, Int _port) self {
+
+    fields {
+      String address = _address;
+      Int port = _port;
+      Int backlog = 25;
+    }
+
+  }
+
+  bind() self {
+
+    emit(jv) {
+    """
+    bevi_listener = new ServerSocket(bevp_port.bevi_int, bevp_backlog.bevi_int, InetAddress.getByName(bevp_address.bems_toJvString()));
+    """
+    }
+    
+    emit(cs) {
+    """
+    IPHostEntry ipHostInfo = Dns.Resolve(bevp_address.bems_toCsString());
+    IPAddress ipAddress = ipHostInfo.AddressList[0];
+    IPEndPoint localEndPoint = new IPEndPoint(ipAddress, bevp_port.bevi_int);
+
+    bevi_listener = new Socket(AddressFamily.InterNetwork,
+        SocketType.Stream, ProtocolType.Tcp );
+    bevi_listener.Bind(localEndPoint);
+    bevi_listener.Listen(bevp_backlog.bevi_int);
+    """
+    }
+    
+  }
+  
+  accept() Socket {
+    Socket s = Socket.new();
+    emit(jv) {
+    """
+    bevl_s.bevi_socket = bevi_listener.accept();
+    """
+    }
+    emit(cs) {
+    """
+    bevl_s.bevi_socket = bevi_listener.Accept();
+    """
+    }
+    return(s);
+  }
+
+}
+
+use Net:Socket;
+
+class Socket {
+
+  emit(cs) {
+  """
+  public Socket bevi_socket;
+  """
+  }
+  emit(jv) {
+  """
+  public Socket bevi_socket;
+  """
+  }
+
+  new() self {
+  
+  }
+
+}
+

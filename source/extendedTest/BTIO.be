@@ -276,3 +276,34 @@ class Test:BaseTest:IO(BaseTest) {
    
 }
 
+class Util:Net:PortForward {
+
+     main() {
+      ("Util:Net:PortFwd start").print();
+      
+   }
+
+}
+
+use Net:Listener;
+
+class Util:Net:EchoServer {
+
+     main() {
+      ("Util:Net:EchoServer start").print();
+      Array args = System:Process.new().args;
+      if (def(args) && args.length > 1) {
+        String ports = args[1];
+      } else {
+        ports = "9090";
+      }
+      ("Listening on " + ports).print();
+      Listener l = Listener.new("127.0.0.1", 9090);
+      l.bind();
+      ("Waiting for conn").print();
+      l.accept();
+      ("Connected").print();
+   }
+
+}
+

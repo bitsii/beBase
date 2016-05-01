@@ -73,9 +73,9 @@ class System:Exception {
        translateEmittedExceptionInner();
      } catch(var e) {
        ("Exception translation failed").print();
-       if (def(e)) {
-         try { e.print(); } catch (var ee) { }
-       }
+       //if (def(e)) {
+       //  try { e.print(); } catch (var ee) { }
+       //}
      }
    }
    
