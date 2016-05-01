@@ -276,15 +276,6 @@ class Test:BaseTest:IO(BaseTest) {
    
 }
 
-class Util:Net:PortForward {
-
-     main() {
-      ("Util:Net:PortFwd start").print();
-      
-   }
-
-}
-
 use Net:Socket:Listener;
 use Net:Socket;
 use Net:Socket:Reader as SocketReader;
@@ -302,6 +293,7 @@ class Util:Net:EchoServer {
       ("Listening on " + ports).print();
       Listener l = Listener.new("127.0.0.1", Int.new(ports));
       //Listener l = Listener.new(Int.new(ports));
+      //Listener l = Listener.new("0.0.0.0", Int.new(ports));
       l.bind();
       ("Waiting for conn").print();
       Socket s = l.accept();
