@@ -574,7 +574,7 @@ final class DirectoryIterator {
 
 }
 
-use Net:Listener;
+use Net:Socket:Listener;
 
 emit(cs) {
 """
@@ -673,10 +673,50 @@ class Socket {
   public Socket bevi_socket;
   """
   }
-
-  new() self {
   
+  readerGet() SocketReader {
+    SocketReader sr = SocketReader.new();
+    emit(jv) {
+    """
+    bevl_sr.bevi_is = bevi_socket.getInputStream();
+    """
+    }
+    emit(cs) {
+    """
+    bevl_sr.bevi_is = new NetworkStream(bevi_socket);
+    """
+    }
+    sr.extOpen();
+    return(sr);
   }
+  
+  writerGet() SocketWriter {
+    SocketWriter sw = SocketWriter.new();
+    emit(jv) {
+    """
+    bevl_sw.bevi_os = bevi_socket.getOutputStream();
+    """
+    }
+    emit(cs) {
+    """
+    bevl_sw.bevi_os = new NetworkStream(bevi_socket);
+    """
+    }
+    sw.extOpen();
+    return(sw);
+  }
+
+}
+
+use Net:Socket:Reader as SocketReader;
+
+class SocketReader(IO:Reader) {
+
+}
+
+use Net:Socket:Writer as SocketWriter;
+
+class SocketWriter(IO:Writer) {
 
 }
 

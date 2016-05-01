@@ -147,7 +147,6 @@ class IO:Reader {
    emit(jv) {
    """
     public java.io.InputStream bevi_is;
-    
    """
    }
    

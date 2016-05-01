@@ -285,7 +285,9 @@ class Util:Net:PortForward {
 
 }
 
-use Net:Listener;
+use Net:Socket:Listener;
+use Net:Socket;
+use Net:Socket:Reader as SocketReader;
 
 class Util:Net:EchoServer {
 
@@ -301,8 +303,35 @@ class Util:Net:EchoServer {
       Listener l = Listener.new("127.0.0.1", 9090);
       l.bind();
       ("Waiting for conn").print();
-      l.accept();
+      Socket s = l.accept();
       ("Connected").print();
+      SocketReader sr = s.reader;
+      //("Got from socket " + sr.readString()).print();
+      String buf = String.new(4096);
+      sr.readIntoBuffer(buf);
+      ("Got from socket " + buf).print();
+      s.writer.write(buf);
+   }
+
+}
+
+class Util:Net:EchoClient {
+
+     main() {
+      ("Util:Net:EchoClient start").print();
+      Array args = System:Process.new().args;
+      if (def(args) && args.length > 1) {
+        String ports = args[1];
+      } else {
+        ports = "9090";
+      }
+      if (def(args) && args.length > 2) {
+        String msg = args[2];
+      } else {
+        msg = "Yo";
+      }
+      ("Sending " + msg + " on " + ports).print();
+      
    }
 
 }
