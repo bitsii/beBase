@@ -48,8 +48,16 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
    accept(Build:Node node) Build:Node {
       Node toRet;
       Node xn;
+      
+      //pullout typename, nextpeer, nextpeer typename
+      Int typename = node.typename;
+      Node nextPeer = node.nextPeer;
+      if (def(nextPeer)) {
+        Int nextPeerTypename = nextPeer.typename;
+      }
+      
       //("!Visiting " + node.toString()).print();
-       if ((node.typename == ntypes.DIVIDE) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.MULTIPLY) && (inStr!)) {
+       if ((typename == ntypes.DIVIDE) && (def(nextPeer)) && (nextPeerTypename == ntypes.MULTIPLY) && (inStr!)) {
          //comment begin, can nest
          nestComment = nestComment++;
          toRet = node.nextPeer.nextDescend;
@@ -57,7 +65,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          node.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.MULTIPLY) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.DIVIDE) && (inStr!)) {
+       if ((typename == ntypes.MULTIPLY) && (def(nextPeer)) && (nextPeerTypename == ntypes.DIVIDE) && (inStr!)) {
          //comment end, can nest
          nestComment = nestComment--;
          toRet = node.nextPeer.nextDescend;
@@ -70,7 +78,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          node.delayDelete();
          return(toRet);
        }
-       if ((inStr!) && (inLc!) && ((node.typename == ntypes.STRQ) || node.typename == ntypes.WSTRQ)) {
+       if ((inStr!) && (inLc!) && ((typename == ntypes.STRQ) || typename == ntypes.WSTRQ)) {
          xn = node.nextPeer;
          strqCnt = 1;
          quoteType = node.typename;
@@ -88,7 +96,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
             inStr = true;
             goingStr = node;
             node.held = Text:String.new();
-            if (node.typename == ntypes.WSTRQ) {
+            if (typename == ntypes.WSTRQ) {
                //"!!!!!!!!SETTING TO WSTRINGL".print();
                goingStr.typename = ntypes.WSTRINGL;
             } else {
@@ -98,7 +106,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          return(xn);
        }
        if ((inStr) && (inLc!)) {
-         if (goingStr.typename == ntypes.STRINGL && node.typename == ntypes.FSLASH) {
+         if (goingStr.typename == ntypes.STRINGL && typename == ntypes.FSLASH) {
             node.delayDelete();
             xn = node.nextPeer;
             Int fsc = 1;
@@ -116,7 +124,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
                xn = xn.nextDescend;
             }
             return(xn);
-         } elif (node.typename == quoteType) {
+         } elif (typename == quoteType) {
             node.delayDelete();
             xn = node.nextPeer;
             var csc = 1;
@@ -143,7 +151,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
             return(toRet);
           }
        }
-       if ((node.typename == ntypes.DIVIDE) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.DIVIDE) && (inStr!)) {
+       if ((typename == ntypes.DIVIDE) && (def(nextPeer)) && (nextPeerTypename == ntypes.DIVIDE) && (inStr!)) {
          toRet = node.nextPeer.nextDescend;
          inLc = true;
          node.nextPeer.delayDelete();
@@ -160,7 +168,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          }
          return(toRet);
        }
-       if (node.typename == ntypes.SUBTRACT && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.INTL)) {
+       if (typename == ntypes.SUBTRACT && (def(nextPeer)) && (nextPeerTypename == ntypes.INTL)) {
          if (def(node.priorPeer)) {
             Node vback = node.priorPeer;
             while (def(vback) && vback.typename == ntypes.SPACE) {
@@ -178,28 +186,28 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
             return(toRet);
           }
        }
-       if ((node.typename == ntypes.ASSIGN) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.ASSIGN) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.EQUALS;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.ASSIGN) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ONCE || node.nextPeer.typename == ntypes.MANY)) {
+       if ((typename == ntypes.ASSIGN) && (def(nextPeer)) && (nextPeerTypename == ntypes.ONCE || nextPeerTypename == ntypes.MANY)) {
          //concatenates the text of node.held into =@ (or =#), which is later used to see that it was a "once" (or a many :-)
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.NOT) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.NOT) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.NOT_EQUALS;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if (node.typename == ntypes.OR) {
+       if (typename == ntypes.OR) {
          if ((def(node.nextPeer)) && (node.nextPeer.typename == ntypes.OR)) {
             node.held = node.held + node.nextPeer.held;
             node.typename = ntypes.LOGICAL_OR;
@@ -208,7 +216,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
             return(toRet);
          }
        }
-       if (node.typename == ntypes.AND) {
+       if (typename == ntypes.AND) {
          if ((def(node.nextPeer)) && (node.nextPeer.typename == ntypes.AND)) {
             node.held = node.held + node.nextPeer.held;
             node.typename = ntypes.LOGICAL_AND;
@@ -217,21 +225,21 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
             return(toRet);
          }
        }
-       if ((node.typename == ntypes.GREATER) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.GREATER) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.GREATER_EQUALS;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.LESSER) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.LESSER) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.LESSER_EQUALS;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.ADD) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ADD)) {
+       if ((typename == ntypes.ADD) && (def(nextPeer)) && (nextPeerTypename == ntypes.ADD)) {
          if ((def(node.nextPeer.nextPeer)) && (node.nextPeer.nextPeer.typename == ntypes.ASSIGN)) {
             node.typename = ntypes.INCREMENT_ASSIGN;
             node.held = node.held + node.nextPeer.held + node.nextPeer.nextPeer.held;
@@ -246,7 +254,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.SUBTRACT) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.SUBTRACT)) {
+       if ((typename == ntypes.SUBTRACT) && (def(nextPeer)) && (nextPeerTypename == ntypes.SUBTRACT)) {
          if ((def(node.nextPeer.nextPeer)) && (node.nextPeer.nextPeer.typename == ntypes.ASSIGN)) {
             node.typename = ntypes.DECREMENT_ASSIGN;
             node.held = node.held + node.nextPeer.held + node.nextPeer.nextPeer.held;
@@ -261,56 +269,56 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.ADD) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.ADD) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.ADD_ASSIGN;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.SUBTRACT) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.SUBTRACT) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.SUBTRACT_ASSIGN;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.MULTIPLY) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.MULTIPLY) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.MULTIPLY_ASSIGN;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.DIVIDE) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.DIVIDE) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.DIVIDE_ASSIGN;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.MODULUS) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.MODULUS) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.MODULUS_ASSIGN;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.AND) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.AND) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.AND_ASSIGN;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((node.typename == ntypes.OR) && (def(node.nextPeer)) && (node.nextPeer.typename == ntypes.ASSIGN)) {
+       if ((typename == ntypes.OR) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.OR_ASSIGN;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if (node.typename == ntypes.SPACE || node.typename == ntypes.NEWLINE) {
+       if (typename == ntypes.SPACE || typename == ntypes.NEWLINE) {
          toRet = node.nextDescend;
          node.delayDelete();
          return(toRet);

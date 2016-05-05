@@ -21,7 +21,10 @@ class Test:ExtendedTest:EC(BaseTest) {
    
    main() {
      try {
-       innerMain();
+       Int howManyTimes = 1;
+       for (Int i = 0;i < howManyTimes;i++=) {
+        innerMain();
+      }
      } catch (var e) {
        if (def(e)) {
         e.print();

@@ -1,6 +1,8 @@
 
 ex app
 
+profile to see what takes time
+
 add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
 
 libs

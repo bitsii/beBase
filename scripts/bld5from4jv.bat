@@ -1,4 +1,4 @@
-java -classpath target4\BEL_system_be_jv.jar;target4\BEL_4_Base_be_jv.jar be.BEL_4_Base.BEL_4_Base --buildFile build\buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv
+java -classpath target4\BEL_system_be_jv.jar;target4\BEL_4_Base_be_jv.jar be.BEL_4_Base.BEL_4_Base --buildFile build\buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv %*
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 

@@ -1,4 +1,4 @@
-target4\BEL_4_Base_mcs.exe --buildFile build\buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang cs
+target4\BEL_4_Base_mcs.exe --buildFile build\buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang cs %*
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 

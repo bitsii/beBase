@@ -119,7 +119,11 @@ final class Build:Build {
    main(Array _args) {
       args = _args;
       params = Parameters.new(args);
-      return(go());
+      Int times = Int.new(params.get("howManyTimes", "1").first);
+      for (Int i = 0;i < times;i++=) {
+        var res = go();
+      }
+      return(res);
    }
 
    go() {
