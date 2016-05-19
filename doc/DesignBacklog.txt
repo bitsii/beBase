@@ -1,5 +1,9 @@
 
+need a meta genboot that genboots all on win and nix
+
 ex app
+
+add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions, method names too?
 
 profile to see what takes time, csc mcs too, cache source file text and have a no
 output option to elimiate io
@@ -12,8 +16,6 @@ native operations, dropping literals
  have add, subtract, multiply, divide which work on literals directly (addValue, etc) (for when a literal is just immediately used with an int, etc,
    as second arg to call)
  for all those uses, get rid of onces, constructs, tmp vars, etc
-
-add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions
 
 libs
 all in mem parse/output for js
@@ -59,6 +61,8 @@ more ex app
 need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
 
 switch string to mutating for everything (swap, etc)
+
+___________________
 
  also, for many calls can avoid the call even if not literals (int add, sub, etc)
  in some cases (no escape (local vars, not called out except to "safe" mtds))
