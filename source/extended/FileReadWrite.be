@@ -329,6 +329,12 @@ class IO:Reader {
    readString(String builder) String {
       return(readBuffer(builder));
    }
+   
+   readStringClose() String {
+    String res = readString();
+    close();
+    return(res);
+   }
 
 }
 

@@ -1,5 +1,5 @@
 
-need a meta genboot that genboots all on win and nix
+find reuse ints return passed int
 
 ex app
 
