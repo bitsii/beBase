@@ -168,7 +168,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
         Class ti = be.BELS_Base.BECS_Runtime.typeInstances.get(key);
         if (ti != null) {
             //System.out.println("Getting new instance for |" + key + "|");
-            bevl_result = (BEC_6_6_SystemObject) ti.newInstance();
+            bevl_result = ($class/System:Object$) ti.newInstance();
         } 
         //else {
         //    System.out.println("No typeInstance for |" + key + "|");
@@ -180,7 +180,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
         string key = System.Text.Encoding.UTF8.GetString(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int);
         Type ti = be.BELS_Base.BECS_Runtime.typeInstances[key];
         if (ti != null) {
-            bevl_result = (BEC_6_6_SystemObject) Activator.CreateInstance(ti);
+            bevl_result = ($class/System:Object$) Activator.CreateInstance(ti);
         }
         """
       }
@@ -492,18 +492,18 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       emit(jv) {
       """
       byte[] bevls_clname = bemc_clname();
-      bevl_xi = new BEC_4_6_TextString(bevls_clname.length, bevls_clname);
+      bevl_xi = new $class/Text:String$(bevls_clname.length, bevls_clname);
       """
       }
       emit(cs) {
       """
       byte[] bevls_clname = bemc_clname();
-      bevl_xi = new BEC_4_6_TextString(bevls_clname.Length, bevls_clname);
+      bevl_xi = new $class/Text:String$(bevls_clname.Length, bevls_clname);
       """
       }
       emit(js) {
       """
-      bevl_xi = new be_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clname, this.becs_insts.becc_clname.length);
+      bevl_xi = new be_BEL_4_Base_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clname, this.becs_insts.becc_clname.length);
       """
       }
       return(xi);
@@ -514,18 +514,18 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       emit(jv) {
       """
       byte[] bevls_clname = bemc_clfile();
-      bevl_xi = new BEC_4_6_TextString(bevls_clname.length, bevls_clname);
+      bevl_xi = new $class/Text:String$(bevls_clname.length, bevls_clname);
       """
       }
       emit(cs) {
       """
       byte[] bevls_clname = bemc_clfile();
-      bevl_xi = new BEC_4_6_TextString(bevls_clname.Length, bevls_clname);
+      bevl_xi = new $class/Text:String$(bevls_clname.Length, bevls_clname);
       """
       }
       emit(js) {
       """
-      bevl_xi = new be_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clfile, this.becs_insts.becc_clfile.length);
+      bevl_xi = new be_BEL_4_Base_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clfile, this.becs_insts.becc_clfile.length);
       """
       }
       return(xi);

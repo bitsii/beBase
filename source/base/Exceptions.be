@@ -257,7 +257,7 @@ class System:Exception {
     if (undef(klass) || klass.begins("BEC_")!) {
         return(klass);
     }
-    LinkedList kparts = klass.substring(4).split("_");
+    LinkedList kparts = klass.substring(6).split("_");
     Int kps = kparts.size - 1; //last is the string, rest is the sizes
     String rawkl = kparts.get(kps);
     String bec = String.new();
@@ -360,11 +360,12 @@ final class System:ExceptionBuilder {
    getLineForEmitLine(String klass, Int eline) Int {
    
      if (undef(klass) || undef(eline)) {
+       ("got no class or line ").print();
        return(-1);
      }
      
      Int line = Int.new();
-     
+     //("calling the get nlc").print();
      emit(cs) {
      """
        bevl_line.bevi_int = 

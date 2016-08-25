@@ -16,13 +16,13 @@ public class BECS_Runtime {
     
     public static bool isInitted = false;
     
-    public static BEC_5_4_LogicBool boolTrue = new BEC_5_4_LogicBool(true);
-    public static BEC_5_4_LogicBool boolFalse = new BEC_5_4_LogicBool(false);
+    public static BEC_2_5_4_LogicBool boolTrue = new BEC_2_5_4_LogicBool(true);
+    public static BEC_2_5_4_LogicBool boolFalse = new BEC_2_5_4_LogicBool(false);
     
     public static Dictionary<string, Type> typeInstances;
     
     //for setting up initial instances
-    public static BEC_6_11_SystemInitializer initializer;
+    public static BEC_2_6_11_SystemInitializer initializer;
     
     public static string platformName;
     
@@ -40,7 +40,7 @@ public class BECS_Runtime {
         typeInstances = new Dictionary<string, Type>();
         smnlcs = new Dictionary<string, int[]>();
         smnlecs = new Dictionary<string, int[]>();
-        initializer = new BEC_6_11_SystemInitializer();
+        initializer = new BEC_2_6_11_SystemInitializer();
     }
     
         
@@ -48,12 +48,16 @@ public class BECS_Runtime {
       int[] sls = smnlcs[clname];
       int[] esls = smnlecs[clname];
       if (esls != null) {
+        //Console.WriteLine("esls is not null " + clname + " val " + val);
         int eslslen = esls.Length;
         for (int i = 0;i < eslslen;i++) {
+          //Console.WriteLine("esls i " + esls[i]);
           if (esls[i] == val) {
             return sls[i];
           }
         }
+      } else {
+        //Console.WriteLine("esls is null " + clname);
       }
       return -1;
     }

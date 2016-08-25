@@ -1,21 +1,63 @@
 
-find reuse ints return passed int
+tests exceptions needs to fail if lines are < 0 
 
-ex app
+get app working
 
-add an int to name mangle at the beginning that says how many namepath parts there are, test with _ in names and class, test with exceptions, method names too?
+iterative build / syn serialization
 
-profile to see what takes time, csc mcs too, cache source file text and have a no
-output option to elimiate io
+gratuitous returns - var for untyped, rest as now (self, typed).
+   void type to allow explicit def
+   return; ok (void) (same as return(void);)
+ enable var return type
+ find and fix all cases of return without declaration
+ find and fix all cases of assign from non-declared return for typed calls
+ remove autoreturn for no declared return (void)
+ dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
+ 
+native ints (unwrapped)
+  wherever possible in typed cases, only if completely ok in mtd
 
-from profile
-code inlining, variable references from emits (incl ints)
+libs
+  lib ver/label too
+  
+stacktrace broken :-(
+
+all in browser option (load for base, etc) (?precomp base? ?base comp?)
+  just a big page with local refs
+  
+lib wide uses (libuse)
+
+text replace in emits for class, variable, method, int value names
+  
 inline int > < ==
 speed up native ints and such (using inline)
 native operations, dropping literals
  have add, subtract, multiply, divide which work on literals directly (addValue, etc) (for when a literal is just immediately used with an int, etc,
    as second arg to call)
  for all those uses, get rid of onces, constructs, tmp vars, etc
+ 
+perf tests
+embed ondemand
+golang?
+
+___________________
+
+ints not mutated and only used in non mutating int calls can be local
+  see how many there are
+bool default type, is a true and a false (only the true is true)
+
+perf tests
+
+find reuse ints return passed int
+
+profile to see what takes time, csc mcs too, cache source file text and have a no
+output option to elimiate io
+
+make equals typed or remove type checks and null checks in int and such
+  Self typing for args type == becomes classnameEquals
+
+from profile
+code inlining, variable references from emits (incl ints)
 
 libs
 all in mem parse/output for js
@@ -35,15 +77,6 @@ mutating size for map, etc, ++= everywhere
 go to int and other reuse in code as much as possible
   just look at be code efficiency (base et all)
   look at build efficiency
-
-gratuitous returns - var for untyped, rest as now (self, typed).
-   void type to allow explicit def
-   return; ok (void) (same as return(void);)
- enable var return type
- find and fix all cases of return without declaration
- find and fix all cases of assign from non-declared return for typed calls
- remove autoreturn for no declared return (void)
- dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
 
 in browser code to run
   build read from strings not just files
@@ -114,7 +147,8 @@ allcalls missing some, self ref node thinking
   when outputting calls for args make sure they have the call they are in in their allcall, also see if their allcall is null/missing/empty
 
 safe navigation (null check then call, "?.")
-
+safe equal check (?==) (not null and equals) (check just the called on?)
+  
 can, createInstance and invoke - switch to structures which don't depend on underlying reflection
 cs and jv like js for createInstance, can like invoke
 switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)

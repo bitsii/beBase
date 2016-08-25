@@ -176,9 +176,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
         //("Used lib size " + build.usedLibrarys.size).print();
         if (build.usedLibrarys.size == 0) {
-            libInit += "be_BELS_Base_BECS_Runtime.prototype.boolTrue = new be_BEL_4_Base_BEC_5_4_LogicBool().beml_set_bevi_bool(true);" += nl;
-            libInit += "be_BELS_Base_BECS_Runtime.prototype.boolFalse = new be_BEL_4_Base_BEC_5_4_LogicBool().beml_set_bevi_bool(false);" += nl;
-            libInit += "be_BELS_Base_BECS_Runtime.prototype.initializer = new be_BEL_4_Base_BEC_6_11_SystemInitializer();" += nl;
+            libInit += "be_BELS_Base_BECS_Runtime.prototype.boolTrue = new be_BEL_4_Base_BEC_2_5_4_LogicBool().beml_set_bevi_bool(true);" += nl;
+            libInit += "be_BELS_Base_BECS_Runtime.prototype.boolFalse = new be_BEL_4_Base_BEC_2_5_4_LogicBool().beml_set_bevi_bool(false);" += nl;
+            libInit += "be_BELS_Base_BECS_Runtime.prototype.initializer = new be_BEL_4_Base_BEC_2_6_11_SystemInitializer();" += nl;
         }
 
         libe.write(libInit);
@@ -211,7 +211,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     }
 
     procStartGet() String {
-        return("(new be_BEL_4_Base_BEC_6_7_SystemProcess()).bem_default_0();" + nl);
+        return("(new be_BEL_4_Base_BEC_2_6_7_SystemProcess()).bem_default_0();" + nl);
     }
 
    decForVar(String b, Build:Var v) {

@@ -84,7 +84,7 @@ final class Array {
    emit(jv,cs) {
    """
    
-    public BEC_6_6_SystemObject[] bevi_array;
+    public $class/System:Object$[] bevi_array;
     
    """
    }
@@ -92,11 +92,11 @@ final class Array {
    emit(jv) {
    """
    
-   public BEC_9_5_ContainerArray(BEC_6_6_SystemObject[] bevi_array) {
+   public $class/Container:Array$($class/System:Object$[] bevi_array) {
         this.bevi_array = bevi_array;
-        this.bevp_length = new BEC_4_3_MathInt(bevi_array.length);
-        this.bevp_capacity = new BEC_4_3_MathInt(bevi_array.length);
-        this.bevp_multiplier = new BEC_4_3_MathInt(2);
+        this.bevp_length = new $class/Math:Int$(bevi_array.length);
+        this.bevp_capacity = new $class/Math:Int$(bevi_array.length);
+        this.bevp_multiplier = new $class/Math:Int$(2);
     }
     
    """
@@ -105,11 +105,11 @@ final class Array {
    emit(cs) {
    """
    
-   public BEC_9_5_ContainerArray(BEC_6_6_SystemObject[] bevi_array) {
+   public $class/Container:Array$($class/System:Object$[] bevi_array) {
         this.bevi_array = bevi_array;
-        this.bevp_length = new BEC_4_3_MathInt(bevi_array.Length);
-        this.bevp_capacity = new BEC_4_3_MathInt(bevi_array.Length);
-        this.bevp_multiplier = new BEC_4_3_MathInt(2);
+        this.bevp_length = new $class/Math:Int$(bevi_array.Length);
+        this.bevp_capacity = new $class/Math:Int$(bevi_array.Length);
+        this.bevp_multiplier = new $class/Math:Int$(2);
     }
     
    """
@@ -118,11 +118,11 @@ final class Array {
    emit(js) {
    """
    
-    be_BEL_4_Base_BEC_9_5_ContainerArray.prototype.beml_new_array = function(bevi_array) {
+    be_BEL_4_Base_$class/Container:Array$.prototype.beml_new_array = function(bevi_array) {
         this.bevi_array = bevi_array;
-        this.bevp_length = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_array.length);
-        this.bevp_capacity = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_array.length);
-        this.bevp_multiplier = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(2);
+        this.bevp_length = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_array.length);
+        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_array.length);
+        this.bevp_multiplier = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(2);
         return(this);
     }
     
@@ -150,7 +150,7 @@ if (def(length)) {
 }
       emit(jv,cs) {
       """
-      bevi_array = new BEC_6_6_SystemObject[beva_capi.bevi_int];
+      bevi_array = new $class/System:Object$[beva_capi.bevi_int];
       """
       }
       emit(js) {

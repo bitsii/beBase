@@ -10,9 +10,9 @@ package be.BELS_Base;
 
 import java.util.*;
 
-import be.BEL_4_Base.BEC_6_6_SystemObject;
-import be.BEL_4_Base.BEC_5_4_LogicBool;
-import be.BEL_4_Base.BEC_6_11_SystemInitializer;
+import be.BEL_4_Base.BEC_2_6_6_SystemObject;
+import be.BEL_4_Base.BEC_2_5_4_LogicBool;
+import be.BEL_4_Base.BEC_2_6_11_SystemInitializer;
 
 //This should be the var type to avoid unnecessary casting
 //if we want to optimize "object" level calls we can put the signatures
@@ -24,13 +24,13 @@ public class BECS_Runtime {
     
     public static boolean isInitted = false;
    
-    public static BEC_5_4_LogicBool boolTrue = new BEC_5_4_LogicBool(true);
-    public static BEC_5_4_LogicBool boolFalse = new BEC_5_4_LogicBool(false);
+    public static BEC_2_5_4_LogicBool boolTrue = new BEC_2_5_4_LogicBool(true);
+    public static BEC_2_5_4_LogicBool boolFalse = new BEC_2_5_4_LogicBool(false);
     
     public static Map<String, Class> typeInstances;
     
     //for setting up initial instances
-    public static BEC_6_11_SystemInitializer initializer;
+    public static BEC_2_6_11_SystemInitializer initializer;
     
     public static String platformName;
     
@@ -48,7 +48,7 @@ public class BECS_Runtime {
         typeInstances = new HashMap<String, Class>();
         smnlcs = new HashMap<String, int[]>();
         smnlecs = new HashMap<String, int[]>();
-        initializer = new BEC_6_11_SystemInitializer();
+        initializer = new BEC_2_6_11_SystemInitializer();
     }
     
     public static int getNlcForNlec(String clname, int val) {

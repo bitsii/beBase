@@ -30,7 +30,7 @@ final class Int {
    """
    
     public int bevi_int;
-    public BEC_4_3_MathInt(int bevi_int) { this.bevi_int = bevi_int; }
+    public $class/Math:Int$(int bevi_int) { this.bevi_int = bevi_int; }
     
    """
    }
@@ -38,7 +38,7 @@ final class Int {
    emit(js) {
    """
    
-    be_BEL_4_Base_BEC_4_3_MathInt.prototype.beml_set_bevi_int = function(bevi_int) {
+    be_BEL_4_Base_$class/Math:Int$.prototype.beml_set_bevi_int = function(bevi_int) {
         this.bevi_int = bevi_int;
         return this;
     }
@@ -613,14 +613,14 @@ this.bevi_int = beva_xi.bevi_int;
       }
       emit(jv) {
       """
-      if (beva_xi instanceof BEC_4_3_MathInt && this.bevi_int == ((BEC_4_3_MathInt)beva_xi).bevi_int) {
+      if (beva_xi instanceof $class/Math:Int$ && this.bevi_int == (($class/Math:Int$)beva_xi).bevi_int) {
         return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(cs) {
       """
-      var bevls_xi = beva_xi as BEC_4_3_MathInt;
+      var bevls_xi = beva_xi as $class/Math:Int$;
       if (bevls_xi != null && this.bevi_int == bevls_xi.bevi_int) {
         return be.BELS_Base.BECS_Runtime.boolTrue;
       }
@@ -645,14 +645,14 @@ this.bevi_int = beva_xi.bevi_int;
       }
       emit(jv) {
       """
-      if (!(beva_xi instanceof BEC_4_3_MathInt) || this.bevi_int != ((BEC_4_3_MathInt)beva_xi).bevi_int) {
+      if (!(beva_xi instanceof $class/Math:Int$) || this.bevi_int != (($class/Math:Int$)beva_xi).bevi_int) {
         return be.BELS_Base.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(cs) {
       """
-      var bevls_xi = beva_xi as BEC_4_3_MathInt;
+      var bevls_xi = beva_xi as $class/Math:Int$;
       if (bevls_xi == null || this.bevi_int != bevls_xi.bevi_int) {
         return be.BELS_Base.BECS_Runtime.boolTrue;
       }

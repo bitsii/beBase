@@ -8,7 +8,7 @@
 
 package be.BELS_Base;
 
-import be.BEL_4_Base.BEC_6_6_SystemObject;
+import be.BEL_4_Base.BEC_2_6_6_SystemObject;
 
 import java.util.*;
 

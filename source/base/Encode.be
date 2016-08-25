@@ -103,12 +103,12 @@ use local class Digest:SHA256 {
         emit(jv) {
         """
         bevi_md.update(beva_with.bevi_bytes, 0, beva_with.bevp_size.bevi_int);
-        bevl_res = new BEC_4_6_TextString(bevi_md.digest());
+        bevl_res = new $class/Text:String$(bevi_md.digest());
         """
         }
         emit(cs) {
         """
-        bevl_res = new BEC_4_6_TextString(
+        bevl_res = new $class/Text:String$(
           bevi_md.ComputeHash(beva_with.bevi_bytes, 0, beva_with.bevp_size.bevi_int)
         );
         """

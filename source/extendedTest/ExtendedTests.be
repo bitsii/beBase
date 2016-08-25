@@ -38,6 +38,13 @@ class Test:ExtendedTest:EC(BaseTest) {
    innerMain() {
    
       ("Test:ExtendedTest:Ec:main").print();
+      
+      emit(cs) {
+        """
+        // HERES THE CLASS REPLACE
+        $class/Text:String$ astring = new $class/Text:String$("hi");
+        """
+      }
    
       //TESTS START HERE
       
@@ -64,7 +71,8 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       //blarg;
       //testNullEquals();
-      //Tests:Exceptions.new().main();
+      
+      Tests:Exceptions.new().main();
       
       //if (true) { return(self); }
    

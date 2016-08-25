@@ -378,8 +378,8 @@ void** bevl_mpath;
         emit(jv) {
         """
         java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
-        //bevl_abstr = new BEC_4_6_TextString(bevls_f.toPath().toRealPath().toString());
-        bevl_abstr = new BEC_4_6_TextString(bevls_f.getCanonicalPath());
+        //bevl_abstr = new $class/Text:String$(bevls_f.toPath().toRealPath().toString());
+        bevl_abstr = new $class/Text:String$(bevls_f.getCanonicalPath());
         """
         }
       }
@@ -410,7 +410,7 @@ use final class System:Environment {
         """
             string value = Environment.GetEnvironmentVariable(beva_name.bems_toCsString());
             if (value != null) {
-                bevl_value = new BEC_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(value));
+                bevl_value = new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(value));
             }
         """
         }
@@ -418,7 +418,7 @@ use final class System:Environment {
         """
             String value = System.getenv().get(beva_name.bems_toJvString());
             if (value != null) {
-                bevl_value = new BEC_4_6_TextString(value);
+                bevl_value = new $class/Text:String$(value);
             }
         """
         }
@@ -485,7 +485,7 @@ final class DirectoryIterator {
       """
       bevi_dir = Directory.EnumerateFileSystemEntries(bevl_path.bems_toCsString(), "*", SearchOption.TopDirectoryOnly).GetEnumerator();
       if (bevi_dir.MoveNext()) {
-        bevl_newName = new BEC_4_6_TextString(bevi_dir.Current);
+        bevl_newName = new $class/Text:String$(bevi_dir.Current);
       }
       """
       }
@@ -495,7 +495,7 @@ final class DirectoryIterator {
       bevi_dir = bevls_f.listFiles();
       bevi_pos = 0;
       if (bevi_dir != null && bevi_dir.length > bevi_pos) {
-        bevl_newName = new BEC_4_6_TextString(bevi_dir[bevi_pos].getPath());
+        bevl_newName = new $class/Text:String$(bevi_dir[bevi_pos].getPath());
         bevi_pos++;
       }
       """
@@ -535,14 +535,14 @@ final class DirectoryIterator {
       emit(cs) {
       """
       if (bevi_dir.MoveNext()) {
-        bevl_newName = new BEC_4_6_TextString(bevi_dir.Current);
+        bevl_newName = new $class/Text:String$(bevi_dir.Current);
       }
       """
       }
       emit(jv) {
       """
       if (bevi_dir != null && bevi_dir.length > bevi_pos) {
-        bevl_newName = new BEC_4_6_TextString(bevi_dir[bevi_pos].getPath());
+        bevl_newName = new $class/Text:String$(bevi_dir[bevi_pos].getPath());
         bevi_pos++;
       }
       """

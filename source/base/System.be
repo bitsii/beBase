@@ -567,18 +567,18 @@ final class System:CurrentPlatform (System:Platform) {
                 String platformName;
                 emit(jv) {
                 """
-                    bevl_platformName = new BEC_4_6_TextString(be.BELS_Base.BECS_Runtime.platformName.getBytes("UTF-8"));
+                    bevl_platformName = new $class/Text:String$(be.BELS_Base.BECS_Runtime.platformName.getBytes("UTF-8"));
                 """
                 }
                 emit(cs) {
                 """
-                    bevl_platformName = new BEC_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(be.BELS_Base.BECS_Runtime.platformName));
+                    bevl_platformName = new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(be.BELS_Base.BECS_Runtime.platformName));
                 """
                 }
                 emit(js) {
                 """
                     bevls_name = this.bems_stringToBytes_1(be_BELS_Base_BECS_Runtime.prototype.platformName);
-                    bevl_platformName = new be_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(bevls_name, bevls_name.length);
+                    bevl_platformName = new be_BEL_4_Base_$class/Text:String$().beml_set_bevi_bytes_len_copy(bevls_name, bevls_name.length);
                 """
                 }
                 setName(platformName);
@@ -669,7 +669,7 @@ use local class System:ThinThread {
    """
    volatile public Thread bevi_thread;
    public static void bems_run(object sysThreadInst) {
-     BEC_6_10_SystemThinThread st = (BEC_6_10_SystemThinThread) sysThreadInst;
+     $class/System:ThinThread$ st = ($class/System:ThinThread$) sysThreadInst;
      st.bem_main_0();
    }
    """
@@ -678,8 +678,8 @@ use local class System:ThinThread {
    """
    volatile public Thread bevi_thread;
    static class BECS_Runnable implements Runnable {
-    volatile BEC_6_10_SystemThinThread bevi_sysThread = null;
-    BECS_Runnable(BEC_6_10_SystemThinThread bevi_sysThread) {
+    volatile $class/System:ThinThread$ bevi_sysThread = null;
+    BECS_Runnable($class/System:ThinThread$ bevi_sysThread) {
       this.bevi_sysThread = bevi_sysThread;
     }
     public void run() {
@@ -702,7 +702,7 @@ use local class System:ThinThread {
    start() self {
      emit(cs) {
      """
-     bevi_thread = new Thread(BEC_6_10_SystemThinThread.bems_run);
+     bevi_thread = new Thread($class/System:ThinThread$.bems_run);
      bevi_thread.Start(this);
      """
      }

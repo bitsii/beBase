@@ -71,29 +71,29 @@ final class String {
    """
    
     public byte[] bevi_bytes;
-    public BEC_4_6_TextString(byte[] bevi_bytes) {
+    public $class/Text:String$(byte[] bevi_bytes) {
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new BEC_4_3_MathInt(bevi_bytes.length);
-        bevp_capacity = new BEC_4_3_MathInt(bevi_bytes.length);
+        bevp_size = new $class/Math:Int$(bevi_bytes.length);
+        bevp_capacity = new $class/Math:Int$(bevi_bytes.length);
     }
-    public BEC_4_6_TextString(byte[] bevi_bytes, int bevi_length) {
+    public $class/Text:String$(byte[] bevi_bytes, int bevi_length) {
         //no copy, isOnce
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new BEC_4_3_MathInt(bevi_length);
-        bevp_capacity = new BEC_4_3_MathInt(bevi_length);
+        bevp_size = new $class/Math:Int$(bevi_length);
+        bevp_capacity = new $class/Math:Int$(bevi_length);
     }
-    public BEC_4_6_TextString(int bevi_length, byte[] bevi_bytes) {
+    public $class/Text:String$(int bevi_length, byte[] bevi_bytes) {
         //do copy, not isOnce
         this.bevi_bytes = new byte[bevi_length];
         System.arraycopy( bevi_bytes, 0, this.bevi_bytes, 0, bevi_length );
-        bevp_size = new BEC_4_3_MathInt(bevi_length);
-        bevp_capacity = new BEC_4_3_MathInt(bevi_length);
+        bevp_size = new $class/Math:Int$(bevi_length);
+        bevp_capacity = new $class/Math:Int$(bevi_length);
     }
-    public BEC_4_6_TextString(String bevi_string) throws Exception {
+    public $class/Text:String$(String bevi_string) throws Exception {
         byte[] bevi_bytes = bevi_string.getBytes("UTF-8");
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new BEC_4_3_MathInt(bevi_bytes.length);
-        bevp_capacity = new BEC_4_3_MathInt(bevi_bytes.length);
+        bevp_size = new $class/Math:Int$(bevi_bytes.length);
+        bevp_capacity = new $class/Math:Int$(bevi_bytes.length);
     }
     public String bems_toJvString() throws Exception {
         String jvString = new String(bevi_bytes, 0, bevp_size.bevi_int, "UTF-8");
@@ -107,29 +107,29 @@ final class String {
    """
    
     public byte[] bevi_bytes;
-    public BEC_4_6_TextString(byte[] bevi_bytes) { 
+    public $class/Text:String$(byte[] bevi_bytes) { 
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new BEC_4_3_MathInt(bevi_bytes.Length);
-        bevp_capacity = new BEC_4_3_MathInt(bevi_bytes.Length);
+        bevp_size = new $class/Math:Int$(bevi_bytes.Length);
+        bevp_capacity = new $class/Math:Int$(bevi_bytes.Length);
     }
-    public BEC_4_6_TextString(byte[] bevi_bytes, int bevi_length) { 
+    public $class/Text:String$(byte[] bevi_bytes, int bevi_length) { 
         //no copy, isOnce
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new BEC_4_3_MathInt(bevi_length);
-        bevp_capacity = new BEC_4_3_MathInt(bevi_length);
+        bevp_size = new $class/Math:Int$(bevi_length);
+        bevp_capacity = new $class/Math:Int$(bevi_length);
     }
-    public BEC_4_6_TextString(int bevi_length, byte[] bevi_bytes) { 
+    public $class/Text:String$(int bevi_length, byte[] bevi_bytes) { 
         //do copy, not isOnce
         this.bevi_bytes = new byte[bevi_length];
         Array.Copy( bevi_bytes, 0, this.bevi_bytes, 0, bevi_length );
-        bevp_size = new BEC_4_3_MathInt(bevi_length);
-        bevp_capacity = new BEC_4_3_MathInt(bevi_length);
+        bevp_size = new $class/Math:Int$(bevi_length);
+        bevp_capacity = new $class/Math:Int$(bevi_length);
     }
-    public BEC_4_6_TextString(string bevi_string) {
+    public $class/Text:String$(string bevi_string) {
         byte[] bevi_bytes = System.Text.Encoding.UTF8.GetBytes(bevi_string);
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new BEC_4_3_MathInt(bevi_bytes.Length);
-        bevp_capacity = new BEC_4_3_MathInt(bevi_bytes.Length);
+        bevp_size = new $class/Math:Int$(bevi_bytes.Length);
+        bevp_capacity = new $class/Math:Int$(bevi_bytes.Length);
     }
     public string bems_toCsString() {
         string csString = System.Text.Encoding.UTF8.GetString(bevi_bytes, 0, bevp_size.bevi_int);
@@ -142,28 +142,28 @@ final class String {
    emit(js) {
    """
    
-    be_BEL_4_Base_BEC_4_6_TextString.prototype.beml_set_bevi_bytes = function(bevi_bytes) {
+    be_BEL_4_Base_$class/Text:String$.prototype.beml_set_bevi_bytes = function(bevi_bytes) {
         this.bevi_bytes = bevi_bytes;
-        this.bevp_size = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_bytes.length);
-        this.bevp_capacity = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_bytes.length);
+        this.bevp_size = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_bytes.length);
+        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_bytes.length);
         return this;
     }
-    be_BEL_4_Base_BEC_4_6_TextString.prototype.beml_set_bevi_bytes_len = function(bevi_bytes, bevi_length) {
+    be_BEL_4_Base_$class/Text:String$.prototype.beml_set_bevi_bytes_len = function(bevi_bytes, bevi_length) {
         this.bevi_bytes = bevi_bytes;
-        this.bevp_size = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
-        this.bevp_capacity = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
+        this.bevp_size = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         return this;
     }
-    be_BEL_4_Base_BEC_4_6_TextString.prototype.beml_set_bevi_bytes_len_copy = function(bevi_bytes, bevi_length) {
+    be_BEL_4_Base_$class/Text:String$.prototype.beml_set_bevi_bytes_len_copy = function(bevi_bytes, bevi_length) {
         this.bevi_bytes = bevi_bytes.slice(0);
-        this.bevp_size = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
-        this.bevp_capacity = new be_BEL_4_Base_BEC_4_3_MathInt().beml_set_bevi_int(bevi_length);
+        this.bevp_size = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         return this;
     }
-    be_BEL_4_Base_BEC_4_6_TextString.prototype.bems_toJsString = function() {
+    be_BEL_4_Base_$class/Text:String$.prototype.bems_toJsString = function() {
         return this.bems_stringToJsString_1(this);
     }
-    be_BEL_4_Base_BEC_4_6_TextString.prototype.bems_new = function(str) {
+    be_BEL_4_Base_$class/Text:String$.prototype.bems_new = function(str) {
       this.beml_set_bevi_bytes(this.bems_stringToBytes_1(str));
       return this;
     }
@@ -770,8 +770,8 @@ BEINT bevl_val;
    }
    emit(jv) {
   """
-  if (beva_stri instanceof BEC_4_6_TextString) {
-    BEC_4_6_TextString bevls_stri = (BEC_4_6_TextString) beva_stri;
+  if (beva_stri instanceof $class/Text:String$) {
+    $class/Text:String$ bevls_stri = ($class/Text:String$) beva_stri;
     if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
        for (int i = 0;i < this.bevp_size.bevi_int;i++) {
           if (this.bevi_bytes[i] != bevls_stri.bevi_bytes[i]) {
@@ -785,7 +785,7 @@ BEINT bevl_val;
   }
   emit(cs) {
   """
-  var bevls_stri = beva_stri as BEC_4_6_TextString;
+  var bevls_stri = beva_stri as $class/Text:String$;
   if (bevls_stri != null) {
     if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
        for (int i = 0;i < this.bevp_size.bevi_int;i++) {

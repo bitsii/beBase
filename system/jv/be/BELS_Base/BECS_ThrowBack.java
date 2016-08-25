@@ -8,14 +8,14 @@
 
 package be.BELS_Base;
 
-import be.BEL_4_Base.BEC_6_6_SystemObject;
-import be.BEL_4_Base.BEC_6_9_SystemException;
-import be.BEL_4_Base.BEC_4_6_TextString;
-import be.BEL_4_Base.BEC_4_3_MathInt;
+import be.BEL_4_Base.BEC_2_6_6_SystemObject;
+import be.BEL_4_Base.BEC_2_6_9_SystemException;
+import be.BEL_4_Base.BEC_2_4_6_TextString;
+import be.BEL_4_Base.BEC_2_4_3_MathInt;
 
 public class BECS_ThrowBack extends RuntimeException {
     
-    public static BEC_6_6_SystemObject handleThrow(Throwable theThrow) throws Throwable {
+    public static BEC_2_6_6_SystemObject handleThrow(Throwable theThrow) throws Throwable {
         //will return a systemobject/except type
         //the call will get the stack trace, if thethings is of the right type (throwback
         //with a thrown which is an except) that will be populated, otherwise, an appropro
@@ -31,31 +31,31 @@ public class BECS_ThrowBack extends RuntimeException {
             //comment these when all done wrapping/handling cases
             //System.err.println(theThrow.getMessage());
             //theThrow.printStackTrace();
-            BEC_6_6_SystemObject thrown;
+            BEC_2_6_6_SystemObject thrown;
             if (theThrow instanceof BECS_ThrowBack) {
               thrown = ((BECS_ThrowBack)theThrow).thrown;
             } else {
-              BEC_6_9_SystemException throwne = new BEC_6_9_SystemException();
+              BEC_2_6_9_SystemException throwne = new BEC_2_6_9_SystemException();
               if (theThrow.getMessage() == null) {
                 throwne.bem_new_0();
               } else {
-                throwne.bem_new_1(new BEC_4_6_TextString(theThrow.getMessage()));
+                throwne.bem_new_1(new BEC_2_4_6_TextString(theThrow.getMessage()));
               }
               thrown = throwne;
             }
-            if (thrown instanceof BEC_6_9_SystemException) {
-                BEC_6_9_SystemException bes = (BEC_6_9_SystemException)thrown;
+            if (thrown instanceof BEC_2_6_9_SystemException) {
+                BEC_2_6_9_SystemException bes = (BEC_2_6_9_SystemException)thrown;
                 try {
                   //setup stack trace
-                  BEC_4_6_TextString lang = new BEC_4_6_TextString("jv");
+                  BEC_2_4_6_TextString lang = new BEC_2_4_6_TextString("jv");
                   bes.bem_langSet_1(lang);
                   StackTraceElement[] jframes = theThrow.getStackTrace();
                   for (int i = 0;i < jframes.length;i++) {
                       StackTraceElement jf = jframes[i];
-                      bes.bem_addFrame_4(new BEC_4_6_TextString(jf.getClassName()),
-                                          new BEC_4_6_TextString(jf.getMethodName()),
-                                          new BEC_4_6_TextString(jf.getFileName()),
-                                          new BEC_4_3_MathInt(jf.getLineNumber()));
+                      bes.bem_addFrame_4(new BEC_2_4_6_TextString(jf.getClassName()),
+                                          new BEC_2_4_6_TextString(jf.getMethodName()),
+                                          new BEC_2_4_6_TextString(jf.getFileName()),
+                                          new BEC_2_4_3_MathInt(jf.getLineNumber()));
                   }
                 } catch (Exception sfe) { }
                 return bes;
@@ -70,11 +70,11 @@ public class BECS_ThrowBack extends RuntimeException {
         return null;
     }
     
-    public BEC_6_6_SystemObject thrown;
+    public BEC_2_6_6_SystemObject thrown;
     
     public BECS_ThrowBack() { }
     
-    public BECS_ThrowBack(BEC_6_6_SystemObject thrown) {
+    public BECS_ThrowBack(BEC_2_6_6_SystemObject thrown) {
         this.thrown = thrown;
     }
     

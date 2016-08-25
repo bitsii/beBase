@@ -333,9 +333,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             String lineInfo = "/* BEGIN LINEINFO " += nl;
             foreach (Node cc in classCalls) {
+               //("got a classcall!!!!!!!!!!!1").print();
                 cc.nlec += lineCount;
                 cc.nlec++=;
                 if (undef(lastNlc) || lastNlc != cc.nlc || lastNlec != cc.nlec) {
+                    //("got a nlc!!!!!!!!!!!1").print();
                     //if(emitting("jv") || emitting("cs")) {
                         if (firstNlc) {
                           firstNlc = false;
@@ -352,6 +354,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 lineInfo += cc.held.orgName += " " += cc.held.numargs += " " += cc.nlc += " " += cc.nlec += nl;
             }
             lineInfo += "END LINEINFO */" += nl;
+            
+            //("nlcs " + nlcs + " nlecs " + nlecs).print();
             
             String nlcNName = getClassConfig(clnode.held.namepath).relEmitName(build.libName) + ".";
             
@@ -384,6 +388,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
               methods += " = [" += nlcs += "];" += nl;
             }
             if(emitting("cs")) {
+              //("nlcs " + nlcs + " nlecs " + nlecs).print();
               if (csyn.namepath == objectNp) {
                methods += "public static int[] bevs_smnlec" += nl;
               } else {
@@ -605,7 +610,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
     
     procStartGet() String {
-        return("(new be.BEL_4_Base.BEC_6_7_SystemProcess()).bem_default_0();" + nl);
+        return("(new be.BEL_4_Base.BEC_2_6_7_SystemProcess()).bem_default_0();" + nl);
     }
     
     mainInClassGet() Bool {
@@ -781,7 +786,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
          for (te = te.iterator;te.hasNext;;) {
             var jn = te.next;
             if (jn.held.langs.has(self.emitLang)) {
-                preClass += jn.held.text;
+                preClass += emitReplace(jn.held.text);
             }
          }
       }
@@ -800,7 +805,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             //figure out what vars are native
             nativeCSlots = getNativeCSlots(innode.held.text);
             if (innode.held.langs.has(inlang)) {
-                classEmits += innode.held.text;
+                classEmits += emitReplace(innode.held.text);
             }
           }
        }
@@ -1670,8 +1675,48 @@ buildClassInfoMethod(String belsBase) {
    
    acceptEmit(Node node) {
      if (node.held.langs.has(self.emitLang)) {
-        methodBody += node.held.text;
+        methodBody += emitReplace(node.held.text);
      }
+   }
+   
+   emitReplace(String text) String {
+     Int state = 0;
+     Text:Tokenizer emitTok = Text:Tokenizer.new("$/", true);
+     LinkedList toks = emitTok.tokenize(text);
+     if (text.has("/*-attr- -noreplace-*/") || text.has("$")!) {
+       return(text);
+     }
+     String rtext = String.new();
+     foreach (String tok in toks) {
+       if (state == 0 && tok == "$") {
+         //("FOUND A $ IN AN EMIT!!!!").print();
+         state = 1;
+       } elif (state == 1) {
+         if (tok == "class") {
+           String type = "class";
+           state = 2;
+         }
+       } elif (state == 2) {
+         //don't really do anything, / separator
+         state = 3;
+       } elif (state == 3) {
+         String value = tok;
+         if (type == "class") {
+          //("DO CLASS REPLACE FOR " + tok).print();
+          NamePath np = NamePath.new(tok);
+          String rep = getEmitName(np);
+          //("RES IS " + rep).print();
+          rtext += rep;
+         }
+         state = 4;
+       } elif (state == 4) {
+         //don't really do anything, trailing $
+         state = 0;
+       } else {
+         rtext += tok;
+       }
+     }
+     return(rtext);
    }
    
    acceptIfEmit(Node node) {
@@ -1814,7 +1859,8 @@ buildClassInfoMethod(String belsBase) {
       String suf = "";
       foreach (String step in np.steps) {
          if (pref != "") { pref = pref + "_"; }
-         else { suf = "_"; }
+         //else { suf = "_"; } //old way, no count of steps, has ambiguous cases
+         else { pref = np.steps.size.toString() + "_"; suf = "_"; }  //new way, prevents ambiguous cases
          pref = pref + step.size;
          suf = suf + step;
       }

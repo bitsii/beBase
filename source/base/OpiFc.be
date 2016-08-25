@@ -143,7 +143,7 @@ void** bevl_ind;
           for (int i = 0;i < fields.length;i++) {
             if (fields[i].getName().startsWith(prefix)) {
                 if (numfields == bevl__pos.bevi_int) {
-                    bevl_inst = (BEC_6_6_SystemObject) (fields[i].get(bevl__instance));
+                    bevl_inst = ($class/System:Object$) (fields[i].get(bevl__instance));
                     break;
                 }
                 numfields++;
@@ -159,7 +159,7 @@ void** bevl_ind;
           for (int i = 0;i < fields.Length;i++) {
             if (fields[i].Name.StartsWith(prefix)) {
                 if (numfields == bevl__pos.bevi_int) {
-                    bevl_inst = (BEC_6_6_SystemObject) (fields[i].GetValue(bevl__instance));
+                    bevl_inst = ($class/System:Object$) (fields[i].GetValue(bevl__instance));
                     break;
                 }
                 numfields++;
@@ -256,15 +256,15 @@ final class ForwardCall {
    emit(js) {
    """
    
-    be_BEL_4_Base_BEC_6_11_SystemForwardCall.prototype.beml_new_forward = function(name, args) {
+    be_BEL_4_Base_$class/System:ForwardCall$.prototype.beml_new_forward = function(name, args) {
         
         //substring name
         name = name.substring(0, name.lastIndexOf("_"));
         //make it bytes, then our string
         name = this.bems_stringToBytes_1(name);
-        name = new be_BEL_4_Base_BEC_4_6_TextString().beml_set_bevi_bytes_len_copy(name, name.length);
+        name = new be_BEL_4_Base_$class/Text:String$().beml_set_bevi_bytes_len_copy(name, name.length);
         
-        args = new be_BEL_4_Base_BEC_9_5_ContainerArray().beml_new_array(args);
+        args = new be_BEL_4_Base_$class/Container:Array$().beml_new_array(args);
         
         this.bem_new_2(name,  args);
         
@@ -278,9 +278,9 @@ final class ForwardCall {
    emit(jv) {
    """
    
-   public BEC_6_11_SystemForwardCall(String name, BEC_6_6_SystemObject[] args) throws Throwable {
+   public $class/System:ForwardCall$(String name, $class/System:Object$[] args) throws Throwable {
         name = name.substring(0, name.lastIndexOf("_"));
-        bem_new_2(new BEC_4_6_TextString(name.getBytes("UTF-8")), new BEC_9_5_ContainerArray(args));
+        bem_new_2(new $class/Text:String$(name.getBytes("UTF-8")), new $class/Container:Array$(args));
    }
    
    """
@@ -289,9 +289,9 @@ final class ForwardCall {
    emit(cs) {
    """
    
-   public BEC_6_11_SystemForwardCall(string name, BEC_6_6_SystemObject[] args) {
+   public $class/System:ForwardCall$(string name, $class/System:Object$[] args) {
         name = name.Substring(0, name.LastIndexOf("_"));
-        bem_new_2(new BEC_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(name)), new BEC_9_5_ContainerArray(args));
+        bem_new_2(new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(name)), new $class/Container:Array$(args));
    }
    
    """

@@ -15,7 +15,7 @@ final class Bool {
    """
    
     public boolean bevi_bool;
-    public BEC_5_4_LogicBool(boolean bevi_bool) { this.bevi_bool = bevi_bool; }
+    public $class/Logic:Bool$(boolean bevi_bool) { this.bevi_bool = bevi_bool; }
     
    """
    }
@@ -24,7 +24,7 @@ final class Bool {
    """
    
     public bool bevi_bool;
-    public BEC_5_4_LogicBool(bool bevi_bool) { this.bevi_bool = bevi_bool; }
+    public $class/Logic:Bool$(bool bevi_bool) { this.bevi_bool = bevi_bool; }
     
    """
    }
@@ -32,7 +32,7 @@ final class Bool {
    emit(js) {
    """
    
-    be_BEL_4_Base_BEC_5_4_LogicBool.prototype.beml_set_bevi_bool = function(bevi_bool) {
+    be_BEL_4_Base_$class/Logic:Bool$.prototype.beml_set_bevi_bool = function(bevi_bool) {
         this.bevi_bool = bevi_bool;
         return this;
     }
