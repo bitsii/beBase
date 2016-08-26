@@ -1,7 +1,5 @@
 
-tests exceptions needs to fail if lines are < 0 
-
-get app working
+tests exceptions needs to fail if all lines are < 0 
 
 iterative build / syn serialization
 

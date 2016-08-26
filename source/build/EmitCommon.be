@@ -1137,7 +1137,7 @@ buildClassInfoMethod(String belsBase) {
              Int methodsOffset = countLines(methods, lastMethodsSize);
              methodsOffset += lastMethodsLines;
              lastMethodsLines = methodsOffset;
-             lastMethodsSize = methods.size;
+             lastMethodsSize = methods.size.copy();
              
              //get methods offset, go through calls in body, add offset, move body calls to class calls
              //Int methodsOffset = countLines(methods);
@@ -1177,8 +1177,8 @@ buildClassInfoMethod(String belsBase) {
     Int found = 0;
     Int nlval = nl.getInt(0, Int.new());
     Int cursor = Int.new();
-    Int slen = text.size;
-    for (Int i = start;i < slen;i++=;) {
+    Int slen = text.size.copy();
+    for (Int i = start.copy();i < slen;i++=;) {
       text.getInt(i, cursor);
       if (cursor == nlval) {
         found++=;
@@ -1290,7 +1290,7 @@ buildClassInfoMethod(String belsBase) {
       
       Int moreLines = countLines(methodBody, lastMethodBodySize);
       lastMethodBodyLines = lastMethodBodyLines + moreLines;
-      lastMethodBodySize = methodBody.size;
+      lastMethodBodySize = methodBody.size.copy();
       
       node.nlec = lastMethodBodyLines;
       //node.nlec = countLines(methodBody);
