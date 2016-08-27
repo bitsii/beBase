@@ -1280,6 +1280,14 @@ buildClassInfoMethod(String belsBase) {
    
    acceptCall(Node node) {
    
+      foreach (Node cci in node.contained) {
+            if (cci.typename == ntypes.VAR) {
+               if (cci.held.allCalls.has(node)!) {
+                throw(VisitError.new("VAR DOES NOT HAVE MY CALL " + node.held.name + node.toString(), cci));
+               }
+            }
+         }
+   
       callNames.put(node.held.name);
    
       lastCall = node;

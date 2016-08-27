@@ -1,8 +1,4 @@
-
-javascript has the lib on it literally in the macro
-
-iterative build / syn serialization
-
+  
 gratuitous returns - var for untyped, rest as now (self, typed).
    void type to allow explicit def
    return; ok (void) (same as return(void);)
@@ -15,17 +11,15 @@ gratuitous returns - var for untyped, rest as now (self, typed).
 native ints (unwrapped)
   wherever possible in typed cases, only if completely ok in mtd
 
+javascript has the lib on it literally in the macro
+
 libs
   lib ver/label too
-  
-stacktrace broken :-(
 
 all in browser option (load for base, etc) (?precomp base? ?base comp?)
   just a big page with local refs
   
 lib wide uses (libuse)
-
-text replace in emits for class, variable, method, int value names
   
 inline int > < ==
 speed up native ints and such (using inline)
