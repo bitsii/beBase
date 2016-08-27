@@ -291,6 +291,7 @@ class System:Exception {
    framesGet() LinkedList {
     //translate frames from emit lang to be if needed
     //will get from existing frames or from frame text depending on lang
+    translateEmittedException();
     return(frames);
    }
    
@@ -360,7 +361,7 @@ final class System:ExceptionBuilder {
    getLineForEmitLine(String klass, Int eline) Int {
    
      if (undef(klass) || undef(eline)) {
-       ("got no class or line ").print();
+       //("got no class or line ").print();
        return(-1);
      }
      

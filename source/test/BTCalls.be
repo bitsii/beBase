@@ -297,14 +297,18 @@ class Tests:Exceptions(BaseTest) {
       
       //bad.line;
       
-      Logic:Bool caught = false;
+      Logic:Bool ok = false;
       try {
         thrower();
       } catch (var e) {
-        caught = true;
+        foreach (var ef in e.frames) {
+          if (ef.line > 0) {
+            ok = true;
+          }
+        }
         e.print();
       }
-      assertTrue(caught);
+      assertTrue(ok);
       testNEType();
       testEType();
     }

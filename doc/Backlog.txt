@@ -1,5 +1,5 @@
 
-tests exceptions needs to fail if all lines are < 0 
+javascript has the lib on it literally in the macro
 
 iterative build / syn serialization
 
