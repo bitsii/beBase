@@ -1,15 +1,31 @@
   
-gratuitous returns - var for untyped, rest as now (self, typed).
-   void type to allow explicit def
-   return; ok (void) (same as return(void);)
- enable var return type
- find and fix all cases of return without declaration
- find and fix all cases of assign from non-declared return for typed calls
- remove autoreturn for no declared return (void)
- dynamic calls return self or null? one of them... self, consistent with now, but changes behavior... or null instead?
- 
-native ints (unwrapped)
-  wherever possible in typed cases, only if completely ok in mtd
+faster ints
+  just all in method when possible
+    possible == list of ok calls and patterns (for which there is an impl)
+      some news (literal val)
+      non-mutating changes
+      when not an arg or property
+      int properties which are otherwise ok and in final or lib can be native
+        log a message for class and property for why not
+        see if faster with string and array not mutating len and size when native
+      args which are otherwise ok can be derefed and native
+      array references
+      
+gratuitous returns
+  if self typed, current behavior
+  if void typed, no return, void in declaration
+    return null from untyped (and js)
+  
+  get working with explicit void
+  switch default when not dec to void/get working
+      
+replace all array iterations with int count loop
+
+proper perf test suite
+
+operator self typing for args type == becomes {classname}Equals
+  of both of same type and class has that method
+  same with not equals
 
 javascript has the lib on it literally in the macro
 
@@ -21,32 +37,14 @@ all in browser option (load for base, etc) (?precomp base? ?base comp?)
   
 lib wide uses (libuse)
   
-inline int > < ==
-speed up native ints and such (using inline)
-native operations, dropping literals
- have add, subtract, multiply, divide which work on literals directly (addValue, etc) (for when a literal is just immediately used with an int, etc,
-   as second arg to call)
- for all those uses, get rid of onces, constructs, tmp vars, etc
- 
-perf tests
 embed ondemand
 golang?
 
 ___________________
 
-ints not mutated and only used in non mutating int calls can be local
-  see how many there are
 bool default type, is a true and a false (only the true is true)
 
-perf tests
-
-find reuse ints return passed int
-
-profile to see what takes time, csc mcs too, cache source file text and have a no
-output option to elimiate io
-
-make equals typed or remove type checks and null checks in int and such
-  Self typing for args type == becomes classnameEquals
+profile to see what takes time
 
 from profile
 code inlining, variable references from emits (incl ints)
@@ -133,11 +131,6 @@ for native langs (esp js) generate stubs with "literal names" - ?vars, def metho
 
 classNameSerializationIterator (same treatment as classNameIterator)
 
-allcalls missing some, self ref node thinking
-  check emit against allcalls, error if missing
-  might be identity issue with map
-  when outputting calls for args make sure they have the call they are in in their allcall, also see if their allcall is null/missing/empty
-
 safe navigation (null check then call, "?.")
 safe equal check (?==) (not null and equals) (check just the called on?)
   
@@ -161,7 +154,6 @@ javascript webworker concurrency, same model for cs/jv
   inbox or queue?
 
 date strings
-network sockets
 
 FASTER if closelib and isFinal or isLocal and call is empty skip it altogether (create, once, many, etc)
 
@@ -200,10 +192,8 @@ see how typescript and dart translate into js
 
 clocker iterator, share lock with clocker
 
-for buid to be threadsafe,
+for build to be threadsafe,
    nodes and syns needs threadsafe fixes
-
-finish notnull cleanup (reused by default logic, but improperly named, still looked for compile, syn + class mbr, etc)
 
 utf8 in code (vars, classes, methods), encoding for < > ascii
   http://www.cprogramming.com/tutorial/unicode.html
@@ -238,11 +228,9 @@ get test testMisc working for js
 
 method alias - for typed, all references replaced with the other name, for dynamic, that name also calls the alias method (just like the real one...), only one instance of method, no double calls
 
-this /* num */ I can't use... dump them.
-
 packaging, node.js packaging is great (npm install ...) mavenish
 
-lang-nodes:
+lang-notes:
 
 js:
 http://jsperf.com/object-create-vs-crockford-vs-jorge-vs-constructor/10

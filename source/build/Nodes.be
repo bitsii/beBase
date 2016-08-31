@@ -38,6 +38,7 @@ final class Node {
          Build:Constants constants = build.constants;
          Build:NodeTypes ntypes = constants.ntypes;
          Int typename = ntypes.TOKEN;
+         Bool inlined = false;
       }
    }
    

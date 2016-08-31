@@ -1355,6 +1355,70 @@ buildClassInfoMethod(String belsBase) {
             methodBody += " } else { " += nl;
             methodBody += finalAssign(node.contained.first, notNullRes, null);
             methodBody += "}" += nl;  
+        } elif (node.second.held.name == "lesser_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+          //do call name in a set later
+          //("found an int lesser call").print();
+          node.second.inlined = true;
+          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int < " += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += " } else { " += nl;
+          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += "}" += nl;
+        } elif (node.second.held.name == "lesserEquals_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+          //do call name in a set later
+          //("found an int lesser call").print();
+          node.second.inlined = true;
+          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int <= " += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += " } else { " += nl;
+          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += "}" += nl;
+         } elif (node.second.held.name == "greater_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+          //do call name in a set later
+          //("found an int lesser call").print();
+          node.second.inlined = true;
+          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int > " += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += " } else { " += nl;
+          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += "}" += nl;
+        } elif (node.second.held.name == "greaterEquals_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+          //do call name in a set later
+          //("found an int lesser call").print();
+          node.second.inlined = true;
+          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int >= " += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += " } else { " += nl;
+          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += "}" += nl;
+         } elif (node.second.held.name == "equals_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.typename == ntypes.VAR && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+          //do call name in a set later
+          //("found an int lesser call").print();
+          if (emitting("js")) {
+            String ecomp = " === ";
+          } else {
+            ecomp = " == ";
+          }
+          node.second.inlined = true;
+          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int" += ecomp += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += " } else { " += nl;
+          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += "}" += nl;
+        } elif (node.second.held.name == "notEquals_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.typename == ntypes.VAR && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+          //do call name in a set later
+          //("found an int lesser call").print();
+          if (emitting("js")) {
+            String necomp = " !== ";
+          } else {
+            necomp = " != ";
+          }
+          node.second.inlined = true;
+          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int" += necomp += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += " } else { " += nl;
+          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += "}" += nl;
          }
          return(self);
       } elif (node.held.orgName == "return") {
@@ -1365,7 +1429,7 @@ buildClassInfoMethod(String belsBase) {
         }
         methodBody += "return " += returnCast += formTarg(node.second) += ";" += nl; //first is self
         return(self);
-      } elif (node.held.name == "def_1" || node.held.name == "defined_1" || node.held.name == "undef_1" || node.held.name == "undefined_1") {
+      } elif (node.held.name == "def_1" || node.held.name == "defined_1" || node.held.name == "undef_1" || node.held.name == "undefined_1" || node.inlined) {
         //previously detected and handled during assignment section above (possible due to unwind...)
         return(self);
       }

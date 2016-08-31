@@ -140,9 +140,9 @@ class Test:ExtendedTest:EC(BaseTest) {
      assertTrue(s != null);
      assertFalse(s == null);
      
-     Int i = 10;
-     assertTrue(i != null);
-     assertFalse(i == null);
+     //Int i = 10;
+     //assertTrue(i != null);
+     //assertFalse(i == null);
      
    }
    

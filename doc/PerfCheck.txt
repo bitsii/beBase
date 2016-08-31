@@ -12,7 +12,14 @@ time scripts/cyclemcs5.sh
 
 Times
 
-2015-12-25 Dell E6430 Win7 on power jv javac - 48.766
-2015-12-25 Dell E6430 Win7 on power cs mcs - 26.264
-2015-12-25 Dell E6430 Win7 on power cs csc - 27.617
+Dell E6430 Win7 on power jv javac vsoff notaskman
+  2015-12-25 - 48.766
+  2016-08-30 - 46.791
+  2016-08-30 - 46.446 post direct int compare
+Dell E6430 Win7 on power cs mcs vsoff notaskman
+  2015-12-25 - 26.264
+  2016-08-30 - 26.780
+  2016-08-30 - 25.213 post direct int compare
+Dell E6430 Win7 on power cs csc vsoff notaskman
+  2015-12-25 - 27.617
 
