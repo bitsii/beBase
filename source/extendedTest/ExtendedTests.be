@@ -136,9 +136,9 @@ class Test:ExtendedTest:EC(BaseTest) {
      assertTrue(o != null);
      assertFalse(o == null);
      
-     String s = "Hi";
+     /*String s = "Hi";
      assertTrue(s != null);
-     assertFalse(s == null);
+     assertFalse(s == null);*/
      
      //Int i = 10;
      //assertTrue(i != null);

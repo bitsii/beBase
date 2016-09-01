@@ -23,12 +23,14 @@ final class Container:Array:Iterator {
       fields {
          Int pos = -1;
          Array list = Array.new(1);
+         Int npos = Int.new();
       }
    }
    
    new(a) self {
       pos = -1;
       list = a;
+      npos = Int.new();
    }
    
    containerGet() Array {
@@ -51,24 +53,26 @@ final class Container:Array:Iterator {
    }
       
    hasNextGet() Bool {
-      if ((pos >= -1) && (pos + 1 < list.length)) {
+      npos.setValue(pos);
+      npos++=;
+      if ((pos >= -1) && (npos < list.length)) {
          return(true);
       }
       return(false);
    }
       
    nextGet() {
-      pos = pos++;
+      pos++=;
       return(list.get(pos));
    }
    
    nextSet(toSet) {
-      pos = pos++;
+      pos++=;
       return(list.put(pos, toSet));
    }
    
    skip(Int multiNullCount) {
-      pos = pos + multiNullCount;
+      pos = pos += multiNullCount;
    }
 
 }
@@ -160,7 +164,7 @@ if (def(length)) {
       }
       
       fields {
-         var varray;
+         //var varray;
          Int length = leni.copy();
          Int capacity = capi.copy();
          Int multiplier =@ 2;

@@ -552,8 +552,7 @@ final class Node {
             if (def(c1) && c1.typename == ntypes.CALL) {
                if (c1.held.isLiteral && c0.held.isProperty!) {
                   result = true;
-                  foreach (var kv in c0.held.allCalls) {
-                    Node call = kv.key;
+                  foreach (Node call in c0.held.allCalls) {
                     if (call != self) {
                         if (callIsSafe(call)!) {
                             return(false);

@@ -204,7 +204,7 @@ final class Build:Var {
          String name;
          Build:NamePath namepath;
          var refs;
-         Map allCalls;
+         Set allCalls;
          String suffix;
          
          Bool isArg = false;
@@ -238,16 +238,16 @@ final class Build:Var {
    
    addCall(Node call) {
       if (undef(allCalls)) {
-         allCalls = Map.new();
+         allCalls = Set.new();
       }
-      allCalls.put(call, call);
+      allCalls.addValue(call);
    }
    
    maxCposGet() Int {
       if (maxCpos > -1) { return(maxCpos); }
-      foreach (var kv in allCalls) {
-         if (kv.key.held.cpos > maxCpos) {
-            maxCpos = kv.key.held.cpos;
+      foreach (var n in allCalls) {
+         if (n.held.cpos > maxCpos) {
+            maxCpos = n.held.cpos;
          }
       }
       return(maxCpos);
@@ -257,9 +257,9 @@ final class Build:Var {
       Int bigun = Math:Ints.new().max;
       //("Bigun is " + bigun).print();
       if (minCpos < bigun) { return(minCpos); }
-      foreach (var kv in allCalls) {
-         if (kv.key.held.cpos < minCpos) {
-            minCpos = kv.key.held.cpos;
+      foreach (var n in allCalls) {
+         if (n.held.cpos < minCpos) {
+            minCpos = n.held.cpos;
          }
       }
       return(minCpos);

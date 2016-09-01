@@ -307,7 +307,7 @@ final class System:Thing {
    new() self {
       
       fields {
-         var vthing;
+         //var vthing;
       }
       
    }

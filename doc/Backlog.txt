@@ -1,16 +1,13 @@
-  
+
+allcalls missing things due to temp vars, need an allcalls which is transitive through
+  things assigned to it, also needs to get any vars assigned to it to see if are args, etc
 faster ints
   just all in method when possible
-    possible == list of ok calls and patterns (for which there is an impl)
-      some news (literal val)
-      non-mutating changes
-      when not an arg or property
-      int properties which are otherwise ok and in final or lib can be native
-        log a message for class and property for why not
-        see if faster with string and array not mutating len and size when native
-      args which are otherwise ok can be derefed and native
-      array references
-      
+  only when pulled into emitcommon, so only needs to be there
+  do what works for a array (&string?) loop - litnew, incrementValue, array get, setvalue (to another)
+    first just literal new
+    jv cs only
+    
 gratuitous returns
   if self typed, current behavior
   if void typed, no return, void in declaration
@@ -18,16 +15,7 @@ gratuitous returns
   
   get working with explicit void
   switch default when not dec to void/get working
-      
-replace all array iterations with int count loop
-
-proper perf test suite
-
-operator self typing for args type == becomes {classname}Equals
-  of both of same type and class has that method
-  same with not equals
-
-javascript has the lib on it literally in the macro
+___________________
 
 libs
   lib ver/label too
@@ -35,19 +23,23 @@ libs
 all in browser option (load for base, etc) (?precomp base? ?base comp?)
   just a big page with local refs
   
+proper perf test suite
+no final test version of cycle for times 
+once many noop like new_0
+work out changing var names to avoid extra assign for obj new, int new, etc
+  no declare too
+
+exception line matching should be a between, not exact match (see which is exact for inclusion)
+  sort, search
+
+javascript has the lib on it literally in the macro
+
 lib wide uses (libuse)
   
 embed ondemand
 golang?
 
-___________________
-
 bool default type, is a true and a false (only the true is true)
-
-profile to see what takes time
-
-from profile
-code inlining, variable references from emits (incl ints)
 
 libs
 all in mem parse/output for js
@@ -93,13 +85,6 @@ ___________________
 final for static members (?) - readonly for c#
      onceDeced it's ok, not for not once deced (need to distinguish)
 get rid of calls to once and many
-more efficient int
-  direct no call operations (?inline) (no null checking)
-    have a way to mark ok for inlining anywhere, use
-    text replacement($) to arg vars instead of literal names
-  native ints where completely local, initted at declare/never null, etc
-    -have specific inline for int value above, which can work with direct lits
-  native ints for literal cases (typed oper on literal)
 
 direct member get/set where possible (typed, final or local w/o override), keep gen accessors
 

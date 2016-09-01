@@ -28,6 +28,7 @@ local class Test:BaseTest:Calls(BaseTest) {
       assertEquals(cw.i, 20);
       //doMNDN();
       doOnceEval();
+      doIntish();
       Bool caught = false;
       try {
          var x = ImpliedNew.new();
@@ -36,6 +37,44 @@ local class Test:BaseTest:Calls(BaseTest) {
          caught = true;
       }
       assertTrue(caught);
+   }
+   
+   doIntish() {
+   
+     Int a = Int.new();
+     Int b = a.setValue(2);
+     assertEqual(a, 2);
+     assertEqual(b, 2);
+     
+     Int c = Int.new();
+     c.setValue(9);
+     assertEqual(c, 9);
+     
+     Int d = 5;
+     assertEqual(d++=, 6);
+     
+     Int e = d++=;
+     assertEqual(e, 7);
+     assertEqual(d, 7);
+     
+     assertTrue(5 > 4);
+     assertTrue(5 == 5);
+     assertTrue(4 < 5);
+     
+     assertTrue(5 <= 5);
+     assertTrue(6 >= 6);
+     
+   }
+   
+   lookatCompile() {
+     Int lookatComp = Int.new();
+     blurg(lookatComp);
+     lookatComp = lookatComp.new("hi")++;
+     lookatComp = Int.new();
+   }
+   
+   blurg(Int i) {
+   
    }
    
    doMNDN() {

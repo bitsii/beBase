@@ -689,6 +689,36 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         return("bem_" + node.held.name);
    }
    
+   lookatComp(Node ov) {
+     if (ov.held.name == "lookatComp") {
+      "found lookatComp".print();
+     }
+     fields {
+      Set okNintCalls;
+     }
+     if (undef(okNintCalls)) {
+      okNintCalls = Set.new();
+      okNintCalls.put("new_0");
+      okNintCalls.put("assign_1");
+     }
+     if (ov.held.isTyped && ov.held.namepath == intNp) {
+       if (ov.held.isProperty! && ov.held.isArg!) {
+        Bool nint = true;
+        foreach (Node c in ov.held.allCalls) {
+          if (ov.held.name == "lookatComp") {
+            ("lookatComp call " + c.held.name).print();
+           }
+          if (okNintCalls.has(c.held.name)!) {
+            nint = false;
+          }
+        }
+        if (nint) {
+          "Found nint".print();
+        }
+       }
+     }
+   }
+   
   acceptMethod(Node node) {
       fields {
         Node mnode = node;
@@ -702,8 +732,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       String argDecs = String.new();
       String varDecs = String.new();
       
-      Bool isFirstArg = true;
       foreach (Node ov in node.held.orderedVars) {
+        //lookatComp(ov);
+      }
+      
+      Bool isFirstArg = true;
+      foreach (ov in node.held.orderedVars) {
          if ((ov.held.name != "self") && (ov.held.name != "super")) {
              if (ov.held.isArg) {
                  unless(isFirstArg) {
@@ -1280,13 +1314,13 @@ buildClassInfoMethod(String belsBase) {
    
    acceptCall(Node node) {
    
-      foreach (Node cci in node.contained) {
-            if (cci.typename == ntypes.VAR) {
-               if (cci.held.allCalls.has(node)!) {
-                throw(VisitError.new("VAR DOES NOT HAVE MY CALL " + node.held.name + node.toString(), cci));
-               }
-            }
-         }
+  foreach (Node cci in node.contained) {
+    if (cci.typename == ntypes.VAR) {
+      if (cci.held.allCalls.has(node)!) {
+        throw(VisitError.new("VAR DOES NOT HAVE MY CALL " + node.held.name + node.toString(), cci));
+      }
+    }
+  }
    
       callNames.put(node.held.name);
    
@@ -1315,6 +1349,19 @@ buildClassInfoMethod(String belsBase) {
          acceptThrow(node);
          return(self);
       } elif (node.held.orgName == "assign") {
+      
+        if (def(node.second) && def(node.second.contained) && node.second.contained.size == 2 && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.typename == ntypes.VAR && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+          Bool isIntish = true;
+        } else {
+          isIntish = false;
+        }
+        
+        if (def(node.second) && def(node.second.contained) && node.second.contained.size == 1 && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == boolNp) {
+          Bool isBoolish = true;
+        } else {
+          isBoolish = false;
+        }
+      
          NamePath castTo;
          //FASTER (possibly), for self type do /fast (unchecked) casts/ where possible (not ret self), do the check for correctness in
          //the method instead of at assign and only if not returning "self" (do same type check)
@@ -1355,7 +1402,7 @@ buildClassInfoMethod(String belsBase) {
             methodBody += " } else { " += nl;
             methodBody += finalAssign(node.contained.first, notNullRes, null);
             methodBody += "}" += nl;  
-        } elif (node.second.held.name == "lesser_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+        } elif (isIntish && node.second.held.name == "lesser_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
@@ -1364,7 +1411,7 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-        } elif (node.second.held.name == "lesserEquals_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+        } elif (isIntish && node.second.held.name == "lesserEquals_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
@@ -1373,16 +1420,16 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-         } elif (node.second.held.name == "greater_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+         } elif (isIntish && node.second.held.name == "greater_1") {
           //do call name in a set later
-          //("found an int lesser call").print();
+          //("found an int greater call").print();
           node.second.inlined = true;
           methodBody += "if (" += formTarg(node.second.first) += ".bevi_int > " += formTarg(node.second.second) += ".bevi_int) {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-        } elif (node.second.held.name == "greaterEquals_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+        } elif (isIntish && node.second.held.name == "greaterEquals_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
@@ -1391,7 +1438,7 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-         } elif (node.second.held.name == "equals_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.typename == ntypes.VAR && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+         } elif (isIntish && node.second.held.name == "equals_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           if (emitting("js")) {
@@ -1405,9 +1452,9 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-        } elif (node.second.held.name == "notEquals_1" && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.typename == ntypes.VAR && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+        } elif (isIntish && node.second.held.name == "notEquals_1") {
           //do call name in a set later
-          //("found an int lesser call").print();
+          //("found an int neq call").print();
           if (emitting("js")) {
             String necomp = " !== ";
           } else {
@@ -1418,6 +1465,14 @@ buildClassInfoMethod(String belsBase) {
           methodBody += finalAssign(node.contained.first, trueValue, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += "}" += nl;
+         } elif (isBoolish && node.second.held.name == "not_0") {
+          //("found a bool not").print();
+          node.second.inlined = true;
+          methodBody += "if (" += formTarg(node.second.first) += ".bevi_bool) {" += nl;
+          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += " } else { " += nl;
+          methodBody += finalAssign(node.contained.first, trueValue, null);
           methodBody += "}" += nl;
          }
          return(self);
@@ -1455,6 +1510,16 @@ buildClassInfoMethod(String belsBase) {
          node.held.superCall = true;
       }
       //node.held.checkTypes
+      
+      Bool sglIntish = false;
+      Bool dblIntish = false;
+      if (node.inlined! && def(node.contained) && node.contained.size > 0 && node.contained.first.held.isTyped && node.contained.first.held.namepath == intNp) {
+        sglIntish = true;
+        if (node.contained.size > 1 && node.contained.second.typename == ntypes.VAR && node.contained.second.held.isTyped && node.contained.second.held.namepath == intNp) {
+          dblIntish = true;
+          String dblIntTarg = formTarg(node.contained.second);
+        }
+      }
       
       //prepare args
       String callArgs = String.new();
@@ -1609,8 +1674,8 @@ buildClassInfoMethod(String belsBase) {
                     if (newcc.np == boolNp) {
                         if (onceDeced) {
                           String odinfo = String.new();
-                          foreach (var kv in node.container.contained.first.held.allCalls) {
-                            odinfo += kv.key.held.name += " ";
+                          foreach (var n in node.container.contained.first.held.allCalls) {
+                            odinfo += n.held.name += " ";
                           }
                           throw(System:Exception.new("oh noes once deced " + 
                           odinfo));
@@ -1639,12 +1704,36 @@ buildClassInfoMethod(String belsBase) {
                     if (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "System:Object") {
                       //("Found a skippable new for class " + asyn.namepath.toString()).print();
                       methodBody += callAssign += initialTarg += ";" += nl;
+                    } elif (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "Math:Int" && emitting("js")!) {
+                      //("Found a skippable int new for class " + asyn.namepath.toString()).print();
+                      methodBody += callAssign += initialTarg += ";" += nl;
                     } else {
                       methodBody += callAssign += initialTarg += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
                     }
                 }
           } else {
-            if (isTyped!) {
+            if (dblIntish && node.held.name == "setValue_1") {
+              //("found setval").print(); 
+              methodBody += target += ".bevi_int = " += dblIntTarg += ".bevi_int;" += nl;
+              if (TS.notEmpty(callAssign)) {
+                //("found setval with assign").print();
+                methodBody += callAssign += target += ";" += nl;
+              }
+            } elif (dblIntish && node.held.name == "addValue_1") {
+              //("found addval").print(); 
+              methodBody += target += ".bevi_int += " += dblIntTarg += ".bevi_int;" += nl;
+              if (TS.notEmpty(callAssign)) {
+                //("found addval with assign").print();
+                methodBody += callAssign += target += ";" += nl;
+              }
+            } elif (sglIntish && node.held.name == "incrementValue_0") {
+              //("found incval").print(); 
+              methodBody += target += ".bevi_int++;" += nl;
+              if (TS.notEmpty(callAssign)) {
+                //("found incval with assign").print();
+                methodBody += callAssign += target += ";" += nl;
+              }
+            } elif (isTyped!) {
                 methodBody += callAssign += target += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
             } else {
                 methodBody += callAssign += target += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;

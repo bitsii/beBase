@@ -55,7 +55,7 @@ final class Int {
    new() self {
    
       fields {
-         var vint;
+         //var vint;
       }
       
       emit(js) {

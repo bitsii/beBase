@@ -14,12 +14,12 @@ Times
 
 Dell E6430 Win7 on power jv javac vsoff notaskman
   2015-12-25 - 48.766
-  2016-08-30 - 46.791
-  2016-08-30 - 46.446 post direct int compare
+  2016-08-30 - 46.791 46.446 post direct int compare 46.181 mutint in arrayiter 44.872 post rm unneeded vint/array/float members
+  2016-08-31 - 43.723 post direct int setvalue addvalue skipnew0
 Dell E6430 Win7 on power cs mcs vsoff notaskman
   2015-12-25 - 26.264
-  2016-08-30 - 26.780
-  2016-08-30 - 25.213 post direct int compare
+  2016-08-30 - 26.780 25.213 post direct int compare 24.747 mutint in arrayiter 24.078 post rm unneeded vint/array/float members
+  2016-08-31 - 23.705 post direct int setvalue addvalue skipnew0
 Dell E6430 Win7 on power cs csc vsoff notaskman
   2015-12-25 - 27.617
 
