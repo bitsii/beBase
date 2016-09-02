@@ -693,27 +693,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
      if (ov.held.name == "lookatComp") {
       "found lookatComp".print();
      }
-     fields {
-      Set okNintCalls;
-     }
-     if (undef(okNintCalls)) {
-      okNintCalls = Set.new();
-      okNintCalls.put("new_0");
-      okNintCalls.put("assign_1");
-     }
      if (ov.held.isTyped && ov.held.namepath == intNp) {
        if (ov.held.isProperty! && ov.held.isArg!) {
-        Bool nint = true;
         foreach (Node c in ov.held.allCalls) {
           if (ov.held.name == "lookatComp") {
             ("lookatComp call " + c.held.name).print();
            }
-          if (okNintCalls.has(c.held.name)!) {
-            nint = false;
-          }
-        }
-        if (nint) {
-          "Found nint".print();
         }
        }
      }
@@ -732,12 +717,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       String argDecs = String.new();
       String varDecs = String.new();
       
-      foreach (Node ov in node.held.orderedVars) {
-        //lookatComp(ov);
-      }
+      //foreach (Node ovlc in node.held.orderedVars) {
+      //  lookatComp(ovlc);
+      //}
       
       Bool isFirstArg = true;
-      foreach (ov in node.held.orderedVars) {
+      foreach (Node ov in node.held.orderedVars) {
          if ((ov.held.name != "self") && (ov.held.name != "super")) {
              if (ov.held.isArg) {
                  unless(isFirstArg) {

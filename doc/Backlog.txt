@@ -1,12 +1,3 @@
-
-allcalls missing things due to temp vars, need an allcalls which is transitive through
-  things assigned to it, also needs to get any vars assigned to it to see if are args, etc
-faster ints
-  just all in method when possible
-  only when pulled into emitcommon, so only needs to be there
-  do what works for a array (&string?) loop - litnew, incrementValue, array get, setvalue (to another)
-    first just literal new
-    jv cs only
     
 gratuitous returns
   if self typed, current behavior
@@ -15,6 +6,8 @@ gratuitous returns
   
   get working with explicit void
   switch default when not dec to void/get working
+  
+direct accessors
 ___________________
 
 libs

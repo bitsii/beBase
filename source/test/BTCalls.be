@@ -68,13 +68,7 @@ local class Test:BaseTest:Calls(BaseTest) {
    
    lookatCompile() {
      Int lookatComp = Int.new();
-     blurg(lookatComp);
-     lookatComp = lookatComp.new("hi")++;
-     lookatComp = Int.new();
-   }
-   
-   blurg(Int i) {
-   
+     lookatComp.new("hi")++;
    }
    
    doMNDN() {
