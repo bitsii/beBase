@@ -70,6 +70,8 @@ need to have nested exceptions (and output the nest on print) - just "linked lis
 
 switch string to mutating for everything (swap, etc)
 
+proxy if class has some method typed use of it can fall back to method for any unknown calls
+
 ___________________
 
  also, for many calls can avoid the call even if not literals (int add, sub, etc)
