@@ -1,4 +1,12 @@
-    
+  
+Array to List
+Map to Dictionary (Dict)
+and or for && ||
+.not as a member on bool (as well as method)
+
+reintroduce proxy
+  only for a typed call on a class with a particular method where method is unknown
+
 gratuitous returns
   if self typed, current behavior
   if void typed, no return, void in declaration
@@ -6,9 +14,11 @@ gratuitous returns
   
   get working with explicit void
   switch default when not dec to void/get working
-  
-direct accessors
 ___________________
+
+for untyped vars, calls known to object are made as typed calls
+
+direct accessors
 
 libs
   lib ver/label too
@@ -69,8 +79,6 @@ more ex app
 need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
 
 switch string to mutating for everything (swap, etc)
-
-proxy if class has some method typed use of it can fall back to method for any unknown calls
 
 ___________________
 
