@@ -26,13 +26,6 @@ It would be nice to support non-ascii names for methods, variables, etc, could c
 there an option to drop independent length value, if we disallow embedded null (modified or js style utf8) then we can just compute length
 whenver needed.  Otherwise we would need to keep a separate notion of length, could be a long/int TWINT prepended to buffer with length...).
 */
- 
-use Container:Array;
-
-use Text:String;
-use Container:LinkedList;
-use Container:Set;
-use System:Exception;
 
 emit(cs) {
     """

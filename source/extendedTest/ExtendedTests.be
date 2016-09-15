@@ -6,10 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
 use System:Parameters;
-use Text:String;
-use Text:String;
 
 use Test:BaseTest;
 use Test:Assertions;

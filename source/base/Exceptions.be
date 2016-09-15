@@ -7,8 +7,6 @@
 // except according to those terms.
 
 use System:Exception;
-use Container:LinkedList;
-use Container:Array;
 
 class System:Exception {
    

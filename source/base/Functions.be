@@ -6,11 +6,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
-use Container:Map;
-
-use System:Exception;
-
 use final class Function:Mapper {
 
     create() self { }

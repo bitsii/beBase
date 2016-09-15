@@ -6,16 +6,12 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Map;
-use Container:LinkedList;
 use IO:File;
 use Build:Visit;
 use Build:EmitException;
 use Build:Node;
-use Text:Strings as TS;
 use Build:ClassConfig;
 use Build:NamePath;
-use Container:Array;
 
 use final class Build:JSEmitter(Build:EmitCommon) {
 

@@ -6,9 +6,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:LinkedList;
-use Container:Map;
-use Container:Array;
 use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;

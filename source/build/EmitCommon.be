@@ -6,10 +6,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Map;
-use Container:LinkedList;
-use Container:Array;
-use Container:Set;
 use IO:File;
 use Build:VisitError;
 use Build:Visit;
@@ -18,7 +14,6 @@ use Build:NamePath;
 use Build:Node;
 use Build:ClassConfig;
 use Test:Assertions;
-use Text:Strings as TS;
 
 /*
 

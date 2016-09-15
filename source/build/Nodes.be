@@ -6,9 +6,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Map;
-use Container:Set;
-use Container:Array;
 use Container:NodeList;
 use Build:Node;
 

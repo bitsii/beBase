@@ -7,11 +7,6 @@
 // except according to those terms.
 
 use IO:File;
-use Container:Map;
-use Container:Set;
-use Container:Array;
-use Container:Array;
-use Container:LinkedList;
 use Build:EmitData;
 use Build:Visit;
 use Build:JVEmitter;

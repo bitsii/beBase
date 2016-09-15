@@ -6,11 +6,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:LinkedList;
-use Container:Array;
-use Container:Map;
-use Container:Set;
-use Container:Array;
 use Build:Node;
 use Build:ClassSyn;
 

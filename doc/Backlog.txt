@@ -1,12 +1,4 @@
   
-uses for map array
-build boots
-
-array to list
-
-reintroduce proxy
-  only for a typed call on a class with a particular method where method is unknown
-
 gratuitous returns
   if self typed, current behavior
   if void typed, no return, void in declaration
@@ -14,6 +6,11 @@ gratuitous returns
   
   get working with explicit void
   switch default when not dec to void/get working
+  
+array to list
+
+reintroduce proxy
+  only for a typed call on a class with a particular method where method is unknown
 ___________________
 
 and or for && ||

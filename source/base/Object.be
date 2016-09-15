@@ -6,7 +6,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
 use Container:Pair;
 use System:NonIterator;
 use System:ObjectFieldIterator;

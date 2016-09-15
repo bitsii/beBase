@@ -11,9 +11,6 @@
 go to serialization
 */
 
-use Container:LinkedList;
-use Container:Array;
-use Container:Map;
 use IO:File;
 use Build:ClassSyn;
 use Container:Set;
