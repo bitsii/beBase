@@ -10,11 +10,8 @@ use Container:LinkedList;
 use Container:Array;
 use Container:Map;
 use Container:Set;
-use Text:String;
-use Math:Int;
 use Container:Array;
 use Build:Node;
-use Logic:Bool;
 use Build:ClassSyn;
 
 final class Build:NamePath(System:BasePath) {
@@ -41,6 +38,9 @@ final class Build:NamePath(System:BasePath) {
       String fstep = self.firstStep;
       Node tunode = node.transUnit;
       System:BasePath par = tunode.held.aliased.get(fstep);
+      if (undef(par)) {
+        par = node.build.emitData.aliased.get(fstep);
+      }
       if (def(par) && self.path.has(":")!) {
          System:BasePath np2 = self.deleteFirstStep();
          System:BasePath np = par + np2;

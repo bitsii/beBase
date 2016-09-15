@@ -6,13 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Math:Int;
 use Container:Array;
 use Container:Map;
 use Container:LinkedList;
-use Text:String;
-use Text:String;
-use Logic:Bool;
 
 final class Text:Tokenizer {
    

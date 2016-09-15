@@ -1,8 +1,8 @@
   
-Array to List
-Map to Dictionary (Dict)
-and or for && ||
-.not as a member on bool (as well as method)
+uses for map array
+build boots
+
+array to list
 
 reintroduce proxy
   only for a typed call on a class with a particular method where method is unknown
@@ -15,6 +15,9 @@ gratuitous returns
   get working with explicit void
   switch default when not dec to void/get working
 ___________________
+
+and or for && ||
+.not as a member on bool (as well as method)
 
 for untyped vars, calls known to object are made as typed calls
 
@@ -36,8 +39,6 @@ exception line matching should be a between, not exact match (see which is exact
   sort, search
 
 javascript has the lib on it literally in the macro
-
-lib wide uses (libuse)
   
 embed ondemand
 golang?

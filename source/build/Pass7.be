@@ -8,8 +8,6 @@
 
 use Container:LinkedList;
 use Container:Map;
-use Text:String;
-use Math:Int;
 use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;
@@ -169,7 +167,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                   } else {
                      createImpliedConstruct(onode, gc);  //was gone
                   }
-               } elif (onode.typename == ntypes.ID && node.transUnit.held.aliased.has(onode.held)) {
+               } elif (onode.typename == ntypes.ID && (node.transUnit.held.aliased.has(onode.held) || build.emitData.aliased.has(onode.held))) {
                   Build:NamePath namepath = Build:NamePath.new();
                   namepath.addStep(onode.held);
                   onode.held = namepath;
@@ -231,7 +229,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                node.addValue(onode);
                if (onode.typename == ntypes.NAMEPATH) {
                   createImpliedConstruct(onode, ga);
-               } elif (onode.typename == ntypes.ID && node.transUnit.held.aliased.has(onode.held)) {
+               } elif (onode.typename == ntypes.ID && (node.transUnit.held.aliased.has(onode.held) || build.emitData.aliased.has(onode.held))) {
                   namepath = Build:NamePath.new();
                   namepath.addStep(onode.held);
                   onode.held = namepath;

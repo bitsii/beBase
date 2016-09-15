@@ -7,9 +7,6 @@
 // except according to those terms.
 
 use Container:Array;
-use Math:Int;
-use Logic:Bool;
-use Text:String;
 
 emit(cs) {
     """

@@ -6,11 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:LinkedList;
 use Container:Map;
-use Text:String;
-use Logic:Bool;
-use Math:Int;
 use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;

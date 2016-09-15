@@ -8,13 +8,10 @@
 
 use Container:LinkedList;
 use Container:Map;
-use Text:String;
-use Math:Int;
 use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;
 use Build:Node;
-use Logic:Bool;
 
 final class Build:Visit:Pass3(Build:Visit:Visitor) {
 

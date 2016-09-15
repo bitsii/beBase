@@ -12,12 +12,9 @@ use IO:File;
 use Build:Visit;
 use Build:EmitException;
 use Build:Node;
-use Text:String;
 use Text:Strings as TS;
-use Logic:Bool;
 use Build:ClassConfig;
 use Build:NamePath;
-use Math:Int;
 use Container:Array;
 
 use final class Build:JSEmitter(Build:EmitCommon) {

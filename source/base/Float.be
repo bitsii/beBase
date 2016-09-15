@@ -6,10 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Math:Int;
 use Math:Float;
-use Logic:Bool;
-use Text:String;
 
 final class Float {
 

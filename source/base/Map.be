@@ -15,11 +15,7 @@ use Container:IdentityMap;
 use Container:IdentitySet;
 use Container:Map:MapNode;
 use Container:Array;
-use Container:Array;
-use Math:Int;
 use Math:Float;
-use Logic:Bool;
-use Text:String;
 
 class SetNode {
    

@@ -6,13 +6,10 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
- use Text:String;
- use Logic:Bool;
  use Container:LinkedList;
  use Container:LinkedList:Node;
  use Container:LinkedList:Iterator as LIter;
  use Container:Map;
- use Math:Int;
  use System:Random;
  use System:Identity;
  

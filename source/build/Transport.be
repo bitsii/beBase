@@ -9,8 +9,6 @@
 use Container:LinkedList;
 use Container:LinkedList:Iterator as LIter;
 use Container:Map;
-use Text:String;
-use Math:Int;
 use Build:VisitError;
 use Build:Node;
 use Build:NodeTypes;

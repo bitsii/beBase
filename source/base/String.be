@@ -27,11 +27,7 @@ there an option to drop independent length value, if we disallow embedded null (
 whenver needed.  Otherwise we would need to keep a separate notion of length, could be a long/int TWINT prepended to buffer with length...).
 */
  
- 
-use Math:Int;
 use Container:Array;
-use Text:String;
-use Logic:Bool;
 
 use Text:String;
 use Container:LinkedList;

@@ -6,9 +6,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Math:Int;
-use Logic:Bool;
-use Text:String;
 use Time:Interval;
 
 emit(c) {

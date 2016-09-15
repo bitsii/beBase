@@ -1,3 +1,4 @@
+source/base/Uses.be
 source/base/Object.be
 source/base/String.be
 source/base/Logic.be

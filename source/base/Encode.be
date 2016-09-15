@@ -6,11 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Math:Int;
-use Text:String;
-use Text:String;
 use Encode:Url;
-use Logic:Bool;
 
 use Encode:Hex;
 

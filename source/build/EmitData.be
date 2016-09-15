@@ -34,6 +34,7 @@ final class Build:EmitData {
          Set propertyIndexes = Set.new();
          Set methodIndexes = Set.new();
          Set shouldEmit = Set.new();
+         Map aliased = Map.new();
       }
    }
    

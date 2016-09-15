@@ -6,9 +6,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Logic:Bool;
-use Text:String;
-use Math:Int;
 use Container:Array;
 use Container:Pair;
 use System:NonIterator;

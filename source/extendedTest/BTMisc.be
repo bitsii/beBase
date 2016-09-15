@@ -9,18 +9,23 @@
 use Container:Array;
 
 use System:Parameters;
-use Text:String;
-use Text:String;
 
 use Test:BaseTest;
 use Test:Failure;
-use Math:Int;
 use Math:Float;
 use System:Exception;
 
 use Logic:Bool;
 
 use Test:FrontCons;
+
+class LocalUse {
+  
+  rtrue() Bool {
+    return(true);
+  }
+  
+}
 
 emit(c) {
 """

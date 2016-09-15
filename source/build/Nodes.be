@@ -8,12 +8,9 @@
 
 use Container:Map;
 use Container:Set;
-use Text:String;
-use Math:Int;
 use Container:Array;
 use Container:NodeList;
 use Build:Node;
-use Logic:Bool;
 
 final class Node {
    
@@ -324,6 +321,9 @@ final class Node {
          } else {
             var tunode = self.transUnit;
             var np = tunode.held.aliased.get(vname);
+            if (undef(np)) {
+              np = build.emitData.aliased.get(vname);
+            }
             if (def(np)) {
                throw(Build:VisitError.new("Found NP too late " + np, self));
             } else {

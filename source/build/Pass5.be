@@ -8,12 +8,9 @@
 
 use Container:LinkedList;
 use Container:Map;
-use Text:String;
-use Math:Int;
 use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;
-use Logic:Bool;
 use Build:Node;
 
 final class Build:Visit:Pass5(Build:Visit:Visitor) {
@@ -49,6 +46,15 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             node.held = v;
          }
          if (node.typename == ntypes.USE) {
+         
+            Node lun = node.priorPeer;
+            if (def(lun) && (lun.typename == ntypes.DEFMOD) && lun.held == "local") {
+               Bool isLocalUse = true;
+               lun.delete();
+            } else {
+              isLocalUse = false;
+            }
+         
             //get my name
             var nnode = node.nextPeer;
             while (def(nnode) && (nnode.typename == ntypes.DEFMOD)) {
@@ -108,6 +114,9 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
               alias = namepath.label;
             }
             tnode.held.aliased.put(alias, namepath);
+            if (isLocalUse) {
+              build.emitData.aliased.put(alias, namepath);
+            }
             
             return(gnext);
          }

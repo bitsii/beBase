@@ -14,10 +14,7 @@ go to serialization
 use Container:LinkedList;
 use Container:Array;
 use Container:Map;
-use Text:String;
-use Math:Int;
 use IO:File;
-use Logic:Bool;
 use Build:ClassSyn;
 use Container:Set;
 use Build:NamePath;

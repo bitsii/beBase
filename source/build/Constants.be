@@ -7,8 +7,6 @@
 // except according to those terms.
 
 use Container:Map;
-use Math:Int;
-use Text:String;
 
 final class Build:Constants {
     

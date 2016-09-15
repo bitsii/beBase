@@ -12,8 +12,6 @@ use Container:LinkedList;
 use Container:LinkedList:Node;
 use Container:LinkedList:Iterator;
 use Container:NodeList;
-use Logic:Bool;
-use Math:Int;
 
 Single {
    new() self {

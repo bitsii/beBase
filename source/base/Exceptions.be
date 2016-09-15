@@ -7,11 +7,8 @@
 // except according to those terms.
 
 use System:Exception;
-use Text:String;
-use Math:Int;
 use Container:LinkedList;
 use Container:Array;
-use Logic:Bool;
 
 class System:Exception {
    

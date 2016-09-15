@@ -12,10 +12,6 @@ use IO:File;
 use Build:Visit;
 use Build:EmitException;
 use Build:Node;
-use Text:String;
-use Text:String;
-use Logic:Bool
-use Math:Int;
 
 use final class Build:CSEmitter(Build:EmitCommon) {
 

@@ -6,17 +6,14 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
-use Container:Map;
 use System:Parameters;
-use Text:String;
-use Text:String;
 use System:Object;
-use Math:Int;
 
 use Test:BaseTest;
 use Test:Assertions;
 use Test:Failure;
+
+local use Test:LocalUse;
 
 class BaseTest(Assertions) {
    

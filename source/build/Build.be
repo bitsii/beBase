@@ -6,20 +6,17 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Math:Int;
 use IO:File;
 use Container:Map;
 use Container:Set;
 use Container:Array;
 use Container:Array;
 use Container:LinkedList;
-use Text:String;
 use Build:EmitData;
 use Build:Visit;
 use Build:JVEmitter;
 use Build:CSEmitter;
 use Build:JSEmitter;
-use Logic:Bool;
 use System:Parameters;
 
 final class Build:Build {

@@ -9,8 +9,6 @@
 use Container:Stack;
 use Container:Stack:Node;
 use Container:Queue;
-use Logic:Bool;
-use Math:Int;
 
 local class Node {
 

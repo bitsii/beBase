@@ -6,8 +6,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Text:String;
-use Math:Int;
 use System:Command;
 use IO:File:Path;
 use IO:File;

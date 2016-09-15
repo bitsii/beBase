@@ -7,10 +7,6 @@
 // except according to those terms.
 
 use Container:Map;
-use Text:String;
-use Math:Int;
-use Text:String;
-use Logic:Bool;
 use Test:Assertions;
 
 use Build:CCallAssembler;

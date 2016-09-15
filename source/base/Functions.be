@@ -6,11 +6,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Math:Int;
 use Container:Array;
 use Container:Map;
-use Text:String;
-use Logic:Bool;
 
 use System:Exception;
 

@@ -7,9 +7,6 @@
 // except according to those terms.
 
 use IO:File;
-use Text:String;
-use Logic:Bool;
-use Math:Int;
 use Text:Glob;
 
 local class IO:File:Path(System:BasePath) {

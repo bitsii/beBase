@@ -9,9 +9,6 @@
 use Container:LinkedList;
 use Container:Map;
 use Container:Array;
-use Text:String;
-use Math:Int;
-use Logic:Bool;
 use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;

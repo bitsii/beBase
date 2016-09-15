@@ -15,8 +15,6 @@ use Test:BaseTest;
 use Test:Assertions;
 use Test:Failure;
 
-
-
 class Test:ExtendedTest:EC(BaseTest) {
    
    main() {
@@ -85,6 +83,7 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       //works for all
       
+      assertTrue(LocalUse.new().rtrue());
       Test:BaseTest:Main.new().main(); 
       Tests:Function.new().main();
       Tests:TestJson.new().main();
@@ -197,8 +196,6 @@ class Test:ExtendedTest:EC(BaseTest) {
         "2C26B46B68FFC68FF99B453C1D30413413422D706483BFA0F98A5E886266E7AE");
    }
 }
-
-use Math:Int;
 
 class Test:Incr {
 

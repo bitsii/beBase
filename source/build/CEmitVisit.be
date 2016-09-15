@@ -9,14 +9,10 @@
 use Container:LinkedList;
 use Container:Map;
 use Container:Stack;
-use Text:String;
-use Text:String;
-use Math:Int;
 use Build:Visit;
 use Build:NamePath;
 use Build:VisitError;
 use Build:CallCursor;
-use Logic:Bool;
 use Build:Node;
 
 /*
