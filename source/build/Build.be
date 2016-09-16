@@ -40,7 +40,7 @@ final class Build:Build {
          var runArgs;
          Build:CompilerProfile compilerProfile;
          //Build:CCallAssembler cassem;
-         Array args;
+         List args;
          Parameters params;
          Bool buildSucceeded;
          String buildMessage;
@@ -104,11 +104,11 @@ final class Build:Build {
    }
 
    main() {
-      Array _args = System:Process.new().args;
+      List _args = System:Process.new().args;
       System:Process.exit(main(_args));
    }
 
-   main(Array _args) {
+   main(List _args) {
       args = _args;
       params = Parameters.new(args);
       Int times = Int.new(params.get("howManyTimes", "1").first);

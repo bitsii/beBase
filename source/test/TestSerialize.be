@@ -1,10 +1,10 @@
-use Container:Array;
+use Container:List;
 use Math:Int;
 use Text:String;
 use Text:String;
 use System:Serializer;
 use Container:Map;
-use Container:Array;
+use Container:List;
 
 class Test:ToSerialize {
 
@@ -12,10 +12,10 @@ class Test:ToSerialize {
       fields {
          var i = 10;
          var s = "Hi";
-         var a = Array.new(4);
+         var a = List.new(4);
          var n = "Not so null";
          var m = Map.new();
-         var v = Array.new(3);
+         var v = List.new(3);
          var t = true;
          var f = false;
       }

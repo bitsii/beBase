@@ -596,7 +596,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                if (undef(mtdc)) {
                   throw(Build:VisitError.new("No such call", node));
                }
-               Array argSyns = mtdc.argSyns;
+               List argSyns = mtdc.argSyns;
                Node nnode = targ.nextPeer; //the call argument
                for (Int i = 1;i < argSyns.length;i = i++;) {
                   Build:VarSyn marg = argSyns.get(i);//the method argument (from the syn)

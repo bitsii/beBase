@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
+use Container:List;
 
 emit(cs) {
     """
@@ -14,12 +14,12 @@ using System;
     """
 }
 
-final class Container:Array:Iterator {
+final class Container:List:Iterator {
    
    new() self {
       fields {
          Int pos = -1;
-         Array list = Array.new(1);
+         List list = List.new(1);
          Int npos = Int.new();
       }
    }
@@ -30,7 +30,7 @@ final class Container:Array:Iterator {
       npos = Int.new();
    }
    
-   containerGet() Array {
+   containerGet() List {
        return(list);
    }
    
@@ -74,7 +74,7 @@ final class Container:Array:Iterator {
 
 }
 
-final class Array {
+final class List {
    
    emit(c) {
    """
@@ -85,7 +85,7 @@ final class Array {
    emit(jv,cs) {
    """
    
-    public $class/System:Object$[] bevi_array;
+    public $class/System:Object$[] bevi_list;
     
    """
    }
@@ -93,10 +93,10 @@ final class Array {
    emit(jv) {
    """
    
-   public $class/Container:Array$($class/System:Object$[] bevi_array) {
-        this.bevi_array = bevi_array;
-        this.bevp_length = new $class/Math:Int$(bevi_array.length);
-        this.bevp_capacity = new $class/Math:Int$(bevi_array.length);
+   public $class/Container:List$($class/System:Object$[] bevi_list) {
+        this.bevi_list = bevi_list;
+        this.bevp_length = new $class/Math:Int$(bevi_list.length);
+        this.bevp_capacity = new $class/Math:Int$(bevi_list.length);
         this.bevp_multiplier = new $class/Math:Int$(2);
     }
     
@@ -106,10 +106,10 @@ final class Array {
    emit(cs) {
    """
    
-   public $class/Container:Array$($class/System:Object$[] bevi_array) {
-        this.bevi_array = bevi_array;
-        this.bevp_length = new $class/Math:Int$(bevi_array.Length);
-        this.bevp_capacity = new $class/Math:Int$(bevi_array.Length);
+   public $class/Container:List$($class/System:Object$[] bevi_list) {
+        this.bevi_list = bevi_list;
+        this.bevp_length = new $class/Math:Int$(bevi_list.Length);
+        this.bevp_capacity = new $class/Math:Int$(bevi_list.Length);
         this.bevp_multiplier = new $class/Math:Int$(2);
     }
     
@@ -119,10 +119,10 @@ final class Array {
    emit(js) {
    """
    
-    be_BEL_4_Base_$class/Container:Array$.prototype.beml_new_array = function(bevi_array) {
-        this.bevi_array = bevi_array;
-        this.bevp_length = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_array.length);
-        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_array.length);
+    be_BEL_4_Base_$class/Container:List$.prototype.beml_new_array = function(bevi_list) {
+        this.bevi_list = bevi_list;
+        this.bevp_length = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_list.length);
+        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_list.length);
         this.bevp_multiplier = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(2);
         return(this);
     }
@@ -151,12 +151,12 @@ if (def(length)) {
 }
       emit(jv,cs) {
       """
-      bevi_array = new $class/System:Object$[beva_capi.bevi_int];
+      bevi_list = new $class/System:Object$[beva_capi.bevi_int];
       """
       }
       emit(js) {
       """
-      this.bevi_array = new Array(beva_capi.bevi_int);
+      this.bevi_list = new Array(beva_capi.bevi_int);
       """
       }
       
@@ -214,7 +214,7 @@ if (def(length)) {
       }
       emit(jv,cs,js) {
       """
-      this.bevi_array[beva_posi.bevi_int] = beva_val;
+      this.bevi_list[beva_posi.bevi_int] = beva_val;
       """
       }
    }
@@ -224,7 +224,7 @@ if (def(length)) {
       if ((posi >= 0) && (posi < length)) {
       emit(jv,cs,js) {
       """
-      bevl_val = this.bevi_array[beva_posi.bevi_int];
+      bevl_val = this.bevi_list[beva_posi.bevi_int];
       """
       }
       }
@@ -245,11 +245,11 @@ if (def(length)) {
    }
    
    iteratorGet() {
-      return(Container:Array:Iterator.new(self));
+      return(Container:List:Iterator.new(self));
    }
    
-   arrayIteratorGet() Container:Array:Iterator {
-      return(Container:Array:Iterator.new(self));
+   arrayIteratorGet() Container:List:Iterator {
+      return(Container:List:Iterator.new(self));
    }
    
    clear() self {
@@ -259,19 +259,19 @@ if (def(length)) {
    }
    
    copy() self {
-      Array n = create();
+      List n = create();
       for (Int i = 0;i < length;i = i++) {
          n[i] = self[i];
       }
       return(n);
    }
    
-   create(Int len) { return(Array.new(len)); }
+   create(Int len) { return(List.new(len)); }
    
-   create() self { return(Array.new(length)); }
+   create() self { return(List.new(length)); }
    
-   add(Array xi) self {
-      Array yi = Array.new(0, length + xi.length);
+   add(List xi) self {
+      List yi = List.new(0, length + xi.length);
       foreach (var c in self) {
          yi.addValueWhole(c);
       }
@@ -303,7 +303,7 @@ if (def(length)) {
       }
    }
    
-   mergeIn(Array first, Array second) self {
+   mergeIn(List first, List second) self {
       Int i = 0;
       Int fi = 0;
       Int si = 0;
@@ -342,15 +342,15 @@ if (def(length)) {
       if (mlen == 0) {
          return(create(0));
       } elif (mlen == 1) {
-         Array ra = create(1);
+         List ra = create(1);
          ra.put(0, get(start));
          return(ra);
       } else {
          Int shalf = mlen / 2;
          Int fhalf = mlen - shalf;
          Int fend = start + fhalf;
-         Array fa = mergeSort(start, fend);
-         Array sa = mergeSort(fend, end);
+         List fa = mergeSort(start, fend);
+         List sa = mergeSort(fend, end);
          ra = create(mlen);
          ra.mergeIn(fa, sa);
          return(ra);
@@ -369,17 +369,17 @@ if (def(length)) {
          Int newcap = newlen * multiplier;
          emit(jv) {
          """
-         this.bevi_array = java.util.Arrays.copyOf(this.bevi_array, bevl_newcap.bevi_int);
+         this.bevi_list = java.util.Arrays.copyOf(this.bevi_list, bevl_newcap.bevi_int);
          """
          }
          emit(cs) {
          """
-         Array.Resize(ref bevi_array, bevl_newcap.bevi_int);
+         Array.Resize(ref bevi_list, bevl_newcap.bevi_int);
          """
          }
          emit(js) {
          """
-         this.bevi_array[bevl_newcap.bevi_int - 1] = null;//js arrays grow :-)
+         this.bevi_list[bevl_newcap.bevi_int - 1] = null;//js arrays grow :-)
          """
          }
          capacity = newcap;
@@ -388,7 +388,7 @@ if (def(length)) {
       while (length < newlen) {
         emit(jv,cs,js) {
          """
-         this.bevi_array[this.bevp_length.bevi_int] = null;
+         this.bevi_list[this.bevp_length.bevi_int] = null;
          """
          }
          length++=;
@@ -414,7 +414,7 @@ if (def(length)) {
      if (length < capacity) {
        emit(jv,cs,js) {
        """
-       this.bevi_array[this.bevp_length.bevi_int] = beva_val;
+       this.bevi_list[this.bevp_length.bevi_int] = beva_val;
        """
        }
        length++=;

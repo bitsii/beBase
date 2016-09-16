@@ -166,9 +166,9 @@ class Tests:CallArgs(BaseTest) {
       assertEqual(x.sixteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), sixteen);
       assertEqual(x.seventeen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17), seventeen);
       
-      Array args15 = Array.new(15);
-      Array args16 = Array.new(16);
-      Array args17 = Array.new(17);
+      List args15 = List.new(15);
+      List args16 = List.new(16);
+      List args17 = List.new(17);
       
       args15.put(0, 1);
       args15.put(1, 2);
@@ -225,9 +225,9 @@ class Tests:CallArgs(BaseTest) {
     
     testInvocation() {
     
-      Array args15 = Array.new(15);
-      Array args16 = Array.new(16);
-      Array args17 = Array.new(17);
+      List args15 = List.new(15);
+      List args16 = List.new(16);
+      List args17 = List.new(17);
       
       args15.put(0, 1);
       args15.put(1, 2);

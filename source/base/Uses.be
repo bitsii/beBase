@@ -9,7 +9,7 @@
 local use Math:Int;
 local use Logic:Bool;
 local use Text:String;
-local use Container:Array;
+local use Container:List;
 local use Container:Map;
 local use Container:Set;
 local use Container:LinkedList;

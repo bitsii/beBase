@@ -7,7 +7,7 @@
 // except according to those terms.
 
 use Math:Int;
-use Container:Array;
+use Container:List;
 use Container:LinkedList;
 use Container:Map;
 use Text:String;
@@ -21,7 +21,7 @@ class Replace:CallStep {
       
       fields {
         String callName = payloads[0];
-        Array callArgs = Array.new(payloads.length - 1);
+        List callArgs = List.new(payloads.length - 1);
       }
    
       for (Int pi = 1;pi < payloads.length;pi = pi++) {

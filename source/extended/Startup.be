@@ -14,7 +14,7 @@ use System:Parameters;
 use Text:String;
 use Math:Int;
 use Logic:Bool;
-use Container:Array;
+use Container:List;
 use Container:LinkedList;
 use Container:Set;
 use Container:Map;
@@ -26,7 +26,7 @@ class Startup {
    default() self {
       
       fields {
-        Array args;
+        List args;
       }
    }
    
@@ -46,7 +46,7 @@ class StartupIfArguments {
    default() self {
       
       fields {
-        Array args;
+        List args;
       }
    }
    
@@ -65,7 +65,7 @@ class StartupWithArguments {
    default() self {
       
       fields {
-         Array args;
+         List args;
       }
       
    }
@@ -73,7 +73,7 @@ class StartupWithArguments {
    main() {
       args = System:Process.new().args;
       if (args.size < 1) {
-         throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(Array args) method should be called"));
+         throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args) method should be called"));
       }
       var x = createInstance(args[0]).new();
       return(x.main(args));
@@ -85,7 +85,7 @@ class StartupWithParameters {
    default() self {
       
       fields {
-         Array args;
+         List args;
          Parameters params;
       }
       
@@ -94,7 +94,7 @@ class StartupWithParameters {
    main() {
       args = System:Process.new().args;
       if (args.size < 1) {
-         throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(Array args, Parameters params) method should be called"));
+         throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args, Parameters params) method should be called"));
       }
       params = Parameters.new(args);
       var x = createInstance(args[0]).new();
@@ -108,16 +108,16 @@ local class Parameters {
    new() self {
    
       fields {
-         Array args;
+         List args;
          Map params;
-         Array ordered;
+         List ordered;
          Text:Tokenizer fileTok = Text:Tokenizer.new("\r\n");
          var preProcessor;
       }
       
    }
    
-   new(Array _args) self {
+   new(List _args) self {
       self.new();
       addArgs(_args);
    }
@@ -131,7 +131,7 @@ local class Parameters {
       if (undef(args)) {
          args = _args;
          params = Map.new();
-         ordered = Array.new();
+         ordered = List.new();
       } else {
          args = args + _args;
       }
@@ -259,7 +259,7 @@ local class Parameters {
    addFile(File file) {
       var fcontents = file.reader.open().readString();
       file.reader.close();
-      Array fargs = fileTok.tokenize(fcontents).toArray();
+      List fargs = fileTok.tokenize(fcontents).toList();
       addArgs(fargs);
    }
 

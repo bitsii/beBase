@@ -14,7 +14,7 @@ use Container:Set;
 use Container:IdentityMap;
 use Container:IdentitySet;
 use Container:Map:MapNode;
-use Container:Array;
+use Container:List;
 use Math:Float;
 
 class SetNode {
@@ -95,7 +95,7 @@ class IdentityMap(Map) {
    }
    
    new(Int _modu) self {
-      slots = Array.new(_modu);
+      slots = List.new(_modu);
       modu = _modu;
       multi = 2;
       rel = IdentityRelations.new();
@@ -112,7 +112,7 @@ class Map(Set) {
    }
    
    new(Int _modu) self {
-      slots = Array.new(_modu);
+      slots = List.new(_modu);
       modu = _modu;
       multi = 2;
       rel = Relations.new();
@@ -138,7 +138,7 @@ class Map(Set) {
    
    put(k, v) {
       if (innerPut(k, v, null, slots)!) {
-         Array slt = slots;
+         List slt = slots;
          slt = rehash(slt);
          while (innerPut(k, v, null, slt)!) {
             slt = rehash(slt);
@@ -203,7 +203,7 @@ class IdentitySet(Set) {
    }
    
    new(Int _modu) self {
-      slots = Array.new(_modu);
+      slots = List.new(_modu);
       modu = _modu;
       multi = 2;
       rel = IdentityRelations.new();
@@ -221,7 +221,7 @@ class Set {
    new(Int _modu) self {
    
       fields {
-         Array slots = Array.new(_modu);
+         List slots = List.new(_modu);
          Int modu = _modu;
          Int multi = 2;
          Relations rel = Relations.new();
@@ -258,8 +258,8 @@ class Set {
       return(Container:Set:SerializationIterator.new(self));
    }
    
-   insertAll(Array ninner, Array ir) {
-      for (Container:Array:Iterator i = ir.arrayIterator;i.hasNext;) {
+   insertAll(List ninner, List ir) {
+      for (Container:List:Iterator i = ir.arrayIterator;i.hasNext;) {
          SetNode ni = i.next;
          if (def(ni)) {
             if (innerPut(ni.key, null, ni, ninner)!) {
@@ -270,13 +270,13 @@ class Set {
       return(true);
    }
    
-   rehash(Array slt) {
+   rehash(List slt) {
       /*"Rehashing now".print();*/
       Int nslots = slt.size * multi + 1;
-      Array ninner = Array.new(nslots);
+      List ninner = List.new(nslots);
       while (insertAll(ninner, slt)!) {
          nslots = nslots++;
-         ninner = Array.new(nslots);
+         ninner = List.new(nslots);
       }
       return(ninner);
    }
@@ -291,7 +291,7 @@ class Set {
       return(true);
    }
    
-   innerPut(k, v, inode, Array slt) {
+   innerPut(k, v, inode, List slt) {
       Int modu = slt.size;
       if (undef(inode)) {
          Int hval = rel.getHash(k);
@@ -331,7 +331,7 @@ class Set {
    
    put(k) {
       if (innerPut(k, k, null, slots)!) {
-         Array slt = slots;
+         List slt = slots;
          slt = rehash(slt);
          while (innerPut(k, k, null, slt)!) {
             slt = rehash(slt);
@@ -344,7 +344,7 @@ class Set {
    }
    
    get(k) {
-      Array slt = slots;
+      List slt = slots;
       Int modu = slt.size;
       Int hval = rel.getHash(k);
       if (hval < 0) {
@@ -370,7 +370,7 @@ class Set {
    }
    
    has(k) Bool {
-      Array slt = slots;
+      List slt = slots;
       Int modu = slt.size;
       Int hval = rel.getHash(k);
       if (hval < 0) {
@@ -396,7 +396,7 @@ class Set {
    }
    
    delete(k) {
-      Array slt = slots;
+      List slt = slots;
       Int modu = slt.size;
       
       Int hval = rel.getHash(k);
@@ -542,7 +542,7 @@ class Container:Set:SerializationIterator(Container:Set:KeyIterator) {
 
    new(Set _set) Container:Set:SerializationIterator {
       fields {
-         Array contents = Array.new();
+         List contents = List.new();
       }
       super.new(_set);
    }
@@ -569,7 +569,7 @@ class Container:Map:SerializationIterator(Container:Map:KeyValueIterator) {
 
    new(Set _set) Container:Map:SerializationIterator {
       fields {
-         Array contents = Array.new();
+         List contents = List.new();
       }
       super.new(_set);
    }
@@ -645,7 +645,7 @@ class Container:Set:NodeIterator {
       
       fields {
          Set set = _set;
-         Array slots = set.slots;
+         List slots = set.slots;
          Int modu = slots.size;
          Int current = 0;
       }

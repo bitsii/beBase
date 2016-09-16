@@ -14,7 +14,7 @@ use Math:Int;
 use Logic:Bool;
 use Container:Stack;
 use Container:LinkedList;
-use Container:Array;
+use Container:List;
 use Container:Map;
 use Container:Pair;
 use Text:String;
@@ -203,7 +203,7 @@ final class Serializer {
    
    deserialize(instReader) {
       Int state = 0;
-      Array postDeserialize = Array.new();
+      List postDeserialize = List.new();
       Session session = Session.new();
       Stack iterStack = Stack.new();
       if (instReader.sameType(Text:Strings.empty)) {
@@ -434,17 +434,17 @@ use System:NamedPropertiesIterator;
 
 final class NamedPropertiesIterator {
    
-   new(var _inst, Array _propNames) {
+   new(var _inst, List _propNames) {
       fields {
-         Array propNames = _propNames;
-         Container:Array:Iterator subIter;
+         List propNames = _propNames;
+         Container:List:Iterator subIter;
          var inst = _inst;
-         Array setArgs = Array.new(1);
-         Array getArgs = Array.new(0);
+         List setArgs = List.new(1);
+         List getArgs = List.new(0);
       }
    }
    
-   subIterGet() Container:Array:Iterator {
+   subIterGet() Container:List:Iterator {
       if (undef(subIter)) {
          subIter = propNames.arrayIterator;
       }

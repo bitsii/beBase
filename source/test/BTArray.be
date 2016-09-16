@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
+use Container:List;
 
 use System:Parameters;
 use Text:String;
@@ -16,14 +16,14 @@ use Test:BaseTest;
 use Test:Failure;
 use Math:Int;
 
-class Test:BaseTest:Array(BaseTest) {
+class Test:BaseTest:List(BaseTest) {
    
    mergeSort() {
-      Array aret = mergeSort(Array.new(10));
-      Array vret = mergeSort(Array.new(10));
+      List aret = mergeSort(List.new(10));
+      List vret = mergeSort(List.new(10));
    }
    
-   mergeSort(Array ts) Array {
+   mergeSort(List ts) List {
    
       Math:Int v;
       
@@ -38,7 +38,7 @@ class Test:BaseTest:Array(BaseTest) {
       ts[8] = 1;
       ts[9] = 4;
       
-      Array ts1 = ts.mergeSort();
+      List ts1 = ts.mergeSort();
       foreach (v in ts1) { if (undef(v)) { "Null".print(); } else { v.print(); } }
       for (Int i = 0;i < ts1.length;i = i++) { 
          assertEquals(ts1[i], i);
@@ -49,7 +49,7 @@ class Test:BaseTest:Array(BaseTest) {
    
    more() {
       
-      var uux = Array.new(2);
+      var uux = List.new(2);
       uux.put(0, "Hi");
       uux[1] = "There";
       assertEquals(uux[0], "Hi");
@@ -90,10 +90,10 @@ class Test:BaseTest:Array(BaseTest) {
      //in values, first, last, inbetween - FX, TX
      
      "sortedFind".print();
-     Array sf;
+     List sf;
      Int i;
      
-     sf = Array.new(5);
+     sf = List.new(5);
      
      for (i = 0;i < 5;i = i++) {
         sf[i] = i;
@@ -133,14 +133,14 @@ class Test:BaseTest:Array(BaseTest) {
    }
    
    main() {
-      ("Test:BaseTest:Array:main").print();
+      ("Test:BaseTest:List:main").print();
       more();
       mergeSort();
       sortedFind();
       //return(self);
       
-      Array tcr = Array.new(1);
-      Array tap = tcr.create();
+      List tcr = List.new(1);
+      List tap = tcr.create();
       assertEquals(tcr.length, tap.length);
       tap[0] = "Hi";
       assertEquals(tap[0], "Hi");
@@ -151,11 +151,11 @@ class Test:BaseTest:Array(BaseTest) {
       assertEquals(tap[0], "Hi");
       assertEquals(tap[1], "There");
       
-      Array ta = Array.new(10);
+      List ta = List.new(10);
       ta.put(2, "EE");
       assertEquals(ta[2], "EE");
       
-      var uux = Array.new(5);
+      var uux = List.new(5);
       uux.put(0, "Hi");
       assertEquals(uux[0], "Hi");
       
@@ -179,10 +179,10 @@ class Test:BaseTest:Array(BaseTest) {
       assertEquals(two, two);
       assertFalse(two != two);
       
-      Array ts;
+      List ts;
       var v;
       
-      ts = Array.new(10);
+      ts = List.new(10);
       ts[0] = 6;
       ts[1] = 8;
       ts[2] = 3;

@@ -260,7 +260,7 @@ final class ForwardCall {
         name = this.bems_stringToBytes_1(name);
         name = new be_BEL_4_Base_$class/Text:String$().beml_set_bevi_bytes_len_copy(name, name.length);
         
-        args = new be_BEL_4_Base_$class/Container:Array$().beml_new_array(args);
+        args = new be_BEL_4_Base_$class/Container:List$().beml_new_array(args);
         
         this.bem_new_2(name,  args);
         
@@ -276,7 +276,7 @@ final class ForwardCall {
    
    public $class/System:ForwardCall$(String name, $class/System:Object$[] args) throws Throwable {
         name = name.substring(0, name.lastIndexOf("_"));
-        bem_new_2(new $class/Text:String$(name.getBytes("UTF-8")), new $class/Container:Array$(args));
+        bem_new_2(new $class/Text:String$(name.getBytes("UTF-8")), new $class/Container:List$(args));
    }
    
    """
@@ -287,13 +287,13 @@ final class ForwardCall {
    
    public $class/System:ForwardCall$(string name, $class/System:Object$[] args) {
         name = name.Substring(0, name.LastIndexOf("_"));
-        bem_new_2(new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(name)), new $class/Container:Array$(args));
+        bem_new_2(new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(name)), new $class/Container:List$(args));
    }
    
    """
    }
    
-   new(String _name, Array _args) self {
+   new(String _name, List _args) self {
         name = _name;
         args = _args;
         notReady = false;
@@ -310,13 +310,13 @@ void** bevl_na;
 }
       Int numargs;
       String lname;
-      Array largs;
+      List largs;
       
       numargs = Int.new();
       
       fields {
          String name;
-         Array args;
+         List args;
          Bool notReady = true;
       }
       
@@ -328,7 +328,7 @@ void** bevl_na;
          $lname=* BERF_String_For_Chars(berv_sts, berv_sts->forwardName);
       """
       }
-      largs = Array.new(numargs);
+      largs = List.new(numargs);
       args = largs;
       name = lname;
       notReady = false;

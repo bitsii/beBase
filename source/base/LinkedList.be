@@ -322,9 +322,9 @@ local LinkedList {
       return(false);
    }
    
-   toNodeArray() Container:Array {
+   toNodeList() Container:List {
       Int len = self.length;
-      Container:Array toret = Container:Array.new(len);
+      Container:List toret = Container:List.new(len);
       Int cnt = 0;
       for (Iterator i = self.linkedListIterator;i.hasNext;;) {
          if (cnt < len) {
@@ -335,9 +335,9 @@ local LinkedList {
       return(toret);
    }
    
-   toArray() Container:Array {
+   toList() Container:List {
       Int len = self.length;
-      Container:Array toret = Container:Array.new(len);
+      Container:List toret = Container:List.new(len);
       Int cnt = 0;
       for (Iterator i = self.linkedListIterator;i.hasNext;;) {
          if (cnt < len) {

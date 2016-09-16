@@ -19,7 +19,7 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
    }
    
    prepOps() {
-      var ops = Container:Array.new(10);
+      var ops = Container:List.new(10);
       for (var i = 0;i < 10;i = i++) {
          ops.put(i,Container:LinkedList.new());
       }

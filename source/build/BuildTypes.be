@@ -114,7 +114,7 @@ final class Build:Class {
          Bool freeFirstSlot = false;
          Bool firstSlotNative = false;
          Int nativeSlots = 0;
-         Bool isArray = false;
+         Bool isList = false;
          Int onceEvalCount = 0;
          Set referencedProperties = Set.new();
          Bool shouldWrite = false;
@@ -308,7 +308,7 @@ final class Build:Call {
          Bool wasImpliedConstruct = false;
          Bool wasForeachGenned = false;
          
-         Array argCasts = Array.new();
+         List argCasts = List.new();
          //args which need to be cast for the call, if any, have entries here with namepath (otherwise, null).  starts at 1 as args do elsewhere (target is always 0)
       }
       

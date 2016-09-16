@@ -24,7 +24,7 @@ final class System:Process {
    default() self {
       
       fields {
-         Container:Array args;
+         Container:List args;
          Math:Int numArgs;
          var execName;
    
@@ -74,7 +74,7 @@ final class System:Process {
       
       ifEmit(jv,cs,js) {
         if (undef(args)) {
-          args = Container:Array.new();
+          args = Container:List.new();
           emit(jv) {
           """
             for (int i = 0;i < be.BELS_Base.BECS_Runtime.args.length;i++) {

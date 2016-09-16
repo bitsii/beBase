@@ -27,7 +27,7 @@ use final class Build:Cycle:Main {
         Path buildCmd;
         
         //Call build with the args in-process
-        Array args = Array.new(1);
+        List args = List.new(1);
         args[0] = "-buildFile=build/cycle1.txt";
         result = Build:Build.new().main(args);
         ("cycle1 build result " + result).print();

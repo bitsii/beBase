@@ -29,7 +29,7 @@ use Text:MultiByteIterator;
 use Text:ByteIterator;
 use IO:File;
 use System:Serializer;
-use Container:Array;
+use Container:List;
 use Web:Request:Cgi;
 
 use class Json:Parser {
@@ -294,7 +294,7 @@ use class Json:Marshaller {
           String str = String.new();
           //list
           LinkedList lls = LinkedList.new();
-          Array arr = Array.new(1); 
+          List arr = List.new(1); 
           //map
           Map map = Map.new();
           //int
@@ -520,7 +520,7 @@ use class Json:Unmarshaller {
     
     beginList() {
         //("beginList").print();
-        Array l = Array.new();
+        List l = List.new();
         if (def(top)) { 
             addItem(l);
             stack.push(top); 

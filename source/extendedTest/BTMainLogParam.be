@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
+use Container:List;
 use System:Parameters;
 use Text:String;
 use Text:String;
@@ -47,7 +47,7 @@ class Test:BaseTest:System(BaseTest) {
    
 }
 
-use Container:Array;
+use Container:List;
 class Test:BaseTest:Parameters(BaseTest) {
    
    process(String arg) {
@@ -56,7 +56,7 @@ class Test:BaseTest:Parameters(BaseTest) {
    
    main() {
       ("Test:BaseTest:Parameters:main").print();
-      Array vargs = Array.new(6);
+      List vargs = List.new(6);
       vargs[0] = "-bflag=true";
       vargs[1] = "--skey";
       vargs[2] = "svalue";
@@ -68,7 +68,7 @@ class Test:BaseTest:Parameters(BaseTest) {
       assertFalse(p.isTrue("noflag"));
       assertEquals(p["skey"].first, "svalue");
       assertTrue(p.isTrue("bflag2"));
-      Array v = p.ordered;
+      List v = p.ordered;
       assertEquals(v[0], "sarg");
       assertEquals(v[1], "sargB2");
       p.addFile(IO:File.new("test/inputs/params.txt"));
@@ -79,7 +79,7 @@ class Test:BaseTest:Parameters(BaseTest) {
       p.preProcessor = self;
       assertEquals(v[1], "sargA2");
       
-      vargs = Array.new(6);
+      vargs = List.new(6);
       vargs[0] = "-yo=true";
       vargs[1] = "-t=true";
       vargs[2] = "-f=false";

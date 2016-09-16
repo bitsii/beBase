@@ -1,7 +1,7 @@
 
 use Test:TestIdx;
 use Math:Int;
-use Container:Array;
+use Container:List;
 
 class TestIdx {
    
@@ -16,7 +16,7 @@ class TestIdx {
    }
    
    testIdx() {
-      Array m = Array.new(10);
+      List m = List.new(10);
       m.put(3, 3);
       m.get(3).print();
       //m[3].print();

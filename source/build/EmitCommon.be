@@ -112,7 +112,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           String methodBody = String.new();
           Int lastMethodBodySize = 0;
           Int lastMethodBodyLines = 0;
-          Array methodCalls = Array.new();
+          List methodCalls = List.new();
           Int methodCatch = 0;
           
           Int maxDynArgs = 8; //was 2
@@ -240,15 +240,15 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             Node clnode = build.emitData.classes.get(clName);
             
             Int depth = clnode.held.syn.depth;
-            Array classes = depthClasses.get(depth);
+            List classes = depthClasses.get(depth);
             if (undef(classes)) {
-                classes = Array.new();
+                classes = List.new();
                 depthClasses.put(depth, classes);
             }
             classes += clnode;
         }
         
-        Array depths = Array.new();
+        List depths = List.new();
         for (ci = depthClasses.keyIterator;ci.hasNext;;) { 
             depth = ci.next;
             depths += depth;
@@ -256,7 +256,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
         depths = depths.sort();
         fields {
-            Array classesInDepthOrder = Array.new();
+            List classesInDepthOrder = List.new();
         }
         foreach (depth in depths) {
             classes = depthClasses.get(depth);
@@ -637,7 +637,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       super.begin(transi);
       fields {
          String methods = String.new();
-         Array classCalls = Array.new();
+         List classCalls = List.new();
          Int lastMethodsSize = 0;
          Int lastMethodsLines = 0;
       }
@@ -787,7 +787,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         Build:ClassSyn csyn = node.held.syn;
         String dynMethods = String.new();
         String ccMethods = String.new();
-        Array superCalls = Array.new();
+        List superCalls = List.new();
         Int nativeCSlots = 0;
         String inFilePathed = node.held.fromFile.toStringWithSeparator("/");
      }
@@ -861,9 +861,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                     dynGen.put(numargs, dgm);
                 }
                 Int msh = msyn.name.hash;
-                Array dgv = dgm.get(msh);
+                List dgv = dgm.get(msh);
                 if (undef(dgv)) {
-                    dgv = Array.new();
+                    dgv = List.new();
                     dgm.put(msh, dgv); 
                 }
                 dgv.addValue(msyn);
@@ -1504,7 +1504,7 @@ buildClassInfoMethod(String belsBase) {
       
       Int numargs = 0;
       for (var it = node.contained.iterator;it.hasNext;;) {
-         Array argCasts = node.held.argCasts;
+         List argCasts = node.held.argCasts;
          var i = it.next;
          if (numargs == 0) {
             //var targetOrg = i.held.name;

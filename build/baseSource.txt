@@ -7,7 +7,7 @@ source/base/Float.be
 source/base/Encode.be
 source/base/LinkedList.be
 source/base/Stack.be
-source/base/Array.be
+source/base/List.be
 source/base/Map.be
 source/base/System.be
 source/base/Exceptions.be

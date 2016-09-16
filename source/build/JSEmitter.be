@@ -62,7 +62,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     buildPropList() {
 
         Build:ClassSyn syn = cnode.held.syn;
-        Array ptyList = syn.ptyList;
+        List ptyList = syn.ptyList;
 
         ccMethods += classConf.emitName += ".prototype.bepn_pnames = ["; //]
 

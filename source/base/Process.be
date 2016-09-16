@@ -17,7 +17,7 @@ final class System:Process {
    default() self {
       
       fields {
-         Container:Array args;
+         Container:List args;
          Math:Int numArgs;
          var execName;
    
@@ -49,7 +49,7 @@ void** bevl_ix;
          throw(System:IncorrectType.new(" Wanted type System:Thing not type " + av.className));
       }
       var thing = Thing.new(); //make inline include if possible
-      args = Container:Array.new(ac - 1);
+      args = Container:List.new(ac - 1);
       var ix = 1;
       emit(c) {
       """

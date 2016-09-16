@@ -1,4 +1,5 @@
-  
+
+perf check
 gratuitous returns
   if self typed, current behavior
   if void typed, no return, void in declaration
@@ -6,25 +7,25 @@ gratuitous returns
   
   get working with explicit void
   switch default when not dec to void/get working
-  
-array to list
 
 reintroduce proxy
   only for a typed call on a class with a particular method where method is unknown
-___________________
-
-and or for && ||
-.not as a member on bool (as well as method)
-
-for untyped vars, calls known to object are made as typed calls
-
-direct accessors
 
 libs
-  lib ver/label too
+  hex encode/decode strings
+  just a way to refer to / use code without having to compile it / have source
+  dump libnames per se, can't have conflicting classes (use namespaces)
+  saving/loading syns
 
 all in browser option (load for base, etc) (?precomp base? ?base comp?)
   just a big page with local refs
+___________________
+
+for untyped vars, calls known to object are made as typed calls
+direct accessors
+
+and or for && ||
+.not as a member on bool (as well as method)
   
 proper perf test suite
 no final test version of cycle for times 
@@ -106,7 +107,7 @@ byteiterator is much much slower than just doing getInt on a string by length, s
 // math with parens inside a method call is broken
 // this doesn't work for (Int j = 0;j < dnumargs && j < maxDynArgs;j=j++) {
 // numargs - maxDynArgs + 1 !== (numargs - maxDynArgs) + 1
-// if undef(self[n]) doesn't seem to work (at least in Array)
+// if undef(self[n]) doesn't seem to work (at least in List)
 // this includes negative values for indexes
 // test once assign with not combination
 string hash for javascript seems to be different than for others
@@ -227,7 +228,7 @@ THE NEXT LINE IS THE JS SPEEDUP ONE!!! (prototype actually looks to be fastest..
 http://coding.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
 http://stackoverflow.com/questions/3493252/javascript-prototype-operator-performance-saves-memory-but-is-it-faster
 
-back strings with regular js Array type of js integers (unsigned 8bit) for now.
+back strings with regular js List type of js integers (unsigned 8bit) for now.
 Converting from this to js string:  http://stackoverflow.com/questions/14028148/convert-integer-array-to-string-at-javascript
 https://stackoverflow.com/questions/2647867/how-to-determine-if-variable-is-undefined-or-null
 More complete stack traces (opera, ie): http://www.eriwen.com/javascript/js-stack-trace/

@@ -265,7 +265,7 @@ class Test:BaseTest:EC(BaseTest) {
     
     testA() {
         
-        Array a = Array.new(1);
+        List a = List.new(1);
         a.put(0, "a");
         a.get(0).print();
         assertEqual(a[0], "a");
@@ -311,18 +311,18 @@ class Test:BaseTest:EC(BaseTest) {
     
     testInvoke() {
         
-        Array a0 = Array.new(0);
+        List a0 = List.new(0);
         invoke("testInvokeExA", a0).print();
         assertEqual(invoke("testInvokeExA", a0), "Yo");
         
-        Array a1 = Array.new(0, 1);
+        List a1 = List.new(0, 1);
         a1.addValue("Hai");
         invoke("testInvokeExB", a1).print();
         assertEqual(invoke("testInvokeExB", a1), "Hai!");
         
         //7, 8
         
-        Array am = Array.new(0, 7);
+        List am = List.new(0, 7);
         am += "a";
         am += "b";
         am += "c";
@@ -333,7 +333,7 @@ class Test:BaseTest:EC(BaseTest) {
         invoke("testInvokeEx7", am).print();
         assertEqual(invoke("testInvokeEx7", am), "abcdefg");
         
-        am = Array.new(0, 8);
+        am = List.new(0, 8);
         am += "a";
         am += "b";
         am += "c";
@@ -423,7 +423,7 @@ class Test:BaseTest:EC(BaseTest) {
     }
     
     arr() {
-        Array a = Array.new(3);
+        List a = List.new(3);
         a.put(0,"hi");
         a.get(0).print();
         assertEqual(a.get(0), "hi");
@@ -1002,7 +1002,7 @@ class Test:BaseTest:All(BaseTest) {
          Test:BaseTest:Null.new().main();
          //BaseTest:Class.new().main();
          Test:BaseTest:Int.new().main();
-         Test:BaseTest:Array.new().main();
+         Test:BaseTest:List.new().main();
          Test:BaseTest:ParseCorners.new().main();
          Test:BaseTest:Calls.new().main();
          Tests:CallArgs.new().main();

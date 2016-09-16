@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
+use Container:List;
 
 use System:Parameters;
 use Text:String;
@@ -31,7 +31,7 @@ class Test:BaseTest:Invoke(BaseTest) {
    
    testDirectInvoke() {
       var x = DirectInvoke.new();
-      Array diarg = Array.new(2);
+      List diarg = List.new(2);
       diarg[0] = 3;
       diarg[1] = 2;
       assertEquals(x.invoke("addUp", diarg), 5);

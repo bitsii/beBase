@@ -51,7 +51,7 @@ class Test:ExtendedTest:EC(BaseTest) {
       //System:Process.new().platformSet(System:CurrentPlatform.new().setName("mswin"));
       
       //this is manual...
-      Array args = System:Process.new().args;
+      List args = System:Process.new().args;
       if (def(args)) {
           foreach (String arg in args) {
             ("Running test  " + arg).print();

@@ -182,7 +182,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
             nextIsNativeSlots = true;
          } elif (i == "*-attr- -freeFirstSlot-*") {
             isfs = true;
-         } elif (i == "*-attr- -isArray-*") {
+         } elif (i == "*-attr- -isList-*") {
             isar = true;
          }
       }
@@ -194,7 +194,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          clnode.held.freeFirstSlot = true;
          return(String.new());
       } elif (isar) {
-         clnode.held.isArray = true;
+         clnode.held.isList = true;
          return(String.new());
       } else {
          return(node.held.text);
@@ -451,10 +451,10 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       } else {
          cldef += "twst_shared_cd->firstSlotNative = 0;" += nl;
       }
-      if (inClass.held.isArray) {
-         cldef += "twst_shared_cd->isArray = 1;" += nl;
+      if (inClass.held.isList) {
+         cldef += "twst_shared_cd->isList = 1;" += nl;
       } else {
-         cldef += "twst_shared_cd->isArray = 0;" += nl;
+         cldef += "twst_shared_cd->isList = 0;" += nl;
       }
       if (inClass.held.isFinal) {
          cldef += "twst_shared_cd->isFinal = 1;" += nl;

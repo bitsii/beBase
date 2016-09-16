@@ -482,8 +482,8 @@ final class Node {
             //same for diff set of classes, calls
             okClasses2.put("Container:Set");
             okClasses2.put("Container:Map");
-            okClasses2.put("Container:Array");
-            okClasses2.put("Container:Array");
+            okClasses2.put("Container:List");
+            okClasses2.put("Container:List");
             
             //later make more specific to first arg for put TODO FASTER
             //okCalls2.put("put_2");//map, array, vector

@@ -1,4 +1,4 @@
-use Container:Array;
+use Container:List;
 
 class Test:TestInvoke {
    
@@ -11,8 +11,8 @@ class Test:TestInvoke {
    }
    
    testInvoke() {
-      Array args1 = Array.new(1);
-      Array args0 = Array.new(0);
+      List args1 = List.new(1);
+      List args0 = List.new(0);
       
       var x;
       var i;

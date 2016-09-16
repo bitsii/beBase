@@ -77,9 +77,9 @@ final class ClassSyn {
          //method map
          Map mtdMap = Map.new();
          //method ordered list
-         Array mtdList = Array.new();
+         List mtdList = List.new();
          Map ptyMap = Map.new();
-         Array ptyList = Array.new();
+         List ptyList = List.new();
          Map allNames = Map.new();
          Map foreignClasses = Map.new();
          Bool allAncestorsClose = false;
@@ -329,8 +329,8 @@ final class ClassSyn {
    }
    
    postLoad() {
-      Array nptyList = Array.new();
-      Array mtdnList = Array.new();
+      List nptyList = List.new();
+      List mtdnList = List.new();
       Map unq;
       
       for (var iv = ptyList.iterator;iv.hasNext;;) {
@@ -403,7 +403,7 @@ final class ClassSyn {
    }
    
    serializationIteratorGet() {
-      Array names =@ Array.new(12);
+      List names =@ List.new(12);
       if (undef(names[0])) {
          names[0] = "namepath";
          names[1] = "depth";
@@ -437,7 +437,7 @@ final class Build:MtdSyn {
          String name = s.name;
          String orgName = s.orgName;
          Bool isGenAccessor = s.isGenAccessor;
-         Array argSyns = Array.new(numargs + 1); //also self arg
+         List argSyns = List.new(numargs + 1); //also self arg
          //declaration is the first place ever defined, origin is where this method was last overridden
          Build:NamePath origin = _origin;
          Build:NamePath declaration;

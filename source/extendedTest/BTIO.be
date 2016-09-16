@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
+use Container:List;
 use Container:Set;
 use System:Parameters;
 use Text:String;
@@ -284,7 +284,7 @@ class Util:Net:EchoServer {
 
      main() {
       ("Util:Net:EchoServer start").print();
-      Array args = System:Process.new().args;
+      List args = System:Process.new().args;
       if (def(args) && args.length > 1) {
         String ports = args[1];
       } else {
@@ -313,7 +313,7 @@ class Util:Net:EchoClient {
 
      main() {
       ("Util:Net:EchoClient start").print();
-      Array args = System:Process.new().args;
+      List args = System:Process.new().args;
       if (def(args) && args.length > 1) {
         String ports = args[1];
       } else {

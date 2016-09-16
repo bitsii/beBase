@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
+use Container:List;
 
 use System:Parameters;
 use Text:String;
@@ -21,7 +21,7 @@ class Tests:Function(BaseTest) {
    main() {
       ("Tests:Function.main").print();
       
-      Array n = Array.new(5);
+      List n = List.new(5);
       
       Function:MapProxy p = Function:MapProxy.new(self, "one");
       
@@ -37,7 +37,7 @@ class Tests:Function(BaseTest) {
       assertEquals(n[3], 2);
       
       p.callName = "addOne";
-      Array n2 = Mapper.mapCopy(n, p);
+      List n2 = Mapper.mapCopy(n, p);
       
       assertEquals(n2[4], 3);
       assertEquals(n[4], 2);

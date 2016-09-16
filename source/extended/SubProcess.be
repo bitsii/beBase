@@ -10,7 +10,7 @@ use System:Thing;
 use Container:NodeList;
 use IO:File;
 
-use Container:Array;
+use Container:List;
 use Text:String;
 use Math:Int;
 use Logic:Bool;
@@ -20,9 +20,9 @@ use System:SubProcess;
 class SubProcess {
    new() self { }
    
-   new(String _klass, String _execName, Array _args) SubProcess {
+   new(String _klass, String _execName, List _args) SubProcess {
       fields {
-         Array args = _args;
+         List args = _args;
          String execName = _execName;
          String klass = _klass;
          Bool isOpen = false;
@@ -100,7 +100,7 @@ void** v_thing;
       Thing argv;
       Thing klassChar;
       Thing platChar;
-      Array _args;
+      List _args;
       String lplat;
       String lklass;
       String lename;

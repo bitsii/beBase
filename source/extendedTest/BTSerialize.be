@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Container:Array;
+use Container:List;
 use System:Parameters;
 use Math:Int;
 use Text:String;
@@ -14,7 +14,7 @@ use Text:String;
 use System:Serializer;
 use Container:Set;
 use Container:Map;
-use Container:Array;
+use Container:List;
 use Container:LinkedList as LL;
 
 use Test:BaseTest;
@@ -46,11 +46,11 @@ class Test:ToSerialize {
       fields {
          var i = 10;
          var s = "Hi";
-         var a = Array.new(ai);
+         var a = List.new(ai);
          var n = null;
          var j = Set.new();
          var m = Map.new();
-         var v = Array.new(vi);
+         var v = List.new(vi);
          var l = LL.new();
          var t = true;
          var f = false;
@@ -101,9 +101,9 @@ class HasProps {
       }
    }
 
-   serializationNamesGet() Array {
+   serializationNamesGet() List {
      //to make threadsafe, init before return to once assign
-      Array names = Array.new(3);
+      List names = List.new(3);
        names[0] = "alpha";
        names[1] = "beta";
        names[2] = "gamma";
@@ -111,7 +111,7 @@ class HasProps {
    }
 
    serializationIteratorGet() {
-      Array names =@ self.serializationNames;
+      List names =@ self.serializationNames;
       return(System:NamedPropertiesIterator.new(self, names));
    }
 
@@ -128,9 +128,9 @@ class SerProps {
       }
    }
 
-   serializationNamesGet() Array {
+   serializationNamesGet() List {
      //to make threadsafe, init before return to once assign
-      Array names = Array.new(5);
+      List names = List.new(5);
          names[0] = "alpha";
          names[1] = "beta";
          names[2] = "gamma";
@@ -140,7 +140,7 @@ class SerProps {
    }
 
    serializationIteratorGet() {
-      Array names =@ self.serializationNames;
+      List names =@ self.serializationNames;
       return(System:NamedPropertiesIterator.new(self, names));
    }
 
@@ -203,8 +203,8 @@ class Test:BaseTest:Serialize(BaseTest) {
       ("testMap").print();
       testMap();
 
-      ("testArray").print();
-      testArray();
+      ("testList").print();
+      testList();
 
       ("testSaveIdentity").print();
       testSaveIdentity();
@@ -263,12 +263,12 @@ class Test:BaseTest:Serialize(BaseTest) {
 
    }
 
-   testArray() {
+   testList() {
       Serializer s = Serializer.new();
       var sbuf = String.new();
       sbuf.clear();
 
-      Array x = Array.new();
+      List x = List.new();
       x += 2;
 
       s.serialize(x, sbuf);
@@ -316,7 +316,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       sbuf.clear();
 
       Test:Structy x = Test:Structy.new();
-      x.x = Array.new(3);
+      x.x = List.new(3);
       x.x[1] = "Hi";
 
       s.serialize(x, sbuf);
@@ -430,7 +430,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       assertEquals(y, Text:String.new());
 
       sbuf.clear();
-      inst = Array.new(6);
+      inst = List.new(6);
       inst[1] = true;
       inst[3] = "Spoke";
       inst[4] = inst[1];
@@ -442,7 +442,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       assertEquals(y[3], "Spoke");
 
       sbuf.clear();
-      inst = Array.new();
+      inst = List.new();
       inst[1] = true;
       inst[3] = "Spoke";
       s.serialize(inst, sbuf);
@@ -547,7 +547,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       sbuf.clear();
 
-      inst = Array.new(4);
+      inst = List.new(4);
       inst[1] = true;
       inst[3] = "Spoke";
       s.serialize(inst, sbuf);
@@ -559,7 +559,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       sbuf.clear();
 
-      inst = Array.new();
+      inst = List.new();
       inst[1] = true;
       inst[3] = "Spoke";
       s.serialize(inst, sbuf);
@@ -598,7 +598,7 @@ class Test:BaseTest:Serialize(BaseTest) {
    testPropertyIterator() {
       var t = Test:ToSerialize.new();
       var i = t.serializationIterator;
-      Array v = Array.new();
+      List v = List.new();
       ("Starting iterate").print();
       while (i.hasNext) {
          var j = i.next;

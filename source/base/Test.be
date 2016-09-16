@@ -103,7 +103,7 @@ class Assertions {
 /*
 RunMethods {
    
-   main(Array _args, Parameters _params) {
+   main(List _args, Parameters _params) {
       if (can("argsSet", 1)) {
          var aset = self;
          aset.args = _args;
