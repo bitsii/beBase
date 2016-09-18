@@ -413,7 +413,8 @@ use final class Build:JSEmitter(Build:EmitCommon) {
    }
 
    getNameSpace(String libName) String {
-      return("be_" + libEmitName(libName));
+      //return("be_" + libEmitName(libName));
+      return("be");
    }
 
    getClassConfig(NamePath np) ClassConfig {

@@ -10,7 +10,7 @@ namespace be.BELS_Base {
 
 //Generated Object, rather than this class is the untyped/var type to avoid unnecessary casting
 
-using be.BEL_4_Base;
+using be;
 
 public class BECS_Object {
     

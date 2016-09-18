@@ -2,9 +2,10 @@
 libs
   dump libnames per se, can't have conflicting classes (use namespaces)
     only for name of files
+    mcs except broken
   save syns optional
   load syns at start
-  have test with base lib setup sep from test (add to cycle)
+  have test with base lib setup sep from test (add to cycle) use diff lib names
 
 var to any
   

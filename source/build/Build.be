@@ -140,12 +140,6 @@ final class Build:Build {
 
    dllhead(String addTo) String {
       if (platform.name == "mswin") {
-         addTo = addTo + "#ifdef BENC_" + libName + nl;
-         addTo = addTo + "__declspec(dllexport)" + nl;
-         addTo = addTo + "#endif" + nl;
-         addTo = addTo + "#ifndef BENC_" + libName + nl;
-         addTo = addTo + "__declspec(dllimport)" + nl;
-         addTo = addTo + "#endif" + nl;
       }
       return(addTo);
    }

@@ -162,8 +162,8 @@ class System:Exception {
                     //("callPart |" + callPart + "|").print();
                     LinkedList parts = callPart.split(".");
                     //3rd is class, 4th is method
-                    String klass = parts.get(2);
-                    String mtd = parts.get(3);
+                    String klass = parts.get(1);
+                    String mtd = parts.get(2);
                     //("klass |" + klass + "| mtd |" + mtd + "|").print();
                     klass = extractKlass(klass);
                     //("extracted klass |" + klass + "|").print();

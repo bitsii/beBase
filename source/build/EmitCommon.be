@@ -107,9 +107,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           //Shared library code genned based on lib contents
           String libEmitName = libEmitName(build.libName);
           String fullLibEmitName = fullLibEmitName(build.libName);
-          IO:File:Path libEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName(build.libName)).addStep(libEmitName + fileExt);
+          IO:File:Path libEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName + fileExt);
           
-          IO:File:Path synEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName(build.libName)).addStep(libEmitName + ".syn");
+          IO:File:Path synEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName + ".syn");
           
           String methodBody = String.new();
           Int lastMethodBodySize = 0;
@@ -2055,7 +2055,8 @@ buildClassInfoMethod(String belsBase) {
    }
    
    getNameSpace(String libName) String {
-      return("be." + libEmitName(libName));
+      //return("be." + libEmitName(libName));
+      return("be");
    }
    
 }
@@ -2074,7 +2075,7 @@ use local class Build:ClassConfig {
         String nameSpace = emitter.getNameSpace(libName);
         String emitName = emitter.getEmitName(np);
         String fullEmitName = emitter.getFullEmitName(nameSpace, emitName);
-        IO:File:Path classPath = emitPath.copy().addStep(emitter.emitLang).addStep("be").addStep(emitter.libEmitName(libName)).addStep(emitName + emitter.fileExt);
+        IO:File:Path classPath = emitPath.copy().addStep(emitter.emitLang).addStep("be").addStep(emitName + emitter.fileExt);
         IO:File:Path classDir = classPath.parent; 
         IO:File:Path synPath = classDir.copy().addStep(emitName + ".syn");
       }
