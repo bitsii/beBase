@@ -252,7 +252,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len_copy(" + classConf.emitName + ".prototype.becs_insts." + belsName + ", " + lisz + ")");
    }
 
-    classBeginGet() String {
+    classBegin(Build:ClassSyn csyn) String {
        if (def(parentConf)) {
           String extends = extend(parentConf.relEmitName(build.libName));
        } else {
@@ -351,7 +351,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         return("");
     }
 
-    klassDecGet() String {
+    klassDec(Bool isFinal) String {
         return("export class ");
     }
 

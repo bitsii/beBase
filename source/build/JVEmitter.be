@@ -62,12 +62,18 @@ use final class Build:JVEmitter(Build:EmitCommon) {
         return("public static ");
     }
     
-    baseMtdDecGet() String {
-        return("public ");
+    baseMtdDec(Build:MtdSyn msyn) String {
+      if (def(msyn) && msyn.isFinal) {
+        return("public final ");
+      }
+      return("public ");
     }
     
-    overrideMtdDecGet() String {
-        return("public ");
+    overrideMtdDec(Build:MtdSyn msyn) String {
+      if (def(msyn) && msyn.isFinal) {
+        return("public final ");
+      }
+      return("public ");
     }
    
    boolTypeGet() String {

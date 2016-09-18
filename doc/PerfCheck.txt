@@ -23,3 +23,16 @@ Dell E6430 Win7 on power cs mcs vsoff notaskman
 Dell E6430 Win7 on power cs csc vsoff notaskman
   2015-12-25 - 27.617
 
+Build stuff (typical box, vson)
+mcs 4from5
+Parse 2.5
+Load syn 3.5
+Save syn 1.5
+All parse emit 10
+Just emit 2.5
+
+savings with lib
+3.5 vs 2.5 + 2.5 = 5, so 1.5
+(/9.5 = 1/5th)
+if did custom emit/load would save 1 on use (so 2.5 saved), lose 1 on save 
+

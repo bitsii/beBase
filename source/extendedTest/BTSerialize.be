@@ -192,7 +192,9 @@ class Test:BaseTest:Serialize(BaseTest) {
       ("testSerProps").print();
       testSerProps();
 
-      if (true) { return(self); }
+      ifEmit(js) {
+        if (true) { return(self); }
+      }
 
       ("testNamedProperties").print();
       testNamedProperties();
@@ -213,7 +215,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       testSimpleCase();
 
       ("testPropertyIterator").print();
-      testPropertyIterator();
+      //testPropertyIterator();
 
       ("testSerializePieces").print();
       testSerializePieces();
@@ -318,12 +320,16 @@ class Test:BaseTest:Serialize(BaseTest) {
       Test:Structy x = Test:Structy.new();
       x.x = List.new(3);
       x.x[1] = "Hi";
+      
+      x.y = -1;
 
       s.serialize(x, sbuf);
       sbuf.print();
       var y = s.deserialize(sbuf);
       y.print();
       assertEquals(y.x[1], x.x[1]);
+      assertEquals(y.y, -1);
+      ("NEG ONE " + y.y).print();
    }
 
    testSaveIdentity() {

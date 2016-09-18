@@ -109,6 +109,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           String fullLibEmitName = fullLibEmitName(build.libName);
           IO:File:Path libEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName(build.libName)).addStep(libEmitName + fileExt);
           
+          IO:File:Path synEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName(build.libName)).addStep(libEmitName + ".syn");
+          
           String methodBody = String.new();
           Int lastMethodBodySize = 0;
           Int lastMethodBodyLines = 0;
@@ -290,7 +292,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             cle.write(preClass);
             
             //class declaration
-            String cb = self.classBegin;
+            String cb = self.classBegin(clnode.held.syn);
             lineCount += countLines(cb);
             cle.write(cb);
             
@@ -460,12 +462,40 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         return(libEmitPath.file.writer.open())
     }
     
+    loadSyns() {
+        if (synEmitPath.file.exists) {
+          "Loading Syns ".print();
+          Time:Interval sst = Time:Interval.now();
+          IO:File:Reader syne = synEmitPath.file.reader.open()
+          Map scls = System:Serializer.new().deserialize(syne);
+          syne.close();
+          Time:Interval sse = Time:Interval.now() - sst;
+          ("Loading Syns took " + sse).print();
+        }
+    }
+    
+    saveSyns() {
+        "Saving Syns".print();
+        Time:Interval sst = Time:Interval.now();
+        IO:File:Writer syne = synEmitPath.file.writer.open()
+        System:Serializer.new().serialize(build.emitData.synClasses, syne);
+        syne.close();
+        Time:Interval sse = Time:Interval.now() - sst;
+        ("Saving Syns took " + sse).print();
+    }
+    
     finishLibOutput(IO:File:Writer libe) {
         libe.close();
     }
     
-    klassDecGet() String {
-        return("public class ");
+    klassDec(Bool isFinal) String {
+      String isfin = "";
+      if(emitting("cs") && isFinal) {
+        isfin = "sealed ";
+      } elif (emitting("jv") && isFinal) {
+        isfin = "final ";
+      }
+      return("public " + isfin + "class ");
     }
     
     spropDecGet() String {
@@ -481,10 +511,18 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
     
     baseMtdDecGet() String {
+      return(baseMtdDec(null));
+    }
+    
+    baseMtdDec(Build:MtdSyn msyn) String {
         return("");
     }
     
     overrideMtdDecGet() String {
+      return(overrideMtdDec(null));
+    }
+    
+    overrideMtdDec(Build:MtdSyn msyn) String {
         return("");
     }
     
@@ -516,10 +554,13 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         main += "mc.bem_main_0();" += nl;
         main += self.mainEnd;
         
+        //loadSyns();
+        //saveSyns();
+        
         IO:File:Writer libe = getLibOutput();
         libe.write(self.beginNs());
         String extends = extend("be.BELS_Base.BECS_Lib");
-        libe.write(self.klassDec + libEmitName + extends + "  {" + nl);
+        libe.write(self.klassDec(true) + libEmitName + extends + "  {" + nl);
         libe.write(self.spropDec + self.boolType + " isInitted = false;" + nl);
         
         String initLibs = String.new();
@@ -747,9 +788,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       //node.held.rtype, untyped (obj), isSelf, or particular type
       
       if (msyn.declaration == csyn.namepath) {
-         String mtdDec = self.baseMtdDec;
+         String mtdDec = self.baseMtdDec(msyn);
       } else {
-         mtdDec = self.overrideMtdDec;
+         mtdDec = self.overrideMtdDec(msyn);
       }
       
       startMethod(mtdDec, returnType, emitNameForMethod(node), argDecs, exceptDec);
@@ -1073,14 +1114,14 @@ buildClassInfoMethod(String belsBase) {
        return(initialDec);
   }
   
-  classBeginGet() String {
+  classBegin(Build:ClassSyn csyn) String {
        if (def(parentConf)) {
           String extends = extend(parentConf.relEmitName(build.libName));
        } else {
           extends = extend("be.BELS_Base.BECS_Object");
        }
        String clb = "/* IO:File: " += inFilePathed += " */" += nl;
-       clb += self.klassDec += classConf.emitName += extends += " {" += nl; //}
+       clb += self.klassDec(csyn.isFinal) += classConf.emitName += extends += " {" += nl; //}
        clb += "public " += classConf.emitName += "() {";
        clb += " }" += nl; //default constructor
        if(emitting("cs")) {

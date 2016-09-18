@@ -39,12 +39,18 @@ use final class Build:CSEmitter(Build:EmitCommon) {
       return("bool");
    }
    
-   baseMtdDecGet() String {
-        return("public virtual ");
+   baseMtdDec(Build:MtdSyn msyn) String {
+     if (csyn.isFinal || (def(msyn) && msyn.isFinal)) {
+        return("public ");
+     }
+     return("public virtual ");
     }
     
-    overrideMtdDecGet() String {
-        return("public override ");
+    overrideMtdDec(Build:MtdSyn msyn) String {
+       if (def(msyn) && msyn.isFinal) {
+         return ("public sealed override ");
+       }
+       return("public override ");
     }
   
   superNameGet() String {

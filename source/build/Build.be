@@ -400,12 +400,17 @@ final class Build:Build {
       }
       //End Timer
       parseTime = Time:Interval.now() - startTime;
-      if (printSteps) {
+      //if (printSteps) {
         ("TIME: Parse phase completed in " + parseTime).print();
-      }
+      //}
       if (def(self.emitCommon)) {
         //ec way, not for old c, exception is caught by caller, exits with fail
+        Time:Interval emitStart = Time:Interval.now();
         self.emitCommon.doEmit();
+        parseEmitTime = Time:Interval.now() - startTime;
+        ("TIME: Parse and emit phases completed in " + parseEmitTime).print();
+        Time:Interval emitTime = Time:Interval.now() - emitStart;
+        ("TIME: Emit phase completed in " + emitTime).print();
         return(0);
       }
       if (doEmit) {

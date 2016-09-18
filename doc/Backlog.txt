@@ -1,28 +1,36 @@
 
-perf check
-gratuitous returns
-  if self typed, current behavior
-  if void typed, no return, void in declaration
-    return null from untyped (and js)
-  
-  get working with explicit void
-  switch default when not dec to void/get working
+libs
+  dump libnames per se, can't have conflicting classes (use namespaces)
+    only for name of files
+  save syns optional
+  load syns at start
+  have test with base lib setup sep from test (add to cycle)
 
+var to any
+  
+gratuitous returns - just change semantics
+  explicit any, void - see that works, yell at any non-void returns for void (return(), return(void))
+  default void for no specification, fixup problems
+  
 reintroduce proxy
   only for a typed call on a class with a particular method where method is unknown
+___________________
 
-libs
-  hex encode/decode strings
-  just a way to refer to / use code without having to compile it / have source
-  dump libnames per se, can't have conflicting classes (use namespaces)
-  saving/loading syns
+for callfromoper cases, if there is a "equalsName" method (for any call which was from oper) and arg is same type as caller call that instead
+  do for string equals, notEquals, add, addValue, 
+
+gratuitous returns
+  actually stop doing returns for void and reuse the called
+  (except for untyped and js, which still return self - tho js could skip assign)
+  
+for untyped vars, calls known to object are made as typed calls
+direct accessors
+
+string swapValue, cache the hash value??
 
 all in browser option (load for base, etc) (?precomp base? ?base comp?)
   just a big page with local refs
-___________________
-
-for untyped vars, calls known to object are made as typed calls
-direct accessors
+faster dev - node
 
 and or for && ||
 .not as a member on bool (as well as method)

@@ -20,6 +20,30 @@ use Logic:Bool;
 
 use Test:FrontCons;
 
+class Test:FinalsNC {
+
+  final firstDec() { }
+  
+  firstDec2() { }
+  
+  final toString() String { return("hi"); }
+  
+  hashGet() Math:Int { return(super.hash); }
+
+}
+
+final class Test:FinalsFC {
+
+  final firstDec() { }
+  
+  firstDec2() { }
+  
+  final toString() String { return("hi"); }
+  
+  hashGet() Math:Int { return(super.hash); }
+
+}
+
 class Test:BaseTest:ParseCorners(BaseTest) {
    
    main() {

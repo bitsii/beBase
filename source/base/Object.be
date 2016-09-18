@@ -592,7 +592,7 @@ void** bevl_x;
    }
    
    final tagGet() Math:Int {
-   emit(c) {
+      emit(c) {
       """
 /*-attr- -dec-*/
 void** bevl_toRetv;
@@ -629,7 +629,40 @@ BEINT* bevl_toRet;
    }
    
    hashGet() Math:Int {
-      return(tagGet());
+      emit(c) {
+      """
+/*-attr- -dec-*/
+void** bevl_toRetv;
+BEINT* bevl_toRet;
+      """
+      }
+      Math:Int toRet = Math:Int.new();
+      emit(c) {
+      """
+      bevl_toRetv = $toRet&*;
+      bevl_toRet = (BEINT*) (bevl_toRetv + bercps);
+      *bevl_toRet = (BEINT) bevs;
+      """
+      }
+      emit(jv) {
+      """
+      bevl_toRet.bevi_int = hashCode();
+      """
+      }
+      emit(cs) {
+      """
+      bevl_toRet.bevi_int = GetHashCode();
+      """
+      }
+      emit(js) {
+      """
+      if (this.becc_hash == null) {
+        this.becc_hash = be_BELS_Base_BECS_Runtime.prototype.hashCounter++;
+      }
+      bevl_toRet.bevi_int = this.becc_hash;
+      """
+      }
+      return(toRet);
    }
    
    notEquals(x) Bool {

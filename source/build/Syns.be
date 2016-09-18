@@ -113,8 +113,6 @@ final class ClassSyn {
         return(false);
    }
    
-   deserializeFromStringNew(String snw) self { new(); }
-   
    new(klass, psyn) self {
       allTypes = Map.new();
       mtdMap = Map.new();
@@ -400,25 +398,6 @@ final class ClassSyn {
       }
       
       allTypes.put(namepath, namepath);
-   }
-   
-   serializationIteratorGet() {
-      List names =@ List.new(12);
-      if (undef(names[0])) {
-         names[0] = "namepath";
-         names[1] = "depth";
-         names[2] = "fromFile";
-         names[3] = "libName";
-         names[4] = "isFinal";
-         names[5] = "isLocal";
-         names[6] = "superList";
-         names[7] = "uses";
-         names[8] = "ptyList";
-         names[9] = "mtdList";
-         names[10] = "allAncestorsClose";
-         names[11] = "isNotNull";
-      }
-      return(System:NamedPropertiesIterator.new(self, names));
    }
    
 }

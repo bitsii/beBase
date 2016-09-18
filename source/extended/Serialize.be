@@ -80,7 +80,8 @@ final class Serializer {
          Tokenizer toker = Tokenizer.new(
          group + defineReference + getReference + constructString + nullMark + defineClassTag + getClassTag + shift, 
 			true);
-         Url encoder = Url.new();
+         //Url encoder = Url.new();
+         Encode:Hex encoder = Encode:Hex.new();
          Bool saveIdentity = true;
       }
    }
