@@ -77,15 +77,15 @@ final class System:Process {
           args = Container:List.new();
           emit(jv) {
           """
-            for (int i = 0;i < be.BELS_Base.BECS_Runtime.args.length;i++) {
-                bevp_args.bem_addValue_1(new $class/Text:String$(be.BELS_Base.BECS_Runtime.args[i].getBytes("UTF-8")));
+            for (int i = 0;i < be.BECS_Runtime.args.length;i++) {
+                bevp_args.bem_addValue_1(new $class/Text:String$(be.BECS_Runtime.args[i].getBytes("UTF-8")));
             }
           """
           }
           emit(cs) {
           """
-            for (int i = 0;i < be.BELS_Base.BECS_Runtime.args.Length;i++) {
-                bevp_args.bem_addValue_1(new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(be.BELS_Base.BECS_Runtime.args[i])));
+            for (int i = 0;i < be.BECS_Runtime.args.Length;i++) {
+                bevp_args.bem_addValue_1(new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(be.BECS_Runtime.args[i])));
             }
           """
           }

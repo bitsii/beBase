@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-package be.BELS_Base;
+package be.;
 
 import java.util.*;
 

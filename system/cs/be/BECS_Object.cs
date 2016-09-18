@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-namespace be.BELS_Base {
+namespace be {
 
 //Generated Object, rather than this class is the untyped/var type to avoid unnecessary casting
 

@@ -161,7 +161,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
       emit(jv) {
         """
         String key = new String(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int, "UTF-8");
-        Class ti = be.BELS_Base.BECS_Runtime.typeInstances.get(key);
+        Class ti = be.BECS_Runtime.typeInstances.get(key);
         if (ti != null) {
             //System.out.println("Getting new instance for |" + key + "|");
             bevl_result = ($class/System:Object$) ti.newInstance();
@@ -174,7 +174,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
       emit(cs) {
         """
         string key = System.Text.Encoding.UTF8.GetString(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int);
-        Type ti = be.BELS_Base.BECS_Runtime.typeInstances[key];
+        Type ti = be.BECS_Runtime.typeInstances[key];
         if (ti != null) {
             bevl_result = ($class/System:Object$) Activator.CreateInstance(ti);
         }
@@ -254,12 +254,12 @@ void** bevl_mcall;
       }
       emit(jv) {
         """
-        int ci = be.BELS_Base.BECS_Ids.callIds.get(new String(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int, "UTF-8"));
+        int ci = be.BECS_Ids.callIds.get(new String(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int, "UTF-8"));
         """
       }
       emit(cs) {
         """
-        int ci = be.BELS_Base.BECS_Ids.callIds[System.Text.Encoding.UTF8.GetString(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int)];
+        int ci = be.BECS_Ids.callIds[System.Text.Encoding.UTF8.GetString(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int)];
         """
       }
       emit(jv,cs) {
@@ -439,7 +439,7 @@ $rval=* $cname*;
       java.lang.reflect.Method[] methods = this.getClass().getMethods();
       for (int i = 0;i < methods.length;i++) {
         if (methods[i].getName().equals(name)) {
-            return be.BELS_Base.BECS_Runtime.boolTrue;
+            return be.BECS_Runtime.boolTrue;
         }
       }
       """
@@ -450,7 +450,7 @@ $rval=* $cname*;
       System.Reflection.MethodInfo[] methods = this.GetType().GetMethods();
       for (int i = 0;i < methods.Length;i++) {
         if (methods[i].Name.Equals(name)) {
-            return be.BELS_Base.BECS_Runtime.boolTrue;
+            return be.BECS_Runtime.boolTrue;
         }
       }
       """
@@ -545,7 +545,7 @@ void** bevl_x;
       emit(jv,cs) {
       """
       if (this != beva_x) {
-        return be.BELS_Base.BECS_Runtime.boolFalse;
+        return be.BECS_Runtime.boolFalse;
       }
       """
       }
@@ -577,7 +577,7 @@ void** bevl_x;
       emit(jv,cs) {
       """
       if (this != beva_x) {
-        return be.BELS_Base.BECS_Runtime.boolFalse;
+        return be.BECS_Runtime.boolFalse;
       }
       """
       }
@@ -781,14 +781,14 @@ void** bevl_other;
       emit(jv) {
       """
       if (beva_other != null && this.getClass().equals(beva_other.getClass())) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(cs) {
       """
       if (beva_other != null && this.GetType() == beva_other.GetType()) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -840,14 +840,14 @@ BEVReturn(bevl_toRet);
       emit(jv) {
       """
       if (beva_other != null && beva_other.getClass().isAssignableFrom(this.getClass())) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
       emit(cs) {
       """
       if (beva_other != null && beva_other.GetType().IsAssignableFrom(this.GetType())) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }

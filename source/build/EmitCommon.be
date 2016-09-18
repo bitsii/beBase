@@ -98,8 +98,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           
           //Commonly needed values
           
-          String trueValue = "be.BELS_Base.BECS_Runtime.boolTrue";
-          String falseValue = "be.BELS_Base.BECS_Runtime.boolFalse";
+          String trueValue = "be.BECS_Runtime.boolTrue";
+          String falseValue = "be.BECS_Runtime.boolFalse";
           
           String instanceEqual = " == ";
           String instanceNotEqual = " != ";
@@ -146,7 +146,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
     
     runtimeInitGet() String {
-        return("be.BELS_Base.BECS_Runtime.init();" + nl);
+        return("be.BECS_Runtime.init();" + nl);
     }
     
     libEmitName(String libName) {
@@ -559,7 +559,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
         IO:File:Writer libe = getLibOutput();
         libe.write(self.beginNs());
-        String extends = extend("be.BELS_Base.BECS_Lib");
+        String extends = extend("be.BECS_Lib");
         libe.write(self.klassDec(true) + libEmitName + extends + "  {" + nl);
         libe.write(self.spropDec + self.boolType + " isInitted = false;" + nl);
         
@@ -577,18 +577,18 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             var clnode = ci.next;
             
             if(emitting("jv")) {
-                typeInstances += "be.BELS_Base.BECS_Runtime.typeInstances.put(" += q += clnode.held.namepath.toString() += q += ", Class.forName(" += q += getClassConfig(clnode.held.namepath).fullEmitName += q += "));" += nl;
+                typeInstances += "be.BECS_Runtime.typeInstances.put(" += q += clnode.held.namepath.toString() += q += ", Class.forName(" += q += getClassConfig(clnode.held.namepath).fullEmitName += q += "));" += nl;
             }
             if(emitting("cs")) {
-                typeInstances += "be.BELS_Base.BECS_Runtime.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ");" += nl;
+                typeInstances += "be.BECS_Runtime.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ");" += nl;
                 typeInstances += "typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ")";
                 typeInstances += ".GetField(" += q += "bevs_inst" += q += ").GetValue(null);" += nl;
             }
             
             if (clnode.held.syn.hasDefault) {
                 String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
-                notNullInitConstruct += "be.BELS_Base.BECS_Runtime.initializer.bem_notNullInitConstruct_1(" += nc += ");" += nl;
-                notNullInitDefault += "be.BELS_Base.BECS_Runtime.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
+                notNullInitConstruct += "be.BECS_Runtime.initializer.bem_notNullInitConstruct_1(" += nc += ");" += nl;
+                notNullInitDefault += "be.BECS_Runtime.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
             }
         }
         
@@ -1118,7 +1118,7 @@ buildClassInfoMethod(String belsBase) {
        if (def(parentConf)) {
           String extends = extend(parentConf.relEmitName(build.libName));
        } else {
-          extends = extend("be.BELS_Base.BECS_Object");
+          extends = extend("be.BECS_Object");
        }
        String clb = "/* IO:File: " += inFilePathed += " */" += nl;
        clb += self.klassDec(csyn.isFinal) += classConf.emitName += extends += " {" += nl; //}
@@ -1323,7 +1323,7 @@ buildClassInfoMethod(String belsBase) {
    }
    
     acceptThrow(Node node) {
-        methodBody += "throw new be.BELS_Base.BECS_ThrowBack(" += formTarg(node.second) += ");" += nl;
+        methodBody += "throw new be.BECS_ThrowBack(" += formTarg(node.second) += ");" += nl;
     }
     
     onceVarDec(String count) String {
@@ -1802,7 +1802,7 @@ buildClassInfoMethod(String belsBase) {
     if(emitting("js")) {
         ii += "be_BELS_Base_BECS_Runtime.prototype.initializer.bem_initializeIt_1(" += nc += ")";
     } else {
-        ii += "be.BELS_Base.BECS_Runtime.initializer.bem_initializeIt_1(" += nc += ")";
+        ii += "be.BECS_Runtime.initializer.bem_initializeIt_1(" += nc += ")";
     }
     ii += ")";
     return(ii);

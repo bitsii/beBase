@@ -611,7 +611,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv) {
       """
       if (this.bevi_int == (($class/Math:Int$)beva_xi).bevi_int) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -619,7 +619,7 @@ this.bevi_int = beva_xi.bevi_int;
       """
       var bevls_xi = beva_xi as $class/Math:Int$;
       if (this.bevi_int == bevls_xi.bevi_int) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -643,7 +643,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv) {
       """
       if (this.bevi_int != (($class/Math:Int$)beva_xi).bevi_int) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -651,7 +651,7 @@ this.bevi_int = beva_xi.bevi_int;
       """
       var bevls_xi = beva_xi as $class/Math:Int$;
       if (this.bevi_int != bevls_xi.bevi_int) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -672,7 +672,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv,cs) {
       """
       if (this.bevi_int > beva_xi.bevi_int) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -693,7 +693,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv,cs) {
       """
       if (this.bevi_int < beva_xi.bevi_int) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -714,7 +714,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv,cs) {
       """
       if (this.bevi_int >= beva_xi.bevi_int) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -735,7 +735,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv,cs) {
       """
       if (this.bevi_int <= beva_xi.bevi_int) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }

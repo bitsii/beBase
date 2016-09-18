@@ -201,7 +201,7 @@ void** bevl_spa;
           """
           java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
           if (bevls_f.isDirectory()) {
-            bevl_result = be.BELS_Base.BECS_Runtime.boolTrue;
+            bevl_result = be.BECS_Runtime.boolTrue;
           }
           """
           }
@@ -209,7 +209,7 @@ void** bevl_spa;
           """
           string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
           if (Directory.Exists(bevls_path)) {
-            bevl_result = be.BELS_Base.BECS_Runtime.boolTrue;
+            bevl_result = be.BECS_Runtime.boolTrue;
           }
           """
           }
@@ -249,7 +249,7 @@ void** bevl_spa;
           """
           java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
           if (bevls_f.isFile()) {
-            bevl_result = be.BELS_Base.BECS_Runtime.boolTrue;
+            bevl_result = be.BECS_Runtime.boolTrue;
           }
           """
           }
@@ -257,7 +257,7 @@ void** bevl_spa;
           """
           string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
           if (File.Exists(bevls_path)) {
-            bevl_result = be.BELS_Base.BECS_Runtime.boolTrue;
+            bevl_result = be.BECS_Runtime.boolTrue;
           }
           """
           }
@@ -326,7 +326,7 @@ void** bevl_mpath;
       """
       java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
       if (bevls_f.exists()) {
-        bevl_tvala = be.BELS_Base.BECS_Runtime.boolTrue;
+        bevl_tvala = be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -334,7 +334,7 @@ void** bevl_mpath;
       """
       string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
       if (File.Exists(bevls_path) || Directory.Exists(bevls_path)) {
-        bevl_tvala = be.BELS_Base.BECS_Runtime.boolTrue;
+        bevl_tvala = be.BECS_Runtime.boolTrue;
       }
       """
       }

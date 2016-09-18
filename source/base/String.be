@@ -765,10 +765,10 @@ BEINT bevl_val;
     if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
        for (int i = 0;i < this.bevp_size.bevi_int;i++) {
           if (this.bevi_bytes[i] != bevls_stri.bevi_bytes[i]) {
-            return be.BELS_Base.BECS_Runtime.boolFalse;
+            return be.BECS_Runtime.boolFalse;
           }
        }
-       return be.BELS_Base.BECS_Runtime.boolTrue;
+       return be.BECS_Runtime.boolTrue;
    }
   //}
   """
@@ -780,10 +780,10 @@ BEINT bevl_val;
     if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
        for (int i = 0;i < this.bevp_size.bevi_int;i++) {
           if (this.bevi_bytes[i] != bevls_stri.bevi_bytes[i]) {
-            return be.BELS_Base.BECS_Runtime.boolFalse;
+            return be.BECS_Runtime.boolFalse;
           }
        }
-       return be.BELS_Base.BECS_Runtime.boolTrue;
+       return be.BECS_Runtime.boolTrue;
    }
   //}
   """

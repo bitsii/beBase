@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-namespace be.BELS_Base {
+namespace be {
 
 using System.Collections.Generic;
 

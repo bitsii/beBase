@@ -8,6 +8,6 @@ cd target5\Base\target
 unzip -o ..\..\..\boot5\BEL_4_Base_be_mcs_mswin.zip
 cd ..\..\..
 
-call mcs /warn:0 -out:target5\BEL_4_Base_mcs.exe system\cs\be\BELS_Base\*.cs target5\Base\target\cs\be\BEL_4_Base\*.cs
+call mcs /warn:0 -out:target5\BEL_4_Base_mcs.exe system\cs\be\*.cs target5\Base\target\cs\be\*.cs
 
 call scripts\bld4from5mcs.bat

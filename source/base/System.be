@@ -564,12 +564,12 @@ final class System:CurrentPlatform (System:Platform) {
                 String platformName;
                 emit(jv) {
                 """
-                    bevl_platformName = new $class/Text:String$(be.BELS_Base.BECS_Runtime.platformName.getBytes("UTF-8"));
+                    bevl_platformName = new $class/Text:String$(be.BECS_Runtime.platformName.getBytes("UTF-8"));
                 """
                 }
                 emit(cs) {
                 """
-                    bevl_platformName = new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(be.BELS_Base.BECS_Runtime.platformName));
+                    bevl_platformName = new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(be.BECS_Runtime.platformName));
                 """
                 }
                 emit(js) {

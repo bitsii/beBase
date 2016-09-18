@@ -365,7 +365,7 @@ final class System:ExceptionBuilder {
      emit(cs) {
      """
        bevl_line.bevi_int = 
-         be.BELS_Base.BECS_Runtime.getNlcForNlec(beva_klass.bems_toCsString(),
+         be.BECS_Runtime.getNlcForNlec(beva_klass.bems_toCsString(),
            beva_eline.bevi_int);
      """
      }
@@ -381,7 +381,7 @@ final class System:ExceptionBuilder {
      emit(jv) {
      """
        bevl_line.bevi_int = 
-         be.BELS_Base.BECS_Runtime.getNlcForNlec(beva_klass.bems_toJvString(),
+         be.BECS_Runtime.getNlcForNlec(beva_klass.bems_toJvString(),
            beva_eline.bevi_int);
      """
      }

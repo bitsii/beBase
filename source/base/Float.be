@@ -237,7 +237,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv) {
       """
       if (this.bevi_float == (($class/Math:Float$)beva_xi).bevi_float) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -245,7 +245,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       """
       var bevls_xi = beva_xi as $class/Math:Float$;
       if (this.bevi_float == bevls_xi.bevi_float) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -266,7 +266,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv) {
       """
       if (this.bevi_float != (($class/Math:Float$)beva_xi).bevi_float) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -274,7 +274,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       """
       var bevls_xi = beva_xi as $class/Math:Float$;
       if (this.bevi_float != bevls_xi.bevi_float) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -295,7 +295,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv,cs) {
       """
       if (this.bevi_float > beva_xi.bevi_float) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -316,7 +316,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv,cs) {
       """
       if (this.bevi_float < beva_xi.bevi_float) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -337,7 +337,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv,cs) {
       """
       if (this.bevi_float >= beva_xi.bevi_float) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
@@ -358,7 +358,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(jv,cs) {
       """
       if (this.bevi_float <= beva_xi.bevi_float) {
-        return be.BELS_Base.BECS_Runtime.boolTrue;
+        return be.BECS_Runtime.boolTrue;
       }
       """
       }
