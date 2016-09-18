@@ -126,7 +126,7 @@ void** bevl_fhpatha;
         var bevls_spath = this.bems_stringToJsString_1(this.bevp_path.bevp_path);
         this.bevi_is = fs.openSync(bevls_spath, 'r');
       }
-      this.bevp_isClosed = be_BELS_Base_BECS_Runtime.prototype.boolFalse;
+      this.bevp_isClosed = be_BECS_Runtime.prototype.boolFalse;
       """
       }
       if (undef(isClosed) || isClosed) {
@@ -428,7 +428,7 @@ void** bevl_mode;
             this.bevi_os = fs.openSync(bevls_spath, 'w');
         }
       }
-      this.bevp_isClosed = be_BELS_Base_BECS_Runtime.prototype.boolFalse;
+      this.bevp_isClosed = be_BECS_Runtime.prototype.boolFalse;
       """
       }
       ifEmit(c) {

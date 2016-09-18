@@ -181,14 +181,14 @@ class System:Exception {
                         mtd = extractMethod(mtd);
                         //("extracted mtd |" + mtd + "|").print();
                         klass = parts.get(0);
-                        start = klass.find("BEL_");
+                        start = klass.find("BEC_");
                         if (def(start) && start > 0) {
                             end = klass.find("_", start + 4);
                             if (def(end) && end > 0) {
-                                String libLens = klass.substring(start + 4, end);
+                                //String libLens = klass.substring(start, end);
                                 //("libLens |" + libLens + "|").print();
-                                Int libLen = Int.new(libLens);
-                                klass = klass.substring(start + 7 + libLen);
+                                //Int libLen = Int.new(libLens);
+                                klass = klass.substring(start);
                                 //("pre extracted klass |" + klass + "|").print();
                                 klass = extractKlass(klass);
                                 //("extracted klass |" + klass + "|").print();
@@ -373,7 +373,7 @@ final class System:ExceptionBuilder {
      emit(js) {
      """
        bevl_line.bevi_int = 
-         be_BELS_Base_BECS_Runtime.prototype.getNlcForNlec(this.bems_stringToJsString_1(beva_klass),
+         be_BECS_Runtime.prototype.getNlcForNlec(this.bems_stringToJsString_1(beva_klass),
            beva_eline.bevi_int);
      """
      }

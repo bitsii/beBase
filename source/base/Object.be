@@ -182,7 +182,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
       }
       emit(js) {
       """
-      var ti = be_BELS_Base_BECS_Runtime.prototype.typeInstances[this.bems_stringToJsString_1(beva_cname)];
+      var ti = be_BECS_Runtime.prototype.typeInstances[this.bems_stringToJsString_1(beva_cname)];
       if (null != ti) {
         bevl_result = ti.bemc_create();
       }
@@ -458,7 +458,7 @@ $rval=* $cname*;
       emit(js) {
       """
       if (this["bem_" + this.bems_stringToJsString_1(bevl_cname)] != null) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -499,7 +499,7 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       }
       emit(js) {
       """
-      bevl_xi = new be_BEL_4_Base_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clname, this.becs_insts.becc_clname.length);
+      bevl_xi = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clname, this.becs_insts.becc_clname.length);
       """
       }
       return(xi);
@@ -521,7 +521,7 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       }
       emit(js) {
       """
-      bevl_xi = new be_BEL_4_Base_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clfile, this.becs_insts.becc_clfile.length);
+      bevl_xi = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clfile, this.becs_insts.becc_clfile.length);
       """
       }
       return(xi);
@@ -552,7 +552,7 @@ void** bevl_x;
       emit(js) {
       """
       if (this !== beva_x) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolFalse;
+        return be_BECS_Runtime.prototype.boolFalse;
       }
       """
       }
@@ -584,7 +584,7 @@ void** bevl_x;
       emit(js) {
       """
       if (this !== beva_x) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolFalse;
+        return be_BECS_Runtime.prototype.boolFalse;
       }
       """
       }
@@ -620,7 +620,7 @@ BEINT* bevl_toRet;
       emit(js) {
       """
       if (this.becc_hash == null) {
-        this.becc_hash = be_BELS_Base_BECS_Runtime.prototype.hashCounter++;
+        this.becc_hash = be_BECS_Runtime.prototype.hashCounter++;
       }
       bevl_toRet.bevi_int = this.becc_hash;
       """
@@ -657,7 +657,7 @@ BEINT* bevl_toRet;
       emit(js) {
       """
       if (this.becc_hash == null) {
-        this.becc_hash = be_BELS_Base_BECS_Runtime.prototype.hashCounter++;
+        this.becc_hash = be_BECS_Runtime.prototype.hashCounter++;
       }
       bevl_toRet.bevi_int = this.becc_hash;
       """
@@ -774,7 +774,7 @@ void** bevl_other;
       emit(js) {
       """
       if (beva_other !== null && Object.getPrototypeOf(beva_other).isPrototypeOf(this) && Object.getPrototypeOf(this).isPrototypeOf(beva_other)) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -833,7 +833,7 @@ BEVReturn(bevl_toRet);
       emit(js) {
       """
       if (beva_other !== null && Object.getPrototypeOf(beva_other).isPrototypeOf(this)) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }

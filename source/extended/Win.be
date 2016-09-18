@@ -217,7 +217,7 @@ void** bevl_spa;
          """
          var bevls_path = this.bems_stringToJsString_1(this.bevp_path.bevp_path);
          if (fs.lstatSync(bevls_path).isDirectory()) {
-            bevl_result = be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+            bevl_result = be_BECS_Runtime.prototype.boolTrue;
           }
          """
          }
@@ -265,7 +265,7 @@ void** bevl_spa;
          """
          var bevls_path = this.bems_stringToJsString_1(this.bevp_path.bevp_path);
          if (fs.lstatSync(bevls_path).isFile()) {
-            bevl_result = be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+            bevl_result = be_BECS_Runtime.prototype.boolTrue;
           }
          """
          }
@@ -342,7 +342,7 @@ void** bevl_mpath;
      """
      var bevls_path = this.bems_stringToJsString_1(this.bevp_path.bevp_path);
      if (fs.existsSync(bevls_path)) {
-        bevl_tvala = be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        bevl_tvala = be_BECS_Runtime.prototype.boolTrue;
      }
      """
      }

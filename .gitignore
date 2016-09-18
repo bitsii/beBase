@@ -4,4 +4,4 @@ target*/
 include/mswin/
 include/linux/
 test/tmp
-system/jv/be/BELS_Base/*.class
+system/jv/be/*.class

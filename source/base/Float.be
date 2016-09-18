@@ -28,7 +28,7 @@ final class Float {
    emit(js) {
    """
    
-    be_BEL_4_Base_$class/Math:Float$.prototype.beml_set_bevi_float = function(bevi_float) {
+    be_$class/Math:Float$.prototype.beml_set_bevi_float = function(bevi_float) {
         this.bevi_float = bevi_float;
         return this;
     }
@@ -252,7 +252,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(js) {
       """
       if (this.bevi_float === beva_xi.bevi_float) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -281,7 +281,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(js) {
       """
       if (this.bevi_float !== beva_xi.bevi_float) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -302,7 +302,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(js) {
       """
       if (this.bevi_float > beva_xi.bevi_float) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -323,7 +323,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(js) {
       """
       if (this.bevi_float < beva_xi.bevi_float) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -344,7 +344,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(js) {
       """
       if (this.bevi_float >= beva_xi.bevi_float) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -365,7 +365,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(js) {
       """
       if (this.bevi_float <= beva_xi.bevi_float) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }

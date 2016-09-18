@@ -1,6 +1,5 @@
 
 libs
-  get js working
   save syns optional
   load syns at start
   have test with base lib setup sep from test (add to cycle) use diff lib names

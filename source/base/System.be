@@ -574,8 +574,8 @@ final class System:CurrentPlatform (System:Platform) {
                 }
                 emit(js) {
                 """
-                    bevls_name = this.bems_stringToBytes_1(be_BELS_Base_BECS_Runtime.prototype.platformName);
-                    bevl_platformName = new be_BEL_4_Base_$class/Text:String$().beml_set_bevi_bytes_len_copy(bevls_name, bevls_name.length);
+                    bevls_name = this.bems_stringToBytes_1(be_BECS_Runtime.prototype.platformName);
+                    bevl_platformName = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(bevls_name, bevls_name.length);
                 """
                 }
                 setName(platformName);

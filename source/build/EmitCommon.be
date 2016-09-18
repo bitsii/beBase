@@ -548,7 +548,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         String main = "";
         main += self.mainStart;
         main += fullLibEmitName += ".init();" += nl;
-        //main += self.procStart;
         main += maincc.fullEmitName += " mc = new " += maincc.fullEmitName += "();" += nl;
         main += "mc.bem_new_0();" += nl;
         main += "mc.bem_main_0();" += nl;
@@ -640,10 +639,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
         finishLibOutput(libe);
         
-    }
-    
-    procStartGet() String {
-        return("(new be.BEL_4_Base.BEC_2_6_7_SystemProcess()).bem_default_0();" + nl);
     }
     
     mainInClassGet() Bool {
@@ -1800,7 +1795,7 @@ buildClassInfoMethod(String belsBase) {
    doInitializeIt(String nc) String {
     String ii = "(";
     if(emitting("js")) {
-        ii += "be_BELS_Base_BECS_Runtime.prototype.initializer.bem_initializeIt_1(" += nc += ")";
+        ii += "be_BECS_Runtime.prototype.initializer.bem_initializeIt_1(" += nc += ")";
     } else {
         ii += "be.BECS_Runtime.initializer.bem_initializeIt_1(" += nc += ")";
     }

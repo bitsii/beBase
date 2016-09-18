@@ -7,8 +7,8 @@
 -buildFile=build/extendedShared.txt
 -buildFile=build/baseTestShared.txt
 -buildFile=build/extendedTestShared.txt
--jsInclude=system/js/be/BELS_Base/BECS_Runtime.js
--jsInclude=system/js/be/BELS_Base/BECS_Object.js
+-jsInclude=system/js/be/BECS_Runtime.js
+-jsInclude=system/js/be/BECS_Object.js
 #-emitLang=jv
 #-emitLang=cs
 

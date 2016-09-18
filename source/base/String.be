@@ -131,28 +131,28 @@ final class String {
    emit(js) {
    """
    
-    be_BEL_4_Base_$class/Text:String$.prototype.beml_set_bevi_bytes = function(bevi_bytes) {
+    be_$class/Text:String$.prototype.beml_set_bevi_bytes = function(bevi_bytes) {
         this.bevi_bytes = bevi_bytes;
-        this.bevp_size = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_bytes.length);
-        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_bytes.length);
+        this.bevp_size = new be_$class/Math:Int$().beml_set_bevi_int(bevi_bytes.length);
+        this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_bytes.length);
         return this;
     }
-    be_BEL_4_Base_$class/Text:String$.prototype.beml_set_bevi_bytes_len = function(bevi_bytes, bevi_length) {
+    be_$class/Text:String$.prototype.beml_set_bevi_bytes_len = function(bevi_bytes, bevi_length) {
         this.bevi_bytes = bevi_bytes;
-        this.bevp_size = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_length);
-        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_size = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         return this;
     }
-    be_BEL_4_Base_$class/Text:String$.prototype.beml_set_bevi_bytes_len_copy = function(bevi_bytes, bevi_length) {
+    be_$class/Text:String$.prototype.beml_set_bevi_bytes_len_copy = function(bevi_bytes, bevi_length) {
         this.bevi_bytes = bevi_bytes.slice(0);
-        this.bevp_size = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_length);
-        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_size = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         return this;
     }
-    be_BEL_4_Base_$class/Text:String$.prototype.bems_toJsString = function() {
+    be_$class/Text:String$.prototype.bems_toJsString = function() {
         return this.bems_stringToJsString_1(this);
     }
-    be_BEL_4_Base_$class/Text:String$.prototype.bems_new = function(str) {
+    be_$class/Text:String$.prototype.bems_new = function(str) {
       this.beml_set_bevi_bytes(this.bems_stringToBytes_1(str));
       return this;
     }
@@ -793,10 +793,10 @@ BEINT bevl_val;
    if (this.bevp_size.bevi_int === beva_stri.bevp_size.bevi_int) {
        for (var i = 0;i < this.bevp_size.bevi_int;i++) {
           if (this.bevi_bytes[i] !== beva_stri.bevi_bytes[i]) {
-            return be_BELS_Base_BECS_Runtime.prototype.boolFalse;
+            return be_BECS_Runtime.prototype.boolFalse;
           }
        }
-       return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+       return be_BECS_Runtime.prototype.boolTrue;
    }
    """
    }

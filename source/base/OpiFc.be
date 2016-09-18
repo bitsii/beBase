@@ -252,15 +252,15 @@ final class ForwardCall {
    emit(js) {
    """
    
-    be_BEL_4_Base_$class/System:ForwardCall$.prototype.beml_new_forward = function(name, args) {
+    be_$class/System:ForwardCall$.prototype.beml_new_forward = function(name, args) {
         
         //substring name
         name = name.substring(0, name.lastIndexOf("_"));
         //make it bytes, then our string
         name = this.bems_stringToBytes_1(name);
-        name = new be_BEL_4_Base_$class/Text:String$().beml_set_bevi_bytes_len_copy(name, name.length);
+        name = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(name, name.length);
         
-        args = new be_BEL_4_Base_$class/Container:List$().beml_new_array(args);
+        args = new be_$class/Container:List$().beml_new_array(args);
         
         this.bem_new_2(name,  args);
         

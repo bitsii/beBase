@@ -35,7 +35,7 @@ final class Int {
    emit(js) {
    """
    
-    be_BEL_4_Base_$class/Math:Int$.prototype.beml_set_bevi_int = function(bevi_int) {
+    be_$class/Math:Int$.prototype.beml_set_bevi_int = function(bevi_int) {
         this.bevi_int = bevi_int;
         return this;
     }
@@ -628,7 +628,7 @@ this.bevi_int = beva_xi.bevi_int;
       //console.log("in equals for js " + this.bevi_int + " " +  beva_xi.bevi_int);
       if (this.bevi_int === beva_xi.bevi_int) {
         //console.log("is eq");
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       //console.log("not eq");
       """
@@ -658,7 +658,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(js) {
       """
       if (this.bevi_int !== beva_xi.bevi_int) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -679,7 +679,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(js) {
       """
       if (this.bevi_int > beva_xi.bevi_int) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -700,7 +700,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(js) {
       """
       if (this.bevi_int < beva_xi.bevi_int) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -721,7 +721,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(js) {
       """
       if (this.bevi_int >= beva_xi.bevi_int) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }
@@ -742,7 +742,7 @@ this.bevi_int = beva_xi.bevi_int;
       emit(js) {
       """
       if (this.bevi_int <= beva_xi.bevi_int) {
-        return be_BELS_Base_BECS_Runtime.prototype.boolTrue;
+        return be_BECS_Runtime.prototype.boolTrue;
       }
       """
       }

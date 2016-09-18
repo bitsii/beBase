@@ -119,11 +119,11 @@ final class List {
    emit(js) {
    """
    
-    be_BEL_4_Base_$class/Container:List$.prototype.beml_new_array = function(bevi_list) {
+    be_$class/Container:List$.prototype.beml_new_array = function(bevi_list) {
         this.bevi_list = bevi_list;
-        this.bevp_length = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_list.length);
-        this.bevp_capacity = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(bevi_list.length);
-        this.bevp_multiplier = new be_BEL_4_Base_$class/Math:Int$().beml_set_bevi_int(2);
+        this.bevp_length = new be_$class/Math:Int$().beml_set_bevi_int(bevi_list.length);
+        this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_list.length);
+        this.bevp_multiplier = new be_$class/Math:Int$().beml_set_bevi_int(2);
         return(this);
     }
     

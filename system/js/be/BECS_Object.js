@@ -5,11 +5,11 @@
 // <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
-var be_BELS_Base_BECS_Object = function() { }
+var be_BECS_Object = function() { }
 
-be_BELS_Base_BECS_Object.prototype.becs_insts = function() { }
+be_BECS_Object.prototype.becs_insts = function() { }
 
-be_BELS_Base_BECS_Object.prototype.bems_bytesToString_2 = function(arr, len) {
+be_BECS_Object.prototype.bems_bytesToString_2 = function(arr, len) {
     for (var i=0, l=len, s='', c; c = arr[i++];)
     s += String.fromCharCode(
         c > 0xdf && c < 0xf0 && i < l-1
@@ -21,15 +21,15 @@ be_BELS_Base_BECS_Object.prototype.bems_bytesToString_2 = function(arr, len) {
     return(s);
 }
 
-be_BELS_Base_BECS_Object.prototype.bems_stringToJsString_1 = function(str) {
-    return (be_BELS_Base_BECS_Object.prototype.bems_bytesToString_2(str.bevi_bytes, str.bevp_size.bevi_int));
+be_BECS_Object.prototype.bems_stringToJsString_1 = function(str) {
+    return (be_BECS_Object.prototype.bems_bytesToString_2(str.bevi_bytes, str.bevp_size.bevi_int));
 }
 
-be_BELS_Base_BECS_Object.prototype.bems_bytesToString_1 = function(arr) {
-    return (be_BELS_Base_BECS_Object.prototype.bems_bytesToString_2(arr, arr.length));
+be_BECS_Object.prototype.bems_bytesToString_1 = function(arr) {
+    return (be_BECS_Object.prototype.bems_bytesToString_2(arr, arr.length));
 }
 
-be_BELS_Base_BECS_Object.prototype.bems_stringToBytes_1 = function(str) {
+be_BECS_Object.prototype.bems_stringToBytes_1 = function(str) {
     var utf8 = [];
     for (var i=0; i < str.length; i++) {
         var charcode = str.charCodeAt(i);
