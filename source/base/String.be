@@ -404,7 +404,8 @@ final class String {
         into *= 31;
         into += c;
       }
-      return(into.absValue());
+      //return(into.absValue());
+      return(into);
    }
    
    hashGet() Int {
