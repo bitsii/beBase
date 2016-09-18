@@ -6,12 +6,12 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-package be.;
+package be;
 
 //Native / generated Object, rather than this class is the untyped/var type to avoid unnecessary casting
 
-import be.BEL_4_Base.BEC_2_6_6_SystemObject;
-import be.BEL_4_Base.BEC_2_6_11_SystemForwardCall;
+import be.BEC_2_6_6_SystemObject;
+import be.BEC_2_6_11_SystemForwardCall;
 
 public class BECS_Object {
     

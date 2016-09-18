@@ -2,7 +2,7 @@ target5\BEL_4_Base_mcs.exe --buildFile build\buildbuild.txt --deployPath deploy5
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-javac system\jv\be\BELS_Base\*.java target5\Base\target\jv\be\BEL_4_Base\*.java
+javac system\jv\be\*.java target5\Base\target\jv\be\*.java
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 

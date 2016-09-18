@@ -4,7 +4,7 @@ java -classpath target5/BEL_system_be_jv.jar;target5/BEL_4_Base_be_jv.jar be.BEL
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-javac system\jv\be\BELS_Base\*.java targetEc\Base\target\jv\be\*.java
+javac system\jv\be\*.java targetEc\Base\target\jv\be\*.java
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 

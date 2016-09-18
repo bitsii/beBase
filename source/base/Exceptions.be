@@ -236,7 +236,7 @@ class System:Exception {
      //("in extractKlassLib " + callPart).print();
      LinkedList parts = callPart.split(".");
      //3rd is class, 4th is method
-     return(extractKlass(parts.get(2)));
+     return(extractKlass(parts.get(1)));
    }
    
    extractKlass(String klass) String {

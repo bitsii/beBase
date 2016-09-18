@@ -1,10 +1,10 @@
-java -classpath target5\BEL_system_be_jv.jar;target5\BEL_4_Base_be_jv.jar be.BEL_4_Base.BEL_4_Base --buildFile build\buildbuild.txt --deployPath deploy4 --buildPath target4 --emitLang jv %*
+java -classpath target5\BEL_system_be_jv.jar;target5\BEL_4_Base_be_jv.jar be.BEL_4_Base --buildFile build\buildbuild.txt --deployPath deploy4 --buildPath target4 --emitLang jv %*
 
 REM --howManyTimes 3000
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-javac system\jv\be\BELS_Base\*.java target4\Base\target\jv\be\BEL_4_Base\*.java
+javac system\jv\be\*.java target4\Base\target\jv\be\*.java
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 

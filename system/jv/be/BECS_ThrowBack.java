@@ -6,12 +6,12 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-package be.;
+package be;
 
-import be.BEL_4_Base.BEC_2_6_6_SystemObject;
-import be.BEL_4_Base.BEC_2_6_9_SystemException;
-import be.BEL_4_Base.BEC_2_4_6_TextString;
-import be.BEL_4_Base.BEC_2_4_3_MathInt;
+import be.BEC_2_6_6_SystemObject;
+import be.BEC_2_6_9_SystemException;
+import be.BEC_2_4_6_TextString;
+import be.BEC_2_4_3_MathInt;
 
 public class BECS_ThrowBack extends RuntimeException {
     

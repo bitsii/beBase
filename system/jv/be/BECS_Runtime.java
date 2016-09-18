@@ -6,13 +6,13 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-package be.;
+package be;
 
 import java.util.*;
 
-import be.BEL_4_Base.BEC_2_6_6_SystemObject;
-import be.BEL_4_Base.BEC_2_5_4_LogicBool;
-import be.BEL_4_Base.BEC_2_6_11_SystemInitializer;
+import be.BEC_2_6_6_SystemObject;
+import be.BEC_2_5_4_LogicBool;
+import be.BEC_2_6_11_SystemInitializer;
 
 //This should be the var type to avoid unnecessary casting
 //if we want to optimize "object" level calls we can put the signatures

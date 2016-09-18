@@ -2,7 +2,7 @@ target5\BEL_4_Base_csc.exe --buildFile build\buildbuild.txt --deployPath cycle\d
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-call csc /debug:pdbonly /warn:0 -out:cycle\target0\BEL_4_Base_csc.exe system\cs\be\BELS_Base\*.cs cycle\target0\Base\target\cs\be\BEL_4_Base\*.cs
+call csc /debug:pdbonly /warn:0 -out:cycle\target0\BEL_4_Base_csc.exe system\cs\be\*.cs cycle\target0\Base\target\cs\be\*.cs
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
@@ -10,7 +10,7 @@ cycle\target0\BEL_4_Base_csc.exe --buildFile build\buildbuild.txt --deployPath c
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-call csc /debug:pdbonly /warn:0 -out:cycle\target1\BEL_4_Base_csc.exe system\cs\be\BELS_Base\*.cs cycle\target1\Base\target\cs\be\BEL_4_Base\*.cs
+call csc /debug:pdbonly /warn:0 -out:cycle\target1\BEL_4_Base_csc.exe system\cs\be\*.cs cycle\target1\Base\target\cs\be\*.cs
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
@@ -18,7 +18,7 @@ cycle\target1\BEL_4_Base_csc.exe --buildFile build\buildbuild.txt --deployPath c
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-call csc /debug:pdbonly /warn:0 -out:cycle\target2\BEL_4_Base_csc.exe system\cs\be\BELS_Base\*.cs cycle\target2\Base\target\cs\be\BEL_4_Base\*.cs
+call csc /debug:pdbonly /warn:0 -out:cycle\target2\BEL_4_Base_csc.exe system\cs\be\*.cs cycle\target2\Base\target\cs\be\*.cs
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
@@ -26,7 +26,7 @@ cycle\target2\BEL_4_Base_csc.exe --buildFile build\extendedEcEc.txt -deployPath=
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-call csc /debug:pdbonly /warn:0 -out:cycle\targetEc\BEL_4_Base_csc.exe system\cs\be\BELS_Base\*.cs cycle\targetEc\Base\target\cs\be\BEL_4_Base\*.cs
+call csc /debug:pdbonly /warn:0 -out:cycle\targetEc\BEL_4_Base_csc.exe system\cs\be\*.cs cycle\targetEc\Base\target\cs\be\*.cs
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 

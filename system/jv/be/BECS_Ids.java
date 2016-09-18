@@ -6,9 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-package be.;
+package be;
 
-import be.BEL_4_Base.BEC_2_6_6_SystemObject;
+import be.BEC_2_6_6_SystemObject;
 
 import java.util.*;
 
