@@ -1,6 +1,5 @@
 
-libs
-  working for mcs :-) - get working for jv, ?js
+js test lib run like jv,cs
 
 var to any
   

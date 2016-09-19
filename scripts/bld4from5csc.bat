@@ -2,6 +2,6 @@ target5\BEL_4_Base_csc.exe --buildFile build\buildbuild.txt --deployPath deploy4
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-call csc /debug:pdbonly /warn:0 -out:target4\BEL_4_Base_csc.exe system\cs\be\BELS_Base\*.cs target4\Base\target\cs\be\BEL_4_Base\*.cs
+call csc /debug:pdbonly /warn:0 -out:target4\BEL_4_Base_csc.exe system\cs\be\*.cs target4\Base\target\cs\be\*.cs
 
 if %errorlevel% neq 0 exit /b %errorlevel%

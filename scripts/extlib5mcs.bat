@@ -8,7 +8,7 @@ call mcs -debug:pdbonly /warn:0 -t:library -out:targetExtLib\BEL_4_Base_mcs.dll 
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-mono --debug target5\BEL_4_Base_mcs.exe source/Base/Uses.be --buildFile build\extExe.txt --emitLang cs
+mono --debug target5\BEL_4_Base_mcs.exe source/Base/Uses.be --buildFile build\extExe.txt -loadSyns=targetExtLib/Base/target/cs/be/BEL_4_Base.syn --emitLang cs
 
 call mcs -debug:pdbonly /warn:0 -r:targetExtLib\BEL_4_Base_mcs.dll -out:targetExtLib\BEL_4_Test_mcs.exe /warn:0 targetExtLib\Test\target\cs\be\*.cs
 
