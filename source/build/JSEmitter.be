@@ -40,7 +40,10 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     String catchVar = "beve_" + methodCatch.toString();
     methodCatch = methodCatch++;
     methodBody += " catch (" += catchVar += ") {" += nl; //}
-
+    
+    //try to fix js
+    //methodBody += "console.log(new Error().stack);" += nl;
+    
     methodBody += finalAssign(node.contained.first.contained.first, "(be_BECS_ThrowBack_handleThrow(" + catchVar + "))", null);
 
    }

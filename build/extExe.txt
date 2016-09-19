@@ -1,0 +1,15 @@
+-deployPath=deployExtLib
+-buildPath=targetExtLib
+-libraryName=Test
+-mainClass=Test:ExtendedTest:EC
+-buildFile=build/baseTestShared.txt
+-buildFile=build/extendedTestShared.txt
+-loadSyns=targetExtLib/Base/target/cs/be/BEL_4_Base.syn
+-initLib=BEL_4_Base
+#-jsInclude=system/js/be/BECS_Runtime.js
+#-jsInclude=system/js/be/BECS_Object.js
+#-saveSyns=true
+#-emitLang=jv
+#-emitLang=cs
+
+

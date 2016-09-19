@@ -88,7 +88,10 @@ final class Build:Build {
          Bool putLineNumbersInTrace = false;
          Bool dynConditionsAll = false;
          Bool ownProcess = true;
+         Bool saveSyns = false;
          Text:String readBuffer = Text:String.new(4096);
+         LinkedList loadSyns;
+         LinkedList initLibs;
       }
    }
 
@@ -175,6 +178,9 @@ final class Build:Build {
       outputPlatform = System:Platform.new(params.get("outputPlatform", platform.name).first);
       dynConditionsAll = Bool.new(params.get("dynConditionsAll", "false").first);
       ownProcess = Bool.new(params.get("ownProcess", "true").first);
+      saveSyns = Bool.new(params.get("saveSyns", "false").first);
+      loadSyns = params["loadSyns"];
+      initLibs = params["initLib"];
 
       mainName = params["mainClass"].first;
       deployPath = params["deployPath"].first;
@@ -353,11 +359,30 @@ final class Build:Build {
        }
        return(null);
    }
+   
+   loadSyns(String lsp) {
+      IO:File:Path synEmitPath = IO:File:Path.apNew(lsp);
+      if (synEmitPath.file.exists) {
+        ("Loading Syns " + lsp).print();
+        Time:Interval sst = Time:Interval.now();
+        IO:File:Reader syne = synEmitPath.file.reader.open()
+        Map scls = System:Serializer.new().deserialize(syne);
+        syne.close();
+        emitData.synClasses += scls;
+        Time:Interval sse = Time:Interval.now() - sst;
+        ("Loading Syns took " + sse).print();
+      }
+    }
 
    doWhat() Int {
       //Start Timer
       startTime = Time:Interval.now();
       emitData = EmitData.new();
+      if (def(loadSyns)) {
+        foreach (String lsp in loadSyns) {
+          loadSyns(lsp);
+        }
+      }
       var em = self.emitter;
       if (def(deployPath)) {
          deployLibrary = Build:Library.new(deployPath, self, libName, exeName);
@@ -518,7 +543,8 @@ final class Build:Build {
             psyn = getSyn(pklass, em);
          } else {
             //("Need to load syn for " + klass.held.name).print();
-            psyn = em.loadSyn(klass.held.extends);
+            //psyn = em.loadSyn(klass.held.extends);
+            psyn = getSynNp(klass.held.extends);
          }
          syn = Build:ClassSyn.new(klass, psyn);
       }

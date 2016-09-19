@@ -462,18 +462,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         return(libEmitPath.file.writer.open())
     }
     
-    loadSyns() {
-        if (synEmitPath.file.exists) {
-          "Loading Syns ".print();
-          Time:Interval sst = Time:Interval.now();
-          IO:File:Reader syne = synEmitPath.file.reader.open()
-          Map scls = System:Serializer.new().deserialize(syne);
-          syne.close();
-          Time:Interval sse = Time:Interval.now() - sst;
-          ("Loading Syns took " + sse).print();
-        }
-    }
-    
     saveSyns() {
         "Saving Syns".print();
         Time:Interval sst = Time:Interval.now();
@@ -553,8 +541,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         main += "mc.bem_main_0();" += nl;
         main += self.mainEnd;
         
-        //loadSyns();
-        //saveSyns();
+        if (build.saveSyns) {
+          saveSyns();
+        }
         
         IO:File:Writer libe = getLibOutput();
         libe.write(self.beginNs());
@@ -568,6 +557,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             initLibs += fullLibEmitName(bl.libName) += ".init();" += nl;
         }
         
+        if (def(build.initLibs)) {
+          foreach (String il in build.initLibs) {
+            initLibs += "be." += il += ".init();" += nl;
+          }
+        }        
         String typeInstances = String.new();
         String notNullInitConstruct = String.new();
         String notNullInitDefault = String.new();
@@ -613,10 +607,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         libe.write("if (isInitted) { return; }" + nl;);
         libe.write("isInitted = true;" + nl);
+        libe.write(initLibs);
         libe.write(self.runtimeInit);
         libe.write(getNames);
         libe.write(smap);
-        libe.write(initLibs);
         libe.write(typeInstances);
         libe.write(notNullInitConstruct);
         libe.write(notNullInitDefault);
@@ -2076,11 +2070,12 @@ use local class Build:ClassConfig {
       }
    }
    
-   relEmitName(String forLibName) {
-      if (libName == forLibName) {
+   relEmitName(String forLibName) String {
+      //no longer matters
+      //if (libName == forLibName) {
          return(emitName);
-      }
-      return(fullEmitName);
+      //}
+      //return(fullEmitName);
    }
 
 }

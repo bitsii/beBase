@@ -25,6 +25,6 @@ emit(doofus) {
     """
 }
       //almost nothing, this should never be called
-      ("In System:DoNothing").print();
+      //("In System:DoNothing").print();
    }
 }

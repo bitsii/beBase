@@ -1,8 +1,6 @@
 
 libs
-  save syns optional
-  load syns at start
-  have test with base lib setup sep from test (add to cycle) use diff lib names
+  working for mcs :-) - get working for jv, ?js
 
 var to any
   
