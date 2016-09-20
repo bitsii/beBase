@@ -146,7 +146,7 @@ final class Build:CEmitter {
    midNameDo(String libName, Build:NamePath np) String {
       String pref = "";
       String suf = "";
-      foreach (String step in np.steps) {
+      for (String step in np.steps) {
          if (pref != "") { pref = pref + "_"; }
          else { suf = "_"; }
          pref = pref + step.size;
@@ -177,7 +177,7 @@ final class Build:CEmitter {
       var dname = np.toString();
       var toRet = ciCache.get(dname);
       if (undef(toRet)) {
-         foreach (var pack in build.usedLibrarys) {
+         for (var pack in build.usedLibrarys) {
             toRet = Build:ClassInfo.new(np, self, pack.emitPath, pack.libName);
             if (toRet.synSrc.file.exists) {
                ciCache.put(dname, toRet);
@@ -439,7 +439,7 @@ final class Build:CEmitter {
       for (var tckvs = emitData.synClasses.valueIterator;tckvs.hasNext;;) {
          Build:ClassSyn syn = tckvs.next;
          if (syn.libName == build.libName) {
-            foreach (var fkv in syn.foreignClasses) {
+            for (var fkv in syn.foreignClasses) {
                if (fkuniq.has(fkv.value)!) {
                   fkuniq.put(fkv.value);
                   nuH += "extern BERT_ClassDef* " += fkv.value += ";" += nl;
@@ -447,7 +447,7 @@ final class Build:CEmitter {
                   fkcdget += fkv.value += " = BERF_ClassDef_Get(" += fkv.key.hash.toString() += ", (char*) " += textQuote += fkv.key += textQuote += ");" += nl;
                }
             }
-            foreach (var ankv in syn.allNames) {
+            for (var ankv in syn.allNames) {
                if (anuniq.has(ankv.key)!) {
                   anuniq.put(ankv.key);
                   String nm = ankv.key;
@@ -465,7 +465,7 @@ final class Build:CEmitter {
       
       String dlh = build.dllhead(String.new());
       
-      foreach (Build:PropertyIndex pi in emitData.propertyIndexes) {
+      for (Build:PropertyIndex pi in emitData.propertyIndexes) {
          String pin = getPropertyIndexName(pi.psyn);
          Build:ClassInfo ci = getInfoSearch(pi.origin);
          Build:ClassSyn osyn = build.getSynNp(pi.origin);
@@ -494,7 +494,7 @@ final class Build:CEmitter {
          }
       }
       
-      foreach (Build:MethodIndex mi in emitData.methodIndexes) {
+      for (Build:MethodIndex mi in emitData.methodIndexes) {
          pin = getMethodIndexName(mi.msyn);
          ci = getInfoSearch(mi.declaration);
          osyn = build.getSynNp(mi.declaration);
@@ -547,7 +547,7 @@ final class Build:CEmitter {
       nuC += icalls;
       String nniulc = String.new();
       String nniuld = String.new();
-      foreach (var bpu in build.usedLibrarys) {
+      for (var bpu in build.usedLibrarys) {
          nuCui += "#include <" += bpu.libnameInfo.namesIncH.toString() += ">" += nl;
          nuC += bpu.libnameInfo.libnameInit += "();" += nl;
          cdcC += bpu.libnameInfo.libnameDataClear += "();" += nl;
@@ -635,7 +635,7 @@ final class Build:CEmitter {
          if (def(conflicts)) {
             conflicts.className.print();
             var v = xe.values.first;
-            foreach (var cu in conflicts) {
+            for (var cu in conflicts) {
                sb = sb + "twnn_" + cu + "_" + nm + " = " + v.toString() + ";";
             }
          }
@@ -682,7 +682,7 @@ final class Build:CEmitter {
       
       var isBase = true;
       var alibs = build.extLibs.copy();
-      foreach (var bp in build.usedLibrarys) {
+      for (var bp in build.usedLibrarys) {
          isBase = false;
          allInc = allInc + di + bp.emitPath.toString();
          alibs.addValue(bp.libnameInfo.unitExeLink.toString());
@@ -717,7 +717,7 @@ final class Build:CEmitter {
          allos = allos + " " + incPath + psep + build.platform.name + psep + "BER_Base" + oext;
       }
       
-      foreach (String aloa in build.extLinkObjects) {
+      for (String aloa in build.extLinkObjects) {
          allos = allos + " " + aloa;
       }
       

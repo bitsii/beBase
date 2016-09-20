@@ -56,7 +56,7 @@ class StartElement(Tag) {
       accum += "<" += name;
       if (def(attributes)) {
          String q = Text:Strings.new().quote;
-         foreach (var entry in attributes) {
+         for (var entry in attributes) {
             accum += " " += entry.key += "=" += q += entry.value += q;
          }
       }

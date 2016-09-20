@@ -240,7 +240,7 @@ final class Build:Var {
    
    maxCposGet() Int {
       if (maxCpos > -1) { return(maxCpos); }
-      foreach (var n in allCalls) {
+      for (var n in allCalls) {
          if (n.held.cpos > maxCpos) {
             maxCpos = n.held.cpos;
          }
@@ -252,7 +252,7 @@ final class Build:Var {
       Int bigun = Math:Ints.new().max;
       //("Bigun is " + bigun).print();
       if (minCpos < bigun) { return(minCpos); }
-      foreach (var n in allCalls) {
+      for (var n in allCalls) {
          if (n.held.cpos < minCpos) {
             minCpos = n.held.cpos;
          }

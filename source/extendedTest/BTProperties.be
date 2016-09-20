@@ -29,7 +29,7 @@ class Test:BaseTest:PropertyMap(BaseTest) {
       p.get("PATH").print();
       
       Env e = Env.new();
-      foreach (var kv in e) {
+      for (var kv in e) {
          ("Found " + kv.key + " = " + kv.value).print();
       }
    }

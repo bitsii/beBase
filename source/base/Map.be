@@ -129,7 +129,7 @@ class Map(Set) {
       if (undef(other) || other.size != self.size) {
          return(false);
       }
-      foreach (var i in self) {
+      for (var i in self) {
          var v = other.get(i.key);
          if (undef(v) || (undef(i.value) && def(v)) || i.value != v) { return(false); }
       }
@@ -174,7 +174,7 @@ class Map(Set) {
       if (def(other)) {
         if (other.sameType(self)) {
 		 Map otherMap = other; //could support adding sets to maps... by keys
-         foreach (var x in otherMap) {
+         for (var x in otherMap) {
             put(x.key, x.value);
          }
          } elif (other.sameType(baseNode)) {
@@ -187,7 +187,7 @@ class Map(Set) {
    
    getMap(String prefix) Map {
      Map toRet = Map.new();
-     foreach (var x in self) {
+     for (var x in self) {
       if (x.key.begins(prefix)) {
         toRet.put(x.key, x.value);
       }
@@ -285,7 +285,7 @@ class Set {
       if (undef(other) || other.size != self.size) {
          return(false);
       }
-      foreach (var i in self) {
+      for (var i in self) {
          if (other.has(i)!) { return(false); }
       }
       return(true);
@@ -483,7 +483,7 @@ class Set {
    intersection(Set other) Set {
       Set i = Set.new();
       if (def(other)) {
-         foreach (var x in self) {
+         for (var x in self) {
             if (other.has(x)) {
                i.put(x);
             }
@@ -494,11 +494,11 @@ class Set {
    
    union(Set other) Set {
       Set i = Set.new();
-      foreach (var x in self) {
+      for (var x in self) {
          i.put(x);
       }
       if (def(other)) {
-         foreach (x in other) {
+         for (x in other) {
             i.put(x);
          }
       }
@@ -514,7 +514,7 @@ class Set {
    addValue(other) self {
       if (def(other)) {
          if (other.sameType(self)) {
-             foreach (var x in other) {
+             for (var x in other) {
                 put(x);
              }
          } elif (other.sameType(baseNode)) {
@@ -558,7 +558,7 @@ class Container:Set:SerializationIterator(Container:Set:KeyIterator) {
    }
    
    postDeserialize() {
-      foreach (var value in contents) {
+      for (var value in contents) {
          set.put(value);
       }
    }
@@ -691,7 +691,7 @@ class Container:Set:NodeIterator {
       return(false);
    }
    
-   //to enable foreach for other iterators than the default, foreach b in map.blahiterator
+   //to enable for for other iterators than the default, for b in map.blahiterator
    iteratorGet() {
       return(self);
    }

@@ -317,7 +317,7 @@ final class Serializer {
          }
       }
       inst = null;
-      foreach (groupInstIter in postDeserialize) {
+      for (groupInstIter in postDeserialize) {
          groupInstIter.postDeserialize();
       }
       return(rootInst);

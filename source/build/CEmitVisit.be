@@ -170,7 +170,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       var isfs = false;
       var isar = false;
       var nextIsNativeSlots = false;
-      foreach (var i in ll) {
+      for (var i in ll) {
          if (nextIsNativeSlots) {
             nextIsNativeSlots = false;
             nativeSlots = Int.new(i);
@@ -286,7 +286,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          defM += "twst_mrpos = twst_shared_cd->twst_supercd->maxProperty;" += nl;
       }
       
-      foreach (Build:PtySyn bsyn in syn.ptyList) {
+      for (Build:PtySyn bsyn in syn.ptyList) {
          String finName = bsyn.name + "Get_0";
          String mbn = "twnn_" + build.libName + "_" + finName;
          cldefH = build.dllhead(cldefH);
@@ -312,7 +312,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       }
       
       Int newMtds = 0;
-      foreach (Build:MtdSyn tsyn in syn.mtdList) {
+      for (Build:MtdSyn tsyn in syn.mtdList) {
          //can this be below the orign test?  to be true, propi build needs to change
          //so that indexes are only counted by callers (access to member) like typed calls
          if (tsyn.origin.toString() == inClassNamed) {
@@ -514,9 +514,9 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       //return(-1);
       Int mymax = node.held.maxCpos;
       Int mymin = node.held.minCpos;
-      foreach (var kv in reum) {
+      for (var kv in reum) {
          Bool found = true;
-         foreach (var lv in kv.value) {
+         for (var lv in kv.value) {
             Int lvmin = lv.held.minCpos;
             Int lvmax = lv.held.maxCpos;
             if ((lvmax >= mymin) && (lvmin <= mymax)) {
@@ -601,7 +601,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       //("Split done").print();
       Bool noRep = false;
       var isdec = false;
-      foreach (var i in ll) {
+      for (var i in ll) {
          if (i == "*-attr- -dec-*") {
             isdec = true;
          }
@@ -632,7 +632,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       Container:Queue heldToks = Container:Queue.new();
       
       LinkedList toks = emitTok.tokenize(node.held.text);
-      foreach (String tok in toks) {
+      for (String tok in toks) {
         if (invar) {
             if (tok == "$") {
                 //found a $ but not a *, false case

@@ -95,7 +95,7 @@ class Replace {
                     nextIsCall = false;
                   } else {
                      // Build the runner
-                     foreach (String paypart in payloads) {
+                     for (String paypart in payloads) {
                         Replace:RunStep rs = Replace:RunStep.new(self, paypart);
                         splits.addValue(rs);
                      }

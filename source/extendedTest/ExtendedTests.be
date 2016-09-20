@@ -53,7 +53,7 @@ class Test:ExtendedTest:EC(BaseTest) {
       //this is manual...
       List args = System:Process.new().args;
       if (def(args)) {
-          foreach (String arg in args) {
+          for (String arg in args) {
             ("Running test  " + arg).print();
             createInstance(arg).new().main();
           }

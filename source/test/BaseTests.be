@@ -19,7 +19,7 @@ class BaseTest(Assertions) {
    
    /*main() {
       ("Test:BaseTest:main").print();
-      foreach (var i in args) {
+      for (var i in args) {
          if (i != self.className) {
             var x = createInstance(i).new();
             x.main();
@@ -149,7 +149,7 @@ class Test:BaseTest:EC(BaseTest) {
       "In forward".print();
       fcall.name.print();
       fcall.args.length.print();
-      foreach (var i in fcall.args) {
+      for (var i in fcall.args) {
          ("fcall.arg " + i).print();
       }
       fields {
@@ -179,7 +179,7 @@ class Test:BaseTest:EC(BaseTest) {
         assertEqual(p1.a, "a");
         
         Int i = 0;
-        foreach (var v in p1) {
+        for (var v in p1) {
             if (i == 0) {
                 assertEqual(v, 1);
             } elif (i == 1) {

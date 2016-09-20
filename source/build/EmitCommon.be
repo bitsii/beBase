@@ -161,7 +161,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       String dname = np.toString();
       ClassConfig toRet = ccCache.get(dname);
       if (undef(toRet)) {
-         foreach (Build:Library pack in build.usedLibrarys) {
+         for (Build:Library pack in build.usedLibrarys) {
             toRet = Build:ClassConfig.new(np, self, pack.emitPath, pack.libName);
             if (toRet.synPath.file.exists) {
                ccCache.put(dname, toRet);
@@ -260,9 +260,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         fields {
             List classesInDepthOrder = List.new();
         }
-        foreach (depth in depths) {
+        for (depth in depths) {
             classes = depthClasses.get(depth);
-            foreach (clnode in classes) {
+            for (clnode in classes) {
                 classesInDepthOrder += clnode;
             }
         }
@@ -326,7 +326,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             Int lastNlec;
             
             String lineInfo = "/* BEGIN LINEINFO " += nl;
-            foreach (Node cc in classCalls) {
+            for (Node cc in classCalls) {
                //("got a classcall!!!!!!!!!!!1").print();
                 cc.nlec += lineCount;
                 cc.nlec++=;
@@ -552,13 +552,13 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         libe.write(self.spropDec + self.boolType + " isInitted = false;" + nl);
         
         String initLibs = String.new();
-        foreach (Build:Library bl in build.usedLibrarys) {
+        for (Build:Library bl in build.usedLibrarys) {
             //bl.libName
             initLibs += fullLibEmitName(bl.libName) += ".init();" += nl;
         }
         
         if (def(build.initLibs)) {
-          foreach (String il in build.initLibs) {
+          for (String il in build.initLibs) {
             initLibs += "be." += il += ".init();" += nl;
           }
         }        
@@ -585,14 +585,14 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             }
         }
         
-        foreach (String callName in callNames) {
+        for (String callName in callNames) {
             libe.write(self.spropDec + "int bevn_" + callName + ";" + nl;);
             getNames += "bevn_" += callName += " = getCallId(" += q += callName += q += ");" += nl;
         }
         
         String smap = String.new();
         
-        foreach (String smk in smnlcs.keys) {
+        for (String smk in smnlcs.keys) {
           //("nlcs key " + smk + " nlc " + smnlcs.get(smk) + " nlec " + smnlecs.get(smk)).print();
           smap += "putNlcSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlcs.get(smk) += ");" += nl;
           smap += "putNlecSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlecs.get(smk) += ");" += nl;
@@ -717,7 +717,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
      }
      if (ov.held.isTyped && ov.held.namepath == intNp) {
        if (ov.held.isProperty! && ov.held.isArg!) {
-        foreach (Node c in ov.held.allCalls) {
+        for (Node c in ov.held.allCalls) {
           if (ov.held.name == "lookatComp") {
             ("lookatComp call " + c.held.name).print();
            }
@@ -739,12 +739,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       String argDecs = String.new();
       String varDecs = String.new();
       
-      //foreach (Node ovlc in node.held.orderedVars) {
+      //for (Node ovlc in node.held.orderedVars) {
       //  lookatComp(ovlc);
       //}
       
       Bool isFirstArg = true;
-      foreach (Node ov in node.held.orderedVars) {
+      for (Node ov in node.held.orderedVars) {
          if ((ov.held.name != "self") && (ov.held.name != "super")) {
              if (ov.held.isArg) {
                  unless(isFirstArg) {
@@ -842,7 +842,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
        //Handle class level emits, maybe properties/members or methods (anything, really)
        if (def(node.held.emits)) {
           String inlang = self.emitLang;
-          foreach (Node innode in node.held.emits) {
+          for (Node innode in node.held.emits) {
             //figure out what vars are native
             nativeCSlots = getNativeCSlots(innode.held.text);
             if (innode.held.langs.has(inlang)) {
@@ -876,7 +876,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       //Its not clear how mtdlist ends up, so just use the map
       Map dynGen = Map.new();
       Container:Set mq = Container:Set.new();
-      foreach (Build:MtdSyn msyn in csyn.mtdList) {
+      for (Build:MtdSyn msyn in csyn.mtdList) {
          unless(mq.has(msyn.name)) {
              mq.put(msyn.name);
              msyn = csyn.mtdMap.get(msyn.name);
@@ -902,7 +902,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           }
       }
       
-      foreach (Container:Map:MapNode dnode in dynGen) {
+      for (Container:Map:MapNode dnode in dynGen) {
         Int dnumargs = dnode.key;
         
         if (dnumargs < maxDynArgs) {
@@ -926,7 +926,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         dynMethods += "switch (callHash) {" += nl; //}
         
         dgm = dnode.value;
-        foreach (Container:Map:MapNode msnode in dgm) {
+        for (Container:Map:MapNode msnode in dgm) {
             Int thisHash = msnode.key;
             dgv = msnode.value;
             dynMethods += "case " += thisHash.toString() += ": ";
@@ -938,7 +938,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             } else {
                 dynConditions = false;
             }
-            foreach (msyn in dgv) {
+            for (msyn in dgv) {
                 String mcall = String.new();
                 if (dynConditions) {
                     String constName = libEmitName + ".bevn_" + msyn.name;
@@ -946,7 +946,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 } 
                 mcall += "return bem_" += msyn.name += "(";
                 Int vnumargs = 0;
-                foreach (Build:VarSyn vsyn in msyn.argSyns) {
+                for (Build:VarSyn vsyn in msyn.argSyns) {
                     if (vnumargs > 0) {
                         if (vsyn.isTyped && vsyn.namepath != objectNp) {
                             String vcast = formCast(getClassConfig(vsyn.namepath)) + " "; //no need for type check here, but need to check types of args somehow (flag for dynamic call? precall check structure? make it free where check not needed)
@@ -1000,7 +1000,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     var ll = text.split("/");
       var isfn = false;
       var nextIsNativeSlots = false;
-      foreach (var i in ll) {
+      for (var i in ll) {
          if (nextIsNativeSlots) {
             nextIsNativeSlots = false;
             nativeSlots = Int.new(i);
@@ -1182,7 +1182,7 @@ buildClassInfoMethod(String belsBase) {
              
              //get methods offset, go through calls in body, add offset, move body calls to class calls
              //Int methodsOffset = countLines(methods);
-             foreach (Node mc in methodCalls) {
+             for (Node mc in methodCalls) {
                mc.nlec += methodsOffset;
              }
              classCalls += methodCalls;
@@ -1321,7 +1321,7 @@ buildClassInfoMethod(String belsBase) {
    
    acceptCall(Node node) {
    
-  foreach (Node cci in node.contained) {
+  for (Node cci in node.contained) {
     if (cci.typename == ntypes.VAR) {
       if (cci.held.allCalls.has(node)!) {
         throw(VisitError.new("VAR DOES NOT HAVE MY CALL " + node.held.name + node.toString(), cci));
@@ -1681,7 +1681,7 @@ buildClassInfoMethod(String belsBase) {
                     if (newcc.np == boolNp) {
                         if (onceDeced) {
                           String odinfo = String.new();
-                          foreach (var n in node.container.contained.first.held.allCalls) {
+                          for (var n in node.container.contained.first.held.allCalls) {
                             odinfo += n.held.name += " ";
                           }
                           throw(System:Exception.new("oh noes once deced " + 
@@ -1855,7 +1855,7 @@ buildClassInfoMethod(String belsBase) {
        return(text);
      }
      String rtext = String.new();
-     foreach (String tok in toks) {
+     for (String tok in toks) {
        if (state == 0 && tok == "$") {
          //("FOUND A $ IN AN EMIT!!!!").print();
          state = 1;
@@ -1899,7 +1899,7 @@ buildClassInfoMethod(String belsBase) {
           include = false;
         }
         if (def(build.emitFlags)) {
-          foreach (String flag in build.emitFlags) {
+          for (String flag in build.emitFlags) {
             if (node.held.langs.has(flag)) {
               include = false;
             }
@@ -1908,7 +1908,7 @@ buildClassInfoMethod(String belsBase) {
       } else {
         Bool foundFlag = false;
         if (def(build.emitFlags)) {
-          foreach (flag in build.emitFlags) {
+          for (flag in build.emitFlags) {
             if (node.held.langs.has(flag)) {
               foundFlag = true;
             }
@@ -2025,7 +2025,7 @@ buildClassInfoMethod(String belsBase) {
     mangleName(NamePath np) String {
       String pref = "";
       String suf = "";
-      foreach (String step in np.steps) {
+      for (String step in np.steps) {
          if (pref != "") { pref = pref + "_"; }
          //else { suf = "_"; } //old way, no count of steps, has ambiguous cases
          else { pref = np.steps.size.toString() + "_"; suf = "_"; }  //new way, prevents ambiguous cases

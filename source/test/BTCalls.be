@@ -84,7 +84,7 @@ local class Test:BaseTest:Calls(BaseTest) {
       "In forward".print();
       fcall.name.print();
       fcall.args.length.print();
-      foreach (var i in fcall.args) {
+      for (var i in fcall.args) {
          ("fcall.arg " + i).print();
       }
       return(Container:Pair.new(fcall, 26));
@@ -329,7 +329,7 @@ class Tests:Exceptions(BaseTest) {
       try {
         thrower();
       } catch (var e) {
-        foreach (var ef in e.frames) {
+        for (var ef in e.frames) {
           if (ef.line > 0) {
             ok = true;
           }

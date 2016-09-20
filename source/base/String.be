@@ -1166,7 +1166,7 @@ final class Text:Strings {
    }
    
    anyEmpty(strs) Bool {
-     foreach (String i in strs) {
+     for (String i in strs) {
        if (isEmpty(i)) {
          return(true);
        }
@@ -1269,7 +1269,7 @@ local class Text:ByteIterator {
       }
    }
    
-   //trick to allow foreach use with either iter, foreach (x in y.biter) or foreach (x in y.mbiter)
+   //trick to allow for use with either iter, for (x in y.biter) or for (x in y.mbiter)
    iteratorGet() {
       return(self);
    }

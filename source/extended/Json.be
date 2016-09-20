@@ -433,7 +433,7 @@ use class Json:Marshaller {
     marshallWriteList(inst, writer) {
         writer.write("[");
         Bool first = true;
-        foreach (var instin in inst) {
+        for (var instin in inst) {
             if (first) {
               first = false;
             } else {
@@ -447,7 +447,7 @@ use class Json:Marshaller {
     marshallWriteMap(inst, writer) {
         writer.write("{");
         Bool first = true;
-        foreach (var kv in inst) {
+        for (var kv in inst) {
             //assumes keys are strings
             if (first) {
               first = false;

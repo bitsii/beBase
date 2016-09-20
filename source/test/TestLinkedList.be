@@ -15,36 +15,36 @@ class Test:TestLinkedList {
          ll.addValue(i);
       }
       ("Before " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.firstNode.delete();
       ("First " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.lastNode.delete();
       ("Second " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.getNode(6).delete();
       ("Third " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.getNode(5).insertBefore(ll.newNode(40));
       ("Fourth " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.firstNode.insertBefore(ll.newNode(100));
       ("Fifth " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ("After " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
    }

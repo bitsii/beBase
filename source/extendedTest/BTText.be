@@ -479,7 +479,7 @@ class Test:BaseTest:Text(BaseTest) {
    }
    
    printList(l) {
-      foreach (var x in l) {
+      for (var x in l) {
          x.print();
       }
    }
@@ -553,7 +553,7 @@ class Test:BaseTest:Text(BaseTest) {
       var i = x.iterator;
       i.next.print();
       Text:String accum = Text:String.new();
-      foreach (var y in x) { y.print(); accum += y;}
+      for (var y in x) { y.print(); accum += y;}
       ("accum " + accum.toString()).print();
       assertEqual(accum.toString(), x);
       accum.clear();
@@ -573,7 +573,7 @@ class Test:BaseTest:Text(BaseTest) {
       var i = x.biter;
       i.next.print();
       Text:String accum = Text:String.new();
-      foreach (var y in x.biter) { y.print(); accum += y;}
+      for (var y in x.biter) { y.print(); accum += y;}
       assertEqual(accum, x);
       accum.clear();
       Text:String sbuf = Text:String.new();

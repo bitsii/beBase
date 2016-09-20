@@ -299,18 +299,15 @@ final class Build:Constants {
       rwords.put("local", ntypes.DEFMOD);
       rwords.put("notNull", ntypes.DEFMOD);
       rwords.put("var", ntypes.VAR);
-      //rwords.put("expr", ntypes.EXPR);
       rwords.put("if", ntypes.IF);
       rwords.put("unless", ntypes.IF);
       rwords.put("elif", ntypes.ELIF);
       rwords.put("else", ntypes.ELSE);
       rwords.put("loop", ntypes.LOOP);
-      //rwords.put("properties", ntypes.PROPERTIES);
       rwords.put("fields", ntypes.PROPERTIES);
       rwords.put("while", ntypes.WHILE);
       rwords.put("until", ntypes.WHILE);
       rwords.put("for", ntypes.FOR);
-      rwords.put("foreach", ntypes.FOREACH);
       rwords.put("in", ntypes.IN);
       rwords.put("emit", ntypes.EMIT);
       rwords.put("ifEmit", ntypes.IFEMIT);

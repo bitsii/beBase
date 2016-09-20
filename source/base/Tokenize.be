@@ -24,7 +24,7 @@ final class Text:Tokenizer {
    
    tokensStringSet(String delims) {
       tmap = Map.new();
-      foreach (String chi in delims) {
+      for (String chi in delims) {
          tmap.put(chi, chi.toString());
       }
    }

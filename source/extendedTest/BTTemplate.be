@@ -170,7 +170,7 @@ class Test:BaseTest:Template(BaseTest) {
       
       r.accept(mt, String.new()).print();
       /*
-      foreach (var s in r.steps) {
+      for (var s in r.steps) {
          ("Step " + s.handle(mt)).print();
       }
       */
@@ -185,7 +185,7 @@ class Test:BaseTest:Template(BaseTest) {
       
       r.accept(mt, String.new()).print();
       /*
-      foreach (var s in r.steps) {
+      for (var s in r.steps) {
          ("Step " + s.handle(mt)).print();
       }
       */

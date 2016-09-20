@@ -346,8 +346,8 @@ MMM'''; //needs to stay unindented
          }
       }
       
-      //foreach (var j in x) {
-      //   throw(System:Exception.new("Entered null foreach loop"));
+      //for (var j in x) {
+      //   throw(System:Exception.new("Entered null for loop"));
       //}
       
       ("End null loops").print();

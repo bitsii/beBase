@@ -37,7 +37,7 @@ class Test:TestFindDup {
          seeds += String.codeNew(i);
       }
       Map bunch = Map.new();
-      foreach (String soFar in seeds) {
+      for (String soFar in seeds) {
          Int sh = soFar.hash;
          if (bunch.has(sh) && soFar != bunch.get(sh)) {
             (soFar + " matches " + bunch.get(sh)).print();
@@ -50,8 +50,8 @@ class Test:TestFindDup {
          for (var x = bunch.valueIterator;x.hasNext;) {
             ll += x.next;
          }
-         foreach (String toAdd in seeds) {
-            foreach (x in ll) {
+         for (String toAdd in seeds) {
+            for (x in ll) {
                soFar = x + toAdd;
                sh = soFar.hash;
                //soFar.print();

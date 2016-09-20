@@ -137,7 +137,7 @@ local class Parameters {
       }
       String pname = null;
       Bool pnameComment = false;
-      foreach (String i in _args) {
+      for (String i in _args) {
          String fa = null;
          String fb = null;
          String fc = null;
@@ -193,7 +193,7 @@ local class Parameters {
             String key = it.next;
             LinkedList vals = params[key];
             LinkedList _vals = LinkedList.new();
-            foreach (String istr in vals) {
+            for (String istr in vals) {
                _vals += preProcessor.process(istr);
             }
             key = preProcessor.process(key);

@@ -59,7 +59,7 @@ class Test:BaseTest:IO(BaseTest) {
       ("testDirIter").print();
       Set names = Set.new();
       File d = File.apNew("test/inputs/diriter");
-      foreach (File f in d) {
+      for (File f in d) {
         f.path.print();
         names.put(f.path.name);
       }

@@ -118,6 +118,14 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          }
          return(node.nextDescend);
       }
+      if (node.typename == ntypes.FOR) {
+         //"for found".print();
+         Node linn = node.contained.first.contained.first;
+         if (linn.typename == ntypes.CALL && linn.held.wasOper) {
+          //("found linn").print();
+          node.typename = ntypes.FOREACH;
+         }
+      }
       if (node.typename == ntypes.FOREACH) {
          node.typename = ntypes.WHILE;
          pnode = node.contained.first;

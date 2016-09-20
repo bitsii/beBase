@@ -27,62 +27,62 @@ class Test:BaseTest:Xml(BaseTest) {
       var e;
       
       tp.xmlString = "<xml></xml>";
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       
       tp.xmlString = "<xml></xml>  ";
       tp.restart();
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       
       tp.xmlString = " <xml></xml>";
       tp.restart();
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       
       tp.xmlString = "  <xml><foop>knu</foop></xml><goo> new </goo>  ";
       tp.restart();
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       
       tp.xmlString = "  <snow/><glow> boof  lala km </glow> ";
       tp.restart();
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       
       tp.xmlString = '''<snow cat="dog" slick="SSmo" ><sneeze ahh = "choo"></sneeze></snow>''';
       tp.restart();
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       
       tp.xmlString = '''<clueluck goofy="slick"><snow  gigo="somken"   foola="snooko"  >BoraBora</snow></clueluck>''';
       tp.restart();
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       
       tp.xmlString = '''<snow foola="snooko"  >BoraBora</snow>''';
       tp.restart();
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       
       tp.xmlString = '''<? proc inst ?>''';
       tp.restart();
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       
       
       tp.xmlString = '''<!-- my > comment  -->   <claus hi="ho ho ho"/>''';
       tp.restart();
-      foreach (e in tp) {
+      for (e in tp) {
          e.print();
       }
       

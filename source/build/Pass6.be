@@ -27,7 +27,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          if (def(node.contained) && (node.contained.length > 1) && def(node.contained.first.contained) && (node.contained.first.contained.length > 0) && (node.second.contained.length > 0)) {
             //("inline first held is " + node.contained.first.first.held).print();
             Container:Set langs = Container:Set.new();
-            foreach (Node lang in node.contained.first.contained) {
+            for (Node lang in node.contained.first.contained) {
                 //("inline lang is " + lang.held).print();
                 langs += lang.held;
             }
@@ -70,7 +70,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
       } elif (node.typename == ntypes.IFEMIT) {
          langs = Container:Set.new();
          toremove = LinkedList.new()
-         foreach (lang in node.contained.first.contained) {
+         for (lang in node.contained.first.contained) {
             //("ifEmit lang is " + lang.held).print();
             langs += lang.held;
             toremove.addValue(lang);

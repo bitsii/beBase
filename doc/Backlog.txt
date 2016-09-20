@@ -303,7 +303,7 @@ btrees, binary search trees
 method invocations which are final for object should be handled in a final way for untyped vars as for typed vars
 
 support "and" and "or" along side && and || (just like you can do "not" as .not())
-? foreach handle nulls gracefully (no iter) ?
+? for handle nulls gracefully (no iter) ?
 
 closures using instances (auto-prefix)
 

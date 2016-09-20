@@ -177,7 +177,7 @@ final class ClassSyn {
         newMbrs = ptyList.size;
         newMtds = mtdList.size;
         defMtds = newMtds;
-        foreach (Build:MtdSyn om in mtdList) {
+        for (Build:MtdSyn om in mtdList) {
 			build.emitData.methodIndexes.put(Build:MethodIndex.new(self, om));
 		}
         return(self);
@@ -197,7 +197,7 @@ final class ClassSyn {
      if (psyn.isLocal && isLocal! && isFinal!) {
       throw(Build:VisitError.new("Descendents of classes declared local must also be local, this one is not  " + namepath.toString()));
      }
-     foreach (NamePath pn in superList) {
+     for (NamePath pn in superList) {
          Build:ClassSyn pnsyn = build.getSynNp(pn);
          if (build.closeLibraries.has(pnsyn.libName)! && pn.toString() != "System:Object") {
             //("Not directProperties " + pn.toString() + " " + pnsyn.libName).print();
@@ -392,7 +392,7 @@ final class ClassSyn {
       }
       mtdList = mtdnList;
       
-      foreach (var s in superList) {
+      for (var s in superList) {
          allTypes.put(s, s);
          superNp = s;
       }

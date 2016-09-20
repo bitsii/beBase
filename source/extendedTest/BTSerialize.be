@@ -79,7 +79,7 @@ class Test:ToSerialize {
    }
    iteradd(String p, var a, String r) {
       String nl = "\n";
-      foreach (var j in a) {
+      for (var j in a) {
          if (undef(j)) {
             r += "next " += p += " is null " += nl;
          } else {

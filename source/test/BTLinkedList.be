@@ -35,7 +35,7 @@ class Test:BaseTest:LinkedList(BaseTest) {
       ll.iterator.next = "First One";
       
       Bool found = false;
-      foreach (String ln in ll) {
+      for (String ln in ll) {
          assertFalse(found);
          found = true;
          assertEquals(ln, "First One");
@@ -55,7 +55,7 @@ class Test:BaseTest:LinkedList(BaseTest) {
       i.next = "boo";
       
       Int count = 0;
-      foreach (ln in ll) {
+      for (ln in ll) {
          count = count++;
          //("Found ln " + ln).print();
          assertEquals(ln, "boo");
@@ -69,36 +69,36 @@ class Test:BaseTest:LinkedList(BaseTest) {
          ll.addValue(i);
       }
       ("Before " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.firstNode.delete();
       ("First " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.lastNode.delete();
       ("Second " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.getNode(6).delete();
       ("Third " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.getNode(5).insertBefore(ll.newNode(40));
       ("Fourth " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ll.firstNode.insertBefore(ll.newNode(100));
       ("Fifth " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
       ("After " + ll.length.toString()).print();
-      foreach (i in ll) {
+      for (i in ll) {
          i.print();
       }
    }

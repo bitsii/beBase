@@ -87,7 +87,7 @@ class System:Exception {
         } else {
             isCs = false;
         }
-        foreach (String line in lines) {
+        for (String line in lines) {
             //("Frame line is " + line).print();
             Int start = line.find("at ");
             String efile = null;
@@ -206,7 +206,7 @@ class System:Exception {
         lang = "be";
         framesText = null;
      } elif (def(frames) && def(lang) && lang == "jv") {
-        foreach (Exception:Frame fr in frames) {
+        for (Exception:Frame fr in frames) {
             fr.klassName = extractKlassLib(fr.klassName);
             fr.methodName = extractMethod(fr.methodName);
             fr.fileName = getSourceFileName(fr.klassName);
@@ -296,7 +296,7 @@ class System:Exception {
       LinkedList myFrames = self.frames;
       if (def(myFrames)) {
          toRet = toRet + "\n";
-         foreach (var ft in myFrames) {
+         for (var ft in myFrames) {
             toRet = toRet + ft;
          }
       }

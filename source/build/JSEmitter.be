@@ -70,7 +70,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         ccMethods += classConf.emitName += ".prototype.bepn_pnames = ["; //]
 
         Bool first = true;
-        foreach (Build:PtySyn ptySyn in ptyList) {
+        for (Build:PtySyn ptySyn in ptyList) {
             if (first) {
                 first = false;
             } else {
@@ -159,7 +159,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
         String smap = String.new();
 
-        foreach (String smk in smnlcs.keys) {
+        for (String smk in smnlcs.keys) {
           //("nlcs key " + smk + " nlc " + smnlcs.get(smk) + " nlec " + smnlecs.get(smk)).print();
           smap += "be_BECS_Runtime.prototype.putNlcSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlcs.get(smk) += ");" += nl;
           smap += "be_BECS_Runtime.prototype.putNlecSourceMap(" += TS.quote += smk += TS.quote += ", " += smnlecs.get(smk) += ");" += nl;
@@ -282,7 +282,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
     classEndGet() String {
        String end = "";
-       foreach (Node node in superCalls) {
+       for (Node node in superCalls) {
           end += classConf.emitName + ".prototype." + "bemp_" + node.held.name + " = " + parentConf.emitName + ".prototype." + "bem_" + node.held.name + ";" + nl;
        }
        return(end);
@@ -317,7 +317,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
             shlibe = libEmitPath.file.writer.open();
             //incorporate base file - ext lib
             if (build.params.has("jsInclude")) {
-                foreach (String p in build.params["jsInclude"]) {
+                for (String p in build.params["jsInclude"]) {
                     File jsi = IO:File:Path.apNew(p).file;
                     String inc = jsi.reader.open().readString();
                     jsi.reader.close();

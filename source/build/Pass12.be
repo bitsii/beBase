@@ -239,18 +239,18 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
    
    accept(Node node) Node {
       if (node.typename == ntypes.CALL && node.held.wasForeachGenned) {
-        //("in wasforeachgenned 1").print();
+        //("in wasforgenned 1").print();
         if (node.container.typename == ntypes.CALL && node.container.held.orgName == "assign" && node.isSecond) {
-          //("in wasforeachgenned 2").print();
+          //("in wasforgenned 2").print();
           if (node.contained.first.typename == ntypes.VAR && node.contained.first.held.isTyped) {
             NamePath fgnp = node.contained.first.held.namepath;
             String fgcn = fgnp.steps.last;
             String fgin = fgcn.substring(0,1).lowerValue() + fgcn.substring(1) + "IteratorGet";
-            //("in wasforeachgenned 3 " + fgin + " for " + fgnp).print();
+            //("in wasforgenned 3 " + fgin + " for " + fgnp).print();
             ClassSyn fgsy = build.getSynNp(fgnp);
             Build:MtdSyn fgms = fgsy.mtdMap.get(fgin + "_0");
             if (def(fgms)) {
-              //("did foreachgenned for iterator for " + fgnp).print();
+              //("did forgenned for iterator for " + fgnp).print();
               node.held.orgName = fgin;
               node.held.name = fgin + "_0";
             }
@@ -299,7 +299,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                //if it is typed it has already been found
                var nvname = nv.name;
                var ll = rmap.get(nvname);
-               foreach (var k in ll) {
+               for (var k in ll) {
                   if (k.isFirst && k.container.typename == ntypes.CALL && k.container.held.orgName == "assign" && k.container.second.typename == ntypes.CALL) {
                      //("!!!Found to be first arg to assign").print();
                      tcall = k.container.second;
@@ -394,7 +394,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
       if (node.typename == ntypes.CALL) {
          node.held.cpos = cpos;
          cpos = cpos++;
-         foreach (Node cci in node.contained) {
+         for (Node cci in node.contained) {
             if (cci.typename == ntypes.VAR) {
                cci.held.addCall(node);
             }

@@ -41,7 +41,7 @@ final class Build:EmitData {
    addSynClass(String npstr, ClassSyn syn) {
       synClasses.put(npstr, syn);
       String myname = syn.namepath.toString();
-      foreach (String s in syn.uses) {
+      for (String s in syn.uses) {
          Set ub = usedBy[s];
          if (undef(ub)) {
             ub = Set.new();

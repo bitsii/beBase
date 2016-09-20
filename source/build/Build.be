@@ -153,7 +153,7 @@ final class Build:Build {
 
       String bkey = "buildFile";
       if (def(params[bkey])) {
-      foreach (istr in params[bkey]) {
+      for (istr in params[bkey]) {
          if (bfiles.has(istr)!) {
             bfiles.put(istr);
             params.addFile(File.new(istr));
@@ -237,7 +237,7 @@ final class Build:Build {
       printAstElements = Set.new()
       LinkedList pacm = params["printAstElement"];
       if (def(pacm) && pacm.isEmpty!) {
-        foreach (String pa in pacm) {
+        for (String pa in pacm) {
           printAstElements.put(pa);
         }
       }
@@ -278,7 +278,7 @@ final class Build:Build {
       }
 
       toBuild = LinkedList.new();
-      foreach (istr in params.ordered) {
+      for (istr in params.ordered) {
          toBuild += IO:File:Path.new(istr);
       }
       newline = platform.newline;
@@ -312,13 +312,13 @@ final class Build:Build {
 				toEmit.put(clnode.held.namepath.toString());
 				Set usedBy = emitData.usedBy[clnode.held.namepath.toString()];
 				if (def(usedBy)) {
-					foreach (String ub in usedBy) {
+					for (String ub in usedBy) {
 						toEmit.put(ub);
 					}
 				}
 				Set subClasses = emitData.subClasses[clnode.held.namepath.toString()];
 				if (def(subClasses)) {
-					foreach (String sc in subClasses) {
+					for (String sc in subClasses) {
 						toEmit.put(sc);
 					}
 				}
@@ -379,7 +379,7 @@ final class Build:Build {
       startTime = Time:Interval.now();
       emitData = EmitData.new();
       if (def(loadSyns)) {
-        foreach (String lsp in loadSyns) {
+        for (String lsp in loadSyns) {
           loadSyns(lsp);
         }
       }
@@ -393,14 +393,14 @@ final class Build:Build {
       }
       Set ulibs = Set.new();
       //librarys is a mispelling TODO spell it right libraries
-      foreach (var ups in usedLibrarysStr) {
+      for (var ups in usedLibrarysStr) {
          if (ulibs.has(ups)!) {
             ulibs.put(ups);
             var pack = Build:Library.new(ups, self);
             usedLibrarys.addValue(pack);
          }
       }
-      foreach (ups in closeLibrariesStr) {
+      for (ups in closeLibrariesStr) {
          if (ulibs.has(ups)!) {
             ulibs.put(ups);
             pack = Build:Library.new(ups, self);
@@ -463,7 +463,7 @@ final class Build:Build {
             em.make(deployLibrary);
             em.deployLibrary(deployLibrary);
             if (deployUsedLibraries) {
-               foreach (var bp in usedLibrarys) {
+               for (var bp in usedLibrarys) {
                   var cpFrom = bp.libnameInfo.unitShlib;
                   var cpTo = deployLibrary.emitPath.copy();
                   cpTo.addStep(cpFrom.steps.last);
@@ -560,7 +560,7 @@ final class Build:Build {
          return(syn);
       }// else {
          //("Did not find " + nps).print();
-         //foreach (var kv in emitData.synClasses) {
+         //for (var kv in emitData.synClasses) {
          //   ("In synclasses " + kv.key + " " + kv.value.namepath.toString()).print();
          //}
          syn = self.emitter.loadSyn(np);

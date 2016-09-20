@@ -98,7 +98,7 @@ class Test:BaseTest:Parameters(BaseTest) {
       var cargs = System:Process.args;
       if (def(cargs)) {
         ("process args not null").print();
-        foreach (var carg in cargs) {
+        for (var carg in cargs) {
             ("Got process arg " + carg).print();
         }
       } else {

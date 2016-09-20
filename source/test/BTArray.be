@@ -39,7 +39,7 @@ class Test:BaseTest:List(BaseTest) {
       ts[9] = 4;
       
       List ts1 = ts.mergeSort();
-      foreach (v in ts1) { if (undef(v)) { "Null".print(); } else { v.print(); } }
+      for (v in ts1) { if (undef(v)) { "Null".print(); } else { v.print(); } }
       for (Int i = 0;i < ts1.length;i = i++) { 
          assertEquals(ts1[i], i);
       }
@@ -194,7 +194,7 @@ class Test:BaseTest:List(BaseTest) {
       ts[8] = 1;
       ts[9] = 4;
       ts.sortValue();
-      foreach (v in ts) { v.print(); }
+      for (v in ts) { v.print(); }
       for (i = 0;i < ts.length;i = i++) { 
          assertEquals(ts[i], i);
       }

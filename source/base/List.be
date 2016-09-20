@@ -272,10 +272,10 @@ if (def(length)) {
    
    add(List xi) self {
       List yi = List.new(0, length + xi.length);
-      foreach (var c in self) {
+      for (var c in self) {
          yi.addValueWhole(c);
       }
-      foreach (c in xi) {
+      for (c in xi) {
          yi.addValueWhole(c);
       }
       return(yi);
