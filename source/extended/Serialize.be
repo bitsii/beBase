@@ -121,11 +121,11 @@ final class Serializer {
                if (multiNull == 1) {
                   instWriter.write(nullMark);
                   multiNull = 0;
-               } elif (multiNull == 2) {
+               } elseIf (multiNull == 2) {
                   instWriter.write(nullMark);
                   instWriter.write(nullMark);
                   multiNull = 0;
-               } elif (multiNull > 2) {
+               } elseIf (multiNull > 2) {
                   instWriter.write(shift);
                   instWriter.write(nullMark);
                   instWriter.write(multiNull.toString());
@@ -150,11 +150,11 @@ final class Serializer {
          if (multiNull == 1) {
             instWriter.write(nullMark);
             multiNull = 0;
-         } elif (multiNull == 2) {
+         } elseIf (multiNull == 2) {
             instWriter.write(nullMark);
             instWriter.write(nullMark);
             multiNull = 0;
-         } elif (multiNull > 2) {
+         } elseIf (multiNull > 2) {
             instWriter.write(shift);
             instWriter.write(nullMark);
             instWriter.write(multiNull.toString());
@@ -221,20 +221,20 @@ final class Serializer {
          if (state == 0) {
             if (token == defineReference) {
                state = 1;
-            } elif (token == constructString) {
+            } elseIf (token == constructString) {
                state = 2;
-            } elif (token == getClassTag) {
+            } elseIf (token == getClassTag) {
                state = 8;
-            } elif (token == shift) {
+            } elseIf (token == shift) {
                state = 1000;
-            } elif (token == getReference) {
+            } elseIf (token == getReference) {
                state = 4;
-            } elif (token == nullMark) {
+            } elseIf (token == nullMark) {
                //Do group insert
                if (def(groupInstIter)) {
                   groupInstIter.next = null;
                }
-            } elif (token == group) {
+            } elseIf (token == group) {
                //Begin a group
                if (def(inst)) {
                   if (def(groupInstIter)) {
@@ -246,7 +246,7 @@ final class Serializer {
                   }
                }
             }
-         } elif (state == 1000) {
+         } elseIf (state == 1000) {
             // Shift
             if (token == defineClassTag) {
                if (undef(defineClassTagName)) {
@@ -254,9 +254,9 @@ final class Serializer {
                } else {
                   state = 7;
                }
-            } elif (token == multiNullMark) {
+            } elseIf (token == multiNullMark) {
                state = 9;
-            } elif (token == group) {
+            } elseIf (token == group) {
                //End a group
                groupInstIter = iterStack.pop();
                state = 0;
@@ -268,10 +268,10 @@ final class Serializer {
                }
                Int instSerial = Int.new(token);
                state = 0;
-            } elif (state == 2) {
+            } elseIf (state == 2) {
                String instString = encoder.decode(token);
                state = 0;
-            } elif (state == 8) {
+            } elseIf (state == 8) {
                Int glassTagVal = Int.new(token);
                String klass = session.classTagMap.get(glassTagVal);
                var inst = createInstance(klass).deserializeFromStringNew(instString).deserializeFromString(instString);
@@ -287,7 +287,7 @@ final class Serializer {
                   groupInstIter.next = inst;
                }
                state = 0;
-            } elif (state == 4) {
+            } elseIf (state == 4) {
                if (saveIdentity!) {
                   throw(System:Exception.new("Found reference while saveIdentity is false during deserialization"));
                }
@@ -297,16 +297,16 @@ final class Serializer {
                   groupInstIter.next = inst;
                }
                state = 0;
-            } elif (state == 6) {
+            } elseIf (state == 6) {
                defineClassTagName = token;
                state = 0;
-            } elif (state == 7) {
+            } elseIf (state == 7) {
                //add to map
                Int defineClassTagValue = Int.new(token);
                session.classTagMap.put(defineClassTagValue, defineClassTagName);
                defineClassTagName = null;
                state = 0;
-            } elif (state == 9) {
+            } elseIf (state == 9) {
                //Do group insert
                if (def(groupInstIter)) {
                   Int multiNullCount = Int.new(token);

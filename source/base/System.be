@@ -630,7 +630,7 @@ class System:Platform {
          separator = "/";
          otherSeparator = "\\";
          nullFile = "/dev/null";
-      } elif (name == "mswin") {
+      } elseIf (name == "mswin") {
          isNix = false;
          isWin = true;
          separator = "\\";

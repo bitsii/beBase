@@ -57,7 +57,7 @@ local class CCallAssembler {
          if (ca.node.held.wasAccessor && ca.mtds.isGenAccessor) {
             if (ca.node.held.accessorType == "GET") {
                return(processOptimizedGetter(ca));
-            } elif (ca.node.held.accessorType == "SET" && ca.node.held.checkTypes! && undef(ca.asnR)) {
+            } elseIf (ca.node.held.accessorType == "SET" && ca.node.held.checkTypes! && undef(ca.asnR)) {
                return(processOptimizedSetter(ca));
             }
          }
@@ -161,7 +161,7 @@ local class CCallAssembler {
          fromType = fromTypes.get(ca.ainfo.clName);
          if (def(fromType)) {
             return(fromType.processCall(ca));
-         } elif (ca.node.held.isLiteral) {
+         } elseIf (ca.node.held.isLiteral) {
             throw(Build:VisitError.new("Unknown literal class type " + ca.ainfo.clName));
          }
       }
@@ -172,7 +172,7 @@ local class CCallAssembler {
          if (def(fromType)) {
             return(fromType.processCall(ca));
          }
-      } elif (ca.node.held.name == "not_0") {
+      } elseIf (ca.node.held.name == "not_0") {
          return(processNot(ca));
       }
       return(standardCall(ca));
@@ -243,29 +243,29 @@ final class CAssembleInt(CCallAssembler) {
       }
       if (ca.node.held.name == "equals_1") {
          return(processEquals(ca));
-      } elif (ca.node.held.name == "notEquals_1") {
+      } elseIf (ca.node.held.name == "notEquals_1") {
          return(processNotEquals(ca));
-      } elif (ca.node.held.name == "lesser_1") {
+      } elseIf (ca.node.held.name == "lesser_1") {
          return(processCompare(ca, "<"));
-      } elif (ca.node.held.name == "greater_1") {
+      } elseIf (ca.node.held.name == "greater_1") {
          return(processCompare(ca, ">"));
-      } elif (ca.node.held.name == "lesserEquals_1") {
+      } elseIf (ca.node.held.name == "lesserEquals_1") {
          return(processCompare(ca, "<="));
-      } elif (ca.node.held.name == "greaterEquals_1") {
+      } elseIf (ca.node.held.name == "greaterEquals_1") {
          return(processCompare(ca, ">="));
-      }  elif (ca.node.held.name == "add_1") {
+      }  elseIf (ca.node.held.name == "add_1") {
          return(processModify(ca, "+"));
-      } elif (ca.node.held.name == "subtract_1") {
+      } elseIf (ca.node.held.name == "subtract_1") {
          return(processModify(ca, "-"));
-      } elif (ca.node.held.name == "multiply_1") {
+      } elseIf (ca.node.held.name == "multiply_1") {
          return(processModify(ca, "*"));
-      } elif (ca.node.held.name == "divide_1") {
+      } elseIf (ca.node.held.name == "divide_1") {
          return(processModify(ca, "/"));
-      } elif (ca.node.held.name == "modulus_1") {
+      } elseIf (ca.node.held.name == "modulus_1") {
          return(processModify(ca, "%"));
-      } elif (ca.node.held.name == "increment_0") {
+      } elseIf (ca.node.held.name == "increment_0") {
          return(processIncDec(ca, "+"));
-      } elif (ca.node.held.name == "decrement_0") {
+      } elseIf (ca.node.held.name == "decrement_0") {
          return(processIncDec(ca, "-"));
       }
       return(standardCall(ca));
@@ -389,27 +389,27 @@ final class CAssembleFloat(CCallAssembler) {
       }
       if (ca.node.held.name == "equals_1") {
          return(processEquals(ca));
-      } elif (ca.node.held.name == "notEquals_1") {
+      } elseIf (ca.node.held.name == "notEquals_1") {
          return(processNotEquals(ca));
-      } elif (ca.node.held.name == "lesser_1") {
+      } elseIf (ca.node.held.name == "lesser_1") {
          return(processCompare(ca, "<"));
-      } elif (ca.node.held.name == "greater_1") {
+      } elseIf (ca.node.held.name == "greater_1") {
          return(processCompare(ca, ">"));
-      } elif (ca.node.held.name == "lesserEquals_1") {
+      } elseIf (ca.node.held.name == "lesserEquals_1") {
          return(processCompare(ca, "<="));
-      } elif (ca.node.held.name == "greaterEquals_1") {
+      } elseIf (ca.node.held.name == "greaterEquals_1") {
          return(processCompare(ca, ">="));
-      } elif (ca.node.held.name == "add_1") {
+      } elseIf (ca.node.held.name == "add_1") {
          return(processModify(ca, "+"));
-      } elif (ca.node.held.name == "subtract_1") {
+      } elseIf (ca.node.held.name == "subtract_1") {
          return(processModify(ca, "-"));
-      } elif (ca.node.held.name == "multiply_1") {
+      } elseIf (ca.node.held.name == "multiply_1") {
          return(processModify(ca, "*"));
-      } elif (ca.node.held.name == "divide_1") {
+      } elseIf (ca.node.held.name == "divide_1") {
          return(processModify(ca, "/"));
-      } elif (ca.node.held.name == "increment_0") {
+      } elseIf (ca.node.held.name == "increment_0") {
          return(processIncDec(ca, "+"));
-      } elif (ca.node.held.name == "decrement_0") {
+      } elseIf (ca.node.held.name == "decrement_0") {
          return(processIncDec(ca, "-"));
       }
       return(standardCall(ca));
@@ -541,7 +541,7 @@ final class CAssembleBool(CCallAssembler) {
       if (def(ca.asnR)) {
          if ((ca.node.held.isLiteral) && (ca.node.held.literalValue == "true")) {
             ca.tcall = ca.tcall + ca.assignToVV + "berv_sts->bool_True;" + nl;
-         } elif (ca.node.held.numargs == 1) {
+         } elseIf (ca.node.held.numargs == 1) {
             ca.tcall = ca.tcall + ca.assignToVV + "BEKF_5_5_LogicBools_forString_1(0, berv_sts, berv_sts->bools_singleton, " + ca.emvisit.getBeavArg(ca.node.contained.get(1)) + " );" + nl;
          } else {
             ca.tcall = ca.tcall + ca.assignToVV + "berv_sts->bool_False;" + nl;

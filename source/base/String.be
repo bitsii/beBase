@@ -188,7 +188,7 @@ final class String {
    capacitySet(Int ncap) self {
       if (undef(capacity)) {
          capacity = 0;
-      } elif (capacity == ncap) {
+      } elseIf (capacity == ncap) {
         return(self);//nothing to do
       }
       emit(jv) {
@@ -731,7 +731,7 @@ BEINT bevl_val;
         if (myret == 0) {
             if (mysize > osize) {
                 myret = 1;
-            } elif (osize > mysize) {
+            } elseIf (osize > mysize) {
                 myret = -1;
             }
         }
@@ -1299,11 +1299,11 @@ final class Text:MultiByteIterator(Text:ByteIterator) {
         str.getInt(pos, ival);
         if (ival >= 0 && ival <= 127) { /* 0x7F 127 */
             bcount = 1;
-        } elif ((ival & -32) == -64) { /* 0xE0 224 -32, 0xC0 192 -64 */
+        } elseIf ((ival & -32) == -64) { /* 0xE0 224 -32, 0xC0 192 -64 */
             bcount = 2;
-        } elif ((ival & -16) == -32) { /* 0xF0 240 -16, 0xE0 224 -32 */
+        } elseIf ((ival & -16) == -32) { /* 0xF0 240 -16, 0xE0 224 -32 */
             bcount = 3;
-        } elif ((ival & -8) == -16) { /* 0xF8 248 -8, 0xF0 240 -16 */
+        } elseIf ((ival & -8) == -16) { /* 0xF8 248 -8, 0xF0 240 -16 */
            bcount = 4;
         } else {
             throw(System:Exception.new("Malformed string, utf-8 multibyte sequence is greater than 4 bytes"));

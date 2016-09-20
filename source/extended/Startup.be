@@ -156,9 +156,9 @@ local class Parameters {
             }
             pname = null;
             pnameComment = false;
-         } elif (def(fb) && fb == "--") {
+         } elseIf (def(fb) && fb == "--") {
             pname = i.substring(2, i.size);
-         } elif (def(fa) && fa == "-") {
+         } elseIf (def(fa) && fa == "-") {
             String par = i.substring(1, i.size);
             Int pos = par.find("=");
             if (def(pos)) {
@@ -166,10 +166,10 @@ local class Parameters {
                String value = par.substring(pos + 1);
                addParameter(key, value);
             }
-         } elif (def(fc) && fc == "#--") {
+         } elseIf (def(fc) && fc == "#--") {
             pname = i.substring(3, i.size);
             pnameComment = true;
-         } elif ((def(fa) && fa == "#")!) {
+         } elseIf ((def(fa) && fa == "#")!) {
             ordered += i;
          }
       }

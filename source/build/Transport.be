@@ -108,9 +108,9 @@ final class Build:Transport {
             
             if (node.typename == ntypes.RPARENS) {
                curr = stepBack(curr);
-            } elif (node.typename == ntypes.RIDX) {
+            } elseIf (node.typename == ntypes.RIDX) {
                curr = stepBack(curr);
-            } elif (node.typename == ntypes.RBRACES) {
+            } elseIf (node.typename == ntypes.RBRACES) {
                curr = stepBack(curr);
                if (undef(curr)) {
                   throw(VisitError.new("Missing container during stepout", node));

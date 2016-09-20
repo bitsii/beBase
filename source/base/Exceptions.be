@@ -205,7 +205,7 @@ class System:Exception {
         emitLang = lang;
         lang = "be";
         framesText = null;
-     } elif (def(frames) && def(lang) && lang == "jv") {
+     } elseIf (def(frames) && def(lang) && lang == "jv") {
         for (Exception:Frame fr in frames) {
             fr.klassName = extractKlassLib(fr.klassName);
             fr.methodName = extractMethod(fr.methodName);

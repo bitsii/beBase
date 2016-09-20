@@ -121,7 +121,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
                xn = xn.nextDescend;
             }
             return(xn);
-         } elif (typename == quoteType) {
+         } elseIf (typename == quoteType) {
             node.delayDelete();
             xn = node.nextPeer;
             var csc = 1;

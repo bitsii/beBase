@@ -276,7 +276,7 @@ final class ClassSyn {
    checkTypes(klass, build, pmr, omr, om) {
       if (pmr.isTyped != omr.isTyped) {
          throw(Build:VisitError.new("Inheritance type mismatch error, one of parent or child are typed but not both!!!!! " + klass.held.namepath.toString(), om));
-      } elif (pmr.isTyped) {
+      } elseIf (pmr.isTyped) {
          //TODO complete inheritance polymorph checktypes
          //pmr.namepath.toString() != omr.namepath.toString()
          if (pmr.isSelf && omr.isSelf) {

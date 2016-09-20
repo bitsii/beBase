@@ -84,7 +84,7 @@ class System:Object {
          var s = self;
          var result = s.forward(forwardCall);
          return(result);
-      } elif(true) {
+      } elseIf(true) {
          throw(System:MethodNotDefined.new("Method: " + forwardCall.name + " not defined for class " + self.className));
       }
       return(result);

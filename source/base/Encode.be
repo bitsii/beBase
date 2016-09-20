@@ -167,7 +167,7 @@ local class Url {
          Int ac = pt.getCode(0);//TODO instead, tb.currentInt(int), more efficient
          if ((ac > 47 && ac < 58) || (ac > 64 && ac < 94) || (ac > 94 && ac < 123) || (ac > 44 && ac < 47) || ac == 42) {
             r.addValue(pt);
-         } elif (ac == 32) {
+         } elseIf (ac == 32) {
             r.addValue("+");
          } else {
             r.addValue("%");

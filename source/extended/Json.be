@@ -120,19 +120,19 @@ use class Json:Parser {
     
     if(value < 0) {
         size = -1;
-    } elif(value < Int.hexNew("80")) {
+    } elseIf(value < Int.hexNew("80")) {
         accum.setIntUnchecked(sizeNow, value);
         size = 1;
-    } elif(value < Int.hexNew("800")) {
+    } elseIf(value < Int.hexNew("800")) {
         accum.setIntUnchecked(sizeNow, Int.hexNew("C0").add(value.and(Int.hexNew("7C0")).shiftRight(6)));
         accum.setIntUnchecked(sizeNow + 1, Int.hexNew("80").add(value.and(Int.hexNew("03F"))));
         size = 2;
-    } elif(value < Int.hexNew("10000")) {
+    } elseIf(value < Int.hexNew("10000")) {
         accum.setIntUnchecked(sizeNow, Int.hexNew("E0").add(value.and(Int.hexNew("F000")).shiftRight(12)));
         accum.setIntUnchecked(sizeNow + 1, Int.hexNew("80").add(value.and(Int.hexNew("0FC0")).shiftRight(6)));
         accum.setIntUnchecked(sizeNow + 2, Int.hexNew("80").add(value.and(Int.hexNew("003F"))));
         size = 3;
-    } elif(value <= Int.hexNew("10FFFF")) {
+    } elseIf(value <= Int.hexNew("10FFFF")) {
         accum.setIntUnchecked(sizeNow, Int.hexNew("F0").add(value.and(Int.hexNew("1C0000")).shiftRight(18)));
         accum.setIntUnchecked(sizeNow + 1, Int.hexNew("80").add(value.and(Int.hexNew("03F000")).shiftRight(12)));
         accum.setIntUnchecked(sizeNow + 2, Int.hexNew("80").add(value.and(Int.hexNew("000FC0")).shiftRight(6)));
@@ -188,13 +188,13 @@ use class Json:Parser {
                         String escval = fromEscapes.get(tok);
                         if (def(escval)) {
                             accum += escval;
-                        } elif (tok.begins("u")) {
+                        } elseIf (tok.begins("u")) {
                             Int value = jsonUcUnescape(tok);
                             String remainder = jsonUcGetAfterPart(tok);
                             Bool isStart = false;
                             if (def(heldValue) && jsonUcIsPairEnd(value)!) {
                                 throw(System:Exception.new("Invalid escape state, second part of surrogate pair is invalid"));
-                            } elif (undef(heldValue)) {
+                            } elseIf (undef(heldValue)) {
                                 isStart = jsonUcIsPairStart(value);
                             }
                             if (isStart && def(remainder)) {
@@ -213,7 +213,7 @@ use class Json:Parser {
                            accum += tok; 
                         }
                         inEscape = false;
-                    } elif (tok == escape) {
+                    } elseIf (tok == escape) {
                         inEscape = true;
                     } else {
                         accum += tok;
@@ -222,17 +222,17 @@ use class Json:Parser {
             } else {
                 //not instring
                 if (tok == space || tok == cr || tok == lf || tok == comma) {
-                } elif (tok == quote) {
+                } elseIf (tok == quote) {
                     inString = true;
-                } elif (tok == lbrace) {
+                } elseIf (tok == lbrace) {
                     handler.beginMap();
-                } elif (tok == rbrace) {
+                } elseIf (tok == rbrace) {
                     handler.endMap();
-                } elif (tok == colon) {
+                } elseIf (tok == colon) {
                     handler.kvMid();
-                } elif (tok == lbracket) {
+                } elseIf (tok == lbracket) {
                     handler.beginList();
-                } elif (tok == rbracket) {
+                } elseIf (tok == rbracket) {
                     handler.endList();
                 } else {
                     //bfnrt
@@ -240,11 +240,11 @@ use class Json:Parser {
                     if (tok == "t" || tok == "r" || tok == "f" || tok == "n") {
                         //just ignore these, outside of string they're causalties of
                         //the "special escape" handling.  The below shortened items will catch
-                    } elif (tok == "ue") {
+                    } elseIf (tok == "ue") {
                         handler.handleTrue();
-                    } elif (tok == "alse") {
+                    } elseIf (tok == "alse") {
                         handler.handleFalse();
-                    } elif (tok == "ull") {
+                    } elseIf (tok == "ull") {
                         handler.handleNull();
                     } else {
                         //better be a number
@@ -329,15 +329,15 @@ use class Json:Marshaller {
     marshallWriteInst(inst, writer) {
        if (undef(inst)) {
          writer.write("null");
-       } elif (inst.sameType(str)) {
+       } elseIf (inst.sameType(str)) {
          marshallWriteString(inst, writer);
-       } elif (inst.sameType(lls) || inst.sameType(arr)) {
+       } elseIf (inst.sameType(lls) || inst.sameType(arr)) {
          marshallWriteList(inst, writer);
-       } elif (inst.sameType(map)) {
+       } elseIf (inst.sameType(map)) {
          marshallWriteMap(inst, writer);
-       } elif (inst.sameType(int)) {
+       } elseIf (inst.sameType(int)) {
          writer.write(inst.toString());
-       } elif (inst.sameType(boo)) {
+       } elseIf (inst.sameType(boo)) {
          writer.write(inst.toString());
        } else {
          marshallWriteString(inst.toString(), writer);
@@ -356,11 +356,11 @@ use class Json:Marshaller {
     {
         value = u & Int.hexNew("1F");
     }
-    elif(size == 3)
+    elseIf(size == 3)
     {
         value = u & Int.hexNew("F");
     }
-    elif(size == 4)
+    elseIf(size == 4)
     {
         value = u & Int.hexNew("7");
     }
@@ -374,7 +374,7 @@ use class Json:Marshaller {
     }
     if (size == 0) {
         rcap = 0;
-    } elif (size == 1) {
+    } elseIf (size == 1) {
         rcap = 2;
     } else {
         if(value < Int.hexNew("10000")) {
@@ -398,10 +398,10 @@ use class Json:Marshaller {
             //else simple append
             txt += txtpt;
         }
-      } elif (rcap > 3) {
+      } elseIf (rcap > 3) {
       if (rcap == 7) {
         txt += "\\u" += value.toString(String.new(4@), 4@, 16@, 87@);
-      } elif (rcap == 13) {
+      } elseIf (rcap == 13) {
         value -= Int.hexNew("10000");
         Int first = Int.hexNew("D800").or(value.and(Int.hexNew("ffc00")).shiftRight(10));
         Int last = Int.hexNew("DC00").or(value.and(Int.hexNew("003ff")));

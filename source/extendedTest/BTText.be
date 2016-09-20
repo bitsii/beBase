@@ -309,7 +309,7 @@ class Test:BaseTest:Text(BaseTest) {
           b.print();
           if (i == 0) {
             assertEqual(b.toString(), "h");
-          } elif (i == 1) {
+          } elseIf (i == 1) {
             assertEqual(b.toString(), "i");
           } else {
             throw(System:Exception.new("too many chars"));
@@ -326,21 +326,21 @@ class Test:BaseTest:Text(BaseTest) {
           b.print();
           if (i == 0) {
             assertEqual(b.toString(), "a");
-          } elif (i == 1) {
+          } elseIf (i == 1) {
             assertEqual(b.toString(), "Â");
-          } elif (i == 2) {
+          } elseIf (i == 2) {
             assertEqual(b.toString(), "b");
-          } elif (i == 3) {
+          } elseIf (i == 3) {
             assertEqual(b.toString(), "Æ");
-          } elif (i == 4) {
+          } elseIf (i == 4) {
             assertEqual(b.toString(), "c");
-          } elif (i == 5) {
+          } elseIf (i == 5) {
             assertEqual(b.toString(), "あ");
-          } elif (i == 6) {
+          } elseIf (i == 6) {
             assertEqual(b.toString(), "d");
-          } elif (i == 7) {
+          } elseIf (i == 7) {
             assertEqual(b.toString(), "𡇙");
-          } elif (i == 8) {
+          } elseIf (i == 8) {
             assertEqual(b.toString(), "e");
           } else {
             throw(System:Exception.new("too many chars"));

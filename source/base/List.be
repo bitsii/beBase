@@ -320,11 +320,11 @@ if (def(length)) {
                fi = fi++;
                put(i, fo);
             }
-         } elif (si < sl) {
+         } elseIf (si < sl) {
             so = second.get(si);
             si = si++;
             put(i, so);
-         } elif (fi < fl) {
+         } elseIf (fi < fl) {
             fo = first.get(fi);
             fi = fi++;
             put(i, fo);
@@ -341,7 +341,7 @@ if (def(length)) {
       Int mlen = end - start;
       if (mlen == 0) {
          return(create(0));
-      } elif (mlen == 1) {
+      } elseIf (mlen == 1) {
          List ra = create(1);
          ra.put(0, get(start));
          return(ra);
@@ -469,10 +469,10 @@ if (def(length)) {
        var aval = get(mid);
        if (value == aval) {
         return(mid);
-       } elif (value > aval) {
+       } elseIf (value > aval) {
         //aval lt
         low = mid;
-       } elif (value < aval) {
+       } elseIf (value < aval) {
         //aval gt
         high = mid;
        }

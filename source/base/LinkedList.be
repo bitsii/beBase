@@ -81,7 +81,7 @@ local Node {
             //I am also last
             mylist.lastNode = n;
          }
-      } elif (undef(n)) {
+      } elseIf (undef(n)) {
          //I am last
          p.next = n;
          mylist.lastNode = p;

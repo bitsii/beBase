@@ -262,7 +262,7 @@ class Runner {
                baton.restart();
                baton = null;
             }
-         } elif (s.sameType(runStep) && s.str == label) {
+         } elseIf (s.sameType(runStep) && s.str == label) {
             return(true);
          } else {
             output.write(s.handle(self));
@@ -295,7 +295,7 @@ class Runner {
                baton.restart();
                baton = null;
             }
-         } elif (s.sameType(runStep) && s.str == label) {
+         } elseIf (s.sameType(runStep) && s.str == label) {
             return(true);
          }
       }

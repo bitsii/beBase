@@ -177,7 +177,7 @@ class Map(Set) {
          for (var x in otherMap) {
             put(x.key, x.value);
          }
-         } elif (other.sameType(baseNode)) {
+         } elseIf (other.sameType(baseNode)) {
             put(other.key, other.value);
          } else {
             put(other, other);
@@ -313,9 +313,9 @@ class Set {
             }
             innerPutAdded = true;
             return(true);
-         } elif ((n.hval % modu) != orgsl) {
+         } elseIf ((n.hval % modu) != orgsl) {
             return(false);
-         } elif (rel.isEqual(n.key, k)) {
+         } elseIf (rel.isEqual(n.key, k)) {
             n.putTo(k, v);
             //existing equiv, no size++
             innerPutAdded = false;
@@ -356,9 +356,9 @@ class Set {
          SetNode n = slt.get(sl);
          if (undef(n)) {
             return(null);
-         } elif ((n.hval % modu) != orgsl) {
+         } elseIf ((n.hval % modu) != orgsl) {
             return(null);
-         } elif (rel.isEqual(n.key, k)) {
+         } elseIf (rel.isEqual(n.key, k)) {
             return(n.getFrom());
          } else {
             sl = sl++;
@@ -382,9 +382,9 @@ class Set {
          SetNode n = slt.get(sl);
          if (undef(n)) {
             return(false);
-         } elif ((n.hval % modu) != orgsl) {
+         } elseIf ((n.hval % modu) != orgsl) {
             return(false);
-         } elif (rel.isEqual(n.key, k)) {
+         } elseIf (rel.isEqual(n.key, k)) {
             return(true);
          } else {
             sl = sl++;
@@ -409,9 +409,9 @@ class Set {
          SetNode n = slt.get(sl);
          if (undef(n)) {
             return(false);
-         } elif ((n.hval % modu) != orgsl) {
+         } elseIf ((n.hval % modu) != orgsl) {
             return(false);
-         } elif (rel.isEqual(n.key, k)) {
+         } elseIf (rel.isEqual(n.key, k)) {
             slt.put(sl, null);
             size = size--;
             sl = sl++;
@@ -517,7 +517,7 @@ class Set {
              for (var x in other) {
                 put(x);
              }
-         } elif (other.sameType(baseNode)) {
+         } elseIf (other.sameType(baseNode)) {
             put(other.key);
          } else {
             put(other);

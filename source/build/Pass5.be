@@ -74,7 +74,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             if (nnode.typename == ntypes.ID) {
                var namepath = NamePath.new();
                namepath.addStep(nnode.held);
-            } elif (nnode.typename == ntypes.NAMEPATH) {
+            } elseIf (nnode.typename == ntypes.NAMEPATH) {
                namepath = nnode.held;
             } else {
                throw(VisitError.new("Error improper use statement, target of incorrect type.", node));
@@ -130,9 +130,9 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                   if (prp.typename == ntypes.DEFMOD) {
                      if (prp.typename == ntypes.DEFMOD && prp.held == "final") {
                         isFinal = true;
-                     } elif (prp.typename == ntypes.DEFMOD && prp.held == "local") {
+                     } elseIf (prp.typename == ntypes.DEFMOD && prp.held == "local") {
                         isLocal = true;
-                     } elif (prp.typename == ntypes.DEFMOD && prp.held == "notNull") {
+                     } elseIf (prp.typename == ntypes.DEFMOD && prp.held == "notNull") {
                         isNotNull = true;
                      }
                      Node prptmp = prp.priorPeer;
@@ -150,7 +150,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                if (m.typename == ntypes.ID) {
                   namepath = NamePath.new();
                   namepath.addStep(m.held);
-               } elif (m.typename == ntypes.NAMEPATH) {
+               } elseIf (m.typename == ntypes.NAMEPATH) {
                   namepath = m.held;
                } else {
                   throw(VisitError.new("Error, class name type is incorrect", node));
@@ -175,7 +175,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                      if (m.typename == ntypes.ID) {
                         node.held.extends = NamePath.new();
                         node.held.extends.addStep(m.held);
-                     } elif (m.typename == ntypes.NAMEPATH) {
+                     } elseIf (m.typename == ntypes.NAMEPATH) {
                         node.held.extends = m.held;
                      } else {
                         throw(VisitError.new("Error, parent class name type is incorrect", node));
@@ -206,7 +206,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                   if (prp.typename == ntypes.DEFMOD) {
                      if (prp.typename == ntypes.DEFMOD && prp.held == "final") {
                         node.held.isFinal = true;
-                     } elif (prp.typename == ntypes.DEFMOD && prp.held == "local") {
+                     } elseIf (prp.typename == ntypes.DEFMOD && prp.held == "local") {
                         // local methods not yet meaningful
                         throw (VisitError.new("Local methods not supported", node));
                      }

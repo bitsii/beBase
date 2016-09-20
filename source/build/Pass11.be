@@ -74,7 +74,7 @@ final class Build:Visit:Pass11(Build:Visit:Visitor) {
          //"AT 3".print();
          if ((c0.typename == ntypes.CALL) && (c0.held.name == "assign") && (node.isSecond)) {
             unwind = false;
-         } elif (c0.typename == ntypes.BRACES) {
+         } elseIf (c0.typename == ntypes.BRACES) {
             unwind = false;
          }
          if (unwind) {

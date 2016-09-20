@@ -198,7 +198,7 @@ class TagIterator {
          textNode = false;
          skip = true;
          return(TextNode.new(accum.extractString()));
-      } elif (def(nxt)) {
+      } elseIf (def(nxt)) {
          if (nxt == "<") {
             Bool tagName = true;
             Bool attributeName = false;
@@ -253,7 +253,7 @@ class TagIterator {
                      nxt = iter.next;
                      accum.extractString();
                      accum += "<?";
-                  } elif (nxt == "!") {
+                  } elseIf (nxt == "!") {
                      isStart = false;
                      comment = true;
                      nxt = iter.next;
@@ -284,11 +284,11 @@ class TagIterator {
                         if (isStart) {
                            textNode = true;
                         }
-                     } elif (nxt == "/" && isStart) {
+                     } elseIf (nxt == "/" && isStart) {
                         attributeName = false;
                         myElement.isClosed = true;
                         nxt = iter.next;
-                     } elif (isStart) {
+                     } elseIf (isStart) {
                         attributeName = true;
                      } else {
                         attributeName = false;
@@ -310,7 +310,7 @@ class TagIterator {
                   if (nxt == ">") {
                      attributeValue = false;
                      textNode = true;
-                  } elif (nxt == "/") {
+                  } elseIf (nxt == "/") {
                      attributeValue = false;
                      myElement.isClosed = true;
                      nxt = iter.next;

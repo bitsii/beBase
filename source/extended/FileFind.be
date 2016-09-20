@@ -31,7 +31,7 @@ final RecursiveIterator {
    hasNextGet() Bool {
       if (def(innerIter) && innerIter.hasNext) {
          return(true);
-      } elif (def(innerIter)) {
+      } elseIf (def(innerIter)) {
          innerIter = null;
       }
       return(dirIter.hasNext);
@@ -40,7 +40,7 @@ final RecursiveIterator {
    nextGet() File {
       if (def(innerIter) && innerIter.hasNext) {
          return(innerIter.next);
-      } elif (def(innerIter)) {
+      } elseIf (def(innerIter)) {
          innerIter = null;
       }
       File toRet = dirIter.next;

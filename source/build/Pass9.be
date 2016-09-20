@@ -50,7 +50,7 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
             }
          }
          return(node.nextDescend);
-      } elif (node.typename == ntypes.ACCESSOR) {
+      } elseIf (node.typename == ntypes.ACCESSOR) {
          //for accessors (accessor nodes):
          //if in assign call and in position 0, is set
          //else is get
@@ -77,7 +77,7 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
             node.held = c;
          }
          return(node.nextDescend);
-      } elif (node.typename == ntypes.IDXACC) {
+      } elseIf (node.typename == ntypes.IDXACC) {
          //"!!!!!!!!!!!!!IN NTYPES.IDX PASS9".print();
          ac = node.held;
          c = Build:Call.new();
@@ -246,7 +246,7 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          bnode.typename = ntypes.BREAK;
          brnode.addValue(bnode);
          return(lnode.nextDescend);
-      } elif (node.typename == ntypes.FOR) {
+      } elseIf (node.typename == ntypes.FOR) {
          lnode = Node.new(build);
          lnode.copyLoc(node);
          lnode.typename = ntypes.LOOP;

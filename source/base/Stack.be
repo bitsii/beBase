@@ -46,7 +46,7 @@ class Stack {
             top = holder;
             holder = null;
          }
-      } elif (undef(top.next)) {
+      } elseIf (undef(top.next)) {
          top.next = Node.new();
          top.next.prior = top;
          top = top.next;
@@ -130,7 +130,7 @@ class Queue {
          top = Node.new();
          end = top;
          bottom = top;
-      } elif (def(bottom)) {
+      } elseIf (def(bottom)) {
          if (undef(top.next)) {
             top.next = Node.new();
             top.next.prior = top;

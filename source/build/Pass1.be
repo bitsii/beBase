@@ -48,9 +48,9 @@ final class Build:Visit:Pass1(Build:Visit:Visitor) {
       if (node.typename == ntypes.METHOD && def(inClass)) {
          if ("".sameType(node.held)) {
            inClassMethod = node.held;
-         } elif (def(node.held.orgName)) {
+         } elseIf (def(node.held.orgName)) {
            inClassMethod = inClass + "." + node.held.orgName;
-         } elif (def(node.held.name)) {
+         } elseIf (def(node.held.name)) {
            inClassMethod = inClass + "." + node.held.name;
          }
          //("inClassMethod " + inClassMethod).print();

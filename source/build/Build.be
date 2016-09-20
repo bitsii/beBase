@@ -347,9 +347,9 @@ final class Build:Build {
          String emitLang = emitLangs.first;
          if (emitLang == "jv") {
              emitCommon = JVEmitter.new(self);
-        } elif (emitLang == "cs") {
+        } elseIf (emitLang == "cs") {
              emitCommon = CSEmitter.new(self);
-        } elif (emitLang == "js") {
+        } elseIf (emitLang == "js") {
              emitCommon = JSEmitter.new(self);
         } else {
             throw(System:Exception.new("Unknown emitLang, supported emit langs are cs, jv"));

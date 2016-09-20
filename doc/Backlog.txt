@@ -107,7 +107,7 @@ last call is return not working for all cases - when the last return is inside a
 something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
 castTo is wrong in at least some once cases, checkTypes must be wrong somehow
 byteiterator is much much slower than just doing getInt on a string by length, something is wrong there
-// Bug with initial elif
+// Bug with initial elseIf
 // math with parens inside a method call is broken
 // this doesn't work for (Int j = 0;j < dnumargs && j < maxDynArgs;j=j++) {
 // numargs - maxDynArgs + 1 !== (numargs - maxDynArgs) + 1

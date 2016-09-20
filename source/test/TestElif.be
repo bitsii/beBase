@@ -7,17 +7,17 @@ class Test:TestElif {
    }
    
    /* testElifAll() {
-      //if if elif elif elif else
+      //if if elseIf elseIf elseIf else
       if (true) {
          ("IF").print();
       }
       if (true) {
          ("IF").print();
-      } elif (true) {
+      } elseIf (true) {
          ("ELIF").print();
-      } elif (true) {
+      } elseIf (true) {
          ("ELIF").print();
-      } elif (true) {
+      } elseIf (true) {
          ("ELIF").print();
       } else {
          ("ELSE").print();
@@ -27,9 +27,9 @@ class Test:TestElif {
    testElif() {
       if (false) {
          ("IF").print();
-      } elif (false) {
+      } elseIf (false) {
          ("ELIF1").print();
-      } elif (false) {
+      } elseIf (false) {
          ("ELIF2").print();
       } else {
          ("ELSE").print();

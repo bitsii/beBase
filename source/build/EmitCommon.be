@@ -480,7 +480,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       String isfin = "";
       if(emitting("cs") && isFinal) {
         isfin = "sealed ";
-      } elif (emitting("jv") && isFinal) {
+      } elseIf (emitting("jv") && isFinal) {
         isfin = "final ";
       }
       return("public " + isfin + "class ");
@@ -602,7 +602,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         libe.write(self.baseSmtdDec + "void init()" += exceptDec += " {" + nl);
         if(emitting("jv")) {
           libe.write("synchronized (" + libEmitName + ".class) {" + nl);//}
-        } elif(emitting("cs")) {
+        } elseIf(emitting("cs")) {
           libe.write("lock (typeof(" + libEmitName + ")) {" + nl);//}
         }
         libe.write("if (isInitted) { return; }" + nl;);
@@ -678,9 +678,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       String prefix;
       if (v.isTmpVar) {
         prefix = "bevt_";
-      } elif (v.isProperty) {
+      } elseIf (v.isProperty) {
         prefix = "bevp_";
-      } elif (v.isArg) {
+      } elseIf (v.isArg) {
         prefix = "beva_";
       } else {
         prefix = "bevl_";
@@ -1005,10 +1005,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             nextIsNativeSlots = false;
             nativeSlots = Int.new(i);
             isfn = true;
-         } elif (i == "*-attr- -firstSlotNative-*") {
+         } elseIf (i == "*-attr- -firstSlotNative-*") {
             isfn = true;
             nativeSlots = 1;
-         } elif (i == "*-attr- -nativeSlots") {
+         } elseIf (i == "*-attr- -nativeSlots") {
             nextIsNativeSlots = true;
          }
       }
@@ -1203,7 +1203,7 @@ buildClassInfoMethod(String belsBase) {
              msyn = null;
              mnode = null;
            }
-        } elif (typename != ntypes.EXPR && typename != ntypes.PROPERTIES && typename != ntypes.CLASS) {
+        } elseIf (typename != ntypes.EXPR && typename != ntypes.PROPERTIES && typename != ntypes.CLASS) {
             //{
            methodBody += "} /* " += getTraceInfo(node) += " */" += nl;
         }
@@ -1350,12 +1350,12 @@ buildClassInfoMethod(String belsBase) {
             errmsg = errmsg + " !!!" + ei + "!! " + node.contained[ei];
          }
          throw(VisitError.new(errmsg, node));
-      } elif ((node.held.orgName == "assign") && (node.contained.first.held.name == "self")) {
+      } elseIf ((node.held.orgName == "assign") && (node.contained.first.held.name == "self")) {
          throw(VisitError.new("self cannot be assigned to", node));
-      } elif (node.held.orgName == "throw") {
+      } elseIf (node.held.orgName == "throw") {
          acceptThrow(node);
          return(self);
-      } elif (node.held.orgName == "assign") {
+      } elseIf (node.held.orgName == "assign") {
       
         if (def(node.second) && def(node.second.contained) && node.second.contained.size == 2 && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.typename == ntypes.VAR && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
           Bool isIntish = true;
@@ -1378,13 +1378,13 @@ buildClassInfoMethod(String belsBase) {
          if (node.second.typename == ntypes.VAR) {
             //node.held.checkTypes (for casting needed) (legacy became checkAssignTypes)
             methodBody += finalAssign(node.contained.first, formTarg(node.second), castTo);
-         } elif (node.second.typename == ntypes.NULL) {
+         } elseIf (node.second.typename == ntypes.NULL) {
             methodBody += finalAssign(node.contained.first, "null", null);
-         } elif (node.second.typename == ntypes.TRUE) {
+         } elseIf (node.second.typename == ntypes.TRUE) {
             methodBody += finalAssign(node.contained.first, trueValue, castTo);
-         } elif (node.second.typename == ntypes.FALSE) {
+         } elseIf (node.second.typename == ntypes.FALSE) {
             methodBody += finalAssign(node.contained.first, falseValue, castTo);
-         } elif (node.second.held.name == "undef_1" || node.second.held.name == "undefined_1" ||
+         } elseIf (node.second.held.name == "undef_1" || node.second.held.name == "undefined_1" ||
             node.second.held.name == "def_1" || node.second.held.name == "defined_1") {
             //if (node.second.second.held.isTyped) {
             //    Build:ClassSyn dsyn = build.getSynNp(node.second.second.held.namepath);
@@ -1409,7 +1409,7 @@ buildClassInfoMethod(String belsBase) {
             methodBody += " } else { " += nl;
             methodBody += finalAssign(node.contained.first, notNullRes, null);
             methodBody += "}" += nl;  
-        } elif (isIntish && node.second.held.name == "lesser_1") {
+        } elseIf (isIntish && node.second.held.name == "lesser_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
@@ -1418,7 +1418,7 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-        } elif (isIntish && node.second.held.name == "lesserEquals_1") {
+        } elseIf (isIntish && node.second.held.name == "lesserEquals_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
@@ -1427,7 +1427,7 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-         } elif (isIntish && node.second.held.name == "greater_1") {
+         } elseIf (isIntish && node.second.held.name == "greater_1") {
           //do call name in a set later
           //("found an int greater call").print();
           node.second.inlined = true;
@@ -1436,7 +1436,7 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-        } elif (isIntish && node.second.held.name == "greaterEquals_1") {
+        } elseIf (isIntish && node.second.held.name == "greaterEquals_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
@@ -1445,7 +1445,7 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-         } elif (isIntish && node.second.held.name == "equals_1") {
+         } elseIf (isIntish && node.second.held.name == "equals_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           if (emitting("js")) {
@@ -1459,7 +1459,7 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-        } elif (isIntish && node.second.held.name == "notEquals_1") {
+        } elseIf (isIntish && node.second.held.name == "notEquals_1") {
           //do call name in a set later
           //("found an int neq call").print();
           if (emitting("js")) {
@@ -1473,7 +1473,7 @@ buildClassInfoMethod(String belsBase) {
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null);
           methodBody += "}" += nl;
-         } elif (isBoolish && node.second.held.name == "not_0") {
+         } elseIf (isBoolish && node.second.held.name == "not_0") {
           //("found a bool not").print();
           node.second.inlined = true;
           methodBody += "if (" += formTarg(node.second.first) += ".bevi_bool) {" += nl;
@@ -1483,7 +1483,7 @@ buildClassInfoMethod(String belsBase) {
           methodBody += "}" += nl;
          }
          return(self);
-      } elif (node.held.orgName == "return") {
+      } elseIf (node.held.orgName == "return") {
         //node.held.checkTypes for casting, rsub.held.rtype.isSelf for self type 
         String returnCast = "";
         if (node.held.checkTypes) {
@@ -1491,7 +1491,7 @@ buildClassInfoMethod(String belsBase) {
         }
         methodBody += "return " += returnCast += formTarg(node.second) += ";" += nl; //first is self
         return(self);
-      } elif (node.held.name == "def_1" || node.held.name == "defined_1" || node.held.name == "undef_1" || node.held.name == "undefined_1" || node.inlined) {
+      } elseIf (node.held.name == "def_1" || node.held.name == "defined_1" || node.held.name == "undef_1" || node.held.name == "undefined_1" || node.inlined) {
         //previously detected and handled during assignment section above (possible due to unwind...)
         return(self);
       }
@@ -1508,9 +1508,9 @@ buildClassInfoMethod(String belsBase) {
       if (node.held.isConstruct) {
          isConstruct = true;
          ClassConfig newcc = getClassConfig(node.held.newNp);
-      } elif (node.contained.first.held.name == "self") {
+      } elseIf (node.contained.first.held.name == "self") {
          selfCall = true;
-      } elif (node.contained.first.held.name == "super") {
+      } elseIf (node.contained.first.held.name == "super") {
          selfCall = true;
          superCall = true;
          superCalls += node;
@@ -1610,12 +1610,12 @@ buildClassInfoMethod(String belsBase) {
       //also did include  && odec.isEmpty!
       if ((isTyped || self.useDynMethods!) && isConstruct && node.held.isLiteral && isOnce) {
        onceDeced = true;
-      } elif (isOnce) {
+      } elseIf (isOnce) {
         //add flag for warning option later on
         //("!!!Found once not deced for node " + node).print();
         if(emitting("jv")) {
           methodBody += "synchronized (" += classConf.emitName += ".class) {" += nl;//}
-        } elif(emitting("cs")) {
+        } elseIf(emitting("cs")) {
           methodBody += "lock (typeof(" += classConf.emitName += ")) {" += nl;//}
         }
         methodBody += "if (" + ovar + " == null) {" += nl; //}
@@ -1628,9 +1628,9 @@ buildClassInfoMethod(String belsBase) {
                 if (node.held.isLiteral) {
                     if (newcc.np == intNp) {
                         newCall = lintConstruct(newcc, node);
-                    } elif (newcc.np == floatNp) {
+                    } elseIf (newcc.np == floatNp) {
                         newCall = lfloatConstruct(newcc, node);
-                    } elif (newcc.np == stringNp) {
+                    } elseIf (newcc.np == stringNp) {
                         
                         String belsName = "bels_" + cnode.held.belsCount.toString();
                         cnode.held.belsCount++=;
@@ -1660,7 +1660,7 @@ buildClassInfoMethod(String belsBase) {
                           
                         onceDecs += sdec;
                         newCall = lstringConstruct(newcc, node, belsName, lisz, isOnce);
-                    } elif (newcc.np == boolNp) {
+                    } elseIf (newcc.np == boolNp) {
                         if (node.held.literalValue == "true") {
                             newCall = trueValue;
                         } else {
@@ -1711,7 +1711,7 @@ buildClassInfoMethod(String belsBase) {
                     if (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "System:Object") {
                       //("Found a skippable new for class " + asyn.namepath.toString()).print();
                       methodBody += callAssign += initialTarg += ";" += nl;
-                    } elif (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "Math:Int" && emitting("js")!) {
+                    } elseIf (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "Math:Int" && emitting("js")!) {
                       //("Found a skippable int new for class " + asyn.namepath.toString()).print();
                       methodBody += callAssign += initialTarg += ";" += nl;
                     } else {
@@ -1726,21 +1726,21 @@ buildClassInfoMethod(String belsBase) {
                 //("found setval with assign").print();
                 methodBody += callAssign += target += ";" += nl;
               }
-            } elif (dblIntish && node.held.name == "addValue_1") {
+            } elseIf (dblIntish && node.held.name == "addValue_1") {
               //("found addval").print(); 
               methodBody += target += ".bevi_int += " += dblIntTarg += ".bevi_int;" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found addval with assign").print();
                 methodBody += callAssign += target += ";" += nl;
               }
-            } elif (sglIntish && node.held.name == "incrementValue_0") {
+            } elseIf (sglIntish && node.held.name == "incrementValue_0") {
               //("found incval").print(); 
               methodBody += target += ".bevi_int++;" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found incval with assign").print();
                 methodBody += callAssign += target += ";" += nl;
               }
-            } elif (isTyped!) {
+            } elseIf (isTyped!) {
                 methodBody += callAssign += target += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
             } else {
                 methodBody += callAssign += target += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
@@ -1859,15 +1859,15 @@ buildClassInfoMethod(String belsBase) {
        if (state == 0 && tok == "$") {
          //("FOUND A $ IN AN EMIT!!!!").print();
          state = 1;
-       } elif (state == 1) {
+       } elseIf (state == 1) {
          if (tok == "class") {
            String type = "class";
            state = 2;
          }
-       } elif (state == 2) {
+       } elseIf (state == 2) {
          //don't really do anything, / separator
          state = 3;
-       } elif (state == 3) {
+       } elseIf (state == 3) {
          String value = tok;
          if (type == "class") {
           //("DO CLASS REPLACE FOR " + tok).print();
@@ -1877,7 +1877,7 @@ buildClassInfoMethod(String belsBase) {
           rtext += rep;
          }
          state = 4;
-       } elif (state == 4) {
+       } elseIf (state == 4) {
          //don't really do anything, trailing $
          state = 0;
        } else {
@@ -1927,30 +1927,30 @@ buildClassInfoMethod(String belsBase) {
    accept(Node node) Node {
       if (node.typename == ntypes.CLASS) {
          acceptClass(node);
-      } elif (node.typename == ntypes.METHOD) {
+      } elseIf (node.typename == ntypes.METHOD) {
          acceptMethod(node);
-      } elif (node.typename == ntypes.RBRACES) {
+      } elseIf (node.typename == ntypes.RBRACES) {
          acceptRbraces(node);
-      } elif (node.typename == ntypes.EMIT) {
+      } elseIf (node.typename == ntypes.EMIT) {
          acceptEmit(node);
-      } elif (node.typename == ntypes.IFEMIT) {
+      } elseIf (node.typename == ntypes.IFEMIT) {
          addStackLines(node);
          return(acceptIfEmit(node));
-      } elif (node.typename == ntypes.CALL) {
+      } elseIf (node.typename == ntypes.CALL) {
          acceptCall(node);
-      } elif (node.typename == ntypes.BRACES) {
+      } elseIf (node.typename == ntypes.BRACES) {
         acceptBraces(node);
-      } elif (node.typename == ntypes.BREAK) {
+      } elseIf (node.typename == ntypes.BREAK) {
          methodBody += "break;" += nl;
-      } elif (node.typename == ntypes.LOOP) {
+      } elseIf (node.typename == ntypes.LOOP) {
          methodBody += "while (true)" += nl;
-      } elif (node.typename == ntypes.ELSE) {
+      } elseIf (node.typename == ntypes.ELSE) {
          methodBody += " else ";
-      } elif (node.typename == ntypes.TRY) {
+      } elseIf (node.typename == ntypes.TRY) {
          methodBody += "try ";
-      } elif (node.typename == ntypes.CATCH) {
+      } elseIf (node.typename == ntypes.CATCH) {
          acceptCatch(node);
-      } elif (node.typename == ntypes.IF) {
+      } elseIf (node.typename == ntypes.IF) {
         acceptIf(node);
       }
       addStackLines(node);
@@ -1969,9 +1969,9 @@ buildClassInfoMethod(String belsBase) {
       String tcall;
       if (node.typename == ntypes.NULL) {
          tcall = "null";
-      } elif (node.held.name == "self") {
+      } elseIf (node.held.name == "self") {
          tcall = "this";
-      } elif (node.held.name == "super") {
+      } elseIf (node.held.name == "super") {
          tcall = self.superName;
       } else {
          tcall = nameForVar(node.held);
@@ -1983,9 +1983,9 @@ buildClassInfoMethod(String belsBase) {
       String tcall;
       if (node.typename == ntypes.NULL) {
          tcall = "null";
-      } elif (node.held.name == "self") {
+      } elseIf (node.held.name == "self") {
          tcall = "this";
-      } elif (node.held.name == "super") {
+      } elseIf (node.held.name == "super") {
          tcall = self.superName;
       } else {
          tcall = nameForVar(node.held);

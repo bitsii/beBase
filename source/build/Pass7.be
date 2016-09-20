@@ -120,7 +120,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
          node.held = "false";
          buildLiteral(node, "Logic:Bool");
       }
-      elif ((node.typename == ntypes.VAR) && (node.held.isArg!)) {
+      elseIf ((node.typename == ntypes.VAR) && (node.held.isArg!)) {
          if (undef(node.held.name) && (undef(nnode) || (nnode.typename != ntypes.ID))) {
             throw(VisitError.new("Error, variable declaration missing name " + node.held.name, node));
          } else {
@@ -132,7 +132,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
             //}
             return(node.nextDescend);
          }
-      } elif (node.typename == ntypes.ID) {
+      } elseIf (node.typename == ntypes.ID) {
          if (def(nnode) && (nnode.typename == ntypes.PARENS)) {
             if (def(nnode.contained)) {
                toremove = Container:LinkedList.new();
@@ -159,7 +159,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                onode = dnode.priorPeer;
                if (undef(onode)) {
                   throw(VisitError.new("Error, missing instance for bound call", node));
-               } elif (onode.typename == ntypes.NAMEPATH) {
+               } elseIf (onode.typename == ntypes.NAMEPATH) {
                   if (build.isNewish(gc.name)) {
                      gc.wasBound = false;
                      gc.bound = false;
@@ -167,7 +167,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                   } else {
                      createImpliedConstruct(onode, gc);  //was gone
                   }
-               } elif (onode.typename == ntypes.ID && (node.transUnit.held.aliased.has(onode.held) || build.emitData.aliased.has(onode.held))) {
+               } elseIf (onode.typename == ntypes.ID && (node.transUnit.held.aliased.has(onode.held) || build.emitData.aliased.has(onode.held))) {
                   Build:NamePath namepath = Build:NamePath.new();
                   namepath.addStep(onode.held);
                   onode.held = namepath;
@@ -180,9 +180,9 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                   } else {
                      createImpliedConstruct(onode, gc);  //was gone
                   }
-               } elif (gc.name == "return") {
+               } elseIf (gc.name == "return") {
                   throw(VisitError.new("Error, return cannot be a bound call and cannot be called on an object", node));
-               } elif (gc.name == "throw") {
+               } elseIf (gc.name == "throw") {
                   throw(VisitError.new("Error, throw cannot be a bound call cannot be called on an object", node));
                }
                //pc.removeAndPrepend(onode)
@@ -195,7 +195,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
             }
             //ponode = pc.priorPeer()
          }
-      } elif (node.typename == ntypes.IDX) {
+      } elseIf (node.typename == ntypes.IDX) {
       //"!!!in idx".print();
       //CHANGE TYPE like accessor to prevent double-traverse
          onode = node.priorPeer;
@@ -208,7 +208,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
             throw(VisitError.new("Error, incorrect syntax for indexed access, invocation target cannot be a class name", node));
          }
          node.typename = ntypes.IDXACC;
-      } elif (node.typename == ntypes.DOT) {
+      } elseIf (node.typename == ntypes.DOT) {
       //"6".print();
          onode = node.priorPeer;
          //"!!!!!!!!!here".print();
@@ -229,7 +229,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                node.addValue(onode);
                if (onode.typename == ntypes.NAMEPATH) {
                   createImpliedConstruct(onode, ga);
-               } elif (onode.typename == ntypes.ID && (node.transUnit.held.aliased.has(onode.held) || build.emitData.aliased.has(onode.held))) {
+               } elseIf (onode.typename == ntypes.ID && (node.transUnit.held.aliased.has(onode.held) || build.emitData.aliased.has(onode.held))) {
                   namepath = Build:NamePath.new();
                   namepath.addStep(onode.held);
                   onode.held = namepath;

@@ -110,15 +110,15 @@ final class Int {
             ic -= 48;
             ic *= pow;
             self += ic;
-        }  elif (ic > 64 && ic < maxA) {
+        }  elseIf (ic > 64 && ic < maxA) {
             ic -= 55;
             ic *= pow;
             self += ic;
-        }  elif (ic > 96 && ic < maxa) {
+        }  elseIf (ic > 96 && ic < maxa) {
             ic -= 87;
             ic *= pow;
             self += ic;
-        } elif (ic == 45) {
+        } elseIf (ic == 45) {
             //negate, and it should always be the last one
             self *= -1;
         } else {

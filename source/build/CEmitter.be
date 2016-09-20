@@ -488,7 +488,7 @@ final class Build:CEmitter {
                nuC += "return " += pin += ";" += nl;
             }
             nuC += "}" += nl;
-         } elif (pi.syn.directProperties!) {
+         } elseIf (pi.syn.directProperties!) {
             //need to set pin by calling the origin lib if not direct properties and origin not in current lib
             fkcdget += pin += " = twpd_" += ci.midName += "_" += pi.psyn.name += "();" += nl;
          }
@@ -522,7 +522,7 @@ final class Build:CEmitter {
                nuC += "return " += pin += ";" += nl;
             }
             nuC += "}" += nl;
-         } elif (mi.syn.directMethods! || build.closeLibraries.has(mi.syn.libName)!) {
+         } elseIf (mi.syn.directMethods! || build.closeLibraries.has(mi.syn.libName)!) {
             //need to set pin by calling the origin lib if not direct properties and origin not in current lib
             fkcdget += pin += " = twmd_" += ci.midName += "_" += mi.msyn.name += "();" += nl;
          }
@@ -855,17 +855,17 @@ class Build:CompilerProfile {
       if (build.compiler == "gcc") {
          cc = "gcc ";
          cext = ".c";
-      } elif (build.compiler == "g++") {
+      } elseIf (build.compiler == "g++") {
          //If you want to use c++
          cc = "g++ ";
          cext = ".cpp";
          dialect = "c++";
          dialectMacro = "BENM_DCPP";
-      } elif (build.compiler == "apgcc") {
+      } elseIf (build.compiler == "apgcc") {
          //If you want to use autopackage
          cc = "apgcc ";
          cext = ".c";
-      } elif (build.compiler == "apg++") {
+      } elseIf (build.compiler == "apg++") {
          //If you want to use autopackage and c++
          cc = "apg++ ";
          cext = ".cpp";

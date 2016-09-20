@@ -182,7 +182,7 @@ class Test:BaseTest:EC(BaseTest) {
         for (var v in p1) {
             if (i == 0) {
                 assertEqual(v, 1);
-            } elif (i == 1) {
+            } elseIf (i == 1) {
                 assertEqual(v, "a");
             }
             i = i++;
@@ -194,7 +194,7 @@ class Test:BaseTest:EC(BaseTest) {
         for (var it = p1.iterator;it.hasNext) {
             if (i == 0) {
                 it.next = 2;
-            } elif (i == 1) {
+            } elseIf (i == 1) {
                 it.next = "b";
             }
             i = i++;

@@ -175,14 +175,14 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
             nextIsNativeSlots = false;
             nativeSlots = Int.new(i);
             isfn = true;
-         } elif (i == "*-attr- -firstSlotNative-*") {
+         } elseIf (i == "*-attr- -firstSlotNative-*") {
             isfn = true;
             Int nativeSlots = 1;
-         } elif (i == "*-attr- -nativeSlots") {
+         } elseIf (i == "*-attr- -nativeSlots") {
             nextIsNativeSlots = true;
-         } elif (i == "*-attr- -freeFirstSlot-*") {
+         } elseIf (i == "*-attr- -freeFirstSlot-*") {
             isfs = true;
-         } elif (i == "*-attr- -isList-*") {
+         } elseIf (i == "*-attr- -isList-*") {
             isar = true;
          }
       }
@@ -190,10 +190,10 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          clnode.held.firstSlotNative = true;
          clnode.held.nativeSlots = nativeSlots;
          return(String.new());
-      } elif (isfs) {
+      } elseIf (isfs) {
          clnode.held.freeFirstSlot = true;
          return(String.new());
-      } elif (isar) {
+      } elseIf (isar) {
          clnode.held.isList = true;
          return(String.new());
       } else {
@@ -644,7 +644,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                 asn = false;
                 vv = false;
                 vname = null;
-            } elif (tok == "*") {
+            } elseIf (tok == "*") {
                 if (undef(vname)) {
                    //false case, must follow the name
                    until (heldToks.isEmpty) {
@@ -680,7 +680,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                     vv = false;
                     vname = null;
                 }
-            } elif (tok == "&") {
+            } elseIf (tok == "&") {
                 if (undef(vname)) {
                    //false case, must follow the name
                    until (heldToks.isEmpty) {
@@ -694,7 +694,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                     vv = true;
                     heldToks += tok;
                 }
-            } elif (tok == "=") {
+            } elseIf (tok == "=") {
                 if (undef(vname)) {
                    //false case, must follow the name
                    until (heldToks.isEmpty) {
@@ -712,7 +712,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                 vname = tok;
                 heldToks += tok;
             }
-        } elif (tok == "$") {
+        } elseIf (tok == "$") {
             heldToks += tok;
             invar = true;
         } else {
@@ -732,11 +732,11 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       String tcall;
       if (node.typename == ntypes.NULL) {
          tcall = "((void**) NULL)";
-      } elif (node.held.name == "self" || node.held.name == "super") {
+      } elseIf (node.held.name == "self" || node.held.name == "super") {
          tcall = "bevs";
-      } elif (node.held.isProperty) {
+      } elseIf (node.held.isProperty) {
          tcall = "((void**) bevs[" + getPropertyIndex(node) + "])";
-      } elif (node.held.isArg) {
+      } elseIf (node.held.isArg) {
          tcall = "beav" + node.held.vpos.toString();
       } else {
          tcall = "belv" + node.held.vpos.toString();
@@ -748,11 +748,11 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       String tcall;
       if (node.typename == ntypes.NULL) {
          tcall = "NULL";
-      } elif (node.held.name == "self" || node.held.name == "super") {
+      } elseIf (node.held.name == "self" || node.held.name == "super") {
          tcall = "((void*) bevs)";
-      } elif (node.held.isProperty) {
+      } elseIf (node.held.isProperty) {
          tcall = "bevs[" + getPropertyIndex(node) + "]";
-      } elif (node.held.isArg) {
+      } elseIf (node.held.isArg) {
          tcall = "((void*)beav" + node.held.vpos.toString() + ")";
       } else {
          tcall = "((void*)belv" + node.held.vpos.toString() + ")";
@@ -810,7 +810,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          String tcall = String.new();
          tcall = tcall + "bevs[" + getPropertyIndex(node) + "] = " + sFrom;
          return(tcall);
-      } elif (node.held.isArg) {
+      } elseIf (node.held.isArg) {
          return("beav" + node.held.vpos.toString() + " = " + vFrom);
       }// else {
          return("belv" + node.held.vpos.toString() + " = " + vFrom);
@@ -838,13 +838,13 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       String tcall;
       if (node.typename == ntypes.NULL) {
          tcall = "bemx[" + pos.toString() + "] = (void*) NULL;" + nl;
-      } elif (node.held.name == "self") {
+      } elseIf (node.held.name == "self") {
          tcall = "bemx[" + pos.toString() + "] = (void*) bevs;" + nl;
-      } elif (node.held.name == "super") {
+      } elseIf (node.held.name == "super") {
          tcall = "bemx[" + pos.toString() + "] = (void*) bevs;" + nl;
-      } elif (node.held.isProperty) {
+      } elseIf (node.held.isProperty) {
          return("bemx[" + pos.toString() + "] = bevs[" + getPropertyIndex(node) + "];" + nl);
-      } elif (node.held.isArg) {
+      } elseIf (node.held.isArg) {
          return("bemx[" + pos.toString() + "] = (void*) beav" + node.held.vpos.toString() + ";" + nl);
       } else {
          return("bemx[" + pos.toString() + "] = (void*) belv" + node.held.vpos.toString() + ";" + nl);
@@ -856,13 +856,13 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       String tcall;
       if (node.typename == ntypes.NULL) {
          tcall = "NULL";
-      } elif (node.held.name == "self") {
+      } elseIf (node.held.name == "self") {
          tcall = "bevs";
-      } elif (node.held.name == "super") {
+      } elseIf (node.held.name == "super") {
          tcall = "bevs";
-      } elif (node.held.isProperty) {
+      } elseIf (node.held.isProperty) {
          return("(void**) bevs[" + getPropertyIndex(node) + "]");
-      } elif (node.held.isArg) {
+      } elseIf (node.held.isArg) {
          return("beav" + node.held.vpos.toString());
       } else {
          return("belv" + node.held.vpos.toString());
@@ -947,7 +947,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          //"In earlier throw".print();
          //Already implemented in accept()
          return(self);
-      } elif (node.held.orgName == "assign") {
+      } elseIf (node.held.orgName == "assign") {
          if (node.second.typename == ntypes.VAR) {
             CallCursor ca = CallCursor.new(self, node, node.contained.first, node.held.checkTypes);
             ca.asnCall = node;
@@ -958,22 +958,22 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
             }
             ca.callAssign = finalAssign(ca.asnR, sasnL, true);
             thisMtd += cassem.processCall(ca);
-         } elif (node.second.typename == ntypes.NULL) {
+         } elseIf (node.second.typename == ntypes.NULL) {
             ca = CallCursor.new(self, node, node.contained.first, false);
             ca.asnCall = node;
             ca.callAssign = finalAssign(ca.asnR, "NULL", false);
             thisMtd += cassem.processCall(ca);
-         } elif (node.second.typename == ntypes.TRUE) {
+         } elseIf (node.second.typename == ntypes.TRUE) {
             ca = CallCursor.new(self, node, node.contained.first, false);
             ca.asnCall = node;
             ca.callAssign = finalAssign(ca.asnR, "berv_sts->bool_True", true);
             thisMtd += cassem.processCall(ca);
-         } elif (node.second.typename == ntypes.FALSE) {
+         } elseIf (node.second.typename == ntypes.FALSE) {
             ca = CallCursor.new(self, node, node.contained.first, false);
             ca.asnCall = node;
             ca.callAssign = finalAssign(ca.asnR, "berv_sts->bool_False", true);
             thisMtd += cassem.processCall(ca);
-         } elif (node.second.typename == ntypes.CALL && (node.second.held.name == "undef_1" || node.second.held.name == "undefined_1")) {
+         } elseIf (node.second.typename == ntypes.CALL && (node.second.held.name == "undef_1" || node.second.held.name == "undefined_1")) {
             //if (node.second.second.held.isTyped) {
             //    Build:ClassSyn dsyn = build.getSynNp(node.second.second.held.namepath);
             //    if (dsyn.isNotNull) {
@@ -993,7 +993,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
             ca.callAssign = ca.callAssign + finalAssign(ca.asnR, "berv_sts->bool_False", true);
             ca.callAssign = ca.callAssign + " }" + nl;
             thisMtd += cassem.processCall(ca);
-         } elif (node.second.typename == ntypes.CALL && (node.second.held.name == "def_1" || node.second.held.name == "defined_1")) {
+         } elseIf (node.second.typename == ntypes.CALL && (node.second.held.name == "def_1" || node.second.held.name == "defined_1")) {
             //if (node.second.second.held.isTyped) {
             //    dsyn = build.getSynNp(node.second.second.held.namepath);
             //    if (dsyn.isNotNull) {
@@ -1015,9 +1015,9 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
             thisMtd += cassem.processCall(ca);
          }
          return(self);
-      } elif (node.held.orgName == "return") {
+      } elseIf (node.held.orgName == "return") {
          return(acceptReturn(node));
-      } elif (node.held.name == "def_1" || node.held.name == "defined_1" || node.held.name == "undef_1" || node.held.name == "undefined_1") {
+      } elseIf (node.held.name == "def_1" || node.held.name == "defined_1" || node.held.name == "undef_1" || node.held.name == "undefined_1") {
          return(self);
       }
       
@@ -1042,9 +1042,9 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       }
       if (node.held.isConstruct) {
          isNew = true;
-      } elif (node.contained.first.held.name == "self") {
+      } elseIf (node.contained.first.held.name == "self") {
          selfCall = true;
-      } elif (node.contained.first.held.name == "super") {
+      } elseIf (node.contained.first.held.name == "super") {
          selfCall = true;
          superCall = true;
       }
@@ -1139,7 +1139,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                   ca.prepCldef += "berv_sts->passedClassDef = twcv_cdef;" += nl;
                }
             }
-         } elif (superCall) {
+         } elseIf (superCall) {
             ca.asyn = build.getSynNp(inClass.held.extends);
             ca.mtds = ca.asyn.mtdMap.get(node.held.name);
             orgsyn = build.getSynNp(ca.mtds.origin);
@@ -1163,7 +1163,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
              && build.closeLibraries.has(orgsyn.libName)) {
                ca.optimizedCall = true;
                ca.ainfo = emitter.getInfoSearch(ca.mtds.origin);
-            } elif (ca.mtds.lastDef && ca.asyn.isLocal && build.closeLibraries.has(ca.asyn.libName) && build.closeLibraries.has(orgsyn.libName)) {
+            } elseIf (ca.mtds.lastDef && ca.asyn.isLocal && build.closeLibraries.has(ca.asyn.libName) && build.closeLibraries.has(orgsyn.libName)) {
                ca.optimizedCall = true;
                ca.ainfo = emitter.getInfoSearch(ca.mtds.origin);
             } else {
@@ -1309,21 +1309,21 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       }
       if (node.typename == ntypes.EMIT) {
          acceptEmit(node);
-      } elif (node.typename == ntypes.IFEMIT) {
+      } elseIf (node.typename == ntypes.IFEMIT) {
          return(acceptIfEmit(node));
-      } elif ((node.typename == ntypes.CALL) && (node.held.orgName == "assign") && (node.contained.length != 2)) {
+      } elseIf ((node.typename == ntypes.CALL) && (node.held.orgName == "assign") && (node.contained.length != 2)) {
          var errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
          for (Int ei = 0;ei < node.contained.length;ei = ei++) {
             errmsg = errmsg + " !!!" + ei + "!! " + node.contained[ei];
          }
          throw(VisitError.new(errmsg, node));
-      } elif ((node.typename == ntypes.CALL) && (node.held.orgName == "assign") && (node.contained.first.held.name == "self")) {
+      } elseIf ((node.typename == ntypes.CALL) && (node.held.orgName == "assign") && (node.contained.first.held.name == "self")) {
          throw(VisitError.new("self cannot be assigned to", node));
-      } elif ((node.typename == ntypes.CALL) && (node.held.orgName == "throw")) {
+      } elseIf ((node.typename == ntypes.CALL) && (node.held.orgName == "throw")) {
          thisMtd += "BERF_Throw(berv_sts, " + formTarg(node.second) + ", "  += classInfo.shClassName += ", twrv_stackdef.sname, " += classInfo.shFileName += ", " += node.nlc.toString() += " );" += nl;
-      } elif (node.typename == ntypes.CALL) {
+      } elseIf (node.typename == ntypes.CALL) {
          acceptCall(node);
-      } elif (node.typename == ntypes.RBRACES) {
+      } elseIf (node.typename == ntypes.RBRACES) {
          if (def(node.container) && def(node.container.container)) {
             var nct = node.container.container;
             var ncct = nct.typename;
@@ -1390,14 +1390,14 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                thisMtd = String.new();
                lastCallReturn = false;
                inMtd = false;
-            } elif (ncct == ntypes.CLASS) {
+            } elseIf (ncct == ntypes.CLASS) {
                lastCallReturn = false;
                //cleanups plus completions
                methods += nl += nl;
-            } elif (ncct == ntypes.TRY) {
+            } elseIf (ncct == ntypes.TRY) {
                lastCallReturn = false;
                thisMtd += textRbnl;
-            } elif (ncct == ntypes.CATCH) {
+            } elseIf (ncct == ntypes.CATCH) {
                lastCallReturn = false;
                thisMtd += textRbnl;
                
@@ -1409,23 +1409,23 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                }
                inMtdNode.held.tryDepth = tryDepth;
          
-            } elif (ncct != ntypes.EXPR) {
+            } elseIf (ncct != ntypes.EXPR) {
                lastCallReturn = false;
                thisMtd += textRbnl;
             } else {
                lastCallReturn = false;
             }
          }
-      } elif ((node.typename == ntypes.BRACES) && def(node.container) && (node.container.typename != ntypes.METHOD) && (node.container.typename != ntypes.CLASS) && (node.container.typename != ntypes.EXPR) && (node.container.typename != ntypes.TRY) && (node.container.typename != ntypes.CATCH) && (node.container.typename != ntypes.BLOCK)) {
+      } elseIf ((node.typename == ntypes.BRACES) && def(node.container) && (node.container.typename != ntypes.METHOD) && (node.container.typename != ntypes.CLASS) && (node.container.typename != ntypes.EXPR) && (node.container.typename != ntypes.TRY) && (node.container.typename != ntypes.CATCH) && (node.container.typename != ntypes.BLOCK)) {
          thisMtd += "{" += nl; //}
       }
-      elif (node.typename == ntypes.BREAK) {
+      elseIf (node.typename == ntypes.BREAK) {
          thisMtd += "break;" += nl;
-      } elif (node.typename == ntypes.LOOP) {
+      } elseIf (node.typename == ntypes.LOOP) {
          thisMtd += "while (1)" += nl;
-      } elif (node.typename == ntypes.ELSE) {
+      } elseIf (node.typename == ntypes.ELSE) {
          thisMtd += " else ";
-      } elif (node.typename == ntypes.TRY) {
+      } elseIf (node.typename == ntypes.TRY) {
          String tryId = "twrv_except" + inMtdNode.held.tryDepth.toString();
          inMtdNode.held.tryDepth = inMtdNode.held.tryDepth++;
          if (mtdDeclared.has(tryId)!) {
@@ -1434,7 +1434,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          }
          thisMtd += "if (setjmp(" += tryId += ".env) == 0) {" += nl; //}
          thisMtd += "berv_stackfs.except = &" += tryId += ";" += nl;
-      } elif (node.typename == ntypes.CATCH) {
+      } elseIf (node.typename == ntypes.CATCH) {
          thisMtd += nl += " else {" += nl; //}
          
          tryDepth = inMtdNode.held.tryDepth - 1;
@@ -1447,7 +1447,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          thisMtd += "berv_sts->stackf = &berv_stackfs;" += nl;
          
          thisMtd += finalAssign(node.contained.first.contained.first, "berv_sts->passBack", true);//passBack ok, needed for exception
-      } elif (node.typename == ntypes.IF) {
+      } elseIf (node.typename == ntypes.IF) {
          String targs = formTarg(node.contained.first.contained.first);
          //the below automatically deals with non-bool values and nulls (as NOT)
          //if (def(node.held)) { ("!!!!!If node held is " + node.held.toString()).print(); } else { "!!If node held is null".print(); }
@@ -1537,7 +1537,7 @@ final class CallCursor {
    assignToVGet() String {
 	if (embedAssign) {
 		return(embedAssignV);
-	} elif (def(asnR)) {
+	} elseIf (def(asnR)) {
 		return("berv_sts->passBack = (void**) "); //passBack ok
 	}
 	return("");
@@ -1546,7 +1546,7 @@ final class CallCursor {
    assignToVVGet() String {
 	if (embedAssign) {
 		return(embedAssignVV);
-	} elif(def(asnR)) {
+	} elseIf(def(asnR)) {
 		return("berv_sts->passBack = "); //passBack ok
 	}
 	return("");

@@ -231,7 +231,7 @@ class Interval {
       if (millis < 0 && secs > 0) { //1 sec -200 millis == 0 sec 800 millis
         secs = secs - 1; 
         millis = 1000 + millis;
-      } elif (millis > 0 && secs < 0) { //-2 sec 50 millis == -1 sec -950 millis
+      } elseIf (millis > 0 && secs < 0) { //-2 sec 50 millis == -1 sec -950 millis
         secs = secs + 1;
         millis = (0 - 1000) + millis;
       }

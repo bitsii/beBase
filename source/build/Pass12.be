@@ -76,7 +76,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
          var ia = node.contained.first.contained.first; //self
          ia.held.isTyped = true;
          ia.held.namepath = classnp;
-      } elif (node.typename == ntypes.CLASS) {
+      } elseIf (node.typename == ntypes.CLASS) {
          classnp = node.held.namepath;
          var tst = Build:Call.new();
          for (var ii = node.held.orderedVars.iterator;ii.hasNext;;) {
@@ -156,7 +156,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             
             }
          }
-      } elif (node.typename == ntypes.CALL) {
+      } elseIf (node.typename == ntypes.CALL) {
          if (undef(node.held)) {
             throw(Build:VisitError.new("Call held is null", node));
          }
@@ -199,7 +199,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
                }
             }
          }
-      } elif (node.typename == ntypes.BRACES) {
+      } elseIf (node.typename == ntypes.BRACES) {
          var bn = Node.new(build);
          if (def(node.contained) && def(node.contained.last)) {
             bn.nlc = node.contained.last.nlc;
@@ -208,7 +208,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
          }
          bn.typename = ntypes.RBRACES;
          node.addValue(bn);
-      } elif (node.typename == ntypes.PARENS) {
+      } elseIf (node.typename == ntypes.PARENS) {
          var pn = Node.new(build);
          if (def(node.contained) && def(node.contained.last)) {
             pn.nlc = node.contained.last.nlc;
@@ -265,7 +265,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
       if (node.typename == ntypes.METHOD) {
          tvmap = Map.new();
          rmap = Map.new();
-      } elif ((node.typename == ntypes.VAR) && node.held.isTmpVar) {
+      } elseIf ((node.typename == ntypes.VAR) && node.held.isTmpVar) {
          tvmap.put(node.held.name, node.held);
          var ll = rmap.get(node.held.name);
          if (undef(ll)) {
@@ -273,7 +273,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
             rmap.put(node.held.name, ll)
          }
          ll.addValue(node);
-      } elif (node.typename == ntypes.RBRACES && def(node.container) && def(node.container.container) && node.container.container.typename == ntypes.METHOD) {
+      } elseIf (node.typename == ntypes.RBRACES && def(node.container) && def(node.container.container) && node.container.container.typename == ntypes.METHOD) {
          //("!!! PROCESSING TMPS").print();
          processTmps();
       }
@@ -340,13 +340,13 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                               inClass.held.addUsed(nv.namepath);
                               if (nv.namepath.toString() == "self") { ("FOUND A SELF TMPVAR rewind " + ovar.isSelf).print(); }
                            }
-                        } elif (tcall.held.orgName != "return") {
+                        } elseIf (tcall.held.orgName != "return") {
                            throw(Build:VisitError.new("No such call " + tcall.held.name + " in class " + targNp.toString(), tcall));
                         }
                      } /* else {
                         //"Targ np null".print();
                      } */
-                  } elif (k.isFirst && k.container.typename == ntypes.CALL && k.container.held.orgName == "assign" && k.container.second.typename == ntypes.VAR) {
+                  } elseIf (k.isFirst && k.container.typename == ntypes.CALL && k.container.held.orgName == "assign" && k.container.second.typename == ntypes.VAR) {
                      targ = k.container.second.held;
                      //("Considering var " + targ.name).print();
                      if (targ.isTyped) {
@@ -432,7 +432,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                         ovar = inClassSyn.ptyMap.get(org.held.name).memSyn; //all non-declared mmbers caught
                         //in syn generation
                      }
-                  } elif (org.typename == ntypes.CALL) {
+                  } elseIf (org.typename == ntypes.CALL) {
                      ctarg = org.contained.first;//assigning to this node
                      //cvar is the var being assigned to
                      if (ctarg.held.isDeclared) {
@@ -446,7 +446,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                      syn = null; //the syn where the call lives (target class for call)
                      if (def(org.held.newNp)) {
                         syn = build.getSynNp(org.held.newNp);
-                     } elif (cvar.isTyped){
+                     } elseIf (cvar.isTyped){
                         //something needs to be done for isSelf
                         syn = build.getSynNp(cvar.namepath);
                      }
@@ -473,10 +473,10 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                         if (mtdc.origin != tvar.namepath) { //TODO just test for tvar being BELOW mtdc.origin in hierarchy
                             //we will need to cast despite compatibility TODO FASTER this could be a fast-cast...
                             castForSelf = true;
-                        } elif (def(build.emitCommon) && build.emitCommon.covariantReturns!) {
+                        } elseIf (def(build.emitCommon) && build.emitCommon.covariantReturns!) {
                             castForSelf = true;
                         }
-                     } elif (def(mtdc)) {
+                     } elseIf (def(mtdc)) {
                         syn = build.getSynNp(mtdc.getEmitReturnType(syn, build));
                      } else {
                         syn = build.getSynNp(ovar.namepath);//before switch to the above
@@ -511,7 +511,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                   }
                }
             }
-         } elif (node.held.orgName == "return") {
+         } elseIf (node.held.orgName == "return") {
             targ = node.second;
             if (targ.typename == ntypes.VAR) {
                if (targ.held.isDeclared) {
@@ -603,7 +603,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                   if (marg.isTyped) {
                      if (undef(nnode)) {
                         throw(Build:VisitError.new("Got a null nnode", nnode));//should be impossible
-                     } elif (nnode.typename != ntypes.VAR && nnode.typename != ntypes.NULL) {
+                     } elseIf (nnode.typename != ntypes.VAR && nnode.typename != ntypes.NULL) {
                         throw(Build:VisitError.new("nnode is not a var " + nnode.typename.toString(), nnode));
                      }
                      if (nnode.typename == ntypes.VAR) {

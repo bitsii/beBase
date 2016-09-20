@@ -67,7 +67,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          }
         
          return(gnext);
-      } elif (node.typename == ntypes.IFEMIT) {
+      } elseIf (node.typename == ntypes.IFEMIT) {
          langs = Container:Set.new();
          toremove = LinkedList.new()
          for (lang in node.contained.first.contained) {
@@ -81,7 +81,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             i = ii.next;
             i.delete();
          }
-      } elif (node.typename == ntypes.IF) {
+      } elseIf (node.typename == ntypes.IF) {
          if (def(nnode)) {
             var lnode = node;
             while (def(nnode) && (nnode.typename == ntypes.ELIF)) {
@@ -117,7 +117,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             }
          }  
          return(node.nextDescend);
-      } elif (node.typename == ntypes.METHOD) {
+      } elseIf (node.typename == ntypes.METHOD) {
          var parens = node.contained.first;
          var nd = Node.new(build);
          nd.copyLoc(node);
@@ -133,7 +133,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             var vinp;
             if (i.typename == ntypes.COMMA) {
                toremove.addValue(i);
-            } elif (i.typename == ntypes.ID) {
+            } elseIf (i.typename == ntypes.ID) {
                numargs = numargs + 1;
                v = Build:Var.new();
                v.name = i.held;
@@ -141,7 +141,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
                i.held = v;
                i.typename = ntypes.VAR;
                i.addVariable();
-            } elif (i.typename == ntypes.VAR) {
+            } elseIf (i.typename == ntypes.VAR) {
                if (ix.typename == ntypes.ID) {
                   numargs = numargs + 1;
                   i.held.name = ix.held;
