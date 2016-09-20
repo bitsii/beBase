@@ -202,6 +202,10 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         libe.write(main);
 
         finishLibOutput(libe);
+        
+        if (build.saveSyns) {
+          saveSyns();
+        }
 
     }
 

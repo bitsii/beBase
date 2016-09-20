@@ -362,7 +362,7 @@ final class Build:Build {
    
    loadSyns(String lsp) {
       IO:File:Path synEmitPath = IO:File:Path.apNew(lsp);
-      if (synEmitPath.file.exists) {
+      //if (synEmitPath.file.exists) {
         ("Loading Syns " + lsp).print();
         Time:Interval sst = Time:Interval.now();
         IO:File:Reader syne = synEmitPath.file.reader.open()
@@ -371,7 +371,7 @@ final class Build:Build {
         emitData.synClasses += scls;
         Time:Interval sse = Time:Interval.now() - sst;
         ("Loading Syns took " + sse).print();
-      }
+      //}
     }
 
    doWhat() Int {
@@ -420,16 +420,16 @@ final class Build:Build {
       //End Timer
       parseTime = Time:Interval.now() - startTime;
       //if (printSteps) {
-        ("TIME: Parse phase completed in " + parseTime).print();
       //}
       if (def(self.emitCommon)) {
         //ec way, not for old c, exception is caught by caller, exits with fail
         Time:Interval emitStart = Time:Interval.now();
         self.emitCommon.doEmit();
         parseEmitTime = Time:Interval.now() - startTime;
-        ("TIME: Parse and emit phases completed in " + parseEmitTime).print();
         Time:Interval emitTime = Time:Interval.now() - emitStart;
+        ("TIME: Parse phase completed in " + parseTime).print();
         ("TIME: Emit phase completed in " + emitTime).print();
+        ("TIME: Parse and emit phases completed in " + parseEmitTime).print();
         return(0);
       }
       if (doEmit) {
