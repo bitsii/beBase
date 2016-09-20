@@ -98,7 +98,7 @@ class Test:BaseTest:IO(BaseTest) {
       String line03 = "Newcastle" + nl;
       
       if (tf.exists) { tf.delete(); }
-      var w = tf.writer.open();
+      any w = tf.writer.open();
       w.write(line01);
       w.write(line02);
       w.write(line03);
@@ -108,7 +108,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       String builder = String.new();
       
-      var r = tf.reader.open();
+      any r = tf.reader.open();
       String rl01 = r.readBufferLine(builder);
       //rl01.print();
       assertNotNull(rl01);
@@ -128,7 +128,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       tf.reader.close();
       
-      var br = tf.reader.open().byteReader(8);
+      any br = tf.reader.open().byteReader(8);
       String brb = br.next;
       while (br.hasNext) {
          brb.print();
@@ -163,12 +163,12 @@ class Test:BaseTest:IO(BaseTest) {
       
       if (tf.exists) { tf.delete(); }
       
-      var w = tf.writer.open();
+      any w = tf.writer.open();
       w.write(dataIn);
       w.close();
       ("dataIn " + dataIn).print();
       
-      var r = tf.reader.open();
+      any r = tf.reader.open();
       String dataOut = r.readString();
       r.close();
       ("dataOut " + dataOut).print();
@@ -187,7 +187,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo hiss.txt");
       
-      var w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -221,7 +221,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      var w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -267,7 +267,7 @@ class Test:BaseTest:IO(BaseTest) {
    }
    
    testReadStdin() {
-      var r = IO:File:Reader:Stdin.new();
+      any r = IO:File:Reader:Stdin.new();
       String b = r.readBufferLine();
       b.print();
       b = r.readBufferLine();

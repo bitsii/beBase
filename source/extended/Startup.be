@@ -35,7 +35,7 @@ class Startup {
       if (args.size < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main() method should be called"));
       }
-      var x = createInstance(args[0]).new();
+      any x = createInstance(args[0]).new();
       return(x.main());
    }
 }
@@ -53,7 +53,7 @@ class StartupIfArguments {
    main() {
       args = System:Process.new().args;
       if (args.size > 0) {
-         var x = createInstance(args[0]).new();
+         any x = createInstance(args[0]).new();
          return(x.main());
       }
       return(self);
@@ -75,7 +75,7 @@ class StartupWithArguments {
       if (args.size < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args) method should be called"));
       }
-      var x = createInstance(args[0]).new();
+      any x = createInstance(args[0]).new();
       return(x.main(args));
    }
 }
@@ -97,7 +97,7 @@ class StartupWithParameters {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args, Parameters params) method should be called"));
       }
       params = Parameters.new(args);
-      var x = createInstance(args[0]).new();
+      any x = createInstance(args[0]).new();
       return(x.main(args, params));
    }
 }
@@ -112,7 +112,7 @@ local class Parameters {
          Map params;
          List ordered;
          Text:Tokenizer fileTok = Text:Tokenizer.new("\r\n");
-         var preProcessor;
+         any preProcessor;
       }
       
    }
@@ -175,7 +175,7 @@ local class Parameters {
       }
    }
    
-   preProcessorSet(var _preProcessor) {
+   preProcessorSet(any _preProcessor) {
       preProcessor = _preProcessor;
       if (def(args)) {
          for (Int i = 0;i < args.length;i = i++) {
@@ -189,7 +189,7 @@ local class Parameters {
       }
       if (def(params)) {
          Map _params = Map.new();
-         for (var it = params.keyIterator;it.hasNext;) {
+         for (any it = params.keyIterator;it.hasNext;) {
             String key = it.next;
             LinkedList vals = params[key];
             LinkedList _vals = LinkedList.new();
@@ -257,7 +257,7 @@ local class Parameters {
    }
    
    addFile(File file) {
-      var fcontents = file.reader.open().readString();
+      any fcontents = file.reader.open().readString();
       file.reader.close();
       List fargs = fileTok.tokenize(fcontents).toList();
       addArgs(fargs);
@@ -279,7 +279,7 @@ use class System:Startup:MainWithParameters {
       //Inherit from this class and override this method to have a main which starts off with params and
       //set that to be main class for the build, or use without override and
       //pass a class name as the first ordered argument on the command line to invoke it with the params
-      var x = createInstance(params.ordered[0]).new();
+      any x = createInstance(params.ordered[0]).new();
       return(x.main(params));
    }
    

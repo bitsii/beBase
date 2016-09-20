@@ -52,7 +52,7 @@ final class Int {
    new() self {
    
       fields {
-         //var vint;
+         //any vint;
       }
       
       emit(js) {

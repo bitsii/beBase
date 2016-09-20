@@ -105,11 +105,11 @@ RunMethods {
    
    main(List _args, Parameters _params) {
       if (can("argsSet", 1)) {
-         var aset = self;
+         any aset = self;
          aset.args = _args;
       }
       if (can("paramsSet", 1)) {
-         var pset = self;
+         any pset = self;
          pset.params = _params;
       }
    }

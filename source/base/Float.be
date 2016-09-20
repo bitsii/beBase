@@ -45,7 +45,7 @@ final class Float {
    new() self { 
    
       fields {
-         //var vfloat;
+         //any vfloat;
       }
       
       emit(js) {

@@ -23,7 +23,7 @@ class SetNode {
    
       fields {
          Int hval = _hval;
-         var key = _key;
+         any key = _key;
       }
       
    }
@@ -44,7 +44,7 @@ class MapNode(SetNode) {
       super.new(_hval, _key, _value);
       
       fields {
-         var value = _value;
+         any value = _value;
       }
       
    }
@@ -129,8 +129,8 @@ class Map(Set) {
       if (undef(other) || other.size != self.size) {
          return(false);
       }
-      for (var i in self) {
-         var v = other.get(i.key);
+      for (any i in self) {
+         any v = other.get(i.key);
          if (undef(v) || (undef(i.value) && def(v)) || i.value != v) { return(false); }
       }
       return(true);
@@ -174,7 +174,7 @@ class Map(Set) {
       if (def(other)) {
         if (other.sameType(self)) {
 		 Map otherMap = other; //could support adding sets to maps... by keys
-         for (var x in otherMap) {
+         for (any x in otherMap) {
             put(x.key, x.value);
          }
          } elseIf (other.sameType(baseNode)) {
@@ -187,7 +187,7 @@ class Map(Set) {
    
    getMap(String prefix) Map {
      Map toRet = Map.new();
-     for (var x in self) {
+     for (any x in self) {
       if (x.key.begins(prefix)) {
         toRet.put(x.key, x.value);
       }
@@ -285,7 +285,7 @@ class Set {
       if (undef(other) || other.size != self.size) {
          return(false);
       }
-      for (var i in self) {
+      for (any i in self) {
          if (other.has(i)!) { return(false); }
       }
       return(true);
@@ -436,7 +436,7 @@ class Set {
    }
    
    copy() self {
-      var other = create();
+      any other = create();
       copyTo(other);
       other.slots = slots.copy();
       for (Int i = 0;i < slots.length;i = i++;) {
@@ -483,7 +483,7 @@ class Set {
    intersection(Set other) Set {
       Set i = Set.new();
       if (def(other)) {
-         for (var x in self) {
+         for (any x in self) {
             if (other.has(x)) {
                i.put(x);
             }
@@ -494,7 +494,7 @@ class Set {
    
    union(Set other) Set {
       Set i = Set.new();
-      for (var x in self) {
+      for (any x in self) {
          i.put(x);
       }
       if (def(other)) {
@@ -514,7 +514,7 @@ class Set {
    addValue(other) self {
       if (def(other)) {
          if (other.sameType(self)) {
-             for (var x in other) {
+             for (any x in other) {
                 put(x);
              }
          } elseIf (other.sameType(baseNode)) {
@@ -530,7 +530,7 @@ class Set {
 class Container:Set:KeyIterator(Container:Set:NodeIterator) {
    
    nextGet() {
-      var tr = super.nextGet();
+      any tr = super.nextGet();
       if (def(tr)) {
          return(tr.key);
       }
@@ -558,7 +558,7 @@ class Container:Set:SerializationIterator(Container:Set:KeyIterator) {
    }
    
    postDeserialize() {
-      for (var value in contents) {
+      for (any value in contents) {
          set.put(value);
       }
    }
@@ -586,10 +586,10 @@ class Container:Map:SerializationIterator(Container:Map:KeyValueIterator) {
    
    postDeserialize() {
       Map map = set;
-      var iter = contents.iterator;
+      any iter = contents.iterator;
       while (iter.hasNext) {
-         var key = iter.next;
-         var value = iter.next;
+         any key = iter.next;
+         any value = iter.next;
          map.put(key, value);
       }
    }
@@ -600,7 +600,7 @@ class Container:Map:KeyValueIterator(Container:Set:NodeIterator) {
    
    new(Set _set) Container:Map:KeyValueIterator {
       fields {
-         var onNode;
+         any onNode;
       }
       super.new(_set);
    }
@@ -614,7 +614,7 @@ class Container:Map:KeyValueIterator(Container:Set:NodeIterator) {
    
    nextGet() {
       if (def(onNode)) {
-         var toRet = onNode.value;
+         any toRet = onNode.value;
          onNode = null;
          return(toRet);
       }
@@ -630,7 +630,7 @@ class Container:Map:KeyValueIterator(Container:Set:NodeIterator) {
 class Container:Map:ValueIterator(Container:Set:NodeIterator) {
    
    nextGet() {
-      var tr = super.nextGet();
+      any tr = super.nextGet();
       if (def(tr)) {
          return(tr.value);
       }

@@ -7,11 +7,11 @@ class Test:TestTokenizer{
    }
    
    testTokenizer() {
-      var delims = ",.;:";
-      var str = "Hi;There,George.TaDa";
-      var toker = Text:Tokenizer.new(delims, true);
-      var toks = toker.tokenize(str);
-      for (var i = toks.iterator;i.hasNext;;) {
+      any delims = ",.;:";
+      any str = "Hi;There,George.TaDa";
+      any toker = Text:Tokenizer.new(delims, true);
+      any toks = toker.tokenize(str);
+      for (any i = toks.iterator;i.hasNext;;) {
          i.next.print();
       }
       

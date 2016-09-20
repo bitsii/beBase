@@ -39,8 +39,8 @@ local class File {
       
       fields {
          IO:File:Path path;
-         var reader;
-         var writer;
+         any reader;
+         any writer;
       }
       
    }
@@ -79,7 +79,7 @@ void** bevl_llpath;
       """
       }
       llpath = String.new(); //to prime String
-      var llpath = path.toString();
+      any llpath = path.toString();
       if (self.exists) {
          emit(c) {
          """
@@ -131,9 +131,9 @@ void** bevl_frv;
       String frs = path.toString();
       Bool r = false;
       Bool t = true;
-      var strn = Text:Strings.new();
+      any strn = Text:Strings.new();
       if ((path.toString() != strn.empty) && (self.exists!)) {
-         var parentpath = path.parent;
+         any parentpath = path.parent;
          if (path == parentpath) {
             //We're at the top and it doesn't exist
             return(self);
@@ -185,7 +185,7 @@ struct stat sa;
 void** bevl_spa;
       """
       }
-      var spa;
+      any spa;
       Bool result = false;
       spa = path.toString();
       if (self.exists) {
@@ -233,7 +233,7 @@ struct stat sa;
 void** bevl_spa;
       """
       }
-      var spa;
+      any spa;
       Bool result = false;
       spa = path.toString();
       if (self.exists) {
@@ -287,7 +287,7 @@ void** bevl_spa;
 BEINT* bevl_sz;
       """
       }
-      var spa;
+      any spa;
       Int _size = Int.new();
       spa = path.toString();
       if (self.exists) {
@@ -312,7 +312,7 @@ void** bevl_mpath;
       """
       }
       Bool tvala = false;
-      var mpath = path.toString();
+      any mpath = path.toString();
       emit(c) {
       """
       bevl_mpath = $mpath&*;
@@ -383,8 +383,8 @@ final DirectoryIterator {
    new() self {
    
       fields {
-         var fd;
-         var handle;
+         any fd;
+         any handle;
          File dir;
          Bool opened = false;
          Bool closed = false;
@@ -394,10 +394,10 @@ final DirectoryIterator {
    }
    
    fdGet() { return(null); }
-   fdSet(var _fd) { }
+   fdSet(any _fd) { }
    
    handleGet() { return(null); }
-   handleSet(var _handle) { }
+   handleSet(any _handle) { }
    
    new(File _dir) self {
       dir = _dir;

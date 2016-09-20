@@ -146,10 +146,10 @@ local class Host {
    hostnameGet() String {
       //Not cached, could change
       String name;
-      var r = IO:File:Reader:Command.new("hostname -s").open();
+      any r = IO:File:Reader:Command.new("hostname -s").open();
       String o = r.readString();
       r.close();
-      var l = o.splitLines();
+      any l = o.splitLines();
       name = l.first;
       //("Got name " + name).print();
       return(name);

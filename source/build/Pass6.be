@@ -19,11 +19,11 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
       //also nests ifs
       //("Visiting " + node.toString()).print();
       node.resolveNp();
-      var i;
-      var v;
-      var nnode = node.nextPeer;
+      any i;
+      any v;
+      any nnode = node.nextPeer;
       if (node.typename == ntypes.EMIT) {
-         var gnext = node.nextAscend;
+         any gnext = node.nextAscend;
          if (def(node.contained) && (node.contained.length > 1) && def(node.contained.first.contained) && (node.contained.first.contained.length > 0) && (node.second.contained.length > 0)) {
             //("inline first held is " + node.contained.first.first.held).print();
             Container:Set langs = Container:Set.new();
@@ -32,11 +32,11 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
                 langs += lang.held;
             }
             langs.delete(",");
-            var doit = true;
+            any doit = true;
             if (doit) {
                doit = false;
                for (i = node.second.contained.iterator;i.hasNext;;) {
-                  var si = i.next;
+                  any si = i.next;
                   if (si.typename == ntypes.STRINGL) {
                      node.held = si.held;
                      //"found inline".print();
@@ -56,7 +56,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             return(gnext);
          }
          
-         var snode = node.scope;
+         any snode = node.scope;
          if (snode.typename == ntypes.METHOD) {
             snode = null;
          }
@@ -83,15 +83,15 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          }
       } elseIf (node.typename == ntypes.IF) {
          if (def(nnode)) {
-            var lnode = node;
+            any lnode = node;
             while (def(nnode) && (nnode.typename == ntypes.ELIF)) {
-               var enode = Node.new(build);
+               any enode = Node.new(build);
                enode.typename = ntypes.ELSE;
                enode.copyLoc(node);
-               var brnode = Node.new(build);
+               any brnode = Node.new(build);
                brnode.copyLoc(node);
                brnode.typename = ntypes.BRACES;
-               var inode = Node.new(build);
+               any inode = Node.new(build);
                inode.copyLoc(node);
                inode.typename = ntypes.IF;
                brnode.addValue(inode);
@@ -101,13 +101,13 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
                      inode.addValue(i.next);
                   }
                }
-               //var rbrnode = Node.new(build);
+               //any rbrnode = Node.new(build);
                //rbrnode.typename = ntypes.RBRACES;
                //brnode.addValue(rbrnode);
                //rbrnode.copyLoc(node);
                lnode.addValue(enode);
                lnode = inode;
-               var nxnode = nnode.nextPeer;
+               any nxnode = nnode.nextPeer;
                nnode.delete();
                nnode = nxnode;
             }
@@ -118,19 +118,19 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          }  
          return(node.nextDescend);
       } elseIf (node.typename == ntypes.METHOD) {
-         var parens = node.contained.first;
-         var nd = Node.new(build);
+         any parens = node.contained.first;
+         any nd = Node.new(build);
          nd.copyLoc(node);
          nd.typename = ntypes.ID;
          nd.held = "self";
          parens.prepend(nd);
-         var toremove = LinkedList.new();
-         var numargs = 0;
-         for (var ii = parens.contained.iterator;ii.hasNext;;) {
+         any toremove = LinkedList.new();
+         any numargs = 0;
+         for (any ii = parens.contained.iterator;ii.hasNext;;) {
             i = ii.next;
-            var ix = i.nextPeer;
-            var vid;
-            var vinp;
+            any ix = i.nextPeer;
+            any vid;
+            any vinp;
             if (i.typename == ntypes.COMMA) {
                toremove.addValue(i);
             } elseIf (i.typename == ntypes.ID) {
@@ -157,7 +157,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             i = ii.next;
             i.delete();
          }
-         var s = node.held;
+         any s = node.held;
          s.numargs = numargs - 1;
          s.orgName = s.name;
          s.name = s.name + "_" + s.numargs.toString();
@@ -171,7 +171,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             }
             i.delete();
          }
-         var clnode = node.classGet();
+         any clnode = node.classGet();
          clnode.held.methods.put(s.name, node); //TODO check to see if already exists
          clnode.held.orderedMethods.addValue(node);
       }

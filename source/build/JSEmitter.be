@@ -135,9 +135,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         String libInit = String.new();
         String notNullInitConstruct = String.new();
         String notNullInitDefault = String.new();
-        for (var ci = classesInDepthOrder.iterator;ci.hasNext;;) {
+        for (any ci = classesInDepthOrder.iterator;ci.hasNext;;) {
 
-            var clnode = ci.next;
+            any clnode = ci.next;
 
             typeInstances += "be_BECS_Runtime.prototype.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;
 
@@ -371,15 +371,15 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
     }
 
-      baseSpropDec(String typeName, String varName) {
+      baseSpropDec(String typeName, String anyName) {
          return("");
       }
 
-      overrideSpropDec(String typeName, String varName) {
-        return("static " + varName + ": " + typeName);
+      overrideSpropDec(String typeName, String anyName) {
+        return("static " + anyName + ": " + typeName);
       }
 
-      onceDec(String typeName, String varName) {
+      onceDec(String typeName, String anyName) {
          return("");
       }
 

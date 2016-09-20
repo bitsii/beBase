@@ -34,10 +34,10 @@ class Utility:SRep {
       Int len = contents.size;
       
       String b = String.new();
-      var it = contents.iterator;
+      any it = contents.iterator;
       
       File fout = File.new(pfout);
-      var w = fout.writer.open();
+      any w = fout.writer.open();
       String ac1 = String.new();
       String ac2 = String.new();
       String ac3 = String.new();

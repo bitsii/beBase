@@ -19,11 +19,11 @@ final class System:Process {
       fields {
          Container:List args;
          Math:Int numArgs;
-         var execName;
+         any execName;
    
-         var target;
-         var result;
-         var except;
+         any target;
+         any result;
+         any except;
          
          System:CurrentPlatform platform;
       }
@@ -41,16 +41,16 @@ void** bevl_av;
 void** bevl_ix;
       """
       }
-      var arg;
+      any arg;
       if (ac.otherClass(System:Types.new().int)) {
          throw(System:IncorrectType.new(" Wanted type Math:Int not type " + ac.className));
       }
       if (av.otherClass(System:Types.new().thing)) {
          throw(System:IncorrectType.new(" Wanted type System:Thing not type " + av.className));
       }
-      var thing = Thing.new(); //make inline include if possible
+      any thing = Thing.new(); //make inline include if possible
       args = Container:List.new(ac - 1);
-      var ix = 1;
+      any ix = 1;
       emit(c) {
       """
       bevl_av = $av&*;
@@ -79,7 +79,7 @@ void** bevl_ix;
       target = _target;
       try {
          result = target.main();
-      } catch (var e) {
+      } catch (any e) {
          except = e;
          e.print();
          return(1);//return non-0 for main usecases (process exit code)
@@ -88,7 +88,7 @@ void** bevl_ix;
    }
    
    startByName(_name) {
-      var t = createInstance(_name).new();
+      any t = createInstance(_name).new();
       return(start(t));
    }
 

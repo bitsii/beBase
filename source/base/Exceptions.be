@@ -13,11 +13,11 @@ class System:Exception {
    new(descr) self {
       
       fields {
-         var methodName;
-         var klassName;
-         var description;
-         var fileName;
-         var lineNumber;
+         any methodName;
+         any klassName;
+         any description;
+         any fileName;
+         any lineNumber;
          String lang;
          String emitLang;
          LinkedList frames;
@@ -32,7 +32,7 @@ class System:Exception {
       translateEmittedException();
       //"in tostring exception".print();
       //self.sourceFileName.print();
-      var toRet = "Exception> ";
+      any toRet = "Exception> ";
       if (def(lang)) {
          toRet = toRet + " Lang: " + lang;
       }
@@ -66,10 +66,10 @@ class System:Exception {
    translateEmittedException() {
      try {
        translateEmittedExceptionInner();
-     } catch(var e) {
+     } catch(any e) {
        ("Exception translation failed").print();
        //if (def(e)) {
-       //  try { e.print(); } catch (var ee) { }
+       //  try { e.print(); } catch (any ee) { }
        //}
      }
    }
@@ -223,7 +223,7 @@ class System:Exception {
    
    getSourceFileName(String klassName) String {
      //("getting source file name for " + klassName).print();
-     var i = createInstance(klassName, false);
+     any i = createInstance(klassName, false);
      if (def(i)) {
        //("is def").print();
        return(i.sourceFileName);
@@ -242,7 +242,7 @@ class System:Exception {
    extractKlass(String klass) String {
      try {
        return(extractKlassInner(klass));
-     } catch (var e) {
+     } catch (any e) {
        
      }
      return(klass);
@@ -296,7 +296,7 @@ class System:Exception {
       LinkedList myFrames = self.frames;
       if (def(myFrames)) {
          toRet = toRet + "\n";
-         for (var ft in myFrames) {
+         for (any ft in myFrames) {
             toRet = toRet + ft;
          }
       }
@@ -345,10 +345,10 @@ final class System:ExceptionBuilder {
    default() self {
       
       fields {
-         var except = Exception.new();
-         var thing = System:Thing.new();
-         var int = Math:Int.new();
-         var lastStr;
+         any except = Exception.new();
+         any thing = System:Thing.new();
+         any int = Math:Int.new();
+         any lastStr;
       }
       
    }
@@ -396,7 +396,7 @@ final class System:ExceptionBuilder {
       } else {
          try {
             ex.print();
-         } catch (var e) {
+         } catch (any e) {
             "Unable to print exception".print();
          }
       }
@@ -409,7 +409,7 @@ final class System:ExceptionBuilder {
       } else {
          try {
             //IO:File:NamedWriters.new().exceptionConsole.write(ex.toString());
-         } catch (var e) {
+         } catch (any e) {
             "Unable to print exception".print();
          }
       }

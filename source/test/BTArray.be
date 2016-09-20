@@ -49,13 +49,13 @@ class Test:BaseTest:List(BaseTest) {
    
    more() {
       
-      var uux = List.new(2);
+      any uux = List.new(2);
       uux.put(0, "Hi");
       uux[1] = "There";
       assertEquals(uux[0], "Hi");
       uux.put(4, "Last");
       Int x = 0;
-      for (var i = uux.iterator;i.hasNext;;) {
+      for (any i = uux.iterator;i.hasNext;;) {
          i.next;
          x = x++;
       }
@@ -64,8 +64,8 @@ class Test:BaseTest:List(BaseTest) {
       assertEquals(uux[0], "Hi");
       assertEquals(uux[1], "There");
       assertEquals(uux[4], "Last");
-      var uuz = uux.copy();
-      for (var j = 0;j < uux.length;j = j++) {
+      any uuz = uux.copy();
+      for (any j = 0;j < uux.length;j = j++) {
          assertFalse(undef(uux.get(j)) && def(uuz.get(j)));
          if (def(uux[j])) {
             assertFalse(uux.get(j) != uux.get(j));
@@ -155,12 +155,12 @@ class Test:BaseTest:List(BaseTest) {
       ta.put(2, "EE");
       assertEquals(ta[2], "EE");
       
-      var uux = List.new(5);
+      any uux = List.new(5);
       uux.put(0, "Hi");
       assertEquals(uux[0], "Hi");
       
       Int x = 0;
-      for (var i = uux.iterator;i.hasNext;;) {
+      for (any i = uux.iterator;i.hasNext;;) {
          i.next;
          x = x++;
       }
@@ -170,7 +170,7 @@ class Test:BaseTest:List(BaseTest) {
       for (i = 0;i < uux.length;i = i++;) {
          uux.put(i, i.copy()); 
       }
-      var two = uux.copy();
+      any two = uux.copy();
       for (x = 0;x < uux.length;x = x++;) {
          assertEquals(uux.get(x), two.get(x));
       }
@@ -180,7 +180,7 @@ class Test:BaseTest:List(BaseTest) {
       assertFalse(two != two);
       
       List ts;
-      var v;
+      any v;
       
       ts = List.new(10);
       ts[0] = 6;
@@ -224,7 +224,7 @@ class OutExtending(Extendable) {
 
    new() self {
       fields {
-         var prop2a;
+         any prop2a;
       }
    }
    

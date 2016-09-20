@@ -10,7 +10,7 @@ class Test:TestStack {
    }
    
    testStack() {
-      var uux = Stack.new();
+      any uux = Stack.new();
       uux.push(1);
       uux.push(2);
       uux.pop().print();
@@ -29,8 +29,8 @@ class Test:TestStack {
    testQueue() {
       Queue q = Queue.new();
       //try en/de 1
-      var a;
-      var b;
+      any a;
+      any b;
       Int i;
       
       q.enqueue("One");

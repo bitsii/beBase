@@ -12,7 +12,7 @@ final class Recursive {
 
    main() {
       
-      var args = System:Process.new().args;
+      any args = System:Process.new().args;
       Int n = Int.new(args[0]) - 1;
       
       ( "Ack(3," + (n + 1) + "): " + ack(3, n + 1) ).print();

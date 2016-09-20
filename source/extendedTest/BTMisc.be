@@ -200,8 +200,8 @@ static const unsigned char s[] = {0x41,0x42,0x43, 0};
    
    testNotter() {
       
-      var t = true;
-      var f = false;
+      any t = true;
+      any f = false;
       assertFalse(t!);
       assertTrue(f!);
       
@@ -252,12 +252,12 @@ MMM'''; //needs to stay unindented
       assertEqual(8, m);
       assertEqual(l, 2);
       
-      var n = 1;
-      var o = n + 3;
+      any n = 1;
+      any o = n + 3;
       assertEqual(4, o);
       assertEqual(n, 1);
       
-      var p = 4;
+      any p = 4;
       Int q = p - 2;
       assertEqual(q, 2);
       assertEqual(4, p);
@@ -279,12 +279,12 @@ MMM'''; //needs to stay unindented
       assertEqual(8.0, m);
       assertEqual(l, 2.0);
       
-      var n = 1.0;
-      var o = n + 3.0;
+      any n = 1.0;
+      any o = n + 3.0;
       assertEqual(4.0, o);
       assertEqual(n, 1.0);
       
-      var p = 4.0;
+      any p = 4.0;
       Float q = p - 2.0;
       assertEqual(q, 2.0);
       assertEqual(4.0, p);
@@ -302,14 +302,14 @@ MMM'''; //needs to stay unindented
    
    testTypeChecks() {
       Misc m = Misc.new();
-      var x = m;
+      any x = m;
       Misc y = x;
       
       x = 10;
       Bool caught = false;
       try {
          y = x;
-      } catch (var e) {
+      } catch (any e) {
          caught = true;
       }
       assertTrue(caught);
@@ -333,20 +333,20 @@ MMM'''; //needs to stay unindented
    testNullLoop() {
       ("Start null loops").print();
       
-      var x = null;
+      any x = null;
       while (x) {
          if (true) {
          throw(System:Exception.new("Entered null while loop"));
          }
       }
       
-      for (var i = 0;x;i = i++) {
+      for (any i = 0;x;i = i++) {
          if (true) {
          throw(System:Exception.new("Entered null for loop"));
          }
       }
       
-      //for (var j in x) {
+      //for (any j in x) {
       //   throw(System:Exception.new("Entered null for loop"));
       //}
       
@@ -356,7 +356,7 @@ MMM'''; //needs to stay unindented
    
    testNullIf() {
    
-      var val = null;
+      any val = null;
       if (val) {
          throw(System:Exception.new("IF FOR NULL FAILED"));
       } else {
@@ -461,7 +461,7 @@ MMM'''; //needs to stay unindented
    }
    
    testNPE() {
-      var x = null;
+      any x = null;
       x.blowup();
    }
    
@@ -568,7 +568,7 @@ use class MyPackage:MyUsedClass5(MyUsedClass) {
 use class SelfReturn {
 
    myNew() self {
-      var x = Int.new();
+      any x = Int.new();
       //return(x);
       //return(Int.new());
    }
@@ -620,7 +620,7 @@ use class Test:RunTryThings {
 use class Test:TryThings {
 
    tryThings() self {
-      var x = 1;
+      any x = 1;
       x.print();
    }
 
@@ -629,7 +629,7 @@ use class Test:TryThings {
 use class Test:InheritFrom {
    
    new() self { fields {
-   var hi = "wheredef";
+   any hi = "wheredef";
    } }
    
 }

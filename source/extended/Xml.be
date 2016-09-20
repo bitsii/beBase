@@ -56,7 +56,7 @@ class StartElement(Tag) {
       accum += "<" += name;
       if (def(attributes)) {
          String q = Text:Strings.new().quote;
-         for (var entry in attributes) {
+         for (any entry in attributes) {
             accum += " " += entry.key += "=" += q += entry.value += q;
          }
       }
@@ -141,7 +141,7 @@ class TagIterator {
          Bool started = false;
          XTokenizer xt = XTokenizer.new();
          LinkedList res = null;
-         var iter = null;
+         any iter = null;
          Bool textNode = false;
          Int line = 1;
          Bool skip = false;

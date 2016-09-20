@@ -20,7 +20,7 @@ class Test:ExtendedTest:EC(BaseTest) {
        for (Int i = 0;i < howManyTimes;i++=) {
         innerMain();
       }
-     } catch (var e) {
+     } catch (any e) {
        if (def(e)) {
         e.print();
         throw(e);
@@ -117,7 +117,7 @@ class Test:ExtendedTest:EC(BaseTest) {
         testLocks();
       }
       
-      //} catch (var e) { 
+      //} catch (any e) { 
         //e.print();
      //}
      

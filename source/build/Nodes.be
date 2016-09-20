@@ -16,12 +16,12 @@ final class Node {
       fields {
          NodeList contained;
          Node container;
-         var held;
-         var heldBy;
-         var condvar;
+         any held;
+         any heldBy;
+         any condany;
          Build:NamePath inClassNp;
          String inFile;
-         var typeDetail;
+         any typeDetail;
          
          Bool delayDelete = false;
          Int nlc = 0;
@@ -70,7 +70,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      var hh = heldBy.next;
+      any hh = heldBy.next;
       if (undef(hh)) {
          return(hh);
       }
@@ -81,7 +81,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      var hh = heldBy.prior;
+      any hh = heldBy.prior;
       if (undef(hh)) {
          return(hh);
       }
@@ -169,7 +169,7 @@ final class Node {
    }
    
    toString() Text:String {
-     var e;
+     any e;
      try {
        String res = toStringCompact();
      } catch (e) {
@@ -180,8 +180,8 @@ final class Node {
    }
    
    toStringBig() Text:String {
-      var prefix = self.prefix;
-      var ret = prefix + "<" + typename.toString() + ">";
+      any prefix = self.prefix;
+      any ret = prefix + "<" + typename.toString() + ">";
       ret = ret + Text:Strings.new().newline + prefix + "line: " + nlc.toString();
       if (def(inClassNp) && def(inFile)) {
          ret = ret + Text:Strings.new().newline + prefix + " In Class: " + inClassNp.toString() + " In IO:File: " + inFile + Text:Strings.new().newline;
@@ -194,7 +194,7 @@ final class Node {
    }
    
    toStringCompact() Text:String {
-      var prefix = self.prefix;
+      any prefix = self.prefix;
       String ret = prefix + "<" + typename.toString() + ">";
       if (def(nlc)) {
         ret = ret + " line: " + nlc.toString();
@@ -209,8 +209,8 @@ final class Node {
    }
    
    depthGet() {
-      var d = 0;
-      var c = container;
+      any d = 0;
+      any c = container;
       while (def(c)) {
          d = d++;
          c = c.container;
@@ -219,17 +219,17 @@ final class Node {
    }
    
    prefixGet() {
-      var d = self.depth;
-      var p = String.new();
-      var q = "  ";
-      for (var i = 0;i < d;i = i++;) {
+      any d = self.depth;
+      any p = String.new();
+      any q = "  ";
+      for (any i = 0;i < d;i = i++;) {
          p = p + q;
       }
       return(p);
    }
    
    transUnitGet() {
-      var targ = self;
+      any targ = self;
       while (def(targ) && (targ.typename != ntypes.TRANSUNIT)) {
          targ = targ.container;
       }
@@ -237,17 +237,17 @@ final class Node {
    }
    
    tmpVar(suffix, build) {
-       var clnode = self.scope;
+       any clnode = self.scope;
        if (clnode.typename != ntypes.METHOD) {
           throw(Build:VisitError.new("tmpVar scope not a sub", self));
        }
-       var tmpvarn = clnode.held.tmpCnt.toString();
+       any tmpanyn = clnode.held.tmpCnt.toString();
        clnode.held.tmpCnt = clnode.held.tmpCnt++;
-       var tmpvar = Build:Var.new();
-       tmpvar.isTmpVar = true;
-       tmpvar.suffix = suffix;
-       tmpvar.name = tmpvarn + "_tmpvar_" + suffix;
-       return(tmpvar)
+       any tmpany = Build:Var.new();
+       tmpany.isTmpVar = true;
+       tmpany.suffix = suffix;
+       tmpany.name = tmpanyn + "_tmpany_" + suffix;
+       return(tmpany)
    }
    
    inPropertiesGet() Bool {
@@ -262,40 +262,40 @@ final class Node {
    }
    
    addVariable() {
-      var v = held;
+      any v = held;
       if (v.isAdded!) {
          v.isAdded = true;
          sco = scopeGet();
          if (sco.typename == ntypes.CLASS) {
-            throw(Build:VisitError.new("Found a variable incorrectly declared outside a method", self));
+            throw(Build:VisitError.new("Found a anyiable incorrectly declared outside a method", self));
          }
          if (self.inProperties && v.isTmpVar!) {
-            var sco = classGet();
+            any sco = classGet();
             v.isProperty = true;
          }
-         var sc = sco.held;
-         if (sc.varMap.has(v.name)) {
-            throw(Build:VisitError.new("Duplicate variable declaration", self));
+         any sc = sco.held;
+         if (sc.anyMap.has(v.name)) {
+            throw(Build:VisitError.new("Duplicate anyiable declaration", self));
          }
-         sc.varMap.put(v.name, self);
+         sc.anyMap.put(v.name, self);
          sc.orderedVars.addValue(self);
       }
    }
    
    syncAddVariable() {
-      var v = held;
+      any v = held;
       if (v.isAdded!) {
          v.isAdded = true;
-         var sco = self.scope;
-         var sc = sco.held;
-         if (sc.varMap.has(v.name)) {
-            held = sc.varMap.get(v.name);
+         any sco = self.scope;
+         any sc = sco.held;
+         if (sc.anyMap.has(v.name)) {
+            held = sc.anyMap.get(v.name);
          } else {
-            var cl = classGet().held;
-            if (cl.varMap.has(v.name)) {
-               held = cl.varMap.get(v.name);
+            any cl = classGet().held;
+            if (cl.anyMap.has(v.name)) {
+               held = cl.anyMap.get(v.name);
             } else {
-               sc.varMap.put(v.name, self);
+               sc.anyMap.put(v.name, self);
                sc.orderedVars.addValue(self);
                if (sco.typename == ntypes.CLASS) {
                   throw(Build:VisitError.new("Found a property in syncAddVariable", self));
@@ -307,37 +307,37 @@ final class Node {
    }
    
    syncVariable(Build:Visit:Visitor visit) {
-      var vname = held;
-      var sc = self.scope.held;
-      if (sc.varMap.has(vname)) {
-         held = sc.varMap.get(vname).held;
+      any vname = held;
+      any sc = self.scope.held;
+      if (sc.anyMap.has(vname)) {
+         held = sc.anyMap.get(vname).held;
       } else {
-         var cl = classGet().held;
-         if (cl.varMap.has(vname)) {
-            held = cl.varMap.get(vname).held;
+         any cl = classGet().held;
+         if (cl.anyMap.has(vname)) {
+            held = cl.anyMap.get(vname).held;
          } else {
-            var tunode = self.transUnit;
-            var np = tunode.held.aliased.get(vname);
+            any tunode = self.transUnit;
+            any np = tunode.held.aliased.get(vname);
             if (undef(np)) {
               np = build.emitData.aliased.get(vname);
             }
             if (def(np)) {
                throw(Build:VisitError.new("Found NP too late " + np, self));
             } else {
-               //throw(Build:VisitError.new("No such variable exists during syncVariable", self));
-               var v = Build:Var.new();
+               //throw(Build:VisitError.new("No such anyiable exists during syncVariable", self));
+               any v = Build:Var.new();
                v.name = vname;
                if (vname == "super") {
                   held = v;
                   v.isTyped = true;
                   v.namepath = cl.extends;
-                  sc.varMap.put(vname, self);
+                  sc.anyMap.put(vname, self);
                   sc.orderedVars.addValue(self);
                } else {
                   v.isDeclared = false;
                   v.isProperty = true;
                   held = v;
-                  cl.varMap.put(vname, self);
+                  cl.anyMap.put(vname, self);
                   cl.orderedVars.addValue(self);
                }
             }
@@ -346,7 +346,7 @@ final class Node {
    }
    
    anchorGet() {
-       var node = self;
+       any node = self;
        if (true) {
        loop {
           if (constants.anchorTypes.has(node.typename)) {
@@ -362,7 +362,7 @@ final class Node {
     }
    
    classGet() {
-      var targ = self;
+      any targ = self;
       while (def(targ) && (targ.typename != ntypes.CLASS)) {
          targ = targ.container;
       }
@@ -370,7 +370,7 @@ final class Node {
    }
    
    scopeGet() {
-      var targ = self;
+      any targ = self;
       while (def(targ) && (targ.typename != ntypes.CLASS) && (targ.typename != ntypes.METHOD) && (targ.typename != ntypes.TRANSUNIT)) {
          targ = targ.container;
       }
@@ -392,8 +392,8 @@ final class Node {
    
    takeContents(Node other) {
       contained = other.contained;
-      for (var it = contained.iterator;it.hasNext;;) {
-         var i = it.next;
+      for (any it = contained.iterator;it.hasNext;;) {
+         any i = it.next;
          i.container = self;
       }
    }
@@ -421,7 +421,7 @@ final class Node {
          np = held.namepath;
          if (def(np)) {
             np.resolve(self);
-            //("After resolve for var, is " + held.namepath.toString()).print();
+            //("After resolve for any, is " + held.namepath.toString()).print();
          }
       }
    }

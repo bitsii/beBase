@@ -23,15 +23,15 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
    
    buildLiteral(node, tName) {
          
-         var nlnp = Build:NamePath.new();
+         any nlnp = Build:NamePath.new();
          nlnp.fromString(tName);
          
-         var nlnpn = Build:Node.new(build);
+         any nlnpn = Build:Node.new(build);
          nlnpn.typename = ntypes.NAMEPATH;
          nlnpn.held = nlnp;
          nlnpn.copyLoc(node);
          
-         var nlc = Build:Call.new();
+         any nlc = Build:Call.new();
          nlc.name = "new";
          nlc.wasBound = false;
          nlc.bound = false;
@@ -47,9 +47,9 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
          nlnpn.resolveNp();
          
          if ((tName == "Math:Int") || (tName == "Math:Float")) {
-            var pn = node.priorPeer;
+            any pn = node.priorPeer;
             if (def(pn) && ((pn.typename == ntypes.SUBTRACT) || (pn.typename == ntypes.ADD))) {
-               var pn2 = pn.priorPeer;
+               any pn2 = pn.priorPeer;
                if (undef(pn2) || ((pn2.typename != ntypes.CALL) && (pn2.typename != ntypes.ID) && (pn2.typename != ntypes.VAR) && (pn2.typename != ntypes.ACCESSOR))) {
                   /* if (def(pn2)) {
                      ("!!!SIGN Doing for typename " + pn2.typename).print();
@@ -69,7 +69,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
    }
 
    accept(Build:Node node) Build:Node {
-      //var chk = "TypeCheck checking ";
+      //any chk = "TypeCheck checking ";
       //if (def(node.inFile)) {
       //   chk = chk + node.inFile;
       //}
@@ -78,13 +78,13 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
       //}
       //chk.print();
       //node.print();
-      var v;
-      var np;
-      var toremove;
-      var i;
-      var ii;
-      var nnode = node.nextPeer;
-      var dnode;
+      any v;
+      any np;
+      any toremove;
+      any i;
+      any ii;
+      any nnode = node.nextPeer;
+      any dnode;
       Build:Node onode;
       if (node.typename == ntypes.CLASS) {
          inClassNp = node.held.namepath;
@@ -122,13 +122,13 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
       }
       elseIf ((node.typename == ntypes.VAR) && (node.held.isArg!)) {
          if (undef(node.held.name) && (undef(nnode) || (nnode.typename != ntypes.ID))) {
-            throw(VisitError.new("Error, variable declaration missing name " + node.held.name, node));
+            throw(VisitError.new("Error, anyiable declaration missing name " + node.held.name, node));
          } else {
             node.held.name = nnode.held;
             node.addVariable();
             nnode.delete();
             //if (def(node.held.namepath)) {
-            //   ("Found namepath typed var " + node.held.name + " " + node.held.namepath.toString()).print();
+            //   ("Found namepath typed any " + node.held.name + " " + node.held.namepath.toString()).print();
             //}
             return(node.nextDescend);
          }
@@ -147,9 +147,9 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                   i.delete();
                }
             }
-            var pc = nnode;
+            any pc = nnode;
             pc.typename = ntypes.CALL;
-            var gc = Build:Call.new();
+            any gc = Build:Call.new();
             gc.name = node.held;
             pc.held = gc;
             node.delete();
@@ -217,11 +217,11 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
             throw(VisitError.new("Error, incomplete call or accessor", node));
          }
          if (nnode.typename == ntypes.ID) {
-            var pnode = nnode.nextPeer;
+            any pnode = nnode.nextPeer;
             if (undef(pnode) || (pnode.typename != ntypes.PARENS)) {
-               var ponode = onode.priorPeer;
+               any ponode = onode.priorPeer;
                node.typename = ntypes.ACCESSOR;
-               var ga = Build:Accessor.new();
+               any ga = Build:Accessor.new();
                ga.name = nnode.held;
                nnode.delete();
                onode.delete();

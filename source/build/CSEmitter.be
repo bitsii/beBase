@@ -57,7 +57,7 @@ use final class Build:CSEmitter(Build:EmitCommon) {
     return("base");
   }
   
-  onceDec(String typeName, String varName) {
+  onceDec(String typeName, String anyName) {
      return("private static " + typeName + " ");
   }
   
@@ -71,8 +71,8 @@ use final class Build:CSEmitter(Build:EmitCommon) {
     }
   
   
-  overrideSpropDec(String typeName, String varName) {
-    return("public static new " + typeName + " " + varName);
+  overrideSpropDec(String typeName, String anyName) {
+    return("public static new " + typeName + " " + anyName);
   }
   
   mainStartGet() String {
@@ -107,8 +107,8 @@ use final class Build:CSEmitter(Build:EmitCommon) {
         return(" : "@ + parent);
     }
     
-    //Amazingly, cs doesn't support covariant return types
-    covariantReturnsGet() {
+    //Amazingly, cs doesn't support coanyiant return types
+    coanyiantReturnsGet() {
         return(false);
     }
 

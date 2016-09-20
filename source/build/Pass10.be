@@ -16,16 +16,16 @@ use Build:Node;
 
 final class Build:Visit:Pass10(Build:Visit:Visitor) {
 
-   condCall(condvar, value) {
-      var cnode = Node.new(build);
+   condCall(condany, value) {
+      any cnode = Node.new(build);
       cnode.held = Build:Call.new();
       cnode.typename = ntypes.CALL;
-      var acc = Node.new(build);
+      any acc = Node.new(build);
       acc.typename = ntypes.VAR;
-      acc.held = condvar;
+      acc.held = condany;
       cnode.addValue(acc);
       cnode.held.name = "assign";
-      var nnode = Node.new(build);
+      any nnode = Node.new(build);
       nnode.typename = value;
       cnode.addValue(nnode);
       return(cnode);
@@ -44,45 +44,45 @@ final class Build:Visit:Pass10(Build:Visit:Visitor) {
       
       if ((node.typename == ntypes.CALL) && ((node.held.name == "logicalOr") || (node.held.name == "logicalAnd"))) {
          
-         var anchor = node.anchor;
-         var condvar = anchor.condvar;
+         any anchor = node.anchor;
+         any condany = anchor.condany;
          //("Anchor is " + anchor.toString()).print();
-         if (undef(condvar)) {
-            condvar = anchor.tmpVar("anchor", build);
-            condvar.isTyped = true;
-            var cvnp = Build:NamePath.new();
+         if (undef(condany)) {
+            condany = anchor.tmpVar("anchor", build);
+            condany.isTyped = true;
+            any cvnp = Build:NamePath.new();
             cvnp.fromString("Logic:Bool");
-            condvar.namepath = cvnp;
-            anchor.condvar = condvar;
+            condany.namepath = cvnp;
+            anchor.condany = condany;
          }
          
-         var inode = Node.new(build);
+         any inode = Node.new(build);
          inode.typename = ntypes.IF;
          inode.copyLoc(node);
          
-         var rinode = inode;
+         any rinode = inode;
          
-         var pnode = Node.new(build);
+         any pnode = Node.new(build);
          pnode.copyLoc(node);
          pnode.typename = ntypes.PARENS;
          inode.addValue(pnode);
          
          pnode.addValue(node.contained.first);
          
-         var bnode = Node.new(build);
+         any bnode = Node.new(build);
          bnode.copyLoc(node);
          bnode.typename = ntypes.BRACES;
          inode.addValue(bnode);
          
          if (node.held.name == "logicalOr") {
-            bnode.addValue(condCall(condvar, ntypes.TRUE));
+            bnode.addValue(condCall(condany, ntypes.TRUE));
             //"Appended condCall".print();
          } else {
             //and
             inode = Node.new(build);
             inode.copyLoc(node);
             inode.typename = ntypes.IF;
-            inode.condvar = condvar;
+            inode.condany = condany;
             bnode.addValue(inode);
             
             pnode = Node.new(build);
@@ -94,15 +94,15 @@ final class Build:Visit:Pass10(Build:Visit:Visitor) {
             bnode.copyLoc(node);
             bnode.typename = ntypes.BRACES;
             inode.addValue(bnode);
-            bnode.addValue(condCall(condvar, ntypes.TRUE));
+            bnode.addValue(condCall(condany, ntypes.TRUE));
          
-            var enode = Node.new(build);
+            any enode = Node.new(build);
             enode.copyLoc(node);
             enode.typename = ntypes.ELSE;
             bnode = Node.new(build);
             bnode.copyLoc(node);
             bnode.typename = ntypes.BRACES;
-            bnode.addValue(condCall(condvar, ntypes.FALSE));
+            bnode.addValue(condCall(condany, ntypes.FALSE));
             enode.addValue(bnode);
             inode.addValue(enode);
          }
@@ -120,7 +120,7 @@ final class Build:Visit:Pass10(Build:Visit:Visitor) {
             inode = Node.new(build);
             inode.copyLoc(node);
             inode.typename = ntypes.IF;
-            inode.condvar = condvar;
+            inode.condany = condany;
             bnode.addValue(inode);
             
             pnode = Node.new(build);
@@ -132,7 +132,7 @@ final class Build:Visit:Pass10(Build:Visit:Visitor) {
             bnode.copyLoc(node);
             bnode.typename = ntypes.BRACES;
             inode.addValue(bnode);
-            bnode.addValue(condCall(condvar, ntypes.TRUE));
+            bnode.addValue(condCall(condany, ntypes.TRUE));
          
             enode = Node.new(build);
             enode.copyLoc(node);
@@ -141,17 +141,17 @@ final class Build:Visit:Pass10(Build:Visit:Visitor) {
             bnode = Node.new(build);
             bnode.copyLoc(node);
             bnode.typename = ntypes.BRACES;
-            bnode.addValue(condCall(condvar, ntypes.FALSE));
+            bnode.addValue(condCall(condany, ntypes.FALSE));
             enode.addValue(bnode);
          } else {
-            bnode.addValue(condCall(condvar, ntypes.FALSE));
+            bnode.addValue(condCall(condany, ntypes.FALSE));
          }
          
          //("Anchor is " + anchor.toString()).print();
          anchor.beforeInsert(rinode);
          node.contained = null;
          node.typename = ntypes.VAR;
-         node.held = condvar;
+         node.held = condany;
          node.syncAddVariable();
          return(rinode.nextDescend);
       }

@@ -160,7 +160,7 @@ class IO:Reader {
 
     new() self {
       fields {
-         var vfile;
+         any vfile;
          Bool isClosed = true; 
          Int blockSize = 256;
       }
@@ -468,7 +468,7 @@ class IO:Writer {
    new() self {
       
       fields {
-         var vfile;
+         any vfile;
          Bool isClosed = true;
       }
       

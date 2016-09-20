@@ -56,7 +56,7 @@ void** bevl_sval;
       }
       }
       fields {
-         var instance;
+         any instance;
          Int minField;
          Int maxField;
          Int pos;
@@ -118,9 +118,9 @@ void** bevl_sval;
 void** bevl_ind;
       """
       }
-      var _instance;
+      any _instance;
       Int _pos;
-      var inst;
+      any inst;
       _instance = instance;
       _pos = pos;
       if (pos < maxField) {
@@ -183,9 +183,9 @@ void** bevl_sval;
 void** bevl_ind;
       """
       }
-      var _instance;
+      any _instance;
       Int _pos;
-      var _value;
+      any _value;
       _instance = instance;
       _pos = pos;
       _value = value;

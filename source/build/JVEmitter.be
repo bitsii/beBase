@@ -35,7 +35,7 @@ use final class Build:JVEmitter(Build:EmitCommon) {
 
    }
       
-      onceDec(String typeName, String varName) {
+      onceDec(String typeName, String anyName) {
       //here could put final for once deced
          return("private static " + typeName + " ");
       }
@@ -54,8 +54,8 @@ use final class Build:JVEmitter(Build:EmitCommon) {
     }
       
       
-      overrideSpropDec(String typeName, String varName) {
-        return("public static " + typeName + " " + varName);
+      overrideSpropDec(String typeName, String anyName) {
+        return("public static " + typeName + " " + anyName);
       }
     
     overrideSmtdDecGet() String {

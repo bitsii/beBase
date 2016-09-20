@@ -94,7 +94,7 @@ local class IO:File:Path(System:BasePath) {
    }
 
    subPath(Int start, Int end) {
-      var res = super.subPath(start, end);
+      any res = super.subPath(start, end);
       res.driveLetter = driveLetter;
       return(res);
    }

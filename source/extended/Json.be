@@ -433,7 +433,7 @@ use class Json:Marshaller {
     marshallWriteList(inst, writer) {
         writer.write("[");
         Bool first = true;
-        for (var instin in inst) {
+        for (any instin in inst) {
             if (first) {
               first = false;
             } else {
@@ -447,7 +447,7 @@ use class Json:Marshaller {
     marshallWriteMap(inst, writer) {
         writer.write("{");
         Bool first = true;
-        for (var kv in inst) {
+        for (any kv in inst) {
             //assumes keys are strings
             if (first) {
               first = false;
@@ -470,8 +470,8 @@ use class Json:Unmarshaller {
             Parser parser = Parser.new();
             LinkedList ll = LinkedList.new();
             
-            var key;
-            var top;
+            any key;
+            any top;
             Container:Stack stack;
             Bool inList = false;
         }
@@ -542,7 +542,7 @@ use class Json:Unmarshaller {
         }
     }
     
-    addItem(var item) {
+    addItem(any item) {
         if (def(top)) {
             //?an error if not
             if (inList) {

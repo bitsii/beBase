@@ -28,7 +28,7 @@ final class VarSyn {
       isTyped = true;
    }
    
-   varNew(Build:Var full) self {
+   anyNew(Build:Var full) self {
       fields {
          String name = full.name;
          NamePath namepath = full.namepath;
@@ -105,7 +105,7 @@ final class ClassSyn {
    }
    
    hasDefaultGet() Bool {
-        var dmtd = mtdMap.get("default_0");
+        any dmtd = mtdMap.get("default_0");
         if (def(dmtd)) {
             //(namepath.toString() + " has default").print();
             return(true);
@@ -129,11 +129,11 @@ final class ClassSyn {
       superList.addValue(psyn.namepath);
       mtdList = psyn.mtdList.copy();
       ptyList = psyn.ptyList.copy();
-      var pmr;
-      var omr;
-      for (var iv = klass.held.orderedVars.iterator;iv.hasNext;;) {
-         var ov = iv.next;
-         var pv = psyn.ptyMap.get(ov.held.name);
+      any pmr;
+      any omr;
+      for (any iv = klass.held.orderedVars.iterator;iv.hasNext;;) {
+         any ov = iv.next;
+         any pv = psyn.ptyMap.get(ov.held.name);
          if ((ov.held.name != "super") && (undef(pv)) && (ov.held.isDeclared!)) {
             throw(Build:VisitError.new("Variable " + ov.held.name + " is not declared in class or super class of " + klass.held.namepath.toString(), ov));
          }
@@ -147,9 +147,9 @@ final class ClassSyn {
          }
       }
       
-      for (var im = klass.held.orderedMethods.iterator;im.hasNext;;) {
-         var om = im.next;
-         var pm = psyn.mtdMap.get(om.held.name);
+      for (any im = klass.held.orderedMethods.iterator;im.hasNext;;) {
+         any om = im.next;
+         any pm = psyn.mtdMap.get(om.held.name);
          if (def(pm)) {
             if (def(pm.rsyn)) {
                if (undef(om.held.rtype)) {
@@ -209,7 +209,7 @@ final class ClassSyn {
          }
      }
      //("allAncestorsClose " + allAncestorsClose + " " + namepath + " " + psyn.namepath).print();
-     for (var im = mtdMap.valueIterator;im.hasNext;;) {
+     for (any im = mtdMap.valueIterator;im.hasNext;;) {
          om = im.next;
          Build:MtdSyn pm = psyn.mtdMap.get(om.name);
          if (def(pm)) {
@@ -232,10 +232,10 @@ final class ClassSyn {
      if (iChecked) { return(self); }
      iChecked = true;
      if (undef(superNp)) { return(self); }
-     var psyn = build.getSynNp(superNp);
-     for (var iv = klass.held.orderedVars.iterator;iv.hasNext;;) {
-         var ov = iv.next;
-         var pv = psyn.ptyMap.get(ov.held.name);
+     any psyn = build.getSynNp(superNp);
+     for (any iv = klass.held.orderedVars.iterator;iv.hasNext;;) {
+         any ov = iv.next;
+         any pv = psyn.ptyMap.get(ov.held.name);
          if (def(pv)) {
             if (ov.held.isDeclared) {
                throw(Build:VisitError.new("Error, property from superclass re-declared in subclass property:" + ov.held.name + " subclass: " + klass.held.namepath.toString()));
@@ -245,17 +245,17 @@ final class ClassSyn {
             }
          }
       }
-      for (var im = klass.held.orderedMethods.iterator;im.hasNext;;) {
-         var om = im.next;
-         var pm = psyn.mtdMap.get(om.held.name);
+      for (any im = klass.held.orderedMethods.iterator;im.hasNext;;) {
+         any om = im.next;
+         any pm = psyn.mtdMap.get(om.held.name);
          if (def(pm)) {
             if (pm.isFinal) {
                throw(Build:VisitError.new("Attempt to override final method " + om.held.name + " " + klass.held.namepath.toString(), om));
             }
-            var oa = om.contained.first.contained;
-            for (var i = 1;i < pm.argSyns.length;i = i++) {
-               var pmr = pm.argSyns.get(i);
-               var omr = oa.get(i).held;
+            any oa = om.contained.first.contained;
+            for (any i = 1;i < pm.argSyns.length;i = i++) {
+               any pmr = pm.argSyns.get(i);
+               any omr = oa.get(i).held;
                //("Checking argtypes").print();
                checkTypes(klass, build, omr, pmr, om);
             }
@@ -282,7 +282,7 @@ final class ClassSyn {
          if (pmr.isSelf && omr.isSelf) {
             return(self); //both are self typed (return type), OK
          }
-         var osyn = build.getSynNp(omr.namepath);
+         any osyn = build.getSynNp(omr.namepath);
          if (osyn.allTypes.has(pmr.namepath)!) {
             throw(Build:VisitError.new("Inheritance type mismatch error, child type does not match parent type namepath " + klass.held.namepath.toString(), om));
          }
@@ -291,8 +291,8 @@ final class ClassSyn {
    
    new(klass) self {
       self.new();
-      for (var iv = klass.held.orderedVars.iterator;iv.hasNext;;) {
-         var ov = iv.next;
+      for (any iv = klass.held.orderedVars.iterator;iv.hasNext;;) {
+         any ov = iv.next;
          if (ov.held.isDeclared!) {
             throw(Build:VisitError.new("Variable " + ov.held.name + " is not declared in class " + klass.held.namepath.toString(), ov));
          }
@@ -309,18 +309,18 @@ final class ClassSyn {
       isFinal = klass.held.isFinal;
       isLocal = klass.held.isLocal;
       isNotNull = klass.held.isNotNull;
-      for (var iu = klass.held.used.iterator;iu.hasNext;;) {
-         var ou = iu.next;
+      for (any iu = klass.held.used.iterator;iu.hasNext;;) {
+         any ou = iu.next;
          uses.put(ou.toString());
       }
-      for (var iv = klass.held.orderedVars.iterator;iv.hasNext;;) {
-         var ov = iv.next;
-         var prop = Build:PtySyn.new(ov, namepath);
+      for (any iv = klass.held.orderedVars.iterator;iv.hasNext;;) {
+         any ov = iv.next;
+         any prop = Build:PtySyn.new(ov, namepath);
          ptyList.addValue(prop);
       }
-      for (var im = klass.held.orderedMethods.iterator;im.hasNext;;) {
-         var om = im.next;
-         var msyn = Build:MtdSyn.new(om, namepath);
+      for (any im = klass.held.orderedMethods.iterator;im.hasNext;;) {
+         any om = im.next;
+         any msyn = Build:MtdSyn.new(om, namepath);
          mtdList.addValue(msyn);
       }
       postLoad();
@@ -331,8 +331,8 @@ final class ClassSyn {
       List mtdnList = List.new();
       Map unq;
       
-      for (var iv = ptyList.iterator;iv.hasNext;;) {
-         var ov = iv.next;
+      for (any iv = ptyList.iterator;iv.hasNext;;) {
+         any ov = iv.next;
          if (ptyMap.has(ov.name)!) {
             //The list should containe only the first property by name and heritage
             ptyMap.put(ov.name, ov);
@@ -340,11 +340,11 @@ final class ClassSyn {
       }
       
       unq = Map.new();
-      var mpos = 0;
+      any mpos = 0;
       for (iv = ptyList.iterator;iv.hasNext;;) {
          ov = iv.next;
          if (unq.has(ov.name)!) {
-            var nom = ptyMap.get(ov.name);
+            any nom = ptyMap.get(ov.name);
             nom.mpos = mpos;
             mpos = mpos + 1;
             nptyList.addValue(nom);
@@ -355,8 +355,8 @@ final class ClassSyn {
       
       Map mtdOmap = Map.new();
       
-      for (var im = mtdList.iterator;im.hasNext;;) {
-         var om = im.next;
+      for (any im = mtdList.iterator;im.hasNext;;) {
+         any om = im.next;
          //The list should containe only the last method by name and heritage
          mtdMap.put(om.name, om);
          //This map is to find the origin of an overriden method
@@ -370,7 +370,7 @@ final class ClassSyn {
       for (im = mtdList.iterator;im.hasNext;;) {
          om = im.next;
          if (unq.has(om.name)!) {
-            var oma = mtdMap.get(om.name);
+            any oma = mtdMap.get(om.name);
             //store where mtd was first declared
             //if msyno declaration is null then
             //this first instance of this method in hierarchy
@@ -392,7 +392,7 @@ final class ClassSyn {
       }
       mtdList = mtdnList;
       
-      for (var s in superList) {
+      for (any s in superList) {
          allTypes.put(s, s);
          superNp = s;
       }
@@ -406,7 +406,7 @@ final class Build:MtdSyn {
    
    new(snode, _origin) self {
       
-      var s = snode.held;
+      any s = snode.held;
       
       fields {
          Int hpos;
@@ -427,20 +427,20 @@ final class Build:MtdSyn {
             String propertyName = s.property.name;
          }
          if (def(s.rtype)) {
-            VarSyn rsyn = VarSyn.varNew(s.rtype);
+            VarSyn rsyn = VarSyn.anyNew(s.rtype);
          }
       }
       
-      var args = snode.contained.first.contained;
-      for (var i = 0;i < argSyns.length;i = i++;) {
-         argSyns.put(i, VarSyn.varNew(args[i].held));
+      any args = snode.contained.first.contained;
+      for (any i = 0;i < argSyns.length;i = i++;) {
+         argSyns.put(i, VarSyn.anyNew(args[i].held));
       }
    }
    
    toString() Text:String {
       //("MtdSyn toString for " + name).print();
-      var nl = Text:Strings.new().newline;
-      var toRet = "method" + nl + "name" + nl + name + nl + "orgName" + nl + orgName + nl + "numargs" + nl + numargs.toString() + nl;
+      any nl = Text:Strings.new().newline;
+      any toRet = "method" + nl + "name" + nl + name + nl + "orgName" + nl + orgName + nl + "numargs" + nl + numargs.toString() + nl;
       toRet = toRet + "origin" + nl + origin.toString() + nl;
       toRet = toRet + "lastDef" + nl + lastDef.toString() + nl;
       toRet = toRet + "isFinal" + nl + isFinal.toString() + nl;
@@ -452,29 +452,29 @@ final class Build:MtdSyn {
       if ((def(rsyn)) && (rsyn.isTyped)) {
          toRet = toRet + rsyn.namepath.toString() + nl;
       } else {
-         toRet = toRet + "var" + nl;
+         toRet = toRet + "any" + nl;
       }
-      for (var i = 0;i < argSyns.length;i = i++;) {
-         var arg = argSyns.get(i);
+      for (any i = 0;i < argSyns.length;i = i++;) {
+         any arg = argSyns.get(i);
          //("Doing " + i.toString()).print();
          toRet = toRet + "argType" + nl;
          if (arg.isTyped) {
             toRet = toRet + arg.namepath.toString() + nl;
          } else {
-            toRet = toRet + "var" + nl;
+            toRet = toRet + "any" + nl;
          }
       }
       return(toRet);
    }
    
    getEmitReturnType(ClassSyn csyn, Build:Build build) NamePath {
-      Bool covariantReturns = true;
+      Bool coanyiantReturns = true;
       Build:EmitCommon ec = build.emitCommon;
       if (def(ec)) {
-        covariantReturns = ec.covariantReturns;
+        coanyiantReturns = ec.coanyiantReturns;
       }
       if (def(rsyn)) {
-          if (covariantReturns) {
+          if (coanyiantReturns) {
             if (rsyn.isSelf) {
                 return(csyn.namepath);
             } else {
@@ -505,19 +505,19 @@ final class Build:PtySyn {
          Int mpos;
          String name = v.name;
          Build:NamePath origin = _origin;
-         VarSyn memSyn = VarSyn.varNew(v);
+         VarSyn memSyn = VarSyn.anyNew(v);
       }
    }
    
    toString() Text:String {
-      var nl = Text:Strings.new().newline;
-      var toRet = "property" + nl + "name" + nl + name + nl;
+      any nl = Text:Strings.new().newline;
+      any toRet = "property" + nl + "name" + nl + name + nl;
       toRet = toRet + "origin" + nl + origin.toString() + nl;
       toRet = toRet + "memType" + nl;
       if (memSyn.isTyped) {
          toRet = toRet + memSyn.namepath.toString() + nl;
       } else {
-         toRet = toRet + "var" + nl;
+         toRet = toRet + "any" + nl;
       }
       return(toRet);
    }

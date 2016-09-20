@@ -6,9 +6,9 @@ class Test:TestHeq {
    }
    
    testHeq() {
-      var s2 = self;
-      var y = s2.specialHeq1();
-      var x = s2.specialHeq2();
+      any s2 = self;
+      any y = s2.specialHeq1();
+      any x = s2.specialHeq2();
       //s2.noCallExists();//will fail
       if (x && (y!)) {
       " PASSED testHeq self id".print();

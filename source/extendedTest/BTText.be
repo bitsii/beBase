@@ -479,7 +479,7 @@ class Test:BaseTest:Text(BaseTest) {
    }
    
    printList(l) {
-      for (var x in l) {
+      for (any x in l) {
          x.print();
       }
    }
@@ -513,10 +513,10 @@ class Test:BaseTest:Text(BaseTest) {
       x += "9999";
       x.print();
       
-      var a = String.new();
-      var b = String.new();
-      var c = String.new();
-      var d = Map.new();
+      any a = String.new();
+      any b = String.new();
+      any c = String.new();
+      any d = Map.new();
       
       a += "A";
       b += "A";
@@ -540,7 +540,7 @@ class Test:BaseTest:Text(BaseTest) {
    }
    
    testIter() {
-      var x = "Hi there";
+      any x = "Hi there";
       "Test get".print();
       x.getPoint(0).print();
       assertEquals(x.getPoint(0), "H");
@@ -550,10 +550,10 @@ class Test:BaseTest:Text(BaseTest) {
       assertEquals(x.getPoint(7), "e");
       //x.getPoint(8).print();
       "Test get done".print();
-      var i = x.iterator;
+      any i = x.iterator;
       i.next.print();
       Text:String accum = Text:String.new();
-      for (var y in x) { y.print(); accum += y;}
+      for (any y in x) { y.print(); accum += y;}
       ("accum " + accum.toString()).print();
       assertEqual(accum.toString(), x);
       accum.clear();
@@ -568,12 +568,12 @@ class Test:BaseTest:Text(BaseTest) {
    }
    
    testIterBuf() {
-      var x = Text:String.new().addValue("Hi there buffer");
+      any x = Text:String.new().addValue("Hi there buffer");
       x.print();
-      var i = x.biter;
+      any i = x.biter;
       i.next.print();
       Text:String accum = Text:String.new();
-      for (var y in x.biter) { y.print(); accum += y;}
+      for (any y in x.biter) { y.print(); accum += y;}
       assertEqual(accum, x);
       accum.clear();
       Text:String sbuf = Text:String.new();
@@ -587,17 +587,17 @@ class Test:BaseTest:Text(BaseTest) {
    
     testString() {
     
-      var srep = "hi/there/bob";
+      any srep = "hi/there/bob";
       srep.swap("/", "\\").print();
       String x = String.codeNew(93);
       x.print();
-      var s1 = "Hi";
+      any s1 = "Hi";
       if (s1 == "Hi") {
       " PASSED equals".print();
       } else {
       return(false);
       }
-      var s2 = s1.copy();
+      any s2 = s1.copy();
       if (s2 == "Hi") {
       " PASSED init with exiting".print();
       } else {
@@ -613,8 +613,8 @@ class Test:BaseTest:Text(BaseTest) {
       return(false);
       }
       
-      var s3 = "Test";
-      var s4 = s3.copy();
+      any s3 = "Test";
+      any s4 = s3.copy();
       if (s3 != s4) {
          "!FAILED copy1".print();
          return(false);
@@ -624,8 +624,8 @@ class Test:BaseTest:Text(BaseTest) {
    }
    
    testStr() {
-      var uux = " Hi ";
-      var uuy = "There. ";
+      any uux = " Hi ";
+      any uuy = "There. ";
       
       if (uux + uuy == " Hi There. ") {
       (" PASSED add, equals" + uux + uuy).print();
@@ -657,7 +657,7 @@ class Test:BaseTest:Text(BaseTest) {
       "778s".isInteger().print();
       assertFalse("778s".isInteger());
       
-      var tolc = "UPPER";
+      any tolc = "UPPER";
       tolc.lower().print();
       assertEqual(tolc.lower(), "upper");
       assertEqual(tolc.upper(), "UPPER");

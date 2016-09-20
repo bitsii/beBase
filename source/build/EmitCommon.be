@@ -43,7 +43,7 @@ ONCE EVAL
 MANY EVAL
 
 Statically initialize for onceeval literal cases
-FASTER if a variable assigned to from a once eval is not assigned to any other time just use the once eval var directly and do no assign
+FASTER if a anyiable assigned to from a once eval is not assigned to any other time just use the once eval any directly and do no assign
 
 MANY EVAL
 ONCE EVAL
@@ -188,10 +188,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       if (build.printSteps || build.printPlaces) {
         ("Completing class " + clgen.held.name).print();
       }
-      var trans = Build:Transport.new(build, clgen.transUnit);
+      any trans = Build:Transport.new(build, clgen.transUnit);
       
       
-      var emvisit;
+      any emvisit;
       
       if (build.printSteps) {
          ". ".echo();
@@ -236,7 +236,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         //order by depth (of inheritance) to guarantee that a classes ancestors
         //are processed before the class (important for some initialization)
         Map depthClasses = Map.new();
-        for (var ci = build.emitData.parseOrderClassNames.iterator;ci.hasNext;;) { 
+        for (any ci = build.emitData.parseOrderClassNames.iterator;ci.hasNext;;) { 
             String clName = ci.next;
             
             Node clnode = build.emitData.classes.get(clName);
@@ -565,9 +565,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         String typeInstances = String.new();
         String notNullInitConstruct = String.new();
         String notNullInitDefault = String.new();
-        for (var ci = classesInDepthOrder.iterator;ci.hasNext;;) {  
+        for (any ci = classesInDepthOrder.iterator;ci.hasNext;;) {  
         
-            var clnode = ci.next;
+            any clnode = ci.next;
             
             if(emitting("jv")) {
                 typeInstances += "be.BECS_Runtime.typeInstances.put(" += q += clnode.held.namepath.toString() += q += ", Class.forName(" += q += getClassConfig(clnode.held.namepath).fullEmitName += q += "));" += nl;
@@ -737,7 +737,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       callNames.put(node.held.name);
       
       String argDecs = String.new();
-      String varDecs = String.new();
+      String anyDecs = String.new();
       
       //for (Node ovlc in node.held.orderedVars) {
       //  lookatComp(ovlc);
@@ -756,11 +756,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                  }
                 decForVar(argDecs, ov.held);
              } else {
-                decForVar(varDecs, ov.held);
+                decForVar(anyDecs, ov.held);
                 if(emitting("js")) {
-                    varDecs += ";" += nl;
+                    anyDecs += ";" += nl;
                 } else  {
-                    varDecs += " = null;" += nl;
+                    anyDecs += " = null;" += nl;
                 }
              }
              ov.held.nativeName = nameForVar(ov.held);
@@ -784,7 +784,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       
       startMethod(mtdDec, returnType, emitNameForMethod(node), argDecs, exceptDec);
       
-      methods += varDecs;
+      methods += anyDecs;
       
   }
   
@@ -822,10 +822,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         String inFilePathed = node.held.fromFile.toStringWithSeparator("/");
      }
      
-     var te = node.transUnit.held.emits;
+     any te = node.transUnit.held.emits;
       if (def(te)) {
          for (te = te.iterator;te.hasNext;;) {
-            var jn = te.next;
+            any jn = te.next;
             if (jn.held.langs.has(self.emitLang)) {
                 preClass += emitReplace(jn.held.text);
             }
@@ -843,7 +843,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
        if (def(node.held.emits)) {
           String inlang = self.emitLang;
           for (Node innode in node.held.emits) {
-            //figure out what vars are native
+            //figure out what anys are native
             nativeCSlots = getNativeCSlots(innode.held.text);
             if (innode.held.langs.has(inlang)) {
                 classEmits += emitReplace(innode.held.text);
@@ -861,8 +861,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
        //Create property declarations
        //>= natives
        Int ovcount = 0;
-       for (var ii = node.held.orderedVars.iterator;ii.hasNext;;) {
-            var i = ii.next.held;
+       for (any ii = node.held.orderedVars.iterator;ii.hasNext;;) {
+            any i = ii.next.held;
             if (i.isDeclared) {
                 if (ovcount >= nativeCSlots) {
                     propertyDecs += self.propDec;
@@ -959,11 +959,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                             vcma = "";
                         }
                         if (vnumargs < maxDynArgs) {
-                            String varg = "bevd_" + (vnumargs - 1);
+                            String anyg = "bevd_" + (vnumargs - 1);
                         } else {
-                            varg = "bevd_x[" + (vnumargs - maxDynArgs) + "]";
+                            anyg = "bevd_x[" + (vnumargs - maxDynArgs) + "]";
                         }
-                        mcall += vcma += vcast += varg;
+                        mcall += vcma += vcast += anyg;
                     }
                     vnumargs = vnumargs++;
                 }
@@ -997,10 +997,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
   
   getNativeCSlots(String text) Int {
     Int nativeSlots = 0;
-    var ll = text.split("/");
-      var isfn = false;
-      var nextIsNativeSlots = false;
-      for (var i in ll) {
+    any ll = text.split("/");
+      any isfn = false;
+      any nextIsNativeSlots = false;
+      for (any i in ll) {
          if (nextIsNativeSlots) {
             nextIsNativeSlots = false;
             nativeSlots = Int.new(i);
@@ -1125,16 +1125,16 @@ buildClassInfoMethod(String belsBase) {
        return("}" += nl);
   }
       
-  baseSpropDec(String typeName, String varName) {
-     return("public static " + typeName + " " + varName);
+  baseSpropDec(String typeName, String anyName) {
+     return("public static " + typeName + " " + anyName);
   }
   
-    onceDec(String typeName, String varName) {
+    onceDec(String typeName, String anyName) {
         return("");
     }
   
   
-  overrideSpropDec(String typeName, String varName) {
+  overrideSpropDec(String typeName, String anyName) {
     return("");
   }
   
@@ -1161,8 +1161,8 @@ buildClassInfoMethod(String belsBase) {
   
   acceptRbraces(Node node) {
      if (def(node.container) && def(node.container.container)) {
-        var nct = node.container.container;
-        var typename = nct.typename;
+        any nct = node.container.container;
+        any typename = nct.typename;
         if (typename == ntypes.METHOD) {
            if (def(mnode)) {
              if (undef(lastCall) || lastCall.held.orgName != "return") {
@@ -1345,7 +1345,7 @@ buildClassInfoMethod(String belsBase) {
       //node.nlec = countLines(methodBody);
       
       if ((node.held.orgName == "assign") && (node.contained.length != 2)) {
-         var errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
+         any errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
          for (Int ei = 0;ei < node.contained.length;ei = ei++) {
             errmsg = errmsg + " !!!" + ei + "!! " + node.contained[ei];
          }
@@ -1533,11 +1533,11 @@ buildClassInfoMethod(String belsBase) {
       String spillArgs = String.new();
       
       Int numargs = 0;
-      for (var it = node.contained.iterator;it.hasNext;;) {
+      for (any it = node.contained.iterator;it.hasNext;;) {
          List argCasts = node.held.argCasts;
-         var i = it.next;
+         any i = it.next;
          if (numargs == 0) {
-            //var targetOrg = i.held.name;
+            //any targetOrg = i.held.name;
             String target = formTarg(i);
             Node targetNode = i;
             if (targetNode.held.isTyped) {
@@ -1575,13 +1575,13 @@ buildClassInfoMethod(String belsBase) {
       if ((node.container.typename == ntypes.CALL) && (node.container.held.orgName == "assign")) {
         if (isOnceAssign(node.container) && ((isConstruct && newcc.np == boolNp)!)) {
             isOnce = true;
-            String ovar = onceVarDec(onceCount.toString());
+            String oany = onceVarDec(onceCount.toString());
             onceCount = onceCount++;
             
             if (node.container.contained.first.held.isTyped!) {
-               String odec = onceDec(objectCc.relEmitName(build.libName), ovar);
+               String odec = onceDec(objectCc.relEmitName(build.libName), oany);
             } else {
-               odec = onceDec(getClassConfig(node.container.contained.first.held.namepath).relEmitName(build.libName), ovar);
+               odec = onceDec(getClassConfig(node.container.contained.first.held.namepath).relEmitName(build.libName), oany);
             }
             
         }
@@ -1596,15 +1596,15 @@ buildClassInfoMethod(String belsBase) {
       }
       
       if (isOnce) {
-        //no cast for the post assign, the ovar is always typed based on the type assigned to, so the case when assigning to ovar 
-        //is all that's needed and the ovar is always the same type as the assign to target
-        String postOnceCallAssign = nameForVar(node.container.contained.first.held) + " = " + ovar + ";" + nl;
+        //no cast for the post assign, the oany is always typed based on the type assigned to, so the case when assigning to oany 
+        //is all that's needed and the oany is always the same type as the assign to target
+        String postOnceCallAssign = nameForVar(node.container.contained.first.held) + " = " + oany + ";" + nl;
         if (def(castTo)) {
            String cast = formCast(getClassConfig(castTo)) + " "; //do type check
         } else {
            cast = "";
         }
-        callAssign = ovar + " = " + cast;
+        callAssign = oany + " = " + cast;
       }
       
       //also did include  && odec.isEmpty!
@@ -1618,7 +1618,7 @@ buildClassInfoMethod(String belsBase) {
         } elseIf(emitting("cs")) {
           methodBody += "lock (typeof(" += classConf.emitName += ")) {" += nl;//}
         }
-        methodBody += "if (" + ovar + " == null) {" += nl; //}
+        methodBody += "if (" + oany + " == null) {" += nl; //}
       }
       
       //FASTER if undef or def is inside an if skip the assign and just put it into the if
@@ -1681,7 +1681,7 @@ buildClassInfoMethod(String belsBase) {
                     if (newcc.np == boolNp) {
                         if (onceDeced) {
                           String odinfo = String.new();
-                          for (var n in node.container.contained.first.held.allCalls) {
+                          for (any n in node.container.contained.first.held.allCalls) {
                             odinfo += n.held.name += " ";
                           }
                           throw(System:Exception.new("oh noes once deced " + 
@@ -1770,7 +1770,7 @@ buildClassInfoMethod(String belsBase) {
       if (isOnce) {
         if (onceDeced!) {
             //{
-            methodBody += "}" += nl; //close to check for ovar null
+            methodBody += "}" += nl; //close to check for oany null
             if(emitting("jv") || emitting("cs")) {
               //{
               methodBody += "}" += nl; //close the synchronized or lock on class
@@ -1779,7 +1779,7 @@ buildClassInfoMethod(String belsBase) {
         methodBody += postOnceCallAssign;
         if (onceDeced!) {
             if (odec.isEmpty!) {
-                onceDecs += odec += ovar += ";" += nl;
+                onceDecs += odec += oany += ";" += nl;
             }
         }
       }
@@ -2017,8 +2017,8 @@ buildClassInfoMethod(String belsBase) {
         return("");
     }
     
-    //Does this emit lang support covariant return types
-    covariantReturnsGet() {
+    //Does this emit lang support coanyiant return types
+    coanyiantReturnsGet() {
         return(true);
     }
     

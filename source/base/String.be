@@ -20,7 +20,7 @@ aware byteiterator (MultiByteIterator) and use that by default in tokenizer and 
 bytes, unaware of String/Characters).
 
 It would be great to have a converter for common other formats (UTF-16, etc) to UTF-8
-It would be nice to support non-ascii names for methods, variables, etc, could convert to escaped versions while generating
+It would be nice to support non-ascii names for methods, anyiables, etc, could convert to escaped versions while generating
 
 (currently, we only use strlen once when building the string and use internal length value the rest of the time,
 there an option to drop independent length value, if we disallow embedded null (modified or js style utf8) then we can just compute length
@@ -171,7 +171,7 @@ final class String {
       size = 0;
       capacitySet(_capacity);
       fields {
-         //var vstring;
+         //any vstring;
          Int size;
          Int capacity;
          
@@ -388,7 +388,7 @@ final class String {
    //UTF 8 point
    getPoint(Int posi) String {
       String buf = String.new(2);//Would it be better if this was 4?
-      var j = self.mbiter;
+      any j = self.mbiter;
       for (Int i = 0;i < posi;i = i++) {
          j.next(buf);
       }
@@ -1109,7 +1109,7 @@ final class Text:Strings {
    }
    
    joinBuffer(String delim, splits) String {
-      var i = splits.iterator;
+      any i = splits.iterator;
       if (i.hasNext!) {
          return(String.new());
       }
@@ -1151,8 +1151,8 @@ final class Text:Strings {
    commonPrefix(String a, String b) String {
       if (undef(a) || undef(b)) { return(null); }
       Int sz = Math:Ints.min(a.size, b.size);
-      var ai = a.biter;
-      var bi = b.biter;
+      any ai = a.biter;
+      any bi = b.biter;
       String av = String.new();
       String bv = String.new();
       for (Int i = 0;i < sz;i++=) {

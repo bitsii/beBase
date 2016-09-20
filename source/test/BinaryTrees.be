@@ -31,7 +31,7 @@ final class BinaryTrees {
       Int minDepth = 4;
 		Int n = 0;
       
-      var args = System:Process.new().args;
+      any args = System:Process.new().args;
 
 		if (args.length > 0) {
          n = Int.new(args[0]);

@@ -10,14 +10,14 @@ class Test:ToSerialize {
 
    new() self {
       fields {
-         var i = 10;
-         var s = "Hi";
-         var a = List.new(4);
-         var n = "Not so null";
-         var m = Map.new();
-         var v = List.new(3);
-         var t = true;
-         var f = false;
+         any i = 10;
+         any s = "Hi";
+         any a = List.new(4);
+         any n = "Not so null";
+         any m = Map.new();
+         any v = List.new(3);
+         any t = true;
+         any f = false;
       }
       a[1] = "a2";
       a[3] = "a4";
@@ -35,9 +35,9 @@ class Test:ToSerialize {
       r += "f is " += f.toString() += nl;
       return(r.toString());
    }
-   iteradd(String p, var a, String r) {
+   iteradd(String p, any a, String r) {
       String nl = "\n";
-      for (var j in a) {
+      for (any j in a) {
          if (undef(j)) {
             r += "next " += p += " is null " += nl;
          } else {
@@ -57,32 +57,32 @@ class Test:TestSerialize {
       //serializeNew(String, "Hi there").print();
       Serializer s = Serializer.new();
       
-      var x = Test:ToSerialize.new();
+      any x = Test:ToSerialize.new();
       x.n = null;
-      //var x = "Hi";
+      //any x = "Hi";
       
       /*
       x.serializeContents().print();
       1.serializeContents().print();
       */
       
-      var sbuf = String.new();
+      any sbuf = String.new();
       "1".print();
       s.serialize(x, sbuf);
       "2".print();
       sbuf.print();
       "3".print();
       
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       "4".print();
       y.print();
       "5".print();
       sbuf.clear();
-      var z = null;
+      any z = null;
       "6".print();
       s.serialize(z, sbuf);
       "7".print();
-      var zz = s.deserialize(sbuf);
+      any zz = s.deserialize(sbuf);
       "8".print();
       sbuf.print();
       "9".print();

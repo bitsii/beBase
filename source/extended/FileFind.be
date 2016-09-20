@@ -64,7 +64,7 @@ final FilterIterator {
 
    new(_fiter) self {
       fields {
-         var fiter = _fiter;
+         any fiter = _fiter;
          Bool needsInit = true;
          File current = null;
          Set includeTypes = null;
@@ -155,7 +155,7 @@ final FilterIterator {
       Bool globResult = false; //default unfiltered by glob
       if (def(includeGlobs)) {
          globResult = true;//if there are a glob includes, one needs to match
-         var giter = includeGlobs.iterator;
+         any giter = includeGlobs.iterator;
          //go until we match or get to end
          while (globResult && giter.hasNext) {
             if (giter.next.match(f.path.toString())) {

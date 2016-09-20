@@ -53,8 +53,8 @@ class Test:BaseTest:Template(BaseTest) {
    testRunner() {
       String buf = String.new();
       Runner runner;
-      var nd;
-      var nd2;
+      any nd;
+      any nd2;
       
       buf.clear();
       runner = Runner.new("Yo <?tt yup ?>  nop  <?tt nar ?>", buf);
@@ -170,7 +170,7 @@ class Test:BaseTest:Template(BaseTest) {
       
       r.accept(mt, String.new()).print();
       /*
-      for (var s in r.steps) {
+      for (any s in r.steps) {
          ("Step " + s.handle(mt)).print();
       }
       */
@@ -185,7 +185,7 @@ class Test:BaseTest:Template(BaseTest) {
       
       r.accept(mt, String.new()).print();
       /*
-      for (var s in r.steps) {
+      for (any s in r.steps) {
          ("Step " + s.handle(mt)).print();
       }
       */

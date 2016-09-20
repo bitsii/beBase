@@ -21,37 +21,37 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
    }
    
    getAccessor(node) {
-      var myselfn = Node.new(build);
+      any myselfn = Node.new(build);
       myselfn.typename = ntypes.VAR;
-      var myself = Build:Var.new();
+      any myself = Build:Var.new();
       myself.name = "self";
       myself.isTyped = true;
       myself.namepath = classnp;
       myself.isArg = true;
       myselfn.held = myself;
-      var mtdmyn = Node.new(build);
+      any mtdmyn = Node.new(build);
       mtdmyn.typename = ntypes.METHOD;
-      var mtdmy = Build:Method.new();
+      any mtdmy = Build:Method.new();
       mtdmy.isGenAccessor = true;
       mtdmyn.held = mtdmy;
-      var myparn = Node.new(build);
+      any myparn = Node.new(build);
       myparn.typename = ntypes.PARENS;
       myparn.addValue(myselfn);
       mtdmyn.addValue(myparn);
       myselfn.addVariable();
-      var mybr = Node.new(build);
+      any mybr = Node.new(build);
       mybr.typename = ntypes.BRACES;
       mtdmyn.addValue(mybr);
       return(mtdmyn);
    }
       
    getRetNode(node) {
-      var retnoden = Node.new(build);
+      any retnoden = Node.new(build);
       retnoden.typename = ntypes.CALL;
-      var retnode = Build:Call.new();
+      any retnode = Build:Call.new();
       retnode.name = "return";
       retnoden.held = retnode;
-      var sn = Node.new(build);
+      any sn = Node.new(build);
       sn.typename = ntypes.VAR;
       sn.held = "self";
       retnoden.addValue(sn);
@@ -59,9 +59,9 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
    }
       
    getAsNode(selfnode) {
-      var asnoden = Node.new(build);
+      any asnoden = Node.new(build);
       asnoden.typename = ntypes.CALL;
-      var asnode = Build:Call.new();
+      any asnode = Build:Call.new();
       asnode.name = "assign";
       asnoden.held = asnode;
       return(asnoden);
@@ -70,25 +70,25 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
    
    accept(Node node) Node {
       //if ((node.typename == ntypes.VAR) && (def(node.held.namepath))) {
-      //   ("Found namepath typed var again " + node.held.name + " " + node.held.namepath.toString()).print();
+      //   ("Found namepath typed any again " + node.held.name + " " + node.held.namepath.toString()).print();
       //}
       if (node.typename == ntypes.METHOD) {
-         var ia = node.contained.first.contained.first; //self
+         any ia = node.contained.first.contained.first; //self
          ia.held.isTyped = true;
          ia.held.namepath = classnp;
       } elseIf (node.typename == ntypes.CLASS) {
          classnp = node.held.namepath;
-         var tst = Build:Call.new();
-         for (var ii = node.held.orderedVars.iterator;ii.hasNext;;) {
-            var i = ii.next.held;
+         any tst = Build:Call.new();
+         for (any ii = node.held.orderedVars.iterator;ii.hasNext;;) {
+            any i = ii.next.held;
             tst.name = i.name.copy();
             tst.accessorType = "GET";
             tst.toAccessorName();
-            var ename = tst.name;
+            any ename = tst.name;
             tst.name = tst.name + "_0";
             if (i.isDeclared && (node.held.methods.has(tst.name)!)) {
             
-               var anode = getAccessor(node);
+               any anode = getAccessor(node);
                anode.held.property = i;
                anode.held.orgName = ename;
                anode.held.name = tst.name;
@@ -96,8 +96,8 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
                node.held.methods.put(anode.held.name, anode);
                node.held.orderedMethods.addValue(anode);
                node.contained.last.addValue(anode);
-               var rettnode = getRetNode(node);
-               var rin = Node.new(build);
+               any rettnode = getRetNode(node);
+               any rin = Node.new(build);
                rin.copyLoc(node);
                rin.typename = ntypes.VAR;
                rin.held = i.name.copy();
@@ -127,20 +127,20 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
                node.held.orderedMethods.addValue(anode);
                node.contained.last.addValue(anode);
                
-               var sv = anode.tmpVar("SET", build);
+               any sv = anode.tmpVar("SET", build);
                sv.isArg = true;
-               var svn = Node.new(build);
+               any svn = Node.new(build);
                svn.copyLoc(node);
                svn.typename = ntypes.VAR;
                svn.held = sv;
                
                anode.contained.first.addValue(svn);
-               var svn2 = Node.new();
+               any svn2 = Node.new();
                svn2.copyLoc(node);
                svn2.typename = ntypes.VAR;
                svn2.held = sv;
                
-               var asn = self.getAsNode(node);
+               any asn = self.getAsNode(node);
                rin = Node.new(build);
                rin.copyLoc(node);
                rin.typename = ntypes.VAR;
@@ -161,7 +161,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             throw(Build:VisitError.new("Call held is null", node));
          }
          if (node.held.isConstruct && undef(node.held.newNp)) {
-            var newNp = node.contained.first;
+            any newNp = node.contained.first;
             if (newNp.typename != ntypes.NAMEPATH) {
                if ((newNp.typename == ntypes.VAR) && (newNp.held.name == "self")) {
                   newNp = node.second;
@@ -181,11 +181,11 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
          node.held.orgName = node.held.name;
          node.held.name = node.held.name + "_" + node.held.numargs.toString();
          if (node.held.orgName == "assign") {
-            var c0 = node.contained.first;
+            any c0 = node.contained.first;
             if ((def(c0)) && (c0.typename == ntypes.VAR)) {
                c0.held.numAssigns = c0.held.numAssigns++;
             }
-            var c1 = node.contained.second;
+            any c1 = node.contained.second;
             if (def(c1) && c1.typename == ntypes.CALL) {
                //if (c1.held.isLiteral) {
                //   node.held.isOnce = true;  //no longer always, since now mutable - node.isLiteralOnce used instead
@@ -200,7 +200,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             }
          }
       } elseIf (node.typename == ntypes.BRACES) {
-         var bn = Node.new(build);
+         any bn = Node.new(build);
          if (def(node.contained) && def(node.contained.last)) {
             bn.nlc = node.contained.last.nlc;
          } else {
@@ -209,7 +209,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
          bn.typename = ntypes.RBRACES;
          node.addValue(bn);
       } elseIf (node.typename == ntypes.PARENS) {
-         var pn = Node.new(build);
+         any pn = Node.new(build);
          if (def(node.contained) && def(node.contained.last)) {
             pn.nlc = node.contained.last.nlc;
          } else {
@@ -227,13 +227,13 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
 
    new() self {
       fields {
-         var tvmap;
-         var rmap;
-         var inClass;
-         var inClassNp;
-         var inClassSyn;
-         var nl;
-         var emitter;
+         any tvmap;
+         any rmap;
+         any inClass;
+         any inClassNp;
+         any inClassSyn;
+         any nl;
+         any emitter;
       }
    }
    
@@ -267,7 +267,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
          rmap = Map.new();
       } elseIf ((node.typename == ntypes.VAR) && node.held.isTmpVar) {
          tvmap.put(node.held.name, node.held);
-         var ll = rmap.get(node.held.name);
+         any ll = rmap.get(node.held.name);
          if (undef(ll)) {
             ll = Container:LinkedList.new();
             rmap.put(node.held.name, ll)
@@ -281,25 +281,25 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
    }
    
    processTmps() {
-      var foundone = true;
-      var targ;
-      var tvar;
-      var tcall;
+      any foundone = true;
+      any targ;
+      any tany;
+      any tcall;
       ClassSyn syn;
-      var targNp;
-      var mtdc;
-      var ovar;
+      any targNp;
+      any mtdc;
+      any oany;
       while (foundone) {
          foundone = false;
-         for (var i = tvmap.valueIterator;i.hasNext;) {
-            var nv = i.next;
+         for (any i = tvmap.valueIterator;i.hasNext;) {
+            any nv = i.next;
             //("!!!Toplevel checking isTyped " + nv.name).print();
             if (nv.isTyped!) {
                //("!!!notTyped " + nv.name).print();
                //if it is typed it has already been found
-               var nvname = nv.name;
-               var ll = rmap.get(nvname);
-               for (var k in ll) {
+               any nvname = nv.name;
+               any ll = rmap.get(nvname);
+               for (any k in ll) {
                   if (k.isFirst && k.container.typename == ntypes.CALL && k.container.held.orgName == "assign" && k.container.second.typename == ntypes.CALL) {
                      //("!!!Found to be first arg to assign").print();
                      tcall = k.container.second;
@@ -312,13 +312,13 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                         //("Considering call " + tcall.held.name).print();
                         //targ.held.className.print();
                         if (targ.held.isDeclared) {
-                           tvar = targ.held;
+                           tany = targ.held;
                         } else {
-                           tvar = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
+                           tany = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
                            //in syn generation
                         }
-                        if (tvar.isTyped) {
-                           targNp = tvar.namepath;
+                        if (tany.isTyped) {
+                           targNp = tany.namepath;
                         }
                      }
                      if (def(targNp)) {
@@ -326,19 +326,19 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                         syn = build.getSynNp(targNp);
                         mtdc = syn.mtdMap.get(tcall.held.name);
                         if (def(mtdc)) {
-                           //"Found ovar".print();
-                           ovar = mtdc.rsyn;
-                           if (def(ovar) && ovar.isTyped) {
+                           //"Found oany".print();
+                           oany = mtdc.rsyn;
+                           if (def(oany) && oany.isTyped) {
                               foundone = true;
-                              //("typing a tmpvar a").print();
-                              if (ovar.isSelf) {
+                              //("typing a tmpany a").print();
+                              if (oany.isSelf) {
                                  nv.namepath = targNp;
                               } else {
-                                 nv.namepath = ovar.namepath;
+                                 nv.namepath = oany.namepath;
                               }
-                              nv.isTyped = ovar.isTyped;
+                              nv.isTyped = oany.isTyped;
                               inClass.held.addUsed(nv.namepath);
-                              if (nv.namepath.toString() == "self") { ("FOUND A SELF TMPVAR rewind " + ovar.isSelf).print(); }
+                              if (nv.namepath.toString() == "self") { ("FOUND A SELF TMPVAR rewind " + oany.isSelf).print(); }
                            }
                         } elseIf (tcall.held.orgName != "return") {
                            throw(Build:VisitError.new("No such call " + tcall.held.name + " in class " + targNp.toString(), tcall));
@@ -348,11 +348,11 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                      } */
                   } elseIf (k.isFirst && k.container.typename == ntypes.CALL && k.container.held.orgName == "assign" && k.container.second.typename == ntypes.VAR) {
                      targ = k.container.second.held;
-                     //("Considering var " + targ.name).print();
+                     //("Considering any " + targ.name).print();
                      if (targ.isTyped) {
                         //("FOUND REWINDABLE TMPVAR TYPE OPPORTUNITY VAR !!!").print();
                         foundone = true;
-                        //("typing a tmpvar b").print();
+                        //("typing a tmpany b").print();
                         nv.isTyped = targ.isTyped;
                         nv.namepath = targ.namepath;
                      }
@@ -369,10 +369,10 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
    
    new() self {
       fields {
-         var emitter;   
+         any emitter;   
          Node inClass;
-         var inClassNp;
-         var inClassSyn;
+         any inClassNp;
+         any inClassSyn;
          Int cpos;
       }
    }
@@ -380,7 +380,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
    accept(Node node) Node {
       if (node.typename == ntypes.CATCH) {
         if (node.contained.first.contained.first.held.isTyped) {
-            throw(Build:VisitError.new("Catch variables must be declared untyped (var)"));
+            throw(Build:VisitError.new("Catch anyiables must be declared untyped (any)"));
         }
       }
       if (node.typename == ntypes.CLASS) {
@@ -400,23 +400,23 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
             }
          }
          Node targ;
-         var tvar;
-         var ovar;
+         any tany;
+         any oany;
          ClassSyn syn;
-         var mtdmy;
+         any mtdmy;
          Node ctarg;
-         var cvar;
-         var mtdc;
+         any cany;
+         any mtdc;
          if (node.held.orgName == "assign") {
             targ = node.contained.first;
             //("About to check " + targ.toString() + " " + targ.held.className.toString()).print();
             if (targ.held.isDeclared) {
-               tvar = targ.held; //tvar is the variable being assigned to
+               tany = targ.held; //tany is the anyiable being assigned to
             } else {
-               tvar = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
+               tany = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
                //in syn generation
             }
-            if (tvar.isTyped!) {
+            if (tany.isTyped!) {
                node.held.checkTypes = false;
             } else {
                Node org = node.second;
@@ -426,73 +426,73 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                } else {
                   if (org.typename == ntypes.VAR) {
                      if (org.held.isDeclared) {
-                        ovar = org.held;
+                        oany = org.held;
                      } else { //TODO fix use of reserved word here
                         //targ.held.name.print();
-                        ovar = inClassSyn.ptyMap.get(org.held.name).memSyn; //all non-declared mmbers caught
+                        oany = inClassSyn.ptyMap.get(org.held.name).memSyn; //all non-declared mmbers caught
                         //in syn generation
                      }
                   } elseIf (org.typename == ntypes.CALL) {
                      ctarg = org.contained.first;//assigning to this node
-                     //cvar is the var being assigned to
+                     //cany is the any being assigned to
                      if (ctarg.held.isDeclared) {
                         //"2".print();
-                        cvar = ctarg.held;
+                        cany = ctarg.held;
                      } else {
                         //"3".print();
-                        cvar = inClassSyn.ptyMap.get(ctarg.held.name).memSyn; //all non-declared mmbers caught
+                        cany = inClassSyn.ptyMap.get(ctarg.held.name).memSyn; //all non-declared mmbers caught
                         //in syn generation
                      }
                      syn = null; //the syn where the call lives (target class for call)
                      if (def(org.held.newNp)) {
                         syn = build.getSynNp(org.held.newNp);
-                     } elseIf (cvar.isTyped){
+                     } elseIf (cany.isTyped){
                         //something needs to be done for isSelf
-                        syn = build.getSynNp(cvar.namepath);
+                        syn = build.getSynNp(cany.namepath);
                      }
                      if (def(syn)) {
                         mtdc = syn.mtdMap.get(org.held.name);
                         if (undef(mtdc)) {
                            throw(Build:VisitError.new("No such call", org));
                         } else {
-                           ovar = mtdc.rsyn;
+                           oany = mtdc.rsyn;
                         }
                      }
                   }
-                  if (def(ovar) && (ovar.isTyped)) {
-                     //here is where return type checking covariant / getEmitReturnType needs to happen
+                  if (def(oany) && (oany.isTyped)) {
+                     //here is where return type checking coanyiant / getEmitReturnType needs to happen
                      Bool castForSelf = false;
-                     if (ovar.isSelf) {
+                     if (oany.isSelf) {
                         //syn is call target class from above, nulled before set
                         if (undef(syn)) {
-                           throw(Build:VisitError.new("Self ovar without syn target"));
+                           throw(Build:VisitError.new("Self oany without syn target"));
                         }
-                        //ovar type is what matters
+                        //oany type is what matters
                         //declaration is the first place ever defined, origin is where this method was last overridden
                         //correct thing should be to compare origin to destination of assign
-                        if (mtdc.origin != tvar.namepath) { //TODO just test for tvar being BELOW mtdc.origin in hierarchy
+                        if (mtdc.origin != tany.namepath) { //TODO just test for tany being BELOW mtdc.origin in hierarchy
                             //we will need to cast despite compatibility TODO FASTER this could be a fast-cast...
                             castForSelf = true;
-                        } elseIf (def(build.emitCommon) && build.emitCommon.covariantReturns!) {
+                        } elseIf (def(build.emitCommon) && build.emitCommon.coanyiantReturns!) {
                             castForSelf = true;
                         }
                      } elseIf (def(mtdc)) {
                         syn = build.getSynNp(mtdc.getEmitReturnType(syn, build));
                      } else {
-                        syn = build.getSynNp(ovar.namepath);//before switch to the above
+                        syn = build.getSynNp(oany.namepath);//before switch to the above
                      }
                      //now syn is the syn of the return type of the call
-                     //("Checking for targ " + tvar.namepath.toString() + " ovar " + ovar.namepath.toString()).print();
-                     if (syn.castsTo(tvar.namepath)) {
+                     //("Checking for targ " + tany.namepath.toString() + " oany " + oany.namepath.toString()).print();
+                     if (syn.castsTo(tany.namepath)) {
                         //("!!!!Found compatible NOCHECK type assign").print();
                         node.held.checkTypes = false;
                      } else {
-                        if (ovar.isSelf) {
-                           var ovnp = syn.namepath;
+                        if (oany.isSelf) {
+                           any ovnp = syn.namepath;
                         } else {
-                           ovnp = ovar.namepath;
+                           ovnp = oany.namepath;
                         }
-                        syn = build.getSynNp(tvar.namepath);
+                        syn = build.getSynNp(tany.namepath);
                         if (syn.castsTo(ovnp)) {
                            //("!!!!Found compatible CHECK type assign " + ovnp + " " + syn.namepath).print();
                            node.held.checkTypes = true;
@@ -515,46 +515,46 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
             targ = node.second;
             if (targ.typename == ntypes.VAR) {
                if (targ.held.isDeclared) {
-                  tvar = targ.held;
+                  tany = targ.held;
                } else {
-                  tvar = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
+                  tany = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
                   //in syn generation
                }
                mtdmy = node.scope;
                if (targ.held.isDeclared) {
-                  tvar = targ.held;
+                  tany = targ.held;
                } else {
-                  tvar = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
+                  tany = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
                   //in syn generation
                }
                if (def(mtdmy.held.rtype) && mtdmy.held.rtype.isTyped) {
-                  if (tvar.isTyped!) {
+                  if (tany.isTyped!) {
                      //("Found typed return untyped target").print();
                      node.held.checkTypes = true;
                   } else {
                      // self type ret in here...
                      // check for impossible types
                      if (mtdmy.held.rtype.isSelf) {
-                        if (tvar.name == "self") {
-                           //("Found self return for self rtype, NOCHECK " + node.toString() + " " + tvar.isSelf).print();
+                        if (tany.name == "self") {
+                           //("Found self return for self rtype, NOCHECK " + node.toString() + " " + tany.isSelf).print();
                            node.held.checkTypes = false;
                         } else {
-                           var targsyn = build.getSynNp(tvar.namepath);
-                           if (inClassSyn.castsTo(tvar.namepath) || targsyn.castsTo(inClassSyn.namepath)) {
+                           any targsyn = build.getSynNp(tany.namepath);
+                           if (inClassSyn.castsTo(tany.namepath) || targsyn.castsTo(inClassSyn.namepath)) {
                               //("Found non-self return for self rtype, CHECK " + node.toString();).print();
                               node.held.checkTypes = true;
                            } else {
-                              throw(Build:VisitError.new("Incorrect type on return, returned type not castable to self type. " + inClassSyn.namepath + " " + tvar.namepath, node));
+                              throw(Build:VisitError.new("Incorrect type on return, returned type not castable to self type. " + inClassSyn.namepath + " " + tany.namepath, node));
                            }
                         }
                      } else {
-                        syn = build.getSynNp(tvar.namepath);
+                        syn = build.getSynNp(tany.namepath);
                         if (syn.castsTo(mtdmy.held.rtype.namepath)) {
                            //("!!!Found compatible NOCHECK typed return").print();
                            node.held.checkTypes = false;
                         } else {
                            syn = build.getSynNp(mtdmy.held.rtype.namepath);
-                           if (syn.castsTo(tvar.namepath)) {
+                           if (syn.castsTo(tany.namepath)) {
                               //("!!!Found compatible CHECK typed return").print();
                               node.held.checkTypes = true;
                            } else {
@@ -574,12 +574,12 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
             targ = node.contained.first;
             //("About to check " + targ.toString() + " " + targ.held.className.toString()).print();
             if (targ.held.isDeclared) {
-               tvar = targ.held;
+               tany = targ.held;
             } else {
-               tvar = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
+               tany = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
                //in syn generation
             }
-            if (tvar.isTyped! || node.held.orgName == "throw") {
+            if (tany.isTyped! || node.held.orgName == "throw") {
                node.held.checkTypes = true; //this is what will be passed with call... receiver should check types
             } else {
                node.held.checkTypes = false; 
@@ -590,7 +590,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                   syn = build.getSynNp(node.held.newNp);
                   mtdc = syn.mtdMap.get(node.held.name);
                } else {
-                  syn = build.getSynNp(tvar.namepath);
+                  syn = build.getSynNp(tany.namepath);
                   mtdc = syn.mtdMap.get(node.held.name);
                }
                if (undef(mtdc)) {
@@ -604,7 +604,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                      if (undef(nnode)) {
                         throw(Build:VisitError.new("Got a null nnode", nnode));//should be impossible
                      } elseIf (nnode.typename != ntypes.VAR && nnode.typename != ntypes.NULL) {
-                        throw(Build:VisitError.new("nnode is not a var " + nnode.typename.toString(), nnode));
+                        throw(Build:VisitError.new("nnode is not a any " + nnode.typename.toString(), nnode));
                      }
                      if (nnode.typename == ntypes.VAR) {
                         Build:Var carg = nnode.held;

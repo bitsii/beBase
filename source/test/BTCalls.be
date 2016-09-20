@@ -26,9 +26,9 @@ local class Test:BaseTest:Calls(BaseTest) {
       doIntish();
       Bool caught = false;
       try {
-         var x = ImpliedNew.new();
+         any x = ImpliedNew.new();
          x.notAble();
-      } catch (var e) {
+      } catch (any e) {
          caught = true;
       }
       assertTrue(caught);
@@ -67,9 +67,9 @@ local class Test:BaseTest:Calls(BaseTest) {
    }
    
    doMNDN() {
-      var s = self;
-      var res = s.noWay("BooBoo");
-      var fcall = res.first;
+      any s = self;
+      any res = s.noWay("BooBoo");
+      any fcall = res.first;
       assertEquals(fcall.name, "noWay");
       assertEquals(fcall.args.length, 1);
       assertEquals(fcall.args[0], "BooBoo");
@@ -84,7 +84,7 @@ local class Test:BaseTest:Calls(BaseTest) {
       "In forward".print();
       fcall.name.print();
       fcall.args.length.print();
-      for (var i in fcall.args) {
+      for (any i in fcall.args) {
          ("fcall.arg " + i).print();
       }
       return(Container:Pair.new(fcall, 26));
@@ -161,7 +161,7 @@ class Tests:CallArgs(BaseTest) {
       assertEqual(sixteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), sixteen);
       assertEqual(seventeen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17), seventeen);
             
-      var x = self; //for untyped cases
+      any x = self; //for untyped cases
       assertEqual(x.fifteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), fifteen);
       assertEqual(x.sixteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), sixteen);
       assertEqual(x.seventeen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17), seventeen);
@@ -328,8 +328,8 @@ class Tests:Exceptions(BaseTest) {
       Logic:Bool ok = false;
       try {
         thrower();
-      } catch (var e) {
-        for (var ef in e.frames) {
+      } catch (any e) {
+        for (any ef in e.frames) {
           if (ef.line > 0) {
             ok = true;
           }
@@ -350,7 +350,7 @@ class Tests:Exceptions(BaseTest) {
     testNEType() {
         try {
             throw(NotExcept.new());
-        } catch (var e) {
+        } catch (any e) {
             if (e.sameClass(NotExcept.new())!) {
                 throw(System:Exception.new("didn't get nonexcept"));
             }
@@ -364,7 +364,7 @@ class Tests:Exceptions(BaseTest) {
     testEType() {
         try {
             throw(AnExcept.new());
-        } catch (var e) {
+        } catch (any e) {
             if (e.sameClass(AnExcept.new())!) {
                 throw(System:Exception.new("didn't get anexcept"));
             }

@@ -48,7 +48,7 @@ final class Text:Tokenizer {
       String chi = String.new();
       while (i.hasNext) {
          i.next(chi);
-         var cc = tmap.get(chi);
+         any cc = tmap.get(chi);
          if (def(cc)) {
             if (accum.size > 0) {
                acceptor.acceptToken(accum.extractString());
@@ -71,7 +71,7 @@ final class Text:Tokenizer {
       String chi = String.new();
       while (i.hasNext) {
          i.next(chi);
-         var cc = tmap.get(chi);
+         any cc = tmap.get(chi);
          if (def(cc)) {
             if (accum.size > 0) {
                splits.addValue(accum.extractString());

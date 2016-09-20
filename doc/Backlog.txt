@@ -1,6 +1,4 @@
 
-var to any
-  
 gratuitous returns - just change semantics
   explicit any, void - see that works, yell at any non-void returns for void (return(), return(void))
   default void for no specification, fixup problems
@@ -19,7 +17,7 @@ gratuitous returns
   actually stop doing returns for void and reuse the called
   (except for untyped and js, which still return self - tho js could skip assign)
   
-for untyped vars, calls known to object are made as typed calls
+for untyped anys, calls known to object are made as typed calls
 direct accessors
 
 string swapValue, cache the hash value??
@@ -34,7 +32,7 @@ and or for && ||
 proper perf test suite
 no final test version of cycle for times 
 once many noop like new_0
-work out changing var names to avoid extra assign for obj new, int new, etc
+work out changing any names to avoid extra assign for obj new, int new, etc
   no declare too
 
 exception line matching should be a between, not exact match (see which is exact for inclusion)
@@ -86,7 +84,7 @@ switch string to mutating for everything (swap, etc)
 ___________________
 
  also, for many calls can avoid the call even if not literals (int add, sub, etc)
- in some cases (no escape (local vars, not called out except to "safe" mtds))
+ in some cases (no escape (local anys, not called out except to "safe" mtds))
    could do native ints, bools, same with local/final int/bool members
 final for static members (?) - readonly for c#
      onceDeced it's ok, not for not once deced (need to distinguish)
@@ -116,9 +114,9 @@ byteiterator is much much slower than just doing getInt on a string by length, s
 // test once assign with not combination
 string hash for javascript seems to be different than for others
 
-field prefix to var dec makes it a field
+field prefix to any dec makes it a field
 
-for native langs (esp js) generate stubs with "literal names" - ?vars, def methods, autoconvert strings, etc
+for native langs (esp js) generate stubs with "literal names" - ?anys, def methods, autoconvert strings, etc
 
 classNameSerializationIterator (same treatment as classNameIterator)
 
@@ -132,12 +130,12 @@ switch can to be like invoke and to have a genned method, this has been thought 
 readline find \n and just substring -1 if last is \r
     
 make it possible to skip calls and link up assignments betw org and final
-tmp var reduction
- direct use of onces, no tmp var assign (will then have mechanism to suppress existence
- of tmp vars, unnecessary assignments/use other variables, alias)
+tmp any reduction
+ direct use of onces, no tmp any assign (will then have mechanism to suppress existence
+ of tmp anys, unnecessary assignments/use other anyiables, alias)
  extend call et all to get the info through ("skip"))
  skip unneeded temp/assigns
- drop tmp vars for simple calls, chain where possible?
+ drop tmp anys for simple calls, chain where possible?
  reuse tmps if same type and only used once
   
 type inference - "auto"
@@ -168,7 +166,7 @@ Separate capacity set and len set (support shrink) have put unchecked
 dump { } ( ) where unneeded
 
 ---- no lang change req / additive ----
-for typed vars, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
+for typed anys, if they support forward could allow for calls they don't know about (and start them out "forwardcally") (now they fail)
 make js and others same behaviour
 add notEmpty to containers
 decide on mutating or not len for string et all and do it (thinking do)
@@ -186,7 +184,7 @@ clocker iterator, share lock with clocker
 for build to be threadsafe,
    nodes and syns needs threadsafe fixes
 
-utf8 in code (vars, classes, methods), encoding for < > ascii
+utf8 in code (anys, classes, methods), encoding for < > ascii
   http://www.cprogramming.com/tutorial/unicode.html
 
 info for embedders - main needs to run before start, outer thread should hold lock
@@ -234,7 +232,7 @@ http://stackoverflow.com/questions/3493252/javascript-prototype-operator-perform
 
 back strings with regular js List type of js integers (unsigned 8bit) for now.
 Converting from this to js string:  http://stackoverflow.com/questions/14028148/convert-integer-array-to-string-at-javascript
-https://stackoverflow.com/questions/2647867/how-to-determine-if-variable-is-undefined-or-null
+https://stackoverflow.com/questions/2647867/how-to-determine-if-anyiable-is-undefined-or-null
 More complete stack traces (opera, ie): http://www.eriwen.com/javascript/js-stack-trace/
 
 later(sooner?) support js typed arrays conditionally (should be much faster/better)
@@ -245,7 +243,7 @@ int 32bit (c int, int32_t), float 32bit (c float), add long 64 (c long long) and
 
 allow signatures to mark arguments as safe - as not incorporated into members, not mutated, not passed along
 
-in practice now, int is 32, long varies long long is 64
+in practice now, int is 32, long anyies long long is 64
 float is 32, double is 64
 unicode is max 4 bytes, fits in 32bit int
 have unsigned int value, for java, postive part of 64bit (long) - better because does not depend on
@@ -286,7 +284,7 @@ have a descendent of Assertions which has a main which runs all methods which be
 no arg and single arg calls (at least) w/out parens (return...)
 anon methods, become instances of system-method and can only be used/referenced via assignment (when genning them,
  have a different prefix for function - and they are not in any vtables, call maps, etc (they're unnamed as such, only referencable
- via variables)
+ via anyiables)
 
 smart, oldfart, ideas http://scottlocklin.wordpress.com/2013/07/28/ruins-of-forgotten-empires-apl-languages/
 
@@ -300,7 +298,7 @@ multi value return
 arbitrary precision arithmetic
 btrees, binary search trees
 
-method invocations which are final for object should be handled in a final way for untyped vars as for typed vars
+method invocations which are final for object should be handled in a final way for untyped anys as for typed anys
 
 support "and" and "or" along side && and || (just like you can do "not" as .not())
 ? for handle nulls gracefully (no iter) ?

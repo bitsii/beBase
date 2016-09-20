@@ -36,7 +36,7 @@ use final class Function:MapProxy {
 
     new(_target, _callName) {
         fields {
-            var target = _target;
+            any target = _target;
             String callName = _callName;
             List args = List.new(1);
         }

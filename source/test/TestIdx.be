@@ -7,7 +7,7 @@ class TestIdx {
    
    new() self {
       fields {
-         var outermem;
+         any outermem;
       }
    }
    
@@ -23,7 +23,7 @@ class TestIdx {
       m[1 + 1] = 2 + 7;
       m[9 - 7].print();
       
-      var x = Container:Map.new();
+      any x = Container:Map.new();
       x["hi bird"] = "foo";
       x["hi bird"].print();
    }

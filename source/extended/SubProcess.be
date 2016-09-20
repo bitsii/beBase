@@ -26,7 +26,7 @@ class SubProcess {
          String execName = _execName;
          String klass = _klass;
          Bool isOpen = false;
-         var heldBy;
+         any heldBy;
       }
    }
       

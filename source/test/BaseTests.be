@@ -19,9 +19,9 @@ class BaseTest(Assertions) {
    
    /*main() {
       ("Test:BaseTest:main").print();
-      for (var i in args) {
+      for (any i in args) {
          if (i != self.className) {
-            var x = createInstance(i).new();
+            any x = createInstance(i).new();
             x.main();
          }
       }
@@ -83,7 +83,7 @@ class Test:BaseTest:EC(BaseTest) {
             "start runTests".print();
             runTests();
             "end runTests".print();
-        } catch (var e) {
+        } catch (any e) {
             "got an except".print();
             //e.className.print();
             //e.print();
@@ -149,7 +149,7 @@ class Test:BaseTest:EC(BaseTest) {
       "In forward".print();
       fcall.name.print();
       fcall.args.length.print();
-      for (var i in fcall.args) {
+      for (any i in fcall.args) {
          ("fcall.arg " + i).print();
       }
       fields {
@@ -162,7 +162,7 @@ class Test:BaseTest:EC(BaseTest) {
    }
     
     testFc() {
-       var vs = self;
+       any vs = self;
        vs.quickOut("1");
        vs.quickOut("2");
        //if (true) { return(self); }
@@ -179,7 +179,7 @@ class Test:BaseTest:EC(BaseTest) {
         assertEqual(p1.a, "a");
         
         Int i = 0;
-        for (var v in p1) {
+        for (any v in p1) {
             if (i == 0) {
                 assertEqual(v, 1);
             } elseIf (i == 1) {
@@ -191,7 +191,7 @@ class Test:BaseTest:EC(BaseTest) {
         //if (true) { return(self); }
         
         i = 0;
-        for (var it = p1.iterator;it.hasNext) {
+        for (any it = p1.iterator;it.hasNext) {
             if (i == 0) {
                 it.next = 2;
             } elseIf (i == 1) {
@@ -220,11 +220,11 @@ class Test:BaseTest:EC(BaseTest) {
         //if (def(lb)) { }
         //if (undef(lb)) { }
         
-        var inn = IsNotNullNoDef.new();
-        var inh = IsNotNullHasDef.new();
+        any inn = IsNotNullNoDef.new();
+        any inh = IsNotNullHasDef.new();
         
-        var inn2 = IsNotNullNoDef.new();
-        var inh2 = IsNotNullHasDef.new();
+        any inn2 = IsNotNullNoDef.new();
+        any inh2 = IsNotNullHasDef.new();
         
         assertNotNull(inn);
         assertNotNull(inh);
@@ -285,7 +285,7 @@ class Test:BaseTest:EC(BaseTest) {
     }
     
     testGi() {
-        var i = createInstance("Math:Int").new();
+        any i = createInstance("Math:Int").new();
         assertTrue(i.sameClass(Math:Int.new()));
     }
     
@@ -404,7 +404,7 @@ class Test:BaseTest:EC(BaseTest) {
         ctt.threeArg(1, 2, 3).print();
         assertEqual(ctt.threeArg(1, 2, 3), "threeArg 1 2 3");
     
-        var ct = Test:BaseTest:CallTests.new();
+        any ct = Test:BaseTest:CallTests.new();
         ct.noArg().print();
         assertEqual(ctt.noArg(), "noArg");
         ct.oneArg(1).print();
@@ -416,7 +416,7 @@ class Test:BaseTest:EC(BaseTest) {
     }
     
     clname() {
-        var o = Math:Int.new();
+        any o = Math:Int.new();
         o.className.print();
         assertEqual(o.className, "Math:Int");
     
@@ -540,7 +540,7 @@ class Test:BaseTest:EC(BaseTest) {
             if (true) {
                 throw(System:Exception.new("was thrown"));
             }
-        } catch (var e) {
+        } catch (any e) {
             ("Caught " + e.toString()).print();
         }
     }
@@ -696,7 +696,7 @@ class Test:BaseTest:MutString(BaseTest) {
     }
     
     gi() {
-        var x = createInstance("Math:Int").new();
+        any x = createInstance("Math:Int").new();
         x.setValue(10);
         (x + 1).print();
     
@@ -1011,7 +1011,7 @@ class Test:BaseTest:All(BaseTest) {
          Test:BaseTest:Invoke.new().main();
          Test:BaseTest:Gc.new().main();
          Test:CREComp.new();
-         //} catch (var e) { 
+         //} catch (any e) { 
          //   e.print();
             
          //}

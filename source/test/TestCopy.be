@@ -3,8 +3,8 @@ class Test:TestCopy:Vars {
    
    prepare() {
       fields {
-         var a = System:Object.new();
-         var b = System:Object.new();
+         any a = System:Object.new();
+         any b = System:Object.new();
       }
    }
    
@@ -24,13 +24,13 @@ class Test:TestCopy {
       return(false);
       }
       
-      var other = Test:TestCopy:Vars.new();
+      any other = Test:TestCopy:Vars.new();
       other.prepare();
-      var othercp = other.copy();
+      any othercp = other.copy();
       if ((other.a == othercp.a) && (other != othercp)) {
-      " PASSED testCopy other var".print();
+      " PASSED testCopy other any".print();
       } else {
-      "!FAILED testCopy other var".print();
+      "!FAILED testCopy other any".print();
       return(false);
       }
       return(true);

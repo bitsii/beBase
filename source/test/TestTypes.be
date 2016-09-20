@@ -15,8 +15,8 @@ class Test:TestTypes {
    }
    
    testTypes() {
-      var x = Clp.new();
-      var y = Clc.new();
+      any x = Clp.new();
+      any y = Clc.new();
       x.sameType(y).print();
       y.sameType(x).print();
       x.sameType(x).print();

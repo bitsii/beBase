@@ -25,7 +25,7 @@ final class Log {
          LinkedList appenders = LinkedList.new();
          LinkedList fappenders = LinkedList.new();
          String nl = Text:Strings.newline;
-         var formatter;
+         any formatter;
       }
       
       appenders += IO:File:Writer:Stderr.new();
@@ -63,21 +63,21 @@ final class Log {
       if (def(formatter)) {
          message = formatter.format(message);
       }
-      for (var it = appenders.iterator;it.hasNext;) {
-         var i = it.next;
+      for (any it = appenders.iterator;it.hasNext;) {
+         any i = it.next;
          i.write(message);
          i.write(nl);
       }
       for (it = fappenders.iterator;it.hasNext;) {
          i = it.next;
-         var w = getWriter(i);
+         any w = getWriter(i);
          w.write(message);
          w.write(nl);
       }
    }
    
    getWriter(fappender) {
-      var w = fappender.writer;
+      any w = fappender.writer;
       if (w.isClosed) {
          w.openAppend();
       }
@@ -141,7 +141,7 @@ final class Logs {
    default() self {
       
       fields {
-         var defaultAppender = IO:File:Writer:Stderr.new();
+         any defaultAppender = IO:File:Writer:Stderr.new();
          Log default = Log.new(LogLevels.new().error, defaultAppender);
          Map logs = Map.new();
       }

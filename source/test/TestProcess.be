@@ -8,11 +8,11 @@ class Test:TestProcess{
    }
    
    TestProcess() {
-      var cnt = 0;
-      var ei = System:Process.new();
+      any cnt = 0;
+      any ei = System:Process.new();
       ei.numArgs.print();
       ei.execName.print();
-      for (var i = ei.args.iterator;i.hasNext;;) {
+      for (any i = ei.args.iterator;i.hasNext;;) {
          cnt = cnt++;
          i.next.print();
          //i.next;

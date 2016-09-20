@@ -40,8 +40,8 @@ local class File {
       
       fields {
          IO:File:Path path;
-         var reader;
-         var writer;
+         any reader;
+         any writer;
       }
       
    }
@@ -81,7 +81,7 @@ void** bevl_llpath;
       }
       ifEmit(c) {
         llpath = String.new(); //to prime String
-        var llpath = path.toString();
+        any llpath = path.toString();
       }
       if (self.exists) {
          emit(c) {
@@ -134,9 +134,9 @@ void** bevl_frv;
       String frs = path.toString();
       Bool r = false;
       Bool t = true;
-      var strn = Text:Strings.new();
+      any strn = Text:Strings.new();
       if ((path.toString() != strn.empty) && (self.exists!)) {
-         var parentpath = path.parent;
+         any parentpath = path.parent;
          if (path == parentpath) {
             //We're at the top and it doesn't exist
             return(self);
@@ -188,7 +188,7 @@ struct stat sa;
 void** bevl_spa;
       """
       }
-      var spa;
+      any spa;
       Bool result = false;
       spa = path.toString();
       if (self.exists) {
@@ -236,7 +236,7 @@ struct stat sa;
 void** bevl_spa;
       """
       }
-      var spa;
+      any spa;
       Bool result = false;
       spa = path.toString();
       if (self.exists) {
@@ -289,7 +289,7 @@ void** bevl_spa;
    }
    
    contentsNoCheckGet() String {
-      var r = self.reader;
+      any r = self.reader;
       r.open();
       String res = r.readString();
       r.close();
@@ -304,7 +304,7 @@ void** bevl_spa;
    }
    
    contentsNoCheckSet(String contents) self {
-      var w = self.writer;
+      any w = self.writer;
       w.open();
       w.write(contents);
       w.close();
@@ -332,7 +332,7 @@ void** bevl_mpath;
       """
       }
       Bool tvala = false;
-      var mpath = path.toString();
+      any mpath = path.toString();
       emit(c) {
       """
       bevl_mpath = $mpath&*;

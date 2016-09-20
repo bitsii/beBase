@@ -148,9 +148,9 @@ final class Build:Constants {
     prepare() {
    
       matchMap = Map.new();
-      var space = " ";
+      any space = " ";
       
-      var ntok = "/";
+      any ntok = "/";
       twtok = Text:Tokenizer.new(ntok, true);
       matchMap.put(ntok, ntypes.DIVIDE);
       
@@ -298,7 +298,7 @@ final class Build:Constants {
       rwords.put("final", ntypes.DEFMOD);
       rwords.put("local", ntypes.DEFMOD);
       rwords.put("notNull", ntypes.DEFMOD);
-      rwords.put("var", ntypes.VAR);
+      rwords.put("any", ntypes.VAR);
       rwords.put("if", ntypes.IF);
       rwords.put("unless", ntypes.IF);
       rwords.put("elseIf", ntypes.ELIF);

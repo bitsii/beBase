@@ -81,8 +81,8 @@ class System:Object {
    final methodNotDefined(System:ForwardCall forwardCall) {
       if (can("forward", 1)) {
          //call forward with stuff
-         var s = self;
-         var result = s.forward(forwardCall);
+         any s = self;
+         any result = s.forward(forwardCall);
          return(result);
       } elseIf(true) {
          throw(System:MethodNotDefined.new("Method: " + forwardCall.name + " not defined for class " + self.className));
@@ -113,7 +113,7 @@ void** bevl_cnamev;
       if (undef(cname)) {
          throw(System:InvocationException.new("class name is null"));
       }
-      var result = null;
+      any result = null;
       
       ifEmit(c) {
       
@@ -228,7 +228,7 @@ void** bevl_mcall;
       }
       String cname;
       Int chash;
-      var rval;
+      any rval;
       Int numargs;
       
       if (undef(name)) {
@@ -400,7 +400,7 @@ BEINT twcv_mserial;
       }
       String cname;
       Int chash;
-      var rval;
+      any rval;
       
       if (undef(name)) {
          throw(System:InvocationException.new("can() name is null"));
@@ -727,7 +727,7 @@ BEINT* bevl_toRet;
    //end serialization related
    
    create() self {
-   var copy;
+   any copy;
    emit(c) {
       """
 /*-attr- -dec-*/

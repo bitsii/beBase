@@ -30,8 +30,8 @@ class Test:Structy {
       fields {
          Int i;
          String s;
-         var x;
-         var y;
+         any x;
+         any y;
          String s2 = "StringS2";
       }
    }
@@ -41,19 +41,19 @@ class Test:Structy {
 class Test:ToSerialize {
 
    new() self {
-      var ai = 4;
-      var vi = 3;
+      any ai = 4;
+      any vi = 3;
       fields {
-         var i = 10;
-         var s = "Hi";
-         var a = List.new(ai);
-         var n = null;
-         var j = Set.new();
-         var m = Map.new();
-         var v = List.new(vi);
-         var l = LL.new();
-         var t = true;
-         var f = false;
+         any i = 10;
+         any s = "Hi";
+         any a = List.new(ai);
+         any n = null;
+         any j = Set.new();
+         any m = Map.new();
+         any v = List.new(vi);
+         any l = LL.new();
+         any t = true;
+         any f = false;
       }
       a[1] = "a2";
       a[3] = "a4";
@@ -77,9 +77,9 @@ class Test:ToSerialize {
       r += "i is " += i.toString() += nl;
       return(r.toString());
    }
-   iteradd(String p, var a, String r) {
+   iteradd(String p, any a, String r) {
       String nl = "\n";
-      for (var j in a) {
+      for (any j in a) {
          if (undef(j)) {
             r += "next " += p += " is null " += nl;
          } else {
@@ -159,10 +159,10 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerProps() {
       ("setup").print();
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
 
       SerProps x = SerProps.new();
-      x.beta = "uvarics";
+      x.beta = "uanyics";
       x.beta.print();
       //throw(System:Exception.new("same instance " + x.sameObject(x)));
       ("clear").print();
@@ -172,9 +172,9 @@ class Test:BaseTest:Serialize(BaseTest) {
       ("buf print").print();
       sbuf.print();
       ("deserialize").print();
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       ("asserts").print();
-      assertEquals(x.beta, "uvarics");
+      assertEquals(x.beta, "uanyics");
       ("xa " + x.alpha + " ya " + y.alpha).print();
       assertEquals(x.alpha, y.alpha);
       assertEquals(x.beta, y.beta);
@@ -247,7 +247,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       HasProps hp = HasProps.new();
 
-      var iter;
+      any iter;
 
       for (iter = hp.serializationIterator;iter.hasNext;) {
          iter.next.print();
@@ -267,7 +267,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
    testList() {
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
       sbuf.clear();
 
       List x = List.new();
@@ -275,7 +275,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       y.print();
       assertTrue(x[0] == y[0]);
       assertTrue(x.className == y.className);
@@ -284,7 +284,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
    testSet() {
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
       sbuf.clear();
 
       Set x = Set.new(13);
@@ -292,14 +292,14 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       //y.print();
       assertTrue(y.has("Hi"));
    }
 
    testMap() {
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
       sbuf.clear();
 
       Map x = Map.new();
@@ -307,14 +307,14 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       //y.print();
       assertTrue(x["Hi"] == y["Hi"]);
    }
 
    testSimpleCase() {
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
       sbuf.clear();
 
       Test:Structy x = Test:Structy.new();
@@ -325,7 +325,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       y.print();
       assertEquals(y.x[1], x.x[1]);
       assertEquals(y.y, -1);
@@ -335,7 +335,7 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSaveIdentity() {
       ("testSaveIdentity start").print();
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
       sbuf.clear();
 
       Test:Structy x = Test:Structy.new();
@@ -344,7 +344,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       y.print();
       assertTrue(y.x.sameObject(y.y));
 
@@ -360,12 +360,12 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerializePieces() {
       ("Test:BaseTest:Serialize:testSerializePieces").print();
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
 
-      var y;
-      var inst;
-      var sinst;
-      var iter;
+      any y;
+      any inst;
+      any sinst;
+      any iter;
 
       sbuf.clear();
       s.serialize(null, sbuf);
@@ -483,13 +483,13 @@ class Test:BaseTest:Serialize(BaseTest) {
    testEmptyString() {
 
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
 
       sbuf.clear();
       String str = "";
       s.serialize(str, sbuf);
       sbuf.print();
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       y.print();
       assertEquals(y, "");
 
@@ -498,12 +498,12 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerializePieces2() {
       ("Test:BaseTest:Serialize:testSerializePieces2").print();
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
 
-      var y;
-      var inst;
-      var sinst;
-      var iter;
+      any y;
+      any inst;
+      any sinst;
+      any iter;
 
       sbuf.clear();
 
@@ -602,12 +602,12 @@ class Test:BaseTest:Serialize(BaseTest) {
    }
 
    testPropertyIterator() {
-      var t = Test:ToSerialize.new();
-      var i = t.serializationIterator;
+      any t = Test:ToSerialize.new();
+      any i = t.serializationIterator;
       List v = List.new();
       ("Starting iterate").print();
       while (i.hasNext) {
-         var j = i.next;
+         any j = i.next;
          if (undef(j)) {
             ("Got null ").print();
          } else {
@@ -617,12 +617,12 @@ class Test:BaseTest:Serialize(BaseTest) {
       }
       ("End iterate").print();
       ("Starting insert iterate").print();
-      var tt = Test:ToSerialize.new();
+      any tt = Test:ToSerialize.new();
       v[0] = 25;
       v[8] = false;
       ("T" + t).print();
       i = tt.serializationIterator;
-      var vi = v.iterator;
+      any vi = v.iterator;
       while (vi.hasNext && i.hasNext) {
          i.next = vi.next;
       }
@@ -633,13 +633,13 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerialize() {
       ("Test:BaseTest:Serialize:testSerialize").print();
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
       ("Serialize").print();
       sbuf.clear();
-      var x = Test:ToSerialize.new();
+      any x = Test:ToSerialize.new();
       s.serialize(x, sbuf);
       ("Deserialize").print();
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       ("Deserialize Done").print();
       assertEquals(y.i, 10);
       assertEquals(y.s, "Hi");
@@ -659,12 +659,12 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerialize2() {
       ("Test:BaseTest:Serialize:testSerialize2").print();
       Serializer s = Serializer.new();
-      var sbuf = String.new();
+      any sbuf = String.new();
 
       sbuf.clear();
-      var x = Test:ToSerialize.new();
+      any x = Test:ToSerialize.new();
       s.serialize(x, sbuf);
-      var y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
 
       assertEquals(y.i, 10);
       assertEquals(y.s, "Hi");

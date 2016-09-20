@@ -28,7 +28,7 @@ local class CCallAssembler {
          Map fromTypes;
       }
       
-      var il;
+      any il;
       fromTypes = Map.new();
       
       il = CAssembleInt.new(build);
@@ -46,7 +46,7 @@ local class CCallAssembler {
    
    loadBuild(_build) {
       fields {
-         var build = _build;
+         any build = _build;
          String nl = _build.nl;
       }
    }
@@ -166,7 +166,7 @@ local class CCallAssembler {
          }
       }
       
-      var np = ca.node.contained.first.held.namepath;
+      any np = ca.node.contained.first.held.namepath;
       if (def(np)) {
          CCallAssembler fromType = fromTypes.get(np.toString());
          if (def(fromType)) {
@@ -179,7 +179,7 @@ local class CCallAssembler {
    }
    
    processAssign(CallCursor ca) String {
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.typeCheckAssign;
@@ -191,7 +191,7 @@ local class CCallAssembler {
    
       Assertions.assertTrue(ca.isValid);
       
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       String rhs = String.new() += ca.targs += "[" += (ca.asyn.ptyMap[ca.mtds.propertyName].mpos + ca.emvisit.build.constants.extraSlots).toString() += "]";
@@ -206,7 +206,7 @@ local class CCallAssembler {
    }
    
    processOptimizedSetter(CallCursor ca) String {
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.targs += "[" += (ca.asyn.ptyMap[ca.mtds.propertyName].mpos + ca.emvisit.build.constants.extraSlots).toString() += "] = " += ca.emvisit.formRTarg(ca.node.contained[1]) += ";" += nl;
@@ -218,7 +218,7 @@ local class CCallAssembler {
    
       Assertions.assertTrue(ca.isValid);
    
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -286,7 +286,7 @@ final class CAssembleInt(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
    
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -303,7 +303,7 @@ final class CAssembleInt(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
       
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -320,7 +320,7 @@ final class CAssembleInt(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
    
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -343,7 +343,7 @@ final class CAssembleInt(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
       ca.checkRetainTo();
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -366,7 +366,7 @@ final class CAssembleInt(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
       ca.checkRetainTo();
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -430,7 +430,7 @@ final class CAssembleFloat(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
    
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -447,7 +447,7 @@ final class CAssembleFloat(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
    
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -464,7 +464,7 @@ final class CAssembleFloat(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
       
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -487,7 +487,7 @@ final class CAssembleFloat(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
       ca.checkRetainTo();
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -510,7 +510,7 @@ final class CAssembleFloat(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
       ca.checkRetainTo();
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;
@@ -559,7 +559,7 @@ final class CAssembleBool(CCallAssembler) {
    
       Assertions.assertTrue(ca.isValid);
    
-      var nl = ca.emvisit.build.nl;
+      any nl = ca.emvisit.build.nl;
       String callRet = String.new();
       callRet += ca.preOnceEval;
       callRet += ca.callArgs;

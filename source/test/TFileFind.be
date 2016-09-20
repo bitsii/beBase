@@ -157,7 +157,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       if (f.exists && f.writable!) { f.writable = true;f.delete(); }
       
-      var w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -190,7 +190,7 @@ class Test:BaseTest:IO(BaseTest) {
       String line03 = "Newcastle" + nl;
       
       if (tf.exists) { tf.delete(); }
-      var w = tf.writer.open();
+      any w = tf.writer.open();
       w.write(line01);
       w.write(line02);
       w.write(line03);
@@ -200,7 +200,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       String builder = String.new();
       
-      var r = tf.reader.open();
+      any r = tf.reader.open();
       String rl01 = r.readBufferLine(builder);
       assertNotNull(rl01);
       assertEquals(line01, rl01.toString());
@@ -219,7 +219,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       tf.reader.close();
       
-      var br = tf.reader.open().byteReader(8);
+      any br = tf.reader.open().byteReader(8);
       String brb = br.next;
       while (br.hasNext) {
          brb.print();
@@ -238,7 +238,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      var w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -257,7 +257,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo hiss.txt");
       
-      var w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -291,7 +291,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      var w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -315,7 +315,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      var w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -361,7 +361,7 @@ class Test:BaseTest:IO(BaseTest) {
    }
    
    testReadStdin() {
-      var r = File:Reader:Stdin.new();
+      any r = File:Reader:Stdin.new();
       String b = r.readBufferLine();
       b.print();
       b = r.readBufferLine();

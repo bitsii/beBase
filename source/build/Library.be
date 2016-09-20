@@ -27,7 +27,7 @@ final class Build:Library {
          emitPath = basePath.copy();
       }
       if (def(libName)) {
-         var libnameNp = Build:NamePath.new();
+         any libnameNp = Build:NamePath.new();
          libnameNp.fromString(libName);
          if (undef(exeName)) { exeName = libName; }
          libnameInfo = Build:ClassInfo.new(libnameNp, build.emitter, emitPath, libName, exeName);

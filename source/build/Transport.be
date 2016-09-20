@@ -45,7 +45,7 @@ final class Build:Transport {
          }
          
          visitor.end(self);
-      } catch (var e) {
+      } catch (any e) {
          if (def(node)) {
             ("Caught exception during visit to node:").print();
             node.print();

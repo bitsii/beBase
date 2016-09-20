@@ -12,7 +12,7 @@ class Test:TestUnless {
       } else {
          "Second".print();
       }
-      var x = 0;
+      any x = 0;
       until(x == 1) {
          "Iter".print();
          x = x++;

@@ -26,11 +26,11 @@ final class System:Process {
       fields {
          Container:List args;
          Math:Int numArgs;
-         var execName;
+         any execName;
    
-         var target;
-         var result;
-         var except;
+         any target;
+         any result;
+         any except;
          
          System:CurrentPlatform platform = System:CurrentPlatform.new();
       }
@@ -57,7 +57,7 @@ final class System:Process {
   
   fullExecNameGet() {
     fields {
-        var fullExecName;
+        any fullExecName;
     }
     if (undef(fullExecName)) {
         emit(cs) {
@@ -125,7 +125,7 @@ final class System:Process {
       target = _target;
       try {
          result = target.main();
-      } catch (var e) {
+      } catch (any e) {
          except = e;
          e.print();
          return(1);//return non-0 for main usecases (process exit code)
@@ -134,7 +134,7 @@ final class System:Process {
    }
    
    startByName(_name) {
-      var t = createInstance(_name).new();
+      any t = createInstance(_name).new();
       return(start(t));
    }
 

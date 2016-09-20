@@ -49,7 +49,7 @@ final class Build:EmitData {
          }
          ub.put(myname);
       }
-      for (var iu = syn.superList.iterator;iu.hasNext;;) {
+      for (any iu = syn.superList.iterator;iu.hasNext;;) {
          s = iu.next.toString();
          ub = subClasses[s];
          if (undef(ub)) {

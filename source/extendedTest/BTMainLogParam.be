@@ -56,14 +56,14 @@ class Test:BaseTest:Parameters(BaseTest) {
    
    main() {
       ("Test:BaseTest:Parameters:main").print();
-      List vargs = List.new(6);
-      vargs[0] = "-bflag=true";
-      vargs[1] = "--skey";
-      vargs[2] = "svalue";
-      vargs[3] = "sarg";
-      vargs[4] = "-bflag2=true";
-      vargs[5] = "sargB2";
-      Parameters p = Parameters.new(vargs);
+      List anygs = List.new(6);
+      anygs[0] = "-bflag=true";
+      anygs[1] = "--skey";
+      anygs[2] = "svalue";
+      anygs[3] = "sarg";
+      anygs[4] = "-bflag2=true";
+      anygs[5] = "sargB2";
+      Parameters p = Parameters.new(anygs);
       assertTrue(p.isTrue("bflag"));
       assertFalse(p.isTrue("noflag"));
       assertEquals(p["skey"].first, "svalue");
@@ -79,14 +79,14 @@ class Test:BaseTest:Parameters(BaseTest) {
       p.preProcessor = self;
       assertEquals(v[1], "sargA2");
       
-      vargs = List.new(6);
-      vargs[0] = "-yo=true";
-      vargs[1] = "-t=true";
-      vargs[2] = "-f=false";
-      vargs[3] = "-yippee=dodah";
-      vargs[4] = "-yono=";
-      vargs[5] = "hi";
-      p = Parameters.new(vargs);
+      anygs = List.new(6);
+      anygs[0] = "-yo=true";
+      anygs[1] = "-t=true";
+      anygs[2] = "-f=false";
+      anygs[3] = "-yippee=dodah";
+      anygs[4] = "-yono=";
+      anygs[5] = "hi";
+      p = Parameters.new(anygs);
       assertTrue(p.isTrue("yo"));
       assertTrue(p.isTrue("t"));
       assertFalse(p.isTrue("f"));
@@ -95,17 +95,17 @@ class Test:BaseTest:Parameters(BaseTest) {
       assertEquals(p.ordered[0], "hi");
       ("Tested newer params").print();
       
-      var cargs = System:Process.args;
+      any cargs = System:Process.args;
       if (def(cargs)) {
         ("process args not null").print();
-        for (var carg in cargs) {
+        for (any carg in cargs) {
             ("Got process arg " + carg).print();
         }
       } else {
         ("process args null").print();
       }
       
-      var execName = System:Process.execName;
+      any execName = System:Process.execName;
       if (def(execName)) {
         ("got execName " + execName).print();
       } else {

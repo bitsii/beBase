@@ -58,7 +58,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          Build:ClassInfo superClassInfo;
          Build:ClassSyn superSyn;
          Build:ClassInfo classInfo;
-         var mmbers;
+         any mmbers;
          
          Build:CEmitter emitter;
          String nl;
@@ -120,23 +120,23 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
    }
    
    buildIncludes(node) {
-      var h = String.new();
-      var maxd = 0;
-      var deps = Map.new();
+      any h = String.new();
+      any maxd = 0;
+      any deps = Map.new();
       //("Doing buildIncludes for class " + node.held.namepath.toString()).print();
       Map unq = Map.new();
-      for (var it = node.held.used.iterator;it.hasNext;;) {
-         var np = it.next;
+      for (any it = node.held.used.iterator;it.hasNext;;) {
+         any np = it.next;
          if (def(np)) {
             //("Found namepath include " + np.toString()).print();
-            var nps = np.toString();
-            var syn = build.getSynNp(np);
+            any nps = np.toString();
+            any syn = build.getSynNp(np);
             if (unq.has(nps)! && build.closeLibraries.has(syn.libName)) {
                unq.put(nps, nps);
                if (syn.depth > maxd){
                   maxd = syn.depth;
                }
-               var ll = deps.get(syn.depth);
+               any ll = deps.get(syn.depth);
                if (undef(ll)) {
                   //("LL isnull for " + syn.depth.toString()).print();
                   ll = LinkedList.new();
@@ -147,11 +147,11 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          }
       }
       maxd = maxd + 1;
-      for (var j = 0;j < maxd;j = j++) {
+      for (any j = 0;j < maxd;j = j++) {
          ll = deps.get(j);
          if (def(ll)) {
             for (it = ll.iterator;it.hasNext;;) {
-               var clinfo = it.next;
+               any clinfo = it.next;
                //("Adding " + clinfo.classIncH.toString()).print();
                h = h + "#include <" + clinfo.classIncH.toString(emitter.build.platform.separator) + ">" + nl;
             }
@@ -165,12 +165,12 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
         //diff lang, not for me
         return("");
       }
-      var ll = node.held.text.split("/");
-      var isfn = false;
-      var isfs = false;
-      var isar = false;
-      var nextIsNativeSlots = false;
-      for (var i in ll) {
+      any ll = node.held.text.split("/");
+      any isfn = false;
+      any isfs = false;
+      any isar = false;
+      any nextIsNativeSlots = false;
+      for (any i in ll) {
          if (nextIsNativeSlots) {
             nextIsNativeSlots = false;
             nativeSlots = Int.new(i);
@@ -214,10 +214,10 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
             hincl = hincl + "#include <" + superClassInfo.classIncH.toString(emitter.build.platform.separator) + ">" + nl;
          }
       }
-      var j = node.transUnit.held.emits;
+      any j = node.transUnit.held.emits;
       if (def(j)) {
          for (j = j.iterator;j.hasNext;;) {
-            var jn = j.next;
+            any jn = j.next;
             if (jn.held.langs.has("c")) {
                 cincl = cincl + jn.held.text;
             }
@@ -231,7 +231,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       j = node.held.orderedVars;
       if (def(j)) {
          for (j = j.iterator;j.hasNext;;) {
-            var i = j.next;
+            any i = j.next;
          }
       }
       
@@ -503,7 +503,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       if (node.held.numargs > build.constants.maxargs) {
         abuf += ", void** beax";
       }
-      var proto = classInfo.mtdName + node.held.name + "( " + sargs + abuf + " ) ";
+      any proto = classInfo.mtdName + node.held.name + "( " + sargs + abuf + " ) ";
       methods += "void** " += proto += "{" += nl; // }
       methods += "/*Begin Mtd, Name: " += classInfo.mtdName += node.held.name += " */" += nl;
       methodsProto = build.dllhead(methodsProto);
@@ -514,9 +514,9 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       //return(-1);
       Int mymax = node.held.maxCpos;
       Int mymin = node.held.minCpos;
-      for (var kv in reum) {
+      for (any kv in reum) {
          Bool found = true;
-         for (var lv in kv.value) {
+         for (any lv in kv.value) {
             Int lvmin = lv.held.minCpos;
             Int lvmax = lv.held.maxCpos;
             if ((lvmax >= mymin) && (lvmin <= mymax)) {
@@ -538,12 +538,12 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       inMtdNamed = node.held.name;
       inMtdNode = node;
       protoMtd(node);
-      var ic = 0;
+      any ic = 0;
       String tcall = Text:String.new();
-      var argCheck = false;
+      any argCheck = false;
       Map reum = Map.new();
-      for (var it = node.held.orderedVars.iterator;it.hasNext;;) {
-         var i = it.next;
+      for (any it = node.held.orderedVars.iterator;it.hasNext;;) {
+         any i = it.next;
          if ((i.held.name != "self") && (i.held.name != "super")) {
             Int reuse = -1;
             if (ic > node.held.numargs) {
@@ -554,7 +554,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                   }
                }
                if (reuse == -1) {
-                  var hmax = inMtdNode.held.hmax;
+                  any hmax = inMtdNode.held.hmax;
                   i.held.vpos = hmax;
                   inMtdNode.held.hmax = hmax++;
                }
@@ -564,7 +564,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                   ll += i;
                }
             } else {
-               var amax = inMtdNode.held.amax;
+               any amax = inMtdNode.held.amax;
                i.held.vpos = amax;
                inMtdNode.held.amax = amax++;
                if (i.held.isTyped) {
@@ -597,11 +597,11 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       if (node.held.langs.has("c")!) {
         return(self);
       }
-      var ll = node.held.text.split("/");
+      any ll = node.held.text.split("/");
       //("Split done").print();
       Bool noRep = false;
-      var isdec = false;
-      for (var i in ll) {
+      any isdec = false;
+      for (any i in ll) {
          if (i == "*-attr- -dec-*") {
             isdec = true;
          }
@@ -623,7 +623,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
    handleEmitReplace(Node node) {
       
       Bool didArep = false;
-      Bool invar = false;
+      Bool inany = false;
       Bool asn = false;
       Bool vv = false;
       String vname;
@@ -633,13 +633,13 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       
       LinkedList toks = emitTok.tokenize(node.held.text);
       for (String tok in toks) {
-        if (invar) {
+        if (inany) {
             if (tok == "$") {
                 //found a $ but not a *, false case
                 until (heldToks.isEmpty) {
                     inlBlock += heldToks.dequeue();
                 }
-                //stay "invar" though, this one could be valid
+                //stay "inany" though, this one could be valid
                 heldToks += tok;
                 asn = false;
                 vv = false;
@@ -651,31 +651,31 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                     inlBlock += heldToks.dequeue();
                     } 
                     inlBlock += tok;
-                    invar = false;
+                    inany = false;
                     asn = false;
                     vv = false;
                 } else {
-                    //do the thing, output the var
+                    //do the thing, output the any
                     didArep = true;
-                    Node varNode = inMtdNode.held.varMap.get(vname);
-                    if (undef(varNode)) {
-                        varNode = inClass.held.varMap.get(vname);
-                        if (undef(varNode)) {
-                            throw(VisitError.new("Unable to find variable for inline replace variable named " + vname));
+                    Node anyNode = inMtdNode.held.anyMap.get(vname);
+                    if (undef(anyNode)) {
+                        anyNode = inClass.held.anyMap.get(vname);
+                        if (undef(anyNode)) {
+                            throw(VisitError.new("Unable to find anyiable for inline replace anyiable named " + vname));
                         }
                     }
                     if (asn) {
-                        vnameval = finalAssignTo(varNode, vv);
+                        vnameval = finalAssignTo(anyNode, vv);
                     } else {
                         if (vv) {
-                            String vnameval = formTarg(varNode);
+                            String vnameval = formTarg(anyNode);
                         } else {
-                            vnameval = formRTarg(varNode);
+                            vnameval = formRTarg(anyNode);
                         }
                     }
                     inlBlock += vnameval;
                     //end 
-                    invar = false;
+                    inany = false;
                     asn = false;
                     vv = false;
                     vname = null;
@@ -687,7 +687,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                     inlBlock += heldToks.dequeue();
                     } 
                     inlBlock += tok;
-                    invar = false;
+                    inany = false;
                     asn = false;
                     vv = false;
                 } else {
@@ -701,7 +701,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                     inlBlock += heldToks.dequeue();
                     } 
                     inlBlock += tok;
-                    invar = false;
+                    inany = false;
                     asn = false;
                     vv = false;
                 } else {
@@ -714,7 +714,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
             }
         } elseIf (tok == "$") {
             heldToks += tok;
-            invar = true;
+            inany = true;
         } else {
             inlBlock += tok;
         }
@@ -761,7 +761,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
    }
    
    //get the property index, for direct property cases this is a literal numeric (as string), otherwise it is
-   //the variable name which holds the runtime determined index 
+   //the anyiable name which holds the runtime determined index 
    getPropertyIndex(node) String {
       if (inClassSyn.directProperties) {
          return((inClassSyn.ptyMap[node.held.name].mpos + build.constants.extraSlots).toString());
@@ -772,7 +772,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
    }
    
    //get the method index, for direct method cases this is a literal numeric (as string), otherwise it is
-   //the variable name which holds the runtime determined index 
+   //the anyiable name which holds the runtime determined index 
    getMethodIndex(Build:ClassSyn asyn, Build:ClassSyn syn, String tsname) String {
       if (asyn.directMethods && build.closeLibraries.has(asyn.libName)) {
 		 //mtdxPad becaue this is an array "attached beind" the cldef struct in the same memory space
@@ -785,7 +785,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
    }
    
    //get the method def index, for direct method cases this is a literal numeric (as string), otherwise it is
-   //the variable name which holds the runtime determined index (- pad)
+   //the anyiable name which holds the runtime determined index (- pad)
    //this is like getMethodIndex above but without the mtdxPad, for use with the cldef mlist
    getMlistIndex(Build:ClassSyn asyn, Build:ClassSyn syn, String tsname) String {
       if (asyn.directMethods && build.closeLibraries.has(asyn.libName)) {
@@ -1054,12 +1054,12 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       String callArgsb = String.new();
       String bemxArg = "";
       Int argNum = 0;
-      for (var it = node.contained.iterator;it.hasNext;;) {
-         var i = it.next;
+      for (any it = node.contained.iterator;it.hasNext;;) {
+         any i = it.next;
          if (argNum == 0) {
-            var targetOrg = i.held.name;
+            any targetOrg = i.held.name;
             ca.targs = formTarg(i);
-            var targetNode = i;
+            any targetNode = i;
             String becdCast = "becd0";
             String mndCall = "BERF_MethodNotDefined0";
          } else {
@@ -1218,12 +1218,12 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          if (undef(ctargs)) {
             ctargs = ca.targs;
          }
-         var hn = nname.hash;
+         any hn = nname.hash;
          inClassSyn.allNames.put(nname, nname);
          emitter.registerName(nname);
-         var shn = hn.toString();
+         any shn = hn.toString();
          String twname = "twnn_" + build.libName + "_" + nname;
-         var snum = numargs.toString();
+         any snum = numargs.toString();
          if (ca.optimizedCall) {
             ca.tcall = ca.tcall + ca.ainfo.mtdName + nname + "( " + chkt + ", berv_sts, " + ctargs + beavArgs + bemxArg + " );" + nl;
          } else {
@@ -1299,7 +1299,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
    accept(Node node) Node {
       //("Visiting node type " + node.toString()).print();
       //if ((node.typename == ntypes.VAR) && (def(node.held.namepath))) {
-      //   ("Found namepath typed var again " + node.held.name + " " + node.held.namepath.toString()).print();
+      //   ("Found namepath typed any again " + node.held.name + " " + node.held.namepath.toString()).print();
       //}
       if (node.typename == ntypes.CLASS) {
          acceptClass(node);
@@ -1312,7 +1312,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
       } elseIf (node.typename == ntypes.IFEMIT) {
          return(acceptIfEmit(node));
       } elseIf ((node.typename == ntypes.CALL) && (node.held.orgName == "assign") && (node.contained.length != 2)) {
-         var errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
+         any errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
          for (Int ei = 0;ei < node.contained.length;ei = ei++) {
             errmsg = errmsg + " !!!" + ei + "!! " + node.contained[ei];
          }
@@ -1325,8 +1325,8 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          acceptCall(node);
       } elseIf (node.typename == ntypes.RBRACES) {
          if (def(node.container) && def(node.container.container)) {
-            var nct = node.container.container;
-            var ncct = nct.typename;
+            any nct = node.container.container;
+            any ncct = nct.typename;
             if (ncct == ntypes.METHOD) {
                if (inMtd) {
                   if (lastCallReturn!) {
@@ -1339,7 +1339,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                      }
                      thisMtd += "BEVReturn(bevs);" += nl;
                   }
-                  //bevs, self, belv local vars, method call args TWTYPES
+                  //bevs, self, belv local anys, method call args TWTYPES
                   Int mhmax = inMtdNode.held.hmax;
                   for (Int hi = 0;hi < mhmax;hi = hi++) {
                     mtdDeclares += "void** belv" += hi.toString() += " = NULL;" += nl;
@@ -1498,9 +1498,9 @@ final class CallCursor {
                                       but where we need to still do the type check post assign*/
          String embedAssignVV; /*the left hand of the assignment, for cases where the right hand is a void** type */
          String embedAssignV; /*the left hand of the assignment, for cases where the right hand is a void* type */
-         String embedTarg = "berv_sts->passBack"; /*passBack ok the formTarg of the var which received final assignment, for later use (literal sets, typecheck, etc)*/
-         String literalCdef; /*the class construct call (in C) for "literal" (e.g. Int x = 1; var y = "hi";) cases*/
-         String belsName; /*for string literals the name of the method static variable for the char array*/
+         String embedTarg = "berv_sts->passBack"; /*passBack ok the formTarg of the any which received final assignment, for later use (literal sets, typecheck, etc)*/
+         String literalCdef; /*the class construct call (in C) for "literal" (e.g. Int x = 1; any y = "hi";) cases*/
+         String belsName; /*for string literals the name of the method static anyiable for the char array*/
          String belsValue; /*the final string for the literal (unescaped if it should be)*/
       }
       

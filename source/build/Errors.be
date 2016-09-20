@@ -16,14 +16,14 @@ class Build:VisitError(System:Exception) {
    
    new(msgi, nodei) self {
       fields {
-         var msg = msgi;
-         var node = nodei;
+         any msg = msgi;
+         any node = nodei;
       }
    }
    
    toString() Text:String {
-      //var toRet = self.className + " ";//something wrong with self.className
-      var toRet = "";
+      //any toRet = self.className + " ";//something wrong with self.className
+      any toRet = "";
       if (def(msg)) {
          toRet = toRet + msg + " ";
       }

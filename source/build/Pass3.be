@@ -124,7 +124,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          } elseIf (typename == quoteType) {
             node.delayDelete();
             xn = node.nextPeer;
-            var csc = 1;
+            any csc = 1;
             while (def(xn) && xn.typename == quoteType) {
                csc = csc++;
                xn.delayDelete();
@@ -136,7 +136,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
                goingStr = null;
                inStr = false;
             } else {
-               for (var ia = 0;ia < csc;ia = ia++) {
+               for (any ia = 0;ia < csc;ia = ia++) {
                   goingStr.held = goingStr.held + node.held;
                }
             }

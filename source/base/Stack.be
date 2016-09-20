@@ -17,7 +17,7 @@ local class Node {
       fields {
          Node next;
          Node prior;
-         var held;
+         any held;
       }
    
    }
@@ -69,7 +69,7 @@ class Stack {
       if (undef(last)) {
          return(null);
       }
-      var item = last.held;
+      any item = last.held;
       last.held = null;
       size = size--;
       return(item);
@@ -150,7 +150,7 @@ class Queue {
       if (undef(bottom)) {
          return(null);
       }
-      var item = bottom.held;
+      any item = bottom.held;
       bottom.held = null;
       if (bottom == top) {
          bottom = null;
@@ -203,8 +203,8 @@ use System:Test:Extendable;
 class Extendable {
    new() self {
       fields {
-         var propa;
-         var propb;
+         any propa;
+         any propb;
       }
    }
    
@@ -219,7 +219,7 @@ class InExtending(Extendable) {
 
    new() self {
       fields {
-         var prop2a;
+         any prop2a;
       }
    }
    

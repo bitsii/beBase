@@ -61,7 +61,7 @@ use final class System:Initializer {
 BERT_ClassDef* bevl_scldef;
       """
       }
-      var init;
+      any init;
       emit(c) {
       """
          bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];
@@ -98,7 +98,7 @@ BERT_ClassDef* bevl_scldef;
 BERT_ClassDef* bevl_scldef;
       """
       }
-      var init;
+      any init;
       emit(c) {
       """
          bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];
@@ -122,7 +122,7 @@ BERT_ClassDef* bevl_scldef;
 BERT_ClassDef* bevl_scldef;
       """
       }
-      var init;
+      any init;
       emit(c) {
       """
          bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];
@@ -162,7 +162,7 @@ BERT_ClassDef* bevl_scldef;
 BERT_ClassDef* bevl_scldef;
       """
       }
-      var init;
+      any init;
       emit(c) {
       """
          bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];
@@ -304,7 +304,7 @@ final class System:Thing {
    new() self {
       
       fields {
-         //var vthing;
+         //any vthing;
       }
       
    }
@@ -387,7 +387,7 @@ class System:BasePath {
       LinkedList fpath = path.split(separator);
       LinkedList spath = other.path.split(separator);
       for (LIter i = spath.linkedListIterator;i.hasNext;;) {
-         var l = i.next;
+         any l = i.next;
          fpath.addValue(l);
       }
       String rstr = Text:Strings.new().join(separator, fpath);
@@ -524,11 +524,11 @@ class System:BasePath {
    subPath(Int start, Int end) {
       LinkedList st = self.steps;
       if (undef(end)) {
-         var ll = st.subList(start);
+         any ll = st.subList(start);
       } else {
          ll = st.subList(start, end);
       }
-      var res = create();
+      any res = create();
       res.separator = separator;
       res.path = Text:Strings.join(separator, ll);
       return(res);
@@ -590,7 +590,7 @@ final class System:CurrentPlatform (System:Platform) {
    
    buildProfile() {
       super.buildProfile();
-      var strings = Text:Strings.new();
+      any strings = Text:Strings.new();
       strings.newline = newline;
    }
    
@@ -639,7 +639,7 @@ class System:Platform {
       } else {
          throw(System:Exception.new("Platform " + name + " is not defined, platform must be defined in System:Platform"));
       }
-      var strings = Text:Strings.new();
+      any strings = Text:Strings.new();
       if (name == "mswin") {
          //newline = strings.dosNewline;
          newline = strings.unixNewline;
@@ -692,7 +692,7 @@ use local class System:ThinThread {
    
    new(_toRun) self {
      fields {
-       var toRun = _toRun;
+       any toRun = _toRun;
      }
    }
    
@@ -713,7 +713,7 @@ use local class System:ThinThread {
    }
    
    main() {
-     var e;
+     any e;
      try { 
       toRun.main();
      } catch (e) {
@@ -750,7 +750,7 @@ use final class System:Thread(ThinThread) {
    }
    
    main() {
-     var e;
+     any e;
      try { 
       started.o = true;
       returned.o = toRun.main();
@@ -814,13 +814,13 @@ class System:Thread:ContainerLocker {
   new(_container) self {
     fields {
       Lock lock = Lock.new();
-      var container;
+      any container;
     }
     lock.lock();
     try {
       container = _container;
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -831,7 +831,7 @@ class System:Thread:ContainerLocker {
     try {
       Bool r = container.has(key);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -843,7 +843,7 @@ class System:Thread:ContainerLocker {
     try {
       Bool r = container.has(key, key2);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -853,9 +853,9 @@ class System:Thread:ContainerLocker {
   get() {
     lock.lock();
     try {
-      var r = container.get();
+      any r = container.get();
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -865,9 +865,9 @@ class System:Thread:ContainerLocker {
   get(key) {
     lock.lock();
     try {
-      var r = container.get(key);
+      any r = container.get(key);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -877,10 +877,10 @@ class System:Thread:ContainerLocker {
   getAndClear(key) {
     lock.lock();
     try {
-      var r = container.get(key);
+      any r = container.get(key);
       container.delete(key);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -890,9 +890,9 @@ class System:Thread:ContainerLocker {
   get(p, k) {
     lock.lock();
     try {
-      var r = container.get(p, k);
+      any r = container.get(p, k);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -904,7 +904,7 @@ class System:Thread:ContainerLocker {
     try {
       container.addValue(key);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -913,9 +913,9 @@ class System:Thread:ContainerLocker {
   putReturn(key) {
     lock.lock();
     try {
-      var r = container.put(key);
+      any r = container.put(key);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -927,7 +927,7 @@ class System:Thread:ContainerLocker {
     try {
       container.put(key);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -936,9 +936,9 @@ class System:Thread:ContainerLocker {
   putReturn(key, value) {
     lock.lock();
     try {
-      var r = container.put(key, value);
+      any r = container.put(key, value);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -950,7 +950,7 @@ class System:Thread:ContainerLocker {
     try {
       container.put(key, value);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -959,9 +959,9 @@ class System:Thread:ContainerLocker {
   testAndPut(key, oldValue, value) {
     lock.lock();
     try {
-      var rc = container.testAndPut(key, oldValue, value);
+      any rc = container.testAndPut(key, oldValue, value);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -973,7 +973,7 @@ class System:Thread:ContainerLocker {
     try {
       Map rc = container.getMap();
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -985,7 +985,7 @@ class System:Thread:ContainerLocker {
     try {
       Map rc = container.getMap(prefix);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1002,7 +1002,7 @@ class System:Thread:ContainerLocker {
         didPut = true;
       }
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1013,13 +1013,13 @@ class System:Thread:ContainerLocker {
     lock.lock();
     try {
       if (container.has(key)) {
-        var result = container.get(key);
+        any result = container.get(key);
       } else {
         container.put(key, value);
         result = value;
       }
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1031,7 +1031,7 @@ class System:Thread:ContainerLocker {
     try {
       container.put(p, k, v);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1040,9 +1040,9 @@ class System:Thread:ContainerLocker {
   delete(key) {
     lock.lock();
     try {
-      var r = container.delete(key);
+      any r = container.delete(key);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1052,9 +1052,9 @@ class System:Thread:ContainerLocker {
   delete(p, k) {
     lock.lock();
     try {
-      var r = container.delete(p, k);
+      any r = container.delete(p, k);
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1066,7 +1066,7 @@ class System:Thread:ContainerLocker {
     try {
       Int r = container.size;
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1078,7 +1078,7 @@ class System:Thread:ContainerLocker {
     try {
       Bool r = container.isEmpty;
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1088,9 +1088,9 @@ class System:Thread:ContainerLocker {
   copyContainer() {
     lock.lock();
     try {
-      var r = container.copy();
+      any r = container.copy();
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1102,7 +1102,7 @@ class System:Thread:ContainerLocker {
     try {
       container.clear();
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1113,7 +1113,7 @@ class System:Thread:ContainerLocker {
     try {
       container.close();
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1133,13 +1133,13 @@ class OLocker {
   new(_obj) self {
     new();
     fields {
-      var obj;
+      any obj;
     }
     lock.lock();
     try {
       obj = _obj;
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1148,9 +1148,9 @@ class OLocker {
   oGet() {
     lock.lock();
     try {
-      var r = obj;
+      any r = obj;
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1160,10 +1160,10 @@ class OLocker {
   getAndClear() {
     lock.lock();
     try {
-      var r = obj;
+      any r = obj;
       obj = null;
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1179,7 +1179,7 @@ class OLocker {
         res = true;
       }
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }
@@ -1191,7 +1191,7 @@ class OLocker {
     try {
       obj = _obj;
       lock.unlock();
-    } catch (var e) {
+    } catch (any e) {
       lock.unlock();
       throw(e);
     }

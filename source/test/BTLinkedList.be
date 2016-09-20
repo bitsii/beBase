@@ -48,7 +48,7 @@ class Test:BaseTest:LinkedList(BaseTest) {
       ll += "hi";
       ll += "there";
       
-      var i = ll.iterator;
+      any i = ll.iterator;
       while (i.hasNext) {
          i.next = "boo";
       }
@@ -104,7 +104,7 @@ class Test:BaseTest:LinkedList(BaseTest) {
    }
    
    testLinkedList() {
-      var uux = LinkedList.new();
+      any uux = LinkedList.new();
       //if (undef(uux.firstItem)) { "isnull first".print(); } else { "notnull first".print(); }
       //return(false);
       if (testIter(uux, 0)) {
@@ -118,9 +118,9 @@ class Test:BaseTest:LinkedList(BaseTest) {
          return(false);
       }
       
-      var uuy = uux.copy();
-      var ix = uux.iterator;
-      var iy = uuy.iterator;
+      any uuy = uux.copy();
+      any ix = uux.iterator;
+      any iy = uuy.iterator;
       while (ix.hasNext) {
          if (ix.next != iy.next) {
             "!FAILED copy 1".print();
@@ -140,10 +140,10 @@ class Test:BaseTest:LinkedList(BaseTest) {
    }
    
    testIter(uux, should) {
-      var x = 0;
-      var i = uux.iterator;
+      any x = 0;
+      any i = uux.iterator;
       //if (i.hasNext) { "ihasnext".print(); } else { "inothavenext".print(); }
-      for (var h;i.hasNext;;) {
+      for (any h;i.hasNext;;) {
          //("In loop " + x.toString()).print();
          //i.next.print();
          i.next;

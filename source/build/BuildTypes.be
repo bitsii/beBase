@@ -101,12 +101,12 @@ final class Build:Class {
          String name;
          Build:NamePath namepath;
          Build:ClassSyn syn;
-         var fromFile;
-         var libName;
+         any fromFile;
+         any libName;
          Map methods = Map.new();
          LinkedList orderedMethods = LinkedList.new();
          LinkedList used = LinkedList.new();
-         Map varMap = Map.new();
+         Map anyMap = Map.new();
          LinkedList orderedVars = LinkedList.new();
          Bool isFinal = false;
          Bool isLocal = false;
@@ -118,7 +118,7 @@ final class Build:Class {
          Int onceEvalCount = 0;
          Set referencedProperties = Set.new();
          Bool shouldWrite = false;
-         Int belsCount = 0;//count for string literal array variable names (bels_#)
+         Int belsCount = 0;//count for string literal array anyiable names (bels_#)
       }
       
       Build:NamePath np;
@@ -163,10 +163,10 @@ final class Build:Method {
          String name;
          String orgName;
          Int numargs;
-         var property;
-         var rtype;
-         var tmpVars;
-         Map varMap = Map.new();
+         any property;
+         any rtype;
+         any tmpVars;
+         Map anyMap = Map.new();
          LinkedList orderedVars = LinkedList.new();
          Int tmpCnt = 0;
          Bool isGenAccessor = false;
@@ -198,7 +198,7 @@ final class Build:Var {
       fields {
          String name;
          Build:NamePath namepath;
-         var refs;
+         any refs;
          Set allCalls;
          String suffix;
          
@@ -240,7 +240,7 @@ final class Build:Var {
    
    maxCposGet() Int {
       if (maxCpos > -1) { return(maxCpos); }
-      for (var n in allCalls) {
+      for (any n in allCalls) {
          if (n.held.cpos > maxCpos) {
             maxCpos = n.held.cpos;
          }
@@ -252,7 +252,7 @@ final class Build:Var {
       Int bigun = Math:Ints.new().max;
       //("Bigun is " + bigun).print();
       if (minCpos < bigun) { return(minCpos); }
-      for (var n in allCalls) {
+      for (any n in allCalls) {
          if (n.held.cpos < minCpos) {
             minCpos = n.held.cpos;
          }

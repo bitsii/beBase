@@ -19,7 +19,7 @@ final class Build:Visit:Pass1(Build:Visit:Visitor) {
       fields {
          Set printAstElements;
          Bool allAstElements;
-         var f;
+         any f;
       }
    }
    

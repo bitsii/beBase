@@ -161,7 +161,7 @@ if (def(length)) {
       }
       
       fields {
-         //var varray;
+         //any anyray;
          Int length = leni.copy();
          Int capacity = capi.copy();
          Int multiplier =@ 2;
@@ -179,10 +179,10 @@ if (def(length)) {
       return(false);
    }
    
-   varrayGet() {
+   anyrayGet() {
    }
    
-   varraySet() {
+   anyraySet() {
    }
    
    serializeToString() String {
@@ -220,7 +220,7 @@ if (def(length)) {
    }
    
    get(Int posi) {
-      var val;
+      any val;
       if ((posi >= 0) && (posi < length)) {
       emit(jv,cs,js) {
       """
@@ -272,7 +272,7 @@ if (def(length)) {
    
    add(List xi) self {
       List yi = List.new(0, length + xi.length);
-      for (var c in self) {
+      for (any c in self) {
          yi.addValueWhole(c);
       }
       for (c in xi) {
@@ -297,7 +297,7 @@ if (def(length)) {
                c = j;
             }
          }
-         var hold = self[i];
+         any hold = self[i];
          self[i] = self[c];
          self[c] = hold;
       }
@@ -311,8 +311,8 @@ if (def(length)) {
       Int sl = second.length;
       while (i < length) {
          if (fi < fl && si < sl) {
-            var fo = first.get(fi);
-            var so = second.get(si);
+            any fo = first.get(fi);
+            any so = second.get(si);
             if (so < fo) {
                si = si++;
                put(i, so);
@@ -435,7 +435,7 @@ if (def(length)) {
    //find (or has) niavely finds
    find(value) Int {
      for (Int i = 0;i < length;i++=) {
-       var aval = get(i);
+       any aval = get(i);
        if (def(aval) && value == aval) {
          return(i);
        }
@@ -466,7 +466,7 @@ if (def(length)) {
      
      loop {
        Int mid = ((high - low) / 2) + low;
-       var aval = get(mid);
+       any aval = get(mid);
        if (value == aval) {
         return(mid);
        } elseIf (value > aval) {
