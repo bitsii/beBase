@@ -52,6 +52,11 @@ final class Build:Visit:Pass11(Build:Visit:Visitor) {
          if (((node.held.name == "return") || (node.held.name == "throw")) && (node.contained.length > 2)) {
              throw(Build:VisitError.new("This type must have exactly one anyiable, not " + node.contained.length.toString(), node));
          }
+         if (node.held.name == "return") {
+            if (def(inMtd.held.rtype) && (inMtd.held.rtype.implied)) {
+              inMtd.held.rtype = null;
+            }
+         }
          if (node.held.bound!) {
             any nd = Node.new(build);
             nd.copyLoc(node);

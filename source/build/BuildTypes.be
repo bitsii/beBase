@@ -30,6 +30,7 @@ final class Build:NamePath(System:BasePath) {
    resolve(node) Build:NamePath {
       String oldpath = self.path;
       if (oldpath == "self") { return(self); }
+      if (oldpath == "this") { return(self); }
       String fstep = self.firstStep;
       Node tunode = node.transUnit;
       System:BasePath par = tunode.held.aliased.get(fstep);
@@ -211,6 +212,8 @@ final class Build:Var {
          Bool isTyped = false;
          Int vpos = -1;
          Bool isSelf = false;
+         Bool isThis = false;
+         Bool implied = false;
          Int maxCpos = -1;
          Int minCpos = Math:Ints.new().max;
          String nativeName;
@@ -229,6 +232,8 @@ final class Build:Var {
       isTyped = full.isTyped;
       vpos = full.vpos;
       isSelf = full.isSelf;
+      isThis = full.isThis;
+      implied = full.implied;
    }
    
    addCall(Node call) {

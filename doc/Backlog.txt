@@ -1,8 +1,4 @@
 
-gratuitous returns - just change semantics
-  explicit any, void - see that works, yell at any non-void returns for void (return(), return(void))
-  default void for no specification, fixup problems
-  
 reintroduce proxy
   only for a typed call on a class with a particular method where method is unknown
 ___________________

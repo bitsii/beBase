@@ -192,9 +192,8 @@ class BQueue(Queue) {
     enqueue(item) {
       super.enqueue(item);
       if (size > max) {
-        return(dequeue());
+        dequeue();
       }
-      return(null);
     }
 }
 

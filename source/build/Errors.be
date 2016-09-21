@@ -23,12 +23,18 @@ class Build:VisitError(System:Exception) {
    
    toString() Text:String {
       //any toRet = self.className + " ";//something wrong with self.className
+      
       any toRet = "";
+      if (def(node)) {
+        any nc = node;
+        while (def(nc)) {
+          toRet += nc;
+          toRet += Text:Strings.new().newline;
+          nc = nc.container;
+        }
+      }
       if (def(msg)) {
          toRet = toRet + msg + " ";
-      }
-      if (def(node)) {
-         toRet = toRet + Text:Strings.new().newline + node.toString();
       }
       toRet = toRet + getFrameText();
       return(toRet);

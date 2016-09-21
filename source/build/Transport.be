@@ -49,6 +49,12 @@ final class Build:Transport {
          if (def(node)) {
             ("Caught exception during visit to node:").print();
             node.print();
+            any nc = node.container;
+            while (def(nc)) {
+              "contained by".print();
+              nc.print();
+              nc = nc.container;
+            }
             ("Exception:").print();
             e.print();
          } else {

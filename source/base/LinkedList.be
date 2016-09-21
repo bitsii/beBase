@@ -103,7 +103,7 @@ local Container:LinkedList:AwareNode(Node) {
       mylist = _mylist;
    }
    
-   heldSet(_held) {
+   heldSet(_held) this {
       held = _held;
       held.heldBy = self;
    }

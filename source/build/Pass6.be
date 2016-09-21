@@ -164,12 +164,28 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          i = node.second;
          if (i.typename == ntypes.VAR) {
             i.resolveNp();
-            //("!!!!!!Found return type " + i.toString()).print();
+            //("!!!!!!Found return type " + i.held.name).print();
             s.rtype = i.held;
-            if (s.rtype.namepath.toString() == "self") {
-               s.rtype.isSelf = true;
+            if (undef(s.rtype.namepath)) {
+              //"FOUND UNDEF RTYPE".print(); (will be "any")
+            } elseIf (s.rtype.namepath.toString() == "this") {
+              //"FOUND THIS RTYPE".print();
+              s.rtype.isTyped = true;
+              s.rtype.isSelf = true;
+              s.rtype.isThis = true;
+              s.rtype.namepath.path = "self";
+            } elseIf (s.rtype.namepath.toString() == "self") {
+              s.rtype.isTyped = true;
+              s.rtype.isSelf = true;
             }
             i.delete();
+         } else {
+           s.rtype = Build:Var.new();
+           s.rtype.isTyped = true;
+           s.rtype.isSelf = true;
+           s.rtype.isThis = true;
+           s.rtype.implied = true;
+           s.rtype.namepath = Build:NamePath.new("self");
          }
          any clnode = node.classGet();
          clnode.held.methods.put(s.name, node); //TODO check to see if already exists

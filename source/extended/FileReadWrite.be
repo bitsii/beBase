@@ -618,7 +618,7 @@ final class IO:File:Writer:Stdout(IO:File:Writer) {
    
    isClosedGet() Bool { return(false); }
    
-   isClosedSet(_isClosed) { }
+   isClosedSet(_isClosed) this { }
    
    open() {   }
    
@@ -647,7 +647,7 @@ final class IO:File:Writer:Stderr(IO:File:Writer) {
    
    isClosedGet() Bool { return(false); }
    
-   isClosedSet(_isClosed) { }
+   isClosedSet(_isClosed) this { }
    
    open() {   }
    
@@ -677,7 +677,7 @@ final class IO:File:Reader:Stdin(IO:File:Reader) {
    
    isClosedGet() Bool { return(false); }
    
-   isClosedSet(_isClosed) { }
+   isClosedSet(_isClosed) this { }
    
    open() {   }
    
@@ -705,7 +705,7 @@ final class IO:File:Writer:NoOutput(IO:File:Writer) {
    
    isClosedGet() Bool { return(false); }
    
-   isClosedSet(_isClosed) { }
+   isClosedSet(_isClosed) this { }
    
    open() {   }
    

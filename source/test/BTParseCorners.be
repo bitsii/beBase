@@ -44,7 +44,22 @@ final class Test:FinalsFC {
 
 }
 
-class Test:BaseTest:ParseCorners(BaseTest) {
+use Test:BaseTest:ParseCorners as PC;
+
+class PC(BaseTest) {
+
+   amtd() any {
+   
+   }
+   
+   tmtd() this {
+     //return(PC.new()); //should fail
+   }
+   
+   smtd() self {
+      PC boo = System:Object.new().create();
+      return(PC.new());
+   }
    
    main() {
       ("Test:BaseTest:ParseCorners:main").print();

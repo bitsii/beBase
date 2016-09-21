@@ -701,7 +701,7 @@ BEINT* bevl_toRet;
       return(self.className);
    }
    
-   deserializeFromString(String snw) { }
+   deserializeFromString(String snw) any { }
    
    serializeToString() String {
       return(null);

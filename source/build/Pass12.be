@@ -42,6 +42,11 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
       any mybr = Node.new(build);
       mybr.typename = ntypes.BRACES;
       mtdmyn.addValue(mybr);
+      mtdmy.rtype = Build:Var.new();
+      mtdmy.rtype.isSelf = true;
+      mtdmy.rtype.isThis = true;
+      mtdmy.rtype.isTyped = true;
+      mtdmy.rtype.namepath = Build:NamePath.new("self");
       return(mtdmyn);
    }
       
@@ -76,6 +81,9 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
          any ia = node.contained.first.contained.first; //self
          ia.held.isTyped = true;
          ia.held.namepath = classnp;
+         //if (def(node.held.rtype) && node.held.rtype.isThis) {
+         //   ("FOUND A THIS RETURN TYPE " + node.held.isGenAccessor).print();
+         //}
       } elseIf (node.typename == ntypes.CLASS) {
          classnp = node.held.namepath;
          any tst = Build:Call.new();
@@ -107,6 +115,8 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
                rin.syncVariable(self);
                if (i.isTyped) {
                   anode.held.rtype = i;
+               } else {
+                  anode.held.rtype = null;
                }
             
             }
@@ -529,6 +539,9 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                }
                if (def(mtdmy.held.rtype) && mtdmy.held.rtype.isTyped) {
                   if (tany.isTyped!) {
+                     if (mtdmy.held.rtype.isThis) {
+                       throw(Build:VisitError.new("Incorrect type on return, can only return(self); (actual self reference) for \"this\" return typed methods", node));
+                     }
                      //("Found typed return untyped target").print();
                      node.held.checkTypes = true;
                   } else {
@@ -539,6 +552,9 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                            //("Found self return for self rtype, NOCHECK " + node.toString() + " " + tany.isSelf).print();
                            node.held.checkTypes = false;
                         } else {
+                           if (mtdmy.held.rtype.isThis) {
+                             throw(Build:VisitError.new("Incorrect type on return, can only return(self); (actual self reference) for \"this\" return typed methods", node));
+                           }
                            any targsyn = build.getSynNp(tany.namepath);
                            if (inClassSyn.castsTo(tany.namepath) || targsyn.castsTo(inClassSyn.namepath)) {
                               //("Found non-self return for self rtype, CHECK " + node.toString();).print();
