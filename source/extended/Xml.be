@@ -158,7 +158,7 @@ class TagIterator {
       self.new();
    }
    
-   iteratorGet() {
+   iteratorGet() any {
       return(self);
    }
    

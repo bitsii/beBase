@@ -713,7 +713,7 @@ BEINT* bevl_toRet;
       return(System:ObjectFieldIterator.new(self));
    }
    
-   iteratorGet() {
+   iteratorGet() any {
       return(System:ObjectFieldIterator.new(self));
    }
    

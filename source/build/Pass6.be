@@ -167,7 +167,8 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             //("!!!!!!Found return type " + i.held.name).print();
             s.rtype = i.held;
             if (undef(s.rtype.namepath)) {
-              //"FOUND UNDEF RTYPE".print(); (will be "any")
+              //"FOUND UNDEF RTYPE".print();// (will be "any")
+              s.rtype = null;
             } elseIf (s.rtype.namepath.toString() == "this") {
               //"FOUND THIS RTYPE".print();
               s.rtype.isTyped = true;

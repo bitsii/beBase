@@ -34,6 +34,7 @@ final class VarSyn {
          NamePath namepath = full.namepath;
          Bool isTyped = full.isTyped;
          Bool isSelf = full.isSelf;
+         Bool isThis = full.isThis;
       }
    }
    
@@ -263,10 +264,17 @@ final class ClassSyn {
             omr = om.held.rtype;
             if (undef(pmr) || undef(omr)) {
                if (undef(pmr)! || undef(omr)!) {
+                  /*if (def(pmr)) { ("pmr " + pmr).print(); }
+                  if (def(omr)) { ("omr " + omr).print(); }
+                  if (def(omr) && undef(omr.name)) { "omr name undef".print(); } 
+                  elseIf (def(omr)) { ("omr name " + omr.name).print(); }*/
                   throw(Build:VisitError.new("Inheritance type mismatch error for return, one of parent or child are typed but not both!!!!! " + klass.held.namepath.toString(), om));
                }
             } else {
                //("Checking returntypes").print();
+               if (pmr.isThis && (pmr.isThis != omr.isThis)) {
+                 throw(Build:VisitError.new("Inheritance type mismatch error for return, parent return type is \"this\" but child is not " + klass.held.namepath.toString(), om));
+               }
                checkTypes(klass, build, pmr, omr, om);
             }  
          }

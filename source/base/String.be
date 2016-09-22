@@ -1270,7 +1270,7 @@ local class Text:ByteIterator {
    }
    
    //trick to allow for use with either iter, for (x in y.biter) or for (x in y.mbiter)
-   iteratorGet() {
+   iteratorGet() any {
       return(self);
    }
    
@@ -1322,7 +1322,7 @@ final class Text:MultiByteIterator(Text:ByteIterator) {
       return(self);
    }
    
-   iteratorGet() {
+   iteratorGet() any {
       return(self);
    }
    

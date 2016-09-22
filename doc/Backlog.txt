@@ -5,16 +5,20 @@ ___________________
 
 js all in page coding
   gens and evals in context (app is built (with build) syns are present, gen and eval code- new lib each time hit go (counter in name?) old code stays
-  
+
+gratuitous returns
+  stop using return type for this and use the call target instead for chains
+  actually stop doing returns for this
+  (except for untyped and js, which still return self - tho js could skip assign)
+
+direct accessors
+
 for callfromoper cases, if there is a "equalsName" method (for any call which was from oper) and arg is same type as caller call that instead
   do for string equals, notEquals, add, addValue, 
 
-gratuitous returns
-  actually stop doing returns for void and reuse the called
-  (except for untyped and js, which still return self - tho js could skip assign)
+for foreach case use iterator(TypeName) for typed types where available  
   
 for untyped anys, calls known to object are made as typed calls
-direct accessors
 
 string swapValue, cache the hash value??
 

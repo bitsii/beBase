@@ -692,7 +692,7 @@ class Container:Set:NodeIterator {
    }
    
    //to enable for for other iterators than the default, for b in map.blahiterator
-   iteratorGet() {
+   iteratorGet() any {
       return(self);
    }
    

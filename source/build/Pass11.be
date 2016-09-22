@@ -54,7 +54,19 @@ final class Build:Visit:Pass11(Build:Visit:Visitor) {
          }
          if (node.held.name == "return") {
             if (def(inMtd.held.rtype) && (inMtd.held.rtype.implied)) {
-              inMtd.held.rtype = null;
+              /*if (inMtd.held.name == "iteratorGet_0") {
+              ("return stuff").print();
+              for (any nc in node.contained) {
+                ("return contents " + nc).print();
+              }
+              }*/
+              Node nsc = node.first;
+              if (def(nsc) && nsc.typename == ntypes.VAR && nsc.held.name == "self") {
+                //("found a not remove implied").print();
+              } else {
+                //("removing rtype").print();
+                inMtd.held.rtype = null;
+              }
             }
          }
          if (node.held.bound!) {
