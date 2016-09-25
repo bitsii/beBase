@@ -329,9 +329,15 @@ class Tests:Exceptions(BaseTest) {
       try {
         thrower();
       } catch (any e) {
-        for (any ef in e.frames) {
-          if (ef.line > 0) {
-            ok = true;
+        if (undef(e.frames)) {
+          "frames undef".print();
+        } else {
+          "frames def".print();
+          
+          for (any ef in e.frames) {
+            if (ef.line > 0) {
+              ok = true;
+            }
           }
         }
         e.print();

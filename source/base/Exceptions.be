@@ -23,6 +23,7 @@ class System:Exception {
          LinkedList frames;
          String framesText;
          Bool translated;
+         Bool vv = false;
       }
       
       description = descr;
@@ -88,15 +89,21 @@ class System:Exception {
             isCs = false;
         }
         for (String line in lines) {
-            //("Frame line is " + line).print();
+          if (vv) {
+            ("Frame line is " + line).print();
+          }
             Int start = line.find("at ");
             String efile = null;
             Int eline = null;
             if (def(start) && start >= 0) {
-                //("start is " + start).print();
+              if (vv) {
+                ("start is " + start).print();
+              }
                 Int end = line.find(" ", start + 3);
                 if (def(end) && end > start) {
-                    //("end is " + end).print();
+                  if (vv) {
+                    ("end is " + end).print();
+                  }
                     String callPart = line.substring(start + 3, end);
                     //for cs, this is the one which has emit file and line
                     if (isCs) {
@@ -125,11 +132,15 @@ class System:Exception {
                     }  else {
                         start = line.find("(", end);//)
                         if (def(start)) {
-                          //("in js start def").print();
+                          if (vv) {
+                          ("in js start def").print();
+                          }
                           //(
                           end = line.find(")", start + 1);
                           if (def(end)) {
-                            //("in js end def").print();
+                            if (vv) {
+                            ("in js end def").print();
+                            }
                             inPart = line.substring(start + 1, end);
                             //("js in part |" + inPart + "|").print();
                             pdelim = inPart.rfind(":"); //drop pos in line
@@ -174,13 +185,22 @@ class System:Exception {
                     addFrame(fr);
                   } else {
                     //is js
-                    //("callPart |" + callPart + "|").print();
+                    if (vv) {
+                    ("callPart |" + callPart + "|").print();
+                    }
                     parts = callPart.split(".");
                     if (parts.size > 1) {
+                      if (parts.size > 2) {
+                        mtd = parts.get(2);
+                        klass = parts.get(1);
+                      } else {
                         mtd = parts.get(1);
-                        mtd = extractMethod(mtd);
-                        //("extracted mtd |" + mtd + "|").print();
                         klass = parts.get(0);
+                      }
+                        mtd = extractMethod(mtd);
+                        if (vv) {
+                        ("extracted mtd |" + mtd + "|").print();
+                        }
                         start = klass.find("BEC_");
                         if (def(start) && start > 0) {
                             end = klass.find("_", start + 4);
@@ -189,12 +209,23 @@ class System:Exception {
                                 //("libLens |" + libLens + "|").print();
                                 //Int libLen = Int.new(libLens);
                                 klass = klass.substring(start);
-                                //("pre extracted klass |" + klass + "|").print();
+                                if (vv) {
+                                ("pre extracted klass |" + klass + "|").print();
+                                }
                                 klass = extractKlass(klass);
-                                //("extracted klass |" + klass + "|").print();
+                                if (vv) {
+                                ("extracted klass |" + klass + "|").print();
+                                }
                                 fr = Exception:Frame.new(klass, mtd, efile, eline);
                                 fr.fileName = getSourceFileName(fr.klassName);
+                                if (vv) {
+                                "adding frame".print();
+                                }
                                 addFrame(fr);
+                            } else {
+                              if (vv) {
+                                "no end".print();
+                              }
                             }
                         }
                     }
@@ -218,6 +249,9 @@ class System:Exception {
         lang = "be";
      } else {
        //("TRANSLATION FAILED").print();
+     }
+     if (vv) {
+      ("translation done").print();
      }
    }
    
@@ -287,6 +321,10 @@ class System:Exception {
     //translate frames from emit lang to be if needed
     //will get from existing frames or from frame text depending on lang
     translateEmittedException();
+    if(vv) {
+    ("translation done").print();
+    }
+    
     return(frames);
    }
    

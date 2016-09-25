@@ -1,11 +1,7 @@
-
 reintroduce proxy
-  only for a typed call on a class with a particular method where method is unknown
-___________________
-
-js all in page coding
-  gens and evals in context (app is built (with build) syns are present, gen and eval code- new lib each time hit go (counter in name?) old code stays
-
+  >>>js with proxy, others with default in case<<<
+  can work for typed to in cases where the mtd is present
+  
 gratuitous returns
   stop using return type for this and use the call target instead for chains
   actually stop doing returns for this
@@ -17,9 +13,17 @@ for callfromoper cases, if there is a "equalsName" method (for any call which wa
   do for string equals, notEquals, add, addValue, 
 
 for foreach case use iterator(TypeName) for typed types where available  
+
+convenience syntax for array, map construction
+  have a container like loop (map, list?) can be a "call this method for everything here" generalization (eval(methodname) or the like)
+  the stuff in the block gets put into the map or list at the end with 
+  if(true) in the emitted code? or skip the braces?
+
+js all in page coding
+  gens and evals in context (app is built (with build) syns are present, gen and eval code- new lib each time hit go (counter in name?) old code stays
   
 for untyped anys, calls known to object are made as typed calls
-
+  
 string swapValue, cache the hash value??
 
 all in browser option (load for base, etc) (?precomp base? ?base comp?)
@@ -28,7 +32,7 @@ faster dev - node
 
 and or for && ||
 .not as a member on bool (as well as method)
-  
+    
 proper perf test suite
 no final test version of cycle for times 
 once many noop like new_0
@@ -37,8 +41,6 @@ work out changing any names to avoid extra assign for obj new, int new, etc
 
 exception line matching should be a between, not exact match (see which is exact for inclusion)
   sort, search
-
-javascript has the lib on it literally in the macro
   
 embed ondemand
 golang?
@@ -73,8 +75,6 @@ and a shell
 
 doc it up
 
-convenience syntax for array, map construction
-
 more ex app
 
 need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
@@ -94,9 +94,7 @@ direct member get/set where possible (typed, final or local w/o override), keep 
 
 named, optional parameters, ? parameter lists (or just very convenient array/map construct)
 
-libraries and linking
-library/library version
-tests sep from base lib (2 bld with libs)
+proxy for dynamic cases too- in case statement + js proxies (can work for typed too based on presnce of a particular call name)
 
 ---- bugs ----
 default return not picking up when wrong type
