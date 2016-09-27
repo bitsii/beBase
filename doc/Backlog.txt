@@ -1,6 +1,7 @@
-reintroduce proxy
-  >>>js with proxy, others with default in case<<<
-  can work for typed to in cases where the mtd is present
+
+make proxy work for typed too in cases where the mtd (forward) is present
+
+proxy work with js using js Proxy
   
 gratuitous returns
   stop using return type for this and use the call target instead for chains

@@ -21,7 +21,11 @@ local class Test:BaseTest:Calls(BaseTest) {
       ("Test:BaseTest:Calls:main").print();
       Test:BaseTest:Calls:ClassWith cw = Test:BaseTest:Calls:ClassWith.new();
       assertEquals(cw.i, 20);
-      //doMNDN();
+      
+      ifNotEmit(js) {
+        doMNDN();
+      }
+      
       doOnceEval();
       doIntish();
       Bool caught = false;
@@ -80,7 +84,7 @@ local class Test:BaseTest:Calls(BaseTest) {
       assertEquals(res.second, 26);
    }
    
-   forward(System:ForwardCall fcall) {
+   forwardCall(System:ForwardCall fcall) {
       "In forward".print();
       fcall.name.print();
       fcall.args.length.print();

@@ -79,10 +79,10 @@ class System:Object {
    }
    
    final methodNotDefined(System:ForwardCall forwardCall) {
-      if (can("forward", 1)) {
+      if (can("forwardCall", 1)) {
          //call forward with stuff
          any s = self;
-         any result = s.forward(forwardCall);
+         any result = s.forwardCall(forwardCall);
          return(result);
       } elseIf(true) {
          throw(System:MethodNotDefined.new("Method: " + forwardCall.name + " not defined for class " + self.className));
