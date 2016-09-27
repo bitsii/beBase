@@ -388,8 +388,8 @@ final class String {
    //UTF 8 point
    getPoint(Int posi) String {
       String buf = String.new(2);//Would it be better if this was 4?
-      any j = self.mbiter;
-      for (Int i = 0;i < posi;i = i++) {
+      Text:MultiByteIterator j = self.mbiter;
+      for (Int i = 0;i < posi;i++=) {
          j.next(buf);
       }
       String y = j.next(buf).toString();
@@ -1131,12 +1131,12 @@ final class Text:Strings {
          String step = mb.next;
          if (ws.has(step)) {
             if (foundChar) {
-               end = end++;
+               end++=;
             } else {
-               beg = beg++;
+               beg++=;
             }
          } else {
-            end = 0;
+            end.setValue(0);
             foundChar = true;
          }
       }

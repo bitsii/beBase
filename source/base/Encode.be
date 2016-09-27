@@ -17,11 +17,12 @@ local class Hex {
     default() self { }
     
     encode(String str) String {
+      Int ac = Int.new();
       String cur = String.new(2);
       Int ssz = str.size;
       String r = String.new(ssz * 2);
-      for (Int pos = 0;pos < ssz;pos = pos++) {
-         Int ac = str.getCode(pos);
+      for (Int pos = 0;pos < ssz;pos++=) {
+         str.getCode(pos, ac);
          r += ac.toHexString(cur);
       }
       return(r);
@@ -46,7 +47,7 @@ local class Hex {
          tb.next(pta);
          tb.next(ptb);
          r.setCodeUnchecked(pos, Int.hexNew(pta + ptb));
-         pos = pos++;
+         pos++=;
       }
       return(r)
    }

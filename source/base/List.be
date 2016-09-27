@@ -234,8 +234,10 @@ if (def(length)) {
    delete(Int pos)  {
       if (pos < length) {
          Int fl = length - 1;
-         for (Int i = pos;i < fl;i = i++) {
-            put(i, get(i + 1));
+         Int j = pos + 1;
+         for (Int i = pos.copy();i < fl;i++=) {
+            put(i, get(j));
+            j++=;
          }
          put(fl, null);
          lengthSet(length - 1);
@@ -253,14 +255,14 @@ if (def(length)) {
    }
    
    clear() self {
-      for (Int i = 0;i < length;i = i++) {
+      for (Int i = 0;i < length;i++=) {
          put(i, null);
       }
    }
    
    copy() self {
       List n = create();
-      for (Int i = 0;i < length;i = i++) {
+      for (Int i = 0;i < length;i++=) {
          n[i] = self[i];
       }
       return(n);
@@ -290,11 +292,11 @@ if (def(length)) {
    }
    
    sortValue(Int start, Int end) self {
-      for (Int i = start;i < end;i = i++) {
-         Int c = i;
-         for (Int j = i;j < end;j = j++) {
+      for (Int i = start.copy();i < end;i++=) {
+         Int c = i.copy();
+         for (Int j = i.copy();j < end;j++=) {
             if (self[j] < self[c]) {
-               c = j;
+               c = j.copy();
             }
          }
          any hold = self[i];
@@ -314,22 +316,22 @@ if (def(length)) {
             any fo = first.get(fi);
             any so = second.get(si);
             if (so < fo) {
-               si = si++;
+               si++=;
                put(i, so);
             } else {
-               fi = fi++;
+               fi++=;
                put(i, fo);
             }
          } elseIf (si < sl) {
             so = second.get(si);
-            si = si++;
+            si++=;
             put(i, so);
          } elseIf (fi < fl) {
             fo = first.get(fi);
-            fi = fi++;
+            fi++=;
             put(i, fo);
          }
-         i = i++;
+         i++=;
       }
    }
    
