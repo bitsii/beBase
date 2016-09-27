@@ -724,7 +724,7 @@ final class Build:Build {
    nodify(parnode, LinkedList toks) {
       parnode.reInitContained();
       Container:NodeList con = parnode.contained;
-      any nlc = 1;
+      Int nlc = 1;
       String cr = Text:Strings.new().cr;
       for (Container:LinkedList:Iterator i = toks.linkedListIterator;i.hasNext;;) {
          any node = Build:Node.new(self);

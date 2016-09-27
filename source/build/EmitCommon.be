@@ -869,7 +869,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                     decForVar(propertyDecs, i);
                     propertyDecs += ";" += nl;
                 }
-                ovcount = ovcount++;
+                ovcount++=;
             }
         }
         
@@ -916,7 +916,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         while (j < (dnumargs + 1) && j < maxDynArgs) {
             args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
             superArgs = superArgs + ", " + "bevd_" + (j - 1);
-            j = j++;
+            j++=;
         }
         if (dnumargs >= maxDynArgs) {
             args = args + ", " + objectCc.relEmitName(build.libName) + "[] bevd_x";
@@ -965,7 +965,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                         }
                         mcall += vcma += vcast += anyg;
                     }
-                    vnumargs = vnumargs++;
+                    vnumargs++=;
                 }
                 mcall += ");" += nl;
                 if (dynConditions) {
@@ -1346,7 +1346,7 @@ buildClassInfoMethod(String belsBase) {
       
       if ((node.held.orgName == "assign") && (node.contained.length != 2)) {
          any errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
-         for (Int ei = 0;ei < node.contained.length;ei = ei++) {
+         for (Int ei = 0;ei < node.contained.length;ei++=) {
             errmsg = errmsg + " !!!" + ei + "!! " + node.contained[ei];
          }
          throw(VisitError.new(errmsg, node));

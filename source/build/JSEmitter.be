@@ -38,7 +38,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
     acceptCatch(Node node) {
     String catchVar = "beve_" + methodCatch.toString();
-    methodCatch = methodCatch++;
+    methodCatch++=;
     methodBody += " catch (" += catchVar += ") {" += nl; //}
     
     //try to fix js

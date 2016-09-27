@@ -193,7 +193,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
          if (node.held.orgName == "assign") {
             any c0 = node.contained.first;
             if ((def(c0)) && (c0.typename == ntypes.VAR)) {
-               c0.held.numAssigns = c0.held.numAssigns++;
+               c0.held.numAssigns++=;
             }
             any c1 = node.contained.second;
             if (def(c1) && c1.typename == ntypes.CALL) {

@@ -56,7 +56,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
       //("!Visiting " + node.toString()).print();
        if ((typename == ntypes.DIVIDE) && (def(nextPeer)) && (nextPeerTypename == ntypes.MULTIPLY) && (inStr!)) {
          //comment begin, can nest
-         nestComment = nestComment++;
+         nestComment++=;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          node.delayDelete();
@@ -64,7 +64,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
        }
        if ((typename == ntypes.MULTIPLY) && (def(nextPeer)) && (nextPeerTypename == ntypes.DIVIDE) && (inStr!)) {
          //comment end, can nest
-         nestComment = nestComment--;
+         nestComment--=;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          node.delayDelete();
@@ -80,7 +80,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          strqCnt = 1;
          quoteType = node.typename;
          while (def(xn) && xn.typename == quoteType) {
-            strqCnt = strqCnt++;
+            strqCnt++=;
             xn.delayDelete();
             xn = xn.nextPeer;
          }
@@ -108,11 +108,11 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
             xn = node.nextPeer;
             Int fsc = 1;
             while (def(xn) && xn.typename == ntypes.FSLASH) {
-               fsc = fsc++;
+               fsc++=;
                xn.delayDelete();
                xn = xn.nextPeer;
             }
-            for (ia = 0;ia < fsc;ia = ia++) {
+            for (ia = 0;ia < fsc;ia++=) {
                goingStr.held = goingStr.held + node.held;
             }
             if (def(xn) && (fsc % 2 == 1) && (xn.typename == quoteType)) {
@@ -124,9 +124,9 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          } elseIf (typename == quoteType) {
             node.delayDelete();
             xn = node.nextPeer;
-            any csc = 1;
+            Int csc = 1;
             while (def(xn) && xn.typename == quoteType) {
-               csc = csc++;
+               csc++=;
                xn.delayDelete();
                xn = xn.nextPeer;
             }
@@ -136,7 +136,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
                goingStr = null;
                inStr = false;
             } else {
-               for (any ia = 0;ia < csc;ia = ia++) {
+               for (Int ia = 0;ia < csc;ia++=) {
                   goingStr.held = goingStr.held + node.held;
                }
             }
