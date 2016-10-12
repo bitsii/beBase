@@ -351,7 +351,12 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                               if (nv.namepath.toString() == "self") { ("FOUND A SELF TMPVAR rewind " + oany.isSelf).print(); }
                            }
                         } elseIf (tcall.held.orgName != "return") {
-                           throw(Build:VisitError.new("No such call " + tcall.held.name + " in class " + targNp.toString(), tcall));
+                           if (def(syn.mtdMap.get(tcall.held.orgName + "Args_1"))
+                             || def(syn.mtdMap.get("forwardCall_1"))) {
+                             tcall.held.untyped = true;
+                           } else {
+                           throw(Build:VisitError.new("No such call A " + tcall.held.name + " in class " + targNp.toString(), tcall));
+                           }
                         }
                      } /* else {
                         //"Targ np null".print();
@@ -463,7 +468,12 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                      if (def(syn)) {
                         mtdc = syn.mtdMap.get(org.held.name);
                         if (undef(mtdc)) {
-                           throw(Build:VisitError.new("No such call", org));
+                           if (def(syn.mtdMap.get(org.held.orgName + "Args_1"))
+                             || def(syn.mtdMap.get("forwardCall_1"))) {
+                             org.held.untyped = true;
+                           } else {
+                           throw(Build:VisitError.new("No such call B ", org));
+                           }
                         } else {
                            oany = mtdc.rsyn;
                         }
@@ -610,8 +620,14 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                   mtdc = syn.mtdMap.get(node.held.name);
                }
                if (undef(mtdc)) {
-                  throw(Build:VisitError.new("No such call", node));
+                 if (def(syn.mtdMap.get(node.held.orgName + "Args_1"))
+                             || def(syn.mtdMap.get("forwardCall_1"))) {
+                             node.held.untyped = true;
+                           } else {
+                  throw(Build:VisitError.new("No such call C ", node));
+                  }
                }
+               if (def(mtdc)) {
                List argSyns = mtdc.argSyns;
                Node nnode = targ.nextPeer; //the call argument
                for (Int i = 1;i < argSyns.length;i = i++;) {
@@ -641,6 +657,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                      }
                   }
                   nnode = nnode.nextPeer;
+               }
                }
             }
          }

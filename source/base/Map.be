@@ -702,3 +702,32 @@ class Container:Set:NodeIterator {
    
 }
 
+class Sets {
+
+  default() self { }
+
+  fromArgs(List list) {
+    Set set = Set.new(list.size * 2);
+    for (any v in list) {
+      set.put(v);
+    }
+    return(set);
+  }
+
+}
+
+class Maps {
+
+  default() self { }
+
+  fromArgs(List list) {
+    Int ls = list.size;
+    Map map = Map.new(ls);
+    for (Int i = 0;i < ls;i++=) {
+      map.put(list[i], list[i++=]);
+    }
+    return(map);
+  }
+
+}
+

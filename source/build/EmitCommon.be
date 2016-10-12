@@ -1540,7 +1540,7 @@ buildClassInfoMethod(String belsBase) {
             //any targetOrg = i.held.name;
             String target = formTarg(i);
             Node targetNode = i;
-            if (targetNode.held.isTyped) {
+            if (targetNode.held.isTyped && node.held.untyped!) {
                 isTyped = true;
             }
          } else {

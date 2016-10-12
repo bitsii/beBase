@@ -71,13 +71,13 @@ local class Test:BaseTest:Calls(BaseTest) {
    }
    
    doMNDN() {
-      any s = self;
-      any res = s.noWay("BooBoo");
+      any res = self.noWay("BooBoo");
       any fcall = res.first;
       assertEquals(fcall.name, "noWay");
       assertEquals(fcall.args.length, 1);
       assertEquals(fcall.args[0], "BooBoo");
       assertEquals(res.second, 26);
+      any s = self;
       res = s.getMyShirt;
       assertEquals(res.first.name, "getMyShirtGet");
       assertEquals(res.first.args.length, 0);

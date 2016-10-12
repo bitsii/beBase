@@ -1,7 +1,13 @@
 
-make proxy work for typed too in cases where the mtd (forward) is present
+just mit
 
 proxy work with js using js Proxy
+  or backward compat - http://wiki.ecmascript.org/doku.php?id=harmony%3Aproxies
+  if has forwardCall or anything ending Args with 1 arg
+  
+support something (>>? double,) as a "," equivalent, for map and such
+  
+list reverse or reverse sort (pluggable comparator)
   
 gratuitous returns
   stop using return type for this and use the call target instead for chains
@@ -14,11 +20,6 @@ for callfromoper cases, if there is a "equalsName" method (for any call which wa
   do for string equals, notEquals, add, addValue, 
 
 for foreach case use iterator(TypeName) for typed types where available  
-
-convenience syntax for array, map construction
-  have a container like loop (map, list?) can be a "call this method for everything here" generalization (eval(methodname) or the like)
-  the stuff in the block gets put into the map or list at the end with 
-  if(true) in the emitted code? or skip the braces?
 
 js all in page coding
   gens and evals in context (app is built (with build) syns are present, gen and eval code- new lib each time hit go (counter in name?) old code stays
@@ -92,8 +93,6 @@ final for static members (?) - readonly for c#
 get rid of calls to once and many
 
 direct member get/set where possible (typed, final or local w/o override), keep gen accessors
-
-named, optional parameters, ? parameter lists (or just very convenient array/map construct)
 
 proxy for dynamic cases too- in case statement + js proxies (can work for typed too based on presnce of a particular call name)
 
@@ -254,8 +253,6 @@ recursive file - dir delete
 need more tests for time and interval
 
 map-like get put on obj could use accessors to get/put, index too (using prop iter)
-
-have a convention (?based on namepath) to allow direct use of emit lang as if it was native be code
 
 with mutable literals convention is for the mutator to assure safety of references by copying them, assuming that unknown code may depend on the value not changing
 

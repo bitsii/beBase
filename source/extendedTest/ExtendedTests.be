@@ -115,6 +115,7 @@ class Test:ExtendedTest:EC(BaseTest) {
         testSha256();
         testThreads();
         testLocks();
+        testVarArgs();
       }
       
       //} catch (any e) { 
@@ -124,6 +125,24 @@ class Test:ExtendedTest:EC(BaseTest) {
      
      ("Test:ExtendedTest:Ec:main completed successfully").print();
       
+   }
+   
+   testVarArgs() {
+   
+      List va = Lists.from(1, 2, 3, 4);
+      assertEquals(va.size, 4);
+      assertEquals(va[1], 2);
+      
+      Set sa = Sets.toAny().from(5, 6, 7, 8);
+      assertEquals(sa.size, 4);
+      assertTrue(sa.has(5));
+      assertTrue(sa.has(8));
+      
+      Map ma = Maps.from(5, 6, 7, 8);
+      assertEquals(ma[5], 6);
+      assertEquals(ma[7], 8);
+      assertFalse(ma.has(8));
+   
    }
    
    testNullEquals() {

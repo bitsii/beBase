@@ -79,6 +79,9 @@ class System:Exception {
      if (def(translated) && translated) {
        return(self);
      }
+     if (undef(vv)) {
+       vv = false;
+     }
      translated = true;
      if (def(framesText) && def(lang) && (lang == "cs" || lang == "js")) {
         Text:Tokenizer ltok = Text:Tokenizer.new("\r\n");

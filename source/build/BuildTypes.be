@@ -312,6 +312,7 @@ final class Build:Call {
          Bool superCall = false; //set late, in emitcommon
          Bool wasImpliedConstruct = false;
          Bool wasForeachGenned = false;
+         Bool untyped = false;//was type removed
          
          List argCasts = List.new();
          //args which need to be cast for the call, if any, have entries here with namepath (otherwise, null).  starts at 1 as args do elsewhere (target is always 0)

@@ -78,7 +78,21 @@ class System:Object {
       return(methodNotDefined(forwardCall));
    }
    
+   final toAny() any {
+     return(self);
+   }
+   
    final methodNotDefined(System:ForwardCall forwardCall) {
+      if (def(forwardCall) && def(forwardCall.name)) {
+        String fcn = forwardCall.name + "Args";
+        if (can(fcn, 1)) {
+          s = self;
+          List args = List.new(1);
+          args[0] = forwardCall.args;
+          result = s.invoke(fcn, args);
+          return(result);
+        }
+      }
       if (can("forwardCall", 1)) {
          //call forward with stuff
          any s = self;

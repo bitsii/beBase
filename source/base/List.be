@@ -493,4 +493,14 @@ if (def(length)) {
    }
 }
 
+class Lists {
+
+  default() self { }
+
+  fromArgs(List list) {
+    return(list);//use varargs for convenient list creation
+  }
+
+}
+
 
