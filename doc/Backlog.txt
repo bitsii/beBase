@@ -83,6 +83,7 @@ need to have nested exceptions (and output the nest on print) - just "linked lis
 
 switch string to mutating for everything (swap, etc)
 
+c++?/objc?/swift?
 ___________________
 
  also, for many calls can avoid the call even if not literals (int add, sub, etc)
@@ -117,6 +118,8 @@ field prefix to any dec makes it a field
 for native langs (esp js) generate stubs with "literal names" - ?anys, def methods, autoconvert strings, etc
 
 classNameSerializationIterator (same treatment as classNameIterator)
+
+ide service - https://tech.slashdot.org/story/16/10/22/164226/rust-implements-an-ide-protocol-from-red-hats-collaboration-with-microsoft-and-codenvy
 
 safe navigation (null check then call, "?.")
 safe equal check (?==) (not null and equals) (check just the called on?)

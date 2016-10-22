@@ -18,14 +18,32 @@ use class Tests:TestJson(Assertions) {
     
     main() {
         
-        //testJustStr();
-        //return(self);
+        testRemarshall();
+        //if (true) { return(self); }
         
         testJustStr();
         testUcEscape();
         testUnEscape();
         testMarshall();
         testUnmarshall();
+        testRemarshall();
+        
+    }
+    
+    testRemarshall() {
+        //String org = "{\"args\":[{\"viewBeaconName\":\"mmm\",\"viewBeaconToken\":\"UWNQHRAIAZIHSPFGXPOHGZDAJSXKHNQS\"},{\"viewBeaconDiv\":\"block\"}],\"action\":\"setElementsValuesDisplaysResponse\"}";
+        //String back = "{\"block\":\"action\",\"args\":[{\"viewBeaconName\":\"mmm\",\"viewBeaconToken\":\"UWNQHRAIAZIHSPFGXPOHGZDAJSXKHNQS\"}]}";
+        
+        String org = "{\"a\":[{\"hi\":\"there\"}, {\"yo\", \"dude\"}]}";
+        
+        Map res = Json:Unmarshaller.unmarshall(org);
+        String fin = Json:Marshaller.marshall(res);
+        
+        ("org " + org + " fin " + fin).print();
+        
+        res = Json:Unmarshaller.unmarshall("{\"args\":[{\"viewBeaconName\":\"mmm\",\"viewBeaconToken\":\"UWNQHRAIAZIHSPFGXPOHGZDAJSXKHNQS\"},{\"viewBeaconDiv\":\"block\"}],\"action\":\"setElementsValuesDisplaysResponse\"}");
+        assertEqual(res["action"], "setElementsValuesDisplaysResponse");
+        
     }
     
     testJustStr() {

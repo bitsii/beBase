@@ -9,6 +9,7 @@
 use Container:Map;
 use Container:Set;
 use Container:LinkedList;
+use Container:Pair;
 use Constainer:Stack;
 use Math:Int;
 use Logic:Bool;
@@ -293,7 +294,6 @@ use class Json:Marshaller {
           //Instances for determining types when marshalling
           String str = String.new();
           //list
-          LinkedList lls = LinkedList.new();
           List arr = List.new(1); 
           //map
           Map map = Map.new();
@@ -331,7 +331,7 @@ use class Json:Marshaller {
          writer.write("null");
        } elseIf (inst.sameType(str)) {
          marshallWriteString(inst, writer);
-       } elseIf (inst.sameType(lls) || inst.sameType(arr)) {
+       } elseIf (inst.sameType(arr)) {
          marshallWriteList(inst, writer);
        } elseIf (inst.sameType(map)) {
          marshallWriteMap(inst, writer);
@@ -468,122 +468,105 @@ use class Json:Unmarshaller {
     new() self {
         fields {
             Parser parser = Parser.new();
-            LinkedList ll = LinkedList.new();
+            List list = List.new();
+            Pair pair = Pair.new();
+            Map map = Map.new();
             
-            any key;
-            any top;
-            Container:Stack stack;
-            Bool inList = false;
+            any first = null;
+            Container:Stack stack = Container:Stack.new(); //for containers only
         }
     }
 
     unmarshall(String str) {
-        if (undef(parser)) {
-          new();
-        }
-        key = null;
-        top = null;
-        stack = Container:Stack.new();
-        inList = false;
-        
+        new();
         parser.parse(str, self);
-        return(top);
+        return(first);
+    }
+    
+    addIn(o) {
+        if (undef(first)) {
+            first = o;
+        }
+        any top = stack.peek();
+        if (def(top)) {
+            if (top.sameClass(pair)) {
+                if (def(top.second)) {
+                    top.first.put(top.second, o);
+                    top.second = null;
+                } else {
+                    top.second = o;
+                }
+            } elseIf (top.sameClass(list)) {
+                top.addValueWhole(o);
+            } else {
+                throw(System:Exception.new("unknown container"));
+            }
+        }
     }
     
     beginMap() {
         //("beginMap").print();
         Map m = Map.new();
-        if (def(top)) { 
-            addItem(m);
-            stack.push(top); 
-        }
-        top = m;
-        inList = false;
+        addIn(m);
+        stack.push(Pair.new(m, null));
     }
     
     endMap() {
         //("endMap").print();
-        if (stack.isEmpty!) {
-            top = stack.pop();
-            
-            if (top.sameClass(ll)) {
-                inList = true;
-            } else {
-                inList = false;
-            }
+        unless (stack.isEmpty) {
+          Pair p = stack.pop(); //to fail if not a map (pair)
+        } else {
+            throw(System:Exception.new("stack empty in endmap"));
         }
     }
     
     kvMid() {
         //("kvMid").print();
+        if (stack.peek().sameClass(pair)! || undef(stack.peek().second)) {
+            throw(System:Exception.new("key undef in kvmid"));
+        }
     }
     
     beginList() {
         //("beginList").print();
         List l = List.new();
-        if (def(top)) { 
-            addItem(l);
-            stack.push(top); 
-        }
-        top = l;
-        inList = true;
+        addIn(l);
+        stack.push(l);
     }
     
     endList() {
         //("endList").print();
-        if (stack.isEmpty!) {
-            top = stack.pop();
-            
-            if (top.sameClass(ll)) {
-                inList = true;
-            } else {
-                inList = false;
-            }
-        }
-    }
-    
-    addItem(any item) {
-        if (def(top)) {
-            //?an error if not
-            if (inList) {
-                top.addValue(item);
-            } else {
-                //assumes keys can't be null.  appears to be true.  otherwise, use the kv to know if we are in key or value land
-                //this is simpler and appears to work...
-                if (undef(key)) {
-                    key = item;
-                } else {
-                    top.put(key, item);
-                    key = null;
-                }
-            }
+        unless (stack.isEmpty) {
+          List l = stack.pop(); //to fail if not a list
+        } else {
+            throw(System:Exception.new("stack empty in endList"));
         }
     }
     
     handleString(String str) {
         //log.info("Got string |" + str + "|");
         //("Got String |" + str + "|").print();
-        addItem(str);
+        addIn(str);
     }
     
     handleTrue() {
         //("handleTrue").print();
-        addItem(true);
+        addIn(true);
     }
     
     handleFalse() {
         //("handleFalse").print();
-        addItem(false);
+        addIn(false);
     }
     
     handleNull() {
         //("handleNull").print();
-        addItem(null);
+        addIn(null);
     }
     
     handleInteger(Int int) {
         //("Got Integer |" + int + "|").print();
-        addItem(int);
+        addIn(int);
     }
 
 }
