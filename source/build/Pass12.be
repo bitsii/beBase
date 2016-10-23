@@ -624,7 +624,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                              || def(syn.mtdMap.get("forwardCall_1"))) {
                              node.held.untyped = true;
                            } else {
-                  throw(Build:VisitError.new("No such call C ", node));
+                  throw(Build:VisitError.new("No such call " + node.held.name + " in class " + syn.namepath.toString(), node));
                   }
                }
                if (def(mtdc)) {

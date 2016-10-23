@@ -47,7 +47,10 @@ final class Build:Transport {
          visitor.end(self);
       } catch (any e) {
          if (def(node)) {
-            ("Caught exception during visit to node:").print();
+            ("Caught exception during visit to node").print();
+            ("Exception:").print();
+            e.print();
+            ("Node:").print();
             node.print();
             any nc = node.container;
             while (def(nc)) {
@@ -55,8 +58,6 @@ final class Build:Transport {
               nc.print();
               nc = nc.container;
             }
-            ("Exception:").print();
-            e.print();
          } else {
             ("Caught exception during visit, node is undef").print();
             ("Exception:").print();

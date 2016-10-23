@@ -33,11 +33,15 @@ class L {
   
   log(Int _level, String msg) {
     if (_level <= level) {
-      if (def(msg)) {
-        msg.print();
-      } else {
-        "null".print();
-      }
+      log(msg);
+    }
+  }
+  
+  log(String msg) {
+    if (def(msg)) {
+      msg.print();
+    } else {
+      "null".print();
     }
   }
 

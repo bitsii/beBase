@@ -25,6 +25,9 @@ class Build:VisitError(System:Exception) {
       //any toRet = self.className + " ";//something wrong with self.className
       
       any toRet = "";
+      if (def(msg)) {
+         toRet = toRet + msg + Text:Strings.new().newline;
+      }
       if (def(node)) {
         any nc = node;
         while (def(nc)) {
@@ -32,9 +35,6 @@ class Build:VisitError(System:Exception) {
           toRet += Text:Strings.new().newline;
           nc = nc.container;
         }
-      }
-      if (def(msg)) {
-         toRet = toRet + msg + " ";
       }
       toRet = toRet + getFrameText();
       return(toRet);
