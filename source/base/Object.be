@@ -731,7 +731,7 @@ BEINT* bevl_toRet;
       return(System:ObjectFieldIterator.new(self));
    }
    
-   objectIteratorGet() System:ObjectFieldIterator {
+   final fieldIteratorGet() System:ObjectFieldIterator {
       return(System:ObjectFieldIterator.new(self));
    }
    

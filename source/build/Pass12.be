@@ -355,7 +355,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                              || def(syn.mtdMap.get("forwardCall_1"))) {
                              tcall.held.untyped = true;
                            } else {
-                           throw(Build:VisitError.new("No such call A " + tcall.held.name + " in class " + targNp.toString(), tcall));
+                           throw(Build:VisitError.new("(A) No such call " + tcall.held.name + " in class " + targNp.toString(), tcall));
                            }
                         }
                      } /* else {
@@ -472,7 +472,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                              || def(syn.mtdMap.get("forwardCall_1"))) {
                              org.held.untyped = true;
                            } else {
-                           throw(Build:VisitError.new("No such call B ", org));
+                           throw(Build:VisitError.new("(B) No such call " + org.held.name + " in class " + syn.namepath, org));
                            }
                         } else {
                            oany = mtdc.rsyn;

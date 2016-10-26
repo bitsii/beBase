@@ -178,6 +178,11 @@ class Test:BaseTest:Serialize(BaseTest) {
       ("xa " + x.alpha + " ya " + y.alpha).print();
       assertEquals(x.alpha, y.alpha);
       assertEquals(x.beta, y.beta);
+      
+      any xi = x.fieldIterator;
+      xi.next;
+      assertEqual(xi.currentName, "alpha");
+      assertEqual(xi.current, "a");
 
    }
 
@@ -195,6 +200,9 @@ class Test:BaseTest:Serialize(BaseTest) {
       ifEmit(js) {
         if (true) { return(self); }
       }
+      
+      ("NAME IS").print();
+      Test:Structy.new().iterator.nextName.print();
 
       ("testNamedProperties").print();
       testNamedProperties();
@@ -210,6 +218,9 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       ("testSaveIdentity").print();
       testSaveIdentity();
+      
+      ("testFieldMNull").print();
+      testFieldMNull();
 
       ("testSimpleCase").print();
       testSimpleCase();
@@ -327,9 +338,34 @@ class Test:BaseTest:Serialize(BaseTest) {
       sbuf.print();
       any y = s.deserialize(sbuf);
       y.print();
+      
+      "doing to from map!".print();
+      Map rm = Maps.fieldsIntoMap(x, Map.new());
+      assertEquals(rm["x"], x.x);
+      assertEquals(rm["y"], x.y);
+      y = Test:Structy.new();
+      Maps.mapIntoFields(rm, y);
       assertEquals(y.x[1], x.x[1]);
       assertEquals(y.y, -1);
+      
       ("NEG ONE " + y.y).print();
+   }
+   
+   testFieldMNull() {
+      Serializer s = Serializer.new();
+      any sbuf = String.new();
+      sbuf.clear();
+
+      Test:Structy x = Test:Structy.new();
+      
+      x.y = -1;
+
+      s.serialize(x, sbuf);
+      sbuf.print();
+      any y = s.deserialize(sbuf);
+      y.print();
+      assertEquals(y.y, -1);
+      assertEquals(y.s2, "StringS2");
    }
 
    testSaveIdentity() {
@@ -389,10 +425,12 @@ class Test:BaseTest:Serialize(BaseTest) {
       assertEquals(y, 10);
 
       sbuf.clear();
+      ("NOTMUCH").print();
       Test:NotMuch tn = Test:NotMuch.new();
       s.serialize(tn, sbuf);
       sbuf.print();
       y = s.deserialize(sbuf);
+      ("NOTMUCH DONE").print();
       y.print();
 
       sbuf.clear();

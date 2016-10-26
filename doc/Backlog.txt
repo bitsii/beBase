@@ -1,4 +1,3 @@
-
 just mit
 
 proxy work with js using js Proxy
@@ -16,10 +15,17 @@ gratuitous returns
 
 direct accessors
 
+serializer easy skip by index #
+
+a way to serialize by field names, ok with missing on deerialize (more version stable)
+
 for callfromoper cases, if there is a "equalsName" method (for any call which was from oper) and arg is same type as caller call that instead
   do for string equals, notEquals, add, addValue, 
 
 for foreach case use iterator(TypeName) for typed types where available  
+
+named map access (proxy obj, map.e.key (also map.key where safe));
+also lists by index, list.1, .2, etc
 
 js all in page coding
   gens and evals in context (app is built (with build) syns are present, gen and eval code- new lib each time hit go (counter in name?) old code stays

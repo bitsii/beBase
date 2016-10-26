@@ -18,233 +18,200 @@ using System;
     """
 }
 
+
 final class ObjectFieldIterator {
 
-   new() self { }
-   
-   new(_instance) ObjectFieldIterator {
-      return(new(_instance, false));
-   }
-   
-   new(_instance, Bool forceFirstSlot) ObjectFieldIterator {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BERT_ClassDef* bevl_scldef;
-void** bevl_sval;
-      """
+emit(cs) {
+"""
+public System.Reflection.FieldInfo[] fields;
+"""
+}
+
+emit(jv) {
+"""
+public java.lang.reflect.Field[] fields;
+"""
+}
+
+  new() self { }
+
+  new(_instance) ObjectFieldIterator {
+    return(new(_instance, false));
+  }
+
+  new(_instance, Bool forceFirstSlot) ObjectFieldIterator {
+    fields {
+      Int pos = -1;
+      any instance = _instance;
+      Bool advanced = false;
+      Bool done = false;
+      Bool tval = true;
+    }
+    emit(cs) {
+    """
+    fields = bevp_instance.GetType().GetFields();
+    """
+    }
+    emit(jv) {
+    """
+    fields = bevp_instance.getClass().getFields();
+    """
+    }
+  }
+  
+  advance() this {
+   emit(cs) {
+    """
+    string prefix = "bevp_";
+    int i = bevp_pos.bevi_int;
+    i++;
+    while (i < fields.Length) {
+      if (fields[i].Name.StartsWith(prefix)) {
+        bevp_advanced = bevp_tval;
+        bevp_pos.bevi_int = i;
+        return this;
       }
-      Int _minField;
-      Int _maxField;
-      _minField = Int.new();
-      _maxField = Int.new();
-      emit(c) {
-      """
-      bevl_scldef = (BERT_ClassDef*) $_instance&*[berdef];
-      bevl_sval = $_minField&*;
-      *((BEINT*) (bevl_sval + bercps)) = bevl_scldef->minField;
-      bevl_sval = $_maxField&*;
-      *((BEINT*) (bevl_sval + bercps)) = bevl_scldef->maxField;
-      """
+      i++;
+    }
+    bevp_done = bevp_tval;
+    """
+    }
+    emit(jv) {
+    """
+    String prefix = "bevp_";
+    int i = bevp_pos.bevi_int;
+    i++;
+    while (i < fields.length) {
+      if (fields[i].getName().startsWith(prefix)) {
+        bevp_advanced = bevp_tval;
+        bevp_pos.bevi_int = i;
+        return this;
       }
-      if (forceFirstSlot) {
-      emit(c) {
-      """
-      bevl_sval = $_minField&*;
-      *((BEINT*) (bevl_sval + bercps)) = bercps;
-      """
-      }
-      }
-      fields {
-         any instance;
-         Int minField;
-         Int maxField;
-         Int pos;
-      }
-      emit(jv) {
-      """
-      String prefix = "bevp_";
-      java.lang.reflect.Field[] fields = beva__instance.getClass().getFields();
-      int numfields = 0;
-      for (int i = 0;i < fields.length;i++) {
-        if (fields[i].getName().startsWith(prefix)) {
-            //System.out.println("got field named " + fields[i].getName());
-            numfields++;
-        }
-      }
-      bevl__minField.bevi_int = 0;
-      bevl__maxField.bevi_int = numfields;
-      """
-      }
-      emit(cs) {
-      """
-      string prefix = "bevp_";
-      System.Reflection.FieldInfo[] fields = beva__instance.GetType().GetFields();
-      int numfields = 0;
-      for (int i = 0;i < fields.Length;i++) {
-        if (fields[i].Name.StartsWith(prefix)) {
-            numfields++;
-        }
-      }
-      bevl__minField.bevi_int = 0;
-      bevl__maxField.bevi_int = numfields;
-      """
-      }
-      emit(js) {
-      """
-      bevl__minField.bevi_int = 0;
-      bevl__maxField.bevi_int = beva__instance.bepn_pnames.length;
-      """
-      }
-      instance = _instance;
-      minField = _minField;
-      maxField = _maxField;
-      pos = _minField;
-      //("Min " + minField + " max " + maxField + " pos " + pos + " clname " + instance.className).print();
-   }
-   
-   hasNextGet() Bool {
-      if (pos < maxField) {
-         return(true);
-      }
-      return(false);
-   }
-      
-   nextGet() {
-      emit(c) {
-      """
-/*-attr- -dec-*/
-void** bevl_sval;
-void** bevl_ind;
-      """
-      }
-      any _instance;
-      Int _pos;
-      any inst;
-      _instance = instance;
-      _pos = pos;
-      if (pos < maxField) {
-         emit(c) {
-         """
-         bevl_sval = $_instance&*;
-         bevl_ind = $_pos&*;
-         $inst=* bevl_sval[*((BEINT*) (bevl_ind + bercps))];
-         """
-         }
-         emit(jv) {
-         """
-          String prefix = "bevp_";
-          java.lang.reflect.Field[] fields = bevl__instance.getClass().getFields();
-          int numfields = 0;
-          for (int i = 0;i < fields.length;i++) {
-            if (fields[i].getName().startsWith(prefix)) {
-                if (numfields == bevl__pos.bevi_int) {
-                    bevl_inst = ($class/System:Object$) (fields[i].get(bevl__instance));
-                    break;
-                }
-                numfields++;
-            }
-          }
-         """
-         }
-         emit(cs) {
-          """
-          string prefix = "bevp_";
-          System.Reflection.FieldInfo[] fields = bevl__instance.GetType().GetFields();
-          int numfields = 0;
-          for (int i = 0;i < fields.Length;i++) {
-            if (fields[i].Name.StartsWith(prefix)) {
-                if (numfields == bevl__pos.bevi_int) {
-                    bevl_inst = ($class/System:Object$) (fields[i].GetValue(bevl__instance));
-                    break;
-                }
-                numfields++;
-            }
-          }
-          """
-          }
-          emit(js) {
-          """
-          //console.log("pos " + bevl__pos.bevi_int);
-          //console.log("pname " + bevl__instance.bepn_pnames[bevl__pos.bevi_int]);
-          bevl_inst = bevl__instance[bevl__instance.bepn_pnames[bevl__pos.bevi_int]];
-          """
-          }
-         pos = pos++;
-      }
-      return(inst);
-   }
-   
-   nextSet(value) {
-      emit(c) {
-      """
-/*-attr- -dec-*/
-void** bevl_sval;
-void** bevl_ind;
-      """
-      }
-      any _instance;
-      Int _pos;
-      any _value;
-      _instance = instance;
-      _pos = pos;
-      _value = value;
-      if (pos < maxField) {
-         emit(c) {
-         """
-         bevl_sval = $_instance&*;
-         bevl_ind = $_pos&*;
-         bevl_sval[*((BEINT*) (bevl_ind + bercps))] = $_value*;
-         """
-         }
-         emit(jv) {
-         """
-          String prefix = "bevp_";
-          java.lang.reflect.Field[] fields = bevl__instance.getClass().getFields();
-          int numfields = 0;
-          for (int i = 0;i < fields.length;i++) {
-            if (fields[i].getName().startsWith(prefix)) {
-                if (numfields == bevl__pos.bevi_int) {
-                    fields[i].set(bevl__instance, bevl__value);
-                    break;
-                }
-                numfields++;
-            }
-          }
-         """
-         }
-         emit(cs) {
-          """
-          string prefix = "bevp_";
-          System.Reflection.FieldInfo[] fields = bevl__instance.GetType().GetFields();
-          int numfields = 0;
-          for (int i = 0;i < fields.Length;i++) {
-            if (fields[i].Name.StartsWith(prefix)) {
-                if (numfields == bevl__pos.bevi_int) {
-                    fields[i].SetValue(bevl__instance, bevl__value);
-                    break;
-                }
-                numfields++;
-            }
-          }
-          """
-          }
-          emit(js) {
-          """
-          bevl__instance[bevl__instance.bepn_pnames[bevl__pos.bevi_int]] = bevl__value;
-          """
-          }
-         pos = pos++;
+      i++;
+    }
+    bevp_done = bevp_tval;
+    """
+    }
+    emit(js) {
+    """
+    var i = this.bevp_pos.bevi_int;
+    i = i + 1;
+    if (i < this.bevp_instance.bepn_pnames.length) {
+        this.bevp_advanced = this.bevp_tval;
+        this.bevp_pos.bevi_int = i;
+        return this;
+    }
+    this.bevp_done = this.bevp_tval;
+    """
+    }
+  }
+
+  hasNextGet() Bool {
+    unless (advanced || done) {
+      advance();
+    }
+    unless (done) {
+      return(true);
+    }
+    return(false);
+  }
+  
+  nextNameGet() String {
+    unless (advanced || done) {
+      advance();
+    }
+    if (done) {
+      return(null);
+    }
+    advanced = false;
+    return(self.currentName);
+  }
+  
+  currentNameGet() String {
+    String res;
+    emit(cs) {
+    """
+    bevl_res = new $class/Text:String$(fields[bevp_pos.bevi_int].Name);
+    """
+    }
+    emit(jv) {
+    """
+    bevl_res = new $class/Text:String$(fields[bevp_pos.bevi_int].getName());
+    """
+    }
+    emit(js) {
+    """
+    bevl_res = new be_$class/Text:String$().bems_new(this.bevp_instance.bepn_pnames[this.bevp_pos.bevi_int]);
+    """
+    }
+    return(res.substring(5));
+  }
+
+  nextGet() any {
+    unless (advanced || done) {
+      advance();
+    }
+    if (done) {
+      return(null);
+    }
+    advanced = false;
+    return(self.current);
+  }
+  
+  currentGet() any {
+    any res;
+    emit(cs) {
+    """
+    bevl_res = ($class/System:Object$) (fields[bevp_pos.bevi_int].GetValue(bevp_instance));
+    """
+    }
+    emit(jv) {
+    """
+    bevl_res = ($class/System:Object$) (fields[bevp_pos.bevi_int].get(bevp_instance));
+    """
+    }
+    emit(js) {
+    """
+    bevl_res = this.bevp_instance[this.bevp_instance.bepn_pnames[this.bevp_pos.bevi_int]];
+    """
+    }
+    return(res);
+  }
+
+  nextSet(value) this {
+    unless (advanced || done) {
+      advance();
+    }
+    if (done!) {
+      self.current = value;
+    }
+    advanced = false;
+  }
+  
+  currentSet(value) this {
+    emit(cs) {
+    """
+    fields[bevp_pos.bevi_int].SetValue(bevp_instance, beva_value);
+    """
+    }
+    emit(jv) {
+    """
+    fields[bevp_pos.bevi_int].set(bevp_instance, beva_value);
+    """
+    }
+    emit(js) {
+    """
+    this.bevp_instance[this.bevp_instance.bepn_pnames[this.bevp_pos.bevi_int]] = beva_value;
+    """
+    }
+  }
+
+  skip(Int multiNullCount) {
+      for (Int mi = 0;mi < multiNullCount;mi++=) {
+         self.next = null;
       }
    }
-   
-   skip(Int multiNullCount) {
-      pos = pos + multiNullCount;
-      if (pos > maxField) {
-         pos = maxField;
-      }
-   }
-   
+
 }
 
 final class ForwardCall {
