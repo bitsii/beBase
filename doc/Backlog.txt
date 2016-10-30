@@ -5,8 +5,19 @@ proxy work with js using js Proxy
   if has forwardCall or anything ending Args with 1 arg
   
 support something (>>? double,) as a "," equivalent, for map and such
+
+add print at all passes for file/range combos
+line comment imeediate nl comments next line (bug)
+brackets after newline in call (lists.from) breaks (bug)
+
+functional:
+anonymous functions? closures? (lambda) (? generate classes or anon methods?)
+  simple return assignment syntax/multi return
+  or, consider native c#, java, js, C++ (see about consistency)
+have a method class again
+distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
   
-list reverse or reverse sort (pluggable comparator)
+list reverse sort (pluggable comparator)
   
 gratuitous returns
   stop using return type for this and use the call target instead for chains
@@ -89,7 +100,7 @@ need to have nested exceptions (and output the nest on print) - just "linked lis
 
 switch string to mutating for everything (swap, etc)
 
-c++?/objc?/swift?
+c++?
 ___________________
 
  also, for many calls can avoid the call even if not literals (int add, sub, etc)
@@ -152,12 +163,6 @@ javascript webworker concurrency, same model for cs/jv
 date strings
 
 FASTER if closelib and isFinal or isLocal and call is empty skip it altogether (create, once, many, etc)
-
-functional:
-first class functions - alwaysForward for all dynamic calls always forwarding (the way to use functions)
-distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
-anonymous functions? closures? (case inside (no), capture everything used and make them all args/held state (yes))
-switch invoke over?
 
 version interfaces (things which can span lib vers if needed)
 (minor only tracked in documentation terms?)
