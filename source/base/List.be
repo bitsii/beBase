@@ -254,10 +254,11 @@ if (def(length)) {
       return(Container:List:Iterator.new(self));
    }
    
-   clear() self {
+   clear() this {
       for (Int i = 0;i < length;i++=) {
          put(i, null);
       }
+      length = 0;
    }
    
    copy() self {

@@ -213,7 +213,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
       return(System:Initializer.new().initializeIfShould(result));
    }
    
-   invoke(String name, List args) {
+   final invoke(String name, List args) {
    emit(c) {
       """
 /*-attr- -dec-*/

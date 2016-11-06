@@ -1,32 +1,90 @@
 just mit
 
+class default log level to easily enable output per class
+  lvl of log
+  default class level
+  map with override levels
+  paramable init
+log instance per class, set the level for log() there (no need for lvl)
+
 proxy work with js using js Proxy
   or backward compat - http://wiki.ecmascript.org/doku.php?id=harmony%3Aproxies
   if has forwardCall or anything ending Args with 1 arg
   
-support something (>>? double,) as a "," equivalent, for map and such
+add print at all passes for file/range combos (file and/or file + range)
+BUG line comment imeediate nl comments next line
+BUG brackets after newline in call (lists.from) breaks
+BUG why does something = bool expr; not work?
 
-add print at all passes for file/range combos
-line comment imeediate nl comments next line (bug)
-brackets after newline in call (lists.from) breaks (bug)
+?continuation + optional ;, nl = ;
 
-functional:
-anonymous functions? closures? (lambda) (? generate classes or anon methods?)
-  simple return assignment syntax/multi return
-  or, consider native c#, java, js, C++ (see about consistency)
-have a method class again
-distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
-  
-list reverse sort (pluggable comparator)
-  
+---- BUGs ----
+
+default return not picking up when wrong type
+return in loop seen as last return incorrectly (what if no loop...)
+last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
+something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
+castTo is wrong in at least some once cases, checkTypes must be wrong somehow
+byteiterator is much much slower than just doing getInt on a string by length, something is wrong there
+// Bug with initial elseIf
+// math with parens inside a method call is broken
+// this doesn't work for (Int j = 0;j < dnumargs && j < maxDynArgs;j=j++) {
+// numargs - maxDynArgs + 1 !== (numargs - maxDynArgs) + 1
+// if undef(self[n]) doesn't seem to work (at least in List)
+// this includes negative values for indexes
+// test once assign with not combination
+string hash for javascript seems to be different than for others
+serialization doesn't work for js
+
+---- ----
+
 gratuitous returns
   stop using return type for this and use the call target instead for chains
   actually stop doing returns for this
   (except for untyped and js, which still return self - tho js could skip assign)
-
+  
 direct accessors
+  like dynamic call for get/set (bemd)
+  bind at compile time for typed (just direct access if call not defined)
+  no gen accessors
+
+named params? 
+defaults for params?
+
+have a method/call class again (reuse forwardcall, put calling logic (method undef) in it) call?
+ predef nums for bems
+ move/duplicate invoke? (support same code block exactly for both, duplicate)
+ move convenience syntax down so forwardcall wins if present (full control)
+ have obj methundef first look for actual method with numargs and invoke if so
+ invoke with args (dynamic/fwd itself :-) will override/set before call
+ 
+method accessor, gets method type
+
+multi-return multi-assign (array) (list of types in () like args
+
+functional:
+loop like thing for anon func def (lambda(), method())
+  explicit to start
+  find right spot to split out, can stay for most (where walk up?) - becomes call (where def) + anon method
+  assignment to def causes method accessor
+filter, filterNot, map, etc
+
+distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
+
+---
+
+func
+  also closure, auto-find vars used and convert to in/out args, pass in, return
+  and auto-multi-assign on way out (can be backward compat addition to anon mtd)
+
+support something (>>? double,) as a "," equivalent, for map and such
+field prefix to any dec makes it a field
+  
+list reverse sort (func comparator)
 
 serializer easy skip by index #
+
+notion of close or far syn, changes
 
 a way to serialize by field names, ok with missing on deerialize (more version stable)
 
@@ -73,8 +131,6 @@ use profiler to see where time is spent
 =~ for setvalue
 a =~ b += c; (=~ actually first/lowest priority)
 
-why does something = bool expr; not work?
-
 fixed kw - like local for now, means descendants can't break contract for accessors, new, create, default
 
 finally
@@ -110,29 +166,7 @@ final for static members (?) - readonly for c#
      onceDeced it's ok, not for not once deced (need to distinguish)
 get rid of calls to once and many
 
-direct member get/set where possible (typed, final or local w/o override), keep gen accessors
-
 proxy for dynamic cases too- in case statement + js proxies (can work for typed too based on presnce of a particular call name)
-
----- bugs ----
-default return not picking up when wrong type
-return in loop seen as last return incorrectly (what if no loop...)
-last call is return not working for all cases - when the last return is inside a conditional, need to check for closing }
-something is wrong with classname get (for jv at least) - visiterror had it (adding " " to it, npe)
-castTo is wrong in at least some once cases, checkTypes must be wrong somehow
-byteiterator is much much slower than just doing getInt on a string by length, something is wrong there
-// Bug with initial elseIf
-// math with parens inside a method call is broken
-// this doesn't work for (Int j = 0;j < dnumargs && j < maxDynArgs;j=j++) {
-// numargs - maxDynArgs + 1 !== (numargs - maxDynArgs) + 1
-// if undef(self[n]) doesn't seem to work (at least in List)
-// this includes negative values for indexes
-// test once assign with not combination
-string hash for javascript seems to be different than for others
-
-field prefix to any dec makes it a field
-
-for native langs (esp js) generate stubs with "literal names" - ?anys, def methods, autoconvert strings, etc
 
 classNameSerializationIterator (same treatment as classNameIterator)
 
@@ -161,8 +195,6 @@ javascript webworker concurrency, same model for cs/jv
   inbox or queue?
 
 date strings
-
-FASTER if closelib and isFinal or isLocal and call is empty skip it altogether (create, once, many, etc)
 
 version interfaces (things which can span lib vers if needed)
 (minor only tracked in documentation terms?)
@@ -239,7 +271,7 @@ http://ejohn.org/apps/learn/#64
 
 perf
 THE NEXT LINE IS THE JS SPEEDUP ONE!!! (prototype actually looks to be fastest...)
-http://coding.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
+http://coding.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/ (Module pattern with cached functions)
 http://stackoverflow.com/questions/3493252/javascript-prototype-operator-performance-saves-memory-but-is-it-faster
 
 back strings with regular js List type of js integers (unsigned 8bit) for now.
@@ -312,10 +344,6 @@ method invocations which are final for object should be handled in a final way f
 
 support "and" and "or" along side && and || (just like you can do "not" as .not())
 ? for handle nulls gracefully (no iter) ?
-
-closures using instances (auto-prefix)
-
-// each/multiassign/return...
 
 generics (generic type) (functionality covers interfaces, generics, mixins)
 

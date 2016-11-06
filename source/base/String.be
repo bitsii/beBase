@@ -285,7 +285,7 @@ final class String {
       return(str);
    }
    
-   clear() self {
+   clear() this {
       if (size > 0) {
         setIntUnchecked(0@, 0@);
         size.setValue(0@);

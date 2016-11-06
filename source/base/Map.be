@@ -451,7 +451,7 @@ class Set {
    }
 
    
-   clear() {
+   clear() this {
       slots.clear();
       size = 0;
    }
