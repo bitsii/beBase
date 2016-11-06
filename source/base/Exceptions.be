@@ -34,6 +34,15 @@ class System:Exception {
       //"in tostring exception".print();
       //self.sourceFileName.print();
       any toRet = "Exception> ";
+      if (def(description)) {
+         toRet = toRet + " Description: " + description;
+      }
+      if (def(fileName)) {
+         toRet = toRet + " IO:File: " + fileName;
+      }
+      if (def(lineNumber)) {
+         toRet = toRet + " Line: " + lineNumber.toString();
+      }
       if (def(lang)) {
          toRet = toRet + " Lang: " + lang;
       }
@@ -45,15 +54,6 @@ class System:Exception {
       }
       if (def(klassName)) {
          toRet = toRet + " Class: " + klassName;
-      }
-      if (def(description)) {
-         toRet = toRet + " Description: " + description;
-      }
-      if (def(fileName)) {
-         toRet = toRet + " IO:File: " + fileName;
-      }
-      if (def(lineNumber)) {
-         toRet = toRet + " Line: " + lineNumber.toString();
       }
       if (def(framesText)) {
         toRet = toRet + " Frames Text: " + framesText;

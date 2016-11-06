@@ -381,8 +381,29 @@ final class String {
        return(copy().upperValue());
    }
    
-   swap(String from, String to) {
+   swap0(String from, String to) {
       return(Text:Strings.join(to, self.split(from)));//so, change the values....TODO and have this be a mutator
+      //doesn't work in some cases (trailing case)
+   }
+   
+   swap(String from, String to) {
+      //("in swap 2").print();
+      String res = String.new();
+      Int last = 0;
+      nxt = 0;
+      while (def(nxt)) {
+        Int nxt = find(from, last);
+        if (def(nxt)) {
+          res += substring(last, nxt);
+          res += to;
+          last = nxt + from.size;
+          //("res 1 " + res).print();
+        } else {
+          res += substring(last, self.size);
+          //("res 2 " + res).print();
+        }
+      }
+      return(res);
    }
    
    //UTF 8 point

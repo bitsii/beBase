@@ -49,7 +49,9 @@ direct accessors
   no gen accessors
 
 named params? 
+  enum like (array by index?, test in langs)
 defaults for params?
+be able to use fields{} in method signature to avoid double def (assign args to the props)
 
 have a method/call class again (reuse forwardcall, put calling logic (method undef) in it) call?
  predef nums for bems
@@ -101,7 +103,7 @@ js all in page coding
   
 for untyped anys, calls known to object are made as typed calls
   
-string swapValue, cache the hash value??
+string cache the hash value??
 
 all in browser option (load for base, etc) (?precomp base? ?base comp?)
   just a big page with local refs
@@ -153,8 +155,6 @@ doc it up
 more ex app
 
 need to have nested exceptions (and output the nest on print) - just "linked list" of exceptions with pointers
-
-switch string to mutating for everything (swap, etc)
 
 c++?
 ___________________
