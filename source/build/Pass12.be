@@ -395,7 +395,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
    accept(Node node) Node {
       if (node.typename == ntypes.CATCH) {
         if (node.contained.first.contained.first.held.isTyped) {
-            throw(Build:VisitError.new("Catch anyiables must be declared untyped (any)"));
+            throw(Build:VisitError.new("Catch variables must be declared untyped (any)"));
         }
       }
       if (node.typename == ntypes.CLASS) {
@@ -426,7 +426,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
             targ = node.contained.first;
             //("About to check " + targ.toString() + " " + targ.held.className.toString()).print();
             if (targ.held.isDeclared) {
-               tany = targ.held; //tany is the anyiable being assigned to
+               tany = targ.held; //tany is the variable being assigned to
             } else {
                tany = inClassSyn.ptyMap.get(targ.held.name).memSyn; //all non-declared mmbers caught
                //in syn generation

@@ -267,7 +267,7 @@ final class Node {
          v.isAdded = true;
          sco = scopeGet();
          if (sco.typename == ntypes.CLASS) {
-            throw(Build:VisitError.new("Found a anyiable incorrectly declared outside a method", self));
+            throw(Build:VisitError.new("Found a variable incorrectly declared outside a method", self));
          }
          if (self.inProperties && v.isTmpVar!) {
             any sco = classGet();
@@ -275,7 +275,7 @@ final class Node {
          }
          any sc = sco.held;
          if (sc.anyMap.has(v.name)) {
-            throw(Build:VisitError.new("Duplicate anyiable declaration", self));
+            throw(Build:VisitError.new("Duplicate variable declaration", self));
          }
          sc.anyMap.put(v.name, self);
          sc.orderedVars.addValue(self);
@@ -324,7 +324,7 @@ final class Node {
             if (def(np)) {
                throw(Build:VisitError.new("Found NP too late " + np, self));
             } else {
-               //throw(Build:VisitError.new("No such anyiable exists during syncVariable", self));
+               //throw(Build:VisitError.new("No such variable exists during syncVariable", self));
                any v = Build:Var.new();
                v.name = vname;
                if (vname == "super") {

@@ -119,7 +119,7 @@ final class Build:Class {
          Int onceEvalCount = 0;
          Set referencedProperties = Set.new();
          Bool shouldWrite = false;
-         Int belsCount = 0;//count for string literal array anyiable names (bels_#)
+         Int belsCount = 0;//count for string literal array variable names (bels_#)
       }
       
       Build:NamePath np;

@@ -43,7 +43,7 @@ ONCE EVAL
 MANY EVAL
 
 Statically initialize for onceeval literal cases
-FASTER if a anyiable assigned to from a once eval is not assigned to any other time just use the once eval any directly and do no assign
+FASTER if a variable assigned to from a once eval is not assigned to any other time just use the once eval any directly and do no assign
 
 MANY EVAL
 ONCE EVAL

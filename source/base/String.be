@@ -20,7 +20,7 @@ aware byteiterator (MultiByteIterator) and use that by default in tokenizer and 
 bytes, unaware of String/Characters).
 
 It would be great to have a converter for common other formats (UTF-16, etc) to UTF-8
-It would be nice to support non-ascii names for methods, anyiables, etc, could convert to escaped versions while generating
+It would be nice to support non-ascii names for methods, variables, etc, could convert to escaped versions while generating
 
 (currently, we only use strlen once when building the string and use internal length value the rest of the time,
 there an option to drop independent length value, if we disallow embedded null (modified or js style utf8) then we can just compute length
