@@ -7,9 +7,16 @@ class default log level to easily enable output per class
   paramable init
 log instance per class, set the level for log() there (no need for lvl)
 
+in methodNotDefined prefer forwardCall_1 to *Args(List)
+
 proxy work with js using js Proxy
   or backward compat - http://wiki.ecmascript.org/doku.php?id=harmony%3Aproxies
   if has forwardCall or anything ending Args with 1 arg
+  
+named params? (?typed calls only? - order at gen time?) 
+  enum like (array by index?, test in langs)
+defaults for params? (if undef set - specific purpose)
+be able to use fields{} in method signature to avoid double def (assign args to the props)
   
 add print at all passes for file/range combos (file and/or file + range)
 BUG line comment imeediate nl comments next line
@@ -47,11 +54,6 @@ direct accessors
   like dynamic call for get/set (bemd)
   bind at compile time for typed (just direct access if call not defined)
   no gen accessors
-
-named params? 
-  enum like (array by index?, test in langs)
-defaults for params?
-be able to use fields{} in method signature to avoid double def (assign args to the props)
 
 have a method/call class again (reuse forwardcall, put calling logic (method undef) in it) call?
  predef nums for bems
