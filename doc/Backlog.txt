@@ -1,5 +1,7 @@
 just mit
 
+elseIf to elif
+
 class default log level to easily enable output per class
   lvl of log
   default class level
