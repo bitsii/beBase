@@ -1,0 +1,1 @@
+Licensed under the MIT license. See LICENSE-MIT.txt in this directory for full license information.

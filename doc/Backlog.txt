@@ -2,6 +2,8 @@ just mit
 
 elseIf to elif
 
+isEmtpy to empty?
+
 class default log level to easily enable output per class
   lvl of log
   default class level
