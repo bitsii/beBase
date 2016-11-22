@@ -1,8 +1,15 @@
-elseIf to elif (elf)
+isEmtpy to empty
 
-isEmtpy to empty?
-
-short versions of things (3 let), class cls, mtd method, trw, cat, etc
+class default log level to easily enable output per class
+  log output level (threshold needed to output) (current)
+  default log level for calls to log1() (w/out specified level)
+  (still have log2() on call)
+  not a default, many logs
+  factory/getter which hands back per class version (Logs?) set at init / in main
+    (could come from config) (doesn't have to be per-class)
+  classnameget has to be working
+  
+short versions of things (3 let), class cls, mtd method, trw, cat, elf (elseIf) etc
   fin, loc, ...
 
 in methodNotDefined prefer forwardCall_1 to *Args(List)
@@ -12,13 +19,6 @@ proxy work with js using js Proxy
   if has forwardCall or anything ending Args with 1 arg
   
 "method" type which can call any name (change test func to use, like it did), apply() to do the call
-
-class default log level to easily enable output per class
-  lvl of log
-  default class level
-  map with override levels
-  paramable init
-log instance per class, set the level for log() there (no need for lvl)
 
 named params? (?typed calls only? - order at gen time?) 
   enum like (array by index?, test in langs)

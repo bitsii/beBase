@@ -687,6 +687,7 @@ class Test:BaseTest:MutString(BaseTest) {
 
     main() {
         gi();
+        toaln();
         //hash();
         //getSetByteInts();
         //checkIntValues();
@@ -697,6 +698,10 @@ class Test:BaseTest:MutString(BaseTest) {
         x.setValue(10);
         (x + 1).print();
     
+    }
+    
+    toaln() {
+      assertEqual(Text:Strings.toAlphaNum("A B c 0 1 2 9 *"), "ABc0129");
     }
     
     hash() {
