@@ -1,4 +1,3 @@
-isEmtpy to empty
 
 class default log level to easily enable output per class
   log output level (threshold needed to output) (current)
@@ -9,8 +8,7 @@ class default log level to easily enable output per class
     (could come from config) (doesn't have to be per-class)
   classnameget has to be working
   
-short versions of things (3 let), class cls, mtd method, trw, cat, elf (elseIf) etc
-  fin, loc, ...
+short versions of things (3 let), cas, met, tro, cat, elf, fin, loc, ...
 
 in methodNotDefined prefer forwardCall_1 to *Args(List)
 
