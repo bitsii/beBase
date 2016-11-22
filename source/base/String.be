@@ -1207,14 +1207,14 @@ final class Text:Strings {
    }
    
    toAlphaNum(String input) String {
-     String output = input.copy();
-     Int insz = input.size;
+     Int insz = input.size.copy();
+     String output = String.new(insz);
      Int c = Int.new();
      Int p = 0;
      for (Int i = 0;i < insz;i++=) {
        input.getInt(i, c);
        if ((c > 64 && c < 91) || (c > 96 && c < 123) || (c > 47 && c < 58)) {
-        output.setInt(p, c);
+        output.setIntUnchecked(p, c);
         p++=;
        }
      }
