@@ -530,6 +530,23 @@ BEINT bevl_val;
       }
    }
    
+   toAlphaNum() String {
+     String input = self;
+     Int insz = input.size.copy();
+     String output = String.new(insz);
+     Int c = Int.new();
+     Int p = 0;
+     for (Int i = 0;i < insz;i++=) {
+       input.getInt(i, c);
+       if ((c > 64 && c < 91) || (c > 96 && c < 123) || (c > 47 && c < 58)) {
+        output.setIntUnchecked(p, c);
+        p++=;
+       }
+     }
+     output.size = p;
+     return(output);
+   }
+   
    isEmptyGet() Bool {
     if (size <= 0) {
         return(true);
@@ -1204,22 +1221,6 @@ final class Text:Strings {
        return(true);
      }
      return(false);
-   }
-   
-   toAlphaNum(String input) String {
-     Int insz = input.size.copy();
-     String output = String.new(insz);
-     Int c = Int.new();
-     Int p = 0;
-     for (Int i = 0;i < insz;i++=) {
-       input.getInt(i, c);
-       if ((c > 64 && c < 91) || (c > 96 && c < 123) || (c > 47 && c < 58)) {
-        output.setIntUnchecked(p, c);
-        p++=;
-       }
-     }
-     output.size = p;
-     return(output);
    }
    
 }

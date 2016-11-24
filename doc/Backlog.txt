@@ -18,6 +18,12 @@ proxy work with js using js Proxy
   
 "method" type which can call any name (change test func to use, like it did), apply() to do the call
 
+update func stuff to reflect
+
+map, filter et all to containers (mapValue(s), filterValue(s))
+
+anon inline funcs (met)
+
 named params? (?typed calls only? - order at gen time?) 
   enum like (array by index?, test in langs)
 defaults for params? (if undef set - specific purpose)

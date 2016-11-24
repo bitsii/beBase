@@ -701,7 +701,7 @@ class Test:BaseTest:MutString(BaseTest) {
     }
     
     toaln() {
-      assertEqual(Text:Strings.toAlphaNum("A B c 0 1 2 9 *"), "ABc0129");
+      assertEqual("A B c 0 1 2 9 *".toAlphaNum(), "ABc0129");
     }
     
     hash() {
