@@ -118,6 +118,8 @@ final class Int {
         } elseIf (ic == 45) {
             //negate, and it should always be the last one
             self *= -1;
+        } elseIf (ic == 43) {
+            //positive is ok but noop, should always be the last one
         } else {
             throw(System:Exception.new("String is not an int " + str + " " + ic));
         }

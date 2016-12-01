@@ -341,7 +341,9 @@ final class String {
       Int ic = Int.new();
       for (Int j = 0;j < size;j++=;) {
         getInt(j, ic);
-        if (ic > 57 || ic < 48) {
+        if (j == 0 && (ic == 43 || ic == 45)) {
+          //+-ok
+        } elseIf (ic > 57 || ic < 48) {
             return(false);
         }
       }

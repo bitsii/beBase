@@ -1,6 +1,4 @@
 
-short versions of things (3 let), cas, met, tro, cat, elf, fin, loc, ...
-
 only if forwardCalls is defined will calls be forwarded (so genned in the bemds, setup in js)
   and then forwardCall(args) is called, can be overriden if diff behavior wanted
   (move mtdnotdef calling logic to a forwardCall() call, have only exception logic in mtdUndef (call when no forwardCall())
@@ -8,27 +6,26 @@ only if forwardCalls is defined will calls be forwarded (so genned in the bemds,
 proxy work with js using js Proxy
   or backward compat - http://wiki.ecmascript.org/doku.php?id=harmony%3Aproxies
   if has forwardCall or anything ending Args with 1 arg
-  
-for typed calls figure out the forwarding behavior at compile time and
-  make as good/fast as possible (skip forward call stuff, just call with args and all) 
-    see if forwardCalls defined
-    see if forwardCall(args) is overridden  
 
-named map access (proxy obj, map.e.key (also map.key where safe));
-also lists by index, list.1, .2, etc
-  
 "method" type which can call any name (change test func to use, like it did), apply() to do the call
 
 map, filter et all to containers (mapValue(s), filterValue(s))
 
+update func stuff to reflect
+
+short versions of things (3 let), cas, met, tro, cat, elf, fin, loc, ...
+  
 anon inline funcs (met)
 
 named params? (?typed calls only? - order at gen time?) 
   enum like (array by index?, test in langs)
 defaults for params? (if undef set - specific purpose)
 be able to use fields{} in method signature to avoid double def (assign args to the props)
-
-update func stuff to reflect
+  
+for typed calls figure out the forwarding behavior at compile time and
+  make as good/fast as possible (skip forward call stuff, just call with args and all) 
+    see if forwardCalls defined
+    see if forwardCall(args) is overridden  
 
 class default log level to easily enable output per class
   log output level (threshold needed to output) (current)
@@ -97,6 +94,9 @@ filter, filterNot, map, etc
 distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
 
 ---
+
+named map access (proxy obj, map.e.key (also map.key where safe));
+also lists by index, list.1, .2, etc
 
 func
   also closure, auto-find vars used and convert to in/out args, pass in, return
