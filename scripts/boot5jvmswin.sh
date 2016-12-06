@@ -1,14 +1,16 @@
 #!/bin/bash
 
-export CLASSPATH=target4/*
+mkdir -p system
+cd system
+unzip -o ../boot5/BEL_system_be_jv_mswin.zip
+cd ..
 
-java be.BEL_4_Base --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv
-
-lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
+mkdir -p target5/Base/target
+cd target5/Base/target
+unzip -o ../../../boot5/BEL_4_Base_be_jv_mswin.zip
+cd ../../..
 
 javac system/jv/be/*.java target5/Base/target/jv/be/*.java
-
-lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 rm -f target5/BEL_system_be_jv.jar
 cd system/jv
@@ -22,3 +24,5 @@ cd ../../../..
 
 find system -name "*.class" -exec rm {} \;
 find target5 -name "*.class" -exec rm {} \;
+
+./scripts/bld4from5jv.sh

@@ -1,4 +1,6 @@
 
+jv .sh for cycle
+
 only if forwardCalls is defined will calls be forwarded (so genned in the bemds, setup in js)
   and then forwardCall(args) is called, can be overriden if diff behavior wanted
   (move mtdnotdef calling logic to a forwardCall() call, have only exception logic in mtdUndef (call when no forwardCall())
