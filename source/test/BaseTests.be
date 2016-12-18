@@ -142,7 +142,7 @@ class Test:BaseTest:EC(BaseTest) {
       
     }
     
-    forwardCall(System:ForwardCall fcall) {
+    forwardCall(System:ForwardCall fcall) any {
       "In forward".print();
       fcall.name.print();
       fcall.args.length.print();

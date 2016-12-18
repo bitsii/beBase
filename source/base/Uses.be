@@ -3,6 +3,8 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root 
 // for full license information.
 
+local use System:Object;
+local use System:Variadic;
 local use Math:Int;
 local use Logic:Bool;
 local use Text:String;

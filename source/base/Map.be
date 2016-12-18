@@ -699,11 +699,11 @@ class Container:Set:NodeIterator {
    
 }
 
-class Sets {
+class Sets(Variadic) {
 
   default() self { }
 
-  fromArgs(List list) {
+  from(List list) {
     Set set = Set.new(list.size * 2);
     for (any v in list) {
       set.put(v);
@@ -713,11 +713,11 @@ class Sets {
 
 }
 
-class Maps {
+class Maps(Variadic) {
 
   default() self { }
 
-  fromArgs(List list) {
+  from(List list) {
     Int ls = list.size;
     Map map = Map.new(ls);
     for (Int i = 0;i < ls;i++=) {

@@ -81,7 +81,7 @@ local class Test:BaseTest:Calls(BaseTest) {
       assertEquals(res.second, 26);
    }
    
-   forwardCall(System:ForwardCall fcall) {
+   forwardCall(System:ForwardCall fcall) any {
       "In forward".print();
       fcall.name.print();
       fcall.args.length.print();

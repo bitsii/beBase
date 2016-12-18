@@ -1,14 +1,7 @@
 
-.sh for cycle
-js .sh
-
-only if forwardCalls is defined will calls be forwarded (so genned in the bemds, setup in js)
-  and then forwardCall(args) is called, can be overriden if diff behavior wanted
-  (move mtdnotdef calling logic to a forwardCall() call, have only exception logic in mtdUndef (call when no forwardCall())
-  
+only if forwardCall is overriden from object does js setup proxy  
 proxy work with js using js Proxy - my node is good
   http://wiki.ecmascript.org/doku.php?id=harmony%3Aproxies
-  if has forwardCall or anything ending Args with 1 arg
 
 "method" type which can call any name (change test func to use, like it did), apply() to do the call
 

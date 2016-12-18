@@ -65,40 +65,14 @@ class System:Object {
       return(true);
    }
    
-   final methodNotDefined() {
-      //get forwarding stuff, also clears it if present
-      System:ForwardCall forwardCall = System:ForwardCall.new();
-      //if forward stuff not defined, throw here
-      if (forwardCall.notReady) {
-         throw(System:InvocationException.new("methodNotDefined called in a context where arguments were not available from the stack"));
-      }
-      return(methodNotDefined(forwardCall));
-   }
-   
    final toAny() any {
      return(self);
    }
    
-   final methodNotDefined(System:ForwardCall forwardCall) {
-      if (def(forwardCall) && def(forwardCall.name)) {
-        String fcn = forwardCall.name + "Args";
-        if (can(fcn, 1)) {
-          s = self;
-          List args = List.new(1);
-          args[0] = forwardCall.args;
-          result = s.invoke(fcn, args);
-          return(result);
-        }
-      }
-      if (can("forwardCall", 1)) {
-         //call forward with stuff
-         any s = self;
-         any result = s.forwardCall(forwardCall);
-         return(result);
-      } elseIf(true) {
-         throw(System:MethodNotDefined.new("Method: " + forwardCall.name + " not defined for class " + self.className));
-      }
-      return(result);
+   forwardCall(System:ForwardCall forwardCall) any {
+     if(true) {
+       throw(System:MethodNotDefined.new("Method: " + forwardCall.name + " not defined for class " + self.className));
+     }
    }
    
    final createInstance(String cname) {
@@ -874,5 +848,19 @@ BEVReturn(bevl_toRet);
 
     final many() self { }
    
+}
+
+class System:Variadic {
+
+  forwardCall(System:ForwardCall forwardCall) any {
+    String fcn = forwardCall.name;
+    if (can(fcn, 1)) {
+      List args = List.new(1);
+      args[0] = forwardCall.args;
+      any result = invoke(fcn, args);
+    }
+    return(result);
+   }
+
 }
 

@@ -491,11 +491,11 @@ if (def(length)) {
    }
 }
 
-class Lists {
+class Lists(Variadic) {
 
   default() self { }
 
-  fromArgs(List list) {
+  from(List list) {
     return(list);//use varargs for convenient list creation
   }
 
