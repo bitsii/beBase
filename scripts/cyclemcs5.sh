@@ -8,7 +8,7 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 CYC1=`date +%s`
 
-mcs -debug:pdbonly -warn:0 -out:cycle/target0/BEL_4_Base_mcs.exe system/cs/be/BELS_Base/*.cs cycle/target0/Base/target/cs/be/BEL_4_Base/*.cs
+mcs -debug:pdbonly -warn:0 -out:cycle/target0/BEL_4_Base_mcs.exe system/cs/be/*.cs cycle/target0/Base/target/cs/be/*.cs
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
@@ -20,7 +20,7 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 CYC3=`date +%s`
 
-mcs -debug:pdbonly -warn:0 -out:cycle/target1/BEL_4_Base_mcs.exe system/cs/be/BELS_Base/*.cs cycle/target1/Base/target/cs/be/BEL_4_Base/*.cs
+mcs -debug:pdbonly -warn:0 -out:cycle/target1/BEL_4_Base_mcs.exe system/cs/be/*.cs cycle/target1/Base/target/cs/be/*.cs
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
@@ -32,7 +32,7 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 CYC5=`date +%s`
 
-mcs -debug:pdbonly -warn:0 -out:cycle/target2/BEL_4_Base_mcs.exe system/cs/be/BELS_Base/*.cs cycle/target2/Base/target/cs/be/BEL_4_Base/*.cs
+mcs -debug:pdbonly -warn:0 -out:cycle/target2/BEL_4_Base_mcs.exe system/cs/be/*.cs cycle/target2/Base/target/cs/be/*.cs
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
@@ -44,7 +44,7 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 CYC7=`date +%s`
 
-mcs -debug:pdbonly -warn:0 -out:cycle/targetEc/BEL_4_Base_mcs.exe system/cs/be/BELS_Base/*.cs cycle/targetEc/Base/target/cs/be/BEL_4_Base/*.cs
+mcs -debug:pdbonly -warn:0 -out:cycle/targetEc/BEL_4_Base_mcs.exe system/cs/be/*.cs cycle/targetEc/Base/target/cs/be/*.cs
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
