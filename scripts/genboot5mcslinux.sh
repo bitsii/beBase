@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mono --debug target5/BEL_4_Base_mcs.exe --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang cs --outputPlatform linux
 
 mkdir -p boot5

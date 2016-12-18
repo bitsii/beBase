@@ -1,12 +1,13 @@
 
-jv .sh for cycle
+.sh for cycle
+js .sh
 
 only if forwardCalls is defined will calls be forwarded (so genned in the bemds, setup in js)
   and then forwardCall(args) is called, can be overriden if diff behavior wanted
   (move mtdnotdef calling logic to a forwardCall() call, have only exception logic in mtdUndef (call when no forwardCall())
   
-proxy work with js using js Proxy
-  or backward compat - http://wiki.ecmascript.org/doku.php?id=harmony%3Aproxies
+proxy work with js using js Proxy - my node is good
+  http://wiki.ecmascript.org/doku.php?id=harmony%3Aproxies
   if has forwardCall or anything ending Args with 1 arg
 
 "method" type which can call any name (change test func to use, like it did), apply() to do the call
@@ -15,7 +16,15 @@ map, filter et all to containers (mapValue(s), filterValue(s))
 
 update func stuff to reflect
 
-short versions of things (3 let), cas, met, tro, cat, elf, fin, loc, ...
+short versions of things (3 let), cls, mtd, thr, cth, elf, fin, loc, ...
+
+simple auto type derivation, must be assigned at point of declaration and will be that exact type, var
+
+finally
+
+dev instructs
+
+=====
   
 anon inline funcs (met)
 
@@ -23,11 +32,6 @@ named params? (?typed calls only? - order at gen time?)
   enum like (array by index?, test in langs)
 defaults for params? (if undef set - specific purpose)
 be able to use fields{} in method signature to avoid double def (assign args to the props)
-  
-for typed calls figure out the forwarding behavior at compile time and
-  make as good/fast as possible (skip forward call stuff, just call with args and all) 
-    see if forwardCalls defined
-    see if forwardCall(args) is overridden  
 
 class default log level to easily enable output per class
   log output level (threshold needed to output) (current)
@@ -42,6 +46,11 @@ add print at all passes for file/range combos (file and/or file + range)
 BUG line comment imeediate nl comments next line
 BUG brackets after newline in call (lists.from) breaks
 BUG why does something = bool expr; not work?
+
+for typed calls figure out the forwarding behavior at compile time and
+  make as good/fast as possible (skip forward call stuff, just call with args and all) 
+    see if forwardCalls defined
+    see if forwardCall(args) is overridden
 
 ?continuation + optional ;, nl = ;
 
@@ -156,8 +165,6 @@ use profiler to see where time is spent
 a =~ b += c; (=~ actually first/lowest priority)
 
 fixed kw - like local for now, means descendants can't break contract for accessors, new, create, default
-
-finally
 
 mutating size for map, etc, ++= everywhere
 
