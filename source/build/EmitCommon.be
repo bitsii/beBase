@@ -1169,7 +1169,11 @@ buildClassInfoMethod(String belsBase) {
              }
              
              if (maxSpillArgsLen > 0) {
+               if (emitting("js")) {
+                methods += "var bevd_x = new Array(" += maxSpillArgsLen.toString() += ");" += nl;
+               } else {
                 methods += objectCc.relEmitName(build.libName) += "[] bevd_x = new " += objectCc.relEmitName(build.libName) += "[" += maxSpillArgsLen.toString() += "];" += nl;
+               }
              }
              
              Int methodsOffset = countLines(methods, lastMethodsSize);
@@ -1501,6 +1505,7 @@ buildClassInfoMethod(String belsBase) {
       Bool superCall = false;
       Bool isConstruct = false;
       Bool isTyped = false;
+      Bool isForward = false;
 
       if (node.held.isConstruct) {
          isConstruct = true;
@@ -1525,6 +1530,8 @@ buildClassInfoMethod(String belsBase) {
         }
       }
       
+      isForward = node.held.isForward;
+      
       //prepare args
       String callArgs = String.new();
       String spillArgs = String.new();
@@ -1540,8 +1547,16 @@ buildClassInfoMethod(String belsBase) {
             if (targetNode.held.isTyped && node.held.untyped!) {
                 isTyped = true;
             }
+            if (isForward) {
+              isTyped = false;
+              mUseDyn = true;
+              mMaxDyn = 0;
+            } else {
+              Bool mUseDyn = self.useDynMethods;
+              Int mMaxDyn = maxDynArgs;
+            }
          } else {
-            if (isTyped || numargs < maxDynArgs || self.useDynMethods!) {
+            if (isTyped || numargs < mMaxDyn || mUseDyn!) {
                 if (numargs > 1) {
                     callArgs += ", ";
                 }
@@ -1551,7 +1566,11 @@ buildClassInfoMethod(String belsBase) {
                 callArgs += formTarg(i);
             } else {
                 //put into call array
-                Int spillArgPos = numargs - maxDynArgs;//spill arg array index
+                if (isForward) {
+                  spillArgPos = numargs - 1;
+                } else {
+                  Int spillArgPos = numargs - mMaxDyn;//spill arg array index
+                }
                 spillArgs += "bevd_x[" += spillArgPos.toString() += "] = " += formTarg(i) += ";" += nl;
             }
          }
@@ -1605,7 +1624,7 @@ buildClassInfoMethod(String belsBase) {
       }
       
       //also did include  && odec.isEmpty!
-      if ((isTyped || self.useDynMethods!) && isConstruct && node.held.isLiteral && isOnce) {
+      if ((isTyped || mUseDyn!) && isConstruct && node.held.isLiteral && isOnce) {
        onceDeced = true;
       } elseIf (isOnce) {
         //add flag for warning option later on
@@ -1620,7 +1639,7 @@ buildClassInfoMethod(String belsBase) {
       
       //FASTER if undef or def is inside an if skip the assign and just put it into the if
       //FASTER no-call get and set where possible (typed, lib/final, closelib)
-      if (isTyped || self.useDynMethods!) {     
+      if (isTyped || mUseDyn!) {
           if (isConstruct) {
                 if (node.held.isLiteral) {
                     if (newcc.np == intNp) {
@@ -1744,12 +1763,12 @@ buildClassInfoMethod(String belsBase) {
             }
           }
       } else {
-        if (numargs < maxDynArgs) {
+        if (numargs < mMaxDyn) {
             String dm = numargs.toString();
             String callArgSpill = "";
         } else {
             dm = "x";
-            Int spillArgsLen = numargs - maxDynArgs + 1;
+            Int spillArgsLen = numargs - mMaxDyn + 1;
             if (spillArgsLen > maxSpillArgsLen) {
                 maxSpillArgsLen = spillArgsLen;
             }
@@ -1761,7 +1780,17 @@ buildClassInfoMethod(String belsBase) {
         } else {
             fc = "";
         }
-        methodBody += callAssign += target += ".bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += ".bevn_" += node.held.name += fc += callArgs += callArgSpill += ");" += nl;
+        if (isForward) {
+          if (emitting("cs")) {
+            methodBody += callAssign += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
+          } elseIf (emitting("jv")) {
+            methodBody += callAssign += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
+          } else {
+            methodBody += callAssign += target += ".bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ");" += nl;
+          }
+        } else {
+          methodBody += callAssign += target += ".bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += ".bevn_" += node.held.name += fc += callArgs += callArgSpill += ");" += nl;
+        }
       }
       
       if (isOnce) {

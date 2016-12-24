@@ -7,7 +7,6 @@ use Container:Pair;
 use System:NonIterator;
 use System:ObjectFieldIterator;
 use System:CustomFieldIterator;
-use System:ForwardCall;
 
 emit(cs) {
     """
@@ -69,9 +68,15 @@ class System:Object {
      return(self);
    }
    
-   forwardCall(System:ForwardCall forwardCall) any {
+   methodNotDefined(String name, List args) any {
      if(true) {
-       throw(System:MethodNotDefined.new("Method: " + forwardCall.name + " not defined for class " + self.className));
+       throw(System:MethodNotDefined.new("Method: " + name + " not defined for class " + self.className));
+     }
+   }
+   
+   forwardCall(String name, List args) any {
+     if(true) {
+       throw(System:MethodNotDefined.new("Method: " + name + " not defined for class " + self.className));
      }
    }
    
@@ -847,17 +852,42 @@ BEVReturn(bevl_toRet);
     final once() self { }
 
     final many() self { }
+    
+   emit(cs) {
+   """
+   public virtual BEC_2_6_6_SystemObject bems_methodNotDefined(string name, $class/System:Object$[] args) { 
+     name = name.Substring(0, name.LastIndexOf("_"));
+     return bem_methodNotDefined_2(new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(name)), new $class/Container:List$(args));
+   }
+   """
+   }
+   
+   emit(jv) {
+   """
+   public BEC_2_6_6_SystemObject bems_methodNotDefined(String name, $class/System:Object$[] args) throws Throwable { 
+     name = name.substring(0, name.lastIndexOf("_"));
+     return bem_methodNotDefined_2(new $class/Text:String$(name.getBytes("UTF-8")), new $class/Container:List$(args));
+   }
+   """
+   }
+   
+   emit(js) {
+   """
+   be_$class/System:Object$.prototype.bems_forwardCall = function(name, args, len) {
+       return this.bem_forwardCall_2(new be_$class/Text:String$().bems_new(name), new be_$class/Container:List$().bems_new_array(args, len));
+    }
+   """
+   }
    
 }
 
 class System:Variadic {
 
-  forwardCall(System:ForwardCall forwardCall) any {
-    String fcn = forwardCall.name;
-    if (can(fcn, 1)) {
-      List args = List.new(1);
-      args[0] = forwardCall.args;
-      any result = invoke(fcn, args);
+  final forwardCall(String name, List args) any {
+    if (can(name, 1)) {
+      List varargs = List.new(1);
+      varargs[0] = args;
+      any result = invoke(name, varargs);
     }
     return(result);
    }

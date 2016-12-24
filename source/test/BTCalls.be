@@ -19,8 +19,14 @@ local class Test:BaseTest:Calls(BaseTest) {
       Test:BaseTest:Calls:ClassWith cw = Test:BaseTest:Calls:ClassWith.new();
       assertEquals(cw.i, 20);
       
-      ifNotEmit(js) {
+      try {
+      //ifNotEmit(js) {
         doMNDN();
+      //}
+      } catch (e) {
+        ("failed in mdn").print();
+        if (def(e)) { e.print(); }
+        throw(e);
       }
       
       doOnceEval();
@@ -68,27 +74,25 @@ local class Test:BaseTest:Calls(BaseTest) {
    }
    
    doMNDN() {
+      "doing bobo".print();
       any res = self.noWay("BooBoo");
+      "bobo done".print();
       any fcall = res.first;
-      assertEquals(fcall.name, "noWay");
-      assertEquals(fcall.args.length, 1);
-      assertEquals(fcall.args[0], "BooBoo");
-      assertEquals(res.second, 26);
-      any s = self;
-      res = s.getMyShirt;
-      assertEquals(res.first.name, "getMyShirtGet");
-      assertEquals(res.first.args.length, 0);
-      assertEquals(res.second, 26);
+      assertEquals(res.first, "noWay");
+      assertEquals(res.second.length, 1);
+      assertEquals(res.second[0], "BooBoo");
+      res = self.getMyShirt;
+      assertEquals(res.first, "getMyShirtGet");
+      assertEquals(res.second.length, 0);
    }
    
-   forwardCall(System:ForwardCall fcall) any {
-      "In forward".print();
-      fcall.name.print();
-      fcall.args.length.print();
-      for (any i in fcall.args) {
+   forwardCall(String name, List args) any {
+      name.print();
+      args.length.print();
+      for (any i in args) {
          ("fcall.arg " + i).print();
       }
-      return(Container:Pair.new(fcall, 26));
+      return(Container:Pair.new(name, args));
    }
    
    doOnceEval() {

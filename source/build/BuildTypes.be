@@ -310,6 +310,7 @@ final class Build:Call {
          Bool wasImpliedConstruct = false;
          Bool wasForeachGenned = false;
          Bool untyped = false;//was type removed
+         Bool isForward = false;//is this a call that needs to be forwarded
          
          List argCasts = List.new();
          //args which need to be cast for the call, if any, have entries here with namepath (otherwise, null).  starts at 1 as args do elsewhere (target is always 0)

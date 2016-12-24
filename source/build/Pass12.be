@@ -348,9 +348,9 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                               if (nv.namepath.toString() == "self") { ("FOUND A SELF TMPVAR rewind " + oany.isSelf).print(); }
                            }
                         } elseIf (tcall.held.orgName != "return") {
-                           if (def(syn.mtdMap.get(tcall.held.orgName + "Args_1"))
-                             || def(syn.mtdMap.get("forwardCall_1"))) {
-                             tcall.held.untyped = true;
+                           Build:MtdSyn fcms = syn.mtdMap.get("forwardCall_2");
+                           if (def(fcms) && fcms.origin.toString() != "System:Object") {
+                             tcall.held.isForward = true;
                            } else {
                            throw(Build:VisitError.new("(A) No such call " + tcall.held.name + " in class " + targNp.toString(), tcall));
                            }
@@ -465,9 +465,9 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                      if (def(syn)) {
                         mtdc = syn.mtdMap.get(org.held.name);
                         if (undef(mtdc)) {
-                           if (def(syn.mtdMap.get(org.held.orgName + "Args_1"))
-                             || def(syn.mtdMap.get("forwardCall_1"))) {
-                             org.held.untyped = true;
+                           Build:MtdSyn fcms = syn.mtdMap.get("forwardCall_2");
+                           if (def(fcms) && fcms.origin.toString() != "System:Object") {
+                             org.held.isForward = true;
                            } else {
                            throw(Build:VisitError.new("(B) No such call " + org.held.name + " in class " + syn.namepath, org));
                            }
@@ -617,10 +617,10 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                   mtdc = syn.mtdMap.get(node.held.name);
                }
                if (undef(mtdc)) {
-                 if (def(syn.mtdMap.get(node.held.orgName + "Args_1"))
-                             || def(syn.mtdMap.get("forwardCall_1"))) {
-                             node.held.untyped = true;
-                           } else {
+                   fcms = syn.mtdMap.get("forwardCall_2");
+                   if (def(fcms) && fcms.origin.toString() != "System:Object") {
+                     node.held.isForward = true;
+                   } else {
                   throw(Build:VisitError.new("No such call " + node.held.name + " in class " + syn.namepath.toString(), node));
                   }
                }

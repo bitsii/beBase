@@ -106,13 +106,13 @@ class Test:ExtendedTest:EC(BaseTest) {
       testNullEquals();
       
       testLog();
+      testVarArgs();
       
       ifEmit(jv, cs) {
         Test:BaseTest:System.new().main(); //random not impl for all
         testSha256();
         testThreads();
         testLocks();
-        testVarArgs();
       }
       
       //} catch (any e) { 
@@ -130,7 +130,7 @@ class Test:ExtendedTest:EC(BaseTest) {
       assertEquals(va.size, 4);
       assertEquals(va[1], 2);
       
-      Set sa = Sets.toAny().from(5, 6, 7, 8);
+      Set sa = Sets.from(5, 6, 7, 8);
       assertEquals(sa.size, 4);
       assertTrue(sa.has(5));
       assertTrue(sa.has(8));
@@ -139,6 +139,8 @@ class Test:ExtendedTest:EC(BaseTest) {
       assertEquals(ma[5], 6);
       assertEquals(ma[7], 8);
       assertFalse(ma.has(8));
+      
+      //throw(Exception.new("fail"));
    
    }
    

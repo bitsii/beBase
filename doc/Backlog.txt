@@ -1,30 +1,15 @@
 
-only if forwardCall is overriden from object does js setup proxy  
-proxy work with js using js Proxy - my node is good
-  http://wiki.ecmascript.org/doku.php?id=harmony%3Aproxies
+short versions of things (3 let), cls, mtd, thr, cth, elf, fin, fly, loc, ...
 
-"method" type which can call any name (change test func to use, like it did), apply() to do the call
-
-map, filter et all to containers (mapValue(s), filterValue(s))
-
-update func stuff to reflect
-
-short versions of things (3 let), cls, mtd, thr, cth, elf, fin, loc, ...
+functional:
+anon func def (lam/lambda(), >>mtd/method()<<)
+  explicit to start
+  find right spot to split out, can stay for most (where walk up?) - becomes call (where def) + anon method
+  assignment to def causes method accessor
 
 simple auto type derivation, must be assigned at point of declaration and will be that exact type, var
 
 finally
-
-dev instructs
-
-=====
-  
-anon inline funcs (met)
-
-named params? (?typed calls only? - order at gen time?) 
-  enum like (array by index?, test in langs)
-defaults for params? (if undef set - specific purpose)
-be able to use fields{} in method signature to avoid double def (assign args to the props)
 
 class default log level to easily enable output per class
   log output level (threshold needed to output) (current)
@@ -34,6 +19,35 @@ class default log level to easily enable output per class
   factory/getter which hands back per class version (Logs?) set at init / in main
     (could come from config) (doesn't have to be per-class)
   classnameget has to be working
+  
+"method" type which can call any name (?or methodmapper?) (change test func to use, like it did), apply() (or invoke()) to do the call
+
+update func stuff to reflect
+  
+method accessor, gets method type
+
+distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
+  
+filter, filterNot, map, etc
+map, filter et all to containers (mapValue(s), filterValue(s))
+
+=====
+
+get rid of bems_forwardCall for js, just do what it does in the emit
+
+make "can" fast, have a set/map or something (bemds)
+
+for variadic figure out the dest call at gen and directly do it with reg args (so build and call based on the name)
+
+have interface or mixin or protocol or something to enable 
+anon inline funcs (mtd)
+
+build bevd_x all at once using native array construction
+
+named params? (?typed calls only? - order at gen time?) 
+  enum like (array by index?, test in langs)
+defaults for params? (if undef set - specific purpose)
+be able to use fields{} in method signature to avoid double def (assign args to the props)
   
 add print at all passes for file/range combos (file and/or file + range)
 BUG line comment imeediate nl comments next line
@@ -83,19 +97,8 @@ have a method/call class again (reuse forwardcall, put calling logic (method und
  move convenience syntax down so forwardcall wins if present (full control)
  have obj methundef first look for actual method with numargs and invoke if so
  invoke with args (dynamic/fwd itself :-) will override/set before call
- 
-method accessor, gets method type
 
 multi-return multi-assign (array) (list of types in () like args
-
-functional:
-loop like thing for anon func def (lambda(), method())
-  explicit to start
-  find right spot to split out, can stay for most (where walk up?) - becomes call (where def) + anon method
-  assignment to def causes method accessor
-filter, filterNot, map, etc
-
-distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
 
 ---
 

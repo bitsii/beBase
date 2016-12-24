@@ -142,15 +142,15 @@ class Test:BaseTest:EC(BaseTest) {
       
     }
     
-    forwardCall(System:ForwardCall fcall) any {
-      "In forward".print();
-      fcall.name.print();
-      fcall.args.length.print();
-      for (any i in fcall.args) {
+    forwardCall(String name, List args) any {
+      name.print();
+      args.length.print();
+      for (any i in args) {
          ("fcall.arg " + i).print();
       }
       fields {
-        System:ForwardCall lastFc = fcall;
+        String lastName = name;
+        List lastArgs = args;
       }
    }
    
@@ -164,9 +164,9 @@ class Test:BaseTest:EC(BaseTest) {
        vs.quickOut("2");
        //if (true) { return(self); }
        vs.callIt("boo");
-       assertEqual(lastFc.name, "callIt");
-       assertEqual(lastFc.args.size, 1);
-       assertEqual(lastFc.args[0], "boo");
+       assertEqual(lastName, "callIt");
+       assertEqual(lastArgs.size, 1);
+       assertEqual(lastArgs[0], "boo");
        ("testFc done").print();
     }
     
