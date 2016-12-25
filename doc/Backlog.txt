@@ -1,9 +1,7 @@
 
-short versions of things (3 let), cls, mtd, thr, cth, elf, fin, fly, loc, ...
-
 functional:
-anon func def (lam/lambda(), >>mtd/method()<<)
-  explicit to start
+anon func def (method/>>~<<) have a symbol "?"? ~() { } ?() { }
+  rand num, can't start method or class with num
   find right spot to split out, can stay for most (where walk up?) - becomes call (where def) + anon method
   assignment to def causes method accessor
 
@@ -24,14 +22,13 @@ class default log level to easily enable output per class
 
 update func stuff to reflect
   
-method accessor, gets method type
-
-distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
-  
 filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
 
 =====
+
+method accessor, gets method type (=~)
+distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
 
 get rid of bems_forwardCall for js, just do what it does in the emit
 
@@ -157,8 +154,8 @@ libs
 all in mem parse/output for js
 use profiler to see where time is spent
 
-=~ for setvalue
-a =~ b += c; (=~ actually first/lowest priority)
+~= for setvalue (or :=, =:)
+a ~= b += c; (~= actually first/lowest priority)
 
 fixed kw - like local for now, means descendants can't break contract for accessors, new, create, default
 
