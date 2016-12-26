@@ -118,6 +118,13 @@ final class Logic:Bools {
       return(false);
    }
    
+   fromString(str) Bool {
+      if (def(str) && str == "true") {
+         return(true);
+      }
+      return(false);
+   }
+   
    deserializeFromString(String str) any {
       if (str == "1") {
          return(true);
