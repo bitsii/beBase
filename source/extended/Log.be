@@ -111,7 +111,8 @@ class Logs {
       //"in turnon".print();
       defaultOutputLevel = defaultLevel;
       for (any kv in loggers) {
-        kv.value.setLevels(defaultOutputLevel, defaultLevel);
+        kv.value.outputLevel = defaultOutputLevel;
+        kv.value.level = defaultLevel;
       }
       //"after pl".print();
       lock.unlock();

@@ -12,7 +12,7 @@ use Test:Failure;
 class Test:ExtendedTest:DefaultDoesLogs {
   default() {
     fields {
-      IO:Log log = IO:Logs.get(self);
+      IO:Log log =@ IO:Logs.get(self);
     }
   }
   
