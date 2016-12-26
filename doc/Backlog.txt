@@ -1,4 +1,15 @@
 
+class default log level to easily enable output per class
+  log output level (threshold needed to output) (current)
+  default log level for calls to log1() (w/out specified level)
+  (still have log2() on call)
+  not a default, many logs
+  factory/getter which hands back per class version (Logs?) set at init / in main
+    (could come from config) (doesn't have to be per-class)
+  classnameget has to be working
+  
+=====
+
 functional:
 anon func def (method/>>~<<) have a symbol "?"? ~() { } ?() { }
   rand num, can't start method or class with num
@@ -8,15 +19,6 @@ anon func def (method/>>~<<) have a symbol "?"? ~() { } ?() { }
 simple auto type derivation, must be assigned at point of declaration and will be that exact type, var
 
 finally
-
-class default log level to easily enable output per class
-  log output level (threshold needed to output) (current)
-  default log level for calls to log1() (w/out specified level)
-  (still have log2() on call)
-  not a default, many logs
-  factory/getter which hands back per class version (Logs?) set at init / in main
-    (could come from config) (doesn't have to be per-class)
-  classnameget has to be working
   
 "method" type which can call any name (?or methodmapper?) (change test func to use, like it did), apply() (or invoke()) to do the call
 

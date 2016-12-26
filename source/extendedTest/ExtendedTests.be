@@ -9,6 +9,24 @@ use Test:BaseTest;
 use Test:Assertions;
 use Test:Failure;
 
+class Test:ExtendedTest:DefaultDoesLogs {
+  default() {
+    fields {
+      IO:Log log = IO:Logs.get(self);
+    }
+  }
+  
+  doLogging() {
+    log.log("Some logging from doeslogs");
+  }
+}
+
+class Test:ExtendedTest:Log(BaseTest) {
+  main() {
+    Test:ExtendedTest:EC.testLog();
+  }
+}
+
 class Test:ExtendedTest:EC(BaseTest) {
    
    main() {
@@ -161,11 +179,24 @@ class Test:ExtendedTest:EC(BaseTest) {
    }
    
    testLog() {
-     Int lev = IO:Log.debug;
-     IO:Log log = IO:Log.new();
-     log.log(lev, "Don't see this");
-     log.level = lev;
+     log = IO:Logs.get(self);
+     log.log("Doing a log");
+   
+     Int lev = IO:Logs.error;
+     IO:Log log = IO:Log.new(IO:Logs.error, IO:Logs.debug);
+     log.log("Don't see this");
      log.log(lev, "Do see this");
+     
+     any ddl = Test:ExtendedTest:DefaultDoesLogs.new();
+     ("ddl levels " + ddl.log.outputLevel + " " + ddl.log.level).print();
+     assertNotEqual(ddl.log.outputLevel, ddl.log.level);
+     ddl.doLogging();
+     IO:Logs.turnOn(ddl);
+     assertEqual(ddl.log.outputLevel, ddl.log.level);
+     ("ddl levels " + ddl.log.outputLevel + " " + ddl.log.level).print();
+     ddl.doLogging();
+     assertEqual(ddl.log.hash, IO:Logs.get(ddl).hash);
+     ("ddl hashes " + ddl.log.hash + " " + IO:Logs.get(ddl).hash).print();
    }
    
    testLocks() {

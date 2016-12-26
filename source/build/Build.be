@@ -407,10 +407,14 @@ final class Build:Build {
       }
       if (parse) {
          //"In parse".print();
+         Set built = Set.new();
          for (any i = toBuild.iterator;i.hasNext;;) {
             any tb = i.next;
             //("First Pass, Considering file " + tb.toString() + " ").print();
-            doParse(tb);
+            unless (built.has(tb.toString())) {
+              built.put(tb.toString());
+              doParse(tb);
+            }
          }
          buildSyns(em);
       }
