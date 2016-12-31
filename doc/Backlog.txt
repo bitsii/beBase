@@ -7,7 +7,7 @@ anon func def (method/>>~<<) have a symbol "?"? ~() { } ?() { }
   find right spot to split out, can stay for most (where walk up?) - becomes call (where def) + anon method
   assignment to def causes method accessor
 
-simple auto type derivation, must be assigned at point of declaration and will be that exact type, var
+simple auto type derivation, must be assigned at point of declaration and will be that exact type, var, let, auto, ?
 
 finally
   
@@ -19,6 +19,8 @@ filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
 
 =====
+
+add rmvs for old to boot and bld (and cycle) (and ext)
 
 method accessor, gets method type (=~)
 distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
