@@ -26,6 +26,7 @@ final class Build:NodeTypes {
          Int LOOP = 15;
          Int PROPERTIES = 23;
          Int ELSE = 16;
+         Int FINALLY = 93;
          Int TRY = 17;
          Int CATCH = 18;
          Int IF = 19;

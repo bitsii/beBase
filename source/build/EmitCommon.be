@@ -1972,6 +1972,8 @@ buildClassInfoMethod(String belsBase) {
          methodBody += "while (true)" += nl;
       } elseIf (node.typename == ntypes.ELSE) {
          methodBody += " else ";
+      } elseIf (node.typename == ntypes.FINALLY) {
+         methodBody += " finally ";
       } elseIf (node.typename == ntypes.TRY) {
          methodBody += "try ";
       } elseIf (node.typename == ntypes.CATCH) {

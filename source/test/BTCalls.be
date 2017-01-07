@@ -350,6 +350,39 @@ class Tests:Exceptions(BaseTest) {
       assertTrue(ok);
       testNEType();
       testEType();
+      testFin();
+    }
+    
+    testFin() {
+      "in testfin".print();
+      Bool checka = false;
+      Bool checkb = false;
+      any ee;
+      try {
+        throw(System:Exception.new("testing"));
+      } catch (ee) {
+        checka = true;
+      } finally {
+        checkb = true;
+      }
+      assertTrue(checka);
+      assertTrue(checkb);
+      
+      checka = false;
+      checkb = false;
+      
+      try {
+        //throw(System:Exception.new("testing"));
+      } catch (ee) {
+        checka = true;
+      } finally {
+        checkb = true;
+      }
+      assertFalse(checka);
+      assertTrue(checkb);
+      
+      "fin testfin".print();
+      
     }
     
     thrower() {

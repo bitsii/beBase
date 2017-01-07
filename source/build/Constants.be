@@ -112,6 +112,7 @@ final class Build:Constants {
       conTypes.put(ntypes.CLASS, true);
       conTypes.put(ntypes.EXPR, true);
       conTypes.put(ntypes.ELSE, true);
+      conTypes.put(ntypes.FINALLY, true);
       conTypes.put(ntypes.TRY, true);
       conTypes.put(ntypes.LOOP, true);
       conTypes.put(ntypes.PROPERTIES, true);
@@ -300,6 +301,7 @@ final class Build:Constants {
       rwords.put("unless", ntypes.IF);
       rwords.put("elseIf", ntypes.ELIF);
       rwords.put("else", ntypes.ELSE);
+      rwords.put("finally", ntypes.FINALLY);
       rwords.put("loop", ntypes.LOOP);
       rwords.put("fields", ntypes.PROPERTIES);
       rwords.put("while", ntypes.WHILE);

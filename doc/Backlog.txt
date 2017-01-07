@@ -3,13 +3,14 @@
 
 functional:
 anon func def (method/>>~<<) have a symbol "?"? ~() { } ?() { }
+
+  inherit depth part of name, marked as what it is, random with 
+
   rand num, can't start method or class with num
   find right spot to split out, can stay for most (where walk up?) - becomes call (where def) + anon method
   assignment to def causes method accessor
 
-simple auto type derivation, must be assigned at point of declaration and will be that exact type, var, let, auto, ?
-
-finally
+simple auto type derivation, must be assigned at point of declaration and will be that exact type, var, let, auto, ? - work like istmpvar/var
   
 "method" type which can call any name (?or methodmapper?) (change test func to use, like it did), apply() (or invoke()) to do the call
 
