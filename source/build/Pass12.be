@@ -272,7 +272,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
       if (node.typename == ntypes.METHOD) {
          tvmap = Map.new();
          rmap = Map.new();
-      } elseIf ((node.typename == ntypes.VAR) && node.held.isTmpVar) {
+      } elseIf ((node.typename == ntypes.VAR) && node.held.autoType) {
          tvmap.put(node.held.name, node.held);
          any ll = rmap.get(node.held.name);
          if (undef(ll)) {
@@ -337,7 +337,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                            oany = mtdc.rsyn;
                            if (def(oany) && oany.isTyped) {
                               foundone = true;
-                              //("typing a tmpany a").print();
+                              //("typing a tmpvar a").print();
                               if (oany.isSelf) {
                                  nv.namepath = targNp;
                               } else {
@@ -364,7 +364,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                      if (targ.isTyped) {
                         //("FOUND REWINDABLE TMPVAR TYPE OPPORTUNITY VAR !!!").print();
                         foundone = true;
-                        //("typing a tmpany b").print();
+                        //("typing a tmpvar b").print();
                         nv.isTyped = targ.isTyped;
                         nv.namepath = targ.namepath;
                      }

@@ -203,6 +203,7 @@ final class Build:Var {
          Bool isArg = false;
          Bool isAdded = false;
          Bool isTmpVar = false;
+         Bool autoType = false;
          Bool isDeclared = true;
          Bool isProperty = false;
          Int numAssigns = 0;

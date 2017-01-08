@@ -23,6 +23,10 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
          if (node.typename == ntypes.VAR) {
             if (undef(node.held) || node.held.sameType(Text:Strings.new().empty)) {
                v = Build:Var.new();
+               if (def(node.held) && node.held.sameType(Text:Strings.new().empty) && node.held == "auto") {
+                //"FOUND A AUTOTYPE VAR".print();
+                v.autoType = true;
+               }
                node.held = v;
             }
          }

@@ -242,6 +242,7 @@ final class Node {
        clnode.held.tmpCnt++=;
        any tmpany = Build:Var.new();
        tmpany.isTmpVar = true;
+       tmpany.autoType = true;
        tmpany.suffix = suffix;
        tmpany.name = tmpanyn + "_tmpany_" + suffix;
        return(tmpany)

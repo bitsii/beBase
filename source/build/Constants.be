@@ -297,6 +297,7 @@ final class Build:Constants {
       rwords.put("local", ntypes.DEFMOD);
       rwords.put("notNull", ntypes.DEFMOD);
       rwords.put("any", ntypes.VAR);
+      rwords.put("auto", ntypes.VAR);
       rwords.put("if", ntypes.IF);
       rwords.put("unless", ntypes.IF);
       rwords.put("elseIf", ntypes.ELIF);
