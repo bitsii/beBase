@@ -847,6 +847,10 @@ BEVReturn(bevl_toRet);
    otherType(other) Bool {
       return(sameType(other).not());
    }
+   
+   final getMethod(String name) Method {
+      return(Method.new(self, name));
+   }
 
     //below two methods for handling x@ x#
     final once() self { }

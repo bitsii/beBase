@@ -1010,6 +1010,7 @@ class Test:BaseTest:All(BaseTest) {
          assertEqual("abcd".substring(1), "bcd");
          //if (true) { return(self); }
          
+         Tests:Function.new().main();
          Test:BaseTest:Float.new().main();
          Test:BaseTest:EC.new().main();
          Test:BaseTest:MutString.new().main();

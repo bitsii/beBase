@@ -2,27 +2,26 @@
 =====
 
 functional:
-anon func def (method/>>~<<) have a symbol "?"? ~() { } ?() { }
+  should incorp numargs
+  way to get from instance - use an operator and string 
+  way to define anonymously and pass
 
-  inherit depth part of name, marked as what it is, random with 
+anon def  
+  o~"myMethod" is method operator accessor (~ is an operator)
+    o~myMethod_1 (turn to literal string)
+  symbol ~() { } 
+  inherit depth part of name, marked as what it is, random with
 
-  rand num, can't start method or class with num
-  find right spot to split out, can stay for most (where walk up?) - becomes call (where def) + anon method
-  assignment to def causes method accessor
-  
-"method" type which can call any name (?or methodmapper?) (change test func to use, like it did), apply() (or invoke()) to do the call
-
-update func stuff to reflect
+  find right spot to split out, can stay for most (where walk up?) - becomes call 
   
 filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
 
+get/set vs put (?dump put?)
+
 =====
 
 add rmvs for old to boot and bld (and cycle) (and ext)
-
-method accessor, gets method type (=~)
-distinguish getting a function from doing a accessor (have a call, also have something other for shortcut, maybe ".."
 
 get rid of bems_forwardCall for js, just do what it does in the emit
 
@@ -148,8 +147,8 @@ libs
 all in mem parse/output for js
 use profiler to see where time is spent
 
-~= for setvalue (or :=, =:)
-a ~= b += c; (~= actually first/lowest priority)
+$= for setvalue
+a $= b += c; ($= actually first/lowest priority)
 
 fixed kw - like local for now, means descendants can't break contract for accessors, new, create, default
 

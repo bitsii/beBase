@@ -11,7 +11,7 @@ use final class Function:Mapper {
       
    }
 
-   mapCopy(input, action) {
+   mapCopy(input, System:Method action) {
      return(map(input.copy(), action));
    }
    
@@ -20,29 +20,30 @@ use final class Function:Mapper {
      return(input);
    }
    
-   mapIterator(iter, action) {
+   mapIterator(iter, System:Method action) {
       while (iter.hasNext) {
-         iter.current = action.map(iter.next);
+         iter.current = action.apply(iter.next);
       }
    }
    
 }
 
+//System:Method, use call forward as apply, args are passed to apply
 
-use final class Function:MapProxy {
+class System:Method {
 
-    new(_target, _callName) {
-        fields {
-            any target = _target;
-            String callName = _callName;
-            List args = List.new(1);
-        }
-    }
-    
-    map(val) {
-        args[0] = val;
-        return(target.invoke(callName, args));
-    }
+  new(_target, String _callName) {
+      fields {
+          any target = _target;
+          auto callName = _callName;
+      }
+  }
+
+  //use apply(args) to call (by convention)
+  final forwardCall(String name, List args) any {
+    any result = target.invoke(callName, args);
+    return(result);
+  }
 
 }
 

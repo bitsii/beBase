@@ -20,20 +20,20 @@ class Tests:Function(BaseTest) {
       
       List n = List.new(5);
       
-      Function:MapProxy p = Function:MapProxy.new(self, "one");
+      auto p = getMethod("one");
       
       Mapper.map(n, p);
       
-      p.callName = "addOne";
+      p = getMethod("addOne");
       Mapper.map(n, p);
       
-      p.callName = "printOne";
+      p = getMethod("printOne");
       Mapper.map(n, p);
       
       n[3].print();
       assertEquals(n[3], 2);
       
-      p.callName = "addOne";
+      p = getMethod("addOne");
       List n2 = Mapper.mapCopy(n, p);
       
       assertEquals(n2[4], 3);
