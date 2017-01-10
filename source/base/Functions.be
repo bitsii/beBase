@@ -32,15 +32,19 @@ use final class Function:Mapper {
 
 class System:Method {
 
-  new(_target, String _callName) {
+  new(_target, String _callName, Int _ac) {
       fields {
           any target = _target;
           auto callName = _callName;
+          auto ac = _ac;
       }
   }
 
   //use apply(args) to call (by convention)
   final forwardCall(String name, List args) any {
+    if (args.size != ac) {
+      throw(Exception.new("bad numargs"));
+    }
     any result = target.invoke(callName, args);
     return(result);
   }

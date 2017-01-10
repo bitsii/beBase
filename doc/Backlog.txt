@@ -2,12 +2,11 @@
 =====
 
 functional:
-  should incorp numargs
   way to get from instance - use an operator and string 
   way to define anonymously and pass
 
 anon def  
-  o~"myMethod" is method operator accessor (~ is an operator)
+  o~"myMethod_1" is method operator accessor (~ is an operator)
     o~myMethod_1 (turn to literal string)
   symbol ~() { } 
   inherit depth part of name, marked as what it is, random with
@@ -16,6 +15,7 @@ anon def
   
 filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
+sort takes method (for reverse)
 
 get/set vs put (?dump put?)
 

@@ -848,8 +848,15 @@ BEVReturn(bevl_toRet);
       return(sameType(other).not());
    }
    
-   final getMethod(String name) Method {
-      return(Method.new(self, name));
+   final getMethod(String nameac) Method {
+     Int cd = nameac.rfind("_");
+     String name = nameac.substring(0, cd);
+     Int ac = Int.new(nameac.substring(cd + 1));
+     return(getMethod(name, ac));
+   }
+   
+   final getMethod(String name, Int ac) Method {
+      return(Method.new(self, name, ac));
    }
 
     //below two methods for handling x@ x#

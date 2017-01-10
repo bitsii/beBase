@@ -20,20 +20,20 @@ class Tests:Function(BaseTest) {
       
       List n = List.new(5);
       
-      auto p = getMethod("one");
+      auto p = getMethod("one", 1);
       
       Mapper.map(n, p);
       
-      p = getMethod("addOne");
+      p = getMethod("addOne_1");
       Mapper.map(n, p);
       
-      p = getMethod("printOne");
+      p = getMethod("printOne_1");
       Mapper.map(n, p);
       
       n[3].print();
       assertEquals(n[3], 2);
       
-      p = getMethod("addOne");
+      p = getMethod("addOne", 1);
       List n2 = Mapper.mapCopy(n, p);
       
       assertEquals(n2[4], 3);
