@@ -27,7 +27,9 @@ class Tests:Function(BaseTest) {
       p = getMethod("addOne_1");
       Mapper.map(n, p);
       
-      p = getMethod("printOne_1");
+      p = self~printOne_1;
+      
+      //p = getMethod("printOne_1");
       Mapper.map(n, p);
       
       n[3].print();

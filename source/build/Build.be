@@ -740,5 +740,52 @@ final class Build:Build {
          }
       }
    }
+   
+   buildLiteral(node, tName) {
+         
+         any nlnp = Build:NamePath.new();
+         nlnp.fromString(tName);
+         
+         any nlnpn = Build:Node.new(self);
+         nlnpn.typename = ntypes.NAMEPATH;
+         nlnpn.held = nlnp;
+         nlnpn.copyLoc(node);
+         
+         any nlc = Build:Call.new();
+         nlc.name = "new";
+         nlc.wasBound = false;
+         nlc.bound = false;
+         nlc.isConstruct = true;
+         nlc.isLiteral = true;
+         nlc.literalValue = node.held;
+         
+         node.addValue(nlnpn);
+         
+         node.typename = ntypes.CALL;
+         node.held = nlc;
+         
+         nlnpn.resolveNp();
+         
+         if ((tName == "Math:Int") || (tName == "Math:Float")) {
+            any pn = node.priorPeer;
+            if (def(pn) && ((pn.typename == ntypes.SUBTRACT) || (pn.typename == ntypes.ADD))) {
+               any pn2 = pn.priorPeer;
+               if (undef(pn2) || ((pn2.typename != ntypes.CALL) && (pn2.typename != ntypes.ID) && (pn2.typename != ntypes.VAR) && (pn2.typename != ntypes.ACCESSOR))) {
+                  /* if (def(pn2)) {
+                     ("!!!SIGN Doing for typename " + pn2.typename).print();
+                  } else {
+                     ("!!!SIGN Doing for null").print();
+                  } */
+                  nlc.literalValue = pn.held + nlc.literalValue;
+                  pn.delete();
+               }
+               /*if (undef(pn2)) {
+                  "!!!SIGN ISNULL pn2".print();
+               } else {
+                  ("!!!SIGN pn2 is " + pn2.typename).print();
+               }*/
+            }
+         }
+   }
 
 }

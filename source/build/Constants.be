@@ -60,6 +60,7 @@ final class Build:Constants {
       oper.put(ntypes.LOGICAL_AND, 5);
       oper.put(ntypes.LOGICAL_OR, 6);
       oper.put(ntypes.IN, 7);
+      oper.put(ntypes.GET_METHOD, 7);
       oper.put(ntypes.ADD_ASSIGN, 8);
       oper.put(ntypes.SUBTRACT_ASSIGN, 8);
       oper.put(ntypes.MULTIPLY_ASSIGN, 8);
@@ -90,6 +91,7 @@ final class Build:Constants {
       operNames.put(ntypes.LOGICAL_AND, "LOGICAL_AND");
       operNames.put(ntypes.LOGICAL_OR, "LOGICAL_OR");
       operNames.put(ntypes.IN, "IN");
+      operNames.put(ntypes.GET_METHOD, "GET_METHOD");
       operNames.put(ntypes.ADD_ASSIGN, "ADD_VALUE");
       operNames.put(ntypes.SUBTRACT_ASSIGN, "SUBTRACT_VALUE");
       operNames.put(ntypes.INCREMENT_ASSIGN, "INCREMENT_VALUE");
@@ -199,6 +201,10 @@ final class Build:Constants {
       ntok = "#";
       twtok.addToken(ntok);
       matchMap.put(ntok, ntypes.MANY);
+      
+      ntok = "~";
+      twtok.addToken(ntok);
+      matchMap.put(ntok, ntypes.GET_METHOD);
       
       //must do fromCode: dblquote pcent equals gtr lsr not amper star period fslash
       

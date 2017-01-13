@@ -17,53 +17,6 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
          String inFile;
       }
    }
-   
-   buildLiteral(node, tName) {
-         
-         any nlnp = Build:NamePath.new();
-         nlnp.fromString(tName);
-         
-         any nlnpn = Build:Node.new(build);
-         nlnpn.typename = ntypes.NAMEPATH;
-         nlnpn.held = nlnp;
-         nlnpn.copyLoc(node);
-         
-         any nlc = Build:Call.new();
-         nlc.name = "new";
-         nlc.wasBound = false;
-         nlc.bound = false;
-         nlc.isConstruct = true;
-         nlc.isLiteral = true;
-         nlc.literalValue = node.held;
-         
-         node.addValue(nlnpn);
-         
-         node.typename = ntypes.CALL;
-         node.held = nlc;
-         
-         nlnpn.resolveNp();
-         
-         if ((tName == "Math:Int") || (tName == "Math:Float")) {
-            any pn = node.priorPeer;
-            if (def(pn) && ((pn.typename == ntypes.SUBTRACT) || (pn.typename == ntypes.ADD))) {
-               any pn2 = pn.priorPeer;
-               if (undef(pn2) || ((pn2.typename != ntypes.CALL) && (pn2.typename != ntypes.ID) && (pn2.typename != ntypes.VAR) && (pn2.typename != ntypes.ACCESSOR))) {
-                  /* if (def(pn2)) {
-                     ("!!!SIGN Doing for typename " + pn2.typename).print();
-                  } else {
-                     ("!!!SIGN Doing for null").print();
-                  } */
-                  nlc.literalValue = pn.held + nlc.literalValue;
-                  pn.delete();
-               }
-               /*if (undef(pn2)) {
-                  "!!!SIGN ISNULL pn2".print();
-               } else {
-                  ("!!!SIGN pn2 is " + pn2.typename).print();
-               }*/
-            }
-         }
-   }
 
    accept(Build:Node node) Build:Node {
       //any chk = "TypeCheck checking ";
@@ -92,22 +45,22 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
          node.inFile = inFile;
       }
       if (node.typename == ntypes.INTL) {
-         buildLiteral(node, "Math:Int");
+         build.buildLiteral(node, "Math:Int");
       }
       if (node.typename == ntypes.FLOATL) {
-         buildLiteral(node, "Math:Float");
+         build.buildLiteral(node, "Math:Float");
       }
       if (node.typename == ntypes.STRINGL) {
-         buildLiteral(node, "Text:String");
+         build.buildLiteral(node, "Text:String");
       }
       if (node.typename == ntypes.WSTRINGL) {
          //"!!!!!!!!!!!!!!!!BUILDING NODE WIDESTRING".print();
-         buildLiteral(node, "Text:String");
+         build.buildLiteral(node, "Text:String");
          node.wideString = true;
       }
       if (node.typename == ntypes.TRUE) {
          node.held = "true";
-         buildLiteral(node, "Logic:Bool");
+         build.buildLiteral(node, "Logic:Bool");
       }
       /* ("DEBUG node typename " + node.typename).print();
       if (def(nnode)) {
@@ -115,7 +68,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
       } */
       if (node.typename == ntypes.FALSE) {
          node.held = "false";
-         buildLiteral(node, "Logic:Bool");
+         build.buildLiteral(node, "Logic:Bool");
       }
       elseIf ((node.typename == ntypes.VAR) && (node.held.isArg!)) {
          if (undef(node.held.name) && (undef(nnode) || (nnode.typename != ntypes.ID))) {

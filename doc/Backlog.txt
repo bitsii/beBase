@@ -2,7 +2,6 @@
 =====
 
 functional:
-  way to get from instance - use an operator and string 
   way to define anonymously and pass
 
 anon def  
@@ -17,9 +16,13 @@ filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
 sort takes method (for reverse)
 
-get/set vs put (?dump put?)
+change put to set
 
 =====
+
+faster can
+in system:method pre-setup everything that can be (call int, etc) and do the call there (no invoke)
+for ~ split out the call name and number.  ?do like literals and pre-compute as onces? ("apply" is ok call)
 
 add rmvs for old to boot and bld (and cycle) (and ext)
 
@@ -81,13 +84,6 @@ direct accessors
   bind at compile time for typed (just direct access if call not defined)
   no gen accessors
 
-have a method/call class again (reuse forwardcall, put calling logic (method undef) in it) call?
- predef nums for bems
- move/duplicate invoke? (support same code block exactly for both, duplicate)
- move convenience syntax down so forwardcall wins if present (full control)
- have obj methundef first look for actual method with numargs and invoke if so
- invoke with args (dynamic/fwd itself :-) will override/set before call
-
 multi-return multi-assign (array) (list of types in () like args
 
 ---
@@ -101,14 +97,13 @@ func
 
 support something (>>? double,) as a "," equivalent, for map and such
 field prefix to any dec makes it a field
-  
-list reverse sort (func comparator)
 
 serializer easy skip by index #
 
 notion of close or far syn, changes
 
 a way to serialize by field names, ok with missing on deerialize (more version stable)
+  name map, like to/from map
 
 for callfromoper cases, if there is a "equalsName" method (for any call which was from oper) and arg is same type as caller call that instead
   do for string equals, notEquals, add, addValue, 

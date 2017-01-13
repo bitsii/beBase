@@ -121,6 +121,10 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
       if (gc.name == "logical_or") {
          gc.name = "logicalOr";
       }
+      if (gc.name == "get_method") {
+         //"GOT A GET METHOD".print();
+         gc.name = "getMethod";
+      }
       if (gc.name == "and_value") {
          gc.name = "andValue";
       }
@@ -136,6 +140,9 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
       if (op.typename == ntypes.ASSIGN && op.held == "=#") {
          //("FOUND many assign !!!").print();
          gc.isMany = true;
+      }
+      if (op.typename == ntypes.GET_METHOD) {
+        build.buildLiteral(nx, "Text:String");
       }
       op.typename = ntypes.CALL;
       op.held = gc;
