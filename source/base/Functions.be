@@ -41,10 +41,7 @@ class System:Method {
   }
 
   //use apply(args) to call (by convention)
-  final forwardCall(String name, List args) any {
-    if (args.size != ac) {
-      throw(Exception.new("bad numargs"));
-    }
+  forwardCall(String name, List args) any {
     any result = target.invoke(callName, args);
     return(result);
   }

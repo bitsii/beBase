@@ -1,23 +1,14 @@
 
-=====
-
-functional:
-  way to define anonymously and pass
-
-anon def  
-  o~"myMethod_1" is method operator accessor (~ is an operator)
-    o~myMethod_1 (turn to literal string)
-  symbol ~() { } 
-  inherit depth part of name, marked as what it is, random with
-
-  find right spot to split out, can stay for most (where walk up?) - becomes call 
-  
 filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
 sort takes method (for reverse)
 
-change put to set
+inline funcs extend System:Method override forwardcall with logic
 
+anonfunc, closure(ish) (eiffelish)
+  only passed args and self
+  symbol ~() { } 
+  
 =====
 
 faster can
@@ -137,6 +128,11 @@ embed ondemand
 golang?
 
 bool default type, is a true and a false (only the true is true)
+
+?closurish
+  same ~() { }
+  can use vars from outer scope
+  capture at call, ?assign back after 
 
 libs
 all in mem parse/output for js

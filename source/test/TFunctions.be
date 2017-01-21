@@ -18,6 +18,8 @@ class Tests:Function(BaseTest) {
    main() {
       ("Tests:Function.main").print();
       
+      afunc();
+      
       List n = List.new(5);
       
       auto p = getMethod("one", 1);
@@ -40,6 +42,16 @@ class Tests:Function(BaseTest) {
       
       assertEquals(n2[4], 3);
       assertEquals(n[4], 2);
+   }
+   
+   afunc() {
+   
+     //useIt(~(String msg){ print("Msg " + msg); });
+    
+   }
+   
+   useIt(System:Method mtd) {
+     return(mtd.apply("Hi"));
    }
    
    one(x) {
