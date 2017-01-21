@@ -137,9 +137,15 @@ class Test:BaseTest:EC(BaseTest) {
         
         testFc();
         
+        testHi();
+        
         //nativeExcepts();
         //doExcepts();
       
+    }
+    
+    testHi() {
+      Hi.new().main();
     }
     
     forwardCall(String name, List args) any {
@@ -1042,4 +1048,15 @@ class TestEmit {
     "hi".print();
   }
 }
+
+use Hi;
+
+class Hi {
+
+   main() {
+      "Yo".print();
+   }
+
+}
+
 

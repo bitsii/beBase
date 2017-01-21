@@ -1,6 +1,11 @@
 
+dev instructs
+
 filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
+
+=====
+
 sort takes method (for reverse)
 
 inline funcs extend System:Method override forwardcall with logic
@@ -8,8 +13,6 @@ inline funcs extend System:Method override forwardcall with logic
 anonfunc, closure(ish) (eiffelish)
   only passed args and self
   symbol ~() { } 
-  
-=====
 
 faster can
 in system:method pre-setup everything that can be (call int, etc) and do the call there (no invoke)
