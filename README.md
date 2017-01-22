@@ -35,4 +35,6 @@ A simple base library includes mutable String and Int(eger) implementations as w
 
 [Getting started - get the code, build, run] (https://gitlab.com/ioturl/abe-pl/wikis/getting-started)
 
+[Show me the code (where is it, really)] (https://bitbucket.org/ioturl/abe-pl)
+
 [...and the authoritative version of this very page...] (https://gitlab.com/ioturl/abe-pl/wikis/home)
