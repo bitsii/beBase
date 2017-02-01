@@ -1,6 +1,4 @@
 
-dev instructs
-
 filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
 
