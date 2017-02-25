@@ -62,7 +62,7 @@ emit(cs) {
 using System.Security.Cryptography;
 """
 }
-use local class Digest:SHA256 {
+use class Digest:SHA256 {
 
    emit(jv) {
    """
@@ -87,6 +87,60 @@ use local class Digest:SHA256 {
         emit(cs) {
         """
         bevi_md = new SHA256Managed();
+        """
+        }
+    }
+    
+    digest(String with) String {
+        new();
+        String res;
+        emit(jv) {
+        """
+        bevi_md.update(beva_with.bevi_bytes, 0, beva_with.bevp_size.bevi_int);
+        bevl_res = new $class/Text:String$(bevi_md.digest());
+        """
+        }
+        emit(cs) {
+        """
+        bevl_res = new $class/Text:String$(
+          bevi_md.ComputeHash(beva_with.bevi_bytes, 0, beva_with.bevp_size.bevi_int)
+        );
+        """
+        }
+        return(res);
+    }
+    
+    digestToHex(String input) String {
+        return(Hex.encode(digest(input));
+    }
+
+}
+
+use class Digest:SHA1 {
+
+   emit(jv) {
+   """
+   
+    public MessageDigest bevi_md;
+    
+   """
+   }
+   
+   emit(cs) {
+   """
+    public SHA1Managed bevi_md; 
+   """
+   }
+
+    new() self {
+        emit(jv) {
+        """
+        bevi_md = MessageDigest.getInstance("SHA-1");
+        """
+        }
+        emit(cs) {
+        """
+        bevi_md = new SHA1Managed();
         """
         }
     }

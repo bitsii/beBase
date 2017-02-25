@@ -1,8 +1,13 @@
 
+TS.ne (notEmpty)
+TS.ie (isEmpty)
+
 filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
 
 =====
+
+dart? go? (alt to cs ios/mac)
 
 sort takes method (for reverse)
 
