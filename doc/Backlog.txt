@@ -7,7 +7,8 @@ map, filter et all to containers (mapValue(s), filterValue(s))
 
 =====
 
-dart? go? (alt to cs ios/mac)
+define a method anywhere, in other methods fine (same namespace, tho, just lexical support)
+anon method (same as above but random unused name defined for it - rule method names can't start with a number)
 
 sort takes method (for reverse)
 

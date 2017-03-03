@@ -642,9 +642,14 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                            node.held.argCasts.put(i, marg.namepath);//we need to cast this arg during the call
                            //("Putting in argcast ").print();
                         } else {
-                           syn = build.getSynNp(carg.namepath);
-                           if (syn.castsTo(marg.namepath)!) {
-                              throw(Build:VisitError.new("Found incompatible argument type for call, required " + syn.namepath.toString() + " got " + marg.namepath.toString(), nnode));
+                           ClassSyn argSyn = build.getSynNp(carg.namepath);
+                           if (argSyn.castsTo(marg.namepath)!) {
+                              fcms = syn.mtdMap.get("forwardCall_2");
+                              if (def(fcms) && fcms.origin.toString() != "System:Object") {
+                                node.held.isForward = true;
+                              } else {
+                                throw(Build:VisitError.new("Found incompatible argument type for call, required " + argSyn.namepath.toString() + " got " + marg.namepath.toString(), nnode));
+                              }
                            }
                            //at this point either marg (the method arg) is untyped 
                            //(so no cast needed) or marg is typed and either it is the same class or a superclass of carg or (if carg is
