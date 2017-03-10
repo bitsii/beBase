@@ -48,4 +48,21 @@ class System:Method {
 
 }
 
+class System:Invocation {
+
+  new(_target, String _callName, List _args) {
+      fields {
+          any target = _target;
+          auto callName = _callName;
+          auto args = _args;
+      }
+  }
+
+  invoke() any {
+    any result = target.invoke(callName, args);
+    return(result);
+  }
+
+}
+
 //use final class Function:Callback

@@ -858,6 +858,10 @@ BEVReturn(bevl_toRet);
    final getMethod(String name, Int ac) Method {
       return(Method.new(self, name, ac));
    }
+   
+   final getInvocation(String name, List args) System:Invocation {
+      return(System:Invocation.new(self, name, args));
+   }
 
     //below two methods for handling x@ x#
     final once() self { }
