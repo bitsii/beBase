@@ -33,7 +33,7 @@ for variadic figure out the dest call at gen and directly do it with reg args (s
 have interface or mixin or protocol or something to enable 
 anon inline funcs (mtd)
 
-build bevd_x all at once using native array construction
+build bevd_x all at once using native array construction (each time), remove the forwardCall copy after
 
 named params? (?typed calls only? - order at gen time?) 
   enum like (array by index?, test in langs)

@@ -874,6 +874,10 @@ BEVReturn(bevl_toRet);
      name = name.Substring(0, name.LastIndexOf("_"));
      return bem_methodNotDefined_2(new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(name)), new $class/Container:List$(args));
    }
+   public virtual BEC_2_6_6_SystemObject bems_forwardCallCp(BEC_2_4_6_TextString name, BEC_2_9_4_ContainerList args) { 
+     args = (BEC_2_9_4_ContainerList) args.bem_copy_0();
+     return bem_forwardCall_2(name, args);
+   }
    """
    }
    

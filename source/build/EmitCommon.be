@@ -1782,9 +1782,9 @@ buildClassInfoMethod(String belsBase) {
         }
         if (isForward) {
           if (emitting("cs")) {
-            methodBody += callAssign += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
+            methodBody += callAssign += target += ".bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
           } elseIf (emitting("jv")) {
-            methodBody += callAssign += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
+            methodBody += callAssign += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
           } else {
             methodBody += callAssign += target += ".bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ");" += nl;
           }

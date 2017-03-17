@@ -693,7 +693,7 @@ use local class System:ThinThread {
      }
    }
    
-   start() self {
+   start() this {
      emit(cs) {
      """
      bevi_thread = new Thread($class/System:ThinThread$.bems_run);

@@ -62,6 +62,11 @@ class System:Invocation {
     any result = target.invoke(callName, args);
     return(result);
   }
+  
+  main() any {
+    any result = target.invoke(callName, args);
+    return(result);
+  }
 
 }
 
