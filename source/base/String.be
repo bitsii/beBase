@@ -385,6 +385,23 @@ final class String {
       //doesn't work in some cases (trailing case)
    }
    
+   swapFirst(String from, String to) {
+      //("in swap 2").print();
+      String res = String.new();
+      Int last = 0;
+      nxt = 0;
+      Int nxt = find(from, last);
+      if (def(nxt)) {
+        res += substring(last, nxt);
+        res += to;
+        last = nxt + from.size;
+        res += substring(last, self.size);
+      } else {
+        return(from.copy());
+      }
+      return(res);
+   }
+   
    swap(String from, String to) {
       //("in swap 2").print();
       String res = String.new();

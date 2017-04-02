@@ -7,6 +7,8 @@ map, filter et all to containers (mapValue(s), filterValue(s))
 
 =====
 
+should be possible to have a generic sync/lock proxy type now (containerlocker for anything)
+
 define a method anywhere, in other methods fine (same namespace, tho, just lexical support)
 anon method (same as above but random unused name defined for it - rule method names can't start with a number)
 
