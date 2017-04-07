@@ -380,6 +380,9 @@ void** bevl_mpath;
         """
         }
       }
+      ifEmit(cs) {
+        abstr = path.path;
+      }
       absp = IO:File:Path.apNew(abstr);
       return(absp);
    }
