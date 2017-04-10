@@ -9,7 +9,7 @@ cd target5/Base/target
 unzip -o ../../../boot5/BEL_4_Base_be_jv_macos.zip
 cd ../../..
 
-javac system/jv/be/BELS_Base/*.java target5/Base/target/jv/be/BEL_4_Base/*.java
+javac system/jv/be/*.java target5/Base/target/jv/be/*.java
 
 rm -f target5/BEL_system_be_jv.jar
 cd system/jv
