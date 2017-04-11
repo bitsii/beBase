@@ -7,7 +7,7 @@ map, filter et all to containers (mapValue(s), filterValue(s))
 
 =====
 
-bug in json, does not do well with tabs in whitespace areas - check official ok for whitespace
+a bug in json, does not do well with tabs in whitespace areas - check official ok for whitespace
 
 should be possible to have a generic sync/lock proxy type now (containerlocker for anything)
 
