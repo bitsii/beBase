@@ -288,6 +288,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             lineCount += countLines(preClass);
             cle.write(preClass);
             
+            if(emitting("sw")) {
+              lineCount += writeOnceDecs(cle, onceDecs);
+            }
+            
             //class declaration
             String cb = self.classBegin(clnode.held.syn);
             lineCount += countLines(cb);
@@ -297,9 +301,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             lineCount += countLines(classEmits);
             cle.write(classEmits);
             
-            //the once decs (once-assigns, literals)
-            //cle.write(onceDecs);
-            lineCount += writeOnceDecs(cle, onceDecs);
+            unless(emitting("sw")) {
+              lineCount += writeOnceDecs(cle, onceDecs);
+            }
             
             //the initial instance
             String idec = self.initialDec;
@@ -485,10 +489,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     
     spropDecGet() String {
         return("public static ");
-    }
-    
-    overrideSmtdDecGet() String {
-        return("");
     }
     
     baseSmtdDecGet() String {
@@ -1648,7 +1648,7 @@ buildClassInfoMethod(String belsBase) {
                         newCall = lfloatConstruct(newcc, node);
                     } elseIf (newcc.np == stringNp) {
                         
-                        String belsName = "bels_" + cnode.held.belsCount.toString();
+                        String belsName = classConf.emitName + "_bels_" + cnode.held.belsCount.toString();
                         cnode.held.belsCount++=;
                         String sdec = String.new();
                         lstringStart(sdec, belsName);

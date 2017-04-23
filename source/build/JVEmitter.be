@@ -55,10 +55,6 @@ use final class Build:JVEmitter(Build:EmitCommon) {
         return("public static " + typeName + " " + anyName);
       }
     
-    overrideSmtdDecGet() String {
-        return("public static ");
-    }
-    
     baseMtdDec(Build:MtdSyn msyn) String {
       if (def(msyn) && msyn.isFinal) {
         return("public final ");

@@ -24,5 +24,7 @@ source/base/Process.be
 source/base/EcProcess.be
 --cs_source
 source/base/EcProcess.be
+--sw_source
+source/base/EcProcess.be
 --js_source
 source/base/EcProcess.be

@@ -1,6 +1,21 @@
 
-swift
-  base on cs
+swift get building
+  
+  check access options (private, public, open, etc)
+  for collections, etc, have a weak reference type (?proxy)
+
+field prefix to any dec makes it a field
+  field Type (auto, any) blah;
+  have a field fields type which is weak (weak)
+  
+
+Where no dynamic options create methods/switches (do in cs and jv too, first)
+  construct instances and put in map for create calls
+  get away from any hash calc during build == has calc at runtime, just the one value for calls
+  
+swift get working 
+
+vala?
 
 TS.ne (notEmpty)
 TS.ie (isEmpty)
@@ -102,7 +117,6 @@ func
   and auto-multi-assign on way out (can be backward compat addition to anon mtd)
 
 support something (>>? double,) as a "," equivalent, for map and such
-field prefix to any dec makes it a field
 
 serializer easy skip by index #
 

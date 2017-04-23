@@ -6,6 +6,8 @@ source/extended/Nix.be
 source/extended/EcPlat.be
 --cs_source
 source/extended/EcPlat.be
+--sw_source
+source/extended/EcPlat.be
 --js_source
 source/extended/EcPlat.be
 #below for build

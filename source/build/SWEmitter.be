@@ -10,17 +10,35 @@ use Build:Visit;
 use Build:EmitException;
 use Build:Node;
 
-use final class Build:CSEmitter(Build:EmitCommon) {
+use final class Build:SWEmitter(Build:EmitCommon) {
 
     
     new(Build:Build _build) {
-        emitLang = "cs";
-        fileExt = ".cs";
+        emitLang = "sw";
+        fileExt = ".swift";
         exceptDec = "";
         fields {
         }
         //super new depends on some things we set here, so it must follow
         super.new(_build);
+    }
+    
+    klassDec(Bool isFinal) String {
+        return("class ");
+    }
+    
+    lstringStart(String sdec, String belsName) {
+      sdec += "var " += belsName += ":[UInt8] = [";//]
+	}
+	
+  buildClassInfo() self {
+    buildClassInfo(classConf.emitName + "_clname", cnode.held.namepath.toString());
+    buildClassInfo(classConf.emitName + "_clfile", inFilePathed);
+  }
+	
+	lstringEnd(String sdec) {
+        //[
+        sdec += "];" += nl;
     }
     
     acceptCatch(Node node) {
@@ -37,25 +55,19 @@ use final class Build:CSEmitter(Build:EmitCommon) {
    }
    
    baseMtdDec(Build:MtdSyn msyn) String {
-     if (csyn.isFinal || (def(msyn) && msyn.isFinal)) {
-        return("public ");
-     }
-     return("public virtual ");
+     return("func ");
     }
     
     overrideMtdDec(Build:MtdSyn msyn) String {
-       if (def(msyn) && msyn.isFinal) {
-         return ("public sealed override ");
-       }
-       return("public override ");
+       return("override func ");
     }
   
   superNameGet() String {
-    return("base");
+    return("super");
   }
   
   onceDec(String typeName, String anyName) {
-     return("private static " + typeName + " ");
+     return("class " + typeName + " ");
   }
   
   lstringByte(String sdec, String lival, Int lipos, Int bcode, String hs) {
@@ -69,40 +81,19 @@ use final class Build:CSEmitter(Build:EmitCommon) {
   
   
   overrideSpropDec(String typeName, String anyName) {
-    return("public static new " + typeName + " " + anyName);
+    return("class " + typeName + " " + anyName);
   }
   
   mainStartGet() String {
-        String ms = "public static void Main(string[] args)" + exceptDec + " {" + nl; //}
+        String ms = "main(string[] args)" + exceptDec + " {" + nl; //}
         ms += "lock (typeof(" += libEmitName += ")) {" += nl;//}
-        ms += "be.BECS_Runtime.args = args;" += nl;
-        ms += "be.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
+        ms += "BECS_Runtime.args = args;" += nl;
+        ms += "BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
         return(ms);
    }
     
-    beginNs() String {
-        return(beginNs(build.libName));
-    }
-    
-    beginNs(String libName) String {
-        return("namespace " + libNs(libName) + " {" + nl);
-    }
-    
-    libNs(String libName) String {
-        return(getNameSpace(libName));
-    }
-    
-    endNs() String {
-        return("}"+ nl);
-    }
-    
     extend(String parent) String {
         return(" : "@ + parent);
-    }
-    
-    //Amazingly, cs doesn't support coanyiant return types
-    coanyiantReturnsGet() {
-        return(false);
     }
 
 }
