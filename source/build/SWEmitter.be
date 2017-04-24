@@ -9,6 +9,7 @@ use IO:File;
 use Build:Visit;
 use Build:EmitException;
 use Build:Node;
+use Build:ClassConfig;
 
 use final class Build:SWEmitter(Build:EmitCommon) {
 
@@ -21,6 +22,10 @@ use final class Build:SWEmitter(Build:EmitCommon) {
         }
         //super new depends on some things we set here, so it must follow
         super.new(_build);
+    }
+    
+    onceVarDec(String count) String {
+      return(classConf.emitName + "_bevo_" + count);
     }
     
     klassDec(Bool isFinal) String {
@@ -67,8 +72,15 @@ use final class Build:SWEmitter(Build:EmitCommon) {
   }
   
   onceDec(String typeName, String anyName) {
-     return("class " + typeName + " ");
+     return("var " + anyName + ":" + typeName + "? ");
   }
+  
+  lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {
+      if (isOnce) {
+        return(newcc.relEmitName(build.libName) + "(" + belsName + ", " + lisz + ")");
+      }
+      return(newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
+   }
   
   lstringByte(String sdec, String lival, Int lipos, Int bcode, String hs) {
         

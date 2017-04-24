@@ -1710,7 +1710,12 @@ buildClassInfoMethod(String belsBase) {
                         }
                     }
                     if (onceDeced) {
+                      if(emitting("sw")) {
+                        //onceDecs += odec += callAssign += target += "nn;" += nl;
+                        onceDecs += odec += "= " += cast += target += ";" += nl;
+                      } else {
                         onceDecs += odec += callAssign += target += ";" += nl;
+                      }
                     } else {
                         methodBody += callAssign += target += ";" += nl;
                     }
@@ -1805,7 +1810,11 @@ buildClassInfoMethod(String belsBase) {
         methodBody += postOnceCallAssign;
         if (onceDeced!) {
             if (odec.isEmpty!) {
+              if(emitting("sw")) {
+                onceDecs += odec += "= nil;" += nl;
+              } else {
                 onceDecs += odec += oany += ";" += nl;
+              }
             }
         }
       }

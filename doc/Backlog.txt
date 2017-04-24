@@ -17,6 +17,8 @@ swift get working
 
 vala?
 
+be clear that =@ and @ are hints/suggestions not definite, default is tho
+
 TS.ne (notEmpty)
 TS.ie (isEmpty)
 
