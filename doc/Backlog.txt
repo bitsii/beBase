@@ -1,5 +1,9 @@
 
 swift get building
+
+  rm try/catch/fin from sw and get building
+  error at call level only, attempt(call), later try(call)
+  no more catch or finally, attempt() returns a tuple (or triple) of success/fail, error, and result
   
   check access options (private, public, open, etc)
   for collections, etc, have a weak reference type (?proxy)
