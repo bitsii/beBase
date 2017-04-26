@@ -24,8 +24,19 @@ use final class Build:SWEmitter(Build:EmitCommon) {
         super.new(_build);
     }
     
+    classBegin(Build:ClassSyn csyn) String {
+       if (def(parentConf)) {
+          String extends = extend(parentConf.relEmitName(build.libName));
+       } else {
+          extends = extend("be.BECS_Object");
+       }
+       String clb = "/* IO:File: " += inFilePathed += " */" += nl;
+       clb += self.klassDec(csyn.isFinal) += classConf.emitName += extends += " {" += nl; //}
+       return(clb)
+    }
+    
     onceVarDec(String count) String {
-      return(classConf.emitName + "_bevo_" + count);
+      return("bece_" + classConf.emitName + "_bevo_" + count);
     }
     
     klassDec(Bool isFinal) String {
@@ -36,11 +47,14 @@ use final class Build:SWEmitter(Build:EmitCommon) {
       sdec += "var " += belsName += ":[UInt8] = [";//]
 	}
 	
-  buildClassInfo() self {
-    buildClassInfo(classConf.emitName + "_clname", cnode.held.namepath.toString());
-    buildClassInfo(classConf.emitName + "_clfile", inFilePathed);
+  baseSpropDec(String typeName, String anyName) {
+     return("var " + anyName + ":" + typeName + " ");
   }
-	
+  
+  overrideSpropDec(String typeName, String anyName) {
+    return("var " + anyName + ":" + typeName + " ");
+  }
+  
 	lstringEnd(String sdec) {
         //[
         sdec += "];" += nl;
@@ -90,11 +104,6 @@ use final class Build:SWEmitter(Build:EmitCommon) {
         sdec += bc;
         //sdec += ","@;
     }
-  
-  
-  overrideSpropDec(String typeName, String anyName) {
-    return("class " + typeName + " " + anyName);
-  }
   
   mainStartGet() String {
         String ms = "main(string[] args)" + exceptDec + " {" + nl; //}

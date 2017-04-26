@@ -1,5 +1,11 @@
-
+  
 swift get building
+
+  try out more of the actual syntax, declarations, calls, conditionals
+
+  also have bevs_inst include the classname
+
+  for creating instances see if we can put a function pointer into the map (which creates an instance)
 
   rm try/catch/fin from sw and get building
   error at call level only, attempt(call), later try(call)
@@ -31,6 +37,8 @@ map, filter et all to containers (mapValue(s), filterValue(s))
 concurrent foreach, etc
 
 =====
+
+check add tests for className classFile Get
 
 a bug in json, does not do well with tabs in whitespace areas - check official ok for whitespace
 

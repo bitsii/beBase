@@ -290,6 +290,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             if(emitting("sw")) {
               lineCount += writeOnceDecs(cle, onceDecs);
+              //the initial instance
+              idec = self.initialDec;
+              lineCount += countLines(idec);
+              cle.write(idec);
             }
             
             //class declaration
@@ -303,12 +307,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             unless(emitting("sw")) {
               lineCount += writeOnceDecs(cle, onceDecs);
+              //the initial instance
+              String idec = self.initialDec;
+              lineCount += countLines(idec);
+              cle.write(idec);
             }
-            
-            //the initial instance
-            String idec = self.initialDec;
-            lineCount += countLines(idec);
-            cle.write(idec);
             
             //properties
             lineCount += countLines(propertyDecs);
@@ -1050,16 +1053,20 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
 
 buildClassInfo() self {
-    buildClassInfo("clname", cnode.held.namepath.toString());
-    buildClassInfo("clfile", inFilePathed);
-}
+    buildClassInfo("clname", classConf.emitName + "_clname", cnode.held.namepath.toString());
+    buildClassInfo("clfile", classConf.emitName + "_clfile", inFilePathed);
+  }
  
-buildClassInfo(String belsBase, String lival) self {
+buildClassInfo(String bemBase, String belsBase, String lival) self {
     
     String belsName = "becc_" + belsBase;
     
     String sdec = String.new();
-    lstringStart(sdec, belsName);
+    if(emitting("js")) {
+      lstringStart(sdec, "becc_" + bemBase);
+    } else {
+      lstringStart(sdec, belsName);
+    }
       
       Int lisz = lival.size;
       Int lipos = 0;
@@ -1076,12 +1083,12 @@ buildClassInfo(String belsBase, String lival) self {
       
     onceDecs += sdec;
     
-    buildClassInfoMethod(belsBase);
+    buildClassInfoMethod(bemBase, belsBase);
 
 }
 
-buildClassInfoMethod(String belsBase) {
-    ccMethods += self.overrideMtdDec += "byte[] bemc_" += belsBase += "()" += exceptDec += " {" += nl;  //}
+buildClassInfoMethod(String bemBase, String belsBase) {
+    ccMethods += self.overrideMtdDec += "byte[] bemc_" += bemBase += "()" += exceptDec += " {" += nl;  //}
     ccMethods += "return becc_" += belsBase += ";" += nl;
     //{
     ccMethods += "}" += nl;
@@ -1648,7 +1655,7 @@ buildClassInfoMethod(String belsBase) {
                         newCall = lfloatConstruct(newcc, node);
                     } elseIf (newcc.np == stringNp) {
                         
-                        String belsName = classConf.emitName + "_bels_" + cnode.held.belsCount.toString();
+                        String belsName = "bece_" + classConf.emitName + "_bels_" + cnode.held.belsCount.toString();
                         cnode.held.belsCount++=;
                         String sdec = String.new();
                         lstringStart(sdec, belsName);

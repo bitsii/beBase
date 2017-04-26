@@ -45,7 +45,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
    }
 
-   buildClassInfoMethod(String belsBase) { }
+   buildClassInfoMethod(String bemBase, String belsBase) { }
 
    lstringStart(String sdec, String belsName) {
 

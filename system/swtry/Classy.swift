@@ -20,6 +20,8 @@ class BES_Classy {
 	anint = 5;
   }
   
+  func acall() { }
+  
   func callWith(_ it:BES_Classy, _ yo:BES_StayClassy) {
   
   }
