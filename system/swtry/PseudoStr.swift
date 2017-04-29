@@ -7,6 +7,14 @@ class BES_PseudoStr : BES_Classy {
   init(_ bevi_bytes:[UInt8]) {
   
   }
+  
+  func callIt_0() { 
+  
+  }
+  
+  func callIt_1(_ bevi_bytes:[UInt8]?) { 
+  
+  }
 
 }
 

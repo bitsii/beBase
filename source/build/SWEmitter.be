@@ -39,6 +39,35 @@ use final class Build:SWEmitter(Build:EmitCommon) {
       return("bece_" + classConf.emitName + "_bevo_" + count);
     }
     
+    propDecGet() String {
+        return("");
+    }
+    
+    decForVar(String b, Build:Var v) {
+      b += "var ";
+      b += nameForVar(v);
+      b += ":";
+      typeDecForVar(b, v);
+      b += "?";
+   }
+    
+    initialDecGet() String {
+       
+         String initialDec = String.new();
+         
+         if (csyn.namepath == objectNp) {
+            initialDec += baseSpropDec(classConf.emitName, "bece_" + classConf.emitName + "_bevs_inst") += ";" += nl;
+         } else {
+            initialDec += overrideSpropDec(classConf.emitName, "bece_" + classConf.emitName + "_bevs_inst") += ";" += nl;
+         }
+         
+         return(initialDec);
+    }
+    
+    getInitialInst(ClassConfig newcc) String {
+      return(newcc.relEmitName(build.libName) + "." + "bece_" + newcc.emitName + "_bevs_inst");
+     }
+    
     klassDec(Bool isFinal) String {
         return("class ");
     }
