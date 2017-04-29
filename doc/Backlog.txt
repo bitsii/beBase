@@ -1,36 +1,13 @@
 
-c++
+no finally
 
-swift get building
+c++ (cc)
 
-  also have bevs_inst include the classname
+std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr
+
+try also includes setjmp (into stack) and signals longjump
   
-  fix emits
-    properties
-    local vars
-    method dec
-
-  start with the minimal js build? (try on cs)
- 
-  rm try/catch/fin from sw and get building
-
-  error at call level only, attempt(call), later try(call)
-  no more catch or finally, attempt() returns a tuple (or triple) of success/fail, error, and result
-  
-
-  try out more of the actual syntax, 
-    #member declarations
-    #local vars
-    #calls
-    #conditionals
-    #super
-    #self
-    #return types
-    #covariant arg and return types - yes return, no arg (not an override)
-    
-  for creating instances see if we can put a function pointer into the map (which creates an instance)
-
-  for collections, etc, have a weak reference type (?proxy)
+for collections, etc, have a weak reference type (?proxy)
 
 field prefix to any dec makes it a field
   field Type (auto, any) blah;
@@ -41,10 +18,6 @@ Where no dynamic options create methods/switches (do in cs and jv too, first)
   construct instances and put in map for create calls
   get away from any hash calc during build == has calc at runtime, just the one value for calls
   
-swift get working 
-
-vala?
-
 be clear that =@ and @ are hints/suggestions not definite, default is tho
 
 TS.ne (notEmpty)
