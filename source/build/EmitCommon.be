@@ -1970,7 +1970,8 @@ buildClassInfoMethod(String bemBase, String belsBase) {
       } elseIf (node.typename == ntypes.ELSE) {
          methodBody += " else ";
       } elseIf (node.typename == ntypes.FINALLY) {
-         methodBody += " finally ";
+         //methodBody += " finally ";
+         throw(VisitError.new("finally not supported :-(")); //)
       } elseIf (node.typename == ntypes.TRY) {
          methodBody += "try ";
       } elseIf (node.typename == ntypes.CATCH) {

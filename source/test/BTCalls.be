@@ -362,11 +362,8 @@ class Tests:Exceptions(BaseTest) {
         throw(System:Exception.new("testing"));
       } catch (ee) {
         checka = true;
-      } finally {
-        checkb = true;
       }
       assertTrue(checka);
-      assertTrue(checkb);
       
       checka = false;
       checkb = false;
@@ -375,11 +372,8 @@ class Tests:Exceptions(BaseTest) {
         //throw(System:Exception.new("testing"));
       } catch (ee) {
         checka = true;
-      } finally {
-        checkb = true;
       }
       assertFalse(checka);
-      assertTrue(checkb);
       
       "fin testfin".print();
       
