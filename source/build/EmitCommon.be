@@ -1043,8 +1043,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
 
 buildClassInfo() self {
-    buildClassInfo("clname", classConf.emitName + "_clname", cnode.held.namepath.toString());
-    buildClassInfo("clfile", classConf.emitName + "_clfile", inFilePathed);
+    buildClassInfo("clname", "clname", cnode.held.namepath.toString());
+    buildClassInfo("clfile", "clfile", inFilePathed);
   }
  
 buildClassInfo(String bemBase, String belsBase, String lival) self {
@@ -1645,7 +1645,7 @@ buildClassInfoMethod(String bemBase, String belsBase) {
                         newCall = lfloatConstruct(newcc, node);
                     } elseIf (newcc.np == stringNp) {
                         
-                        String belsName = "bece_" + classConf.emitName + "_bels_" + cnode.held.belsCount.toString();
+                        String belsName = "bels_" + cnode.held.belsCount.toString();
                         cnode.held.belsCount++=;
                         String sdec = String.new();
                         lstringStart(sdec, belsName);
