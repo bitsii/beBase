@@ -288,14 +288,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             lineCount += countLines(preClass);
             cle.write(preClass);
             
-            if(emitting("sw")) {
-              lineCount += writeOnceDecs(cle, onceDecs);
-              //the initial instance
-              idec = self.initialDec;
-              lineCount += countLines(idec);
-              cle.write(idec);
-            }
-            
             //class declaration
             String cb = self.classBegin(clnode.held.syn);
             lineCount += countLines(cb);
@@ -305,13 +297,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             lineCount += countLines(classEmits);
             cle.write(classEmits);
             
-            unless(emitting("sw")) {
-              lineCount += writeOnceDecs(cle, onceDecs);
-              //the initial instance
-              String idec = self.initialDec;
-              lineCount += countLines(idec);
-              cle.write(idec);
-            }
+            lineCount += writeOnceDecs(cle, onceDecs);
+            //the initial instance
+            String idec = self.initialDec;
+            lineCount += countLines(idec);
+            cle.write(idec);
             
             //properties
             lineCount += countLines(propertyDecs);
@@ -1717,12 +1707,7 @@ buildClassInfoMethod(String bemBase, String belsBase) {
                         }
                     }
                     if (onceDeced) {
-                      if(emitting("sw")) {
-                        //onceDecs += odec += callAssign += target += "nn;" += nl;
-                        onceDecs += odec += "= " += cast += target += ";" += nl;
-                      } else {
-                        onceDecs += odec += callAssign += target += ";" += nl;
-                      }
+                      onceDecs += odec += callAssign += target += ";" += nl;
                     } else {
                         methodBody += callAssign += target += ";" += nl;
                     }
@@ -1817,11 +1802,7 @@ buildClassInfoMethod(String bemBase, String belsBase) {
         methodBody += postOnceCallAssign;
         if (onceDeced!) {
             if (odec.isEmpty!) {
-              if(emitting("sw")) {
-                onceDecs += odec += "= nil;" += nl;
-              } else {
-                onceDecs += odec += oany += ";" += nl;
-              }
+              onceDecs += odec += oany += ";" += nl;
             }
         }
       }

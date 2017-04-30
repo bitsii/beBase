@@ -1,9 +1,31 @@
 
-no finally
+drop sw (from build), get rid of emitname stuff
+drop finally
+drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class)
 
-c++ (cc)
+" around emit langs for consistency
+
+c++ (cc - c with classes)
+  copy java
+  use exact sized types
+  one big file like js *.cpp (lib sep)
+  one big header *.hpp
+  syntax
+  clang++ g++
+  option for names (.hpp, .cpp, .mm)
+  
+  shared ptr 
+    https://msdn.microsoft.com/en-us/library/hh279669.aspx
+    https://en.wikipedia.org/wiki/Smart_pointer
+
+try one big header and source file
+  header generates for all files (from syns for lib case)
+
+https://stackoverflow.com/questions/3202136/using-g-to-compile-multiple-cpp-and-h-files#3202161
 
 std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr
+
+
 
 try also includes setjmp (into stack) and signals longjump
   
