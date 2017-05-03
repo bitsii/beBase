@@ -1,42 +1,51 @@
 
+>>cc<<
+
+one header for forward decs
+one for class decs
+
+then one for implementation
+
+get headers working in a build first
+
+option for name suffixes in cc (.hpp, .cpp, .mm)
+
 drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
 
-" around emit langs for consistency
+can, createInstance and invoke - switch to structures which don't depend on underlying reflection
+cs and jv like js for createInstance, can like invoke
+switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
+
+<<cc>>
+
+>>type sizes<<
+int is 32bit signed cs/jv
+<cstdint> (stdint.h) int32_t
+
+jv byte is signed 8bit int
+cs byte is unsigned 8bit int
+c++ unsigned char (like cs)
+  unsigned char/char/signed char can be cast
+  don't use string or streams, c style fopen, fread, fwrite
+
+<<type sizes>>
 
 c++ (cc - c with classes)
-  copy java
   use exact sized types
-  one big file like js *.cpp (lib sep)
-  one big header *.hpp
-  syntax
   clang++ g++
-  option for names (.hpp, .cpp, .mm)
   
   shared ptr 
     https://msdn.microsoft.com/en-us/library/hh279669.aspx
     https://en.wikipedia.org/wiki/Smart_pointer
 
-try one big header and source file
-  header generates for all files (from syns for lib case)
-
-https://stackoverflow.com/questions/3202136/using-g-to-compile-multiple-cpp-and-h-files#3202161
-
-std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr
-
-
-
-try also includes setjmp (into stack) and signals longjump
-  
-for collections, etc, have a weak reference type (?proxy)
-
 field prefix to any dec makes it a field
   field Type (auto, any) blah;
   have a field fields type which is weak (weak)
+  std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr
   
-
-Where no dynamic options create methods/switches (do in cs and jv too, first)
-  construct instances and put in map for create calls
-  get away from any hash calc during build == has calc at runtime, just the one value for calls
+for collections, etc, have a weak reference type (?proxy)
+  
+try also includes setjmp (into stack) and signals longjump
   
 be clear that =@ and @ are hints/suggestions not definite, default is tho
 
@@ -234,11 +243,7 @@ ide service - https://tech.slashdot.org/story/16/10/22/164226/rust-implements-an
 
 safe navigation (null check then call, "?.")
 safe equal check (?==) (not null and equals) (check just the called on?)
-  
-can, createInstance and invoke - switch to structures which don't depend on underlying reflection
-cs and jv like js for createInstance, can like invoke
-switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
-  
+
 readline find \n and just substring -1 if last is \r
     
 make it possible to skip calls and link up assignments betw org and final
@@ -347,7 +352,7 @@ int 32bit (c int, int32_t), float 32bit (c float), add long 64 (c long long) and
 
 allow signatures to mark arguments as safe - as not incorporated into members, not mutated, not passed along
 
-in practice now, int is 32, long anyies long long is 64
+in practice now, int is 32, long varies long long is 64
 float is 32, double is 64
 unicode is max 4 bytes, fits in 32bit int
 have unsigned int value, for java, postive part of 64bit (long) - better because does not depend on
