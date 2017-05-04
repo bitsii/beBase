@@ -8,6 +8,8 @@ then one for implementation
 
 get headers working in a build first
 
+namespace?
+
 option for name suffixes in cc (.hpp, .cpp, .mm)
 
 drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it

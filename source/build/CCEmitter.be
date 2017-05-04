@@ -19,9 +19,34 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         fileExt = ".cpp";
         exceptDec = "";
         fields {
+          String headExt = ".hpp";
         }
         //super new depends on some things we set here, so it must follow
         super.new(_build);
+    }
+    
+    classBegin(Build:ClassSyn csyn) String {
+       if (def(parentConf)) {
+          String extends = extend(parentConf.relEmitName(build.libName));
+       } else {
+          extends = extend("BECS_Object");
+       }
+       String begin = "class " += classConf.emitName += extends += " {"; //}
+       
+       begin += "\n\n";
+       
+       heow.write(begin);
+       
+       deow.write("class " + classConf.emitName + ";\n");
+       
+       return("");
+    }
+    
+    classEndGet() String {
+       String end = "";
+       //{
+       heow.write("};\n\n");
+       return(end);
     }
     
     acceptCatch(Node node) {
@@ -115,7 +140,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
     
     extend(String parent) String {
-        return(" extends "@ + parent);
+        return(" : public "@ + parent);
     }
     
     getClassOutput() IO:File:Writer {
@@ -124,8 +149,41 @@ use final class Build:CCEmitter(Build:EmitCommon) {
 
    finishClassOutput(IO:File:Writer cle) {
    }
+   
+   prepHeaderOutput() {
+        fields { 
+           String deon;
+           String heon;
+           IO:File:Path deop;
+           IO:File:Path heop;
+           IO:File:Writer deow;
+           IO:File:Writer heow; 
+        }
+        if (undef(deow)) {
+           String libName = build.libName;
+           deon = "BED_" + libName.size + "_" + libName + headExt;
+           heon = "BEH_" + libName.size + "_" + libName + headExt;
+           deop = libEmitPath.parent.addStep(deon);
+           heop = libEmitPath.parent.addStep(heon);
+           if (libEmitPath.parent.file.exists!) {
+              libEmitPath.parent.file.makeDirs();
+           }
+            deow = deop.file.writer.open();
+            heow = heop.file.writer.open();
+            //incorporate base file - ext lib
+            if (build.params.has("cchInclude")) {
+                for (String p in build.params["cchInclude"]) {
+                    File jsi = IO:File:Path.apNew(p).file;
+                    String inc = jsi.reader.open().readString();
+                    jsi.reader.close();
+                    heow.write(inc);
+                }
+            }
+        }
+    }
 
     getLibOutput() IO:File:Writer {
+        prepHeaderOutput();
         fields { IO:File:Writer shlibe; }
         if (undef(shlibe)) {
            lineCount = 0;
@@ -152,6 +210,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     finishLibOutput(IO:File:Writer libe) {
         libe.close();
         shlibe = null;
+        deow.close();
+        heow.close();
         //end module
     }
 
