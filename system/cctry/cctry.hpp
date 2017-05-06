@@ -34,6 +34,7 @@ class BECT_StayClassy : public BECT_Classy {
   
   public:
     virtual void yukka();
+    shared_ptr<BECT_Classy> bevm_a;
   
   private:
     shared_ptr<BECT_StayClassy> bevt_a;

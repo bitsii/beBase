@@ -304,8 +304,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             cle.write(idec);
             
             //properties
-            lineCount += countLines(propertyDecs);
-            cle.write(propertyDecs);
+            unless (emitting("cc")) {
+              lineCount += countLines(propertyDecs);
+              cle.write(propertyDecs);
+            }
             
             //need offset of cle so far
             //add to all classCalls nlec s

@@ -40,6 +40,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        
        heow.write(begin);
        
+       heow.write(propertyDecs);
+       
        heow.write(classHeadBody);
        
        classHeadBody.clear();

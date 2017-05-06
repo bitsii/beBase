@@ -2,13 +2,12 @@
 >>cc<<
 
 get headers working in a build first
-  methods
-  properties
   native includes (bevis)
   
 get code looking right
   pointer -> instead of .
   super (could be typedef)
+  class code, then lib
 
 option for name suffixes in cc (.hpp, .cpp, .mm)
 
