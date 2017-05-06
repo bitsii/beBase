@@ -9,6 +9,8 @@
 -buildFile=build/extendedTestShared.txt
 -jsInclude=system/js/be/BECS_Runtime.js
 -jsInclude=system/js/be/BECS_Object.js
+-ccdInclude=system/cc/be/BED_Object.hpp
+-cchInclude=system/cc/be/BEH_Object.hpp
 #-emitLang=jv
 #-emitLang=cs
 

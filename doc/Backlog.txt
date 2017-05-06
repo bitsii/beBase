@@ -1,14 +1,14 @@
 
 >>cc<<
 
-one header for forward decs
-one for class decs
-
-then one for implementation
-
 get headers working in a build first
-
-namespace?
+  methods
+  properties
+  native includes (bevis)
+  
+get code looking right
+  pointer -> instead of .
+  super (could be typedef)
 
 option for name suffixes in cc (.hpp, .cpp, .mm)
 

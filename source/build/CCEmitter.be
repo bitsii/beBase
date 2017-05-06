@@ -20,6 +20,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         exceptDec = "";
         fields {
           String headExt = ".hpp";
+          String classHeadBody = String.new();
         }
         //super new depends on some things we set here, so it must follow
         super.new(_build);
@@ -33,9 +34,15 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        }
        String begin = "class " += classConf.emitName += extends += " {"; //}
        
-       begin += "\n\n";
+       begin += "\n";
+       
+       begin += "public:\n";
        
        heow.write(begin);
+       
+       heow.write(classHeadBody);
+       
+       classHeadBody.clear();
        
        deow.write("class " + classConf.emitName + ";\n");
        
@@ -77,6 +84,12 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        methods += argDecs;
         
        methods += ")" += exceptDec += " {" += nl; //}
+       
+       classHeadBody += "shared_ptr<" += returnType.relEmitName(build.libName) += "> " += mtdName += "(";
+        
+       classHeadBody += argDecs;
+        
+       classHeadBody += ");\n";
       
     }
    
@@ -120,20 +133,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         ms += "synchronized (" += libEmitName += ".class) {" += nl;//}
         ms += "be.BECS_Runtime.args = args;" += nl;
         ms += "be.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
-        return(ms);
+        //return(ms);
+        return("");
    }
-    
-    beginNs() String {
-        return(beginNs(build.libName));
-    }
-    
-    beginNs(String libName) String {
-        return("package " + libNs(libName) + ";" + nl);
-    }
-    
-    libNs(String libName) String {
-        return(getNameSpace(libName));
-    }
     
     superNameGet() String {
        return("super");
@@ -170,20 +172,50 @@ use final class Build:CCEmitter(Build:EmitCommon) {
            }
             deow = deop.file.writer.open();
             heow = heop.file.writer.open();
+            
+            heow.write("#include <iostream>\n");
+            heow.write("#include <memory>\n");
+            heow.write("#include \"BED_4_Base.hpp\"\n");
+            heow.write("using namespace std;\n");
+            
+            deow.write("namespace be {\n");//}
+            heow.write("namespace be {\n");//}
+            
+            String p;
+            File jsi;
+            String inc;
             //incorporate base file - ext lib
-            if (build.params.has("cchInclude")) {
-                for (String p in build.params["cchInclude"]) {
-                    File jsi = IO:File:Path.apNew(p).file;
-                    String inc = jsi.reader.open().readString();
+            if (build.params.has("ccdInclude")) {
+                //("got ccdinclude").print();
+                for (p in build.params["ccdInclude"]) {
+                    //("ccdinclude " + p).print();
+                    jsi = IO:File:Path.apNew(p).file;
+                    inc = jsi.reader.open().readString();
                     jsi.reader.close();
+                    //("including " + inc).print();
+                    deow.write(inc);
+                }
+            }
+            if (build.params.has("cchInclude")) {
+                //("got cchinclude").print();
+                for (p in build.params["cchInclude"]) {
+                    //("cchinclude " + p).print();
+                    jsi = IO:File:Path.apNew(p).file;
+                    inc = jsi.reader.open().readString();
+                    jsi.reader.close();
+                    //("including " + inc).print();
                     heow.write(inc);
                 }
             }
         }
     }
+    
+    begin (transi) {
+      super.begin(transi);
+      prepHeaderOutput();
+    }
 
     getLibOutput() IO:File:Writer {
-        prepHeaderOutput();
         fields { IO:File:Writer shlibe; }
         if (undef(shlibe)) {
            lineCount = 0;
@@ -192,6 +224,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
            }
             shlibe = libEmitPath.file.writer.open();
             //incorporate base file - ext lib
+            shlibe.write("namespace be {\n");//}
+            lineCount++;
             if (build.params.has("ccInclude")) {
                 for (String p in build.params["ccInclude"]) {
                     File jsi = IO:File:Path.apNew(p).file;
@@ -208,8 +242,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
 
     finishLibOutput(IO:File:Writer libe) {
+        //{
+        libe.write("}\n");//end namespace
         libe.close();
         shlibe = null;
+        //{
+        deow.write("}\n");//end namespace
+        //{
+        heow.write("}\n");//end namespace
         deow.close();
         heow.close();
         //end module

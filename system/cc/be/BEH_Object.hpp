@@ -1,0 +1,2 @@
+
+class BECS_Object { };
