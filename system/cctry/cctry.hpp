@@ -1,43 +1,45 @@
 #include <iostream>
 #include <memory>
+#include <cstdint>
 
 using namespace std;
 
-namespace bet {
+namespace be {
 
-class BECT_Classy;
-class BECT_StayClassy;
-class BECT_Empty;
+class BECS_Object;
+class BEC_Object;
+class BEC_Classy;
+class BEC_StayClassy;
 
-class BECT_Empty { };
+class BECS_Object : public enable_shared_from_this<BECS_Object> { 
+  public:
+    virtual ~BECS_Object();
+};
 
-class BECT_String {
+class BEC_Object : public BECS_Object { };
+
+class BEC_String : public BEC_Object {
   public:
     unsigned char* bevi_bytes;
-    int bevi_length;
-    void doIt(shared_ptr<BECT_String> aptr);
-    shared_ptr<BECT_String> retIt(shared_ptr<BECT_String> aptr);
-};
-
-
-class BECT_Classy {
-  
-  public:
-    virtual void yukka();
+    int32_t bevi_length;
+    virtual shared_ptr<BEC_String> print();
+    virtual ~BEC_String();
     
-  private:
-    shared_ptr<BECT_Classy> bevt_a;
+};
+
+
+class BEC_Classy : public BEC_Object {
+  
+  public:
+    virtual shared_ptr<BEC_Classy> printIt(shared_ptr<BEC_String> it);
   
 };
 
-class BECT_StayClassy : public BECT_Classy {
+class BEC_StayClassy : public BEC_Classy {
   
   public:
     virtual void yukka();
-    shared_ptr<BECT_Classy> bevm_a;
-  
-  private:
-    shared_ptr<BECT_StayClassy> bevt_a;
+    virtual shared_ptr<BEC_Classy> printIt(shared_ptr<BEC_String> it);
     
 };
 

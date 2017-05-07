@@ -1,6 +1,14 @@
 
 >>cc<<
 
+try out statics and such with running code in cctry
+
+covariant returns no workie
+
+statics for bevos and such
+  go back to long names ( :-(  )
+  file scope statics all around for cc
+
 get headers working in a build first
   native includes (bevis)
   
@@ -47,6 +55,11 @@ field prefix to any dec makes it a field
 for collections, etc, have a weak reference type (?proxy)
   
 try also includes setjmp (into stack) and signals longjump
+
+gratuitous returns
+  stop using return type for this and use the call target instead for chains
+  actually stop doing returns for this
+  (except for untyped and js, which still return self - tho js could skip assign)
   
 be clear that =@ and @ are hints/suggestions not definite, default is tho
 
@@ -58,6 +71,10 @@ map, filter et all to containers (mapValue(s), filterValue(s))
 concurrent foreach, etc
 
 =====
+
+direct accessors
+  like dynamic call for get/set (bemd)
+  bind at compile time for typed (just direct access if call not defined)
 
 check add tests for className classFile Get
 
@@ -129,16 +146,6 @@ string hash for javascript seems to be different than for others
 serialization doesn't work for js
 
 ---- ----
-
-gratuitous returns
-  stop using return type for this and use the call target instead for chains
-  actually stop doing returns for this
-  (except for untyped and js, which still return self - tho js could skip assign)
-  
-direct accessors
-  like dynamic call for get/set (bemd)
-  bind at compile time for typed (just direct access if call not defined)
-  no gen accessors
 
 multi-return multi-assign (array) (list of types in () like args
 

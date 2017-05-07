@@ -87,7 +87,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         
        methods += ")" += exceptDec += " {" += nl; //}
        
-       classHeadBody += "shared_ptr<" += returnType.relEmitName(build.libName) += "> " += mtdName += "(";
+       classHeadBody += "virtual shared_ptr<" += returnType.relEmitName(build.libName) += "> " += mtdName += "(";
         
        classHeadBody += argDecs;
         
@@ -256,6 +256,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         heow.close();
         //end module
     }
+    
+    coanyiantReturnsGet() {
+        return(false);
+    }
+
 
 
 }

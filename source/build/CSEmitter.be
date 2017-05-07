@@ -100,7 +100,6 @@ use final class Build:CSEmitter(Build:EmitCommon) {
         return(" : "@ + parent);
     }
     
-    //Amazingly, cs doesn't support coanyiant return types
     coanyiantReturnsGet() {
         return(false);
     }
