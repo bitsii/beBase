@@ -433,6 +433,9 @@ class Test:BaseTest:EC(BaseTest) {
     }
     
     clname() {
+    
+    ("!!!!!!!!!!!!!!!testing clname").print();
+    
         any o = Math:Int.new();
         o.className.print();
         assertEqual(o.className, "Math:Int");

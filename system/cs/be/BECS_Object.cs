@@ -75,12 +75,20 @@ public class BECS_Object {
         return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls[callId], args);
     }
     
-    public virtual byte[] bemc_clname() {
+    /*public virtual byte[] bemc_clname() {
         return new byte[1];
     }
     
     public virtual byte[] bemc_clfile() {
         return new byte[1];
+    }*/
+    
+    public virtual BEC_2_4_6_TextString bemc_clnames() {
+        return null;
+    }
+    
+    public virtual BEC_2_4_6_TextString bemc_clfiles() {
+        return null;
     }
 
     public virtual BEC_2_6_6_SystemObject bemc_create() {

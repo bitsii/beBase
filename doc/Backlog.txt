@@ -1,17 +1,20 @@
 
 >>cc<<
 
-try out statics and such with running code in cctry
+test static string construction in cctry, ints too
+  with ints
+  with outputting
 
-covariant returns no workie
+long names for bevo and bels
 
-statics for bevos and such
-  go back to long names ( :-(  )
-  file scope statics all around for cc
+get cc statics looking right
+  
+get clnames clfiles working / looking right for cc
+
+native includes (bevis)
 
 get headers working in a build first
-  native includes (bevis)
-  
+
 get code looking right
   pointer -> instead of .
   super (could be typedef)

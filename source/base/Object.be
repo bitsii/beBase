@@ -477,14 +477,16 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       }
       emit(jv) {
       """
-      byte[] bevls_clname = bemc_clname();
-      bevl_xi = new $class/Text:String$(bevls_clname.length, bevls_clname);
+      //byte[] bevls_clname = bemc_clname();
+      //bevl_xi = new $class/Text:String$(bevls_clname.length, bevls_clname);
+      bevl_xi = bemc_clnames();
       """
       }
       emit(cs) {
       """
-      byte[] bevls_clname = bemc_clname();
-      bevl_xi = new $class/Text:String$(bevls_clname.Length, bevls_clname);
+      //byte[] bevls_clname = bemc_clname();
+      //bevl_xi = new $class/Text:String$(bevls_clname.Length, bevls_clname);
+      bevl_xi = bemc_clnames();
       """
       }
       emit(js) {
@@ -499,14 +501,16 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       String xi;
       emit(jv) {
       """
-      byte[] bevls_clname = bemc_clfile();
-      bevl_xi = new $class/Text:String$(bevls_clname.length, bevls_clname);
+      //byte[] bevls_clname = bemc_clfile();
+      //bevl_xi = new $class/Text:String$(bevls_clname.length, bevls_clname);
+      bevl_xi = bemc_clfiles();
       """
       }
       emit(cs) {
       """
-      byte[] bevls_clname = bemc_clfile();
-      bevl_xi = new $class/Text:String$(bevls_clname.Length, bevls_clname);
+      //byte[] bevls_clname = bemc_clfile();
+      //bevl_xi = new $class/Text:String$(bevls_clname.Length, bevls_clname);
+      bevl_xi = bemc_clfiles();
       """
       }
       emit(js) {

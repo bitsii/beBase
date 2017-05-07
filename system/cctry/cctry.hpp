@@ -22,8 +22,12 @@ class BEC_String : public BEC_Object {
   public:
     unsigned char* bevi_bytes;
     int32_t bevi_length;
-    virtual shared_ptr<BEC_String> print();
+    BEC_String() { }
+    BEC_String(unsigned char* _bevi_bytes, int32_t _bevi_length);//no copy
+    BEC_String(int32_t _bevi_length, unsigned char* _bevi_bytes);//copy
     virtual ~BEC_String();
+    virtual shared_ptr<BEC_String> print();
+    
     
 };
 

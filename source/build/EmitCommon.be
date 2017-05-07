@@ -1045,8 +1045,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
 
 buildClassInfo() self {
-    buildClassInfo("clname", "clname", cnode.held.namepath.toString());
-    buildClassInfo("clfile", "clfile", inFilePathed);
+    buildClassInfo("clname", classConf.emitName + "_clname", cnode.held.namepath.toString());
+    buildClassInfo("clfile", classConf.emitName + "_clfile", inFilePathed);
   }
  
 buildClassInfo(String bemBase, String belsBase, String lival) self {
@@ -1075,13 +1075,18 @@ buildClassInfo(String bemBase, String belsBase, String lival) self {
       
     onceDecs += sdec;
     
-    buildClassInfoMethod(bemBase, belsBase);
+    buildClassInfoMethod(bemBase, belsBase, lival.size);
 
 }
 
-buildClassInfoMethod(String bemBase, String belsBase) {
-    ccMethods += self.overrideMtdDec += "byte[] bemc_" += bemBase += "()" += exceptDec += " {" += nl;  //}
+buildClassInfoMethod(String bemBase, String belsBase, Int len) {
+    /*ccMethods += self.overrideMtdDec += "byte[] bemc_" += bemBase += "()" += exceptDec += " {" += nl;  //}
     ccMethods += "return becc_" += belsBase += ";" += nl;
+    //{
+    ccMethods += "}" += nl;*/
+    
+    ccMethods += self.overrideMtdDec += "BEC_2_4_6_TextString bemc_" += bemBase += "s()" += exceptDec += " {" += nl;  //}
+    ccMethods += "return new BEC_2_4_6_TextString(" += len += ", becc_" += belsBase += ");" += nl;
     //{
     ccMethods += "}" += nl;
 }
@@ -1646,8 +1651,7 @@ buildClassInfoMethod(String bemBase, String belsBase) {
                     } elseIf (newcc.np == floatNp) {
                         newCall = lfloatConstruct(newcc, node);
                     } elseIf (newcc.np == stringNp) {
-                        
-                        String belsName = "bels_" + cnode.held.belsCount.toString();
+                        String belsName = "bece_" + classConf.emitName + "_bels_" + cnode.held.belsCount.toString();                        
                         cnode.held.belsCount++=;
                         String sdec = String.new();
                         lstringStart(sdec, belsName);
