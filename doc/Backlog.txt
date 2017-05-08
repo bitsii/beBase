@@ -1,13 +1,9 @@
 
 >>cc<<
 
-test static string construction in cctry, ints too
-  with ints
-  with outputting
-
-long names for bevo and bels
-
 get cc statics looking right
+
+long names for bevo* and bevs_inst
   
 get clnames clfiles working / looking right for cc
 
@@ -20,13 +16,23 @@ get code looking right
   super (could be typedef)
   class code, then lib
 
-option for name suffixes in cc (.hpp, .cpp, .mm)
+for cc strings prob have to always copy buffer...
+
+check out pointer cast types
 
 drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
 
 can, createInstance and invoke - switch to structures which don't depend on underlying reflection
 cs and jv like js for createInstance, can like invoke
 switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
+
+check that hashes for cc ending up like hashes for cs/jv
+  test in try
+  ?what happens in collision?
+
+?move dynamic call to not use hash
+  don't support libs right now
+  when its time for lib support have a class extension in the final library which is the one actually used (class final is deferred to there)
 
 <<cc>>
 

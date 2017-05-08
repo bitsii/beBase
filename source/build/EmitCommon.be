@@ -749,7 +749,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 decForVar(argDecs, ov.held);
              } else {
                 decForVar(anyDecs, ov.held);
-                if(emitting("js")) {
+                if(emitting("js") || emitting("cc")) {
                     anyDecs += ";" += nl;
                 } else  {
                     anyDecs += " = null;" += nl;

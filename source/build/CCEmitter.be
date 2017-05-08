@@ -102,10 +102,20 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         b += "shared_ptr<" += getClassConfig(v.namepath).relEmitName(build.libName) += ">";
       }
    }
+   
+   formCast(ClassConfig cc) String { //no need for type check
+        return("(static_pointer_cast<" + cc.relEmitName(build.libName) + ">)");
+   }
+   
+   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {
+      if (isOnce) {
+        return("make_shared<" + newcc.relEmitName(build.libName) + ">(" + belsName + ", " + lisz + ")");
+      }
+      return("make_shared<" + newcc.relEmitName(build.libName) + ">(" + lisz + ", " + belsName + ")");
+   }
       
       onceDec(String typeName, String anyName) {
-      //here could put final for once deced
-         return("private static " + typeName + " ");
+         return("static shared_ptr<" + typeName + "> ");
       }
       
       lstringByte(String sdec, String lival, Int lipos, Int bcode, String hs) {
@@ -260,7 +270,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     coanyiantReturnsGet() {
         return(false);
     }
-
-
+    
+   lstringStart(String sdec, String belsName) {
+      sdec += "static unsigned char " += belsName += "[] = {"; //}
+   }
 
 }
