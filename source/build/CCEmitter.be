@@ -46,9 +46,20 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        
        classHeadBody.clear();
        
+       heow.write("virtual shared_ptr<BEC_2_4_6_TextString> bemc_clnames();\n");
+       heow.write("virtual shared_ptr<BEC_2_4_6_TextString> bemc_clfiles();\n");
+       heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_create();\n");
+
        deow.write("class " + classConf.emitName + ";\n");
        
        return("");
+    }
+    
+    buildCreate() {
+        ccMethods += self.overrideMtdDec += "shared_ptr<" += getClassConfig(objectNp).relEmitName(build.libName) += "> " += classConf.emitName += "::bemc_create()" += exceptDec += " {" += nl;  //}
+            ccMethods += "return make_shared<" += getClassConfig(cnode.held.namepath).relEmitName(build.libName) += ">();" += nl;
+        //{
+        ccMethods += "}" += nl;
     }
     
     classEndGet() String {
@@ -105,6 +116,21 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    formCast(ClassConfig cc) String { //no need for type check
         return("(static_pointer_cast<" + cc.relEmitName(build.libName) + ">)");
+   }
+   
+   buildClassInfoMethod(String bemBase, String belsBase, Int len) {      
+      ccMethods += self.overrideMtdDec += "shared_ptr<BEC_2_4_6_TextString> " += classConf.emitName += "::bemc_" += bemBase += "s()" += exceptDec += " {" += nl;  //}
+      ccMethods += "return make_shared<BEC_2_4_6_TextString>(" += len += ", becc_" += belsBase += ");" += nl;
+      //{
+      ccMethods += "}" += nl;
+  }
+   
+   lintConstruct(ClassConfig newcc, Node node) String {
+      return("make_shared<" + newcc.relEmitName(build.libName) + ">(" + node.held.literalValue + ")");
+   }
+   
+   lfloatConstruct(ClassConfig newcc, Node node) String {
+      return("make_shared<" + newcc.relEmitName(build.libName) + ">(" + node.held.literalValue + "f)");
    }
    
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {

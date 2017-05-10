@@ -1,17 +1,26 @@
 
 >>cc<<
 
-get cc statics looking right
+>
+set initial
+get initial
+< impl, head
 
-long names for bevo* and bevs_inst
-  
-get clnames clfiles working / looking right for cc
+long names for bevo*
+
+throwing
+cc calls
+dynamic methods
 
 native includes (bevis)
 
-get headers working in a build first
+drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
 
-get code looking right
+can, createInstance and invoke - switch to structures which don't depend on underlying reflection
+cs and jv like js for createInstance, can like invoke
+switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
+
+get code looking right and building
   pointer -> instead of .
   super (could be typedef)
   class code, then lib
@@ -19,12 +28,6 @@ get code looking right
 for cc strings prob have to always copy buffer...
 
 check out pointer cast types
-
-drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
-
-can, createInstance and invoke - switch to structures which don't depend on underlying reflection
-cs and jv like js for createInstance, can like invoke
-switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
 
 check that hashes for cc ending up like hashes for cs/jv
   test in try
