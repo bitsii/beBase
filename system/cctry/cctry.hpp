@@ -27,8 +27,7 @@ class BEC_String : public BEC_Object {
     BEC_String(int32_t _bevi_length, unsigned char* _bevi_bytes);//copy
     virtual ~BEC_String();
     virtual shared_ptr<BEC_String> print();
-    
-    
+
 };
 
 
@@ -44,6 +43,8 @@ class BEC_StayClassy : public BEC_Classy {
   public:
     virtual void yukka();
     virtual shared_ptr<BEC_Classy> printIt(shared_ptr<BEC_String> it);
+    virtual void bemc_setInitial(shared_ptr<BEC_Classy> becc_inst);
+    virtual shared_ptr<BEC_Classy> bemc_getInitial();
     
 };
 

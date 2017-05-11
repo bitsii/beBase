@@ -49,6 +49,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual shared_ptr<BEC_2_4_6_TextString> bemc_clnames();\n");
        heow.write("virtual shared_ptr<BEC_2_4_6_TextString> bemc_clfiles();\n");
        heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_create();\n");
+       heow.write("virtual void bemc_setInitial(shared_ptr<BEC_2_6_6_SystemObject> becc_inst);\n");
+       heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_getInitial();\n");
 
        deow.write("class " + classConf.emitName + ";\n");
        
@@ -114,8 +116,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       }
    }
    
-   formCast(ClassConfig cc) String { //no need for type check
-        return("(static_pointer_cast<" + cc.relEmitName(build.libName) + ">)");
+   formCast(ClassConfig cc, String targ) String { //no need for type check
+        return("static_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
    }
    
    buildClassInfoMethod(String bemBase, String belsBase, Int len) {      
@@ -300,5 +302,67 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    lstringStart(String sdec, String belsName) {
       sdec += "static unsigned char " += belsName += "[] = {"; //}
    }
+   
+   buildPropList() {
+
+        Build:ClassSyn syn = cnode.held.syn;
+        List ptyList = syn.ptyList;
+
+        ccMethods += classConf.emitName += ".prototype.bepn_pnames = ["; //]
+
+        Bool first = true;
+        for (Build:PtySyn ptySyn in ptyList) {
+            if (first) {
+                first = false;
+            } else {
+                ccMethods += ", ";
+            }
+            ccMethods += q += "bevp_" += ptySyn.name += q;
+        }
+
+        //[
+        ccMethods += "];" += nl;
+    }
+    
+    initialDecGet() String {
+       
+         String initialDec = String.new();
+         
+         String bein = "bece_" + classConf.emitName + "_bevs_inst";
+         
+         initialDec += "static shared_ptr<" += classConf.emitName += "> " += bein += ";\n";
+         
+         return(initialDec);
+    }
+    
+    getInitialInst(ClassConfig newcc) String {
+      auto nccn = newcc.relEmitName(build.libName);
+      String bein = "bece_" + nccn + "_bevs_inst";
+      return(bein);
+     }
+
+    buildInitial() {
+        String oname = getClassConfig(objectNp).relEmitName(build.libName);
+        ClassConfig newcc = getClassConfig(cnode.held.namepath);
+        String stinst = getInitialInst(newcc);
+        
+        ccMethods += self.overrideMtdDec += "void " += newcc.emitName += "::bemc_setInitial(shared_ptr<" += oname += "> becc_inst)" += exceptDec += " {" += nl;  //}
+            asnr = "becc_inst";
+            if (newcc.emitName != oname) {
+                String asnr = formCast(classConf, asnr);//no need for type check
+            }
+            
+            ccMethods += stinst += " = " += asnr += ";" += nl;
+        //{
+        ccMethods += "}" += nl;
+        
+        
+        ccMethods += self.overrideMtdDec += "shared_ptr<" += oname += "> " += newcc.emitName += "::bemc_getInitial()" += exceptDec += " {" += nl;  //}
+            
+            ccMethods += "return " += stinst += ";" += nl;
+        //{
+        ccMethods += "}" += nl;
+        
+    }
 
 }

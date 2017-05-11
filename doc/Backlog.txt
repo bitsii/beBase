@@ -1,10 +1,7 @@
 
 >>cc<<
 
->
-set initial
-get initial
-< impl, head
+move formCast to 2 arg everywhere (rename in emitcommon)
 
 long names for bevo*
 
@@ -81,6 +78,10 @@ TS.ie (isEmpty)
 filter, filterNot, map, etc
 map, filter et all to containers (mapValue(s), filterValue(s))
 concurrent foreach, etc
+
+out variables for multiple assign = so mtd(args,)(returns,) - on return assigned
+
+(existing variable res) it.do(arg)(res)
 
 =====
 
