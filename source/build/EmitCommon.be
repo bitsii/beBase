@@ -941,11 +941,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 Int vnumargs = 0;
                 for (Build:VarSyn vsyn in msyn.argSyns) {
                     if (vnumargs > 0) {
-                        if (vsyn.isTyped && vsyn.namepath != objectNp) {
-                            String vcast = formCast(getClassConfig(vsyn.namepath)) + " "; //no need for type check here, but need to check types of args somehow (flag for dynamic call? precall check structure? make it free where check not needed)
-                        } else {
-                            vcast = "";
-                        }
                         if (vnumargs > 1) {
                             String vcma = ", ";
                         } else {
@@ -956,7 +951,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                         } else {
                             anyg = "bevd_x[" + (vnumargs - maxDynArgs) + "]";
                         }
-                        mcall += vcma += vcast += anyg;
+                        if (vsyn.isTyped && vsyn.namepath != objectNp) {
+                            String vcast = formDynCast(getClassConfig(vsyn.namepath), anyg);
+                        } else {
+                            vcast = anyg;
+                        }
+                        mcall += vcma += vcast;
                     }
                     vnumargs++=;
                 }
@@ -1027,12 +1027,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         ccMethods += self.overrideMtdDec += "void bemc_setInitial(" += oname += " becc_inst)" += exceptDec += " {" += nl;  //}
             
             if (mname != oname) {
-                String vcast = formCast(classConf);//no need for type check
+                String vcast = formStatCast(classConf, "becc_inst");//no need for type check
             } else {
-                vcast = "";
+                vcast = "becc_inst";
             }
             
-            ccMethods += stinst += " = " += vcast += "becc_inst;" += nl;
+            ccMethods += stinst += " = " += vcast += ";" += nl;
         //{
         ccMethods += "}" += nl;
         
@@ -1261,9 +1261,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             //but also make faster for the 99% cases, and these things can be explicitely checked for when needed
             ev += targs += " != null && " += targs += instOf += boolCc.relEmitName(build.libName) += " && ";
             if (emitting("js")!) {
-                ev += "(" += formCast(boolCc); //no need for type check
+                ev += "(" += formDynCast(boolCc, targs);
             }
-            ev += targs;
+            if (emitting("js")) {
+              ev += targs;
+            }
             if (emitting("js")!) {
                 ev += ")";
             }
@@ -1317,6 +1319,14 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    
    formCast(ClassConfig cc) String { //no need for type check
         return("(" + cc.relEmitName(build.libName) + ")");
+   }
+   
+   formStatCast(ClassConfig cc, String targ) String { //no need for type check
+        return("(" + cc.relEmitName(build.libName) + ")" + " " + targ);
+   }
+   
+   formDynCast(ClassConfig cc, String targ) String { //no need for type check
+        return("(" + cc.relEmitName(build.libName) + ")" + " " + targ);
    }
    
     acceptThrow(Node node) {
@@ -1492,12 +1502,12 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
          }
          return(self);
       } elseIf (node.held.orgName == "return") {
-        //node.held.checkTypes for casting, rsub.held.rtype.isSelf for self type 
-        String returnCast = "";
+        //node.held.checkTypes for casting, rsub.held.rtype.isSelf for self type
         if (node.held.checkTypes) {
-            returnCast = formCast(returnType) + " "; //do type check
+            methodBody += "return " += formDynCast(returnType, formTarg(node.second)) += ";" += nl; //do type check
+        } else {
+          methodBody += "return " += formTarg(node.second) += ";" += nl; //first is self
         }
-        methodBody += "return " += returnCast += formTarg(node.second) += ";" += nl; //first is self
         return(self);
       } elseIf (node.held.name == "def_1" || node.held.name == "defined_1" || node.held.name == "undef_1" || node.held.name == "undefined_1" || node.inlined) {
         //previously detected and handled during assignment section above (possible due to unwind...)
@@ -1568,9 +1578,10 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     callArgs += ", ";
                 }
                 if (argCasts.length > numargs && def(argCasts.get(numargs))) {
-                    callArgs += formCast(getClassConfig(argCasts.get(numargs))) += " "; //do type check
+                    callArgs += formDynCast(getClassConfig(argCasts.get(numargs)), formTarg(i)) += " "; //do type check
+                } else {
+                  callArgs += formTarg(i);
                 }
-                callArgs += formTarg(i);
             } else {
                 //put into call array
                 if (isForward) {
@@ -1728,10 +1739,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     Build:ClassSyn asyn = build.getSynNp(newcc.np);
                     if (asyn.hasDefault) {
                         String initialTarg = stinst;
-                        //methodBody += callAssign += stinst += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
                     } else {
                         initialTarg = target;
-                        //methodBody += callAssign += target += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
                     }
                     Build:MtdSyn msyn = asyn.mtdMap.get("new_0");
                     if (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "System:Object") {

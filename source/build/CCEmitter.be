@@ -116,7 +116,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       }
    }
    
-   formCast(ClassConfig cc, String targ) String { //no need for type check
+   formDynCast(ClassConfig cc, String targ) String { //no need for type check
+        return("dynamic_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
+   }
+   
+   formStatCast(ClassConfig cc, String targ) String { //no need for type check
         return("static_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
    }
    
@@ -349,7 +353,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         ccMethods += self.overrideMtdDec += "void " += newcc.emitName += "::bemc_setInitial(shared_ptr<" += oname += "> becc_inst)" += exceptDec += " {" += nl;  //}
             asnr = "becc_inst";
             if (newcc.emitName != oname) {
-                String asnr = formCast(classConf, asnr);//no need for type check
+                String asnr = formStatCast(classConf, asnr);//no need for type check
             }
             
             ccMethods += stinst += " = " += asnr += ";" += nl;

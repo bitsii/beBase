@@ -11,28 +11,21 @@ dynamic methods
 
 native includes (bevis)
 
+get code looking right and building
+  pointer -> instead of .
+  super (could be typedef)
+  class code, then lib
+
 drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
 
 can, createInstance and invoke - switch to structures which don't depend on underlying reflection
 cs and jv like js for createInstance, can like invoke
 switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
 
-get code looking right and building
-  pointer -> instead of .
-  super (could be typedef)
-  class code, then lib
+for dynamic calls use precalced serial values not hash
+  see below for later lib plan
 
 for cc strings prob have to always copy buffer...
-
-check out pointer cast types
-
-check that hashes for cc ending up like hashes for cs/jv
-  test in try
-  ?what happens in collision?
-
-?move dynamic call to not use hash
-  don't support libs right now
-  when its time for lib support have a class extension in the final library which is the one actually used (class final is deferred to there)
 
 <<cc>>
 
@@ -69,6 +62,16 @@ gratuitous returns
   stop using return type for this and use the call target instead for chains
   actually stop doing returns for this
   (except for untyped and js, which still return self - tho js could skip assign)
+
+support libraries
+  have per-lib extended type for dyn calls
+    move up the "actual class" to some other name (be?), have current name be used allwhere
+      have it be lib specific
+      do for all syns
+      is part of exec build
+      have exec build be optional
+  
+?have an option to make all casts in cc static casts for perf
   
 be clear that =@ and @ are hints/suggestions not definite, default is tho
 
@@ -341,7 +344,7 @@ http://stackoverflow.com/questions/26260728/kestrel-hosting-basics
 args to if must be boolean if they are typed
 
 get test testMisc working for js
--js needs to check types on assign Look for formCast/checkTypes, need to rearrange call assign stuff a bit
+-js needs to check types on assign (implement formdyncast meaningfully, have option to turn off)
 -check assigns
 -js on typed calls check during arg build, untyped calls have a descriptor obj genned which is checked
 

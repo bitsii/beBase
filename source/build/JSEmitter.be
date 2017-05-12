@@ -402,6 +402,14 @@ use final class Build:JSEmitter(Build:EmitCommon) {
       formCast(ClassConfig cc) String {
         return("");
       }
+      
+       formDynCast(ClassConfig cc, String targ) String { //no need for type check
+            return(targ);
+       }
+       
+       formStatCast(ClassConfig cc, String targ) String { //no need for type check
+            return(targ);
+       }
 
       useDynMethodsGet() Bool {
            return(false);
