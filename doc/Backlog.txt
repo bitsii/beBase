@@ -1,8 +1,6 @@
 
 >>cc<<
 
-long names for bevo*
-
 throwing
 cc calls
 dynamic methods

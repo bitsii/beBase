@@ -1343,7 +1343,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     }
     
     onceVarDec(String count) String {
-        return("bevo_" + count);
+        return("bece_" + classConf.emitName + "_bevo_" + count);
     }
    
    acceptCall(Node node) {
