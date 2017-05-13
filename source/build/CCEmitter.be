@@ -116,8 +116,17 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       }
    }
    
-   formDynCast(ClassConfig cc, String targ) String { //no need for type check
+   formDynCast(ClassConfig cc, String targ) String {
         return("dynamic_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
+   }
+   
+   formCast(ClassConfig cc) String {
+        return("dynamic_pointer_cast<" + cc.relEmitName(build.libName) + ">(");//)
+   }
+   
+   afterCast() String {
+     //(
+     return(")");
    }
    
    formStatCast(ClassConfig cc, String targ) String { //no need for type check

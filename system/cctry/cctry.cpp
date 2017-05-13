@@ -5,7 +5,7 @@ namespace be {
 static unsigned char becc_BEC_2_6_6_SystemObject_clname[] = {0x53,0x79,0x73,0x74,0x65,0x6D,0x3A,0x4F,0x62,0x6A,0x65,0x63,0x74};
 
 
-static shared_ptr<BEC_String> clnamestr = (static_pointer_cast<BEC_String>) (make_shared<BEC_String>(13, becc_BEC_2_6_6_SystemObject_clname));
+static shared_ptr<BEC_String> clnamestr = dynamic_pointer_cast<BEC_String>((make_shared<BEC_String>(13, becc_BEC_2_6_6_SystemObject_clname)));
 
 static shared_ptr<BEC_StayClassy> bece_BEC_2_6_6_BEC_StayClassy_bevs_inst;
 

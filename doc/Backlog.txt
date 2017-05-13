@@ -1,11 +1,6 @@
 
 >>cc<<
 
-check for if cast is there and add extra ) in cc case
-  pull cast out, dump finalAssignTo_2, use case to know to do ) cc case
-  move formDyn and formStat back to work that way too
-  grep out cc casts and make sure they all look right
-
 long names for bevo*
 
 throwing

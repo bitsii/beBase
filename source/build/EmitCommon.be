@@ -1294,34 +1294,15 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    finalAssign(Node node, String sFrom, NamePath castTo) String {
       String fa = finalAssignTo(node);
       if (def(castTo)) {
-        String cast = formCast(getClassConfig(castTo)) + " ";
+        String cast = formCast(getClassConfig(castTo));
+        String afterCast = afterCast();
         fa += cast += sFrom;
-        if (emitting("cc")) {
-          fa += ")";
-        }
+        fa += afterCast;
         fa += ";" += nl;
       } else {
         fa += sFrom += ";" += nl;
       }
       return(fa);
-   }
-   
-   //do type check for finalAssignTo usage and for untyped calls (with precheck)
-   finalAssignTo(Node node, NamePath castTo) String {
-      if (node.typename == ntypes.NULL) {
-         throw(VisitError.new("Cannot assign to literal null"));
-      }
-      if (node.held.name == "self") {
-         throw(VisitError.new("Cannot assign to self"));
-      }
-      if (node.held.name == "super") {
-         throw(VisitError.new("Cannot assign to super"));
-      }
-      String cast = "";
-      if (def(castTo)) {
-        cast = formCast(getClassConfig(castTo)) + " ";//no need for type check
-      }
-      return(nameForVar(node.held) + " = " + cast);
    }
    
    finalAssignTo(Node node) String {
@@ -1342,7 +1323,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     }
    
    formCast(ClassConfig cc) String { //no need for type check
-        return("(" + cc.relEmitName(build.libName) + ")");
+        return("(" + cc.relEmitName(build.libName) + ") ");
+   }
+   
+   afterCast() String {
+     return("");
    }
    
    formStatCast(ClassConfig cc, String targ) String { //no need for type check
@@ -1629,6 +1614,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       Bool isOnce = false;
       Bool onceDeced = false;
       String cast = "";
+      String afterCast = "";
       
       //Prepare Assignment
       if ((node.container.typename == ntypes.CALL) && (node.container.held.orgName == "assign")) {
@@ -1648,7 +1634,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         if (node.container.held.checkTypes) {
             //("assign casting").print();
             castTo = node.container.contained.first.held.namepath;
-            cast = formCast(getClassConfig(castTo)) + " ";
+            cast = formCast(getClassConfig(castTo));
+            afterCast = afterCast();
          }
         String callAssign = finalAssignTo(node.container.contained.first);
       } else {
@@ -1660,9 +1647,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         //is all that's needed and the oany is always the same type as the assign to target
         String postOnceCallAssign = nameForVar(node.container.contained.first.held) + " = " + oany + ";" + nl;
         if (def(castTo)) {
-           cast = formCast(getClassConfig(castTo)) + " "; //do type check
+           cast = formCast(getClassConfig(castTo)); //do type check
+           afterCast = afterCast();
         } else {
            cast = "";
+           afterCast = "";
         }
         callAssign = oany + " = ";
       }
@@ -1757,9 +1746,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                         }
                     }
                     if (onceDeced) {
-                      onceDecs += odec += callAssign += cast += target += ";" += nl;
+                      onceDecs += odec += callAssign += cast += target += afterCast += ";" += nl;
                     } else {
-                        methodBody += callAssign += cast += target += ";" += nl;
+                        methodBody += callAssign += cast += target += afterCast += ";" += nl;
                     }
                 } else {
                     Build:ClassSyn asyn = build.getSynNp(newcc.np);
@@ -1771,12 +1760,12 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     Build:MtdSyn msyn = asyn.mtdMap.get("new_0");
                     if (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "System:Object") {
                       //("Found a skippable new for class " + asyn.namepath.toString()).print();
-                      methodBody += callAssign += cast += initialTarg += ";" += nl;
+                      methodBody += callAssign += cast += initialTarg += afterCast += ";" += nl;
                     } elseIf (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "Math:Int" && emitting("js")!) {
                       //("Found a skippable int new for class " + asyn.namepath.toString()).print();
-                      methodBody += callAssign += cast += initialTarg += ";" += nl;
+                      methodBody += callAssign += cast += initialTarg += afterCast += ";" += nl;
                     } else {
-                      methodBody += callAssign += cast += initialTarg += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
+                      methodBody += callAssign += cast += initialTarg += afterCast += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
                     }
                 }
           } else {
@@ -1785,26 +1774,26 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
               methodBody += target += ".bevi_int = " += dblIntTarg += ".bevi_int;" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found setval with assign").print();
-                methodBody += callAssign += cast += target += ";" += nl;
+                methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (dblIntish && node.held.name == "addValue_1") {
               //("found addval").print(); 
               methodBody += target += ".bevi_int += " += dblIntTarg += ".bevi_int;" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found addval with assign").print();
-                methodBody += callAssign += cast += target += ";" += nl;
+                methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (sglIntish && node.held.name == "incrementValue_0") {
               //("found incval").print(); 
               methodBody += target += ".bevi_int++;" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found incval with assign").print();
-                methodBody += callAssign += cast += target += ";" += nl;
+                methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (isTyped!) {
-                methodBody += callAssign += cast += target += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
+                methodBody += callAssign += cast += target += afterCast += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
             } else {
-                methodBody += callAssign += cast += target += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
+                methodBody += callAssign += cast += target += afterCast += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
             }
           }
       } else {
@@ -1827,14 +1816,14 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         }
         if (isForward) {
           if (emitting("cs")) {
-            methodBody += callAssign += cast += target += ".bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
+            methodBody += callAssign += cast += target += afterCast += ".bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
           } elseIf (emitting("jv")) {
-            methodBody += callAssign += cast += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
+            methodBody += callAssign += cast += target += afterCast += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
           } else {
-            methodBody += callAssign += cast += target += ".bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ");" += nl;
+            methodBody += callAssign += cast += target += afterCast += ".bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ");" += nl;
           }
         } else {
-          methodBody += callAssign += cast += target += ".bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += ".bevn_" += node.held.name += fc += callArgs += callArgSpill += ");" += nl;
+          methodBody += callAssign += cast += target += afterCast += ".bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += ".bevn_" += node.held.name += fc += callArgs += callArgSpill += ");" += nl;
         }
       }
       
