@@ -2,6 +2,13 @@
 >>oc<<
 
 try it out
+  basics - class, etc arc excepts
+  anys id like js
+  source limit size
+  
+  also headers first
+
+cc to oc
 
 >>cc<<
 
@@ -56,6 +63,8 @@ field prefix to any dec makes it a field
 for collections, etc, have a weak reference type (?proxy)
   
 try also includes setjmp (into stack) and signals longjump
+
+finally again
 
 gratuitous returns
   stop using return type for this and use the call target instead for chains
