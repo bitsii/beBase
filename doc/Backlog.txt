@@ -1,8 +1,12 @@
 
+>>oc<<
+
+try it out
+
 >>cc<<
 
-throwing
 cc calls
+throwing
 dynamic methods
 
 native includes (bevis)
