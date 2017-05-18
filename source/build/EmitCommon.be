@@ -1765,7 +1765,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                       //("Found a skippable int new for class " + asyn.namepath.toString()).print();
                       methodBody += callAssign += cast += initialTarg += afterCast += ";" += nl;
                     } else {
-                      methodBody += callAssign += cast += initialTarg += afterCast += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
+                      methodBody += callAssign += cast += initialTarg += "." += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
                     }
                 }
           } else {
@@ -1791,9 +1791,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                 methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (isTyped!) {
-                methodBody += callAssign += cast += target += afterCast += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
+                methodBody += callAssign += cast += target += "." += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
             } else {
-                methodBody += callAssign += cast += target += afterCast += "." += emitNameForCall(node) += "(" += callArgs += ");" += nl;
+                methodBody += callAssign += cast += target += "." += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
             }
           }
       } else {
@@ -1816,14 +1816,14 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         }
         if (isForward) {
           if (emitting("cs")) {
-            methodBody += callAssign += cast += target += afterCast += ".bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
+            methodBody += callAssign += cast += target += ".bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "))" += afterCast += ";" += nl;
           } elseIf (emitting("jv")) {
-            methodBody += callAssign += cast += target += afterCast += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
+            methodBody += callAssign += cast += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0()))" += afterCast += ";" += nl;
           } else {
-            methodBody += callAssign += cast += target += afterCast += ".bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ");" += nl;
+            methodBody += callAssign += cast += target += ".bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ")" += afterCast += ";" += nl;
           }
         } else {
-          methodBody += callAssign += cast += target += afterCast += ".bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += ".bevn_" += node.held.name += fc += callArgs += callArgSpill += ");" += nl;
+          methodBody += callAssign += cast += target += ".bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += ".bevn_" += node.held.name += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
         }
       }
       

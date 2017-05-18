@@ -1,19 +1,82 @@
 
-webworker and thread compatible async
+>>cc<<
+
+finish casting
+  formStatCast and dyn
+  fold into one cast (dyn/stat call fc2)
+  safe cast setting for calls, used in fc
+    spend some time making sure it's right
+  get rid of gratituitous casting for constructs
+    so for self case if is construct don't set the checktypes
+cc calls
+throwing
+dynamic methods
+
+native includes (bevis)
+
+get code looking right and building
+  pointer -> instead of .
+  super (make sure case where not deffed in immediate up works)
+
+drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
+
+can, createInstance and invoke - switch to structures which don't depend on underlying reflection
+cs and jv like js for createInstance, can like invoke
+switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
+
+for dynamic calls use precalced serial values not hash
+  see below for later lib plan
+
+for cc strings prob have to always copy buffer...
+
+<<cc>>
+
+>>type sizes<<
+int is 32bit signed cs/jv
+<cstdint> (stdint.h) int32_t
+
+jv byte is signed 8bit int
+cs byte is unsigned 8bit int
+c++ unsigned char (like cs)
+  unsigned char/char/signed char can be cast
+  don't use string or streams, c style fopen, fread, fwrite
+
+<<type sizes>>
+
+c++ (cc - c with classes)
+  use exact sized types
+  clang++ g++
+  
+  shared ptr 
+    https://msdn.microsoft.com/en-us/library/hh279669.aspx
+    https://en.wikipedia.org/wiki/Smart_pointer
+
+field prefix to any dec makes it a field
+  field Type (auto, any) blah;
+  have a field fields type which is weak (weak)
+  std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr
+  
+for collections, etc, have a weak reference type (?proxy)
+  
+try also includes setjmp (into stack) and signals longjump
 
 finally again
-
-js serialization fix
-
-js optional cast check
-
-dart?
 
 gratuitous returns
   stop using return type for this and use the call target instead for chains
   actually stop doing returns for this
   (except for untyped and js, which still return self - tho js could skip assign)
 
+support libraries
+  have per-lib extended type for dyn calls
+    move up the "actual class" to some other name (be?), have current name be used allwhere
+      have it be lib specific
+      do for all syns
+      is part of exec build
+      have exec build be optional
+  
+?have an option to make all casts in cc static casts for perf
+  
 be clear that =@ and @ are hints/suggestions not definite, default is tho
 
 TS.ne (notEmpty)
@@ -395,63 +458,3 @@ DoIt<T>(T held) DoIt {
 DoIt d = DoIt<AType>(at); //at is of type AType
 
 d.doIt(); //doIt called on held inst (interface case)
-
->>cc<<
-
-if a this is needed in a method do a "make shared" for a this
-  or always
-
-cc calls
-throwing
-dynamic methods
-
-native includes (bevis)
-
-get code looking right and building
-  pointer -> instead of .
-  super (make sure case where not deffed in immediate up works)
-
-drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
-
-can, createInstance and invoke - switch to structures which don't depend on underlying reflection
-cs and jv like js for createInstance, can like invoke
-switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
-
-for dynamic calls use precalced serial values not hash
-  see below for later lib plan
-
-for cc strings prob have to always copy buffer...
-
-<<cc>>
-
->>type sizes<<
-int is 32bit signed cs/jv
-<cstdint> (stdint.h) int32_t
-
-jv byte is signed 8bit int
-cs byte is unsigned 8bit int
-c++ unsigned char (like cs)
-  unsigned char/char/signed char can be cast
-  don't use string or streams, c style fopen, fread, fwrite
-
-<<type sizes>>
-
-c++ (cc - c with classes)
-  use exact sized types
-  clang++ g++
-  
-  shared ptr 
-    https://msdn.microsoft.com/en-us/library/hh279669.aspx
-    https://en.wikipedia.org/wiki/Smart_pointer
-
-field prefix to any dec makes it a field
-  field Type (auto, any) blah;
-  have a field fields type which is weak (weak)
-  std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr
-  
-for collections, etc, have a weak reference type (?proxy)
-  
-try also includes setjmp (into stack) and signals longjump
-
-finally again
-

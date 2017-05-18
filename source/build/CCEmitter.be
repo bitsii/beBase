@@ -117,11 +117,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    }
    
    formDynCast(ClassConfig cc, String targ) String {
-        return("dynamic_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
+        return("fddynamic_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
    }
    
    formCast(ClassConfig cc) String {
-        return("dynamic_pointer_cast<" + cc.relEmitName(build.libName) + ">(");//)
+        return("fcdynamic_pointer_cast<" + cc.relEmitName(build.libName) + ">(");//)
    }
    
    afterCast() String {
@@ -130,7 +130,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    }
    
    formStatCast(ClassConfig cc, String targ) String { //no need for type check
-        return("static_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
+        return("fsstatic_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
    }
    
    buildClassInfoMethod(String bemBase, String belsBase, Int len) {      
