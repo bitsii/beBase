@@ -2,8 +2,6 @@
 >>cc<<
 
 finish casting
-  formStatCast and dyn
-  fold into one cast (dyn/stat call fc2)
   safe cast setting for calls, used in fc
     spend some time making sure it's right
   get rid of gratituitous casting for constructs

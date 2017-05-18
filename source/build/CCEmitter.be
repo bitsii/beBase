@@ -116,21 +116,18 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       }
    }
    
-   formDynCast(ClassConfig cc, String targ) String {
-        return("fddynamic_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
-   }
-   
-   formCast(ClassConfig cc) String {
-        return("fcdynamic_pointer_cast<" + cc.relEmitName(build.libName) + ">(");//)
+   formCast(ClassConfig cc, String type) String {
+     if (type == "unchecked") {
+       String ccall = "static_pointer_cast";
+     } else {
+       ccall = "dynamic_pointer_cast";
+     }
+     return(ccall + "<" + cc.relEmitName(build.libName) + ">(");//)
    }
    
    afterCast() String {
      //(
      return(")");
-   }
-   
-   formStatCast(ClassConfig cc, String targ) String { //no need for type check
-        return("fsstatic_pointer_cast<" + cc.relEmitName(build.libName) + ">(" + targ + ")");
    }
    
    buildClassInfoMethod(String bemBase, String belsBase, Int len) {      
@@ -362,7 +359,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         ccMethods += self.overrideMtdDec += "void " += newcc.emitName += "::bemc_setInitial(shared_ptr<" += oname += "> becc_inst)" += exceptDec += " {" += nl;  //}
             asnr = "becc_inst";
             if (newcc.emitName != oname) {
-                String asnr = formStatCast(classConf, asnr);//no need for type check
+                String asnr = formCast(classConf, "unchecked", asnr);//no need for type check
             }
             
             ccMethods += stinst += " = " += asnr += ";" += nl;

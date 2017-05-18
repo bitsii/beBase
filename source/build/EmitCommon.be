@@ -952,7 +952,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                             anyg = "bevd_x[" + (vnumargs - maxDynArgs) + "]";
                         }
                         if (vsyn.isTyped && vsyn.namepath != objectNp) {
-                            String vcast = formDynCast(getClassConfig(vsyn.namepath), anyg);
+                            String vcast = formCast(getClassConfig(vsyn.namepath), "checked", anyg);
                         } else {
                             vcast = anyg;
                         }
@@ -1027,7 +1027,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         ccMethods += self.overrideMtdDec += "void bemc_setInitial(" += oname += " becc_inst)" += exceptDec += " {" += nl;  //}
             
             if (mname != oname) {
-                String vcast = formStatCast(classConf, "becc_inst");//no need for type check
+                String vcast = formCast(classConf, "unchecked", "becc_inst");//no need for type check
             } else {
                 vcast = "becc_inst";
             }
@@ -1261,7 +1261,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             //but also make faster for the 99% cases, and these things can be explicitely checked for when needed
             ev += targs += " != null && " += targs += instOf += boolCc.relEmitName(build.libName) += " && ";
             if (emitting("js")!) {
-                ev += "(" += formDynCast(boolCc, targs);
+                ev += "(" += formCast(boolCc, "checked", targs);
             }
             if (emitting("js")) {
               ev += targs;
@@ -1294,7 +1294,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    finalAssign(Node node, String sFrom, NamePath castTo) String {
       String fa = finalAssignTo(node);
       if (def(castTo)) {
-        String cast = formCast(getClassConfig(castTo));
+        String cast = formCast(getClassConfig(castTo), "checked");
         String afterCast = afterCast();
         fa += cast += sFrom;
         fa += afterCast;
@@ -1322,7 +1322,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
        return("super");
     }
    
-   formCast(ClassConfig cc) String { //no need for type check
+   formCast(ClassConfig cc, String type) String { //no need for type check
         return("(" + cc.relEmitName(build.libName) + ") ");
    }
    
@@ -1330,12 +1330,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
      return("");
    }
    
-   formStatCast(ClassConfig cc, String targ) String { //no need for type check
-        return("(" + cc.relEmitName(build.libName) + ")" + " " + targ);
-   }
-   
-   formDynCast(ClassConfig cc, String targ) String { //no need for type check
-        return("(" + cc.relEmitName(build.libName) + ")" + " " + targ);
+   formCast(ClassConfig cc, String type, String targ) String { //no need for type check
+        return(formCast(cc, type) + targ + afterCast());
    }
    
     acceptThrow(Node node) {
@@ -1513,7 +1509,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       } elseIf (node.held.orgName == "return") {
         //node.held.checkTypes for casting, rsub.held.rtype.isSelf for self type
         if (node.held.checkTypes) {
-            methodBody += "return " += formDynCast(returnType, formTarg(node.second)) += ";" += nl; //do type check
+            methodBody += "return " += formCast(returnType, "checked", formTarg(node.second)) += ";" += nl; //do type check
         } else {
           methodBody += "return " += formTarg(node.second) += ";" += nl; //first is self
         }
@@ -1587,7 +1583,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     callArgs += ", ";
                 }
                 if (argCasts.length > numargs && def(argCasts.get(numargs))) {
-                    callArgs += formDynCast(getClassConfig(argCasts.get(numargs)), formTarg(i)) += " "; //do type check
+                    callArgs += formCast(getClassConfig(argCasts.get(numargs)), "checked", formTarg(i)) += " "; //do type check
                 } else {
                   callArgs += formTarg(i);
                 }
@@ -1634,7 +1630,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         if (node.container.held.checkTypes) {
             //("assign casting").print();
             castTo = node.container.contained.first.held.namepath;
-            cast = formCast(getClassConfig(castTo));
+            cast = formCast(getClassConfig(castTo), "checked");
             afterCast = afterCast();
          }
         String callAssign = finalAssignTo(node.container.contained.first);
@@ -1647,7 +1643,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         //is all that's needed and the oany is always the same type as the assign to target
         String postOnceCallAssign = nameForVar(node.container.contained.first.held) + " = " + oany + ";" + nl;
         if (def(castTo)) {
-           cast = formCast(getClassConfig(castTo)); //do type check
+           cast = formCast(getClassConfig(castTo), "checked"); //do type check
            afterCast = afterCast();
         } else {
            cast = "";
@@ -1816,9 +1812,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         }
         if (isForward) {
           if (emitting("cs")) {
-            methodBody += callAssign += cast += target += ".bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "))" += afterCast += ";" += nl;
+            methodBody += callAssign += cast += target += ".bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
           } elseIf (emitting("jv")) {
-            methodBody += callAssign += cast += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0()))" += afterCast += ";" += nl;
+             methodBody += callAssign += cast += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
           } else {
             methodBody += callAssign += cast += target += ".bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ")" += afterCast += ";" += nl;
           }
