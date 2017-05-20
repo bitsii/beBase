@@ -16,6 +16,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     new(Build:Build _build) {
         emitLang = "js";
         fileExt = ".js";
+        invp = ".";
         exceptDec = "";
         fields {
         }

@@ -17,6 +17,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     new(Build:Build _build) {
         emitLang = "cc";
         fileExt = ".cpp";
+        invp = "->";
         exceptDec = "";
         fields {
           String headExt = ".hpp";

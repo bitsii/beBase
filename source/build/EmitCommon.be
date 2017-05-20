@@ -77,6 +77,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           String emitLang;
           String fileExt;
           String exceptDec;
+          String invp;
           
           //A newline, often useful
           String nl = build.nl;
@@ -1330,7 +1331,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
      return("");
    }
    
-   formCast(ClassConfig cc, String type, String targ) String { //no need for type check
+   formCast(ClassConfig cc, String type, String targ) String {
         return(formCast(cc, type) + targ + afterCast());
    }
    
@@ -1631,7 +1632,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         if (node.container.held.checkTypes) {
             //("assign casting").print();
             castTo = node.container.contained.first.held.namepath;
-            castType = node.held.checkTypesType;
+            castType = node.container.held.checkTypesType;
             cast = formCast(getClassConfig(castTo), castType);
             afterCast = afterCast();
          }

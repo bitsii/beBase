@@ -5,6 +5,10 @@ cc calls
 throwing
 dynamic methods
 
+need to change how the "if" check works - has instanceof in it, do the dynamic cast and check null?
+for instanceof and the like - check if null before then do dynamic case then check if null
+  (just do cast and check if null?)
+
 
 native includes (bevis)
 
