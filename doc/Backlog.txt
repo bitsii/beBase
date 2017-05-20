@@ -1,14 +1,10 @@
 
 >>cc<<
 
-finish casting
-  safe cast setting for calls, used in fc
-    spend some time making sure it's right
-  get rid of gratituitous casting for constructs
-    so for self case if is construct don't set the checktypes
 cc calls
 throwing
 dynamic methods
+
 
 native includes (bevis)
 

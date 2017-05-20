@@ -521,6 +521,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                      if (castForSelf) {
                      //("castForSelf").print();
                         node.held.checkTypes = true;
+                        node.held.checkTypesType = "unchecked";
                      }
                   }
                   if (def(targ.held.namepath)) {

@@ -41,7 +41,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     //try to fix js
     //methodBody += "console.log(new Error().stack);" += nl;
     
-    methodBody += finalAssign(node.contained.first.contained.first, "(be_BECS_ThrowBack_handleThrow(" + catchVar + "))", null);
+    methodBody += finalAssign(node.contained.first.contained.first, "(be_BECS_ThrowBack_handleThrow(" + catchVar + "))", null, null);
 
    }
 

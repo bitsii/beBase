@@ -76,7 +76,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     methodCatch++=;
     methodBody += " catch (Throwable " += catchVar += ") {" += nl; //}
     
-    methodBody += finalAssign(node.contained.first.contained.first, "(be.BECS_ThrowBack.handleThrow(" + catchVar + "))", null);
+    methodBody += finalAssign(node.contained.first.contained.first, "(be.BECS_ThrowBack.handleThrow(" + catchVar + "))", null, null);
 
    }
    

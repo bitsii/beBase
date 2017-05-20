@@ -1291,10 +1291,10 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    acceptCatch(Node node) {
    }
    
-   finalAssign(Node node, String sFrom, NamePath castTo) String {
+   finalAssign(Node node, String sFrom, NamePath castTo, String castType) String {
       String fa = finalAssignTo(node);
       if (def(castTo)) {
-        String cast = formCast(getClassConfig(castTo), "checked");
+        String cast = formCast(getClassConfig(castTo), castType);
         String afterCast = afterCast();
         fa += cast += sFrom;
         fa += afterCast;
@@ -1397,16 +1397,17 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
          //the method instead of at assign and only if not returning "self" (do same type check)
          if (node.held.checkTypes) {
             castTo = node.contained.first.held.namepath;
+            String castType = node.held.checkTypesType;
          }
          if (node.second.typename == ntypes.VAR) {
             //node.held.checkTypes (for casting needed) (legacy became checkAssignTypes)
-            methodBody += finalAssign(node.contained.first, formTarg(node.second), castTo);
+            methodBody += finalAssign(node.contained.first, formTarg(node.second), castTo, castType);
          } elseIf (node.second.typename == ntypes.NULL) {
-            methodBody += finalAssign(node.contained.first, "null", null);
+            methodBody += finalAssign(node.contained.first, "null", null, null);
          } elseIf (node.second.typename == ntypes.TRUE) {
-            methodBody += finalAssign(node.contained.first, trueValue, castTo);
+            methodBody += finalAssign(node.contained.first, trueValue, castTo, castType);
          } elseIf (node.second.typename == ntypes.FALSE) {
-            methodBody += finalAssign(node.contained.first, falseValue, castTo);
+            methodBody += finalAssign(node.contained.first, falseValue, castTo, castType);
          } elseIf (node.second.held.name == "undef_1" || node.second.held.name == "undefined_1" ||
             node.second.held.name == "def_1" || node.second.held.name == "defined_1") {
             //if (node.second.second.held.isTyped) {
@@ -1428,45 +1429,45 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                notNullRes = trueValue;
             }
             methodBody += "if (" += formTarg(node.second.second) += " == null) {" += nl;
-            methodBody += finalAssign(node.contained.first, nullRes, null);
+            methodBody += finalAssign(node.contained.first, nullRes, null, null);
             methodBody += " } else { " += nl;
-            methodBody += finalAssign(node.contained.first, notNullRes, null);
+            methodBody += finalAssign(node.contained.first, notNullRes, null, null);
             methodBody += "}" += nl;  
         } elseIf (isIntish && node.second.held.name == "lesser_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
           methodBody += "if (" += formTarg(node.second.first) += ".bevi_int < " += formTarg(node.second.second) += ".bevi_int) {" += nl;
-          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
-          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += finalAssign(node.contained.first, falseValue, null, null);
           methodBody += "}" += nl;
         } elseIf (isIntish && node.second.held.name == "lesserEquals_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
           methodBody += "if (" += formTarg(node.second.first) += ".bevi_int <= " += formTarg(node.second.second) += ".bevi_int) {" += nl;
-          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
-          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += finalAssign(node.contained.first, falseValue, null, null);
           methodBody += "}" += nl;
          } elseIf (isIntish && node.second.held.name == "greater_1") {
           //do call name in a set later
           //("found an int greater call").print();
           node.second.inlined = true;
           methodBody += "if (" += formTarg(node.second.first) += ".bevi_int > " += formTarg(node.second.second) += ".bevi_int) {" += nl;
-          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
-          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += finalAssign(node.contained.first, falseValue, null, null);
           methodBody += "}" += nl;
         } elseIf (isIntish && node.second.held.name == "greaterEquals_1") {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
           methodBody += "if (" += formTarg(node.second.first) += ".bevi_int >= " += formTarg(node.second.second) += ".bevi_int) {" += nl;
-          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
-          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += finalAssign(node.contained.first, falseValue, null, null);
           methodBody += "}" += nl;
          } elseIf (isIntish && node.second.held.name == "equals_1") {
           //do call name in a set later
@@ -1478,9 +1479,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           }
           node.second.inlined = true;
           methodBody += "if (" += formTarg(node.second.first) += ".bevi_int" += ecomp += formTarg(node.second.second) += ".bevi_int) {" += nl;
-          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
-          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += finalAssign(node.contained.first, falseValue, null,null);
           methodBody += "}" += nl;
         } elseIf (isIntish && node.second.held.name == "notEquals_1") {
           //do call name in a set later
@@ -1492,24 +1493,24 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           }
           node.second.inlined = true;
           methodBody += "if (" += formTarg(node.second.first) += ".bevi_int" += necomp += formTarg(node.second.second) += ".bevi_int) {" += nl;
-          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
-          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += finalAssign(node.contained.first, falseValue, null, null);
           methodBody += "}" += nl;
          } elseIf (isBoolish && node.second.held.name == "not_0") {
           //("found a bool not").print();
           node.second.inlined = true;
           methodBody += "if (" += formTarg(node.second.first) += ".bevi_bool) {" += nl;
-          methodBody += finalAssign(node.contained.first, falseValue, null);
+          methodBody += finalAssign(node.contained.first, falseValue, null, null);
           methodBody += " } else { " += nl;
-          methodBody += finalAssign(node.contained.first, trueValue, null);
+          methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += "}" += nl;
          }
          return(self);
       } elseIf (node.held.orgName == "return") {
         //node.held.checkTypes for casting, rsub.held.rtype.isSelf for self type
         if (node.held.checkTypes) {
-            methodBody += "return " += formCast(returnType, "checked", formTarg(node.second)) += ";" += nl; //do type check
+            methodBody += "return " += formCast(returnType, node.held.checkTypesType, formTarg(node.second)) += ";" += nl; //do type check
         } else {
           methodBody += "return " += formTarg(node.second) += ";" += nl; //first is self
         }
@@ -1630,7 +1631,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         if (node.container.held.checkTypes) {
             //("assign casting").print();
             castTo = node.container.contained.first.held.namepath;
-            cast = formCast(getClassConfig(castTo), "checked");
+            castType = node.held.checkTypesType;
+            cast = formCast(getClassConfig(castTo), castType);
             afterCast = afterCast();
          }
         String callAssign = finalAssignTo(node.container.contained.first);
@@ -1642,8 +1644,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         //no cast for the post assign, the oany is always typed based on the type assigned to, so the case when assigning to oany 
         //is all that's needed and the oany is always the same type as the assign to target
         String postOnceCallAssign = nameForVar(node.container.contained.first.held) + " = " + oany + ";" + nl;
-        if (def(castTo)) {
-           cast = formCast(getClassConfig(castTo), "checked"); //do type check
+        if (def(castTo) && (isConstruct && node.held.isLiteral)!) {
+           cast = formCast(getClassConfig(castTo), castType); //do type check
            afterCast = afterCast();
         } else {
            cast = "";

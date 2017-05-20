@@ -307,6 +307,7 @@ final class Build:Call {
          Bool isOnce = false; //explicit isonce (=@)
          Bool isMany = false; //explicit ismany (=#)
          Bool checkTypes = true;
+         String checkTypesType = "checked";//checked or unchecked cast
          Bool superCall = false; //set late, in emitcommon
          Bool wasImpliedConstruct = false;
          Bool wasForeachGenned = false;

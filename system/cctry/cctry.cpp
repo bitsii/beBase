@@ -58,6 +58,10 @@ shared_ptr<BEC_Classy> BEC_StayClassy::printIt(shared_ptr<BEC_String> it) {
 void innerMain() {
   shared_ptr<BEC_String> str2 = clnamestr->print();
   str2->print();
+  
+  str2 = nullptr;
+  
+  shared_ptr<BEC_String> str3 = dynamic_pointer_cast<BEC_String>(str2);
 }
 
 }
