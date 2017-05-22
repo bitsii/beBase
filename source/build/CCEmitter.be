@@ -17,14 +17,19 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     new(Build:Build _build) {
         emitLang = "cc";
         fileExt = ".cpp";
-        invp = "->";
         exceptDec = "";
         fields {
           String headExt = ".hpp";
           String classHeadBody = String.new();
         }
+        
         //super new depends on some things we set here, so it must follow
         super.new(_build);
+        
+        invp = "->";
+        scvp = "::";
+        trueValue = "BECS_Runtime::boolTrue";
+        falseValue = "BECS_Runtime::boolFalse";
     }
     
     classBegin(Build:ClassSyn csyn) String {

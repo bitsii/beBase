@@ -77,7 +77,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           String emitLang;
           String fileExt;
           String exceptDec;
-          String invp;
           
           //A newline, often useful
           String nl = build.nl;
@@ -96,6 +95,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           
           //Commonly needed values
           
+          String invp = ".";
+          String scvp = ".";
           String trueValue = "be.BECS_Runtime.boolTrue";
           String falseValue = "be.BECS_Runtime.boolFalse";
           
@@ -935,7 +936,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             for (msyn in dgv) {
                 String mcall = String.new();
                 if (dynConditions) {
-                    String constName = libEmitName + ".bevn_" + msyn.name;
+                    String constName = libEmitName + scvp + "bevn_" + msyn.name;
                     mcall += "if (callId == " += constName += ") {" += nl; //}
                 } 
                 mcall += "return bem_" += msyn.name += "(";
@@ -974,7 +975,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             }
         }
         dynMethods += "}" += nl; //end of switch
-        dynMethods += "return " + self.superName + "." += dmname += "(" += superArgs += ");" += nl; 
+        dynMethods += "return " + self.superName + invp += dmname += "(" += superArgs += ");" += nl; 
         dynMethods += "}" += nl; //end of method for this argnum
       }
       
@@ -1254,8 +1255,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             ev += "!(";
          }
          if (isBool) {
-            //ev += targs += " != null && " += targs += ".bevi_bool";
-            ev += targs += ".bevi_bool";
+            ev += targs += invp += "bevi_bool";
          } else {
             //TODO FASTER could drop instof check - this is here now for harmony with c - would change behavior (obviously)
             //TODO FASTER (a little), after default is complete, the null check should not be unneeded anymore for harmony
@@ -1270,23 +1270,12 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             if (emitting("js")!) {
                 ev += ")";
             }
-            ev += ".bevi_bool";
+            ev += invp += "bevi_bool";
          }
          if (isUnless) {
             ev += ")";
          }
          methodBody += "if (" += ev += ")";
-   }
-  
-  oldacceptIf(Node node) {
-         //True is object equivalence to the "true instance", false is everything else
-         String targs = formTarg(node.contained.first.contained.first);
-         if (def(node.held) && node.held == "unless") {
-            cexpr = instanceNotEqual;
-         } else {
-            String cexpr = instanceEqual;
-         }
-         methodBody += "if (" += trueValue += cexpr += targs += ")";
    }
    
    acceptCatch(Node node) {
@@ -1438,7 +1427,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int < " += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int < " += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1447,7 +1436,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int <= " += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int <= " += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1456,7 +1445,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           //do call name in a set later
           //("found an int greater call").print();
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int > " += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int > " += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1465,7 +1454,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int >= " += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int >= " += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1479,7 +1468,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             ecomp = " == ";
           }
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int" += ecomp += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int" += ecomp += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null,null);
@@ -1493,7 +1482,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             necomp = " != ";
           }
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += ".bevi_int" += necomp += formTarg(node.second.second) += ".bevi_int) {" += nl;
+          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int" += necomp += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1501,7 +1490,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
          } elseIf (isBoolish && node.second.held.name == "not_0") {
           //("found a bool not").print();
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += ".bevi_bool) {" += nl;
+          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_bool) {" += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
@@ -1764,35 +1753,35 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                       //("Found a skippable int new for class " + asyn.namepath.toString()).print();
                       methodBody += callAssign += cast += initialTarg += afterCast += ";" += nl;
                     } else {
-                      methodBody += callAssign += cast += initialTarg += "." += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
+                      methodBody += callAssign += cast += initialTarg += invp += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
                     }
                 }
           } else {
             if (dblIntish && node.held.name == "setValue_1") {
               //("found setval").print(); 
-              methodBody += target += ".bevi_int = " += dblIntTarg += ".bevi_int;" += nl;
+              methodBody += target += invp += "bevi_int = " += dblIntTarg += invp += "bevi_int;" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found setval with assign").print();
                 methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (dblIntish && node.held.name == "addValue_1") {
               //("found addval").print(); 
-              methodBody += target += ".bevi_int += " += dblIntTarg += ".bevi_int;" += nl;
+              methodBody += target += invp += "bevi_int += " += dblIntTarg += invp += "bevi_int;" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found addval with assign").print();
                 methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (sglIntish && node.held.name == "incrementValue_0") {
               //("found incval").print(); 
-              methodBody += target += ".bevi_int++;" += nl;
+              methodBody += target += invp += "bevi_int++;" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found incval with assign").print();
                 methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (isTyped!) {
-                methodBody += callAssign += cast += target += "." += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
+                methodBody += callAssign += cast += target += invp += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
             } else {
-                methodBody += callAssign += cast += target += "." += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
+                methodBody += callAssign += cast += target += invp += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
             }
           }
       } else {
@@ -1815,14 +1804,14 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         }
         if (isForward) {
           if (emitting("cs")) {
-            methodBody += callAssign += cast += target += ".bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
+            methodBody += callAssign += cast += target += invp += "bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
           } elseIf (emitting("jv")) {
-             methodBody += callAssign += cast += target += ".bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
+             methodBody += callAssign += cast += target += invp += "bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
           } else {
-            methodBody += callAssign += cast += target += ".bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ")" += afterCast += ";" += nl;
+            methodBody += callAssign += cast += target += invp += "bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ")" += afterCast += ";" += nl;
           }
         } else {
-          methodBody += callAssign += cast += target += ".bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += ".bevn_" += node.held.name += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
+          methodBody += callAssign += cast += target += invp += "bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += scvp += "bevn_" += node.held.name += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
         }
       }
       
@@ -2043,7 +2032,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       return(tcall);
    }
    
-   formRTarg(Node node) String {
+   formArg(Node node) String {
       String tcall;
       if (node.typename == ntypes.NULL) {
          tcall = "null";

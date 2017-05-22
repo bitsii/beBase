@@ -10,6 +10,12 @@ class BECS_Object;
 class BEC_Object;
 class BEC_Classy;
 class BEC_StayClassy;
+class BEL_4_Base;
+
+class BEL_4_Base {
+  public:
+    static int32_t bevn_an;
+};
 
 class BECS_Object : public enable_shared_from_this<BECS_Object> { 
   public:

@@ -16,7 +16,6 @@ use final class Build:JVEmitter(Build:EmitCommon) {
     new(Build:Build _build) {
         emitLang = "jv";
         fileExt = ".java";
-        invp = ".";
         exceptDec = " throws Throwable";
         fields {
         }

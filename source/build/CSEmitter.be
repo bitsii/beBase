@@ -16,7 +16,6 @@ use final class Build:CSEmitter(Build:EmitCommon) {
     new(Build:Build _build) {
         emitLang = "cs";
         fileExt = ".cs";
-        invp = ".";
         exceptDec = "";
         fields {
         }
