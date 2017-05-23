@@ -1427,7 +1427,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int < " += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
+          methodBody += "if (" += formIntTarg(node.second.first) += " < " += formIntTarg(node.second.second) += ") {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1436,7 +1436,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int <= " += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
+          methodBody += "if (" += formIntTarg(node.second.first) += " <= " += formIntTarg(node.second.second) += ") {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1445,7 +1445,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           //do call name in a set later
           //("found an int greater call").print();
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int > " += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
+          methodBody += "if (" += formIntTarg(node.second.first) += " > " += formIntTarg(node.second.second) += ") {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1454,7 +1454,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           //do call name in a set later
           //("found an int lesser call").print();
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int >= " += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
+          methodBody += "if (" += formIntTarg(node.second.first) += " >= " += formIntTarg(node.second.second) += ") {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1468,7 +1468,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             ecomp = " == ";
           }
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int" += ecomp += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
+          methodBody += "if (" += formIntTarg(node.second.first) +=  ecomp += formIntTarg(node.second.second) += ") {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null,null);
@@ -1482,7 +1482,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             necomp = " != ";
           }
           node.second.inlined = true;
-          methodBody += "if (" += formTarg(node.second.first) += invp += "bevi_int" += necomp += formTarg(node.second.second) += invp += "bevi_int) {" += nl;
+          methodBody += "if (" += formIntTarg(node.second.first) += necomp += formIntTarg(node.second.second) += ") {" += nl;
           methodBody += finalAssign(node.contained.first, trueValue, null, null);
           methodBody += " } else { " += nl;
           methodBody += finalAssign(node.contained.first, falseValue, null, null);
@@ -1556,6 +1556,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
          if (numargs == 0) {
             //any targetOrg = i.held.name;
             String target = formTarg(i);
+            String callTarget = formCallTarg(i);
             Node targetNode = i;
             if (targetNode.held.isTyped && node.held.untyped!) {
                 isTyped = true;
@@ -1714,6 +1715,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                   }
                 }
                 target = "(" + newCall + ")";
+                callTarget = target + invp;
                 
                 String stinst = getInitialInst(newcc);
                 
@@ -1729,8 +1731,10 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                         }
                         if (node.held.literalValue == "true") {
                             target = trueValue;
+                            callTarget = trueValue + invp;
                         } else {
                             target = falseValue;
+                            callTarget = falseValue + invp;
                         }
                     }
                     if (onceDeced) {
@@ -1779,9 +1783,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                 methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (isTyped!) {
-                methodBody += callAssign += cast += target += invp += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
+                methodBody += callAssign += cast += callTarget += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
             } else {
-                methodBody += callAssign += cast += target += invp += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
+                methodBody += callAssign += cast += callTarget += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
             }
           }
       } else {
@@ -1804,14 +1808,14 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         }
         if (isForward) {
           if (emitting("cs")) {
-            methodBody += callAssign += cast += target += invp += "bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
+            methodBody += callAssign += cast += callTarget += "bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
           } elseIf (emitting("jv")) {
-             methodBody += callAssign += cast += target += invp += "bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
+             methodBody += callAssign += cast += callTarget += "bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
           } else {
-            methodBody += callAssign += cast += target += invp += "bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ")" += afterCast += ";" += nl;
+            methodBody += callAssign += cast += callTarget += "bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ")" += afterCast += ";" += nl;
           }
         } else {
-          methodBody += callAssign += cast += target += invp += "bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += scvp += "bevn_" += node.held.name += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
+          methodBody += callAssign += cast += callTarget += "bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += scvp += "bevn_" += node.held.name += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
         }
       }
       
@@ -2032,16 +2036,30 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       return(tcall);
    }
    
-   formArg(Node node) String {
+   formCallTarg(Node node) String {
       String tcall;
       if (node.typename == ntypes.NULL) {
-         tcall = "null";
+         throw(VisitError.new("Cannot call on literal null"));
       } elseIf (node.held.name == "self") {
-         tcall = "this";
+         tcall = "";
       } elseIf (node.held.name == "super") {
-         tcall = self.superName;
+         tcall = self.superName + invp;
       } else {
-         tcall = nameForVar(node.held);
+         tcall = nameForVar(node.held) + invp;
+      }
+      return(tcall);
+   }
+   
+   formIntTarg(Node node) String {
+      String tcall;
+      if (node.typename == ntypes.NULL) {
+         throw(VisitError.new("Cannot call on literal null"));
+      } elseIf (node.held.name == "self") {
+         tcall = "bevi_int";
+      } elseIf (node.held.name == "super") {
+         tcall = "bevi_int";
+      } else {
+         tcall = nameForVar(node.held) + invp + "bevi_int";
       }
       return(tcall);
    }

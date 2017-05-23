@@ -28,6 +28,14 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         instanceEqual = " === ";
         instanceNotEqual = " !== ";
     }
+    
+    formCallTarg(Node node) String {
+      return(formTarg(node) + invp);
+    }
+    
+    formIntTarg(Node node) String {
+      return(formCallTarg(node) + "bevi_int");
+    }
 
     acceptThrow(Node node) {
         methodBody += "throw new be_BECS_ThrowBack(" += formTarg(node.second) += ", new Error());" += nl;

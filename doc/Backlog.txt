@@ -2,8 +2,9 @@
 >>cc<<
 
 no more this - only for when passing yourself (use make shared)
-  self et all diff ver for if arg or for call
-  for call no target
+  formBoolTarg
+  fix return this
+  find remaining thises
   
 super (now easy just prefix of class)
 
