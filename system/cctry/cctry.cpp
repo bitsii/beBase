@@ -17,6 +17,10 @@ shared_ptr<BEC_Classy> BEC_StayClassy::bemc_getInitial() {
 return bece_BEC_2_6_6_BEC_StayClassy_bevs_inst;
 }
 
+shared_ptr<BEC_StayClassy> BEC_StayClassy::bemc_retNull() {
+  return nullptr;
+}
+
 
 BECS_Object::~BECS_Object() {
   
@@ -61,12 +65,43 @@ void innerMain() {
   shared_ptr<BEC_String> str2 = clnamestr->print();
   str2->print();
   
+  if (str2 == nullptr) {
+    cout << "str2 null should not be\n";
+  }
+  
+  if (str2 != nullptr) {
+    cout << "str2 not null should be not null\n";
+  }
+  
   str2 = nullptr;
+  
+  if (str2 == nullptr) {
+    cout << "str2 null should be null\n";
+  }
+  
+  if (str2 != nullptr) {
+    cout << "str2 not null should not be not null\n";
+  }
+  
+  str2 = clnamestr->print();
+  
+  if (str2 != nullptr) {
+    cout << "str2 not null should be not null 2\n";
+  }
   
   shared_ptr<BEC_String> str3 = dynamic_pointer_cast<BEC_String>(str2);
   
   cout << BEL_4_Base::bevn_an;
   cout << "\n";
+  
+  shared_ptr<BEC_StayClassy> sc1 = make_shared<BEC_StayClassy>();
+  
+  sc1 = sc1->bemc_retNull();
+  
+  if (sc1 == nullptr) {
+    cout << "sc1 null should be null\n";
+  }
+  
 }
 
 }

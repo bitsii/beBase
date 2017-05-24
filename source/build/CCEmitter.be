@@ -113,6 +113,20 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        classHeadBody += ");\n";
       
     }
+    
+    formTarg(Node node) String {
+      String tcall;
+      if (node.typename == ntypes.NULL) {
+         tcall = "null";
+      } elseIf (node.held.name == "self") {
+         tcall = "static_pointer_cast<" + classConf.emitName + ">(shared_from_this())";
+      } elseIf (node.held.name == "super") {
+         tcall = "yosuperthis";
+      } else {
+         tcall = nameForVar(node.held);
+      }
+      return(tcall);
+   }
    
    typeDecForVar(String b, Build:Var v) {
       if (v.isTyped!) {

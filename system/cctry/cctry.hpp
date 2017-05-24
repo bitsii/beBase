@@ -47,10 +47,10 @@ class BEC_Classy : public BEC_Object {
 class BEC_StayClassy : public BEC_Classy {
   
   public:
-    virtual void yukka();
     virtual shared_ptr<BEC_Classy> printIt(shared_ptr<BEC_String> it);
     virtual void bemc_setInitial(shared_ptr<BEC_Classy> becc_inst);
     virtual shared_ptr<BEC_Classy> bemc_getInitial();
+    virtual shared_ptr<BEC_StayClassy> bemc_retNull();
     
 };
 
