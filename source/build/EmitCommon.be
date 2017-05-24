@@ -1174,7 +1174,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
              if (undef(lastCall) || lastCall.held.orgName != "return") {
                 //what about return_1, return_2?
                 //TODO check for types in case not ok for self return
-                methodBody += "return this;" += nl;//default self return
+                unless(emitting("cc")) {
+                  methodBody += "return this;" += nl;//default self return
+                } else {
+                  methodBody += "return static_pointer_cast<" += classConf.emitName += ">(shared_from_this());" += nl;
+                }
              }
              
              if (maxSpillArgsLen > 0) {
@@ -1240,6 +1244,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
   
   acceptIf(Node node) {
          String targs = formTarg(node.contained.first.contained.first);
+         String btargs = formBoolTarg(node.contained.first.contained.first);
          if (node.contained.first.contained.first.held.isTyped! || node.contained.first.contained.first.held.namepath != boolNp) {
             Bool isBool = false;
          } else {
@@ -1255,22 +1260,27 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             ev += "!(";
          }
          if (isBool) {
-            ev += targs += invp += "bevi_bool";
+            ev += btargs;
          } else {
             //TODO FASTER could drop instof check - this is here now for harmony with c - would change behavior (obviously)
             //TODO FASTER (a little), after default is complete, the null check should not be unneeded anymore for harmony
             //but also make faster for the 99% cases, and these things can be explicitely checked for when needed
-            ev += targs += " != null && " += targs += instOf += boolCc.relEmitName(build.libName) += " && ";
-            if (emitting("js")!) {
-                ev += "(" += formCast(boolCc, "checked", targs);
+            //if target is this (in bool class) it's different
+            if (btargs == "bevi_bool") {
+              ev += btargs;
+            } else {
+              ev += targs += " != null && " += targs += instOf += boolCc.relEmitName(build.libName) += " && ";
+              if (emitting("js")!) {
+                  ev += "(" += formCast(boolCc, "checked", targs);
+              }
+              if (emitting("js")) {
+                ev += targs;
+              }
+              if (emitting("js")!) {
+                  ev += ")";
+              }
+              ev += invp += "bevi_bool";
             }
-            if (emitting("js")) {
-              ev += targs;
-            }
-            if (emitting("js")!) {
-                ev += ")";
-            }
-            ev += invp += "bevi_bool";
          }
          if (isUnless) {
             ev += ")";
@@ -1761,23 +1771,35 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     }
                 }
           } else {
+            if (sglIntish || dblIntish) {
+              String dbftarg = target + invp + "bevi_int";
+              if (emitting("js")! && target == "this") {
+                dbftarg = "bevi_int";
+              }
+            }
+            if (dblIntish) {
+              String dbstarg = dblIntTarg + invp + "bevi_int";
+              if (emitting("js")! && dblIntTarg == "this") {
+                dbstarg = "bevi_int";
+              }
+            }
             if (dblIntish && node.held.name == "setValue_1") {
               //("found setval").print(); 
-              methodBody += target += invp += "bevi_int = " += dblIntTarg += invp += "bevi_int;" += nl;
+              methodBody += dbftarg += " = " += dbstarg += ";" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found setval with assign").print();
                 methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (dblIntish && node.held.name == "addValue_1") {
               //("found addval").print(); 
-              methodBody += target += invp += "bevi_int += " += dblIntTarg += invp += "bevi_int;" += nl;
+              methodBody += dbftarg += " += " += dbstarg += ";" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found addval with assign").print();
                 methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (sglIntish && node.held.name == "incrementValue_0") {
               //("found incval").print(); 
-              methodBody += target += invp += "bevi_int++;" += nl;
+              methodBody += dbftarg += "++;" += nl;
               if (TS.notEmpty(callAssign)) {
                 //("found incval with assign").print();
                 methodBody += callAssign += cast += target += afterCast += ";" += nl;
@@ -2060,6 +2082,20 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
          tcall = "bevi_int";
       } else {
          tcall = nameForVar(node.held) + invp + "bevi_int";
+      }
+      return(tcall);
+   }
+   
+   formBoolTarg(Node node) String {
+      String tcall;
+      if (node.typename == ntypes.NULL) {
+         throw(VisitError.new("Cannot call on literal null"));
+      } elseIf (node.held.name == "self") {
+         tcall = "bevi_bool";
+      } elseIf (node.held.name == "super") {
+         tcall = "bevi_bool";
+      } else {
+         tcall = nameForVar(node.held) + invp + "bevi_bool";
       }
       return(tcall);
    }

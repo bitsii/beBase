@@ -2,26 +2,27 @@
 >>cc<<
 
 no more this - only for when passing yourself (use make shared)
-  formBoolTarg
   fix return this
-  find remaining thises
+  fix this as an arg
+  find any remaining thises
   
-super (now easy just prefix of class)
+super (now easy just prefix of super class - test with cc try (even when missing impl in immediate super))
 
-dynamic methods
+skeletal lib stuff
+  lib does not init other libs, works on all contents of all libs
+  BEL_4_Base replace with BER_Run or BER_Linked(s) or something
+  class logic in diff name, final version is the BEC and inherits from other
+    is only in compiled unit
+    has the dynamic calls - checked random or counter, not hash
+    final runtime build must be with latest versions of everything (dynamic link)
+    
+dynamic methods for cc
 
 throwing and catching (just simple construct etc?)
   have our own type which has a smart pointer member for our stuff (from std::exception)
     have a handleThrow
   for catch order matters
   have ... after the bracket for a catch to do something with that
-
-lib stuff
-  BEL_4_Base replace with BER_Run or something
-  class logic in diff name, final version is the BEC and inherits from other
-    is only in compiled unit
-    has the dynamic calls
-    final runtime build must be with latest versions of everything (dynamic link)
 
 need to change how the "if" check works - has instanceof in it, do the dynamic cast and check null?
 for instanceof and the like - check if null before then do dynamic case then check if null

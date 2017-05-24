@@ -36,6 +36,10 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     formIntTarg(Node node) String {
       return(formCallTarg(node) + "bevi_int");
     }
+    
+    formBoolTarg(Node node) String {
+      return(formCallTarg(node) + "bevi_bool");
+    }
 
     acceptThrow(Node node) {
         methodBody += "throw new be_BECS_ThrowBack(" += formTarg(node.second) += ", new Error());" += nl;
