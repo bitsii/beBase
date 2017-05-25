@@ -1,18 +1,23 @@
 
 >>cc<<
-
-null
-  should just be able to use nullptr
   
-super (now easy just prefix of super class - test with cc try (even when missing impl in immediate super))
-
 skeletal lib stuff
-  lib does not init other libs, works on all contents of all libs
-  BEL_4_Base replace with BER_Run or BER_Linked(s) or something
-  class logic in diff name, final version is the BEC and inherits from other
-    is only in compiled unit
-    has the dynamic calls - checked random or counter, not hash
-    final runtime build must be with latest versions of everything (dynamic link)
+  BEL_4_Base replace with BEX_E
+  superclass to each class with dynamic methods - BECX (exe class)
+    create files/inh from superclass
+    empty def for all defined methods
+    generate bemds in it
+    switch real class to inherit from it
+    drop BEC bemds
+    switch to random (dedup in map) call case values
+   
+libs
+  lib does not init other libs, generates BECX's of all libs
+  BEX_Linked is only in compiled unit
+  has the dynamic call classes (BECX) for all
+  final runtime build must be with latest versions of everything (dynamic link)
+  
+super (now easy just prefix of super class - test with cc try (even when missing impl in immediate super))   
     
 dynamic methods for cc
 

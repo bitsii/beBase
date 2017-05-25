@@ -99,6 +99,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           String scvp = ".";
           String trueValue = "be.BECS_Runtime.boolTrue";
           String falseValue = "be.BECS_Runtime.boolFalse";
+          String nullValue = "null";
           
           String instanceEqual = " == ";
           String instanceNotEqual = " != ";
@@ -1269,7 +1270,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             if (btargs == "bevi_bool") {
               ev += btargs;
             } else {
-              ev += targs += " != null && " += targs += instOf += boolCc.relEmitName(build.libName) += " && ";
+              ev += targs += " != " += nullValue += " && " += targs += instOf += boolCc.relEmitName(build.libName) += " && ";
               if (emitting("js")!) {
                   ev += "(" += formCast(boolCc, "checked", targs);
               }
@@ -1403,7 +1404,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             //node.held.checkTypes (for casting needed) (legacy became checkAssignTypes)
             methodBody += finalAssign(node.contained.first, formTarg(node.second), castTo, castType);
          } elseIf (node.second.typename == ntypes.NULL) {
+           if(emitting("cc")) {
+            methodBody += finalAssign(node.contained.first, "nullptr", null, null);
+           } else {
             methodBody += finalAssign(node.contained.first, "null", null, null);
+           }
          } elseIf (node.second.typename == ntypes.TRUE) {
             methodBody += finalAssign(node.contained.first, trueValue, castTo, castType);
          } elseIf (node.second.typename == ntypes.FALSE) {
@@ -1428,7 +1433,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                nullRes = falseValue;
                notNullRes = trueValue;
             }
-            methodBody += "if (" += formTarg(node.second.second) += " == null) {" += nl;
+            methodBody += "if (" += formTarg(node.second.second) += " == " += nullValue += ") {" += nl;
             methodBody += finalAssign(node.contained.first, nullRes, null, null);
             methodBody += " } else { " += nl;
             methodBody += finalAssign(node.contained.first, notNullRes, null, null);
@@ -1666,7 +1671,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         } elseIf(emitting("cs")) {
           methodBody += "lock (typeof(" += classConf.emitName += ")) {" += nl;//}
         }
-        methodBody += "if (" + oany + " == null) {" += nl; //}
+        methodBody += "if (" + oany + " == " + nullValue + ") {" += nl; //}
       }
       
       //FASTER if undef or def is inside an if skip the assign and just put it into the if

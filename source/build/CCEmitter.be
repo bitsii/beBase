@@ -28,6 +28,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         
         invp = "->";
         scvp = "::";
+        nullValue = "nullptr";
         trueValue = "BECS_Runtime::boolTrue";
         falseValue = "BECS_Runtime::boolFalse";
     }
@@ -117,7 +118,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     formTarg(Node node) String {
       String tcall;
       if (node.typename == ntypes.NULL) {
-         tcall = "null";
+         tcall = "nullptr";
       } elseIf (node.held.name == "self") {
          tcall = "static_pointer_cast<" + classConf.emitName + ">(shared_from_this())";
       } elseIf (node.held.name == "super") {
