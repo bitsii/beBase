@@ -1,22 +1,8 @@
 
 >>cc<<
-  
-skeletal lib stuff
-  BEL_4_Base replace with BEX_E
-  superclass to each class with dynamic methods - BECX (exe class)
-    create files/inh from superclass
-    empty def for all defined methods
-    generate bemds in it
-    switch real class to inherit from it
-    drop BEC bemds
-    switch to random (dedup in map) call case values
-   
-libs
-  lib does not init other libs, generates BECX's of all libs
-  BEX_Linked is only in compiled unit
-  has the dynamic call classes (BECX) for all
-  final runtime build must be with latest versions of everything (dynamic link)
-  
+    
+random bemd
+
 super (now easy just prefix of super class - test with cc try (even when missing impl in immediate super))   
     
 dynamic methods for cc
@@ -50,11 +36,22 @@ can, createInstance and invoke - switch to structures which don't depend on unde
 cs and jv like js for createInstance, can like invoke
 switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
 
-for dynamic calls use precalced serial values not hash
-  see below for later lib plan
-
 for cc strings prob have to always copy buffer...
 
+skeletal lib stuff
+  superclass to each class with dynamic methods - BECX (exe class)
+    create files/inh from superclass
+    empty def for all defined methods
+    generate bemds in it
+    switch real class to inherit from it
+    drop BEC bemds
+    switch to random (dedup in map) call case values
+libs
+  lib does not init other libs, generates BECX's of all libs
+  BEX_Linked is only in compiled unit
+  has the dynamic call classes (BECX) for all
+  final runtime build must be with latest versions of everything (dynamic link)
+  
 <<cc>>
 
 >>type sizes<<

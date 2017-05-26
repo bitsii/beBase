@@ -150,7 +150,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
     
     libEmitName(String libName) {
-        return("BEL_" + libName.size + "_" + libName);
+        return("BEX_E");
     }
     
     fullLibEmitName(String libName) { 

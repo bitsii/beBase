@@ -2,7 +2,7 @@
 
 export CLASSPATH=target5/*
 
-java be.BEL_4_Base --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv --outputPlatform linux
+java be.BEX_E --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv --outputPlatform linux
 
 find system -name "*.class" -exec rm {} \;
 find target5 -name "*.class" -exec rm {} \;
@@ -13,7 +13,7 @@ cd system
 zip -r ../boot5/BEL_system_be_jv_linux.zip jv
 cd ..
 
-rm -f boot5/BEL_4_Base_be_jv_linux.zip
+rm -f boot5/BEX_E_be_jv_linux.zip
 cd target5/Base/target
-zip -r ../../../boot5/BEL_4_Base_be_jv_linux.zip jv
+zip -r ../../../boot5/BEX_E_be_jv_linux.zip jv
 cd ../../..

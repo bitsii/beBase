@@ -2,7 +2,7 @@
 
 export CLASSPATH=target4/*
 
-java be.BEL_4_Base --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv
+java be.BEX_E --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
@@ -15,9 +15,9 @@ cd system/jv
 jar -cf ../../target5/BEL_system_be_jv.jar .
 cd ../..
 
-rm -f target5/BEL_4_Base_be_jv.jar
+rm -f target5/BEX_E_be_jv.jar
 cd target5/Base/target/jv
-jar -cf ../../../BEL_4_Base_be_jv.jar .
+jar -cf ../../../BEX_E_be_jv.jar .
 cd ../../../..
 
 find system -name "*.class" -exec rm {} \;

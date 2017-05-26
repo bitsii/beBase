@@ -10,9 +10,9 @@ class BECS_Object;
 class BEC_Object;
 class BEC_Classy;
 class BEC_StayClassy;
-class BEL_4_Base;
+class BEX_E;
 
-class BEL_4_Base {
+class BEX_E {
   public:
     static int32_t bevn_an;
 };

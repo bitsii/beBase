@@ -4,7 +4,7 @@ namespace be {
   
 static unsigned char becc_BEC_2_6_6_SystemObject_clname[] = {0x53,0x79,0x73,0x74,0x65,0x6D,0x3A,0x4F,0x62,0x6A,0x65,0x63,0x74};
 
-int32_t BEL_4_Base::bevn_an = 22;
+int32_t BEX_E::bevn_an = 22;
 
 static shared_ptr<BEC_String> clnamestr = dynamic_pointer_cast<BEC_String>((make_shared<BEC_String>(13, becc_BEC_2_6_6_SystemObject_clname)));
 
@@ -91,7 +91,7 @@ void innerMain() {
   
   shared_ptr<BEC_String> str3 = dynamic_pointer_cast<BEC_String>(str2);
   
-  cout << BEL_4_Base::bevn_an;
+  cout << BEX_E::bevn_an;
   cout << "\n";
   
   shared_ptr<BEC_StayClassy> sc1 = make_shared<BEC_StayClassy>();

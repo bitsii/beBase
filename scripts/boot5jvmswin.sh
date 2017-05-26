@@ -7,7 +7,7 @@ cd ..
 
 mkdir -p target5/Base/target
 cd target5/Base/target
-unzip -o ../../../boot5/BEL_4_Base_be_jv_mswin.zip
+unzip -o ../../../boot5/BEX_E_be_jv_mswin.zip
 cd ../../..
 
 javac system/jv/be/*.java target5/Base/target/jv/be/*.java
@@ -17,9 +17,9 @@ cd system/jv
 jar -cf ../../target5/BEL_system_be_jv.jar .
 cd ../..
 
-rm -f target5/BEL_4_Base_be_jv.jar
+rm -f target5/BEX_E_be_jv.jar
 cd target5/Base/target/jv
-jar -cf ../../../BEL_4_Base_be_jv.jar .
+jar -cf ../../../BEX_E_be_jv.jar .
 cd ../../../..
 
 find system -name "*.class" -exec rm {} \;

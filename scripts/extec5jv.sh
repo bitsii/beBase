@@ -4,7 +4,7 @@ rm -rf targetEc/Base/target/jv
 
 export CLASSPATH=target5/*
 
-java be.BEL_4_Base --buildFile build/extendedEc.txt --emitLang jv
+java be.BEX_E --buildFile build/extendedEc.txt --emitLang jv
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
@@ -17,13 +17,13 @@ cd system/jv
 jar -cf ../../targetEc/BEL_system_be_jv.jar .
 cd ../..
 
-rm -f targetEc/BEL_4_Base_be_jv.jar
+rm -f targetEc/BEX_E_be_jv.jar
 cd targetEc/Base/target/jv
-jar -cf ../../../BEL_4_Base_be_jv.jar .
+jar -cf ../../../BEX_E_be_jv.jar .
 cd ../../../..
 
 export CLASSPATH=targetEc/*
 
-java be.BEL_4_Base $*
+java be.BEX_E $*
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
