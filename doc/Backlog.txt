@@ -1,9 +1,8 @@
 
 >>cc<<
-    
-random bemd
 
-super (now easy just prefix of super class - test with cc try (even when missing impl in immediate super))   
+random bemd
+  BECS_Ids go away
     
 dynamic methods for cc
 
@@ -26,8 +25,6 @@ super (make sure case where not deffed in immediate up works)
   
 get code building
 
-exceptions from segmentation faults/ get stack
-
 weak ptrs
 
 drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
@@ -45,12 +42,8 @@ skeletal lib stuff
     generate bemds in it
     switch real class to inherit from it
     drop BEC bemds
-    switch to random (dedup in map) call case values
-libs
-  lib does not init other libs, generates BECX's of all libs
-  BEX_Linked is only in compiled unit
-  has the dynamic call classes (BECX) for all
-  final runtime build must be with latest versions of everything (dynamic link)
+    
+exceptions from segmentation faults/ get stack
   
 <<cc>>
 
@@ -66,38 +59,21 @@ c++ unsigned char (like cs)
 
 <<type sizes>>
 
-c++ (cc - c with classes)
-  use exact sized types
-  clang++ g++
+libs
+  lib does not init other libs, generates BECX's of all libs
+  BEX_Linked is only in compiled unit
+  has the dynamic call classes (BECX) for all
+  final runtime build must be with latest versions of everything (dynamic link)
   
-  shared ptr 
-    https://msdn.microsoft.com/en-us/library/hh279669.aspx
-    https://en.wikipedia.org/wiki/Smart_pointer
-
-field prefix to any dec makes it a field
-  field Type (auto, any) blah;
-  have a field fields type which is weak (weak)
-  std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr
-  
-for collections, etc, have a weak reference type (?proxy)
+relemitname is not needed anymore, just emitname
   
 try also includes setjmp (into stack) and signals longjump
-
-finally again
 
 gratuitous returns
   stop using return type for this and use the call target instead for chains
   actually stop doing returns for this
   (except for untyped and js, which still return self - tho js could skip assign)
 
-support libraries
-  have per-lib extended type for dyn calls
-    move up the "actual class" to some other name (be?), have current name be used allwhere
-      have it be lib specific
-      do for all syns
-      is part of exec build
-      have exec build be optional
-  
 ?have an option to make all casts in cc static casts for perf
   
 be clear that =@ and @ are hints/suggestions not definite, default is tho
@@ -112,6 +88,11 @@ concurrent foreach, etc
 out variables for multiple assign = so mtd(args,)(returns,) - on return assigned
 
 (existing variable res) it.do(arg)(res)
+
+field prefix to any dec makes it a field
+  field Type (auto, any) blah;
+  have a field fields type which is weak (weak)
+  std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr
 
 =====
 

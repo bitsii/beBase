@@ -41,6 +41,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        }
        String begin = "class " += classConf.emitName += extends += " {"; //}
        
+       if (def(parentConf)) {
+         begin += "\n";
+         
+         begin += "private:\n";
+         
+         begin += "typedef " += parentConf.relEmitName(build.libName) += " bevs_super;\n";
+      }
+       
        begin += "\n";
        
        begin += "public:\n";
@@ -122,11 +130,19 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       } elseIf (node.held.name == "self") {
          tcall = "static_pointer_cast<" + classConf.emitName + ">(shared_from_this())";
       } elseIf (node.held.name == "super") {
-         tcall = "yosuperthis";
+         tcall = "bee_yosuperthis";
       } else {
          tcall = nameForVar(node.held);
       }
       return(tcall);
+   }
+   
+   formCallTarg(Node node) String {
+      if (node.held.name == "super") {
+        String tcall = "bevs_super" + scvp;//needs to be parent class
+        return(tcall);
+      }
+      return(super.formCallTarg(node));
    }
    
    typeDecForVar(String b, Build:Var v) {
