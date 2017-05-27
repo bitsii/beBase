@@ -82,6 +82,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           //The ClassConfig cache
           Map ccCache = Map.new();
           
+          //requires chaos
+          System:Random rand = System:Random.new();
+          
           //Commonly needed namepaths
           NamePath objectNp = NamePath.new("System:Object");
           NamePath boolNp = NamePath.new("Logic:Bool");

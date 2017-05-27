@@ -237,7 +237,10 @@ final class Random {
       
    }
    
-   //needs to be "getIntoInt", "getInt" makes a new one
+   getInt() Int {
+     return(getInt(Int.new()));
+   }
+   
    getInt(Int value) Int {
       emit(c) {
       """
@@ -259,7 +262,11 @@ final class Random {
       return(value);
    }
    
-   getInt(Int value, Int max) Int {
+   getIntMax(Int max) Int {
+      return(getInt(Int.new()).absValue().modulusValue(max));
+   }
+   
+   getIntMax(Int value, Int max) Int {
       return(getInt(value).absValue().modulusValue(max));
    }
    
@@ -279,7 +286,7 @@ final class Random {
       Int value = Int.new();
       for (Int i = 0;i < size;i++=) {
           //TODO lc and ints too
-          str.setIntUnchecked(i, getInt(value, 26@).addValue(65@));
+          str.setIntUnchecked(i, getIntMax(value, 26@).addValue(65@));
       }
       return(str);
    }

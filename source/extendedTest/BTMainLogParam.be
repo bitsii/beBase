@@ -27,8 +27,8 @@ class Test:BaseTest:System(BaseTest) {
       
       Int r = Int.new();
       rand.getInt(r).print();
-      rand.getInt(r, 3@).print();
-      assertTrue(rand.getInt(r, 2@) < 2); 
+      rand.getIntMax(r, 3@).print();
+      assertTrue(rand.getIntMax(r, 2@) < 2); 
       String a = rand.getString(255);
       String b = rand.getString(254);
       a.print();
