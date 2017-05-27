@@ -2,10 +2,8 @@
 >>cc<<
 
 random bemd
-  random callCase
-  drop callId
+  ?dump bevn, dynconditions
   rename callCase to callId
-  ?dump bevn
     
 dynamic methods for cc
 

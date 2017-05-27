@@ -921,8 +921,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         } else {
             dmname = "bemd_x";
         }
-        String superArgs = "callCase, callId";
-        String args = "int callCase, int callId";
+        String superArgs = "callCase";
+        String args = "int callCase";
         Int j = 1;
         while (j < (dnumargs + 1) && j < maxDynArgs) {
             args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
@@ -945,7 +945,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             //yes if turned on globally (to avoid possible cases of missing calls beings serviced anyway (very unlikely)
             //or if > 1 entry for this same hash code (have to in that case)
             if (dynConditionsAll || dgv.size > 1) {
-                Bool dynConditions = true;
+                Bool dynConditions = false;
             } else {
                 dynConditions = false;
             }
@@ -1857,7 +1857,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             methodBody += callAssign += cast += callTarget += "bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ")" += afterCast += ";" += nl;
           }
         } else {
-          methodBody += callAssign += cast += callTarget += "bemd_" += dm += "(" += getCallId(node.held.name).toString() += ", " += libEmitName += scvp += "bevn_" += node.held.name += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
+          methodBody += callAssign += cast += callTarget += "bemd_" += dm += "(" += getCallId(node.held.name).toString() += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
         }
       }
       
