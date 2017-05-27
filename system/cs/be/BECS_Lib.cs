@@ -6,6 +6,11 @@
 namespace be {
 
 public class BECS_Lib {
+  
+    public static void putCallId(string name, int iid) {
+        BECS_Ids.callIds[name] = iid;
+        BECS_Ids.idCalls[iid] = name;
+    }
     
     public static int getCallId(string name) {
         if (BECS_Ids.callIds.ContainsKey(name)) {

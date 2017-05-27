@@ -27,12 +27,8 @@ DYNAMIC CALLS
 (bemd_#):
 
 one per set of args up (to max, then array for remainder)
-callHash is the hashcode of the string of the name of the call
-callId is the runtime genned callId (guaranteed unique/serial) at lib inits
-generated classes override and use hash and id to find and dispatch call
-could be that if build.onlyCheckCollisions (or somesuch) true, only the switch/hash is used to find the call and callId
-is only used when there is a local collision (possible to dispatch in a case which should go to methodNotDefined, but
-avoids conditional check on id) might support an attribute for proxy's to avoid this (do the always check regardless of global)
+callCase is the random code genned at link time for the call
+generated classes override and use code to find and dispatch call
 
 DYNAMIC CALLS
 
@@ -141,7 +137,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           //for sourcemaps
           Map smnlcs = Map.new();
           Map smnlecs = Map.new();
-          
+          Map nameToId = Map.new();
+          Map idToName = Map.new();
         }
     }
     
@@ -172,6 +169,18 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
          ccCache.put(dname, toRet);
       }
       return(toRet);
+   }
+   
+   getCallId(String name) Int {
+      Int id = nameToId.get(name);
+      if (undef(id)) {
+        //get random int
+        id = name.hash;
+        //while idToNames.has...
+        nameToId.put(name, id);
+        idToName.put(id, name);
+      }
+      return(id);
    }
    
    getLocalClassConfig(NamePath np) ClassConfig {
@@ -583,7 +592,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
         for (String callName in callNames) {
             libe.write(self.spropDec + "int bevn_" + callName + ";" + nl;);
-            getNames += "bevn_" += callName += " = getCallId(" += q += callName += q += ");" += nl;
+            getNames += "putCallId(" += TS.quote += callName += TS.quote += ", " += getCallId(callName) += ");" += nl;
+            getNames += "bevn_" += callName += " = " += getCallId(callName) += ";" += nl;
         }
         
         String smap = String.new();
@@ -886,7 +896,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                     dgm = Map.new();
                     dynGen.put(numargs, dgm);
                 }
-                Int msh = msyn.name.hash;
+                Int msh = getCallId(msyn.name);
                 List dgv = dgm.get(msh);
                 if (undef(dgv)) {
                     dgv = List.new();
@@ -906,8 +916,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         } else {
             dmname = "bemd_x";
         }
-        String superArgs = "callHash, callId";
-        String args = "int callHash, int callId";
+        String superArgs = "callCase, callId";
+        String args = "int callCase, int callId";
         Int j = 1;
         while (j < (dnumargs + 1) && j < maxDynArgs) {
             args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
@@ -919,7 +929,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             superArgs = superArgs + ", bevd_x";
         }
         dynMethods += self.overrideMtdDec += objectCc.relEmitName(build.libName) += " " += dmname += "(" += args += ")" += exceptDec += " {" += nl;  //}
-        dynMethods += "switch (callHash) {" += nl; //}
+        dynMethods += "switch (callCase) {" += nl; //}
         
         dgm = dnode.value;
         for (Container:Map:MapNode msnode in dgm) {
@@ -1842,7 +1852,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             methodBody += callAssign += cast += callTarget += "bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ")" += afterCast += ";" += nl;
           }
         } else {
-          methodBody += callAssign += cast += callTarget += "bemd_" += dm += "(" += node.held.name.hash.toString() += ", " += libEmitName += scvp += "bevn_" += node.held.name += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
+          methodBody += callAssign += cast += callTarget += "bemd_" += dm += "(" += getCallId(node.held.name).toString() += ", " += libEmitName += scvp += "bevn_" += node.held.name += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
         }
       }
       

@@ -2,7 +2,11 @@
 >>cc<<
 
 random bemd
-  BECS_Ids go away
+  put callcases into call id (hash)
+  random callCase
+  drop callId
+  rename callCase to callId
+  ?dump bevn
     
 dynamic methods for cc
 

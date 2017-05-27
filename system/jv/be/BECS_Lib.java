@@ -8,6 +8,11 @@ package be;
 import be.BEC_2_6_6_SystemObject;
 
 public class BECS_Lib {
+  
+    public static void putCallId(String name, int iid) {
+        BECS_Ids.callIds.put(name, iid);
+        BECS_Ids.idCalls.put(iid, name);
+    }
     
     public static int getCallId(String name) {
         Integer id = BECS_Ids.callIds.get(name);
