@@ -178,8 +178,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       Int id = nameToId.get(name);
       if (undef(id)) {
         //get random int
-        id = name.hash;
-        //while idToNames.has...
+        id = rand.getInt();
+        while (idToName.has(id)) {
+          id = rand.getInt();
+        }
         nameToId.put(name, id);
         idToName.put(id, name);
       }
