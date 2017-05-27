@@ -85,69 +85,11 @@ class System:Object {
    }
    
    final createInstance(String cname, Bool throwOnFail) {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BEINT bevl_chash;
-void** bevl_chashv;
-
-void* bevl_nserv;
-BEINT bevl_nser;
-
-char* bevl_cname;
-void** bevl_cnamev;
-
-      """
-      }
-      
       if (undef(cname)) {
          throw(System:InvocationException.new("class name is null"));
       }
       any result = null;
       
-      ifEmit(c) {
-      
-      Int chash;   
-      chash = cname.hash;
-      
-      String mname = "new_0";
-      Int mhash = mname.hash;
-      
-      if (false) {
-         //This is here so that dynamic call bits which we need get declared (twcv_mtdi)
-         result.toString();
-      }
-      
-      }
-      
-      emit(c) {
-      """
-bevl_chashv = $chash&*;
-bevl_chash = *((BEINT*) (bevl_chashv + bercps));
-bevl_cnamev = $cname&*;
-bevl_cname = (char*) bevl_cnamev[bercps];
-
-bevl_nserv = BERF_Hash_Get(BERV_proc_glob->classHash, bevl_chash, bevl_cname);
-berv_sts->passedClassDef = bevl_nserv;
-
-bevl_chashv = $mhash&*;
-bevl_chash = *((BEINT*) (bevl_chashv + bercps));
-
-bevl_cnamev = $mname&*;
-bevl_cname = (char*) bevl_cnamev[bercps];
-
-bevl_nserv = BERF_Hash_Get(BERV_proc_glob->nameHash, bevl_chash, bevl_cname);
-if (bevl_nserv != NULL) {
-bevl_nser = (BEINT) bevl_nserv;
-
-twcv_mtdi = bevl_nser % berv_sts->passedClassDef->dmlistlen;
-twcv_mtddef = berv_sts->passedClassDef->dmlist[twcv_mtdi];
-$result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
-/* $result=* ((becd0)twcv_mtddef->mcall)( 1, berv_sts, BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0)); */
-}
-
-      """
-      }
       emit(jv) {
         """
         String key = new String(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int, "UTF-8");
@@ -190,34 +132,7 @@ $result=* BERF_Create_Instance(berv_sts, berv_sts->passedClassDef, 0);
    }
    
    final invoke(String name, List args) {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BEINT bevl_chash;
-void** bevl_chashv;
-
-BEINT bevl_nser;
-void* bevl_nserv;
-
-void** bevl_numargsv;
-BEINT bevl_numargs;
-
-char* bevl_oname;
-void** bevl_onamev;
-
-char* bevl_cname;
-void** bevl_cnamev;
-void** bevl_rval;
-
-void** bevl_receiver;
-void** bevl_twvm;
-
-void** bevl_mcall;
-
-      """
-      }
       String cname;
-      Int chash;
       any rval;
       Int numargs;
       
@@ -229,7 +144,6 @@ void** bevl_mcall;
       }
       numargs = args.length;
       cname = name + "_" + numargs.toString();
-      chash = cname.hash;
       
       ifEmit(c,js) {
         args = args.copy(); //do we still need to do this? - yes for js, to be sure the array is exactly the length of the args
@@ -255,23 +169,23 @@ void** bevl_mcall;
       emit(jv,cs) {
         """
         if (bevl_numargs.bevi_int == 0) {
-            bevl_rval = bemd_0(bevl_chash.bevi_int, ci);
+            bevl_rval = bemd_0(ci, ci);
         } else if (bevl_numargs.bevi_int == 1) {
-            bevl_rval = bemd_1(bevl_chash.bevi_int, ci, beva_args.bevi_list[0]);
+            bevl_rval = bemd_1(ci, ci, beva_args.bevi_list[0]);
         } else if (bevl_numargs.bevi_int == 2) {
-            bevl_rval = bemd_2(bevl_chash.bevi_int, ci, beva_args.bevi_list[0], beva_args.bevi_list[1]);
+            bevl_rval = bemd_2(ci, ci, beva_args.bevi_list[0], beva_args.bevi_list[1]);
         } else if (bevl_numargs.bevi_int == 3) {
-            bevl_rval = bemd_3(bevl_chash.bevi_int, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2]);
+            bevl_rval = bemd_3(ci, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2]);
         } else if (bevl_numargs.bevi_int == 4) {
-            bevl_rval = bemd_4(bevl_chash.bevi_int, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3]);
+            bevl_rval = bemd_4(ci, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3]);
         } else if (bevl_numargs.bevi_int == 5) {
-            bevl_rval = bemd_5(bevl_chash.bevi_int, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4]);
+            bevl_rval = bemd_5(ci, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4]);
         } else if (bevl_numargs.bevi_int == 6) {
-            bevl_rval = bemd_6(bevl_chash.bevi_int, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4], beva_args.bevi_list[5]);
+            bevl_rval = bemd_6(ci, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4], beva_args.bevi_list[5]);
         } else if (bevl_numargs.bevi_int == 7) {
-            bevl_rval = bemd_7(bevl_chash.bevi_int, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4], beva_args.bevi_list[5], beva_args.bevi_list[6]);
+            bevl_rval = bemd_7(ci, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4], beva_args.bevi_list[5], beva_args.bevi_list[6]);
         } else {
-            bevl_rval = bemd_x(bevl_chash.bevi_int, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4], beva_args.bevi_list[5], beva_args.bevi_list[6], bevl_args2.bevi_list);
+            bevl_rval = bemd_x(ci, ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4], beva_args.bevi_list[5], beva_args.bevi_list[6], bevl_args2.bevi_list);
         }
         """
       }
@@ -287,81 +201,6 @@ void** bevl_mcall;
       }
       """
       }
-      emit(c) {
-      """
-
-bevl_twvm = $args&*;
-bevl_twvm = (void**) bevl_twvm[bercps];
-
-bevl_chashv = $chash&*;
-bevl_chash = *((BEINT*) (bevl_chashv + bercps));
-
-bevl_numargsv = $numargs&*;
-bevl_numargs = *((BEINT*) (bevl_numargsv + bercps));
-
-bevl_onamev = $name&*;
-bevl_oname = (char*) bevl_onamev[bercps];
-
-bevl_cnamev = $cname&*;
-bevl_cname = (char*) bevl_cnamev[bercps];
-
-bevl_nserv = BERF_Hash_Get(BERV_proc_glob->nameHash, bevl_chash, bevl_cname);
-if (bevl_nserv != NULL) {
-bevl_nser = (BEINT) bevl_nserv;
-
-twcv_cdef = (BERT_ClassDef*) bevs[berdef];
-twcv_mtdi = bevl_nser % twcv_cdef->dmlistlen;
-twcv_mtddef = twcv_cdef->dmlist[twcv_mtdi];
-
-bevl_receiver = bevs;
-
-bevl_mcall = twcv_mtddef->mcall;
-
-if (twcv_mtddef->twnn == bevl_nser) {
-
-if (bevl_numargs == 0) {
-$rval=* ((becd0)bevl_mcall)( 1, berv_sts, bevl_receiver );
-} else if (bevl_numargs == 1) {
-$rval=* ((becd1)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0] );
-} else if (bevl_numargs == 2) {
-$rval=* ((becd2)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1] );
-} else if (bevl_numargs == 3) {
-$rval=* ((becd3)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2] );
-} else if (bevl_numargs == 4) {
-$rval=* ((becd4)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3] );
-} else if (bevl_numargs == 5) {
-$rval=* ((becd5)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4] );
-} else if (bevl_numargs == 6) {
-$rval=* ((becd6)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5] );
-} else if (bevl_numargs == 7) {
-$rval=* ((becd7)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6] );
-} else if (bevl_numargs == 8) {
-$rval=* ((becd8)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7] );
-} else if (bevl_numargs == 9) {
-$rval=* ((becd9)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7], (void**) bevl_twvm[8] );
-} else if (bevl_numargs == 10) {
-$rval=* ((becd10)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7], (void**) bevl_twvm[8], (void**) bevl_twvm[9] );
-} else if (bevl_numargs == 11) {
-$rval=* ((becd11)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7], (void**) bevl_twvm[8], (void**) bevl_twvm[9], (void**) bevl_twvm[10] );
-} else if (bevl_numargs == 12) {
-$rval=* ((becd12)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7], (void**) bevl_twvm[8], (void**) bevl_twvm[9], (void**) bevl_twvm[10], (void**) bevl_twvm[11] );
-} else if (bevl_numargs == 13) {
-$rval=* ((becd13)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7], (void**) bevl_twvm[8], (void**) bevl_twvm[9], (void**) bevl_twvm[10], (void**) bevl_twvm[11], (void**) bevl_twvm[12] );
-} else if (bevl_numargs == 14) {
-$rval=* ((becd14)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7], (void**) bevl_twvm[8], (void**) bevl_twvm[9], (void**) bevl_twvm[10], (void**) bevl_twvm[11], (void**) bevl_twvm[12], (void**) bevl_twvm[13] );
-} else if (bevl_numargs == 15) {
-$rval=* ((becd15)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7], (void**) bevl_twvm[8], (void**) bevl_twvm[9], (void**) bevl_twvm[10], (void**) bevl_twvm[11], (void**) bevl_twvm[12], (void**) bevl_twvm[13], (void**) bevl_twvm[14] );
-} else if (bevl_numargs == 16) {
-$rval=* ((becd16)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7], (void**) bevl_twvm[8], (void**) bevl_twvm[9], (void**) bevl_twvm[10], (void**) bevl_twvm[11], (void**) bevl_twvm[12], (void**) bevl_twvm[13], (void**) bevl_twvm[14], (void**) bevl_twvm[15] );
-} else {
-$rval=* ((becdx16)bevl_mcall)( 1, berv_sts, bevl_receiver, (void**) bevl_twvm[0], (void**) bevl_twvm[1], (void**) bevl_twvm[2], (void**) bevl_twvm[3], (void**) bevl_twvm[4], (void**) bevl_twvm[5], (void**) bevl_twvm[6], (void**) bevl_twvm[7], (void**) bevl_twvm[8], (void**) bevl_twvm[9], (void**) bevl_twvm[10], (void**) bevl_twvm[11], (void**) bevl_twvm[12], (void**) bevl_twvm[13], (void**) bevl_twvm[14], (void**) bevl_twvm[15], (void**) bevl_twvm[16] );
-}
-
-}
-}
-
-"""
-}
       
       if (false) {
          //This is here so that dynamic call bits which we need get declared (twcv_mtdi)

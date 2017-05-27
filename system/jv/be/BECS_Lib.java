@@ -15,15 +15,7 @@ public class BECS_Lib {
     }
     
     public static int getCallId(String name) {
-        Integer id = BECS_Ids.callIds.get(name);
-        if (id == null) {
-            int iid = BECS_Ids.callIdCounter;
-            BECS_Ids.callIdCounter++;
-            BECS_Ids.callIds.put(name, iid);
-            BECS_Ids.idCalls.put(iid, name);
-            return iid;
-        }
-        return id;
+        return BECS_Ids.callIds.get(name);
     }
     
     public static void putNlcSourceMap(String clname, int[] vals) {
