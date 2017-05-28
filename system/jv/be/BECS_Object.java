@@ -11,55 +11,55 @@ import be.BEC_2_6_6_SystemObject;
 
 public class BECS_Object {
     
-    public BEC_2_6_6_SystemObject bemd_0(int callCase) throws Throwable { 
+    public BEC_2_6_6_SystemObject bemd_0(int callId) throws Throwable { 
         //throw new Exception("Failed in bemd_0");
         BEC_2_6_6_SystemObject[] args = new BEC_2_6_6_SystemObject[0];
-        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callCase), args); 
+        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callId), args); 
     }
 
-    public BEC_2_6_6_SystemObject bemd_1(int callCase, BEC_2_6_6_SystemObject bevd_0) throws Throwable { 
+    public BEC_2_6_6_SystemObject bemd_1(int callId, BEC_2_6_6_SystemObject bevd_0) throws Throwable { 
         //throw new Exception("Failed in bemd_1"); 
         BEC_2_6_6_SystemObject[] args = { bevd_0 };
-        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callCase), args); 
+        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callId), args); 
     }
     
-    public BEC_2_6_6_SystemObject bemd_2(int callCase, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1) throws Throwable { 
+    public BEC_2_6_6_SystemObject bemd_2(int callId, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1) throws Throwable { 
         //throw new Exception("Failed in bemd_2"); 
         BEC_2_6_6_SystemObject[] args = { bevd_0, bevd_1 };
-        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callCase), args); 
+        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callId), args); 
     }
     
-    public BEC_2_6_6_SystemObject bemd_3(int callCase, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2) throws Throwable { 
+    public BEC_2_6_6_SystemObject bemd_3(int callId, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2) throws Throwable { 
         //throw new Exception("Failed in bemd_3"); 
         BEC_2_6_6_SystemObject[] args = { bevd_0, bevd_1, bevd_2 };
-        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callCase), args); 
+        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callId), args); 
     }
     
-    public BEC_2_6_6_SystemObject bemd_4(int callCase, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3) throws Throwable { 
+    public BEC_2_6_6_SystemObject bemd_4(int callId, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3) throws Throwable { 
         //throw new Exception("Failed in bemd_4"); 
         BEC_2_6_6_SystemObject[] args = { bevd_0, bevd_1, bevd_2, bevd_3 };
-        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callCase), args);
+        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callId), args);
     }
     
-    public BEC_2_6_6_SystemObject bemd_5(int callCase, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3, BEC_2_6_6_SystemObject bevd_4) throws Throwable { 
+    public BEC_2_6_6_SystemObject bemd_5(int callId, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3, BEC_2_6_6_SystemObject bevd_4) throws Throwable { 
         //throw new Exception("Failed in bemd_5"); 
         BEC_2_6_6_SystemObject[] args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4 };
-        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callCase), args);
+        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callId), args);
     }
     
-    public BEC_2_6_6_SystemObject bemd_6(int callCase, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3, BEC_2_6_6_SystemObject bevd_4, BEC_2_6_6_SystemObject bevd_5) throws Throwable { 
+    public BEC_2_6_6_SystemObject bemd_6(int callId, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3, BEC_2_6_6_SystemObject bevd_4, BEC_2_6_6_SystemObject bevd_5) throws Throwable { 
         //throw new Exception("Failed in bemd_6"); 
         BEC_2_6_6_SystemObject[] args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5 };
-        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callCase), args); 
+        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callId), args); 
     }
     
-    public BEC_2_6_6_SystemObject bemd_7(int callCase, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3, BEC_2_6_6_SystemObject bevd_4, BEC_2_6_6_SystemObject bevd_5, BEC_2_6_6_SystemObject bevd_6) throws Throwable { 
+    public BEC_2_6_6_SystemObject bemd_7(int callId, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3, BEC_2_6_6_SystemObject bevd_4, BEC_2_6_6_SystemObject bevd_5, BEC_2_6_6_SystemObject bevd_6) throws Throwable { 
         //throw new Exception("Failed in bemd_7"); 
         BEC_2_6_6_SystemObject[] args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
-        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callCase), args); 
+        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callId), args); 
     }
     
-    public BEC_2_6_6_SystemObject bemd_x(int callCase, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3, BEC_2_6_6_SystemObject bevd_4, BEC_2_6_6_SystemObject bevd_5, BEC_2_6_6_SystemObject bevd_6, BEC_2_6_6_SystemObject[] bevd_x) throws Throwable { 
+    public BEC_2_6_6_SystemObject bemd_x(int callId, BEC_2_6_6_SystemObject bevd_0, BEC_2_6_6_SystemObject bevd_1, BEC_2_6_6_SystemObject bevd_2, BEC_2_6_6_SystemObject bevd_3, BEC_2_6_6_SystemObject bevd_4, BEC_2_6_6_SystemObject bevd_5, BEC_2_6_6_SystemObject bevd_6, BEC_2_6_6_SystemObject[] bevd_x) throws Throwable { 
         //throw new Exception("Failed in bemd_x");
         BEC_2_6_6_SystemObject[] args = new BEC_2_6_6_SystemObject[7 + bevd_x.length];
         args[0] = bevd_0;
@@ -72,7 +72,7 @@ public class BECS_Object {
         for (int i = 0;i < bevd_x.length;i++) {
             args[i + 7] = bevd_x[i];
         }
-        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callCase), args);
+        return ((BEC_2_6_6_SystemObject) this).bems_methodNotDefined(BECS_Ids.idCalls.get(callId), args);
     }
     
 }

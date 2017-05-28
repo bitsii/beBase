@@ -84,7 +84,6 @@ final class Build:Build {
          String makeName;
          String makeArgs;
          Bool putLineNumbersInTrace = false;
-         Bool dynConditionsAll = false;
          Bool ownProcess = true;
          Bool saveSyns = false;
          Text:String readBuffer = Text:String.new(4096);
@@ -174,7 +173,6 @@ final class Build:Build {
       includePath = File.new(params.get("includePath", "include").first).path;
       platform = System:Platform.new(params.get("platform", System:CurrentPlatform.new().name).first);
       outputPlatform = System:Platform.new(params.get("outputPlatform", platform.name).first);
-      dynConditionsAll = Bool.new(params.get("dynConditionsAll", "false").first);
       ownProcess = Bool.new(params.get("ownProcess", "true").first);
       saveSyns = Bool.new(params.get("saveSyns", "false").first);
       loadSyns = params["loadSyns"];
@@ -354,7 +352,6 @@ final class Build:Build {
         } else {
             throw(System:Exception.new("Unknown emitLang, supported emit langs are cs, jv"));
         }
-        emitCommon.dynConditionsAll = dynConditionsAll;
         return(emitCommon);
        }
        return(null);

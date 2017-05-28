@@ -1,12 +1,6 @@
 
 >>cc<<
 
-random bemd
-  ?dump bevn, dynconditions
-  rename callCase to callId
-    
-dynamic methods for cc
-
 throwing and catching (just simple construct etc?)
   have our own type which has a smart pointer member for our stuff (from std::exception)
     have a handleThrow
@@ -19,6 +13,7 @@ need to change how the "if" check works - has instanceof in it, do the dynamic c
 for instanceof and the like - check if null before then do dynamic case then check if null
   (just do cast and check if null?)
 
+dynamic methods for cc
 
 native includes (bevis) -attr dec
 

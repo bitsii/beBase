@@ -41,7 +41,6 @@ public class BECS_Runtime {
         isInitted = true;
         BECS_Ids.callIds = new HashMap<String, Integer>();
         BECS_Ids.idCalls = new HashMap<Integer, String>();
-        BECS_Ids.callIdCounter = 0;
         typeInstances = new HashMap<String, Class>();
         smnlcs = new HashMap<String, int[]>();
         smnlecs = new HashMap<String, int[]>();

@@ -33,7 +33,6 @@ public class BECS_Runtime {
         isInitted = true;
         BECS_Ids.callIds = new Dictionary<string, int>();
         BECS_Ids.idCalls = new Dictionary<int, string>();
-        BECS_Ids.callIdCounter = 0;
         typeInstances = new Dictionary<string, Type>();
         smnlcs = new Dictionary<string, int[]>();
         smnlecs = new Dictionary<string, int[]>();

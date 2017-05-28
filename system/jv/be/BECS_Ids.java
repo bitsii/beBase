@@ -14,7 +14,5 @@ public class BECS_Ids {
     public static Map<String, Integer> callIds;
     public static Map<Integer, String> idCalls;
     
-    public static int callIdCounter;
-    
 }
 

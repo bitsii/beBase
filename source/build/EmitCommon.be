@@ -27,7 +27,7 @@ DYNAMIC CALLS
 (bemd_#):
 
 one per set of args up (to max, then array for remainder)
-callCase is the random code genned at link time for the call
+callId is the random code genned at link time for the call
 generated classes override and use code to find and dispatch call
 
 DYNAMIC CALLS
@@ -118,8 +118,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           
           Int maxDynArgs = 8; //was 2
           Int maxSpillArgsLen = 0;
-          
-          Bool dynConditionsAll;
           
           Node lastCall;
           
@@ -596,9 +594,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         
         for (String callName in callNames) {
-            libe.write(self.spropDec + "int bevn_" + callName + ";" + nl;);
             getNames += "putCallId(" += TS.quote += callName += TS.quote += ", " += getCallId(callName) += ");" += nl;
-            getNames += "bevn_" += callName += " = " += getCallId(callName) += ";" += nl;
         }
         
         String smap = String.new();
@@ -921,8 +917,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         } else {
             dmname = "bemd_x";
         }
-        String superArgs = "callCase";
-        String args = "int callCase";
+        String superArgs = "callId";
+        String args = "int callId";
         Int j = 1;
         while (j < (dnumargs + 1) && j < maxDynArgs) {
             args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
@@ -934,27 +930,15 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             superArgs = superArgs + ", bevd_x";
         }
         dynMethods += self.overrideMtdDec += objectCc.relEmitName(build.libName) += " " += dmname += "(" += args += ")" += exceptDec += " {" += nl;  //}
-        dynMethods += "switch (callCase) {" += nl; //}
+        dynMethods += "switch (callId) {" += nl; //}
         
         dgm = dnode.value;
         for (Container:Map:MapNode msnode in dgm) {
             Int thisHash = msnode.key;
             dgv = msnode.value;
             dynMethods += "case " += thisHash.toString() += ": ";
-            //do we output if checks against call id for this dmname (this dynamic method)?
-            //yes if turned on globally (to avoid possible cases of missing calls beings serviced anyway (very unlikely)
-            //or if > 1 entry for this same hash code (have to in that case)
-            if (dynConditionsAll || dgv.size > 1) {
-                Bool dynConditions = false;
-            } else {
-                dynConditions = false;
-            }
             for (msyn in dgv) {
                 String mcall = String.new();
-                if (dynConditions) {
-                    String constName = libEmitName + scvp + "bevn_" + msyn.name;
-                    mcall += "if (callId == " += constName += ") {" += nl; //}
-                } 
                 mcall += "return bem_" += msyn.name += "(";
                 Int vnumargs = 0;
                 for (Build:VarSyn vsyn in msyn.argSyns) {
@@ -979,15 +963,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                     vnumargs++=;
                 }
                 mcall += ");" += nl;
-                if (dynConditions) {
-                    //{
-                    mcall += "}" += nl;
-                }
                 //("mcall built: " + mcall.toString()).print();
                 dynMethods += mcall;
-            }
-            if (dynConditions) {
-                dynMethods += "break;" += nl;
             }
         }
         dynMethods += "}" += nl; //end of switch
