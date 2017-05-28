@@ -809,12 +809,8 @@ BEINT bevl_val;
    }
    
    equals(stri) Logic:Bool {
-   /*if (undef(stri)) {
-      return(false);
-   }*/
    emit(jv) {
   """
-  //if (beva_stri instanceof $class/Text:String$) {
     $class/Text:String$ bevls_stri = ($class/Text:String$) beva_stri;
     if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
        for (int i = 0;i < this.bevp_size.bevi_int;i++) {
@@ -824,13 +820,11 @@ BEINT bevl_val;
        }
        return be.BECS_Runtime.boolTrue;
    }
-  //}
   """
   }
   emit(cs) {
   """
   var bevls_stri = beva_stri as $class/Text:String$;
-  //if (bevls_stri != null) {
     if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
        for (int i = 0;i < this.bevp_size.bevi_int;i++) {
           if (this.bevi_bytes[i] != bevls_stri.bevi_bytes[i]) {
@@ -839,7 +833,6 @@ BEINT bevl_val;
        }
        return be.BECS_Runtime.boolTrue;
    }
-  //}
   """
   }
   emit(js) {

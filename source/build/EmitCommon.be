@@ -1262,7 +1262,6 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             if (btargs == "bevi_bool") {
               ev += btargs;
             } else {
-              ev += targs += " != " += nullValue += " && " += targs += instOf += boolCc.relEmitName(build.libName) += " && ";
               if (emitting("js")!) {
                   ev += "(" += formCast(boolCc, "checked", targs);
               }

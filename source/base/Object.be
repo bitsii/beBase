@@ -640,29 +640,6 @@ void** bevl_other;
       */
       
    sameType(other) Bool {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-void** bevl_toRet;
-void** bevl_other;
-BERT_ClassDef* twst_selfcd;
-size_t twst_icomp;
-      """
-      }
-      emit(c) {
-      """
-bevl_toRet = berv_sts->bool_False;
-bevl_other = $other&*;
-if (bevl_other == NULL) { BEVReturn(bevl_toRet); } 
-twst_selfcd = (BERT_ClassDef*) bevs[berdef];
-twst_icomp = (size_t) bevl_other[berdef];
-while (twst_selfcd != NULL) {
-if ((size_t) twst_selfcd == twst_icomp) {
-BEVReturn(berv_sts->bool_True);
-} twst_selfcd = twst_selfcd->twst_supercd; }
-BEVReturn(bevl_toRet);
-      """
-      }
       emit(js) {
       """
       if (beva_other !== null && Object.getPrototypeOf(beva_other).isPrototypeOf(this)) {

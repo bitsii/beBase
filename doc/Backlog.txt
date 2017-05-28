@@ -7,17 +7,9 @@ throwing and catching (just simple construct etc?)
   for catch order matters
   have ... after the bracket for a catch to do something with that
 
-instanceof
-
-need to change how the "if" check works - has instanceof in it, do the dynamic cast and check null?
-for instanceof and the like - check if null before then do dynamic case then check if null
-  (just do cast and check if null?)
-
 dynamic methods for cc
 
 native includes (bevis) -attr dec
-
-super (make sure case where not deffed in immediate up works)
   
 get code building
 
@@ -25,9 +17,11 @@ weak ptrs
 
 drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
 
-can, createInstance and invoke - switch to structures which don't depend on underlying reflection
+can, createInstance - switch to structures which don't depend on underlying reflection
 cs and jv like js for createInstance, can like invoke
 switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
+
+sameType
 
 for cc strings prob have to always copy buffer...
 
@@ -54,6 +48,8 @@ c++ unsigned char (like cs)
   don't use string or streams, c style fopen, fread, fwrite
 
 <<type sizes>>
+
+use object instead of any anywhere just object contract is needed (type them)
 
 libs
   lib does not init other libs, generates BECX's of all libs
