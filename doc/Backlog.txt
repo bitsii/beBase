@@ -1,39 +1,41 @@
 
 >>cc<<
 
+drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it - sep class with info BET (for Type) is of a supertype (BETS_Object), instances can return it, has class name, instances created and in map (for createInstance), has map of method names for can (switch can to it)
+
+native includes (bevis) -attr dec
+
+dynamic methods for cc
+
 throwing and catching (just simple construct etc?)
   have our own type which has a smart pointer member for our stuff (from std::exception)
     have a handleThrow
   for catch order matters
   have ... after the bracket for a catch to do something with that
-
-dynamic methods for cc
-
-native includes (bevis) -attr dec
   
 get code building
 
-weak ptrs
-
-drop reflection (instance creation (gen a class instance with a method, put in map), obj.can lookup name in hashmap in map. genned method to return instance in class) - see how js does it
-
-can, createInstance - switch to structures which don't depend on underlying reflection
-cs and jv like js for createInstance, can like invoke
-switch can to be like invoke and to have a genned method, this has been thought of elsewhere (do it for all langs)
-
 sameType
+  lib and such (object things, string things, int things)
+  for cc strings prob have to always copy buffer...
 
-for cc strings prob have to always copy buffer...
+weak ptrs - syn and cc (cctry test)
 
-skeletal lib stuff
-  superclass to each class with dynamic methods - BECX (exe class)
-    create files/inh from superclass
-    empty def for all defined methods
-    generate bemds in it
-    switch real class to inherit from it
-    drop BEC bemds
-    
+cycle detection
+  any type I contain that contains my type
+  callable/recursive for multi-level check (specify level of check)
+  optional weak output too (weak not count either way)
+  valgrind massif gcc gprof
+  optionally count number of instances of class created and destroyed and live
+
 exceptions from segmentation faults/ get stack
+
+getting stack traces (native at least, translation later)
+
+basic output
+extec cc nothread
+selfhost cc
+thread
   
 <<cc>>
 
@@ -50,6 +52,14 @@ c++ unsigned char (like cs)
 <<type sizes>>
 
 use object instead of any anywhere just object contract is needed (type them)
+
+skeletal lib stuff
+  superclass to each class with dynamic methods - BECX (exe class)
+    create files/inh from superclass
+    empty def for all defined methods
+    generate bemds in it
+    switch real class to inherit from it
+    drop BEC bemds
 
 libs
   lib does not init other libs, generates BECX's of all libs
