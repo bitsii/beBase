@@ -290,6 +290,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             complete(clnode);
             
+            writeBET();
+            
             //open the class output file
             IO:File:Writer cle = getClassOutput();
             
@@ -454,6 +456,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
    useDynMethodsGet() Bool {
        return(true);
     }
+    
+    writeBET() {
+   }
     
    getClassOutput() IO:File:Writer {
        fields {
@@ -2142,6 +2147,10 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       return("BEC_" + mangleName(np));
    }
    
+   getTypeEmitName(NamePath np) String {
+      return("BET_" + mangleName(np));
+   }
+   
    getFullEmitName(String nameSpace, String emitName) {
        return(nameSpace + "." + emitName);
    }
@@ -2166,8 +2175,10 @@ use local class Build:ClassConfig {
          
         String nameSpace = emitter.getNameSpace(libName);
         String emitName = emitter.getEmitName(np);
+        String typeEmitName = emitter.getTypeEmitName(np);
         String fullEmitName = emitter.getFullEmitName(nameSpace, emitName);
         IO:File:Path classPath = emitPath.copy().addStep(emitter.emitLang).addStep("be").addStep(emitName + emitter.fileExt);
+        IO:File:Path typePath = emitPath.copy().addStep(emitter.emitLang).addStep("be").addStep(typeEmitName + emitter.fileExt);
         IO:File:Path classDir = classPath.parent; 
         IO:File:Path synPath = classDir.copy().addStep(emitName + ".syn");
       }

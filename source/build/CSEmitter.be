@@ -23,6 +23,25 @@ use final class Build:CSEmitter(Build:EmitCommon) {
         super.new(_build);
     }
     
+    writeBET() {
+       if (classConf.classDir.file.exists!) {
+            classConf.classDir.file.makeDirs();
+        } 
+        auto tout = classConf.typePath.file.writer.open();
+        String bet = String.new();
+        bet += "namespace be {\n";
+        bet += "public class " += classConf.typeEmitName += " : BETS_Object {\n";
+        bet += "public " += classConf.typeEmitName += "() { }\n";
+        bet += "static " += classConf.typeEmitName += "() { }\n";
+        bet += "public override BEC_2_6_6_SystemObject bems_createInstance() {\n";
+        bet += "return new " += classConf.emitName += "();\n";
+        bet += "}\n";
+        bet += "}\n";
+        bet += "}\n";
+        tout.write(bet);
+        tout.close();
+    }
+    
     acceptCatch(Node node) {
     String catchVar = "beve_" + methodCatch.toString();
     methodCatch++=;

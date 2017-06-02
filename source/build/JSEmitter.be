@@ -135,6 +135,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
       return(super.nameForVar(v));
 
    }
+   
+   writeBET() {
+   }
 
     emitLib() {
 

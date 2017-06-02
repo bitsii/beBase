@@ -20,7 +20,7 @@ public class BETS_Object {
     }
   }
   
-  public BEC_2_6_6_SystemObject bems_createInstance() {
+  public virtual BEC_2_6_6_SystemObject bems_createInstance() {
     return null;
   }
 
