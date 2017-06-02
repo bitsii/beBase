@@ -316,7 +316,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             lineCount += writeOnceDecs(cle, onceDecs);
             //the initial instance
-            String idec = self.initialDec;
+            String idec = self.initialDec + "\n" + self.typeDec + "\n";
             lineCount += countLines(idec);
             cle.write(idec);
             
@@ -581,14 +581,18 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
             any clnode = ci.next;
             
+            //String betn = getTypeInst(getClassConfig(clnode.held.namepath));
+                
             if(emitting("jv")) {
                 typeInstances += "be.BECS_Runtime.typeInstances.put(" += q += clnode.held.namepath.toString() += q += ", Class.forName(" += q += getClassConfig(clnode.held.namepath).fullEmitName += q += "));" += nl;
+                
             }
             if(emitting("cs")) {
                 String bein = "bece_" + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "_bevs_inst";
                 typeInstances += "be.BECS_Runtime.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ");" += nl;
                 typeInstances += "typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ")";
                 typeInstances += ".GetField(" += q += bein += q += ").GetValue(null);" += nl;
+                
             }
             
             if (clnode.held.syn.hasDefault) {
@@ -596,6 +600,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 notNullInitConstruct += "be.BECS_Runtime.initializer.bem_notNullInitConstruct_1(" += nc += ");" += nl;
                 notNullInitDefault += "be.BECS_Runtime.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
             }
+            
+            notNullInitConstruct += getTypeInst(getClassConfig(clnode.held.namepath)) += " = new " += getClassConfig(clnode.held.namepath).typeEmitName += "();\n";
         }
         
         for (String callName in callNames) {
@@ -1102,6 +1108,21 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           initialDec += baseSpropDec(classConf.emitName, bein) += ";" += nl;
        } else {
           initialDec += overrideSpropDec(classConf.emitName, bein) += ";" += nl;
+       }
+       
+       return(initialDec);
+  }
+  
+  typeDecGet() String {
+       
+       String initialDec = String.new();
+       
+       String bein = "bece_" + classConf.emitName + "_bevs_type";
+       
+       if (csyn.namepath == objectNp) {
+          initialDec += baseSpropDec(classConf.typeEmitName, bein) += ";" += nl;
+       } else {
+          initialDec += overrideSpropDec(classConf.typeEmitName, bein) += ";" += nl;
        }
        
        return(initialDec);
@@ -1875,6 +1896,12 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    getInitialInst(ClassConfig newcc) String {
     auto nccn = newcc.relEmitName(build.libName);
     String bein = "bece_" + nccn + "_bevs_inst";
+    return(nccn + "." + bein);
+   }
+   
+   getTypeInst(ClassConfig newcc) String {
+    auto nccn = newcc.relEmitName(build.libName);
+    String bein = "bece_" + nccn + "_bevs_type";
     return(nccn + "." + bein);
    }
    

@@ -31,7 +31,22 @@ use final class Build:CSEmitter(Build:EmitCommon) {
         String bet = String.new();
         bet += "namespace be {\n";
         bet += "public class " += classConf.typeEmitName += " : BETS_Object {\n";
-        bet += "public " += classConf.typeEmitName += "() { }\n";
+        bet += "public " += classConf.typeEmitName += "() {\n";
+        
+        bet += "string[] bevs_mtnames = new string[] { ";
+        Bool firstmnsyn = true;
+        for (Build:MtdSyn mnsyn in csyn.mtdList) {
+          if (firstmnsyn) {
+            firstmnsyn = false;
+          } else {
+            bet += ", ";
+          }
+          bet += q += mnsyn.name += q;
+         }
+         bet += " };\n";
+        bet += "bems_buildMethodNames(bevs_mtnames);\n";
+        bet += "}\n";
+        
         bet += "static " += classConf.typeEmitName += "() { }\n";
         bet += "public override BEC_2_6_6_SystemObject bems_createInstance() {\n";
         bet += "return new " += classConf.emitName += "();\n";

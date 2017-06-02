@@ -382,6 +382,12 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         return("");
 
     }
+    
+    typeDecGet() String {
+
+        return("");
+
+    }
 
       baseSpropDec(String typeName, String anyName) {
          return("");

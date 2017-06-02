@@ -31,7 +31,22 @@ use final class Build:JVEmitter(Build:EmitCommon) {
         String bet = String.new();
         bet += "package be;\n";
         bet += "public class " += classConf.typeEmitName += " extends BETS_Object {\n";
-        bet += "public " += classConf.typeEmitName += "() { }\n";
+        bet += "public " += classConf.typeEmitName += "() {"
+        
+        bet += "String[] bevs_mtnames = new String[] { ";
+        Bool firstmnsyn = true;
+        for (Build:MtdSyn mnsyn in csyn.mtdList) {
+          if (firstmnsyn) {
+            firstmnsyn = false;
+          } else {
+            bet += ", ";
+          }
+          bet += q += mnsyn.name += q;
+         }
+         bet += " };\n";
+        bet += "bems_buildMethodNames(bevs_mtnames);\n";
+        bet += "}\n";
+        
         bet += "public BEC_2_6_6_SystemObject bems_createInstance() {\n";
         bet += "return new " += classConf.emitName += "();\n";
         bet += "}\n";
