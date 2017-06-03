@@ -2,12 +2,11 @@
 >>cc<<
 
 static name like _bevs_type for inst of the meta guy (BET) BETS_Object
-  have a get method to get it
   switch to using it in can
   add a runtime map to hold string-inst map and put them in
   switch to using it in create instance
 
-native includes (bevis) -attr dec
+cc headers building again 
 
 dynamic methods for cc
 
@@ -18,6 +17,8 @@ throwing and catching (just simple construct etc?)
   have ... after the bracket for a catch to do something with that
   
 get code building
+
+native includes (bevis) -attr dec
 
 sameType
   lib and such (object things, string things, int things)
