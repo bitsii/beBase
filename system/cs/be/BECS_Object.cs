@@ -102,6 +102,10 @@ public class BECS_Object {
     public virtual BEC_2_6_6_SystemObject bemc_getInitial() {
         return BEC_2_6_6_SystemObject.bece_BEC_2_6_6_SystemObject_bevs_inst;
     }
+    
+    public virtual BETS_Object bemc_getType() {
+        return BEC_2_6_6_SystemObject.bece_BEC_2_6_6_SystemObject_bevs_type;
+    }
 
 
 

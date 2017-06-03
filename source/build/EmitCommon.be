@@ -1026,6 +1026,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     
     buildInitial() {
         String oname = getClassConfig(objectNp).relEmitName(build.libName);
+        String tname = getClassConfig(objectNp).typeEmitName;
         String mname = classConf.emitName;
         ClassConfig newcc = getClassConfig(cnode.held.namepath);
         String stinst = getInitialInst(newcc);
@@ -1046,6 +1047,14 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         ccMethods += self.overrideMtdDec += oname += " bemc_getInitial()" += exceptDec += " {" += nl;  //}
             
             ccMethods += "return " += stinst += ";" += nl;
+        //{
+        ccMethods += "}" += nl;
+        
+        String tinst = getTypeInst(newcc);
+        
+        ccMethods += self.overrideMtdDec += "BETS_Object" += " bemc_getType()" += exceptDec += " {" += nl;  //}
+            
+            ccMethods += "return " += tinst += ";" += nl;
         //{
         ccMethods += "}" += nl;
         
