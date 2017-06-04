@@ -2,13 +2,21 @@
 >>cc<<
 
 static name like _bevs_type for inst of the meta guy (BET) BETS_Object
-  switch to using it in can
-  add a runtime map to hold string-inst map and put them in
-  switch to using it in create instance
+  dump typeInstances
+  
+objectfielditerator
+  raw get set accessors can't be overwridden
+  put list of fields and raw accessors (obj, name) in bevt
+  fieldNames list return in obj
+  use the above for opifc (no native stuff there)
+  ?fix for js serialization? 
 
 cc headers building again 
+bevt impl for cc
 
 dynamic methods for cc
+
+? own refcounter without smartpointers
 
 throwing and catching (just simple construct etc?)
   have our own type which has a smart pointer member for our stuff (from std::exception)
@@ -73,6 +81,8 @@ libs
   final runtime build must be with latest versions of everything (dynamic link)
   
 relemitname is not needed anymore, just emitname
+
+has, put, get for object (keep sig like map)
   
 try also includes setjmp (into stack) and signals longjump
 

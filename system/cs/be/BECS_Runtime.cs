@@ -18,6 +18,8 @@ public class BECS_Runtime {
     
     public static Dictionary<string, Type> typeInstances;
     
+    public static Dictionary<string, BETS_Object> typeRefs;
+    
     //for setting up initial instances
     public static BEC_2_6_11_SystemInitializer initializer;
     
@@ -34,6 +36,7 @@ public class BECS_Runtime {
         BECS_Ids.callIds = new Dictionary<string, int>();
         BECS_Ids.idCalls = new Dictionary<int, string>();
         typeInstances = new Dictionary<string, Type>();
+        typeRefs = new Dictionary<string, BETS_Object>();
         smnlcs = new Dictionary<string, int[]>();
         smnlecs = new Dictionary<string, int[]>();
         initializer = new BEC_2_6_11_SystemInitializer();

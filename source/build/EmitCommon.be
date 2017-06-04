@@ -602,6 +602,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             }
             
             notNullInitConstruct += getTypeInst(getClassConfig(clnode.held.namepath)) += " = new " += getClassConfig(clnode.held.namepath).typeEmitName += "();\n";
+            if(emitting("cs")) {
+              notNullInitConstruct += "be.BECS_Runtime.typeRefs[" += q += clnode.held.namepath += q += "] = " += getTypeInst(getClassConfig(clnode.held.namepath)) += ";\n";
+            } elseIf(emitting("jv")) {
+              notNullInitConstruct += "be.BECS_Runtime.typeRefs.put(" += q += clnode.held.namepath += q += ", " += getTypeInst(getClassConfig(clnode.held.namepath)) += ");\n";
+            }
         }
         
         for (String callName in callNames) {

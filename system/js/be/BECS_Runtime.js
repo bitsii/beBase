@@ -44,8 +44,6 @@ be_BECS_Runtime.prototype.typeInstances = function() { }
 
 be_BECS_Runtime.prototype.minArg = 2;
 
-//be_BECS_Runtime.prototype.typeInstances["tb"] = new be_BECS_ThrowBack();
-
 be_BECS_Runtime.prototype.smnlcs = function() { }
 
 be_BECS_Runtime.prototype.smnlecs = function() { }

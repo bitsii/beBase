@@ -26,6 +26,8 @@ public class BECS_Runtime {
     
     public static Map<String, Class> typeInstances;
     
+    public static Map<String, BETS_Object> typeRefs;
+    
     //for setting up initial instances
     public static BEC_2_6_11_SystemInitializer initializer;
     
@@ -42,6 +44,7 @@ public class BECS_Runtime {
         BECS_Ids.callIds = new HashMap<String, Integer>();
         BECS_Ids.idCalls = new HashMap<Integer, String>();
         typeInstances = new HashMap<String, Class>();
+        typeRefs = new HashMap<String, BETS_Object>();
         smnlcs = new HashMap<String, int[]>();
         smnlecs = new HashMap<String, int[]>();
         initializer = new BEC_2_6_11_SystemInitializer();

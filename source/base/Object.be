@@ -93,22 +93,18 @@ class System:Object {
       emit(jv) {
         """
         String key = new String(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int, "UTF-8");
-        Class ti = be.BECS_Runtime.typeInstances.get(key);
+        BETS_Object ti = be.BECS_Runtime.typeRefs.get(key);
         if (ti != null) {
-            //System.out.println("Getting new instance for |" + key + "|");
-            bevl_result = ($class/System:Object$) ti.newInstance();
+            bevl_result = ti.bems_createInstance();
         } 
-        //else {
-        //    System.out.println("No typeInstance for |" + key + "|");
-        //}
         """
       }
       emit(cs) {
         """
         string key = System.Text.Encoding.UTF8.GetString(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int);
-        Type ti = be.BECS_Runtime.typeInstances[key];
+        BETS_Object ti = be.BECS_Runtime.typeRefs[key];
         if (ti != null) {
-            bevl_result = ($class/System:Object$) Activator.CreateInstance(ti);
+            bevl_result = ti.bems_createInstance();
         }
         """
       }
@@ -210,23 +206,6 @@ class System:Object {
    }
    
    can(String name, Int numargs) Bool {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BEINT bevl_chash;
-void** bevl_chashv;
-
-BEINT bevl_nser;
-void* bevl_nserv;
-
-char* bevl_cname;
-void** bevl_cnamev;
-
-BEINT twcv_mnpos;
-BEINT twcv_mserial;
-
-      """
-      }
       String cname;
       Int chash;
       any rval;
@@ -238,50 +217,31 @@ BEINT twcv_mserial;
          throw(System:InvocationException.new("can() numargs is null"));
       }
       cname = name + "_" + numargs.toString();
-      chash = cname.hash;
       
-      emit(c) {
-      """
-      
-bevl_chashv = $chash&*;
-bevl_chash = *((BEINT*) (bevl_chashv + bercps));
-bevl_cnamev = $cname&*;
-bevl_cname = (char*) bevl_cnamev[bercps];
-
-bevl_nserv = BERF_Hash_Get(BERV_proc_glob->nameHash, bevl_chash, bevl_cname);
-if (bevl_nserv != NULL) {
-bevl_nser = (BEINT) bevl_nserv;
-
-twcv_cdef = (BERT_ClassDef*) bevs[berdef];
-twcv_mtdi = bevl_nser % twcv_cdef->dmlistlen;
-twcv_mtddef = twcv_cdef->dmlist[twcv_mtdi];
-
-if (twcv_mtddef->twnn == bevl_nser) {
-$rval=* $cname*;
-}
-}
-      """
-      }
       emit(jv) {
       """
-      String name = "bem_" + new String(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int, "UTF-8");
-      java.lang.reflect.Method[] methods = this.getClass().getMethods();
-      for (int i = 0;i < methods.length;i++) {
-        if (methods[i].getName().equals(name)) {
-            return be.BECS_Runtime.boolTrue;
-        }
+      
+      String name = "" + new String(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int, "UTF-8");
+      
+      BETS_Object bevs_cano = bemc_getType();
+      
+      if (bevs_cano.bevs_methodNames.containsKey(name)) {
+        return be.BECS_Runtime.boolTrue;
       }
+      
       """
       }
       emit(cs) {
       """
-      string name = "bem_" + System.Text.Encoding.UTF8.GetString(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int);
-      System.Reflection.MethodInfo[] methods = this.GetType().GetMethods();
-      for (int i = 0;i < methods.Length;i++) {
-        if (methods[i].Name.Equals(name)) {
-            return be.BECS_Runtime.boolTrue;
-        }
+      
+      string name = System.Text.Encoding.UTF8.GetString(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int);
+      
+      BETS_Object bevs_cano = bemc_getType();
+      
+      if (bevs_cano.bevs_methodNames.ContainsKey(name)) {
+        return be.BECS_Runtime.boolTrue;
       }
+      
       """
       }
       emit(js) {
