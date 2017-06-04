@@ -12,6 +12,7 @@ using be;
 public class BETS_Object {
     
   public Dictionary<string, bool> bevs_methodNames;
+  public string[] bevs_fieldNames;
   
   public void bems_buildMethodNames(string[] names) {
     bevs_methodNames = new Dictionary<string, bool>();

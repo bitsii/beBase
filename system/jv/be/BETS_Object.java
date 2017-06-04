@@ -14,6 +14,7 @@ import be.BEC_2_6_6_SystemObject;
 public class BETS_Object {
   
   public Map<String, Boolean> bevs_methodNames;
+  public String[] bevs_fieldNames;
   
   public void bems_buildMethodNames(String[] names) {
     bevs_methodNames = new HashMap<String, Boolean>();

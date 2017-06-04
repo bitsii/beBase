@@ -45,6 +45,19 @@ use final class Build:JVEmitter(Build:EmitCommon) {
          }
          bet += " };\n";
         bet += "bems_buildMethodNames(bevs_mtnames);\n";
+        
+        bet += "bevs_fieldNames = new String[] { ";
+        Bool firstptsyn = true;
+        for (Build:PtySyn ptySyn in csyn.ptyList) {
+          if (firstptsyn) {
+            firstptsyn = false;
+          } else {
+            bet += ", ";
+          }
+          bet += q += ptySyn.name += q;
+        }
+        bet += " };\n";
+        
         bet += "}\n";
         
         bet += "public BEC_2_6_6_SystemObject bems_createInstance() {\n";

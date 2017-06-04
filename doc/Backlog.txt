@@ -1,17 +1,12 @@
 
 >>cc<<
 
-objectfielditerator
-  put list of fields and raw accessors (obj, name) in bevt
-  fieldNames list return in obj
-  use the above for opifc (no native stuff there)
+use fieldNames and getsetdirect for opifc
   
 cc headers building again 
 bevt impl for cc
 
 dynamic methods for cc
-
-? own refcounter without smartpointers
 
 throwing and catching (just simple construct etc?)
   have our own type which has a smart pointer member for our stuff (from std::exception)
@@ -47,6 +42,8 @@ thread
   
 <<cc>>
 
+? own refcounter without smartpointers
+
 >>type sizes<<
 int is 32bit signed cs/jv
 <cstdint> (stdint.h) int32_t
@@ -60,6 +57,8 @@ c++ unsigned char (like cs)
 <<type sizes>>
 
 use object instead of any anywhere just object contract is needed (type them)
+
+support whole directory/patterns of files (?excludes too?), factor out plat/lang specific to own dir
 
 skeletal lib stuff
   superclass to each class with dynamic methods - BECX (exe class)

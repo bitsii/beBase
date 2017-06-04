@@ -16,6 +16,7 @@ use Math:Int;
 use Logic:Bool;
 
 use Test:DirectInvoke;
+use Test:HasFields;
 
 class Test:BaseTest:Invoke(BaseTest) {
    
@@ -23,7 +24,17 @@ class Test:BaseTest:Invoke(BaseTest) {
       ("Test:BaseTest:Invoke:main").print();
       testDirectInvoke();
       testCan();
+      testFieldNames();
       
+   }
+   
+   testFieldNames() {
+     auto o = Object.new();
+     assertTrue(o.fieldNames.size == 0);
+     auto hf = HasFields.new();
+     assertTrue(hf.fieldNames.size == 2);
+     assertTrue(hf.fieldNames[0] == "hi");
+     assertTrue(hf.fieldNames[1] == "there");
    }
    
    testDirectInvoke() {
@@ -48,5 +59,14 @@ class DirectInvoke {
       return(a + b);
    }
    
+}
+
+class HasFields {
+  new() {
+    fields {
+      String hi;
+      String there;
+    }
+  }
 }
 

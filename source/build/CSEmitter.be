@@ -45,6 +45,19 @@ use final class Build:CSEmitter(Build:EmitCommon) {
          }
          bet += " };\n";
         bet += "bems_buildMethodNames(bevs_mtnames);\n";
+        
+        bet += "bevs_fieldNames = new string[] { ";
+        Bool firstptsyn = true;
+        for (Build:PtySyn ptySyn in csyn.ptyList) {
+          if (firstptsyn) {
+            firstptsyn = false;
+          } else {
+            bet += ", ";
+          }
+          bet += q += ptySyn.name += q;
+        }
+        bet += " };\n";
+        
         bet += "}\n";
         
         bet += "static " += classConf.typeEmitName += "() { }\n";
