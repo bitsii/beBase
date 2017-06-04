@@ -1,8 +1,6 @@
 
 >>cc<<
 
-use fieldNames and getsetdirect for opifc
-  
 cc headers building again 
 bevt impl for cc
 
