@@ -40,7 +40,7 @@ var be_BECS_ThrowBack_handleThrow = function(theThrow) {
 
 be_BECS_Runtime.prototype.hashCounter = 0;//for object derived hashcodes
 
-be_BECS_Runtime.prototype.typeInstances = function() { }
+be_BECS_Runtime.prototype.typeRefs = function() { }
 
 be_BECS_Runtime.prototype.minArg = 2;
 

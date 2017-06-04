@@ -574,26 +574,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             initLibs += "be." += il += ".init();" += nl;
           }
         }        
-        String typeInstances = String.new();
         String notNullInitConstruct = String.new();
         String notNullInitDefault = String.new();
         for (any ci = classesInDepthOrder.iterator;ci.hasNext;;) {  
         
             any clnode = ci.next;
-            
-            //String betn = getTypeInst(getClassConfig(clnode.held.namepath));
-                
-            if(emitting("jv")) {
-                typeInstances += "be.BECS_Runtime.typeInstances.put(" += q += clnode.held.namepath.toString() += q += ", Class.forName(" += q += getClassConfig(clnode.held.namepath).fullEmitName += q += "));" += nl;
-                
-            }
-            if(emitting("cs")) {
-                String bein = "bece_" + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "_bevs_inst";
-                typeInstances += "be.BECS_Runtime.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ");" += nl;
-                typeInstances += "typeof(" += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ")";
-                typeInstances += ".GetField(" += q += bein += q += ").GetValue(null);" += nl;
-                
-            }
             
             if (clnode.held.syn.hasDefault) {
                 String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
@@ -634,7 +619,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         libe.write(self.runtimeInit);
         libe.write(getNames);
         libe.write(smap);
-        libe.write(typeInstances);
         libe.write(notNullInitConstruct);
         libe.write(notNullInitDefault);
         if(emitting("jv") || emitting("cs")) {

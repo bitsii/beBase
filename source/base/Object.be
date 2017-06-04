@@ -110,7 +110,7 @@ class System:Object {
       }
       emit(js) {
       """
-      var ti = be_BECS_Runtime.prototype.typeInstances[this.bems_stringToJsString_1(beva_cname)];
+      var ti = be_BECS_Runtime.prototype.typeRefs[this.bems_stringToJsString_1(beva_cname)];
       if (null != ti) {
         bevl_result = ti.bemc_create();
       }

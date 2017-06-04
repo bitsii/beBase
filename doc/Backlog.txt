@@ -1,9 +1,6 @@
 
 >>cc<<
 
-static name like _bevs_type for inst of the meta guy (BET) BETS_Object
-  dump typeInstances
-  
 objectfielditerator
   raw get set accessors can't be overwridden
   put list of fields and raw accessors (obj, name) in bevt

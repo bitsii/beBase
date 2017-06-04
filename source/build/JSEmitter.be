@@ -143,7 +143,6 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
         IO:File:Writer libe = getLibOutput();
 
-        String typeInstances = String.new();
         String libInit = String.new();
         String notNullInitConstruct = String.new();
         String notNullInitDefault = String.new();
@@ -151,7 +150,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
             any clnode = ci.next;
 
-            typeInstances += "be_BECS_Runtime.prototype.typeInstances[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;
+            notNullInitConstruct += "be_BECS_Runtime.prototype.typeRefs[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;
 
             if (clnode.held.syn.hasDefault) {
                 //("Class " + clnode.held.namepath + " isNotNull").print();
@@ -179,8 +178,6 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         }
 
         libe.write(smap);
-
-        libe.write(typeInstances);
 
         //("Used lib size " + build.usedLibrarys.size).print();
         if (build.usedLibrarys.size == 0) {

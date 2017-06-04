@@ -16,8 +16,6 @@ public class BECS_Runtime {
     public static BEC_2_5_4_LogicBool boolTrue = new BEC_2_5_4_LogicBool(true);
     public static BEC_2_5_4_LogicBool boolFalse = new BEC_2_5_4_LogicBool(false);
     
-    public static Dictionary<string, Type> typeInstances;
-    
     public static Dictionary<string, BETS_Object> typeRefs;
     
     //for setting up initial instances
@@ -35,7 +33,6 @@ public class BECS_Runtime {
         isInitted = true;
         BECS_Ids.callIds = new Dictionary<string, int>();
         BECS_Ids.idCalls = new Dictionary<int, string>();
-        typeInstances = new Dictionary<string, Type>();
         typeRefs = new Dictionary<string, BETS_Object>();
         smnlcs = new Dictionary<string, int[]>();
         smnlecs = new Dictionary<string, int[]>();

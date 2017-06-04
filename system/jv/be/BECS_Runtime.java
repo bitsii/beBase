@@ -24,8 +24,6 @@ public class BECS_Runtime {
     public static BEC_2_5_4_LogicBool boolTrue = new BEC_2_5_4_LogicBool(true);
     public static BEC_2_5_4_LogicBool boolFalse = new BEC_2_5_4_LogicBool(false);
     
-    public static Map<String, Class> typeInstances;
-    
     public static Map<String, BETS_Object> typeRefs;
     
     //for setting up initial instances
@@ -43,7 +41,6 @@ public class BECS_Runtime {
         isInitted = true;
         BECS_Ids.callIds = new HashMap<String, Integer>();
         BECS_Ids.idCalls = new HashMap<Integer, String>();
-        typeInstances = new HashMap<String, Class>();
         typeRefs = new HashMap<String, BETS_Object>();
         smnlcs = new HashMap<String, int[]>();
         smnlecs = new HashMap<String, int[]>();
