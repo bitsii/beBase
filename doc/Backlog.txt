@@ -2,12 +2,10 @@
 >>cc<<
 
 objectfielditerator
-  raw get set accessors can't be overwridden
   put list of fields and raw accessors (obj, name) in bevt
   fieldNames list return in obj
   use the above for opifc (no native stuff there)
-  ?fix for js serialization? 
-
+  
 cc headers building again 
 bevt impl for cc
 

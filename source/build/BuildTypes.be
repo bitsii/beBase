@@ -343,8 +343,14 @@ final class Build:Call {
    toAccessorName() {
       if (accessorType == "GET") {
          name = name + "Get";
-      } else {
+      } elseIf (accessorType == "SET") {
          name = name + "Set";
+      } elseIf (accessorType == "GETDIRECT") {
+         name = name + "GetDirect";
+      }  elseIf (accessorType == "SETDIRECT") {
+         name = name + "SetDirect";
+      } else {
+        throw(System:Exception.new("Unknown accessor type " + accessorType));
       }
    }
    
