@@ -1,8 +1,12 @@
 
 >>cc<<
 
-cc headers building again 
 bevt impl for cc
+  file to read and write .cpp too (?already exist?)
+    move includes there
+  impl BETS_ob methods
+  impl BET genned methods
+  test in cctry
 
 dynamic methods for cc
 
@@ -16,9 +20,9 @@ get code building
 
 native includes (bevis) -attr dec
 
-sameType
-  lib and such (object things, string things, int things)
-  for cc strings prob have to always copy buffer...
+sameType - cast null before after
+lib and such (object things, string things, int things)
+for cc strings prob have to always copy buffer...
 
 weak ptrs - syn and cc (cctry test)
 

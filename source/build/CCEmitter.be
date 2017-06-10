@@ -239,6 +239,52 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    finishClassOutput(IO:File:Writer cle) {
    }
    
+   writeBET() {
+        deow.write("class " + classConf.typeEmitName + ";\n");
+        String beh = String.new();
+        beh += "class " += classConf.typeEmitName += " : public BETS_Object {\n";
+        beh += classConf.typeEmitName += "();\n";
+        beh += "virtual shared_ptr<BEC_2_6_6_SystemObject> bems_createInstance();\n";
+        beh += "};\n";
+        heow.write(beh);
+        
+        String bet = String.new();
+        bet += classConf.typeEmitName += "::" += classConf.typeEmitName += "();\n";
+        bet += "string[] bevs_mtnames = new string[] { ";
+        Bool firstmnsyn = true;
+        for (Build:MtdSyn mnsyn in csyn.mtdList) {
+          if (firstmnsyn) {
+            firstmnsyn = false;
+          } else {
+            bet += ", ";
+          }
+          bet += q += mnsyn.name += q;
+         }
+         bet += " };\n";
+        bet += "bems_buildMethodNames(bevs_mtnames);\n";
+        
+        bet += "bevs_fieldNames = new string[] { ";
+        Bool firstptsyn = true;
+        for (Build:PtySyn ptySyn in csyn.ptyList) {
+          if (firstptsyn) {
+            firstptsyn = false;
+          } else {
+            bet += ", ";
+          }
+          bet += q += ptySyn.name += q;
+        }
+        bet += " };\n";
+        
+        bet += "}\n";
+        
+        bet += classConf.typeEmitName += "::bems_createInstance() {\n";
+        bet += "return new " += classConf.emitName += "();\n";
+        bet += "}\n";
+        bet += "}\n";
+        bet += "}\n";
+        //heow.write(bet);
+    }
+   
    prepHeaderOutput() {
         fields { 
            String deon;
@@ -262,6 +308,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             
             heow.write("#include <iostream>\n");
             heow.write("#include <memory>\n");
+            heow.write("#include <unordered_map>\n");
+            heow.write("#include <string>\n");
+            heow.write("#include <vector>\n");
             heow.write("#include \"BED_4_Base.hpp\"\n");
             heow.write("using namespace std;\n");
             
