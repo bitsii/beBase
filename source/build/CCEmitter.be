@@ -306,11 +306,18 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             deow = deop.file.writer.open();
             heow = heop.file.writer.open();
             
-            heow.write("#include <iostream>\n");
-            heow.write("#include <memory>\n");
-            heow.write("#include <unordered_map>\n");
-            heow.write("#include <string>\n");
-            heow.write("#include <vector>\n");
+            if (build.params.has("cchImports")) {
+                //("got cchinclude").print();
+                for (p in build.params["cchImports"]) {
+                    //("cchinclude " + p).print();
+                    jsi = IO:File:Path.apNew(p).file;
+                    inc = jsi.reader.open().readString();
+                    jsi.reader.close();
+                    //("including " + inc).print();
+                    heow.write(inc);
+                }
+            }
+            
             heow.write("#include \"BED_4_Base.hpp\"\n");
             heow.write("using namespace std;\n");
             

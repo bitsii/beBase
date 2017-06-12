@@ -2,8 +2,6 @@
 >>cc<<
 
 bevt impl for cc
-  file to read and write .cpp too (?already exist?)
-    move includes there
   impl BETS_ob methods
   impl BET genned methods
   test in cctry
