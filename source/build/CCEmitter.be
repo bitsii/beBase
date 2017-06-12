@@ -243,13 +243,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         deow.write("class " + classConf.typeEmitName + ";\n");
         String beh = String.new();
         beh += "class " += classConf.typeEmitName += " : public BETS_Object {\n";
+        beh += "public:\n";
         beh += classConf.typeEmitName += "();\n";
         beh += "virtual shared_ptr<BEC_2_6_6_SystemObject> bems_createInstance();\n";
         beh += "};\n";
         heow.write(beh);
         
         String bet = String.new();
-        bet += classConf.typeEmitName += "::" += classConf.typeEmitName += "();\n";
+        bet += classConf.typeEmitName += "::" += classConf.typeEmitName += "() {\n";
         bet += "string[] bevs_mtnames = new string[] { ";
         Bool firstmnsyn = true;
         for (Build:MtdSyn mnsyn in csyn.mtdList) {
@@ -306,9 +307,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             deow = deop.file.writer.open();
             heow = heop.file.writer.open();
             
-            if (build.params.has("cchImports")) {
+            if (build.params.has("cchImport")) {
                 //("got cchinclude").print();
-                for (p in build.params["cchImports"]) {
+                for (p in build.params["cchImport"]) {
                     //("cchinclude " + p).print();
                     jsi = IO:File:Path.apNew(p).file;
                     inc = jsi.reader.open().readString();
@@ -367,6 +368,19 @@ use final class Build:CCEmitter(Build:EmitCommon) {
            }
             shlibe = libEmitPath.file.writer.open();
             //incorporate base file - ext lib
+            
+            if (build.params.has("ccImport")) {
+                //("got cchinclude").print();
+                for (p in build.params["ccImport"]) {
+                    //("cchinclude " + p).print();
+                    jsi = IO:File:Path.apNew(p).file;
+                    inc = jsi.reader.open().readString();
+                    jsi.reader.close();
+                    //("including " + inc).print();
+                    shlibe.write(inc);
+                }
+            }
+            
             shlibe.write("namespace be {\n");//}
             lineCount++;
             if (build.params.has("ccInclude")) {

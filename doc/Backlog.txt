@@ -2,9 +2,9 @@
 >>cc<<
 
 bevt impl for cc
+  add cc impl for bets and such
   impl BETS_ob methods
   impl BET genned methods
-  test in cctry
 
 dynamic methods for cc
 
@@ -14,9 +14,9 @@ throwing and catching (just simple construct etc?)
   for catch order matters
   have ... after the bracket for a catch to do something with that
   
-get code building
-
 native includes (bevis) -attr dec
+
+get code building
 
 sameType - cast null before after
 lib and such (object things, string things, int things)
