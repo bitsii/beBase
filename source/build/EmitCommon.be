@@ -813,6 +813,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     return(false);
   }
   
+  addClassHeader(String h) {
+  
+  }
+  
   acceptClass(Node node) {
      fields {
         String preClass = String.new();
@@ -917,19 +921,40 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         } else {
             dmname = "bemd_x";
         }
+        
         String superArgs = "callId";
         String args = "int callId";
         Int j = 1;
-        while (j < (dnumargs + 1) && j < maxDynArgs) {
-            args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
-            superArgs = superArgs + ", " + "bevd_" + (j - 1);
-            j++=;
+          
+        if(emitting("cc")) {
+        
+          while (j < (dnumargs + 1) && j < maxDynArgs) {
+              args = args + ", shared_ptr<" + objectCc.relEmitName(build.libName) + "> bevd_" + (j - 1);
+              superArgs = superArgs + ", " + "bevd_" + (j - 1);
+              j++=;
+          }
+          if (dnumargs >= maxDynArgs) {
+              args = args + ", vector<shared_ptr<" + objectCc.relEmitName(build.libName) + ">> bevd_x";
+              superArgs = superArgs + ", bevd_x";
+          }
+          
+          String dmh = "virtual shared_ptr<" + objectCc.relEmitName(build.libName) + "> " + dmname + "(" + args + ");" + nl;
+          addClassHeader(dmh);
+          dynMethods += "shared_ptr<" += objectCc.relEmitName(build.libName) += "> " += classConf.typeEmitName += "::" += dmname += "(" += args += ") {" += nl; //}
+        } else {
+          
+          while (j < (dnumargs + 1) && j < maxDynArgs) {
+              args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
+              superArgs = superArgs + ", " + "bevd_" + (j - 1);
+              j++=;
+          }
+          if (dnumargs >= maxDynArgs) {
+              args = args + ", " + objectCc.relEmitName(build.libName) + "[] bevd_x";
+              superArgs = superArgs + ", bevd_x";
+          }
+          
+          dynMethods += self.overrideMtdDec += objectCc.relEmitName(build.libName) += " " += dmname += "(" += args += ")" += exceptDec += " {" += nl;  //}
         }
-        if (dnumargs >= maxDynArgs) {
-            args = args + ", " + objectCc.relEmitName(build.libName) + "[] bevd_x";
-            superArgs = superArgs + ", bevd_x";
-        }
-        dynMethods += self.overrideMtdDec += objectCc.relEmitName(build.libName) += " " += dmname += "(" += args += ")" += exceptDec += " {" += nl;  //}
         dynMethods += "switch (callId) {" += nl; //}
         
         dgm = dnode.value;
@@ -968,7 +993,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             }
         }
         dynMethods += "}" += nl; //end of switch
-        dynMethods += "return " + self.superName + invp += dmname += "(" += superArgs += ");" += nl; 
+        if(emitting("cc")) {
+          dynMethods += "return bevs_super::" += dmname += "(" += superArgs += ");" += nl; 
+        } else {
+          dynMethods += "return " + self.superName + invp += dmname += "(" += superArgs += ");" += nl; 
+        }
         dynMethods += "}" += nl; //end of method for this argnum
       }
       

@@ -1,13 +1,6 @@
 
 >>cc<<
 
-bevt impl for cc
-  add cc impl for bets and such
-  impl BETS_ob methods
-  impl BET genned methods
-
-dynamic methods for cc
-
 throwing and catching (just simple construct etc?)
   have our own type which has a smart pointer member for our stuff (from std::exception)
     have a handleThrow
@@ -17,6 +10,8 @@ throwing and catching (just simple construct etc?)
 native includes (bevis) -attr dec
 
 get code building
+
+stuff in the object superclass bemds for forwardcalls and such from bemds
 
 sameType - cast null before after
 lib and such (object things, string things, int things)

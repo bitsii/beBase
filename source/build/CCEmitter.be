@@ -21,6 +21,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         fields {
           String headExt = ".hpp";
           String classHeadBody = String.new();
+          String classHeaders = String.new();
         }
         
         //super new depends on some things we set here, so it must follow
@@ -31,6 +32,10 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         nullValue = "nullptr";
         trueValue = "BECS_Runtime::boolTrue";
         falseValue = "BECS_Runtime::boolFalse";
+    }
+    
+    addClassHeader(String h) {
+      classHeaders += h;
     }
     
     classBegin(Build:ClassSyn csyn) String {
@@ -82,6 +87,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     classEndGet() String {
        String end = "";
        //{
+       heow.write(classHeaders);
+       classHeaders.clear();
        heow.write("};\n\n");
        return(end);
     }
@@ -251,7 +258,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         
         String bet = String.new();
         bet += classConf.typeEmitName += "::" += classConf.typeEmitName += "() {\n";
-        bet += "string[] bevs_mtnames = new string[] { ";
+        bet += "std::vector<std::string> bevs_mtnames = { ";
         Bool firstmnsyn = true;
         for (Build:MtdSyn mnsyn in csyn.mtdList) {
           if (firstmnsyn) {
@@ -264,7 +271,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
          bet += " };\n";
         bet += "bems_buildMethodNames(bevs_mtnames);\n";
         
-        bet += "bevs_fieldNames = new string[] { ";
+        bet += "bevs_fieldNames = { ";
         Bool firstptsyn = true;
         for (Build:PtySyn ptySyn in csyn.ptyList) {
           if (firstptsyn) {
@@ -283,7 +290,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         bet += "}\n";
         bet += "}\n";
         bet += "}\n";
-        //heow.write(bet);
+        getClassOutput().write(bet);
     }
    
    prepHeaderOutput() {
