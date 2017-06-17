@@ -19,6 +19,12 @@ final class Int {
 /*-attr- -firstSlotNative-*/
    """
    }
+      
+  emit(cc_classHead) {
+  """
+    int32_t bevi_int;
+  """
+  }
    
    emit(jv,cs) {
    """
@@ -55,6 +61,12 @@ final class Int {
       emit(js) {
       """
       this.bevi_int = 0;
+      """
+      }
+      
+      emit(cc) {
+      """
+      bevi_int = 0;
       """
       }
       

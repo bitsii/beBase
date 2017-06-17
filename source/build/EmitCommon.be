@@ -817,6 +817,18 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
   
   }
   
+  handleTransEmit(Node jn) {
+    if (jn.held.langs.has(self.emitLang)) {
+        preClass += emitReplace(jn.held.text);
+    }
+  }
+  
+  handleClassEmit(Node innode) {
+    if (innode.held.langs.has(self.emitLang)) {
+        classEmits += emitReplace(innode.held.text);
+    }
+  }
+  
   acceptClass(Node node) {
      fields {
         String preClass = String.new();
@@ -837,9 +849,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       if (def(te)) {
          for (te = te.iterator;te.hasNext;;) {
             any jn = te.next;
-            if (jn.held.langs.has(self.emitLang)) {
-                preClass += emitReplace(jn.held.text);
-            }
+            handleTransEmit(jn);
          }
       }
       
@@ -852,13 +862,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
        
        //Handle class level emits, maybe properties/members or methods (anything, really)
        if (def(node.held.emits)) {
-          String inlang = self.emitLang;
           for (Node innode in node.held.emits) {
             //figure out what anys are native
             nativeCSlots = getNativeCSlots(innode.held.text);
-            if (innode.held.langs.has(inlang)) {
-                classEmits += emitReplace(innode.held.text);
-            }
+            handleClassEmit(innode);
           }
        }
        

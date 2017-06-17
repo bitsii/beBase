@@ -92,15 +92,6 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("};\n\n");
        return(end);
     }
-    
-    acceptCatch(Node node) {
-    String catchVar = "beve_" + methodCatch.toString();
-    methodCatch++=;
-    methodBody += " catch (Throwable " += catchVar += ") {" += nl; //}
-    
-    methodBody += finalAssign(node.contained.first.contained.first, "(be.BECS_ThrowBack.handleThrow(" + catchVar + "))", null, null);
-
-   }
    
    baseMtdDec(Build:MtdSyn msyn) String {
      return("");
@@ -150,6 +141,26 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         return(tcall);
       }
       return(super.formCallTarg(node));
+   }
+   
+   acceptThrow(Node node) {
+        methodBody += "throw BECS_ThrowBack(" += formTarg(node.second) += ");" += nl;
+   }
+      
+   handleClassEmit(Node node) {
+      if (node.held.langs.has("cc_classHead")) {
+        classHeaders += node.held.text;
+      } else {
+        super.handleClassEmit(node);
+      }
+   }
+   
+   acceptCatch(Node node) {
+    String catchVar = "beve_" + methodCatch.toString();
+    methodCatch++=;
+    methodBody += " catch (BECS_ThrowBack " += catchVar += ") {" += nl; //}
+    
+    methodBody += finalAssign(node.contained.first.contained.first, "BECS_ThrowBack.handleThrow(" + catchVar + ")", null, null);
    }
    
    typeDecForVar(String b, Build:Var v) {

@@ -26,3 +26,11 @@ class BETS_Object {
     virtual shared_ptr<BEC_2_6_6_SystemObject> bems_createInstance();
 };
 
+
+class BECS_ThrowBack {
+public:
+    shared_ptr<BEC_2_6_6_SystemObject> wasThrown;
+    BECS_ThrowBack();
+    BECS_ThrowBack(shared_ptr<BEC_2_6_6_SystemObject> thrown);
+    static shared_ptr<BEC_2_6_6_SystemObject> handleThrow(BECS_ThrowBack thrown);
+};

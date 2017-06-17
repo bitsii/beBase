@@ -65,4 +65,14 @@ shared_ptr<BEC_2_6_6_SystemObject> BETS_Object::bems_createInstance() {
   return nullptr;
 }
 
+BECS_ThrowBack::BECS_ThrowBack();
+
+BECS_ThrowBack::BECS_ThrowBack(shared_ptr<BEC_2_6_6_SystemObject> thrown) {
+  wasThrown = thrown;
+}
+
+shared_ptr<BEC_2_6_6_SystemObject> BECS_ThrowBack::handleThrow(BECS_ThrowBack thrown) {
+  return thrown.wasThrown;
+}
+
 

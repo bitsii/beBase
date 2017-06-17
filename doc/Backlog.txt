@@ -1,15 +1,20 @@
 
 >>cc<<
 
-throwing and catching (just simple construct etc?)
-  have our own type which has a smart pointer member for our stuff (from std::exception)
-    have a handleThrow
-  for catch order matters
-  have ... after the bracket for a catch to do something with that
-  
-native includes (bevis) -attr dec
+lib runtime stuff (ids etc)
 
 get code building
+
+get hello world working
+
+add std::exception to catching, do something with it
+add ... to catching
+for catch order matters
+
+get stack traces going in throw
+do setjump/longjump and thread local and signal handlers to handle segv and such
+
+fwrite stdout vector unsigned char (len version)
 
 stuff in the object superclass bemds for forwardcalls and such from bemds
 
@@ -26,11 +31,6 @@ cycle detection
   valgrind massif gcc gprof
   optionally count number of instances of class created and destroyed and live
 
-exceptions from segmentation faults/ get stack
-
-getting stack traces (native at least, translation later)
-
-basic output
 extec cc nothread
 selfhost cc
 thread
@@ -45,7 +45,7 @@ int is 32bit signed cs/jv
 
 jv byte is signed 8bit int
 cs byte is unsigned 8bit int
-c++ unsigned char (like cs)
+c++ unsigned char (like cs) (vector of)
   unsigned char/char/signed char can be cast
   don't use string or streams, c style fopen, fread, fwrite
 
@@ -83,6 +83,8 @@ gratuitous returns
 ?have an option to make all casts in cc static casts for perf
   
 be clear that =@ and @ are hints/suggestions not definite, default is tho
+
+cc reserve for vector (esp bemd_x)
 
 TS.ne (notEmpty)
 TS.ie (isEmpty)
