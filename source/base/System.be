@@ -52,19 +52,7 @@ use final class System:Initializer {
     //also, this is one of the "special" calls, it can't reference itself (in c it's called with a null self reference)
     //first pass, just construct and set the class inst
     notNullInitConstruct(inst) {
-     emit(c) {
-      """
-/*-attr- -dec-*/
-BERT_ClassDef* bevl_scldef;
-      """
-      }
       any init;
-      emit(c) {
-      """
-         bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];
-         $init=* berv_sts->onceInstances[bevl_scldef->classId];
-      """
-      }
       emit(jv,cs,js) {
       """
       bevl_init = beva_inst.bemc_getInitial();
@@ -72,12 +60,6 @@ BERT_ClassDef* bevl_scldef;
       }
       if (undef(init)) {
         init = inst;
-        emit(c) {
-          """
-             berv_sts->onceInstances[bevl_scldef->classId] = $init*;
-             BERF_Add_Once(berv_sts, $init&*);
-          """
-          }
           emit(jv,cs,js) {
           """
           beva_inst.bemc_setInitial(bevl_init);
@@ -89,19 +71,7 @@ BERT_ClassDef* bevl_scldef;
     
     //second pass - calling default - can only be called on instances which have the method :-)
     notNullInitDefault(inst) {
-    emit(c) {
-          """
-/*-attr- -dec-*/
-BERT_ClassDef* bevl_scldef;
-      """
-      }
       any init;
-      emit(c) {
-      """
-         bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];
-         $init=* berv_sts->onceInstances[bevl_scldef->classId];
-      """
-      }
       emit(jv,cs,js) {
       """
       bevl_init = beva_inst.bemc_getInitial();

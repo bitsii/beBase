@@ -69,6 +69,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual shared_ptr<BEC_2_4_6_TextString> bemc_clnames();\n");
        heow.write("virtual shared_ptr<BEC_2_4_6_TextString> bemc_clfiles();\n");
        heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_create();\n");
+       heow.write("static shared_ptr<" + classConf.emitName + "> " + getInitialInst(classConf) + ";\n");
        heow.write("virtual void bemc_setInitial(shared_ptr<BEC_2_6_6_SystemObject> becc_inst);\n");
        heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_getInitial();\n");
 
@@ -154,6 +155,22 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         super.handleClassEmit(node);
       }
    }
+   
+   typeDecGet() String {
+   
+       String bein = "bece_" + classConf.emitName + "_bevs_type";
+   
+       String clh = "static " + classConf.typeEmitName + " " + bein + ";\n";
+       
+       addClassHeader(clh);
+       
+       String initialDec = String.new();
+       
+       initialDec += classConf.typeEmitName += " " += classConf.emitName += "::" += bein += ";";
+       
+       return(initialDec);
+       
+  }
    
    acceptCatch(Node node) {
     String catchVar = "beve_" + methodCatch.toString();
@@ -465,7 +482,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
          
          String bein = "bece_" + classConf.emitName + "_bevs_inst";
          
-         initialDec += "static shared_ptr<" += classConf.emitName += "> " += bein += ";\n";
+         initialDec += "shared_ptr<" += classConf.emitName += "> " += classConf.emitName += "::" += bein += ";\n";
          
          return(initialDec);
     }
@@ -494,7 +511,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         
         ccMethods += self.overrideMtdDec += "shared_ptr<" += oname += "> " += newcc.emitName += "::bemc_getInitial()" += exceptDec += " {" += nl;  //}
             
-            ccMethods += "return " += stinst += ";" += nl;
+            if (newcc.emitName != oname) {
+              ccMethods += "return static_pointer_cast<" += oname += ">(" += stinst += ");" += nl;
+            } else {
+              ccMethods += "return " += stinst += ";" += nl;
+            }
         //{
         ccMethods += "}" += nl;
         

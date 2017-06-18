@@ -1,8 +1,19 @@
 
 >>cc<<
 
-lib runtime stuff (ids etc)
+lib - runtime stuff
 
+   bece type initialization
+     virtual method to return
+     runtime unordered map, put in during init
+     
+   notnullinitdefault (all looks fine, just need to finish up with same thing as cs/jv)
+   
+   check that names, files, create, initial all good
+     
+   putNlecSourceMap
+   putCallId
+   
 get code building
 
 get hello world working
@@ -125,7 +136,6 @@ anonfunc, closure(ish) (eiffelish)
   only passed args and self
   symbol ~() { } 
 
-faster can
 in system:method pre-setup everything that can be (call int, etc) and do the call there (no invoke)
 for ~ split out the call name and number.  ?do like literals and pre-compute as onces? ("apply" is ok call)
 

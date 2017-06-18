@@ -586,7 +586,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 notNullInitDefault += "be.BECS_Runtime.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
             }
             
-            notNullInitConstruct += getTypeInst(getClassConfig(clnode.held.namepath)) += " = new " += getClassConfig(clnode.held.namepath).typeEmitName += "();\n";
+            unless(emitting("cc")) {
+              notNullInitConstruct += getTypeInst(getClassConfig(clnode.held.namepath)) += " = new " += getClassConfig(clnode.held.namepath).typeEmitName += "();\n";
+            }
             if(emitting("cs")) {
               notNullInitConstruct += "be.BECS_Runtime.typeRefs[" += q += clnode.held.namepath += q += "] = " += getTypeInst(getClassConfig(clnode.held.namepath)) += ";\n";
             } elseIf(emitting("jv")) {
