@@ -69,7 +69,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual shared_ptr<BEC_2_4_6_TextString> bemc_clnames();\n");
        heow.write("virtual shared_ptr<BEC_2_4_6_TextString> bemc_clfiles();\n");
        heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_create();\n");
-       heow.write("static shared_ptr<" + classConf.emitName + "> " + getInitialInst(classConf) + ";\n");
+       heow.write("static shared_ptr<" + classConf.emitName + "> " + getHeaderInitialInst(classConf) + ";\n");
        heow.write("virtual void bemc_setInitial(shared_ptr<BEC_2_6_6_SystemObject> becc_inst);\n");
        heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_getInitial();\n");
 
@@ -487,10 +487,16 @@ use final class Build:CCEmitter(Build:EmitCommon) {
          return(initialDec);
     }
     
-    getInitialInst(ClassConfig newcc) String {
+    getHeaderInitialInst(ClassConfig newcc) String {
       auto nccn = newcc.relEmitName(build.libName);
       String bein = "bece_" + nccn + "_bevs_inst";
       return(bein);
+     }
+    
+    getInitialInst(ClassConfig newcc) String {
+      auto nccn = newcc.relEmitName(build.libName);
+      String bein = "bece_" + nccn + "_bevs_inst";
+      return(nccn + "::" + bein);
      }
 
     buildInitial() {

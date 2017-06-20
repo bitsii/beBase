@@ -16,7 +16,7 @@ local class IO:File:Path(System:BasePath) {
          String driveLetter; //letter with :, like C:
       }
       
-      separator = System:CurrentPlatform.new().separator;
+      separator = System:CurrentPlatform.separator;
       fromString(spath);
    }
    

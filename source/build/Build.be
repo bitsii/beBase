@@ -158,7 +158,7 @@ final class Build:Build {
       }
       }
 
-      if (System:CurrentPlatform.new().name == "mswin") {
+      if (System:CurrentPlatform.name == "mswin") {
          params.preProcessor = self;
       }
       libName = params["libraryName"].first;
@@ -171,7 +171,7 @@ final class Build:Build {
       buildPath.addStep(libName);
       buildPath.addStep("target");
       includePath = File.new(params.get("includePath", "include").first).path;
-      platform = System:Platform.new(params.get("platform", System:CurrentPlatform.new().name).first);
+      platform = System:Platform.new(params.get("platform", System:CurrentPlatform.name).first);
       outputPlatform = System:Platform.new(params.get("outputPlatform", platform.name).first);
       ownProcess = Bool.new(params.get("ownProcess", "true").first);
       saveSyns = Bool.new(params.get("saveSyns", "false").first);
