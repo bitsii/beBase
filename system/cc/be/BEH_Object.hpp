@@ -1,4 +1,22 @@
 
+class BECS_Ids {
+    public:
+    static unordered_map<string, int> callIds;
+    static unordered_map<int, string> idCalls;
+    
+};
+
+class BECS_Lib {
+    public:
+    static void putCallId(string name, int iid);
+    
+    static int getCallId(string name);
+    
+    static void putNlcSourceMap(string clname, vector<int> vals);
+    
+    static void putNlecSourceMap(string clname, vector<int> vals);
+};
+
 class BECS_Object {
   public:
     virtual shared_ptr<BEC_2_4_6_TextString> bemc_clnames();
@@ -18,6 +36,14 @@ class BECS_Object {
     virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_x(int callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3, shared_ptr<BEC_2_6_6_SystemObject> bevd_4, shared_ptr<BEC_2_6_6_SystemObject> bevd_5, shared_ptr<BEC_2_6_6_SystemObject> bevd_6, vector<shared_ptr<BEC_2_6_6_SystemObject>> bevd_x);
 };
 
+class BECS_ThrowBack {
+public:
+    shared_ptr<BEC_2_6_6_SystemObject> wasThrown;
+    BECS_ThrowBack();
+    BECS_ThrowBack(shared_ptr<BEC_2_6_6_SystemObject> thrown);
+    static shared_ptr<BEC_2_6_6_SystemObject> handleThrow(BECS_ThrowBack thrown);
+};
+
 class BETS_Object {
   public:
     std::unordered_map<std::string, bool> bevs_methodNames;
@@ -26,11 +52,3 @@ class BETS_Object {
     virtual shared_ptr<BEC_2_6_6_SystemObject> bems_createInstance();
 };
 
-
-class BECS_ThrowBack {
-public:
-    shared_ptr<BEC_2_6_6_SystemObject> wasThrown;
-    BECS_ThrowBack();
-    BECS_ThrowBack(shared_ptr<BEC_2_6_6_SystemObject> thrown);
-    static shared_ptr<BEC_2_6_6_SystemObject> handleThrow(BECS_ThrowBack thrown);
-};

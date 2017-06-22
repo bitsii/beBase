@@ -72,7 +72,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("static shared_ptr<" + classConf.emitName + "> " + getHeaderInitialInst(classConf) + ";\n");
        heow.write("virtual void bemc_setInitial(shared_ptr<BEC_2_6_6_SystemObject> becc_inst);\n");
        heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_getInitial();\n");
-
+       heow.write("virtual BETS_Object bemc_getType();\n");
+       
        deow.write("class " + classConf.emitName + ";\n");
        
        return("");
@@ -522,6 +523,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             } else {
               ccMethods += "return " += stinst += ";" += nl;
             }
+        //{
+        ccMethods += "}" += nl;
+        
+        String tinst = getTypeInst(newcc);
+        
+        ccMethods += "BETS_Object* " += newcc.emitName += "::bemc_getType() {" += nl;  //}
+            
+            ccMethods += "return &" += tinst += ";" += nl;
         //{
         ccMethods += "}" += nl;
         

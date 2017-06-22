@@ -1,3 +1,25 @@
+    
+unordered_map<string, int> BECS_Ids::callIds;
+unordered_map<int, string> BECS_Ids::idCalls;
+
+
+void BECS_Lib::putCallId(string name, int iid) {
+    BECS_Ids::callIds[name] = iid;
+    BECS_Ids::idCalls[iid] = name;
+}
+    
+int BECS_Lib::getCallId(string name) {
+    return BECS_Ids::callIds[name];
+}
+    
+void BECS_Lib::putNlcSourceMap(string clname, vector<int> vals) {
+  BECS_Runtime::smnlcs[clname] = vals;
+}
+    
+void BECS_Lib::putNlecSourceMap(string clname, vector<int> vals) {
+  BECS_Runtime::smnlecs[clname] = vals;  
+}
+
 
 shared_ptr<BEC_2_4_6_TextString> BECS_Object::bemc_clnames() {
   return nullptr;  
