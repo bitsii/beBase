@@ -932,7 +932,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         
         String superArgs = "callId";
-        String args = "int callId";
+        if(emitting("cc")) {
+          args = "int32_t callId";
+        } else {
+          String args = "int callId";
+        }
         Int j = 1;
           
         if(emitting("cc")) {

@@ -3,14 +3,12 @@
 
 lib - runtime stuff
 
-   now lib and runtime
-
-   runtime unordered map, put in during init (pointer)
+   now runtime impl
      
    notnullinitdefault (all looks fine, just need to finish up with same thing as cs/jv)
    
    check that names, files, create, initial all good
-     
+ 
 get code building
    putNlecSourceMap
    putCallId

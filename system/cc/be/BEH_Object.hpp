@@ -1,20 +1,20 @@
 
 class BECS_Ids {
     public:
-    static unordered_map<string, int> callIds;
-    static unordered_map<int, string> idCalls;
+    static unordered_map<string, int32_t> callIds;
+    static unordered_map<int32_t, string> idCalls;
     
 };
 
 class BECS_Lib {
     public:
-    static void putCallId(string name, int iid);
+    static void putCallId(string name, int32_t iid);
     
-    static int getCallId(string name);
+    static int32_t getCallId(string name);
     
-    static void putNlcSourceMap(string clname, vector<int> vals);
+    static void putNlcSourceMap(string clname, vector<int32_t> vals);
     
-    static void putNlecSourceMap(string clname, vector<int> vals);
+    static void putNlecSourceMap(string clname, vector<int32_t> vals);
 };
 
 class BECS_Object {
@@ -25,15 +25,39 @@ class BECS_Object {
     virtual void bemc_setInitial(shared_ptr<BEC_2_6_6_SystemObject> becc_inst);
     virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_getInitial();
     //bemds, to 7 then x
-    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_0(int callId);
-    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_1(int callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0);
-    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_2(int callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1);
-    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_3(int callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2);
-    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_4(int callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3);
-    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_5(int callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3, shared_ptr<BEC_2_6_6_SystemObject> bevd_4);
-    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_6(int callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3, shared_ptr<BEC_2_6_6_SystemObject> bevd_4, shared_ptr<BEC_2_6_6_SystemObject> bevd_5);
-    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_7(int callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3, shared_ptr<BEC_2_6_6_SystemObject> bevd_4, shared_ptr<BEC_2_6_6_SystemObject> bevd_5, shared_ptr<BEC_2_6_6_SystemObject> bevd_6);
-    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_x(int callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3, shared_ptr<BEC_2_6_6_SystemObject> bevd_4, shared_ptr<BEC_2_6_6_SystemObject> bevd_5, shared_ptr<BEC_2_6_6_SystemObject> bevd_6, vector<shared_ptr<BEC_2_6_6_SystemObject>> bevd_x);
+    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_0(int32_t callId);
+    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_1(int32_t callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0);
+    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_2(int32_t callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1);
+    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_3(int32_t callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2);
+    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_4(int32_t callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3);
+    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_5(int32_t callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3, shared_ptr<BEC_2_6_6_SystemObject> bevd_4);
+    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_6(int32_t callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3, shared_ptr<BEC_2_6_6_SystemObject> bevd_4, shared_ptr<BEC_2_6_6_SystemObject> bevd_5);
+    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_7(int32_t callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3, shared_ptr<BEC_2_6_6_SystemObject> bevd_4, shared_ptr<BEC_2_6_6_SystemObject> bevd_5, shared_ptr<BEC_2_6_6_SystemObject> bevd_6);
+    virtual shared_ptr<BEC_2_6_6_SystemObject> bemd_x(int32_t callId, shared_ptr<BEC_2_6_6_SystemObject> bevd_0, shared_ptr<BEC_2_6_6_SystemObject> bevd_1, shared_ptr<BEC_2_6_6_SystemObject> bevd_2, shared_ptr<BEC_2_6_6_SystemObject> bevd_3, shared_ptr<BEC_2_6_6_SystemObject> bevd_4, shared_ptr<BEC_2_6_6_SystemObject> bevd_5, shared_ptr<BEC_2_6_6_SystemObject> bevd_6, vector<shared_ptr<BEC_2_6_6_SystemObject>> bevd_x);
+};
+
+class BECS_Runtime {
+    public:
+    static bool isInitted;
+    
+    static BEC_2_5_4_LogicBool boolTrue;
+    static BEC_2_5_4_LogicBool boolFalse;
+    
+    static unordered_map<string, BETS_Object> typeRefs;
+    
+    //for setting up initial instances
+    static BEC_2_6_11_SystemInitializer initializer;
+    
+    static string platformName;
+    
+    static vector<string> args;
+    
+    static unordered_map<string, vector<int32_t>> smnlcs;
+    static unordered_map<string, vector<int32_t>> smnlecs;
+    
+    static void init();
+    
+    static int32_t getNlcForNlec(string clname, int32_t val);
 };
 
 class BECS_ThrowBack {
