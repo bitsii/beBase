@@ -73,6 +73,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual void bemc_setInitial(shared_ptr<BEC_2_6_6_SystemObject> becc_inst);\n");
        heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_getInitial();\n");
        heow.write("virtual BETS_Object bemc_getType();\n");
+       heow.write("static vector<int32_t> bevs_smnlc;\n");
+       heow.write("static vector<int32_t> bevs_smnlec;\n");
        
        deow.write("class " + classConf.emitName + ";\n");
        
@@ -499,6 +501,10 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       String bein = "bece_" + nccn + "_bevs_inst";
       return(nccn + "::" + bein);
      }
+     
+    runtimeInitGet() String {
+        return("BECS_Runtime::init();" + nl);
+    }
 
     buildInitial() {
         String oname = getClassConfig(objectNp).relEmitName(build.libName);
@@ -535,5 +541,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         ccMethods += "}" += nl;
         
     }
+    
+    getTypeInst(ClassConfig newcc) String {
+    auto nccn = newcc.relEmitName(build.libName);
+    String bein = "bece_" + nccn + "_bevs_type";
+    return(nccn + "::" + bein);
+   }
 
 }

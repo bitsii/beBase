@@ -12,9 +12,9 @@ class BECS_Lib {
     
     static int32_t getCallId(string name);
     
-    static void putNlcSourceMap(string clname, vector<int32_t> vals);
+    static void putNlcSourceMap(string clname, vector<int32_t>& vals);
     
-    static void putNlecSourceMap(string clname, vector<int32_t> vals);
+    static void putNlecSourceMap(string clname, vector<int32_t>& vals);
 };
 
 class BECS_Object {
@@ -40,20 +40,20 @@ class BECS_Runtime {
     public:
     static bool isInitted;
     
-    static BEC_2_5_4_LogicBool boolTrue;
-    static BEC_2_5_4_LogicBool boolFalse;
+    static shared_ptr<BEC_2_5_4_LogicBool> boolTrue;
+    static shared_ptr<BEC_2_5_4_LogicBool> boolFalse;
     
-    static unordered_map<string, BETS_Object> typeRefs;
+    static unordered_map<string, BETS_Object&> typeRefs;
     
     //for setting up initial instances
-    static BEC_2_6_11_SystemInitializer initializer;
+    static shared_ptr<BEC_2_6_11_SystemInitializer> initializer;
     
     static string platformName;
     
     static vector<string> args;
     
-    static unordered_map<string, vector<int32_t>> smnlcs;
-    static unordered_map<string, vector<int32_t>> smnlecs;
+    static unordered_map<string, vector<int32_t>&> smnlcs;
+    static unordered_map<string, vector<int32_t>&> smnlecs;
     
     static void init();
     

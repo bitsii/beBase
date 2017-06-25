@@ -364,7 +364,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             //("nlcs " + nlcs + " nlecs " + nlecs).print();
             
-            String nlcNName = getClassConfig(clnode.held.namepath).relEmitName(build.libName) + ".";
+            if(emitting("cc")) {
+              nlcNName = getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "::";
+            } else {
+              String nlcNName = getClassConfig(clnode.held.namepath).relEmitName(build.libName) + ".";
+            }
             
             if(emitting("js")) {
               String smpref = 
@@ -394,6 +398,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
               methods += smpref += "bevs_smnlc";
               methods += " = [" += nlcs += "];" += nl;
             }
+            if(emitting("cc")) {
+               //header too
+               methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlc" += nl;
+               methods += " = {" += nlcs += "};" += nl;
+            }
             if(emitting("cs")) {
               //("nlcs " + nlcs + " nlecs " + nlecs).print();
               if (csyn.namepath == objectNp) {
@@ -413,6 +422,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             if (emitting("js")) {
               methods += smpref += "bevs_smnlec";
               methods += " = [" += nlecs += "];" += nl;
+            }
+            if(emitting("cc")) {
+               //header too
+               methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlec" += nl;
+               methods += " = {" += nlecs += "};" += nl;
             }
             
             methods += lineInfo;
@@ -558,32 +572,36 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         
         IO:File:Writer libe = getLibOutput();
-        libe.write(self.beginNs());
-        String extends = extend("be.BECS_Lib");
-        libe.write(self.klassDec(true) + libEmitName + extends + "  {" + nl);
-        libe.write(self.spropDec + self.boolType + " isInitted = false;" + nl);
+          
+        unless(emitting("cc")) {
         
-        String initLibs = String.new();
-        for (Build:Library bl in build.usedLibrarys) {
-            //bl.libName
-            initLibs += fullLibEmitName(bl.libName) += ".init();" += nl;
+          libe.write(self.beginNs());
+          String extends = extend("be.BECS_Lib");
+          libe.write(self.klassDec(true) + libEmitName + extends + "  {" + nl); //}
+          
         }
         
-        if (def(build.initLibs)) {
-          for (String il in build.initLibs) {
-            initLibs += "be." += il += ".init();" += nl;
-          }
-        }        
         String notNullInitConstruct = String.new();
         String notNullInitDefault = String.new();
+        
+        if(emitting("cc")) {
+          String initRef = "BECS_Runtime::initializer->";
+        } else {
+          initRef = "be.BECS_Runtime.initializer.";
+        }
+        
         for (any ci = classesInDepthOrder.iterator;ci.hasNext;;) {  
         
             any clnode = ci.next;
             
             if (clnode.held.syn.hasDefault) {
-                String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
-                notNullInitConstruct += "be.BECS_Runtime.initializer.bem_notNullInitConstruct_1(" += nc += ");" += nl;
-                notNullInitDefault += "be.BECS_Runtime.initializer.bem_notNullInitDefault_1(" += nc += ");" += nl;
+                if(emitting("cc")) {
+                  nc = "make_shared<" + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + ">()";
+                } else {
+                  String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
+                }
+                notNullInitConstruct += initRef += "bem_notNullInitConstruct_1(" += nc += ");" += nl;
+                notNullInitDefault += initRef += "bem_notNullInitDefault_1(" += nc += ");" += nl;
             }
             
             unless(emitting("cc")) {
@@ -593,6 +611,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
               notNullInitConstruct += "be.BECS_Runtime.typeRefs[" += q += clnode.held.namepath += q += "] = " += getTypeInst(getClassConfig(clnode.held.namepath)) += ";\n";
             } elseIf(emitting("jv")) {
               notNullInitConstruct += "be.BECS_Runtime.typeRefs.put(" += q += clnode.held.namepath += q += ", " += getTypeInst(getClassConfig(clnode.held.namepath)) += ");\n";
+            } elseIf(emitting("cc")) {
+              notNullInitConstruct += "BECS_Runtime::typeRefs[" += q += clnode.held.namepath += q += "] = " += getTypeInst(getClassConfig(clnode.held.namepath)) += ";\n";
             }
         }
         
@@ -609,15 +629,19 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           //break;
         }
         
-        libe.write(self.baseSmtdDec + "void init()" += exceptDec += " {" + nl);
-        if(emitting("jv")) {
-          libe.write("synchronized (" + libEmitName + ".class) {" + nl);//}
-        } elseIf(emitting("cs")) {
-          libe.write("lock (typeof(" + libEmitName + ")) {" + nl);//}
+        if(emitting("cc")) {
+          libe.write("void " + libEmitName + "::init() {" + nl); //}
+          libe.write("if (BECS_Runtime::isInitted) { return; }" + nl);
+          
+        } else {
+          libe.write(self.baseSmtdDec + "void init()" += exceptDec += " {" + nl); //}
+          if(emitting("jv")) {
+            libe.write("synchronized (" + libEmitName + ".class) {" + nl);//}
+          } elseIf(emitting("cs")) {
+            libe.write("lock (typeof(" + libEmitName + ")) {" + nl);//}
+          }
+          libe.write("if (BECS_Runtime.isInitted) { return; }" + nl);
         }
-        libe.write("if (isInitted) { return; }" + nl;);
-        libe.write("isInitted = true;" + nl);
-        libe.write(initLibs);
         libe.write(self.runtimeInit);
         libe.write(getNames);
         libe.write(smap);

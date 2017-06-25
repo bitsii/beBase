@@ -2,19 +2,26 @@
 >>cc<<
 
 lib - runtime stuff
-
-   now runtime impl
-     
-   notnullinitdefault (all looks fine, just need to finish up with same thing as cs/jv)
+   get contents of init method looking ok
+    
+   get main looking ok
+   
+   get BEX_E class def and lib extension declared ok
    
    check that names, files, create, initial all good
  
+bool constructor
+?string, int, float? constructors
+
 get code building
-   putNlecSourceMap
-   putCallId
-   
+
 stack trace on seg fault
 stack trace on any throw
+
+def and undef working
+notnullinitconstruct/default doing the right thing
+
+string to byte vector and back (cctry), print working
 
 get hello world working
 
