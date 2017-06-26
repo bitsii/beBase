@@ -253,6 +253,15 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       return("boolean");
    }
    
+   mainInClassGet() Bool {
+        return(false);
+    }
+    
+   
+   mainOutsideNsGet() Bool {
+        return(true);
+    }
+   
    mainStartGet() String {
         String ms = "main(String[] args)" + exceptDec + " {" + nl;//}
         ms += "synchronized (" += libEmitName += ".class) {" += nl;//}
@@ -318,8 +327,6 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         
         bet += classConf.typeEmitName += "::bems_createInstance() {\n";
         bet += "return new " += classConf.emitName += "();\n";
-        bet += "}\n";
-        bet += "}\n";
         bet += "}\n";
         getClassOutput().write(bet);
     }
@@ -437,8 +444,6 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
 
     finishLibOutput(IO:File:Writer libe) {
-        //{
-        libe.write("}\n");//end namespace
         libe.close();
         shlibe = null;
         //{

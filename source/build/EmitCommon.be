@@ -660,13 +660,16 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           //{
           libe.write("}" + nl);
         }
+        //{
         libe.write("}" + nl);
         
         if (self.mainInClass) {
             libe.write(main);
         }
         
+        //{
         libe.write("}" + nl);
+        
         libe.write(self.endNs());
         
         if (self.mainOutsideNs) {
