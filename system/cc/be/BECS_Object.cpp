@@ -20,6 +20,7 @@ void BECS_Lib::putNlecSourceMap(string clname, vector<int32_t>& vals) {
   BECS_Runtime::smnlecs[clname] = vals;  
 }
 
+void BECS_Lib::init() { }
 
 shared_ptr<BEC_2_4_6_TextString> BECS_Object::bemc_clnames() {
   return nullptr;  

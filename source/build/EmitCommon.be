@@ -560,12 +560,21 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         ClassConfig maincc = getClassConfig(mainClassNp);
         
         String main = "";
-        main += self.mainStart;
-        main += fullLibEmitName += ".init();" += nl;
-        main += maincc.fullEmitName += " mc = new " += maincc.fullEmitName += "();" += nl;
-        main += "mc.bem_new_0();" += nl;
-        main += "mc.bem_main_0();" += nl;
-        main += self.mainEnd;
+        if(emitting("cc")) {
+          main += "int main() {" += nl;
+          main += "be::BEX_E::init();" += nl;
+          main += "shared_ptr<be::" += maincc.emitName += "> mc = make_shared<be::" += maincc.emitName += ">();" += nl;
+          main += "mc->bem_new_0();" += nl;
+          main += "mc->bem_main_0();" += nl;
+          main += "}\n";
+        } else {
+          main += self.mainStart;
+          main += fullLibEmitName += ".init();" += nl;
+          main += maincc.fullEmitName += " mc = new " += maincc.fullEmitName += "();" += nl;
+          main += "mc.bem_new_0();" += nl;
+          main += "mc.bem_main_0();" += nl;
+          main += self.mainEnd;
+        }
         
         if (build.saveSyns) {
           saveSyns();

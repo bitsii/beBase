@@ -2,13 +2,10 @@
 >>cc<<
 
 lib - runtime stuff
-   get contents of init method looking ok
-    
-   get main looking ok
+
+   bad/extra closing } - class?  ns? other? make sure ns closes just before main
    
-   get BEX_E class def and lib extension declared ok
-   
-   check that names, files, create, initial all good
+   check that names, files, create all good
  
 bool constructor
 ?string, int, float? constructors

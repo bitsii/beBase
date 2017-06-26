@@ -15,6 +15,8 @@ class BECS_Lib {
     static void putNlcSourceMap(string clname, vector<int32_t>& vals);
     
     static void putNlecSourceMap(string clname, vector<int32_t>& vals);
+    
+    virtual void init();
 };
 
 class BECS_Object {

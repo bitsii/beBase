@@ -542,6 +542,15 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         
     }
     
+    emitLib() {
+      
+      deow.write("class BEX_E;\n");
+      heow.write("class BEX_E : public BECS_Lib {\npublic:\nvirtual void init();\n};\n");
+      
+      super.emitLib();
+      
+    }
+    
     getTypeInst(ClassConfig newcc) String {
     auto nccn = newcc.relEmitName(build.libName);
     String bein = "bece_" + nccn + "_bevs_type";
