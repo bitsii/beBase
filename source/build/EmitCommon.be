@@ -1279,6 +1279,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
              if (maxSpillArgsLen > 0) {
                if (emitting("js")) {
                 methods += "var bevd_x = new Array(" += maxSpillArgsLen.toString() += ");" += nl;
+               } elseIf (emitting("cc")) {
+                 methods += "vector<shared_ptr<" += objectCc.relEmitName(build.libName) += ">> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
                } else {
                 methods += objectCc.relEmitName(build.libName) += "[] bevd_x = new " += objectCc.relEmitName(build.libName) += "[" += maxSpillArgsLen.toString() += "];" += nl;
                }

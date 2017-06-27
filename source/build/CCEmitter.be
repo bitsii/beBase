@@ -75,6 +75,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual BETS_Object bemc_getType();\n");
        heow.write("static vector<int32_t> bevs_smnlc;\n");
        heow.write("static vector<int32_t> bevs_smnlec;\n");
+       heow.write("virtual ~" + classConf.emitName + "() = default;\n");
        
        deow.write("class " + classConf.emitName + ";\n");
        
@@ -325,8 +326,12 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         
         bet += "}\n";
         
-        bet += classConf.typeEmitName += "::bems_createInstance() {\n";
-        bet += "return new " += classConf.emitName += "();\n";
+        bet += "shared_ptr<BEC_2_6_6_SystemObject> " += classConf.typeEmitName += "::bems_createInstance() {\n";
+        if (classConf.emitName == "BEC_2_6_6_SystemObject") {
+          bet += "return make_shared<" += classConf.emitName += ">();\n";
+        } else {
+          bet += "return static_pointer_cast<BEC_2_6_6_SystemObject>(make_shared<" += classConf.emitName += ">());\n";
+        }
         bet += "}\n";
         getClassOutput().write(bet);
     }
