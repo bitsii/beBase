@@ -26,6 +26,14 @@ final class Bool {
    """
    }
    
+  emit(cc_classHead) {
+  """
+    bool bevi_bool;
+    BEC_2_5_4_LogicBool() { bevi_bool = false; }
+    BEC_2_5_4_LogicBool(bool a_bevi_bool) { bevi_bool = a_bevi_bool; }
+  """
+  }
+   
    emit(js) {
    """
    

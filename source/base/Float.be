@@ -22,6 +22,14 @@ final class Float {
    """
    }
    
+  emit(cc_classHead) {
+  """
+    float bevi_float;
+    BEC_2_4_5_MathFloat() { bevi_float = 0.0; }
+    BEC_2_4_5_MathFloat(float a_bevi_float) { bevi_float = a_bevi_float; }
+  """
+  }
+   
    emit(js) {
    """
    

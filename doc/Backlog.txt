@@ -3,10 +3,6 @@
 
 lib - runtime stuff
 
-bool constructor and bevs
-string, int, float, List constructors and bevssses
-use embedded values everywhere for native members to get destruct (vector for list, string)
-
 stack trace on seg fault (cctry...)
 stack trace on any throw (cctry...)
 
@@ -15,9 +11,8 @@ get code building
 def and undef working
 notnullinitconstruct/default doing the right thing
 
-string to byte vector and back (cctry), print working
-
 get hello world working
+  print
   simple no-reflect ver, dedicated main
 
 impl methodnotdefined
@@ -69,6 +64,8 @@ c++ unsigned char (like cs) (vector of)
 use object instead of any anywhere just object contract is needed (type them)
 
 support whole directory/patterns of files (?excludes too?), factor out plat/lang specific to own dir
+
+js libs/inclusion, repl shell (loading base) - all in web page code option, eval window, canvas
 
 skeletal lib stuff
   superclass to each class with dynamic methods - BECX (exe class)
@@ -405,7 +402,7 @@ int 32bit (c int, int32_t), float 32bit (c float), add long 64 (c long long) and
 allow signatures to mark arguments as safe - as not incorporated into members, not mutated, not passed along
 
 in practice now, int is 32, long varies long long is 64
-float is 32, double is 64
+float is 32, double is 64 - make our float a double someday? (who wants 32b floats?  have both?)
 unicode is max 4 bytes, fits in 32bit int
 have unsigned int value, for java, postive part of 64bit (long) - better because does not depend on
 signed implementation being something in particular (2s complement) for byte manipulation
