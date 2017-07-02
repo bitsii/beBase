@@ -15,10 +15,10 @@ CYC2=`date +%s`
 
 expr \( $CYC2 - $CYC1 \)
 
-#g++ -O3 -o ./targetEc/BEX_E_gcc.exe -Wfatal-errors -std=c++11 ./targetEc/Base/target/cc/be/BEX_E.cpp
+#g++ -o ./targetEc/BEX_E_gcc.exe -Wfatal-errors -std=c++11 ./targetEc/Base/target/cc/be/BEX_E.cpp
 
-#lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
+lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-#CYC3=`date +%s`
+CYC3=`date +%s`
 
-#expr \( $CYC3 - $CYC2 \)
+expr \( $CYC3 - $CYC2 \)
