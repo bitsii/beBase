@@ -2,7 +2,10 @@
 >>cc<<
 
 need to breakup sources (at least cpp), g++ chokes, clang++ soslow
-  ?by common namepath prefix?
+  by file, or by common package
+  gnu make -j, others -pipe cccache
+  only output if input file is newer than output
+  generate makefile
 
 stack trace on seg fault (cctry...)
 stack trace on any throw (cctry...)
