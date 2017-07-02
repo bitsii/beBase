@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
 #include <cstdint>
+#include <cstring>
+#include <unordered_map>
 
 using namespace std;
 
@@ -15,6 +17,7 @@ class BEX_E;
 class BEX_E {
   public:
     static int32_t bevn_an;
+    static unordered_map<string, int32_t> callIds;
 };
 
 class BECS_Object : public enable_shared_from_this<BECS_Object> { 
