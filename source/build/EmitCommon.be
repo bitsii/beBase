@@ -989,7 +989,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           
           String dmh = "virtual shared_ptr<" + objectCc.relEmitName(build.libName) + "> " + dmname + "(" + args + ");" + nl;
           addClassHeader(dmh);
-          dynMethods += "shared_ptr<" += objectCc.relEmitName(build.libName) += "> " += classConf.typeEmitName += "::" += dmname += "(" += args += ") {" += nl; //}
+          dynMethods += "shared_ptr<" += objectCc.relEmitName(build.libName) += "> " += classConf.emitName += "::" += dmname += "(" += args += ") {" += nl; //}
         } else {
           
           while (j < (dnumargs + 1) && j < maxDynArgs) {

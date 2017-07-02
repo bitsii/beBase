@@ -52,6 +52,12 @@ use final class Build:CCEmitter(Build:EmitCommon) {
          begin += "private:\n";
          
          begin += "typedef " += parentConf.relEmitName(build.libName) += " bevs_super;\n";
+      } else {
+         begin += "\n";
+         
+         begin += "private:\n";
+         
+         begin += "typedef BECS_Object bevs_super;\n";
       }
        
        begin += "\n";
@@ -72,7 +78,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("static shared_ptr<" + classConf.emitName + "> " + getHeaderInitialInst(classConf) + ";\n");
        heow.write("virtual void bemc_setInitial(shared_ptr<BEC_2_6_6_SystemObject> becc_inst);\n");
        heow.write("virtual shared_ptr<BEC_2_6_6_SystemObject> bemc_getInitial();\n");
-       heow.write("virtual BETS_Object bemc_getType();\n");
+       heow.write("virtual BETS_Object* bemc_getType();\n");
        heow.write("static vector<int32_t> bevs_smnlc;\n");
        heow.write("static vector<int32_t> bevs_smnlec;\n");
        heow.write("virtual ~" + classConf.emitName + "() = default;\n");
@@ -181,7 +187,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     methodCatch++=;
     methodBody += " catch (BECS_ThrowBack " += catchVar += ") {" += nl; //}
     
-    methodBody += finalAssign(node.contained.first.contained.first, "BECS_ThrowBack.handleThrow(" + catchVar + ")", null, null);
+    methodBody += finalAssign(node.contained.first.contained.first, "BECS_ThrowBack::handleThrow(" + catchVar + ")", null, null);
    }
    
    typeDecForVar(String b, Build:Var v) {
@@ -234,12 +240,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       
       lstringByte(String sdec, String lival, Int lipos, Int bcode, String hs) {
         
-        lival.getInt(lipos, bcode);
+        lival.getCode(lipos, bcode);
         String bc = bcode.toHexString(hs);
-        if (bc.begins("-")) {
-            bc = bc.substring(1);
-            sdec += "-";
-        }
         sdec += "0x"@;
         sdec += bc;
         //sdec += ","@;
@@ -418,6 +420,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
            }
             shlibe = libEmitPath.file.writer.open();
             //incorporate base file - ext lib
+            shlibe.write("#include \"BEH_4_Base.hpp\"\n");
             
             if (build.params.has("ccImport")) {
                 //("got cchinclude").print();
@@ -465,7 +468,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
     
    lstringStart(String sdec, String belsName) {
-      sdec += "static unsigned char " += belsName += "[] = {"; //}
+      sdec += "static vector<unsigned char> " += belsName += " = {"; //}
    }
    
    buildPropList() {
@@ -555,7 +558,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     emitLib() {
       
       deow.write("class BEX_E;\n");
-      heow.write("class BEX_E : public BECS_Lib {\npublic:\nvirtual void init();\n};\n");
+      heow.write("class BEX_E : public BECS_Lib {\npublic:\nstatic void init();\n};\n");
       
       super.emitLib();
       

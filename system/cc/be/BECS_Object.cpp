@@ -20,8 +20,6 @@ void BECS_Lib::putNlecSourceMap(string clname, vector<int32_t>& vals) {
   BECS_Runtime::smnlecs[clname] = vals;  
 }
 
-void BECS_Lib::init() { }
-
 shared_ptr<BEC_2_4_6_TextString> BECS_Object::bemc_clnames() {
   return nullptr;  
 }
@@ -78,12 +76,16 @@ shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_x(int32_t callId, shared_pt
   return nullptr;
 }
 
+shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bems_forwardCall(string mname, vector<shared_ptr<BEC_2_6_6_SystemObject>> bevd_x, int32_t numargs) {
+  return nullptr;
+}
+
 bool BECS_Runtime::isInitted = false;
 
 shared_ptr<BEC_2_5_4_LogicBool> BECS_Runtime::boolTrue;
 shared_ptr<BEC_2_5_4_LogicBool> BECS_Runtime::boolFalse;
 
-unordered_map<string, BETS_Object&> BECS_Runtime::typeRefs;
+unordered_map<string, BETS_Object> BECS_Runtime::typeRefs;
 
 //for setting up initial instances
 shared_ptr<BEC_2_6_11_SystemInitializer> BECS_Runtime::initializer;
@@ -92,8 +94,8 @@ string BECS_Runtime::platformName;
 
 vector<string> BECS_Runtime::args;
 
-unordered_map<string, vector<int32_t>&> BECS_Runtime::smnlcs;
-unordered_map<string, vector<int32_t>&> BECS_Runtime::smnlecs;
+unordered_map<string, vector<int32_t>> BECS_Runtime::smnlcs;
+unordered_map<string, vector<int32_t>> BECS_Runtime::smnlecs;
 
 void BECS_Runtime::init() { 
     if (isInitted) { return; }
@@ -106,8 +108,8 @@ void BECS_Runtime::init() {
 int32_t BECS_Runtime::getNlcForNlec(string clname, int32_t val) {
   
   if (smnlcs.count(clname) > 0 && smnlecs.count(clname) > 0) {
-    vector<int32_t>& sls = smnlcs[clname];
-    vector<int32_t>& esls = smnlecs[clname];
+    vector<int32_t> sls = smnlcs[clname];
+    vector<int32_t> esls = smnlecs[clname];
     //Console.WriteLine("esls is not null " + clname + " val " + val);
     int eslslen = esls.size();
     for (int i = 0;i < eslslen;i++) {
@@ -132,7 +134,7 @@ shared_ptr<BEC_2_6_6_SystemObject> BETS_Object::bems_createInstance() {
   return nullptr;
 }
 
-BECS_ThrowBack::BECS_ThrowBack();
+BECS_ThrowBack::BECS_ThrowBack() { }
 
 BECS_ThrowBack::BECS_ThrowBack(shared_ptr<BEC_2_6_6_SystemObject> thrown) {
   wasThrown = thrown;
