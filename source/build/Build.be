@@ -78,6 +78,7 @@ final class Build:Build {
          //current library
          Container:Set closeLibraries = Container:Set.new();
          Bool run = false;
+         Bool singleCC = false;
          String compiler;
          LinkedList emitLangs;
          LinkedList emitFlags;
@@ -240,6 +241,7 @@ final class Build:Build {
       genOnly = params.isTrue("genOnly");
       deployUsedLibraries = params.isTrue("deployUsedLibraries");
       run = params.isTrue("run");
+      singleCC = params.isTrue("singleCC");
       putLineNumbersInTrace = params.isTrue("putLineNumbersInTrace", true);
       emitLangs = params["emitLang"];
       emitFlags = params["emitFlag"];

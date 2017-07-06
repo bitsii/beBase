@@ -290,10 +290,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             complete(clnode);
             
-            writeBET();
-            
-            //open the class output file
+            //open the class output file, TODO could check writes, clear it here (for incr)
             IO:File:Writer cle = getClassOutput();
+            
+            startClassOutput(cle);
+            
+            writeBET();
             
             //gen into the file
             
@@ -482,6 +484,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             classConf.classDir.file.makeDirs();
         } 
         return(classConf.classPath.file.writer.open());
+   }
+   
+   startClassOutput(IO:File:Writer cle) {
+   
    }
    
    finishClassOutput(IO:File:Writer cle) {

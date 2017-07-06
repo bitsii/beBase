@@ -283,10 +283,27 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
     
     getClassOutput() IO:File:Writer {
+      if (build.singleCC) {
        return(getLibOutput());
+      }
+      return(super.getClassOutput());
+    }
+    
+   startClassOutput(IO:File:Writer cle) {
+     unless (build.singleCC) {
+       String clns = "#include \"BEH_4_Base.hpp\"\nnamespace be {\n"; //}
+       lineCount += countLines(clns);
+       cle.write(clns);
+     }
    }
 
    finishClassOutput(IO:File:Writer cle) {
+     unless (build.singleCC) {
+       //{
+       String clend = "}\n";
+       lineCount += countLines(clend);
+       cle.write(clend);
+     }
    }
    
    writeBET() {
@@ -336,6 +353,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         }
         bet += "}\n";
         getClassOutput().write(bet);
+        lineCount += countLines(bet);
     }
    
    prepHeaderOutput() {
