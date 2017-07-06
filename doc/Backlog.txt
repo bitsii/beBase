@@ -1,23 +1,14 @@
 
 >>cc<<
 
-only output if input file is newer than output - incr build
-  cc only, if not singleCC
-
-stack trace on seg fault (cctry...)
-stack trace on any throw (cctry...)
+gcc stack trace on seg fault (cctry...)
+gcc stack trace on any throw (cctry...)
 
 def and undef working
 notnullinitconstruct/default doing the right thing
 
 imple 
   System:Method.bems_forwardCall
-  
-if hit big issues try on linux
-
-make some things pointers
-  smnlec
-  typeRefs
 
 get hello world working
   print
@@ -28,6 +19,10 @@ impl methodnotdefined
 add std::exception to catching, do something with it
 add ... to catching
 for catch order matters
+
+make some things pointers
+  smnlec
+  typeRefs
 
 get stack traces going in throw
 do setjump/longjump and thread local and signal handlers to handle segv and such

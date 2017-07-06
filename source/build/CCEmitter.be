@@ -282,6 +282,26 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         return(" : public "@ + parent);
     }
     
+    preClassOutput() {
+      fields {
+        Time:Interval setOutputTime;
+      }
+      setOutputTime = null;
+      if (build.singleCC || classConf.classPath.file.exists!) {
+        return(self);
+      } else {
+        Time:Interval outts = classConf.classPath.file.lastUpdated;
+        Time:Interval ints = inClass.fromFile.file.lastUpdated;
+        if (ints > outts) {
+          //("newer outputting " + classConf.classPath).print();
+          //("tss " + ints + " " + outts).print();
+          return(self);
+        }
+        //("older not outputting " + classConf.classPath).print();
+        setOutputTime = outts;
+      }
+   }
+    
     getClassOutput() IO:File:Writer {
       if (build.singleCC) {
        return(getLibOutput());
@@ -303,6 +323,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        String clend = "}\n";
        lineCount += countLines(clend);
        cle.write(clend);
+       cle.close();
+       if (def(setOutputTime)) {
+        cle.path.file.lastUpdated = setOutputTime;
+        setOutputTime = null;
+       }
      }
    }
    

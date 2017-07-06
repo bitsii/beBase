@@ -177,6 +177,36 @@ void** bevl_frv;
       return(isDirGet());
    }
    
+   lastUpdatedGet() Time:Interval {
+   
+     auto lu = Time:Interval.new();
+     
+     emit(cs) {
+        """
+        string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+        long ctm = (long) (File.GetLastWriteTimeUtc(bevls_path) - BEC_2_4_8_TimeInterval.epochStart).TotalMilliseconds;
+        bevl_lu.bevp_secs.bevi_int = (int) (ctm / 1000);
+        bevl_lu.bevp_millis.bevi_int = (int) (ctm % 1000);
+        """
+        }
+      return(lu);
+   
+   }
+   
+   lastUpdatedSet(Time:Interval lu) {
+     
+     emit(cs) {
+        """
+        string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+        DateTime ts = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        ts = ts.AddSeconds(beva_lu.bevp_secs.bevi_int);
+        ts = ts.AddMilliseconds(beva_lu.bevp_millis.bevi_int);
+        File.SetLastWriteTimeUtc(bevls_path, ts);
+        """
+        }
+   
+   }
+   
    isDirGet() Bool {
    emit(c) {
       """

@@ -140,6 +140,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           Map smnlecs = Map.new();
           Map nameToId = Map.new();
           Map idToName = Map.new();
+          Build:Class inClass;
         }
     }
     
@@ -243,6 +244,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       
    }
    
+   preClassOutput() { }
+   
    doEmit() {
         
         //order by depth (of inheritance) to guarantee that a classes ancestors
@@ -290,7 +293,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             complete(clnode);
             
+            inClass = clnode.held;
+            
             //open the class output file, TODO could check writes, clear it here (for incr)
+            
+            preClassOutput();
+            
             IO:File:Writer cle = getClassOutput();
             
             startClassOutput(cle);
@@ -459,7 +467,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             //done writing
             //does not output anything else, if it ever does, will need to track lines
             finishClassOutput(cle);
-            
+              
          }
          emitLib();
     }
