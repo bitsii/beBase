@@ -64,7 +64,7 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       //now done properly by runtime
       //System:Process.new().platformSet(System:CurrentPlatform.new().setName("mswin"));
-      
+      "checking args".print();
       //this is manual...
       List args = System:Process.new().args;
       if (def(args)) {
@@ -73,7 +73,7 @@ class Test:ExtendedTest:EC(BaseTest) {
             createInstance(arg).new().main();
           }
       }
-      
+      "past checking args".print();
       if (args.isEmpty!) {
         "Had args, ran tests from args, returning".print();
         return(self);

@@ -2,7 +2,6 @@
 
 #rm -rf targetEc/Base/target/cc
 mono --debug target5/BEX_E_mcs.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC false
-
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 CYC1=`date +%s`

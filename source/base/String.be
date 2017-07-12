@@ -1060,6 +1060,13 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
       //output.writeIfPossible(self);
       //output.writeIfPossible(nl);
       
+     emit(cc) {
+     """
+     cout.write(reinterpret_cast<const char*>(&bevi_bytes[0]), bevp_size->bevi_int);
+     cout << endl;
+     """
+     }
+      
      emit(c) {
 """
 printf("%s\n", (char*) bevs[bercps]);

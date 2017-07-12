@@ -1,18 +1,14 @@
 
 >>cc<<
 
-gcc stack trace on seg fault (cctry...)
-gcc stack trace on any throw (cctry...)
+gdb start continue backtrace
+
+step through get tests running fix as go
 
 def and undef working
-notnullinitconstruct/default doing the right thing
 
 imple 
   System:Method.bems_forwardCall
-
-get hello world working
-  print
-  simple no-reflect ver, dedicated main
 
 impl methodnotdefined
 
@@ -26,6 +22,7 @@ make some things pointers
 
 get stack traces going in throw
 do setjump/longjump and thread local and signal handlers to handle segv and such
+backtrace and such for signals and throws
 
 fwrite stdout vector unsigned char (len version)
 

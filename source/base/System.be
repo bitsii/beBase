@@ -58,11 +58,21 @@ use final class System:Initializer {
       bevl_init = beva_inst.bemc_getInitial();
       """
       }
+      emit(cc) {
+      """
+      bevl_init = beva_inst->bemc_getInitial();
+      """
+      }
       if (undef(init)) {
         init = inst;
           emit(jv,cs,js) {
           """
           beva_inst.bemc_setInitial(bevl_init);
+          """
+          }
+          emit(cc) {
+          """
+          beva_inst->bemc_setInitial(bevl_init);
           """
           }
       }
@@ -75,6 +85,11 @@ use final class System:Initializer {
       emit(jv,cs,js) {
       """
       bevl_init = beva_inst.bemc_getInitial();
+      """
+      }
+      emit(cc) {
+      """
+      bevl_init = beva_inst->bemc_getInitial();
       """
       }
       init.default();
