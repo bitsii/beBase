@@ -335,6 +335,11 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       bevl_xi = bemc_clnames();
       """
       }
+      emit(cc) {
+      """
+      bevl_xi = bemc_clnames();
+      """
+      }
       emit(js) {
       """
       bevl_xi = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clname, this.becs_insts.becc_clname.length);
@@ -583,6 +588,11 @@ BERT_ClassDef* bevl_scldef;
       emit(jv,cs,js) {
       """
       bevl_copy = this.bemc_create();
+      """
+      }
+      emit(cc) {
+      """
+      bevl_copy = this->bemc_create();
       """
       }
       return(copy);

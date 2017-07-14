@@ -87,6 +87,7 @@ final class Build:Build {
          Bool putLineNumbersInTrace = false;
          Bool ownProcess = true;
          Bool saveSyns = false;
+         Bool saveIds = false;
          Text:String readBuffer = Text:String.new(4096);
          LinkedList loadSyns;
          LinkedList initLibs;
@@ -176,6 +177,7 @@ final class Build:Build {
       outputPlatform = System:Platform.new(params.get("outputPlatform", platform.name).first);
       ownProcess = Bool.new(params.get("ownProcess", "true").first);
       saveSyns = Bool.new(params.get("saveSyns", "false").first);
+      saveIds = Bool.new(params.get("saveIds", "false").first);
       loadSyns = params["loadSyns"];
       initLibs = params["initLib"];
 

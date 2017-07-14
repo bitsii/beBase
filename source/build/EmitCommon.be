@@ -110,6 +110,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           
           IO:File:Path synEmitPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName + ".syn");
           
+          IO:File:Path idToNamePath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName + "_itn.ids");
+          
+          IO:File:Path nameToIdPath = build.emitPath.copy().addStep(self.emitLang).addStep("be").addStep(libEmitName + "_nti.ids");
+          
           String methodBody = String.new();
           Int lastMethodBodySize = 0;
           Int lastMethodBodyLines = 0;
@@ -141,6 +145,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           Map nameToId = Map.new();
           Map idToName = Map.new();
           Build:Class inClass;
+        }
+        
+        if (build.saveIds) {
+          loadIds();
         }
     }
     
@@ -516,6 +524,44 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         ("Saving Syns took " + sse).print();
     }
     
+    saveIds() {
+        //"Saving Ids".print();
+        Time:Interval sst = Time:Interval.now();
+        IO:File:Writer idf;
+        
+        idf = nameToIdPath.file.writer.open()
+        System:Serializer.new().serialize(nameToId, idf);
+        idf.close();
+        
+        idf = idToNamePath.file.writer.open()
+        System:Serializer.new().serialize(idToName, idf);
+        idf.close();
+        
+        Time:Interval sse = Time:Interval.now() - sst;
+        //("Saving Ids took " + sse).print();
+    }
+    
+    loadIds() {
+        //"Loading Ids".print();
+        Time:Interval sst = Time:Interval.now();
+        IO:File:Reader idf;
+        
+        if (nameToIdPath.file.exists) {
+          idf = nameToIdPath.file.reader.open();
+          nameToId = System:Serializer.new().deserialize(idf);
+          idf.close();
+        }
+        
+        if (idToNamePath.file.exists) {
+          idf = idToNamePath.file.reader.open();
+          idToName = System:Serializer.new().deserialize(idf);
+          idf.close();
+        }
+        
+        Time:Interval sse = Time:Interval.now() - sst;
+        //("Loading Ids took " + sse).print();
+    }
+    
     finishLibOutput(IO:File:Writer libe) {
         libe.close();
     }
@@ -691,6 +737,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         
         finishLibOutput(libe);
+        
+        if (build.saveIds) {
+          saveIds();
+        }
         
     }
     

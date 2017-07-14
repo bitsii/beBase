@@ -1,9 +1,12 @@
 
 >>cc<<
 
-gdb start continue backtrace
+gdb start continue backtrace bld -ggdb
 
 step through get tests running fix as go
+  dedicated method, bring in basetests one at a time
+
+  system process args null
 
 def and undef working
 

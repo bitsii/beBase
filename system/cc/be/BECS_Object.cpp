@@ -41,6 +41,7 @@ shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemc_getInitial() {
 //bemds
 shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_0(int32_t callId) {
   //TODO impl bems_methodNotDefined, don't cast have a BECS_Object method
+  cout << "in bemd0 becs" << endl;
   return nullptr;
 }
 
