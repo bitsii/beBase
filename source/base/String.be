@@ -912,27 +912,6 @@ BEINT bevl_val;
    
    // Reader:readIntoBuffer (buffer, offset)
    copyValue(String org, Int starti, Int endi, Int dstarti) self {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BEINT j;
-BEINT si;
-char* bevl_ostr;
-char* bevl_dstr;
-void** bevl_starti;
-void** bevl_dstarti;
-
-/*
-BEINT i;
-BEINT ei;
-void** bevl_endi;
-*/
-
-void** bevl_leni;
-BEINT li;
-
-      """
-      }
       if ((starti < 0) || ((starti > org.size) || (endi > org.size))) {
          throw(System:Exception.new("copyValue request out of bounds"));
       } else {
@@ -975,36 +954,6 @@ BEINT li;
          """
          }
          
-         emit(c) {
-         """
-         bevl_ostr = (char*) $org&*[bercps];
-         bevl_dstr = (char*) bevs[bercps];
-         bevl_starti = $starti&*;
-         bevl_dstarti = $dstarti&*;
-         si = *((BEINT*) (bevl_starti + bercps));
-         j = *((BEINT*) (bevl_dstarti + bercps));
-         
-         /*via iterate*/
-         /*
-         bevl_endi = $endi&*;
-         ei = *((BEINT*) (bevl_endi + bercps));
-         for (i = si;i < ei;i++) {
-            bevl_dstr[j] = bevl_ostr[i];
-            j++;
-         }
-         */
-         
-         /*via memcpy*/
-         
-         bevl_leni = $mleni&*;
-         li = *((BEINT*) (bevl_leni + bercps));
-         bevl_dstr = bevl_dstr + j;
-         bevl_ostr = bevl_ostr + si;
-         /*dest, origin, amount*/
-         memcpy(bevl_dstr, bevl_ostr, li);
-         
-         """
-         }
          if (sizi > size) {
             ifEmit(c) {
                 setIntUnchecked(sizi, 0);

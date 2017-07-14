@@ -116,6 +116,11 @@ final class System:Process {
      Environment.Exit(beva_code.bevi_int);
      """
      }
+     emit(cc) {
+     """
+     exit(beva_code->bevi_int);
+     """
+     }
    }
    
    start(_target) {

@@ -1,10 +1,10 @@
 
 >>cc<<
 
-gdb start continue backtrace bld -ggdb
+gdb start continue (run) (catch throw) backtrace bld -ggdb
 
 step through get tests running fix as go
-  dedicated method, bring in basetests one at a time
+  substring not working, copyValue capacitySet
 
   system process args null
 

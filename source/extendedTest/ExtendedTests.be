@@ -82,13 +82,11 @@ class Test:ExtendedTest:EC(BaseTest) {
       //blarg;
       //testNullEquals();
       
-      Tests:Exceptions.new().main();
-      
       //if (true) { return(self); }
    
       Test:BaseTest:All.new().main();
       
-      
+      Tests:Exceptions.new().main();
 
       //try {
       //Test:ExtendedTest:All.new().main();

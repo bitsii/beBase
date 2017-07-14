@@ -1018,7 +1018,7 @@ class Test:BaseTest:All(BaseTest) {
          "abcd".substring(1).print();
          assertEqual("abcd".substring(1), "bcd");
          //if (true) { return(self); }
-         
+         //System:Process.exit(0);
          Tests:Function.new().main();
          Test:BaseTest:Float.new().main();
          Test:BaseTest:EC.new().main();
