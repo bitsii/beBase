@@ -184,6 +184,11 @@ bevl_float = (BEFLOAT*) (bevl_fi + bercps);
       bevl_fi.bevi_float = this.bevi_int * 1.0;
       """
       }
+      emit(cc) {
+      """
+      //bevl_fi->bevi_float = (float) this.bevi_int;
+      """
+      }
       return(fi);
    }
    
@@ -274,38 +279,43 @@ bevl_float = (BEFLOAT*) (bevl_fi + bercps);
 this.bevi_int = beva_xi.bevi_int;
 """
       }
+      emit(cc) {
+"""
+bevi_int = beva_xi->bevi_int;
+"""
+      }
       
       return(self);
    }
    
     increment() Int {
-        ifEmit(jv,cs,js) {
             Int res = Int.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_int = this.bevi_int + 1;
             """
             }
+            emit(cc) {
+            """
+                bevl_res->bevi_int = bevi_int + 1;
+            """
+            }
             return(res);
-        }
-        ifEmit(c) {
-            return(self++);
-        }
     }
    
     decrement() Int {
-        ifEmit(jv,cs,js) {
             Int res = Int.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_int = this.bevi_int - 1;
             """
             }
+            emit(cc) {
+            """
+                bevl_res->bevi_int = bevi_int - 1;
+            """
+            }
             return(res);
-        }
-        ifEmit(c) {
-            return(self--);
-        }
     }
    
    incrementValue() Int {
@@ -317,6 +327,11 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv,cs,js) {
       """
       this.bevi_int++;
+      """
+      }
+      emit(cc) {
+      """
+      bevi_int++;
       """
       }
       return(self);
@@ -333,22 +348,27 @@ this.bevi_int = beva_xi.bevi_int;
       this.bevi_int--;
       """
       }
+      emit(cc) {
+      """
+      bevi_int--;
+      """
+      }
       return(self);
    }
    
    add(Int xi) Int {
-        ifEmit(jv,cs,js) {
             Int res = Int.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_int = this.bevi_int + beva_xi.bevi_int;
             """
             }
+            emit(cc) {
+            """
+                bevl_res->bevi_int = bevi_int + beva_xi->bevi_int;
+            """
+            }
             return(res);
-        }
-        ifEmit(c) {
-            return(self + xi);
-        }
    }
    
    addValue(Int xi) Int {
@@ -362,22 +382,27 @@ this.bevi_int = beva_xi.bevi_int;
       this.bevi_int += beva_xi.bevi_int;
       """
       }
+      emit(cc) {
+      """
+      this->bevi_int += beva_xi->bevi_int;
+      """
+      }
       return(self);
    }
    
    subtract(Int xi) Int {
-      ifEmit(jv,cs,js) {
             Int res = Int.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_int = this.bevi_int - beva_xi.bevi_int;
             """
             }
+            emit(cc) {
+            """
+                bevl_res->bevi_int = bevi_int - beva_xi->bevi_int;
+            """
+            }
             return(res);
-        }
-        ifEmit(c) {
-            return(self - xi);
-        }
    }
    
    subtractValue(Int xi) Int {
@@ -391,22 +416,27 @@ this.bevi_int = beva_xi.bevi_int;
       this.bevi_int -= beva_xi.bevi_int;
       """
       }
+      emit(cc) {
+      """
+      bevi_int -= beva_xi->bevi_int;
+      """
+      }
       return(self);
    }
    
    multiply(Int xi) Int {
-    ifEmit(jv,cs,js) {
         Int res = Int.new();
         emit(jv,cs,js) {
         """
             bevl_res.bevi_int = this.bevi_int * beva_xi.bevi_int;
         """
         }
+        emit(cc) {
+        """
+            bevl_res->bevi_int = bevi_int * beva_xi->bevi_int;
+        """
+        }
         return(res);
-    }
-    ifEmit(c) {
-        return(self * xi);
-    }
    }
    
    multiplyValue(Int xi) Int {
@@ -420,15 +450,24 @@ this.bevi_int = beva_xi.bevi_int;
       this.bevi_int *= beva_xi.bevi_int;
       """
       }
+      emit(cc) {
+      """
+      bevi_int *= beva_xi->bevi_int;
+      """
+      }
       return(self);
    }
    
    divide(Int xi) Int {
-        ifEmit(jv,cs,js) {
             Int res = Int.new();
             emit(jv,cs) {
             """
                 bevl_res.bevi_int = this.bevi_int / beva_xi.bevi_int;
+            """
+            }
+            emit(cc) {
+            """
+                bevl_res->bevi_int = bevi_int / beva_xi->bevi_int;
             """
             }
             emit(js) {
@@ -437,10 +476,6 @@ this.bevi_int = beva_xi.bevi_int;
             """
             }
             return(res);
-        }
-        ifEmit(c) {
-            return(self / xi);
-        }
    }
    
    divideValue(Int xi) Int {
@@ -454,6 +489,11 @@ this.bevi_int = beva_xi.bevi_int;
       this.bevi_int /= beva_xi.bevi_int;
       """
       }
+      emit(cc) {
+      """
+      bevi_int /= beva_xi->bevi_int;
+      """
+      }
       emit(js) {
       """
       this.bevi_int = Math.floor(this.bevi_int / beva_xi.bevi_int);
@@ -463,18 +503,18 @@ this.bevi_int = beva_xi.bevi_int;
    }
    
    modulus(Int xi) Int {
-       ifEmit(jv,cs,js) {
             Int res = Int.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_int = this.bevi_int % beva_xi.bevi_int;
             """
             }
+            emit(cc) {
+            """
+                bevl_res->bevi_int = bevi_int % beva_xi->bevi_int;
+            """
+            }
             return(res);
-        }
-        ifEmit(c) {
-            return(self % xi);
-        }
    }
    
    modulusValue(Int xi) Int {
@@ -486,6 +526,11 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv,cs,js) {
       """
       this.bevi_int %= beva_xi.bevi_int;
+      """
+      }
+      emit(cc) {
+      """
+      bevi_int %= beva_xi->bevi_int;
       """
       }
       return(self);
@@ -503,6 +548,11 @@ this.bevi_int = beva_xi.bevi_int;
         bevl_toReti.bevi_int = this.bevi_int & beva_xi.bevi_int;
     """
     }
+    emit(cc) {
+    """
+        bevl_toReti->bevi_int = bevi_int & beva_xi->bevi_int;
+    """
+    }
     return(toReti);
    }
    
@@ -515,6 +565,11 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv,cs,js) {
     """
         this.bevi_int &= beva_xi.bevi_int;
+    """
+    }
+    emit(cc) {
+    """
+        bevi_int &= beva_xi->bevi_int;
     """
     }
       return(self);
@@ -532,6 +587,11 @@ this.bevi_int = beva_xi.bevi_int;
         bevl_toReti.bevi_int = this.bevi_int | beva_xi.bevi_int;
     """
     }
+    emit(cc) {
+    """
+        bevl_toReti->bevi_int = bevi_int | beva_xi->bevi_int;
+    """
+    }
       return(toReti);
    }
    
@@ -544,6 +604,11 @@ this.bevi_int = beva_xi.bevi_int;
        emit(jv,cs,js) {
     """
         this.bevi_int |= beva_xi.bevi_int;
+    """
+    }
+    emit(cc) {
+    """
+        bevi_int |= beva_xi->bevi_int;
     """
     }
       return(self);
@@ -561,6 +626,11 @@ this.bevi_int = beva_xi.bevi_int;
         bevl_toReti.bevi_int = this.bevi_int << beva_xi.bevi_int;
     """
     }
+    emit(cc) {
+    """
+        bevl_toReti->bevi_int = bevi_int << beva_xi->bevi_int;
+    """
+    }
       return(toReti);
    }
    
@@ -573,6 +643,11 @@ this.bevi_int = beva_xi.bevi_int;
        emit(jv,cs,js) {
     """
         this.bevi_int <<= beva_xi.bevi_int;
+    """
+    }
+    emit(cc) {
+    """
+        bevi_int <<= beva_xi->bevi_int;
     """
     }
       return(self);
@@ -590,6 +665,11 @@ this.bevi_int = beva_xi.bevi_int;
         bevl_toReti.bevi_int = this.bevi_int >> beva_xi.bevi_int;
     """
     }
+    emit(cc) {
+    """
+        bevl_toReti->bevi_int = bevi_int >> beva_xi->bevi_int;
+    """
+    }
       return(toReti);
    }
    
@@ -602,6 +682,11 @@ this.bevi_int = beva_xi.bevi_int;
       emit(jv,cs,js) {
     """
         this.bevi_int >>= beva_xi.bevi_int;
+    """
+    }
+    emit(cc) {
+    """
+        bevi_int >>= beva_xi->bevi_int;
     """
     }
       return(self);
@@ -646,6 +731,13 @@ this.bevi_int = beva_xi.bevi_int;
       //console.log("not eq");
       """
       }
+      emit(cc) {
+      """
+      if (bevi_int == dynamic_pointer_cast<BEC_2_4_3_MathInt>(beva_xi)->bevi_int) {
+        return BECS_Runtime::boolTrue;
+      }
+      """
+      }
       return(false);
    }
    
@@ -675,6 +767,13 @@ this.bevi_int = beva_xi.bevi_int;
       }
       """
       }
+      emit(cc) {
+      """
+      if (bevi_int != dynamic_pointer_cast<BEC_2_4_3_MathInt>(beva_xi)->bevi_int) {
+        return BECS_Runtime::boolTrue;
+      }
+      """
+      }
       return(false);
    }
    
@@ -693,6 +792,13 @@ this.bevi_int = beva_xi.bevi_int;
       """
       if (this.bevi_int > beva_xi.bevi_int) {
         return be_BECS_Runtime.prototype.boolTrue;
+      }
+      """
+      }
+      emit(cc) {
+      """
+      if (bevi_int > beva_xi->bevi_int) {
+        return BECS_Runtime::boolTrue;
       }
       """
       }
@@ -717,6 +823,13 @@ this.bevi_int = beva_xi.bevi_int;
       }
       """
       }
+      emit(cc) {
+      """
+      if (bevi_int < beva_xi->bevi_int) {
+        return BECS_Runtime::boolTrue;
+      }
+      """
+      }
       return(false);
    }
    
@@ -738,6 +851,13 @@ this.bevi_int = beva_xi.bevi_int;
       }
       """
       }
+      emit(cc) {
+      """
+      if (bevi_int >= beva_xi->bevi_int) {
+        return BECS_Runtime::boolTrue;
+      }
+      """
+      }
       return(false);
    }
    
@@ -756,6 +876,13 @@ this.bevi_int = beva_xi.bevi_int;
       """
       if (this.bevi_int <= beva_xi.bevi_int) {
         return be_BECS_Runtime.prototype.boolTrue;
+      }
+      """
+      }
+      emit(cc) {
+      """
+      if (bevi_int <= beva_xi->bevi_int) {
+        return BECS_Runtime::boolTrue;
       }
       """
       }
@@ -815,6 +942,12 @@ void** bevl__min;
       bevl__min.bevi_int = (Math.pow(2, 31) - 1) * -1;//this is one more than the others (ends with 7 instead of 8)
       //console.log(bevl__max.bevi_int);
       //console.log(bevl__min.bevi_int);
+      """
+      }
+      emit(cc) {
+      """
+      bevl__max->bevi_int = numeric_limits<int32_t>::max();
+      bevl__min->bevi_int = numeric_limits<int32_t>::min();
       """
       }
       fields {

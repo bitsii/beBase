@@ -4,3 +4,5 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
+#include <limits>
+#include <cstdint>

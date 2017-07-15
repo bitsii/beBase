@@ -254,6 +254,11 @@ final class String {
       }
       """
       }
+      emit(cc) {
+      """
+        bevi_bytes.resize(beva_ncap->bevi_int, 0);
+      """
+      }
       emit(js) {
       """
       if (this.bevi_bytes == null) {
@@ -881,6 +886,19 @@ BEINT bevl_val;
    }
   """
   }
+  emit(cc) {
+  """
+  shared_ptr<BEC_2_4_6_TextString> bevls_stri = dynamic_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
+    if (bevp_size->bevi_int == bevls_stri->bevp_size->bevi_int) {
+       for (int32_t i = 0;i < bevp_size->bevi_int;i++) {
+          if (bevi_bytes[i] != bevls_stri->bevi_bytes[i]) {
+            return BECS_Runtime::boolFalse;
+          }
+       }
+       return BECS_Runtime::boolTrue;
+   }
+  """
+  }
   emit(js) {
    """
    if (this.bevp_size.bevi_int === beva_stri.bevp_size.bevi_int) {
@@ -943,6 +961,14 @@ BEINT bevl_val;
          """
          //source, sourceStart, dest, destStart, length
          Array.Copy(beva_org.bevi_bytes, beva_starti.bevi_int, this.bevi_bytes, beva_dstarti.bevi_int, bevl_mleni.bevi_int); 
+         """
+         }
+         
+         emit(cc) {
+         """
+         for (int32_t i = 0; i < bevl_mleni->bevi_int;i++) {
+            bevi_bytes[i + beva_dstarti->bevi_int] = beva_org->bevi_bytes[i + beva_starti->bevi_int];
+         }
          """
          }
          
