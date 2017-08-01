@@ -33,7 +33,8 @@ class Tests:Function(BaseTest) {
       
       //p = getMethod("printOne_1");
       Mapper.map(n, p);
-      
+      "gonna print n3".print();
+      return(self);
       n[3].print();
       assertEquals(n[3], 2);
       

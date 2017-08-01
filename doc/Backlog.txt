@@ -2,6 +2,7 @@
 >>cc<<
 
 gdb (catch throw) (run) start continue backtrace bld -ggdb
+finally?
 
 step through get tests running fix as go
   for each type do all the emits
