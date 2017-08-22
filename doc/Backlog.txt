@@ -102,6 +102,9 @@ gratuitous returns
 ?have an option to make all casts in cc static casts for perf
   
 be clear that =@ and @ are hints/suggestions not definite, default is tho
+  efficiency hint / may reuse
+
+git based packaging (based on libs)
 
 TS.ne (notEmpty)
 TS.ie (isEmpty)
@@ -120,6 +123,8 @@ field prefix to any dec makes it a field
   std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr
 
 =====
+
+abandon cs
 
 direct accessors
   like dynamic call for get/set (bemd)

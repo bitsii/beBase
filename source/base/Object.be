@@ -191,7 +191,7 @@ class System:Object {
       ifEmit(c,js) {
         args = args.copy(); //do we still need to do this? - yes for js, to be sure the array is exactly the length of the args
       }
-      ifEmit(jv,cs) {
+      ifEmit(jv,cs, cc) {
         if (numargs > 7) { 
             List args2 = List.new(numargs - 7); 
             for (Int i = 7;i < numargs;i++=) {
@@ -201,12 +201,17 @@ class System:Object {
       }
       emit(jv) {
         """
-        int ci = be.BECS_Ids.callIds.get(new String(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int, "UTF-8"));
+        int ci = be.BECS_Ids.callIds.get(bevl_cname.bems_toJvString());
         """
       }
       emit(cs) {
         """
-        int ci = be.BECS_Ids.callIds[System.Text.Encoding.UTF8.GetString(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int)];
+        int ci = be.BECS_Ids.callIds[bevl_cname.bems_toCsString()];
+        """
+      }
+      emit(cc) {
+        """
+        int32_t ci = BECS_Ids::callIds[bevl_cname->bems_toCcString()];
         """
       }
       emit(jv,cs) {
@@ -229,6 +234,15 @@ class System:Object {
             bevl_rval = bemd_7(ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4], beva_args.bevi_list[5], beva_args.bevi_list[6]);
         } else {
             bevl_rval = bemd_x(ci, beva_args.bevi_list[0], beva_args.bevi_list[1], beva_args.bevi_list[2], beva_args.bevi_list[3], beva_args.bevi_list[4], beva_args.bevi_list[5], beva_args.bevi_list[6], bevl_args2.bevi_list);
+        }
+        """
+      }
+      emit(cc) {
+        """
+        if (bevl_numargs->bevi_int == 0) {
+            bevl_rval = bemd_0(ci);
+        } else if (bevl_numargs->bevi_int == 1) {
+            bevl_rval = bemd_1(ci, beva_args->bevi_list[0]);
         }
         """
       }

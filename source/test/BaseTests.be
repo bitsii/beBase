@@ -1019,6 +1019,7 @@ class Test:BaseTest:All(BaseTest) {
          assertEqual("abcd".substring(1), "bcd");
          //if (true) { return(self); }
          //System:Process.exit(0);
+         Test:BaseTest:List.new().main();
          Tests:Function.new().main();
          Test:BaseTest:Float.new().main();
          Test:BaseTest:EC.new().main();
@@ -1028,7 +1029,6 @@ class Test:BaseTest:All(BaseTest) {
          Test:BaseTest:Null.new().main();
          //BaseTest:Class.new().main();
          Test:BaseTest:Int.new().main();
-         Test:BaseTest:List.new().main();
          Test:BaseTest:ParseCorners.new().main();
          Test:BaseTest:Calls.new().main();
          Tests:CallArgs.new().main();
