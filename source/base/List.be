@@ -193,6 +193,14 @@ if (def(length)) {
       this.bevi_list = new Array(beva_capi.bevi_int);
       """
       }
+      emit(cc) {
+      """
+      if (bevi_list.size() > 0) {
+        bevi_list.resize(0); //the others clear in this case, this preps for that
+      }
+      bevi_list.resize(beva_capi->bevi_int);
+      """
+      }
       
       fields {
          //any anyray;
@@ -251,6 +259,11 @@ if (def(length)) {
       this.bevi_list[beva_posi.bevi_int] = beva_val;
       """
       }
+      emit(cc) {
+      """
+      bevi_list[beva_posi->bevi_int] = beva_val;
+      """
+      }
    }
    
    get(Int posi) {
@@ -259,6 +272,11 @@ if (def(length)) {
       emit(jv,cs,js) {
       """
       bevl_val = this.bevi_list[beva_posi.bevi_int];
+      """
+      }
+      emit(cc) {
+      """
+      bevl_val = bevi_list[beva_posi->bevi_int];
       """
       }
       }
@@ -419,6 +437,11 @@ if (def(length)) {
          this.bevi_list[bevl_newcap.bevi_int - 1] = null;//js arrays grow :-)
          """
          }
+         emit(cc) {
+         """
+         bevi_list.resize(bevl_newcap->bevi_int);
+         """
+         }
          capacity = newcap;
       }
       //zero extra
@@ -426,6 +449,11 @@ if (def(length)) {
         emit(jv,cs,js) {
          """
          this.bevi_list[this.bevp_length.bevi_int] = null;
+         """
+         }
+         emit(cc) {
+         """
+         bevi_list[bevp_length->bevi_int] = nullptr;
          """
          }
          length++=;
@@ -452,6 +480,11 @@ if (def(length)) {
        emit(jv,cs,js) {
        """
        this.bevi_list[this.bevp_length.bevi_int] = beva_val;
+       """
+       }
+       emit(cc) {
+       """
+       bevi_list[bevp_length->bevi_int] = beva_val;
        """
        }
        length++=;

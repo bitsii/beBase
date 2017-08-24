@@ -116,6 +116,33 @@ class System:Object {
       }
       """
       }
+      emit(cc) {
+        """
+        string key = beva_cname->bems_toCcString();
+        cout << key << endl;
+        if (BECS_Runtime::typeRefs.count(key) > 0) {
+          cout << "has key" << endl;
+          
+          //doesn't work, lost on way in, must be ptr in typerefs
+          BETS_Object* ti = dynamic_cast<BETS_Object*>(&BECS_Runtime::typeRefs[key]);
+          
+          //works
+          //BETS_Object* ti = dynamic_cast<BETS_Object*> //(&BEC_2_4_3_MathInt::bece_BEC_2_4_3_MathInt_bevs_type);
+          
+          //works
+          //BET_2_4_3_MathInt* mi = new BET_2_4_3_MathInt();
+          //BETS_Object* ti = dynamic_cast<BETS_Object*> (mi);
+          
+          
+          bevl_result = ti->bems_createInstance();
+          //bevl_result = //static_pointer_cast<BEC_2_6_6_SystemObject>(make_shared<BEC_2_4_3_MathInt>());
+          
+        } 
+        if (bevl_result == nullptr) {
+          cout << "res nptr" << endl;
+        }
+        """
+      }
       
       if (undef(result)) {
         if (throwOnFail) {
@@ -212,6 +239,7 @@ class System:Object {
       emit(cc) {
         """
         int32_t ci = BECS_Ids::callIds[bevl_cname->bems_toCcString()];
+        //check for count first?  this inserts the val
         """
       }
       emit(jv,cs) {

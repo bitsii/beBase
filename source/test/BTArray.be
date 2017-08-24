@@ -49,7 +49,9 @@ class Test:BaseTest:List(BaseTest) {
       any uux = List.new(2);
       uux.put(0, "Hi");
       uux[1] = "There";
+      "asserting on hi".print();
       assertEquals(uux[0], "Hi");
+      "afterhi assert".print();
       uux.put(4, "Last");
       Int x = 0;
       for (any i = uux.iterator;i.hasNext;;) {
