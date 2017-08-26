@@ -123,11 +123,10 @@ class System:Object {
         if (BECS_Runtime::typeRefs.count(key) > 0) {
           cout << "has key" << endl;
           
-          //doesn't work, lost on way in, must be ptr in typerefs
-          BETS_Object* ti = dynamic_cast<BETS_Object*>(&BECS_Runtime::typeRefs[key]);
+          BETS_Object* ti = BECS_Runtime::typeRefs[key];
           
           //works
-          //BETS_Object* ti = dynamic_cast<BETS_Object*> //(&BEC_2_4_3_MathInt::bece_BEC_2_4_3_MathInt_bevs_type);
+          //BETS_Object* ti = static_cast<BETS_Object*>   //(&BEC_2_4_3_MathInt::bece_BEC_2_4_3_MathInt_bevs_type);
           
           //works
           //BET_2_4_3_MathInt* mi = new BET_2_4_3_MathInt();

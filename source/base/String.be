@@ -539,6 +539,14 @@ char* bevl_str;
          }
          """
          }
+         emit(cc) {
+         """
+         beva_into->bevi_int = (int32_t) bevi_bytes[beva_pos->bevi_int];
+         if (beva_into->bevi_int > 127) {
+            beva_into->bevi_int -= 256;
+         }
+         """
+         }
       } else {
         return(null);
       }
@@ -659,6 +667,15 @@ char* bevl_str;
         twvls_b += 256;
      }
      this.bevi_bytes[beva_pos.bevi_int] = twvls_b;
+     """
+     }
+     emit(cc) {
+     """
+     int32_t twvls_b = beva_into->bevi_int;
+     if (twvls_b < 0) {
+        twvls_b += 256;
+     }
+     bevi_bytes[beva_pos->bevi_int] = (unsigned char) twvls_b;
      """
      }
    }

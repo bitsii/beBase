@@ -86,7 +86,7 @@ bool BECS_Runtime::isInitted = false;
 shared_ptr<BEC_2_5_4_LogicBool> BECS_Runtime::boolTrue;
 shared_ptr<BEC_2_5_4_LogicBool> BECS_Runtime::boolFalse;
 
-unordered_map<string, BETS_Object> BECS_Runtime::typeRefs;
+unordered_map<string, BETS_Object*> BECS_Runtime::typeRefs;
 
 //for setting up initial instances
 shared_ptr<BEC_2_6_11_SystemInitializer> BECS_Runtime::initializer;

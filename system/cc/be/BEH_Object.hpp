@@ -46,7 +46,7 @@ class BECS_Runtime {
     static shared_ptr<BEC_2_5_4_LogicBool> boolTrue;
     static shared_ptr<BEC_2_5_4_LogicBool> boolFalse;
     
-    static unordered_map<string, BETS_Object> typeRefs;
+    static unordered_map<string, BETS_Object*> typeRefs;
     
     //for setting up initial instances
     static shared_ptr<BEC_2_6_11_SystemInitializer> initializer;

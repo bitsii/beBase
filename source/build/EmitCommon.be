@@ -681,7 +681,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             } elseIf(emitting("jv")) {
               notNullInitConstruct += "be.BECS_Runtime.typeRefs.put(" += q += clnode.held.namepath += q += ", " += getTypeInst(getClassConfig(clnode.held.namepath)) += ");\n";
             } elseIf(emitting("cc")) {
-              notNullInitConstruct += "BECS_Runtime::typeRefs[" += q += clnode.held.namepath += q += "] = " += getTypeInst(getClassConfig(clnode.held.namepath)) += ";\n";
+              notNullInitConstruct += "BECS_Runtime::typeRefs[" += q += clnode.held.namepath += q += "] = static_cast<BETS_Object*>   (&" += getTypeInst(getClassConfig(clnode.held.namepath)) += ");\n";
             }
         }
         
