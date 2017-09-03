@@ -270,6 +270,20 @@ class System:Object {
             bevl_rval = bemd_0(ci);
         } else if (bevl_numargs->bevi_int == 1) {
             bevl_rval = bemd_1(ci, beva_args->bevi_list[0]);
+        } else if (bevl_numargs->bevi_int == 2) {
+            bevl_rval = bemd_2(ci, beva_args->bevi_list[0], beva_args->bevi_list[1]);
+        } else if (bevl_numargs->bevi_int == 3) {
+            bevl_rval = bemd_3(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2]);
+        } else if (bevl_numargs->bevi_int == 4) {
+            bevl_rval = bemd_4(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3]);
+        } else if (bevl_numargs->bevi_int == 5) {
+            bevl_rval = bemd_5(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4]);
+        }  else if (bevl_numargs->bevi_int == 6) {
+            bevl_rval = bemd_6(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4], beva_args->bevi_list[5]);
+        }  else if (bevl_numargs->bevi_int == 7) {
+            bevl_rval = bemd_7(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4], beva_args->bevi_list[5], beva_args->bevi_list[6]);
+        }  else {
+            bevl_rval = bemd_x(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4], beva_args->bevi_list[5], beva_args->bevi_list[6], bevl_args2->bevi_list);
         }
         """
       }

@@ -51,6 +51,8 @@ cycle detection
 extec cc nothread
 selfhost cc
 thread
+
+make js more like others?
   
 <<cc>>
 

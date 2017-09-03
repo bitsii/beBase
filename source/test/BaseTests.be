@@ -1033,7 +1033,7 @@ class Test:BaseTest:All(BaseTest) {
          Tests:CallArgs.new().main();
          Tests:CallArgsFinal.new().main();
          //Tests:Exceptions.new().main();
-         //Test:BaseTest:Invoke.new().main();
+         Test:BaseTest:Invoke.new().main();
          Test:BaseTest:Gc.new().main();
          Test:CREComp.new();
          //} catch (any e) { 
