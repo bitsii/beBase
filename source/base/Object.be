@@ -196,6 +196,21 @@ class System:Object {
      """
      }
      
+     emit(cc) {
+      """
+      
+      BETS_Object* bevs_cano = bemc_getType();
+      std::vector<std::string>* fnames = &bevs_cano->bevs_fieldNames;
+
+      for (int i = 0;i < fnames->size();i++) {
+
+       bevl_names->bem_addValue_1(static_pointer_cast<BEC_2_6_6_SystemObject>(make_shared<BEC_2_4_6_TextString>(fnames->at(i))));
+
+      }
+      
+      """
+      }
+     
      return(names);
    
    }
@@ -351,6 +366,19 @@ class System:Object {
       if (this["bem_" + this.bems_stringToJsString_1(bevl_cname)] != null) {
         return be_BECS_Runtime.prototype.boolTrue;
       }
+      """
+      }
+      emit(cc) {
+      """
+      
+      string name = bevl_cname->bems_toCcString();
+      
+      BETS_Object* bevs_cano = bemc_getType();
+      
+      if (bevs_cano->bevs_methodNames.count(name) > 0) {
+        return BECS_Runtime::boolTrue;
+      }
+      
       """
       }
       if (false) {
