@@ -37,11 +37,14 @@ class System:Method {
           any target = _target;
           auto callName = _callName;
           auto ac = _ac;
+          //("new method " + _callName + " " + _ac).print();
       }
   }
 
   //use apply(args) to call (by convention)
   forwardCall(String name, List args) any {
+    //"in fc".print();
+    //("fc name " + callName + " fc args " + args.size).print();
     any result = target.invoke(callName, args);
     return(result);
   }

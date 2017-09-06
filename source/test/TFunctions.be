@@ -56,6 +56,7 @@ class Tests:Function(BaseTest) {
    }
    
    one(x) {
+      "in ret1".print();
       return(1);
    }
    
@@ -64,6 +65,7 @@ class Tests:Function(BaseTest) {
    }
    
    printOne(x) {
+      "in printone".print();
       x.print();
       return(x);
    }

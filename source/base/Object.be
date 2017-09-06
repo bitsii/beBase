@@ -817,7 +817,28 @@ void** bevl_other;
     }
    """
    }
-   
+
+emit(cc_classHead) {
+   """
+virtual shared_ptr<BEC_2_6_6_SystemObject> bems_forwardCall(string mname, vector<shared_ptr<BEC_2_6_6_SystemObject>> bevd_x, int32_t numargs);
+  """
+}
+
+emit(cc) {
+   """
+
+shared_ptr<BEC_2_6_6_SystemObject> BEC_2_6_6_SystemObject::bems_forwardCall(string mname, vector<shared_ptr<BEC_2_6_6_SystemObject>> bevd_x, int32_t numargs) {
+  //cout << "in sfwdcall " << endl;
+  shared_ptr<BEC_2_4_6_TextString> name = make_shared<BEC_2_4_6_TextString>(mname);
+  shared_ptr<BEC_2_9_4_ContainerList> args = make_shared<BEC_2_9_4_ContainerList>(bevd_x, numargs);
+  //args = args->bem_copy_0();
+  return bem_forwardCall_2(name, args);
+  //return nullptr;
+}
+
+  """
+}
+
 }
 
 class System:Variadic {
