@@ -1024,7 +1024,7 @@ class Test:BaseTest:All(BaseTest) {
          //Test:BaseTest:EC.new().main();
          Test:BaseTest:MutString.new().main();
          Test:BaseTest:MutInt.new().main();
-         //Test:BaseTest:OnceMany.new().main();
+         Test:BaseTest:OnceMany.new().main();
          Test:BaseTest:Null.new().main();
          Test:BaseTest:Int.new().main();
          Test:BaseTest:ParseCorners.new().main();

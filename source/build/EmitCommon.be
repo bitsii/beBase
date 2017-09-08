@@ -794,7 +794,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       } else {
         prefix = "bevl_";
       }
-      return(prefix + v.name);
+      return(prefix + v.name);//weak here?
       
    }
    

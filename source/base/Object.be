@@ -484,6 +484,13 @@ void** bevl_x;
       }
       """
       }
+      emit(cc) {
+      """
+      if (shared_from_this().get() != beva_x.get()) {
+        return BECS_Runtime::boolFalse;
+      }
+      """
+      }
       return(true);
    }
    
@@ -513,6 +520,13 @@ void** bevl_x;
       """
       if (this !== beva_x) {
         return be_BECS_Runtime.prototype.boolFalse;
+      }
+      """
+      }
+      emit(cc) {
+      """
+      if (shared_from_this().get() != beva_x.get()) {
+        return BECS_Runtime::boolFalse;
       }
       """
       }

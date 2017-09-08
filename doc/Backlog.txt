@@ -5,12 +5,15 @@ gdb (catch throw) (run) start continue backtrace bld -ggdb
 finally?
 
 step through get tests running fix as go
-  for each type do all the emits
-  string
   
   float stuff in int
 
   system process args null
+  
+  impl weak (unowned), have test check null cc only (two refs to same, null the strong)
+    have to do lock - not try to have full _p or lang level but just a class to start???
+    
+  check for all id compares, do tag and hash get, etc in obj
 
 def and undef working
 
