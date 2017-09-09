@@ -74,6 +74,7 @@ public:
 
 class BETS_Object {
   public:
+    BETS_Object* bevs_parentType;
     std::unordered_map<std::string, bool> bevs_methodNames;
     std::vector<std::string> bevs_fieldNames;
     virtual void bems_buildMethodNames(std::vector<std::string> names);

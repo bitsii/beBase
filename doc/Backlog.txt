@@ -6,8 +6,6 @@ finally?
 
 step through get tests running fix as go
 
-  Object.sameType, otherType
-  
   Object.tagGet,hashGet
     needs tests, seem to be missing, tests first
     
@@ -27,6 +25,7 @@ step through get tests running fix as go
   
   have a weak ref type which can do proxy/fwd call for direct use
     have to do .lock()
+    find cycles during typecheck or syn check (up to x distance, def 3)
     
   have a mode where unwinds give method names in cc (and lines? second opt)
 

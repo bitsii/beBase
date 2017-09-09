@@ -663,6 +663,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
             any clnode = ci.next;
             
+            if (def(clnode.held.extends)) {
+              Build:ClassSyn psyn = build.getSynNp(clnode.held.extends);
+              String pti = getTypeInst(getClassConfig(psyn.namepath));
+            }
+            
             if (clnode.held.syn.hasDefault) {
                 if(emitting("cc")) {
                   nc = "make_shared<" + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + ">()";
@@ -682,6 +687,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
               notNullInitConstruct += "be.BECS_Runtime.typeRefs.put(" += q += clnode.held.namepath += q += ", " += getTypeInst(getClassConfig(clnode.held.namepath)) += ");\n";
             } elseIf(emitting("cc")) {
               notNullInitConstruct += "BECS_Runtime::typeRefs[" += q += clnode.held.namepath += q += "] = static_cast<BETS_Object*>   (&" += getTypeInst(getClassConfig(clnode.held.namepath)) += ");\n";
+              if (def(pti)) {
+                notNullInitConstruct += getTypeInst(getClassConfig(clnode.held.namepath)) += ".bevs_parentType = &" += pti += ";\n";
+              } else {
+                notNullInitConstruct += getTypeInst(getClassConfig(clnode.held.namepath)) += ".bevs_parentType = NULL;\n";
+              }
             }
         }
         

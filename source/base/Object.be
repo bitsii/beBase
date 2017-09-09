@@ -784,6 +784,22 @@ void** bevl_other;
       }
       """
       }
+      emit(cc) {
+      """
+      if (beva_other != nullptr) {
+        //if the other type is same or parent type of mine
+        BETS_Object* bevs_mt = bemc_getType();
+        BETS_Object* bevs_ot = beva_other->bemc_getType();
+        while (bevs_mt != NULL) {
+          if (bevs_mt == bevs_ot) {
+            return BECS_Runtime::boolTrue;
+          } else {
+            bevs_mt = bevs_mt->bevs_parentType;
+          }
+        }
+      }
+      """
+      }
       return(false);
    }
    
