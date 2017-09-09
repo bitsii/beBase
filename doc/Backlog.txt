@@ -6,8 +6,12 @@ finally?
 
 step through get tests running fix as go
 
-  Object.tagGet,hashGet,sameType
+  Object.sameType, otherType
+  
+  Object.tagGet,hashGet
     needs tests, seem to be missing, tests first
+    
+  finish string, int all emits, test hash, etc for string int
   
   add just final location of exception to trace in cc
   

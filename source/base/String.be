@@ -590,6 +590,11 @@ BEINT bevl_val;
          beva_into.bevi_int = this.bevi_bytes[beva_pos.bevi_int];
          """
          }
+         emit(cc) {
+         """
+         beva_into->bevi_int = bevi_bytes[beva_pos->bevi_int];
+         """
+         }
       } else {
         return(null);
       }
@@ -716,6 +721,11 @@ BEINT bevl_val;
      emit(js) {
      """
      this.bevi_bytes[beva_pos.bevi_int] = beva_into.bevi_int;
+     """
+     }
+     emit(cc) {
+     """
+     bevi_bytes[beva_pos->bevi_int] = (unsigned char) beva_into->bevi_int;
      """
      }
    }
