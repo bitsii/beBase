@@ -5,30 +5,30 @@ gdb (catch throw) (run) start continue backtrace bld -ggdb
 finally?
 
 step through get tests running fix as go
+
+  Object.tagGet,hashGet,sameType
+    needs tests, seem to be missing, tests first
+  
+  add just final location of exception to trace in cc
   
   float stuff in int
 
   system process args null
   
-  impl weak (unowned), have test check null cc only (two refs to same, null the strong)
-    have to do lock - not try to have full _p or lang level but just a class to start???
-    
   check for all id compares, do tag and hash get, etc in obj
+  
+  Object.sourceFileNameGet
+  
+  extended test
+  
+  have a weak ref type which can do proxy/fwd call for direct use
+    have to do .lock()
+    
+  have a mode where unwinds give method names in cc (and lines? second opt)
 
-def and undef working
-
-imple 
-  System:Method.bems_forwardCall
-
-impl methodnotdefined
-
-add std::exception to catching, do something with it
+add std::exception to caching, do something with it
 add ... to catching
 for catch order matters
-
-make some things pointers
-  smnlec
-  typeRefs
 
 get stack traces going in throw
 do setjump/longjump and thread local and signal handlers to handle segv and such
@@ -36,13 +36,9 @@ backtrace and such for signals and throws
 
 fwrite stdout vector unsigned char (len version)
 
-stuff in the object superclass bemds for forwardcalls and such from bemds
-
 sameType - cast null before after
 lib and such (object things, string things, int things)
 for cc strings prob have to always copy buffer...
-
-weak ptrs - syn and cc (cctry test)
 
 cycle detection
   any type I contain that contains my type

@@ -141,6 +141,8 @@ class Test:BaseTest:EC(BaseTest) {
         
         //nativeExcepts();
         //doExcepts();
+        
+        
       
     }
     
@@ -1021,7 +1023,7 @@ class Test:BaseTest:All(BaseTest) {
          Test:BaseTest:List.new().main();
          Tests:Function.new().main();
          //Test:BaseTest:Float.new().main();
-         //Test:BaseTest:EC.new().main();
+         Test:BaseTest:EC.new().main();
          Test:BaseTest:MutString.new().main();
          Test:BaseTest:MutInt.new().main();
          Test:BaseTest:OnceMany.new().main();
@@ -1031,7 +1033,7 @@ class Test:BaseTest:All(BaseTest) {
          Test:BaseTest:Calls.new().main();
          Tests:CallArgs.new().main();
          Tests:CallArgsFinal.new().main();
-         //Tests:Exceptions.new().main();
+         Tests:Exceptions.new().main();
          Test:BaseTest:Invoke.new().main();
          Test:BaseTest:Gc.new().main();
          Test:CREComp.new();

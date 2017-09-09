@@ -486,7 +486,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (shared_from_this().get() != beva_x.get()) {
+      if (dynamic_cast<BECS_Object*>(this) != dynamic_cast<BECS_Object*>(beva_x.get())) {
         return BECS_Runtime::boolFalse;
       }
       """
@@ -525,7 +525,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (shared_from_this().get() != beva_x.get()) {
+      if (dynamic_cast<BECS_Object*>(this) != dynamic_cast<BECS_Object*>(beva_x.get())) {
         return BECS_Runtime::boolFalse;
       }
       """
@@ -736,6 +736,15 @@ void** bevl_other;
       """
       if (beva_other != null && this.GetType() == beva_other.GetType()) {
         return be.BECS_Runtime.boolTrue;
+      }
+      """
+      }
+      emit(cc) {
+      """
+      if (beva_other != nullptr) {
+        if (this->bemc_getType() == beva_other->bemc_getType()) {
+          return BECS_Runtime::boolTrue;
+        }
       }
       """
       }

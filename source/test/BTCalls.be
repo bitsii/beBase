@@ -347,7 +347,9 @@ class Tests:Exceptions(BaseTest) {
         }
         e.print();
       }
-      assertTrue(ok);
+      ifEmit(jv,js,cs) {
+        assertTrue(ok);
+      }
       testNEType();
       testEType();
       testFin();
@@ -390,6 +392,7 @@ class Tests:Exceptions(BaseTest) {
             throw(NotExcept.new());
         } catch (any e) {
             if (e.sameClass(NotExcept.new())!) {
+                ("about to throw after same class").print();
                 throw(System:Exception.new("didn't get nonexcept"));
             }
             if (true) { return(self) };
