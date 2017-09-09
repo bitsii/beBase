@@ -5,15 +5,12 @@ gdb (catch throw) (run) start continue backtrace bld -ggdb
 finally?
 
 step through get tests running fix as go
-
-  Object.tagGet,hashGet
-    needs tests, seem to be missing, tests first
+    
+  float stuff in int, last test
     
   finish string, int all emits, test hash, etc for string int
   
   add just final location of exception to trace in cc
-  
-  float stuff in int
 
   system process args null
   
@@ -71,6 +68,8 @@ c++ unsigned char (like cs) (vector of)
   don't use string or streams, c style fopen, fread, fwrite
 
 <<type sizes>>
+
+could do cc garbage collector - resurrect the old gc more or less, pointers to pointers on entry, drop frame on exit (pointer to last frame), drop shared pointers
 
 use object instead of any anywhere just object contract is needed (type them)
 

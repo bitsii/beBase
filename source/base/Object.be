@@ -232,7 +232,7 @@ class System:Object {
       ifEmit(c,js) {
         args = args.copy(); //do we still need to do this? - yes for js, to be sure the array is exactly the length of the args
       }
-      ifEmit(jv,cs, cc) {
+      ifEmit(jv,cs,cc) {
         if (numargs > 7) { 
             List args2 = List.new(numargs - 7); 
             for (Int i = 7;i < numargs;i++=) {
@@ -567,6 +567,14 @@ BEINT* bevl_toRet;
       bevl_toRet.bevi_int = this.becc_hash;
       """
       }
+      emit(cc) {
+      """
+      BECS_Object* co = dynamic_cast<BECS_Object*>(this);
+      uintptr_t cou = (uintptr_t) co;
+      int32_t co3 = (int32_t) cou;
+      bevl_toRet->bevi_int = co3;
+      """
+      }
       return(toRet);
    }
    
@@ -602,6 +610,14 @@ BEINT* bevl_toRet;
         this.becc_hash = be_BECS_Runtime.prototype.hashCounter++;
       }
       bevl_toRet.bevi_int = this.becc_hash;
+      """
+      }
+      emit(cc) {
+      """
+      BECS_Object* co = dynamic_cast<BECS_Object*>(this);
+      uintptr_t cou = (uintptr_t) co;
+      int32_t co3 = (int32_t) cou;
+      bevl_toRet->bevi_int = co3;
       """
       }
       return(toRet);

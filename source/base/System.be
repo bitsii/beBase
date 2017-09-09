@@ -548,7 +548,7 @@ final class System:CurrentPlatform (System:Platform) {
     create() self { }
    
    default() self {
-       ifEmit(jv,cs, js) {
+       ifEmit(jv,cs,js) {
            if (undef(name)) {
                 String platformName;
                 emit(jv) {

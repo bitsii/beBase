@@ -150,8 +150,9 @@ class Test:BaseTest:EC(BaseTest) {
     
       Object o1 = Object.new();
       Object o2 = Object.new();
-      assertNotEqual(o1.tag, o2.tag);
-      assertNotEqual(o1.hash, o2.hash);
+      ("o1t " + o1.tag + " o2t " + o2.tag).print();
+      assertNotEqual(o1.tag, o2.tag); //could fail
+      assertNotEqual(o1.hash, o2.hash); //could fail
       assertEqual(o1.tag, o1.tag);
       assertEqual(o2.hash, o2.hash);
     
