@@ -6,9 +6,9 @@ finally?
 
 step through get tests running fix as go
     
-  float stuff in int, last test
+  float
     
-  finish string, int all emits, test hash, etc for string int
+  finish object, string, int all emits, test hash, etc for string int
   
   add just final location of exception to trace in cc
 

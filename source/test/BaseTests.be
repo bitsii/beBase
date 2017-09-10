@@ -1043,7 +1043,7 @@ class Test:BaseTest:All(BaseTest) {
          
          Test:BaseTest:List.new().main();
          Tests:Function.new().main();
-         //Test:BaseTest:Float.new().main();
+         Test:BaseTest:Float.new().main();
          Test:BaseTest:EC.new().main();
          Test:BaseTest:MutString.new().main();
          Test:BaseTest:MutInt.new().main();

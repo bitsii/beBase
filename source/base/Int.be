@@ -186,7 +186,7 @@ bevl_float = (BEFLOAT*) (bevl_fi + bercps);
       }
       emit(cc) {
       """
-      //bevl_fi->bevi_float = (float) this.bevi_int;
+      bevl_fi->bevi_float = (float) bevi_int;
       """
       }
       return(fi);

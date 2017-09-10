@@ -142,11 +142,16 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
    }
    
    increment() Float {
-      ifEmit(jv,cs,js) {
+      ifEmit(jv,cs,js,cc) {
             Float res = Float.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_float = this.bevi_float + 1;
+            """
+            }
+            emit(cc) {
+            """
+              bevl_res->bevi_float = bevi_float + 1;
             """
             }
             return(res);
@@ -157,11 +162,16 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
    }
    
    decrement() Float {
-        ifEmit(jv,cs,js) {
+        ifEmit(jv,cs,js,cc) {
             Float res = Float.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_float = this.bevi_float - 1;
+            """
+            }
+            emit(cc) {
+            """
+              bevl_res->bevi_float = bevi_float - 1;
             """
             }
             return(res);
@@ -172,11 +182,16 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
    }
    
    add(Float xi) Float {
-      ifEmit(jv,cs,js) {
+      ifEmit(jv,cs,js,cc) {
             Float res = Float.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_float = this.bevi_float + beva_xi.bevi_float;
+            """
+            }
+            emit(cc) {
+            """
+               bevl_res->bevi_float = bevi_float + beva_xi->bevi_float; 
             """
             }
             return(res);
@@ -187,11 +202,16 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
    }
    
    subtract(Float xi) Float {
-    ifEmit(jv,cs,js) {
+    ifEmit(jv,cs,js,cc) {
             Float res = Float.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_float = this.bevi_float - beva_xi.bevi_float;
+            """
+            }
+            emit(cc) {
+            """
+                bevl_res->bevi_float = bevi_float - beva_xi->bevi_float;
             """
             }
             return(res);
@@ -202,11 +222,16 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
    }
    
    multiply(Float xi) Float {
-    ifEmit(jv,cs,js) {
+    ifEmit(jv,cs,js,cc) {
             Float res = Float.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_float = this.bevi_float * beva_xi.bevi_float;
+            """
+            }
+            emit(cc) {
+            """
+                bevl_res->bevi_float = bevi_float * beva_xi->bevi_float;
             """
             }
             return(res);
@@ -217,11 +242,16 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
    }
    
    divide(Float xi) Float {
-    ifEmit(jv,cs,js) {
+    ifEmit(jv,cs,js,cc) {
             Float res = Float.new();
             emit(jv,cs,js) {
             """
                 bevl_res.bevi_float = this.bevi_float / beva_xi.bevi_float;
+            """
+            }
+            emit(cc) {
+            """
+              bevl_res->bevi_float = bevi_float / beva_xi->bevi_float;
             """
             }
             return(res);
@@ -261,6 +291,14 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       }
       """
       }
+      emit(cc) {
+      """
+      shared_ptr<BEC_2_4_5_MathFloat> bevls_xi = dynamic_pointer_cast<BEC_2_4_5_MathFloat>(beva_xi);
+      if (bevi_float == bevls_xi->bevi_float) {
+        return BECS_Runtime::boolTrue;
+      }
+      """
+      }
       return(false);
    }
    
@@ -290,6 +328,14 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       }
       """
       }
+      emit(cc) {
+      """
+      shared_ptr<BEC_2_4_5_MathFloat> bevls_xi = dynamic_pointer_cast<BEC_2_4_5_MathFloat>(beva_xi);
+      if (bevi_float != bevls_xi->bevi_float) {
+        return BECS_Runtime::boolTrue;
+      }
+      """
+      }
       return(false);
    }
    
@@ -308,6 +354,13 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       """
       if (this.bevi_float > beva_xi.bevi_float) {
         return be_BECS_Runtime.prototype.boolTrue;
+      }
+      """
+      }
+      emit(cc) {
+      """
+      if (bevi_float > beva_xi->bevi_float) {
+        return BECS_Runtime::boolTrue;
       }
       """
       }
@@ -332,6 +385,13 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       }
       """
       }
+      emit(cc) {
+      """
+      if (bevi_float < beva_xi->bevi_float) {
+        return BECS_Runtime::boolTrue;
+      }
+      """
+      }
       return(false);
    }
    
@@ -353,6 +413,13 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       }
       """
       }
+      emit(cc) {
+      """
+      if (bevi_float >= beva_xi->bevi_float) {
+        return BECS_Runtime::boolTrue;
+      }
+      """
+      }
       return(false);
    }
    
@@ -371,6 +438,13 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       """
       if (this.bevi_float <= beva_xi.bevi_float) {
         return be_BECS_Runtime.prototype.boolTrue;
+      }
+      """
+      }
+      emit(cc) {
+      """
+      if (bevi_float <= beva_xi->bevi_float) {
+        return BECS_Runtime::boolTrue;
       }
       """
       }
