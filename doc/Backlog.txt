@@ -6,19 +6,14 @@ finally?
 
 step through get tests running fix as go
     
-  float
-    
   finish object, string, int all emits, test hash, etc for string int
-  
-  add just final location of exception to trace in cc
+  Object.sourceFileNameGet
 
   system process args null
   
-  check for all id compares, do tag and hash get, etc in obj
-  
-  Object.sourceFileNameGet
-  
   extended test
+  
+  add just final location of exception to trace in cc
   
   have a weak ref type which can do proxy/fwd call for direct use
     have to do .lock()

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 rm -rf targetEc/Base/target/cc
-mono --debug target5/BEX_E_mcs.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC true
+export CLASSPATH=target5/*
+java be.BEX_E --buildFile build/extendedEc.txt --emitLang cc --singleCC true
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
