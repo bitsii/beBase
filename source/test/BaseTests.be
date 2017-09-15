@@ -1065,7 +1065,7 @@ class Test:BaseTest:All(BaseTest) {
          ("Test:BaseTest:All:main completed successfully").print();
          
          ifEmit(cc) {
-         System:Process.exit(0);
+         //System:Process.exit(0);
          }
    }
 }

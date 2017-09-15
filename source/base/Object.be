@@ -119,9 +119,9 @@ class System:Object {
       emit(cc) {
         """
         string key = beva_cname->bems_toCcString();
-        cout << key << endl;
+        //cout << key << endl;
         if (BECS_Runtime::typeRefs.count(key) > 0) {
-          cout << "has key" << endl;
+          //cout << "has key" << endl;
           
           BETS_Object* ti = BECS_Runtime::typeRefs[key];
           
@@ -138,7 +138,7 @@ class System:Object {
           
         } 
         if (bevl_result == nullptr) {
-          cout << "res nptr" << endl;
+          //cout << "res nptr" << endl;
         }
         """
       }
