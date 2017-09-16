@@ -110,9 +110,11 @@ class Test:ExtendedTest:EC(BaseTest) {
       //works for jv, cs
       //BaseTest:Misc.new().main(); //js needs to check types for assignments where called for
       
+      
+      Test:BaseTest:IO.new().main();
+      
       ifEmit(jv,cs,js) {
       //io
-      Test:BaseTest:IO.new().main();
       //BaseTest:Log.new().main(); 
       
       //need to get

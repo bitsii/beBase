@@ -548,7 +548,7 @@ final class System:CurrentPlatform (System:Platform) {
     create() self { }
    
    default() self {
-       ifEmit(jv,cs,js) {
+       ifEmit(jv,cs,js,cc) {
            if (undef(name)) {
                 String platformName;
                 emit(jv) {
@@ -565,6 +565,11 @@ final class System:CurrentPlatform (System:Platform) {
                 """
                     bevls_name = this.bems_stringToBytes_1(be_BECS_Runtime.prototype.platformName);
                     bevl_platformName = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(bevls_name, bevls_name.length);
+                """
+                }
+                emit(cc) {
+                """
+                    bevl_platformName = make_shared<BEC_2_4_6_TextString>(BECS_Runtime::platformName);
                 """
                 }
                 setName(platformName);

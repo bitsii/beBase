@@ -269,6 +269,15 @@ void** bevl_spa;
           }
          """
          }
+         emit(cc) {
+         """
+         string path = bevp_path->bevp_path->bems_toCcString();
+         struct stat buffer; 
+         if (stat(path.c_str(), &buffer) == 0 && buffer.st_mode & S_IFDIR) {
+            bevl_result = BECS_Runtime::boolTrue;
+         }
+         """
+         }
       }
       return(result);
    }
@@ -315,6 +324,15 @@ void** bevl_spa;
          if (fs.lstatSync(bevls_path).isFile()) {
             bevl_result = be_BECS_Runtime.prototype.boolTrue;
           }
+         """
+         }
+         emit(cc) {
+         """
+         string path = bevp_path->bevp_path->bems_toCcString();
+         struct stat buffer; 
+         if (stat(path.c_str(), &buffer) == 0 && buffer.st_mode & S_IFREG) {
+            bevl_result = BECS_Runtime::boolTrue;
+         }
          """
          }
       }
@@ -408,6 +426,15 @@ void** bevl_mpath;
      var bevls_path = this.bems_stringToJsString_1(this.bevp_path.bevp_path);
      if (fs.existsSync(bevls_path)) {
         bevl_tvala = be_BECS_Runtime.prototype.boolTrue;
+     }
+     """
+     }
+     emit(cc) {
+     """
+     string path = bevp_path->bevp_path->bems_toCcString();
+     struct stat buffer;   
+     if (stat (path.c_str(), &buffer) == 0) {
+       bevl_tvala = BECS_Runtime::boolTrue;
      }
      """
      }
