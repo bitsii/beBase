@@ -115,6 +115,7 @@ class Test:BaseTest:IO(BaseTest) {
       "after read".print();
       //rl01.print();
       assertNotNull(rl01);
+      ("l1 rl01 " + line01 + " " + rl01).print();
       assertEquals(line01, rl01.toString());
       ("Builder " + builder).print();
       builder.clear();

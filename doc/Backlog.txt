@@ -5,21 +5,18 @@ gdb (catch throw) (run) start continue backtrace bld -ggdb
 finally?
 
 step through get tests running fix as go
+   
+  process params and time left (ext test)
     
-  finish object, string, int all emits, test hash, etc for string int
+  double check hash is working
+  
   Object.sourceFileNameGet
-
-  system process args null
-  
-  extended test
-  
-  add just final location of exception to trace in cc
   
   have a weak ref type which can do proxy/fwd call for direct use
     have to do .lock()
     find cycles during typecheck or syn check (up to x distance, def 3)
-    
-  have a mode where unwinds give method names in cc (and lines? second opt)
+
+selfhost
 
 add std::exception to caching, do something with it
 add ... to catching
@@ -29,9 +26,10 @@ get stack traces going in throw
 do setjump/longjump and thread local and signal handlers to handle segv and such
 backtrace and such for signals and throws
 
-fwrite stdout vector unsigned char (len version)
+add just final location of exception to trace in cc
+have a mode where unwinds give method names in cc (and lines? second opt)
 
-sameType - cast null before after
+
 lib and such (object things, string things, int things)
 for cc strings prob have to always copy buffer...
 
