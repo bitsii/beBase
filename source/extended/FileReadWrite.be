@@ -117,6 +117,14 @@ void** bevl_fhpatha;
       bevp_isClosed = be.BECS_Runtime.boolFalse;
       """
       }
+      emit(cc) {
+      """
+      if (bevi_is == NULL) {
+        bevi_is = fopen(bevp_path->bevp_path->bems_toCcString().c_str(), "rb");
+      }
+      bevp_isClosed = BECS_Runtime::boolFalse;
+      """
+      }
       emit(js) {
       """
       if (this.bevi_is == null) {
@@ -153,7 +161,12 @@ class IO:Reader {
     
    """
    }
-
+   
+   emit(cc_classHead) {
+   """
+    FILE* bevi_is = NULL;
+   """
+   }
 
     new() self {
       fields {
@@ -191,6 +204,14 @@ class IO:Reader {
         this.bevi_is.Dispose();
         this.bevi_is = null;
       }
+      """
+      }
+      emit(cc) {
+      """
+         if (bevi_is != NULL) {
+            fclose(bevi_is);
+            bevi_is = NULL;
+         }
       """
       }
       emit(js) {
@@ -240,6 +261,11 @@ class IO:Reader {
       emit(cs) {
       """
       beva_readsz.bevi_int = this.bevi_is.Read(beva_readBuf.bevi_bytes, beva_at.bevi_int, beva_readBuf.bevi_bytes.Length - beva_at.bevi_int) + beva_at.bevi_int;
+      """
+      }
+      emit(cc) {
+      """
+      beva_readsz->bevi_int = fread(&(beva_readBuf->bevi_bytes)[beva_at->bevi_int], sizeof(unsigned char), beva_readBuf->bevi_bytes.capacity() - beva_at->bevi_int, bevi_is);
       """
       }
       emit(js) {
@@ -343,11 +369,6 @@ class IO:File:Writer(IO:Writer) {
       }
       isClosed = true;
       self.path = IO:File:Path.new(fpath);
-      emit(c) {
-      """
-         bevs[bercps] = (void*) NULL;
-      """
-      }
    }
    
    openTruncate() {
@@ -415,6 +436,14 @@ void** bevl_mode;
       bevp_isClosed = be.BECS_Runtime.boolFalse;
       """
       }
+      emit(cc) {
+      """
+         if (bevi_os == NULL) {
+           bevi_os = fopen(bevp_path->bevp_path->bems_toCcString().c_str(), beva_mode->bems_toCcString().c_str());
+           //cout << "opened f" << endl;
+         }
+      """
+      }
       emit(js) {
       """
       if (this.bevi_os == null) {
@@ -462,6 +491,12 @@ class IO:Writer {
    """
    }
    
+   emit(cc_classHead) {
+   """
+    FILE* bevi_os = NULL;
+   """
+   }
+   
    new() self {
       
       fields {
@@ -506,6 +541,15 @@ class IO:Writer {
       }
       """
       }
+      emit(cc) {
+      """
+        if (bevi_os != NULL) {
+            fflush(bevi_os);
+            fclose(bevi_os);
+            bevi_os = NULL;
+         }
+      """
+      }
       emit(js) {
       """
       if (this.bevi_os != null) {
@@ -526,6 +570,11 @@ class IO:Writer {
       emit(cs) {
       """
       this.bevi_os.Write(beva_stri.bevi_bytes, 0, beva_stri.bevp_size.bevi_int);
+      """
+      }
+      emit(cc) {
+      """
+      fwrite(&(beva_stri->bevi_bytes)[0], sizeof(unsigned char), beva_stri->bevp_size->bevi_int, bevi_os);
       """
       }
       emit(js) {

@@ -93,20 +93,26 @@ class Test:BaseTest:IO(BaseTest) {
       String line01 = "Hi" + nl;
       String line02 = "There" + nl;
       String line03 = "Newcastle" + nl;
-      
+      "rbl1".print();
       if (tf.exists) { tf.delete(); }
+      "rbl2".print();
       any w = tf.writer.open();
+      "write".print();
       w.write(line01);
+      "write".print();
       w.write(line02);
       w.write(line03);
+      "close".print();
       w.close();
       
+      "write done".print();
       //if (true) { return(self); }
       
       String builder = String.new();
-      
+      "start read".print();
       any r = tf.reader.open();
       String rl01 = r.readBufferLine(builder);
+      "after read".print();
       //rl01.print();
       assertNotNull(rl01);
       assertEquals(line01, rl01.toString());
