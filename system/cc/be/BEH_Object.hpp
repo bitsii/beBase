@@ -54,7 +54,8 @@ class BECS_Runtime {
     
     static string platformName;
     
-    static vector<string> args;
+    static int argc;
+    static char** argv;
     
     static unordered_map<string, vector<int32_t>> smnlcs;
     static unordered_map<string, vector<int32_t>> smnlecs;

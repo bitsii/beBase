@@ -108,7 +108,8 @@ shared_ptr<BEC_2_6_11_SystemInitializer> BECS_Runtime::initializer;
 
 string BECS_Runtime::platformName;
 
-vector<string> BECS_Runtime::args;
+int BECS_Runtime::argc;
+char** BECS_Runtime::argv;
 
 unordered_map<string, vector<int32_t>> BECS_Runtime::smnlcs;
 unordered_map<string, vector<int32_t>> BECS_Runtime::smnlecs;

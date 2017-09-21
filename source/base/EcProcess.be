@@ -69,7 +69,7 @@ final class System:Process {
   
   prepArgs() self {
       
-      ifEmit(jv,cs,js) {
+      ifEmit(jv,cs,js,cc) {
         if (undef(args)) {
           args = Container:List.new();
           emit(jv) {
@@ -83,6 +83,13 @@ final class System:Process {
           """
             for (int i = 0;i < be.BECS_Runtime.args.Length;i++) {
                 bevp_args.bem_addValue_1(new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(be.BECS_Runtime.args[i])));
+            }
+          """
+          }
+          emit(cc) {
+          """
+            for (int i = 1;i < BECS_Runtime::argc;i++) {
+                bevp_args->bem_addValue_1(make_shared<BEC_2_4_6_TextString>(string(BECS_Runtime::argv[i])));
             }
           """
           }

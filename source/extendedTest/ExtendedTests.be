@@ -113,14 +113,16 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       Test:BaseTest:IO.new().main();
       
+      Test:BaseTest:Parameters.new().main(); 
+      
+      Test:BaseTest:Time.new().main();
+      
       ifEmit(jv,cs,js) {
       //io
       //BaseTest:Log.new().main(); 
       
       //need to get
-      Test:BaseTest:Parameters.new().main(); 
          
-      Test:BaseTest:Time.new().main();
       }
       
       testNullEquals();

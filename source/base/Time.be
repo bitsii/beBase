@@ -77,6 +77,11 @@ void** bevl_msecs;
       Thread.Sleep(beva_msecs.bevi_int);
       """
       }
+      emit(cc) {
+      """
+      this_thread::sleep_for(chrono::milliseconds(beva_msecs->bevi_int));
+      """
+      }
       emit(js) {
       """
       //this is bad, don't use it, replace with npm when available or something better
@@ -131,6 +136,15 @@ class Interval {
         long ctm = (long) (DateTime.UtcNow - epochStart).TotalMilliseconds;
         bevp_secs.bevi_int = (int) (ctm / 1000);
         bevp_millis.bevi_int = (int) (ctm % 1000);
+        """
+        }
+        emit(cc) {
+        """
+        unsigned long milliseconds_since_epoch =
+          std::chrono::system_clock::now().time_since_epoch() / 
+          std::chrono::milliseconds(1);
+        bevp_secs->bevi_int = (int32_t) (milliseconds_since_epoch / 1000);
+        bevp_millis->bevi_int = (int32_t) (milliseconds_since_epoch % 1000);
         """
         }
         emit(js) {

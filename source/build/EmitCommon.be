@@ -621,10 +621,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
         String main = "";
         if(emitting("cc")) {
-          main += "int main() {" += nl; //where are the args?
+          main += "int main(int argc, char **argv) {" += nl;
           //lock start on something in lib
           //main += "be.BECS_Runtime.args = args;" += nl;
           main += "be::BECS_Runtime::platformName = string(\"" += build.outputPlatform.name += "\");" += nl;
+          main += "be::BECS_Runtime::argc = argc;" += nl;
+          main += "be::BECS_Runtime::argv = argv;" += nl;
           main += "be::BEX_E::init();" += nl;
           main += "shared_ptr<be::" += maincc.emitName += "> mc = make_shared<be::" += maincc.emitName += ">();" += nl;
           main += "mc->bem_new_0();" += nl;

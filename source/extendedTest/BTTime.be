@@ -22,24 +22,27 @@ class Test:BaseTest:Time(BaseTest) {
    
    main() {
       ("Test:BaseTest:Time:main").print();
-      //testInterval();
+      testInterval();
       testIntervalNow();
-      //testSleep();
+      testSleep();
    }
    
    testIntervalNow() {
       Interval.now().print();
       Interval.now().toStringMinutes().print();
+      assertTrue(Interval.now().seconds > 0);
    }
    
    testSleep() {
         Interval start = Interval.now();
         start.print();
-        ("will sleep 5 secs").print();
-        Time:Sleep.sleepSeconds(5);
+        ("will sleep").print();
+        Time:Sleep.sleepMilliseconds(15);
         Interval end = Interval.now();
         end.print();
         (end - start).print();
+        start.addMilliseconds(10);
+        assertTrue(start < end);
    }
    
    testInterval() {
