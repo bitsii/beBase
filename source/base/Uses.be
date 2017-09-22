@@ -5,6 +5,7 @@
 
 local use System:Object;
 local use System:Variadic;
+local use System:WeakRef;
 local use System:Method;
 local use Math:Int;
 local use Logic:Bool;

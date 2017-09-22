@@ -909,3 +909,50 @@ class System:Variadic {
 
 }
 
+class System:WeakRef {
+
+emit(jv,cs) {
+"""
+public BEC_2_6_6_SystemObject beps_ref;
+"""
+}
+
+emit(cc_classHead) {
+"""
+weak_ptr<BEC_2_6_6_SystemObject> beps_ref;
+"""
+}
+
+  final forwardCall(String name, List args) any {
+    return(self.ref.invoke(name, args));
+   }
+   
+   new(ref) self {
+    self.ref = ref;
+   }
+   
+   refGet() any {
+     any ref;
+     emit(jv,cs) {
+     """
+       bevl_ref = beps_ref;
+     """
+     }
+     emit(cc) {
+       """
+       bevl_ref = beps_ref.lock();
+       """
+     }
+     return(ref);
+   }
+   
+   refSet(ref) any {
+     emit(jv,cs,cc) {
+     """
+     beps_ref = beva_ref;
+     """
+     }
+   }
+
+}
+

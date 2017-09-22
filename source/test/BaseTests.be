@@ -1056,6 +1056,7 @@ class Test:BaseTest:All(BaseTest) {
          Tests:CallArgsFinal.new().main();
          Tests:Exceptions.new().main();
          Test:BaseTest:Invoke.new().main();
+         Test:BaseTest:WeakRefTest.main();
          Test:BaseTest:Gc.new().main();
          Test:CREComp.new();
          //} catch (any e) { 
@@ -1068,6 +1069,37 @@ class Test:BaseTest:All(BaseTest) {
          //System:Process.exit(0);
          }
    }
+}
+
+use Test:BaseTest:Weak;
+
+class Weak {
+
+  echo(o) any {
+    fields {
+      any last = o;
+    }
+    return(o);
+  }
+
+}
+
+use class Test:BaseTest:WeakRefTest(BaseTest) {
+
+  main() {
+  "Test:BaseTest:WeakRefTest start".print();
+  //assertTrue(false);
+  Weak w = Weak.new();
+  WeakRef p = WeakRef.new(w);
+  assertEqual(p.echo("hi"), "hi");
+  assertEqual(p.last, "hi");
+  w = null;
+  ifEmit(cc) {
+    assertNull(p.ref);
+  }
+  "Test:BaseTest:WeakRefTest end".print();
+  }
+
 }
 
 class TestEmit {

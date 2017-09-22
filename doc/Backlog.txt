@@ -1,14 +1,16 @@
 
 >>cc<<
 
-have a weak ref type which can do proxy/fwd call for direct use
-  add to build
-
+weak refs
+  needed in
+    linked list
+    build/node
+    
 selfhost
 
-cc on mac (xc) and win (msys)
+cc threads, have to do .lock() on lib
 
-cc threads have to do .lock() on lib
+cc on mac (xc) and win (msys)
 
 Object.sourceFileNameGet
 
