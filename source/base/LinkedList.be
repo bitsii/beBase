@@ -36,14 +36,14 @@ Pair {
 
 local Node {
    
-   new(_held, LinkedList _mylist) self {
+   new(_held, WeakRef _mylist) self {
    
       {
       
             Node prior;
             Node next;
             any held = _held;
-            LinkedList mylist = _mylist;
+            WeakRef mylist = _mylist; //LinkedList
       
       }
       
@@ -57,7 +57,7 @@ local Node {
       prior = toIns;
       if (undef(p)) {
          //I am first
-         mylist.firstNode = toIns;
+         mylist.ref.firstNode = toIns;
       } else {
          p.next = toIns;
          toIns.prior = p;
@@ -71,17 +71,17 @@ local Node {
       prior = null;
       if (undef(p)) {
          //I am first
-         mylist.firstNode = n;
+         mylist.ref.firstNode = n;
          if (def(n)) {
             n.prior = null;
          } else {
             //I am also last
-            mylist.lastNode = n;
+            mylist.ref.lastNode = n;
          }
       } elseIf (undef(n)) {
          //I am last
          p.next = n;
-         mylist.lastNode = p;
+         mylist.ref.lastNode = p;
       } else {
          //I am surrounded
          p.next = n;
@@ -94,22 +94,22 @@ local Node {
 
 local Container:LinkedList:AwareNode(Node) {
    
-   new(_held, LinkedList _mylist) self {
+   new(_held, WeakRef _mylist) self {
       held = _held;
-      held.heldBy = self;
+      held.heldBy = WeakRef.new(self);  //weakref of self
       mylist = _mylist;
    }
    
    heldSet(_held) this {
       held = _held;
-      held.heldBy = self;
+      held.heldBy = WeakRef.new(self); //weakref of self
    }
 }
 
 local NodeList(LinkedList) {
    
    newNode(toHold) Node {
-      return(Container:LinkedList:AwareNode.new(toHold, self));
+      return(Container:LinkedList:AwareNode.new(toHold, WeakRef.new(self)));
    }
    
 }
@@ -126,7 +126,7 @@ local LinkedList {
    }
    
    newNode(toHold) Node {
-      return(Node.new(toHold, self));
+      return(Node.new(toHold, WeakRef.new(self)));
    }
    
    copy() self {

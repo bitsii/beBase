@@ -3,8 +3,7 @@
 
 weak refs
   needed in
-    linked list
-    build/node
+    build/node container
     
 selfhost
 
@@ -13,6 +12,10 @@ cc threads, have to do .lock() on lib
 cc on mac (xc) and win (msys)
 
 Object.sourceFileNameGet
+
+stacktrace cc
+
+find cycles
 
 add std::exception to caching, do something with it
 add ... to catching
@@ -154,6 +157,9 @@ for ~ split out the call name and number.  ?do like literals and pre-compute as 
 add rmvs for old to boot and bld (and cycle) (and ext)
 
 get rid of bems_forwardCall for js, just do what it does in the emit
+
+support untyped forwardcall in js (and other langs)
+  when proxy constructed find the methods inside and bring them up / make them available
 
 make "can" fast, have a set/map or something (bemds)
 

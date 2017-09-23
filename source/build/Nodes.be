@@ -5,6 +5,7 @@
 
 use Container:NodeList;
 use Build:Node;
+use Container:LinkedList:AwareNode;
 
 final class Node {
    
@@ -12,9 +13,9 @@ final class Node {
    
       fields {
          NodeList contained;
-         Node container;
+         Node container; //todo WeakRef
          any held;
-         any heldBy;
+         WeakRef heldBy; //AwareNode WeakRef
          any condany;
          Build:NamePath inClassNp;
          String inFile;
@@ -67,7 +68,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      any hh = heldBy.next;
+      any hh = heldBy.ref.next;
       if (undef(hh)) {
          return(hh);
       }
@@ -78,7 +79,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      any hh = heldBy.prior;
+      any hh = heldBy.ref.prior;
       if (undef(hh)) {
          return(hh);
       }
@@ -101,21 +102,21 @@ final class Node {
       if (undef(heldBy)) {
          return(false);
       }
-      return(undef(heldBy.prior));
+      return(undef(heldBy.ref.prior));
    }
    
    isSecondGet() Bool {
-      if (undef(heldBy) || undef(heldBy.prior)) {
+      if (undef(heldBy) || undef(heldBy.ref.prior)) {
          return(false);
       }
-      return(undef(heldBy.prior.prior));
+      return(undef(heldBy.ref.prior.prior));
    }
    
    isThirdGet() Bool {
-      if (undef(heldBy) || undef(heldBy.prior) || undef(heldBy.prior.prior)) {
+      if (undef(heldBy) || undef(heldBy.ref.prior) || undef(heldBy.ref.prior.prior)) {
          return(false);
       }
-      return(undef(heldBy.prior.prior.prior));
+      return(undef(heldBy.ref.prior.prior.prior));
    }
    
    delayDelete() {
@@ -126,7 +127,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      heldBy.delete();
+      heldBy.ref.delete();
       container = null;
       heldBy = null;
    }
@@ -135,7 +136,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      heldBy.insertBefore(heldBy.mylist.newNode(x));
+      heldBy.ref.insertBefore(heldBy.ref.mylist.ref.newNode(x));
       x.container = container;
    }
    
@@ -380,7 +381,7 @@ final class Node {
          return(null);
       }
       other.container = container;
-      heldBy.held = other;
+      heldBy.ref.held = other;
    }
    
    deleteAndAppend(Node other) {
