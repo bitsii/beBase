@@ -13,9 +13,9 @@ final class Node {
    
       fields {
          NodeList contained;
-         WeakRef container; //Node WeakRef
+         Node container;
          any held;
-         WeakRef heldBy; //AwareNode WeakRef
+         AwareNode heldBy;
          any condany;
          Build:NamePath inClassNp;
          String inFile;
@@ -68,7 +68,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      any hh = heldBy.ref.next;
+      any hh = heldBy.next;
       if (undef(hh)) {
          return(hh);
       }
@@ -79,7 +79,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      any hh = heldBy.ref.prior;
+      any hh = heldBy.prior;
       if (undef(hh)) {
          return(hh);
       }
@@ -102,21 +102,21 @@ final class Node {
       if (undef(heldBy)) {
          return(false);
       }
-      return(undef(heldBy.ref.prior));
+      return(undef(heldBy.prior));
    }
    
    isSecondGet() Bool {
-      if (undef(heldBy) || undef(heldBy.ref.prior)) {
+      if (undef(heldBy) || undef(heldBy.prior)) {
          return(false);
       }
-      return(undef(heldBy.ref.prior.prior));
+      return(undef(heldBy.prior.prior));
    }
    
    isThirdGet() Bool {
-      if (undef(heldBy) || undef(heldBy.ref.prior) || undef(heldBy.ref.prior.prior)) {
+      if (undef(heldBy) || undef(heldBy.prior) || undef(heldBy.prior.prior)) {
          return(false);
       }
-      return(undef(heldBy.ref.prior.prior.prior));
+      return(undef(heldBy.prior.prior.prior));
    }
    
    delayDelete() {
@@ -127,7 +127,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      heldBy.ref.delete();
+      heldBy.delete();
       self.container = null;
       heldBy = null;
    }
@@ -136,7 +136,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      heldBy.ref.insertBefore(heldBy.ref.mylist.ref.newNode(x));
+      heldBy.insertBefore(heldBy.mylist.newNode(x));
       x.container = self.container;
    }
    
@@ -381,23 +381,12 @@ final class Node {
          return(null);
       }
       other.container = self.container;
-      heldBy.ref.held = other;
+      heldBy.held = other;
    }
    
    deleteAndAppend(Node other) {
       other.delete();
       addValue(other);
-   }
-   
-   containerGet() Node {
-     if (def(container)) {
-      return(container.ref);
-     }
-     return(null);
-   }
-   
-   containerSet(Node c) Node {
-     container = WeakRef.new(c);
    }
    
    takeContents(Node other) {
