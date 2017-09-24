@@ -919,7 +919,8 @@ public BEC_2_6_6_SystemObject beps_ref;
 
 emit(cc_classHead) {
 """
-weak_ptr<BEC_2_6_6_SystemObject> beps_ref;
+//weak_ptr<BEC_2_6_6_SystemObject> beps_ref;
+shared_ptr<BEC_2_6_6_SystemObject> beps_ref;
 """
 }
 
@@ -940,7 +941,8 @@ weak_ptr<BEC_2_6_6_SystemObject> beps_ref;
      }
      emit(cc) {
        """
-       bevl_ref = beps_ref.lock();
+       //bevl_ref = beps_ref.lock();
+       bevl_ref = beps_ref;
        """
      }
      return(ref);

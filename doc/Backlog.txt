@@ -1,15 +1,12 @@
 
 >>cc<<
 
-weak refs
-  needed in
-    build/node container
-    
 selfhost
+turned off weak ref, something wrong with usage in build (probly ordering of something, fix)
 
 cc threads, have to do .lock() on lib
 
-cc on mac (xc) and win (msys)
+cc on mac (xc)
 
 Object.sourceFileNameGet
 
@@ -29,6 +26,8 @@ add just final location of exception to trace in cc
 have a mode where unwinds give method names in cc (and lines? second opt)
 
 have the extended test need some args to work (so test args) always have in scripts
+
+cc can be faster, args don't need to be shared_ptr, do gratuitous returns
 
 lib and such (object things, string things, int things)
 for cc strings prob have to always copy buffer...

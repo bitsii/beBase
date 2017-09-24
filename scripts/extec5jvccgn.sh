@@ -18,15 +18,10 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 CYC1=`date +%s`
 
 export CC=g++
-
-#-DDEBUG
-
 export CPFLAGS="-std=c++11 -Wfatal-errors -ggdb"
 
 g++ $CPFLAGS targetEc/Base/target/cc/be/BEH_4_Base.hpp
-
 time $MAKNAME -j 8 -f scripts/extecc.make
-
 time g++ $CPFLAGS -o targetEc/BEX_E_gn.exe targetEc/Base/target/cc/be/*.o
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi

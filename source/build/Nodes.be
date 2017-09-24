@@ -13,7 +13,7 @@ final class Node {
    
       fields {
          NodeList contained;
-         Node container; //todo WeakRef
+         WeakRef container; //Node WeakRef
          any held;
          WeakRef heldBy; //AwareNode WeakRef
          any condany;
@@ -46,7 +46,7 @@ final class Node {
          return(contained.first);
       }
       Node ret = self.nextPeer;
-      Node con = container;
+      Node con = self.container;
       while ((undef(ret)) && (def(con)))  {
          ret = con.nextPeer;
          con = con.container;
@@ -56,7 +56,7 @@ final class Node {
    
    nextAscendGet() Node {
       Node ret = self.nextPeer;
-      Node con = container;
+      Node con = self.container;
       while ((undef(ret)) && (def(con)))  {
          ret = con.nextPeer;
          con = con.container;
@@ -128,7 +128,7 @@ final class Node {
          return(null);
       }
       heldBy.ref.delete();
-      container = null;
+      self.container = null;
       heldBy = null;
    }
    
@@ -137,7 +137,7 @@ final class Node {
          return(null);
       }
       heldBy.ref.insertBefore(heldBy.ref.mylist.ref.newNode(x));
-      x.container = container;
+      x.container = self.container;
    }
    
    prepend(Node node) {
@@ -208,7 +208,7 @@ final class Node {
    
    depthGet() Int {
       Int d = 0;
-      Node c = container;
+      Node c = self.container;
       while (def(c)) {
          d++=;
          c = c.container;
@@ -250,7 +250,7 @@ final class Node {
    }
    
    inPropertiesGet() Bool {
-      Node con = container;
+      Node con = self.container;
       while (def(con)) {
          if (con.typename == ntypes.PROPERTIES) {
             return(true);
@@ -380,13 +380,24 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      other.container = container;
+      other.container = self.container;
       heldBy.ref.held = other;
    }
    
    deleteAndAppend(Node other) {
       other.delete();
       addValue(other);
+   }
+   
+   containerGet() Node {
+     if (def(container)) {
+      return(container.ref);
+     }
+     return(null);
+   }
+   
+   containerSet(Node c) Node {
+     container = WeakRef.new(c);
    }
    
    takeContents(Node other) {

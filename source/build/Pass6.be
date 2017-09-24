@@ -159,7 +159,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          s.orgName = s.name;
          s.name = s.name + "_" + s.numargs.toString();
          i = node.second;
-         if (i.typename == ntypes.VAR) {
+         if (def(i) && i.typename == ntypes.VAR) {
             i.resolveNp();
             //("!!!!!!Found return type " + i.held.name).print();
             s.rtype = i.held;
