@@ -1,54 +1,30 @@
 
->>cc<<
+cc?  gc cc? (big pause is in gc test, is likely)
+  try cl to see if better
 
-selfhost
-turned off weak ref, something wrong with usage in build (probly ordering of something, fix)
+transitive this support in typecheck
 
-cc threads, have to do .lock() on lib
+get rid of bems_forwardCall
 
-cc on mac (xc)
+see if javascript slower if untyped calls are reflective
+  in object bems_call("name", args)
+  some sort of apply override
+  if ok then support forwardcall for untyped
+  
+work out serialization issue in js
 
-Object.sourceFileNameGet
+finally
+    
+automated builds, test runs, etc
+coverage instrumentation
 
-stacktrace cc
+js libs/inclusion, repl shell (loading base) - all in web page code option, eval window, canvas
 
-find cycles
-
-add std::exception to caching, do something with it
-add ... to catching
-for catch order matters
-
-get stack traces going in throw
-do setjump/longjump and thread local and signal handlers to handle segv and such
-backtrace and such for signals and throws
-
-add just final location of exception to trace in cc
-have a mode where unwinds give method names in cc (and lines? second opt)
-
-have the extended test need some args to work (so test args) always have in scripts
-
-cc can be faster, args don't need to be shared_ptr, do gratuitous returns
-
-lib and such (object things, string things, int things)
-for cc strings prob have to always copy buffer...
-
-find cycles during typecheck or syn check (up to x distance, def 3)
-cycle detection
-  any type I contain that contains my type
-  callable/recursive for multi-level check (specify level of check)
-  optional weak output too (weak not count either way)
-  valgrind massif gcc gprof
-  optionally count number of instances of class created and destroyed and live
-
-extec cc nothread
-selfhost cc
-thread
-
-finally?
+dart / flutter
 
 make js more like others?
-  
-<<cc>>
+
+use object instead of any anywhere just object contract is needed (type them)
 
 >>type sizes<<
 int is 32bit signed cs/jv
@@ -62,48 +38,6 @@ c++ unsigned char (like cs) (vector of)
 
 <<type sizes>>
 
-could do cc garbage collector - resurrect the old gc more or less, pointers to pointers on entry, drop frame on exit (pointer to last frame), drop shared pointers
-
-use object instead of any anywhere just object contract is needed (type them)
-
-support whole directory/patterns of files (?excludes too?), factor out plat/lang specific to own dir
-
-js libs/inclusion, repl shell (loading base) - all in web page code option, eval window, canvas
-
-vala for enlightenment?
-
-skeletal lib stuff
-  superclass to each class with dynamic methods - BECX (exe class)
-    create files/inh from superclass
-    empty def for all defined methods
-    generate bemds in it
-    switch real class to inherit from it
-    drop BEC bemds
-
-libs
-  lib does not init other libs, generates BECX's of all libs
-  BEX_Linked is only in compiled unit
-  has the dynamic call classes (BECX) for all
-  final runtime build must be with latest versions of everything (dynamic link)
-  
-relemitname is not needed anymore, just emitname
-
-has, put, get for object (keep sig like map)
-  
-try also includes setjmp (into stack) and signals longjump
-
-Int5 Float4(5?) 32bit, open for 64
-Int5/6 super is Int, f5/6 is Float
-super of Map is Dictitionary
-super of List LL is Sequence
-
-gratuitous returns
-  stop using return type for this and use the call target instead for chains
-  actually stop doing returns for this
-  (except for untyped and js, which still return self - tho js could skip assign)
-
-?have an option to make all casts in cc static casts for perf
-  
 be clear that =@ and @ are hints/suggestions not definite, default is tho
   efficiency hint / may reuse
 
@@ -127,11 +61,9 @@ field prefix to any dec makes it a field
 
 =====
 
-abandon cs
-
 direct accessors
-  like dynamic call for get/set (bemd)
-  bind at compile time for typed (just direct access if call not defined)
+  bind at compile time for typed (just direct access if call not defined, lib/final)
+  for dynamic, like dynamic call for get/set (bemd)
 
 check add tests for className classFile Get
 
@@ -164,9 +96,6 @@ make "can" fast, have a set/map or something (bemds)
 
 for variadic figure out the dest call at gen and directly do it with reg args (so build and call based on the name)
 
-have interface or mixin or protocol or something to enable 
-anon inline funcs (mtd)
-
 build bevd_x all at once using native array construction (each time), remove the forwardCall copy after
 
 named params? (?typed calls only? - order at gen time?) 
@@ -178,11 +107,6 @@ add print at all passes for file/range combos (file and/or file + range)
 BUG line comment imeediate nl comments next line
 BUG brackets after newline in call (lists.from) breaks
 BUG why does something = bool expr; not work?
-
-for typed calls figure out the forwarding behavior at compile time and
-  make as good/fast as possible (skip forward call stuff, just call with args and all) 
-    see if forwardCalls defined
-    see if forwardCall(args) is overridden
 
 ?continuation + optional ;, nl = ;
 
@@ -301,8 +225,6 @@ ___________________
 final for static members (?) - readonly for c#
      onceDeced it's ok, not for not once deced (need to distinguish)
 get rid of calls to once and many
-
-proxy for dynamic cases too- in case statement + js proxies (can work for typed too based on presnce of a particular call name)
 
 classNameSerializationIterator (same treatment as classNameIterator)
 
