@@ -1,6 +1,10 @@
 
-cc?  gc cc? (big pause is in gc test, is likely)
-  try cl to see if better
+cc
+  to boehm
+    cc regular pointers, build/run tests except gc
+    add boehm
+  
+?own stack and gc
 
 transitive this support in typecheck
 
@@ -12,17 +16,9 @@ see if javascript slower if untyped calls are reflective
   if ok then support forwardcall for untyped
   
 work out serialization issue in js
-
-finally
     
 automated builds, test runs, etc
 coverage instrumentation
-
-js libs/inclusion, repl shell (loading base) - all in web page code option, eval window, canvas
-
-dart / flutter
-
-make js more like others?
 
 use object instead of any anywhere just object contract is needed (type them)
 
