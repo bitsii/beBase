@@ -1,10 +1,5 @@
 
-cc
-  to boehm
-    cc regular pointers, build/run tests except gc
-    add boehm
-  
-?own stack and gc
+work out serialization issue in js
 
 transitive this support in typecheck
 
@@ -14,9 +9,7 @@ see if javascript slower if untyped calls are reflective
   in object bems_call("name", args)
   some sort of apply override
   if ok then support forwardcall for untyped
-  
-work out serialization issue in js
-    
+      
 automated builds, test runs, etc
 coverage instrumentation
 
