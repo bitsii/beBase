@@ -186,17 +186,8 @@ class Test:BaseTest:Serialize(BaseTest) {
    main() {
       ("Test:BaseTest:Serialize:main").print();
 
-      ifEmit(cs, jv) {
-        //dirStoreTest();//can't be run concurrently due to fs changes, run from extended test
-        //directly instead
-      }
-
       ("testSerProps").print();
       testSerProps();
-
-      ifEmit(js) {
-        if (true) { return(self); }
-      }
       
       ("NAME IS").print();
       Test:Structy.new().iterator.nextName.print();

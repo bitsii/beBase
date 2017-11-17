@@ -832,8 +832,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
        return("bem_" + node.held.name);
    }
    
-   emitNameForCall(Node node) String {
-        return("bem_" + node.held.name);
+   emitCall(String callTarget, Node node, String callArgs) String {
+        return( callTarget + "bem_" + node.held.name + "(" + callArgs + ")" );
    }
    
    lookatComp(Node ov) {
@@ -1947,7 +1947,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                       //("Found a skippable int new for class " + asyn.namepath.toString()).print();
                       methodBody += callAssign += cast += initialTarg += afterCast += ";" += nl;
                     } else {
-                      methodBody += callAssign += cast += initialTarg += invp += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
+                      methodBody += callAssign += cast += emitCall(initialTarg + invp, node, callArgs) += afterCast += ";" += nl;
                     }
                 }
           } else {
@@ -1985,9 +1985,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                 methodBody += callAssign += cast += target += afterCast += ";" += nl;
               }
             } elseIf (isTyped!) {
-                methodBody += callAssign += cast += callTarget += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
+                methodBody += callAssign += cast += emitCall(callTarget, node, callArgs) += afterCast += ";" += nl;
             } else {
-                methodBody += callAssign += cast += callTarget += emitNameForCall(node) += "(" += callArgs += ")" += afterCast += ";" += nl;
+                methodBody += callAssign += cast += emitCall(callTarget, node, callArgs) += afterCast += ";" += nl;
             }
           }
       } else {

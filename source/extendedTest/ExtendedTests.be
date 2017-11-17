@@ -30,6 +30,7 @@ class Test:ExtendedTest:Log(BaseTest) {
 class Test:ExtendedTest:EC(BaseTest) {
    
    main() {
+     innerMain();
      try {
        Int howManyTimes = 1;
        for (Int i = 0;i < howManyTimes;i++=) {
@@ -40,6 +41,7 @@ class Test:ExtendedTest:EC(BaseTest) {
         e.print();
         throw(e);
        } else {
+        ("failed null execpt").print();
         throw(System:Exception.new("Failed with null exception"));
        }
      }
@@ -48,6 +50,8 @@ class Test:ExtendedTest:EC(BaseTest) {
    innerMain() {
    
       ("Test:ExtendedTest:Ec:main").print();
+      
+      Test:BaseTest:RunCount.runCount++=;
       
       emit(cs) {
         """
@@ -127,7 +131,9 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       testNullEquals();
       
-      testLog();
+      if (Test:BaseTest:RunCount.runCount < 2) {
+        testLog();
+      }
       testVarArgs();
       
       ifEmit(jv, cs) {

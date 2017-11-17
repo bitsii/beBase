@@ -101,7 +101,9 @@ class Test:BaseTest:EC(BaseTest) {
         intBits();
         intMinMax();
         
-        str();
+        if (Test:BaseTest:RunCount.runCount < 2) {
+          str();
+        }
         printInt();
         
         arr();
@@ -1033,6 +1035,16 @@ class Test:BaseTest:OnceMany(BaseTest) {
 
 }
 
+class Test:BaseTest:RunCount {
+
+  default() self {
+    fields {
+      Int runCount = 0;
+    }
+  }
+
+}
+
 class Test:BaseTest:All(BaseTest) {
    
    main() {
@@ -1057,7 +1069,7 @@ class Test:BaseTest:All(BaseTest) {
          Tests:Exceptions.new().main();
          Test:BaseTest:Invoke.new().main();
          ifNotEmit(cc) {
-          Test:BaseTest:Gc.new().main();
+          Test:BaseTest:Gc.new().main(); 
          }
          Test:CREComp.new();
          //} catch (any e) { 

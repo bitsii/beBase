@@ -1,7 +1,7 @@
 
-work out serialization issue in js
-
+gratuituous returns
 transitive this support in typecheck
+not handling return type checks properly
 
 get rid of bems_forwardCall
 

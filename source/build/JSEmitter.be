@@ -238,8 +238,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
    }
 
     superNameGet() String {
-       return("this"); //handled via including parent calls for super call cases prefixed with "bemp_" instead of "bem_" and calling those
-       //names for super cases
+       return("this"); //handled in the call by calling directly to the superprototype
     }
 
     extend(String parent) String {
@@ -282,18 +281,20 @@ use final class Build:JSEmitter(Build:EmitCommon) {
        return(begin);
     }
 
-    emitNameForCall(Node node) String {
+    emitCall(String callTarget, Node node, String callArgs) String {
         if (node.held.superCall) {
-            return("bemp_" + node.held.name);
+            if (TS.notEmpty(callArgs)) {
+              callArgs = "this, " + callArgs;
+            } else {
+              callArgs = "this";
+            }
+            return( parentConf.emitName + ".prototype.bem_" + node.held.name + ".call(" + callArgs + ")" );
         }
-        return("bem_" + node.held.name);
+        return(callTarget + "bem_" + node.held.name + "(" + callArgs + ")" );
     }
 
     classEndGet() String {
        String end = "";
-       for (Node node in superCalls) {
-          end += classConf.emitName + ".prototype." + "bemp_" + node.held.name + " = " + parentConf.emitName + ".prototype." + "bem_" + node.held.name + ";" + nl;
-       }
        return(end);
     }
 
