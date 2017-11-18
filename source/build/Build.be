@@ -8,6 +8,7 @@ use Build:EmitData;
 use Build:Visit;
 use Build:JVEmitter;
 use Build:CSEmitter;
+//use Build:CCEmitter;
 use Build:JSEmitter;
 use System:Parameters;
 
@@ -348,6 +349,8 @@ final class Build:Build {
              emitCommon = JVEmitter.new(self);
         } elseIf (emitLang == "cs") {
              emitCommon = CSEmitter.new(self);
+        //} elseIf (emitLang == "cc") {
+        //     emitCommon = CCEmitter.new(self);
         } elseIf (emitLang == "js") {
              emitCommon = JSEmitter.new(self);
         } else {

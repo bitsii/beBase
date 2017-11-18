@@ -11,8 +11,8 @@ case "$una" in
 esac
 
 #rm -rf targetEc/Base/target/cc
-export CLASSPATH=target5/*
-java be.BEX_E --buildFile build/extendedEc.txt --emitLang cc --singleCC false --saveIds true
+
+mono --debug target5/BEX_E_mcs.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC false --saveIds true
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 CYC1=`date +%s`
