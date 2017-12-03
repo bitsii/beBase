@@ -1,7 +1,9 @@
 
 cc
   
-  rm all smart pointers, to boehm, or faster intrusive smart pointer?
+  why so much time in string alloc? looks like hash lookup?
+  
+  rm all smart pointers, to boehm
     ?add stack macro?
   
   also own gc option, fully concurrent
