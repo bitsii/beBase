@@ -1,17 +1,22 @@
 
 cc
-  own gc, fully concurrent
-  trace gen safe gen
-  set to gen val on assign
-  up gen before gc
-    set gen on all stack/reachable
-    continue tracing current gen until no change
-    can have a lock on alloc after some count in thread to avoid getting away
-      from gc 
-      
-  for restart set everything in alloc sets to an in use value back at beginning
+  
+  rm all smart pointers, to boehm, or faster intrusive smart pointer?
+    ?add stack macro?
+  
+  also own gc option, fully concurrent
+    trace gen safe gen
+    set to gen val on assign
+    up gen before gc
+      set gen on all stack/reachable
+      continue tracing current gen until no change
+      can have a lock on alloc after some count in thread to avoid getting away
+        from gc 
+    for restart set everything in alloc sets to an in use value back at beginning
     
 cc could do alloc pools
+
+js should selfhost - need to impl random
 
 gratuituous returns
 transitive this support in typecheck

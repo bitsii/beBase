@@ -27,6 +27,23 @@ class Test:BaseTest:System(BaseTest) {
       
       Int r = Int.new();
       rand.getInt(r).print();
+      
+      //can't always be the same
+      Bool worked = false;
+      Int dr = Int.new();
+      for (Int i = 0;i < 10000;i++=) {
+        rand.getInt(dr);
+        if (dr != r) {
+          worked = true;
+          break;
+        }
+      }
+      
+      unless(worked) {
+        "random value always same".print();
+        throw(System:Exception.new("never got different random number"));
+      }
+      
       rand.getIntMax(r, 3@).print();
       assertTrue(rand.getIntMax(r, 2@) < 2); 
       String a = rand.getString(255);

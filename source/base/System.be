@@ -219,6 +219,11 @@ final class Random {
       srand = RNGCryptoServiceProvider.Create();
       """
       }
+      emit(cc) {
+      """
+      srand(time(0));
+      """
+      }
       
    }
    
@@ -242,6 +247,11 @@ final class Random {
       byte[] rb = new byte[4];
       srand.GetBytes(rb);
       beva_value.bevi_int = BitConverter.ToInt32(rb, 0);
+      """
+      }
+      emit(cc) {
+      """
+      beva_value->bevi_int = rand();
       """
       }
       return(value);

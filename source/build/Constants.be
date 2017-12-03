@@ -288,7 +288,12 @@ final class Build:Constants {
       twtok.addToken(ntok);
       matchMap.put(ntok, ntypes.SPACE);
       
-      ntok = Text:Strings.new().newline; //newline
+      ntok = Text:Strings.new().cr;
+      
+      twtok.addToken(ntok);
+      matchMap.put(ntok, ntypes.NEWLINE);
+      
+      ntok = Text:Strings.new().lf;
       
       twtok.addToken(ntok);
       matchMap.put(ntok, ntypes.NEWLINE);

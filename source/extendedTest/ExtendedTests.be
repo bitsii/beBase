@@ -64,6 +64,14 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       //System:Command.new("echo hi").open().output.readString().print();
       
+      //Text:String readBuffer = Text:String.new(4096);
+      //Text:String readBuffer = Text:String.new(26000);
+      //any toParse = IO:File:Path.apNew("source/base/Object.be");
+      //any src = toParse.file.reader.open().readBuffer(readBuffer);
+      //toParse.file.reader.close();
+      //"got src".print();
+      //src.print();
+         
       //if (true) { return(null); }
       
       //now done properly by runtime
@@ -136,8 +144,11 @@ class Test:ExtendedTest:EC(BaseTest) {
       }
       testVarArgs();
       
-      ifEmit(jv, cs) {
+      ifEmit(jv, cs, cc) {
         Test:BaseTest:System.new().main(); //random not impl for all
+      }
+      
+      ifEmit(jv, cs) {
         testSha256();
         testThreads();
         testLocks();

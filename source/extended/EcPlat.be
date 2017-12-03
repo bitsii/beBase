@@ -161,6 +161,12 @@ void** bevl_frv;
          );
          """
          }
+         emit(cc) {
+         """
+         string path = bevp_path->bevp_path->bems_toCcString();
+         mkdir(path.c_str(), 0775);
+         """
+         }
          emit(js) {
          """
          var bevls_path = this.bems_stringToJsString_1(this.bevp_path.bevp_path);

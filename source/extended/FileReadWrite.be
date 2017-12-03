@@ -265,7 +265,7 @@ class IO:Reader {
       }
       emit(cc) {
       """
-       int bevls_read = fread(&(beva_readBuf->bevi_bytes)[beva_at->bevi_int], sizeof(unsigned char), beva_readBuf->bevi_bytes.capacity() - beva_at->bevi_int, bevi_is);
+       int bevls_read = fread(&(beva_readBuf->bevi_bytes[beva_at->bevi_int]), sizeof(unsigned char), beva_readBuf->bevi_bytes.size() - beva_at->bevi_int, bevi_is);
        beva_readsz->bevi_int = bevls_read + beva_at->bevi_int;
       """
       }
