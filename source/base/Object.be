@@ -134,7 +134,6 @@ class System:Object {
           
           
           bevl_result = ti->bems_createInstance();
-          //bevl_result = //static_pointer_cast<BEC_2_6_6_SystemObject>(make_shared<BEC_2_4_3_MathInt>());
           
         } 
         if (bevl_result == nullptr) {
@@ -204,7 +203,7 @@ class System:Object {
 
       for (int i = 0;i < fnames->size();i++) {
 
-       bevl_names->bem_addValue_1(static_pointer_cast<BEC_2_6_6_SystemObject>(make_shared<BEC_2_4_6_TextString>(fnames->at(i))));
+       bevl_names->bem_addValue_1(new BEC_2_4_6_TextString(fnames->at(i)));
 
       }
       
@@ -486,7 +485,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (dynamic_cast<BECS_Object*>(this) != dynamic_cast<BECS_Object*>(beva_x.get())) {
+      if (this != beva_x) {
         return BECS_Runtime::boolFalse;
       }
       """
@@ -525,7 +524,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (dynamic_cast<BECS_Object*>(this) != dynamic_cast<BECS_Object*>(beva_x.get())) {
+      if (this != beva_x) {
         return BECS_Runtime::boolFalse;
       }
       """
@@ -569,7 +568,7 @@ BEINT* bevl_toRet;
       }
       emit(cc) {
       """
-      BECS_Object* co = dynamic_cast<BECS_Object*>(this);
+      BECS_Object* co = this;
       uintptr_t cou = (uintptr_t) co;
       int32_t co3 = (int32_t) cou;
       bevl_toRet->bevi_int = co3;
@@ -614,7 +613,7 @@ BEINT* bevl_toRet;
       }
       emit(cc) {
       """
-      BECS_Object* co = dynamic_cast<BECS_Object*>(this);
+      BECS_Object* co = this;
       uintptr_t cou = (uintptr_t) co;
       int32_t co3 = (int32_t) cou;
       bevl_toRet->bevi_int = co3;
@@ -875,17 +874,17 @@ void** bevl_other;
 
 emit(cc_classHead) {
    """
-virtual shared_ptr<BEC_2_6_6_SystemObject> bems_forwardCall(string mname, vector<shared_ptr<BEC_2_6_6_SystemObject>> bevd_x, int32_t numargs);
+virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
   """
 }
 
 emit(cc) {
    """
 
-shared_ptr<BEC_2_6_6_SystemObject> BEC_2_6_6_SystemObject::bems_forwardCall(string mname, vector<shared_ptr<BEC_2_6_6_SystemObject>> bevd_x, int32_t numargs) {
+BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
   //cout << "in sfwdcall " << endl;
-  shared_ptr<BEC_2_4_6_TextString> name = make_shared<BEC_2_4_6_TextString>(mname);
-  shared_ptr<BEC_2_9_4_ContainerList> args = make_shared<BEC_2_9_4_ContainerList>(bevd_x, numargs);
+  BEC_2_4_6_TextString* name = new BEC_2_4_6_TextString(mname);
+  BEC_2_9_4_ContainerList* args = new BEC_2_9_4_ContainerList(bevd_x, numargs);
   //args = args->bem_copy_0();
   return bem_forwardCall_2(name, args);
   //return nullptr;

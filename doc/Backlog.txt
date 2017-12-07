@@ -1,24 +1,72 @@
 
 cc
   
-  why so much time in string alloc? looks like hash lookup?
+  what gc?
+      
+  cooperative gc
   
-  rm all smart pointers, to boehm
-    ?add stack macro?
-  
-  also own gc option, fully concurrent
-    trace gen safe gen
-    set to gen val on assign
-    up gen before gc
-      set gen on all stack/reachable
-      continue tracing current gen until no change
-      can have a lock on alloc after some count in thread to avoid getting away
-        from gc 
-    for restart set everything in alloc sets to an in use value back at beginning
+    nothread first
+      custom stack
+      pointers to pointers
+      !generated method to mark members!
+      is array
     
+    stack for each thread, all threads centrally located
+    gc mutex
+    atomic alloc counter
+    gc marker
+    
+    in thread create
+      lock gc
+      create thread
+    
+    pre alloc, loop
+      check alloc counter, if > N trygc
+      
+    trygc
+      lock gc
+        innertrygc
+      unlock gc
+      
+    innertrygc
+          if alloc counter > N check threads, if all either gc waiting or blocked, do gc
+          else thread to gc waiting, 
+          
+    gc waiting
+      down on semaphore
+      
+    do gc
+      only from trygc in lock gc
+      if need to reset gc marker do (all instances to 0, marker to 1) else marker++
+      go through all stacks, marker = need to traverse
+      go through all allocs, marker is need to travers, marker + 1 is traversed
+      after alloc pass with no new need to traverse then go through all allocs < marker and sweep
+      semup for waiting threadcount
+      
+    in blocking/mutex
+      lock gc
+        innertrygc
+      mark as blocking
+      unlock gc
+      do blocking thing
+      lock gc
+      unmark as blocking
+         innertrygc
+      unlock gc
+      
+      
+      
+  boehm gc where possible?
+  
+  
+  don't forget to add back in gc test
+    
+  
 cc could do alloc pools
 
-js should selfhost - need to impl random
+compare offsetof getting member setting member to perf of call for mark
+
+js should selfhost - need to impl random (do we for js?)
 
 gratuituous returns
 transitive this support in typecheck

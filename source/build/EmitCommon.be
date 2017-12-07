@@ -628,7 +628,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           main += "be::BECS_Runtime::argc = argc;" += nl;
           main += "be::BECS_Runtime::argv = argv;" += nl;
           main += "be::BEX_E::init();" += nl;
-          main += "shared_ptr<be::" += maincc.emitName += "> mc = make_shared<be::" += maincc.emitName += ">();" += nl;
+          main += "be::" += maincc.emitName += "* mc = new be::" += maincc.emitName += "();" += nl;
           main += "mc->bem_new_0();" += nl;
           main += "mc->bem_main_0();" += nl;
           //end lock
@@ -676,7 +676,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             if (clnode.held.syn.hasDefault) {
                 if(emitting("cc")) {
-                  nc = "make_shared<" + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + ">()";
+                  nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
                 } else {
                   String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
                 }
@@ -882,8 +882,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 decForVar(argDecs, ov.held);
              } else {
                 decForVar(anyDecs, ov.held);
-                if(emitting("js") || emitting("cc")) {
+                if(emitting("js")) {
                     anyDecs += ";" += nl;
+                } elseIf(emitting("cc")) {
+                    anyDecs += " = nullptr;" += nl;
                 } else  {
                     anyDecs += " = null;" += nl;
                 }
@@ -1003,7 +1005,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 if (ovcount >= nativeCSlots) {
                     propertyDecs += self.propDec;
                     decForVar(propertyDecs, i);
-                    propertyDecs += ";" += nl;
+                    if (emitting("cc")) {
+                      propertyDecs += " = nullptr;" += nl;
+                    } else {
+                      propertyDecs += ";" += nl;
+                    }
                 }
                 ovcount++=;
             }
@@ -1058,18 +1064,18 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         if(emitting("cc")) {
         
           while (j < (dnumargs + 1) && j < maxDynArgs) {
-              args = args + ", shared_ptr<" + objectCc.relEmitName(build.libName) + "> bevd_" + (j - 1);
+              args = args + ", " + objectCc.relEmitName(build.libName) + "* bevd_" + (j - 1);
               superArgs = superArgs + ", " + "bevd_" + (j - 1);
               j++=;
           }
           if (dnumargs >= maxDynArgs) {
-              args = args + ", vector<shared_ptr<" + objectCc.relEmitName(build.libName) + ">> bevd_x";
+              args = args + ", vector<" + objectCc.relEmitName(build.libName) + "*> bevd_x";
               superArgs = superArgs + ", bevd_x";
           }
           
-          String dmh = "virtual shared_ptr<" + objectCc.relEmitName(build.libName) + "> " + dmname + "(" + args + ");" + nl;
+          String dmh = "virtual " + objectCc.relEmitName(build.libName) + "* " + dmname + "(" + args + ");" + nl;
           addClassHeader(dmh);
-          dynMethods += "shared_ptr<" += objectCc.relEmitName(build.libName) += "> " += classConf.emitName += "::" += dmname += "(" += args += ") {" += nl; //}
+          dynMethods += objectCc.relEmitName(build.libName) += "* " += classConf.emitName += "::" += dmname += "(" += args += ") {" += nl; //}
         } else {
           
           while (j < (dnumargs + 1) && j < maxDynArgs) {
@@ -1352,7 +1358,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                 unless(emitting("cc")) {
                   methodBody += "return this;" += nl;//default self return
                 } else {
-                  methodBody += "return static_pointer_cast<" += classConf.emitName += ">(shared_from_this());" += nl;
+                  methodBody += "return this;" += nl;//default self return
                 }
              }
              
@@ -1360,7 +1366,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                if (emitting("js")) {
                 methods += "var bevd_x = new Array(" += maxSpillArgsLen.toString() += ");" += nl;
                } elseIf (emitting("cc")) {
-                 methods += "vector<shared_ptr<" += objectCc.relEmitName(build.libName) += ">> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
+                 methods += "vector<" += objectCc.relEmitName(build.libName) += "*> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
                } else {
                 methods += objectCc.relEmitName(build.libName) += "[] bevd_x = new " += objectCc.relEmitName(build.libName) += "[" += maxSpillArgsLen.toString() += "];" += nl;
                }
@@ -1899,7 +1905,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     }
                 } else {
                   if (emitting("cc")) {
-                    newCall = "make_shared<" + newcc.relEmitName(build.libName) + ">()";
+                    newCall = "new " + newcc.relEmitName(build.libName) + "()";
                   } else {
                     String newCall = "new " + newcc.relEmitName(build.libName) + "()";
                   }

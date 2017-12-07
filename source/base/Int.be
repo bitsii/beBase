@@ -733,7 +733,7 @@ bevi_int = beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      if (bevi_int == dynamic_pointer_cast<BEC_2_4_3_MathInt>(beva_xi)->bevi_int) {
+      if (bevi_int == dynamic_cast<BEC_2_4_3_MathInt*>(beva_xi)->bevi_int) {
         return BECS_Runtime::boolTrue;
       }
       """
@@ -769,7 +769,7 @@ bevi_int = beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      if (bevi_int != dynamic_pointer_cast<BEC_2_4_3_MathInt>(beva_xi)->bevi_int) {
+      if (bevi_int != dynamic_cast<BEC_2_4_3_MathInt*>(beva_xi)->bevi_int) {
         return BECS_Runtime::boolTrue;
       }
       """

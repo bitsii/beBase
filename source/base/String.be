@@ -134,26 +134,26 @@ final class String {
     
     BEC_2_4_6_TextString(vector<unsigned char> a_bevi_bytes) { 
       bevi_bytes = a_bevi_bytes;
-      bevp_size = make_shared<BEC_2_4_3_MathInt>(bevi_bytes.size());
-      bevp_capacity = make_shared<BEC_2_4_3_MathInt>(bevi_bytes.size());
+      bevp_size = new BEC_2_4_3_MathInt(bevi_bytes.size());
+      bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
     }
     
     BEC_2_4_6_TextString(vector<unsigned char> a_bevi_bytes, int32_t bevi_length) { 
       bevi_bytes = a_bevi_bytes;
-      bevp_size = make_shared<BEC_2_4_3_MathInt>(bevi_length);
-      bevp_capacity = make_shared<BEC_2_4_3_MathInt>(bevi_length);
+      bevp_size = new BEC_2_4_3_MathInt(bevi_length);
+      bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
     }
     
     BEC_2_4_6_TextString(int32_t bevi_length, vector<unsigned char> a_bevi_bytes) { 
       bevi_bytes = a_bevi_bytes;
-      bevp_size = make_shared<BEC_2_4_3_MathInt>(bevi_length);
-      bevp_capacity = make_shared<BEC_2_4_3_MathInt>(bevi_length);
+      bevp_size = new BEC_2_4_3_MathInt(bevi_length);
+      bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
     }
     
     BEC_2_4_6_TextString(string bevi_string) { 
       bevi_bytes = vector<unsigned char>(bevi_string.begin(), bevi_string.end());
-      bevp_size = make_shared<BEC_2_4_3_MathInt>(bevi_bytes.size());
-      bevp_capacity = make_shared<BEC_2_4_3_MathInt>(bevi_bytes.size());
+      bevp_size = new BEC_2_4_3_MathInt(bevi_bytes.size());
+      bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
     }
     
     string bems_toCcString();
@@ -915,7 +915,7 @@ BEINT bevl_val;
   }
   emit(cc) {
   """
-  shared_ptr<BEC_2_4_6_TextString> bevls_stri = dynamic_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
+  BEC_2_4_6_TextString* bevls_stri = dynamic_cast<BEC_2_4_6_TextString*>(beva_stri);
     if (bevp_size->bevi_int == bevls_stri->bevp_size->bevi_int) {
        for (int32_t i = 0;i < bevp_size->bevi_int;i++) {
           if (bevi_bytes[i] != bevls_stri->bevi_bytes[i]) {

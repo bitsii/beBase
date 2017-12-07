@@ -293,7 +293,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       }
       emit(cc) {
       """
-      shared_ptr<BEC_2_4_5_MathFloat> bevls_xi = dynamic_pointer_cast<BEC_2_4_5_MathFloat>(beva_xi);
+      BEC_2_4_5_MathFloat* bevls_xi = dynamic_cast<BEC_2_4_5_MathFloat*>(beva_xi);
       if (bevi_float == bevls_xi->bevi_float) {
         return BECS_Runtime::boolTrue;
       }
@@ -330,7 +330,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       }
       emit(cc) {
       """
-      shared_ptr<BEC_2_4_5_MathFloat> bevls_xi = dynamic_pointer_cast<BEC_2_4_5_MathFloat>(beva_xi);
+      BEC_2_4_5_MathFloat* bevls_xi = dynamic_cast<BEC_2_4_5_MathFloat*>(beva_xi);
       if (bevi_float != bevls_xi->bevi_float) {
         return BECS_Runtime::boolTrue;
       }

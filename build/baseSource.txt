@@ -1,8 +1,8 @@
 source/base/Uses.be
 source/base/Object.be
+source/base/Int.be
 source/base/String.be
 source/base/Logic.be
-source/base/Int.be
 source/base/Float.be
 source/base/Encode.be
 source/base/LinkedList.be

@@ -129,22 +129,22 @@ final class List {
    
    emit(cc_classHead) {
   """
-    vector<shared_ptr<BEC_2_6_6_SystemObject>> bevi_list;
+    vector<BEC_2_6_6_SystemObject*> bevi_list;
     
     BEC_2_9_4_ContainerList() { }
     
-    BEC_2_9_4_ContainerList(vector<shared_ptr<BEC_2_6_6_SystemObject>> a_bevi_list) {
+    BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*> a_bevi_list) {
         bevi_list = a_bevi_list;
-        bevp_length = make_shared<BEC_2_4_3_MathInt>(bevi_list.size());
-        bevp_capacity = make_shared<BEC_2_4_3_MathInt>(bevi_list.size());
-        bevp_multiplier = make_shared<BEC_2_4_3_MathInt>(2);
+        bevp_length = new BEC_2_4_3_MathInt(bevi_list.size());
+        bevp_capacity = new BEC_2_4_3_MathInt(bevi_list.size());
+        bevp_multiplier = new BEC_2_4_3_MathInt(2);
     }
     
-    BEC_2_9_4_ContainerList(vector<shared_ptr<BEC_2_6_6_SystemObject>> a_bevi_list, int32_t len) {
+    BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*> a_bevi_list, int32_t len) {
         bevi_list = a_bevi_list;
-        bevp_length = make_shared<BEC_2_4_3_MathInt>(len);
-        bevp_capacity = make_shared<BEC_2_4_3_MathInt>(bevi_list.size());
-        bevp_multiplier = make_shared<BEC_2_4_3_MathInt>(2);
+        bevp_length = new BEC_2_4_3_MathInt(len);
+        bevp_capacity = new BEC_2_4_3_MathInt(bevi_list.size());
+        bevp_multiplier = new BEC_2_4_3_MathInt(2);
     }
     
   """

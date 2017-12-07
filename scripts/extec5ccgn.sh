@@ -14,11 +14,13 @@ esac
 #start with "perf record" to profile, see results with "perf report"
 #gdb --args ...
 
-target5/BEX_E_gn.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC false --saveIds true
+time target5/BEX_E_gn.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC false --saveIds true
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 CYC1=`date +%s`
+
+#exit 0
 
 export CC=g++
 export CPFLAGS="-std=c++11 -Wfatal-errors -ggdb"
