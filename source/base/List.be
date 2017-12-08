@@ -66,7 +66,7 @@ final class Container:List:Iterator {
    }
    
    skip(Int multiNullCount) {
-      pos = pos += multiNullCount;
+      pos += multiNullCount;
    }
 
 }

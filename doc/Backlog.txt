@@ -1,15 +1,24 @@
 
 cc
+
+perf info
+no mem mgt, stack, etc
+2 sec extecbld, 8 sec 4bld
+(70% time spent in malloc, so pools or better alloc likely to help)
   
-  what gc?
-      
   cooperative gc
   
     nothread first
       custom stack
+        list of pointer to pointer
+        into constructor to frame with count of elements
+        no need for stack arg, just us a global
       pointers to pointers
       !generated method to mark members!
       is array
+      
+      intensive gctest runs
+    
     
     stack for each thread, all threads centrally located
     gc mutex
@@ -54,14 +63,8 @@ cc
          innertrygc
       unlock gc
       
-      
-      
-  boehm gc where possible?
-  
-  
-  don't forget to add back in gc test
+  intensive mt thread tests
     
-  
 cc could do alloc pools
 
 compare offsetof getting member setting member to perf of call for mark

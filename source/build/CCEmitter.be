@@ -90,7 +90,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     
     buildCreate() {
         ccMethods += self.overrideMtdDec += getClassConfig(objectNp).relEmitName(build.libName) += "* " += classConf.emitName += "::bemc_create()" += exceptDec += " {" += nl;  //}
-            ccMethods += "new " += getClassConfig(cnode.held.namepath).relEmitName(build.libName) += "();" += nl;
+            ccMethods += "return new " += getClassConfig(cnode.held.namepath).relEmitName(build.libName) += "();" += nl;
         //{
         ccMethods += "}" += nl;
     }

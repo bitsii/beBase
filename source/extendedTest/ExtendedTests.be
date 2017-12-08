@@ -154,6 +154,10 @@ class Test:ExtendedTest:EC(BaseTest) {
         testLocks();
       }
       
+      ifEmit(cc) {
+        testSF();
+      }
+      
       //} catch (any e) { 
         //e.print();
      //}
@@ -161,6 +165,29 @@ class Test:ExtendedTest:EC(BaseTest) {
      
      ("Test:ExtendedTest:Ec:main completed successfully").print();
       
+   }
+   
+   testSF() {
+    "in testSF".print();
+    
+    Int x0;
+    Int x1;
+    
+    emit(cc) {
+    """
+    BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
+    """
+    }
+    x1 = 10;
+    emit(cc) {
+    """
+    bevl_x0 = *xa[1];
+    bevl_x1->bevi_int = 5;
+    """
+    }
+    assertEqual(x0, x1);
+    assertEqual(x0, 5);
+   
    }
    
    testVarArgs() {
