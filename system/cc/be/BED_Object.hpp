@@ -5,3 +5,5 @@ class BECS_Object;
 class BECS_Runtime;
 class BECS_ThrowBack;
 class BETS_Object;
+class BECS_StackFrame;
+class BECS_FrameStack;

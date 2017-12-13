@@ -862,11 +862,15 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       callNames.put(node.held.name);
       
       String argDecs = String.new();
-      String anyDecs = String.new();
+      String locDecs = String.new();
       
       //for (Node ovlc in node.held.orderedVars) {
       //  lookatComp(ovlc);
       //}
+      
+      String stackRefs = String.new();
+      Bool isFirstRef = true;
+      Int numRefs = 0;
       
       Bool isFirstArg = true;
       for (Node ov in node.held.orderedVars) {
@@ -881,17 +885,29 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                  }
                 decForVar(argDecs, ov.held);
              } else {
-                decForVar(anyDecs, ov.held);
+                decForVar(locDecs, ov.held);
                 if(emitting("js")) {
-                    anyDecs += ";" += nl;
+                    locDecs += ";" += nl;
                 } elseIf(emitting("cc")) {
-                    anyDecs += " = nullptr;" += nl;
+                    locDecs += " = nullptr;" += nl;
+                    unless(isFirstRef) {
+                      stackRefs += ", ";
+                    }
+                    isFirstRef = false;
+                    stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
+                    numRefs++=;
                 } else  {
-                    anyDecs += " = null;" += nl;
+                    locDecs += " = null;" += nl;
                 }
              }
              ov.held.nativeName = nameForVar(ov.held);
          }
+      }
+      
+      if(emitting("cc")) {
+        locDecs += "BEC_2_6_6_SystemObject** bevls_stackRefs[" += numRefs.toString() += "] = { " += stackRefs += " };" += nl;
+        
+        //BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
       }
       
       NamePath ertype = msyn.getEmitReturnType(csyn, build);
@@ -911,7 +927,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       
       startMethod(mtdDec, returnType, emitNameForMethod(node), argDecs, exceptDec);
       
-      methods += anyDecs;
+      methods += locDecs;
       
   }
   

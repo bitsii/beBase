@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mono --debug target5/BEX_E_mcs.exe --buildFile build/buildbuild.txt --deployPath deploy4 --buildPath target4 --emitLang cs
+time mono --debug target5/BEX_E_mcs.exe --buildFile build/buildbuild.txt --deployPath deploy4 --buildPath target4 --emitLang cs
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

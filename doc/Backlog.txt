@@ -5,14 +5,16 @@ perf info
 no mem mgt, stack, etc
 2 sec extecbld, 8 sec 4bld
 (70% time spent in malloc, so pools or better alloc likely to help)
+6ext, 9 4bld post stack array
   
   cooperative gc
   
     nothread first
       custom stack
-        list of pointer to pointer
-        into constructor to frame with count of elements
-        no need for stack arg, just us a global
+        per thread argument
+        constructor destructor for stack
+        do need stack per thread, does not have to be atomic
+        ?do decision to gc per thread?  ?div?
       pointers to pointers
       !generated method to mark members!
       is array
@@ -62,6 +64,11 @@ no mem mgt, stack, etc
       unmark as blocking
          innertrygc
       unlock gc
+      
+      atomics do what's needed re ordering (happens before, for non-atomics)
+        http://en.cppreference.com/w/c/atomic/memory_order#Sequentially-consistent_ordering
+        
+      ??have a single-threaded option??
       
   intensive mt thread tests
     

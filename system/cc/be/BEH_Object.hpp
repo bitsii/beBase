@@ -82,10 +82,12 @@ class BETS_Object {
     virtual BEC_2_6_6_SystemObject* bems_createInstance();
 };
 
-class BECS_StackFramePile {
-  
+class BECS_StackFrame {
+  BECS_StackFrame* bevs_priorFrame;
+  BEC_2_6_6_SystemObject** bevs_localVars;
+  int32_t bevs_numVars;
 };
 
-class BECS_StackFrame {
-  
+class BECS_FrameStack {
+  BECS_StackFrame* bevs_lastFrame;
 };

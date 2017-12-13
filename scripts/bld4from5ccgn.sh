@@ -15,7 +15,7 @@ esac
 #catch throw
 #run
 
-./target5/BEX_E_gn.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC false --saveIds true --deployPath deploy4 --buildPath target4
+time ./target5/BEX_E_gn.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC false --saveIds true --deployPath deploy4 --buildPath target4
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

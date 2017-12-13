@@ -175,13 +175,14 @@ class Test:ExtendedTest:EC(BaseTest) {
     
     emit(cc) {
     """
-    BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
+    //BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
+    BEC_2_6_6_SystemObject** xa[2] = { (BEC_2_6_6_SystemObject**) &bevl_x0, (BEC_2_6_6_SystemObject**) &bevl_x1 };
     """
     }
     x1 = 10;
     emit(cc) {
     """
-    bevl_x0 = *xa[1];
+    *xa[0] = *xa[1];
     bevl_x1->bevi_int = 5;
     """
     }
