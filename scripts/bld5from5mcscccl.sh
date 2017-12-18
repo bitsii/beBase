@@ -10,6 +10,8 @@ case "$una" in
     ;;
 esac
 
+rm -rf target5/Base/target/cc ./target5/BEX_E_cl.exe
+
 mono --debug target5/BEX_E_mcs.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds true --deployPath deploy5 --buildPath target5
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

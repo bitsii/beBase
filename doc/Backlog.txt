@@ -3,29 +3,25 @@ cc
 
 perf info
 no mem mgt, stack, etc
-2 sec extecbld, 8 sec 4bld
+gcc 2 sec extecbld, 8 sec 4bld
+cla 6.5 sec extecbld, 11 sec 4bld
 (70% time spent in malloc, so pools or better alloc likely to help)
-6ext, 9 4bld post stack array
+gcc 6 sec extecbld, 9 4bld post stack array
+cla 7.3 sec extecbld, 12.2 sec 4bld post stack array
+cla 7.4 sec extecbld, 12.3 sec 4bld post construct frame novars
+cla 9.2 sec extecbld, 15.5 sec 4bld post construct frame vars (no diff for not thread local...)
   
   cooperative gc
   
-    nothread first
-      custom stack
-        per thread argument
-        constructor destructor for stack
-        do need stack per thread, does not have to be atomic
-        ?do decision to gc per thread?  ?div?
-      pointers to pointers
-      !generated method to mark members!
-      is array
-      
+    alloc chains (member ref)
+    !generated method to mark members! (not for array, there write code)
+    gc code (marks sweeps)
       intensive gctest runs
     
-    
-    stack for each thread, all threads centrally located
-    gc mutex
-    atomic alloc counter
-    gc marker
+    thread support
+    stack for each thread, all stacks centrally located, in thread too
+    gc per thread counts for when to gc (divide total by numthreads at threadstart)
+    lots of testing/gc/threads
     
     in thread create
       lock gc
@@ -41,10 +37,7 @@ no mem mgt, stack, etc
       
     innertrygc
           if alloc counter > N check threads, if all either gc waiting or blocked, do gc
-          else thread to gc waiting, 
-          
-    gc waiting
-      down on semaphore
+          else thread to gc waiting (set gcwaiting, lock gcthreadmut, unlock gc, lock gcthreadmut again (for the block))
       
     do gc
       only from trygc in lock gc
@@ -52,17 +45,16 @@ no mem mgt, stack, etc
       go through all stacks, marker = need to traverse
       go through all allocs, marker is need to travers, marker + 1 is traversed
       after alloc pass with no new need to traverse then go through all allocs < marker and sweep
-      semup for waiting threadcount
+      unlock all the gcwaiting locks (per thread)
+      unlock gc
       
     in blocking/mutex
       lock gc
-        innertrygc
       mark as blocking
       unlock gc
       do blocking thing
       lock gc
       unmark as blocking
-         innertrygc
       unlock gc
       
       atomics do what's needed re ordering (happens before, for non-atomics)
@@ -72,6 +64,8 @@ no mem mgt, stack, etc
       
   intensive mt thread tests
     
+change int32_t et all to "fast" vers
+
 cc could do alloc pools
 
 compare offsetof getting member setting member to perf of call for mark

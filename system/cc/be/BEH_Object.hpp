@@ -19,6 +19,7 @@ class BECS_Lib {
 
 class BECS_Object {
   public:
+    uint_fast16_t bevs_gcMark;
     virtual BEC_2_4_6_TextString* bemc_clnames();
     virtual BEC_2_4_6_TextString* bemc_clfiles();
     virtual BEC_2_6_6_SystemObject* bemc_create();
@@ -82,12 +83,41 @@ class BETS_Object {
     virtual BEC_2_6_6_SystemObject* bems_createInstance();
 };
 
-class BECS_StackFrame {
-  BECS_StackFrame* bevs_priorFrame;
-  BEC_2_6_6_SystemObject** bevs_localVars;
-  int32_t bevs_numVars;
+class BECS_FrameStack {
+  public:
+  BECS_StackFrame* bevs_lastFrame = nullptr;
+  int32_t allocsSinceGc = 0;
+  int32_t allocsPerGc = 0;
+  BECS_FrameStack* bevs_nextFrameStack = nullptr;
+  //bool gcWaiting = false;
+  //bool gcBlocked = false;
+  //mutex gcWaitingLock
 };
 
-class BECS_FrameStack {
-  BECS_StackFrame* bevs_lastFrame;
+thread_local BECS_FrameStack bevs_currentStack;
+
+class BECS_StackFrame {
+  public:
+  BECS_StackFrame* bevs_priorFrame = nullptr;
+  BEC_2_6_6_SystemObject*** bevs_localVars;
+  int bevs_numVars = 0;
+  BECS_FrameStack* bevs_myStack = nullptr;
+  BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, int beva_numVars) {
+    bevs_localVars = beva_localVars;
+    bevs_numVars = beva_numVars;
+    BECS_FrameStack* fs = &bevs_currentStack;
+    bevs_priorFrame = fs->bevs_lastFrame;
+    fs->bevs_lastFrame = this;
+    bevs_myStack = fs;
+  }
+  ~BECS_StackFrame() {
+    bevs_myStack->bevs_lastFrame = bevs_priorFrame;
+  }
+};
+
+class BECS_GcState {
+  public:
+  BECS_FrameStack* bevs_firstFrameStack = nullptr;
+  //int32_t globalAllocsPerGc = 0;
+  //mutex gcLock
 };
