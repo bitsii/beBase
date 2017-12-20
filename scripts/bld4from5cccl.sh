@@ -12,6 +12,11 @@ esac
 
 rm -rf target4/Base/target/cc ./target4/BEX_E_cl.exe
 
+#start with "perf record" to profile, see results with "perf report"
+#to debug / get stack gdb --args 
+#catch throw
+#run
+
 time ./target5/BEX_E_cl.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds true --deployPath deploy4 --buildPath target4
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi

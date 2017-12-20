@@ -254,6 +254,11 @@ final class Random {
       beva_value->bevi_int = rand();
       """
       }
+      emit(js) {
+      """
+      beva_value.bevi_int = Math.random() * Number.MAX_SAFE_INTEGER;
+      """
+      }
       return(value);
    }
    

@@ -17,9 +17,50 @@ class BECS_Lib {
     static void putNlecSourceMap(string clname, vector<int32_t>& vals);
 };
 
-class BECS_Object {
+class BECS_Slab {
   public:
-    uint_fast16_t bevs_gcMark;
+  unsigned char* bevs_data = nullptr;
+  BECS_Slab* bevs_priorSlab = nullptr;
+  BECS_Slab* bevs_nextSlab = nullptr;
+  size_t bevs_size = 0;
+  size_t bevs_pos = 0;
+};
+
+class BECS_FrameStack {
+  public:
+  BECS_StackFrame* bevs_lastFrame = nullptr;
+  int32_t bevs_allocsSinceGc = 0;
+  int32_t bevs_allocsPerGc = 0;
+  BECS_Slab* bevs_firstSlab = nullptr;
+  BECS_Slab* bevs_currentSlab = nullptr;
+  BECS_Slab* bevs_firstStaticSlab = nullptr;
+  BECS_Slab* bevs_currentStaticSlab = nullptr;
+  //bool gcWaiting = false;
+  //bool gcBlocked = false;
+  //mutex gcWaitingLock
+};
+
+thread_local BECS_FrameStack bevs_currentStack;
+
+
+        //sobject - gcmark, poiniter to betspar
+
+class BECS_MemState {
+  public:
+  uint_fast16_t bevs_gcMark = 0;
+  
+};
+
+class BECS_Object : public BECS_MemState {
+  public:
+    static void* operator new(size_t size) {
+      //cout << "new" << endl;
+      return malloc(size);
+      
+    }
+    static void operator delete (void* inst) {
+      //free(inst);
+    }
     virtual BEC_2_4_6_TextString* bemc_clnames();
     virtual BEC_2_4_6_TextString* bemc_clfiles();
     virtual BEC_2_6_6_SystemObject* bemc_create();
@@ -74,7 +115,13 @@ public:
     static BEC_2_6_6_SystemObject* handleThrow(BECS_ThrowBack thrown);
 };
 
-class BETS_Object {
+class BETS_MemInfo {
+  public:
+  size_t bevs_size = 0;
+  int bevs_type = 0; //rawdata, array, string, instance call destroy/no call destroy, ...
+};
+        
+class BETS_Object : public BETS_MemInfo {
   public:
     BETS_Object* bevs_parentType;
     std::unordered_map<std::string, bool> bevs_methodNames;
@@ -82,19 +129,6 @@ class BETS_Object {
     virtual void bems_buildMethodNames(std::vector<std::string> names);
     virtual BEC_2_6_6_SystemObject* bems_createInstance();
 };
-
-class BECS_FrameStack {
-  public:
-  BECS_StackFrame* bevs_lastFrame = nullptr;
-  int32_t allocsSinceGc = 0;
-  int32_t allocsPerGc = 0;
-  BECS_FrameStack* bevs_nextFrameStack = nullptr;
-  //bool gcWaiting = false;
-  //bool gcBlocked = false;
-  //mutex gcWaitingLock
-};
-
-thread_local BECS_FrameStack bevs_currentStack;
 
 class BECS_StackFrame {
   public:
@@ -115,7 +149,7 @@ class BECS_StackFrame {
   }
 };
 
-class BECS_GcState {
+class BECS_AllStacks {
   public:
   BECS_FrameStack* bevs_firstFrameStack = nullptr;
   //int32_t globalAllocsPerGc = 0;
