@@ -15,10 +15,7 @@ cla 9 sec extecbld, 14.3 sec 4bld post construct frame vars (no diff for not thr
   cooperative gc
   
     do allocation pools (slabs, etc)
-      super type to object/bets (sobject/betspar) with gc needs
-      per thread
-      all based on size/sizeof
-      subdivide
+      do allocs from slabs (subdivision)
       
       no sweep, alloc based on gens (only accumulate and sweep when resetting)
       call destructors explicitly during reuse

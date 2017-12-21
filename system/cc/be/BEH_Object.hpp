@@ -42,13 +42,16 @@ class BECS_FrameStack {
 
 thread_local BECS_FrameStack bevs_currentStack;
 
-
-        //sobject - gcmark, poiniter to betspar
-
 class BECS_MemState {
   public:
   uint_fast16_t bevs_gcMark = 0;
-  
+  BETS_MemInfo* bevs_memInfo = nullptr;
+};
+
+class BETS_MemInfo {
+  public:
+  size_t bevs_size;
+  uint_fast16_t bevs_type = 0; //raw, array, string, instance
 };
 
 class BECS_Object : public BECS_MemState {
@@ -56,7 +59,6 @@ class BECS_Object : public BECS_MemState {
     static void* operator new(size_t size) {
       //cout << "new" << endl;
       return malloc(size);
-      
     }
     static void operator delete (void* inst) {
       //free(inst);
@@ -114,20 +116,15 @@ public:
     BECS_ThrowBack(BEC_2_6_6_SystemObject* thrown);
     static BEC_2_6_6_SystemObject* handleThrow(BECS_ThrowBack thrown);
 };
-
-class BETS_MemInfo {
-  public:
-  size_t bevs_size = 0;
-  int bevs_type = 0; //rawdata, array, string, instance call destroy/no call destroy, ...
-};
         
-class BETS_Object : public BETS_MemInfo {
+class BETS_Object : BETS_MemInfo {
   public:
     BETS_Object* bevs_parentType;
     std::unordered_map<std::string, bool> bevs_methodNames;
     std::vector<std::string> bevs_fieldNames;
     virtual void bems_buildMethodNames(std::vector<std::string> names);
     virtual BEC_2_6_6_SystemObject* bems_createInstance();
+    vector<size_t> bevs_memberOffsets;
 };
 
 class BECS_StackFrame {
