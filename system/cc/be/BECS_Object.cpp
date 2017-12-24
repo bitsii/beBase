@@ -2,6 +2,8 @@
 unordered_map<string, int32_t> BECS_Ids::callIds;
 unordered_map<int32_t, string> BECS_Ids::idCalls;
 
+__thread BECS_FrameStack bevs_currentStack;
+
 void BECS_Lib::putCallId(string name, int32_t iid) {
     BECS_Ids::callIds[name] = iid;
     BECS_Ids::idCalls[iid] = name;

@@ -1,4 +1,7 @@
 
+
+extern __thread BECS_FrameStack bevs_currentStack;
+
 class BECS_Ids {
     public:
     static unordered_map<string, int32_t> callIds;
@@ -17,52 +20,41 @@ class BECS_Lib {
     static void putNlecSourceMap(string clname, vector<int32_t>& vals);
 };
 
-class BECS_Slab {
-  public:
-  unsigned char* bevs_data = nullptr;
-  BECS_Slab* bevs_priorSlab = nullptr;
-  BECS_Slab* bevs_nextSlab = nullptr;
-  size_t bevs_size = 0;
-  size_t bevs_pos = 0;
-};
-
 class BECS_FrameStack {
   public:
   BECS_StackFrame* bevs_lastFrame = nullptr;
-  int32_t bevs_allocsSinceGc = 0;
-  int32_t bevs_allocsPerGc = 0;
-  BECS_Slab* bevs_firstSlab = nullptr;
-  BECS_Slab* bevs_currentSlab = nullptr;
-  BECS_Slab* bevs_firstStaticSlab = nullptr;
-  BECS_Slab* bevs_currentStaticSlab = nullptr;
+  int_fast32_t bevs_allocsSinceGc = 0;
+  int_fast32_t bevs_allocsPerGc = 0;
+  //int_fast32_t bevs_allocInstructs = 0;
+  BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
+  BECS_Object* bevs_lastDuctInst = nullptr;//last destruct need
+  BECS_Object* bevs_lastStatInst = nullptr;//last static
   //bool gcWaiting = false;
   //bool gcBlocked = false;
   //mutex gcWaitingLock
 };
 
-thread_local BECS_FrameStack bevs_currentStack;
-
-class BECS_MemState {
+class BECS_Object {
   public:
-  uint_fast16_t bevs_gcMark = 0;
-  BETS_MemInfo* bevs_memInfo = nullptr;
-};
-
-class BETS_MemInfo {
-  public:
-  size_t bevs_size;
-  uint_fast16_t bevs_type = 0; //raw, array, string, instance
-};
-
-class BECS_Object : public BECS_MemState {
-  public:
-    static void* operator new(size_t size) {
-      //cout << "new" << endl;
-      return malloc(size);
+    uint_fast16_t bevs_gcMark = 0;
+    BECS_Object* bevs_priorInst = nullptr;
+    /*static void* operator new(size_t size) {
+      BECS_FrameStack* bevs_myStack = &bevs_currentStack;
+      bevs_myStack->bevs_allocInstructs = 1; //was alloced for "standard inst"
+      BECS_Object* ni = (BECS_Object*) malloc(size);
+      return ni;
     }
     static void operator delete (void* inst) {
-      //free(inst);
+      free(inst);
+    }*/
+    BECS_Object() {
+      BECS_FrameStack* bevs_myStack = &bevs_currentStack;
+      //if (bevs_myStack->bevs_allocInstructs == 1) { //was newly alloced for "standard inst"
+        this->bevs_priorInst = bevs_myStack->bevs_lastInst;
+        bevs_myStack->bevs_lastInst = this;
+      //}
     }
+    virtual ~BECS_Object() = default;
     virtual BEC_2_4_6_TextString* bemc_clnames();
     virtual BEC_2_4_6_TextString* bemc_clfiles();
     virtual BEC_2_6_6_SystemObject* bemc_create();
@@ -78,7 +70,6 @@ class BECS_Object : public BECS_MemState {
     virtual BEC_2_6_6_SystemObject* bemd_6(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5);
     virtual BEC_2_6_6_SystemObject* bemd_7(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6);
     virtual BEC_2_6_6_SystemObject* bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, vector<BEC_2_6_6_SystemObject*> bevd_x);
-    virtual ~BECS_Object() = default;
     virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
     virtual BEC_2_6_6_SystemObject* bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*> args);
 
@@ -107,6 +98,7 @@ class BECS_Runtime {
     static void init();
     
     static int32_t getNlcForNlec(string clname, int32_t val);
+    
 };
 
 class BECS_ThrowBack {
@@ -117,36 +109,34 @@ public:
     static BEC_2_6_6_SystemObject* handleThrow(BECS_ThrowBack thrown);
 };
         
-class BETS_Object : BETS_MemInfo {
+class BETS_Object {
   public:
     BETS_Object* bevs_parentType;
     std::unordered_map<std::string, bool> bevs_methodNames;
     std::vector<std::string> bevs_fieldNames;
     virtual void bems_buildMethodNames(std::vector<std::string> names);
     virtual BEC_2_6_6_SystemObject* bems_createInstance();
-    vector<size_t> bevs_memberOffsets;
 };
 
 class BECS_StackFrame {
   public:
-  BECS_StackFrame* bevs_priorFrame = nullptr;
+  BECS_StackFrame* bevs_priorFrame;
   BEC_2_6_6_SystemObject*** bevs_localVars;
-  int bevs_numVars = 0;
-  BECS_FrameStack* bevs_myStack = nullptr;
+  int bevs_numVars;
+  BECS_FrameStack* bevs_myStack;
   BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, int beva_numVars) {
     bevs_localVars = beva_localVars;
     bevs_numVars = beva_numVars;
-    BECS_FrameStack* fs = &bevs_currentStack;
-    bevs_priorFrame = fs->bevs_lastFrame;
-    fs->bevs_lastFrame = this;
-    bevs_myStack = fs;
+    bevs_myStack = &bevs_currentStack;
+    bevs_priorFrame = bevs_myStack->bevs_lastFrame;
+    bevs_myStack->bevs_lastFrame = this;
   }
   ~BECS_StackFrame() {
     bevs_myStack->bevs_lastFrame = bevs_priorFrame;
   }
 };
 
-class BECS_AllStacks {
+class BECS_MemMgr {
   public:
   BECS_FrameStack* bevs_firstFrameStack = nullptr;
   //int32_t globalAllocsPerGc = 0;

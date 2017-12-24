@@ -11,18 +11,17 @@ cla 7.3 sec extecbld, 12.2 sec 4bld post stack array
 cla 7.4 sec extecbld, 12.3 sec 4bld post construct frame novars
 cla 9 sec extecbld, 14.3 sec 4bld post construct frame vars (no diff for not thread local...)
   with -O1 4bld is 8 sec, -02 is 6 sec (-O3 also 6)
-  
-  cooperative gc
-  
-    do allocation pools (slabs, etc)
-      do allocs from slabs (subdivision)
-      
-      no sweep, alloc based on gens (only accumulate and sweep when resetting)
-      call destructors explicitly during reuse
-      subdividions start with a parent type to mark space and have needed calls
-      when threads exit need to give their slabs away - have a slab store to take from before alloc new, put on exit
-    !generated method to mark members! (not for array, there write code)
-    gc code (marks)
+ 
+cooperative gc
+    
+    notstatic 1, static 2
+    
+    recursive gc mark, gen calls for marking
+    just do mark/sweep no reuse needed to start
+    call delete during sweep
+    
+    when threads exit need to give their lists away, redistro during gc, stacks for old threads
+      stay until gc
       intensive gctest runs
     
     thread support
@@ -70,7 +69,11 @@ cla 9 sec extecbld, 14.3 sec 4bld post construct frame vars (no diff for not thr
       ??have a single-threaded option??
       
   intensive mt thread tests
-    
+ 
+boehm support too
+
+?for own gc steal stack scan from boehm where possible, dump shadow stack
+
 change int32_t et all to "fast" vers
 
 cc could do alloc pools
