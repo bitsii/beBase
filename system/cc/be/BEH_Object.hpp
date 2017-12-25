@@ -27,8 +27,6 @@ class BECS_FrameStack {
   int_fast32_t bevs_allocsPerGc = 0;
   //int_fast32_t bevs_allocInstructs = 0;
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
-  BECS_Object* bevs_lastDuctInst = nullptr;//last destruct need
-  BECS_Object* bevs_lastStatInst = nullptr;//last static
   //bool gcWaiting = false;
   //bool gcBlocked = false;
   //mutex gcWaitingLock

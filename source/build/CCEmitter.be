@@ -22,6 +22,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
           String headExt = ".hpp";
           String classHeadBody = String.new();
           String classHeaders = String.new();
+          String onceDecRefs = String.new();
+          Int onceDecRefsCount = 0;
         }
         
         //super new depends on some things we set here, so it must follow
@@ -176,7 +178,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        
        String initialDec = String.new();
        
-       initialDec += classConf.typeEmitName += " " += classConf.emitName += "::" += bein += ";";
+       initialDec += classConf.typeEmitName += " " += classConf.emitName += "::" += bein += ";\n";
+       
+       initialDec += "BEC_2_6_6_SystemObject** " += classConf.typeEmitName += "::bevs_inst_ref = (BEC_2_6_6_SystemObject**) &" += classConf.emitName += "::bece_" + classConf.emitName + "_bevs_inst;\n";
        
        return(initialDec);
        
@@ -235,6 +239,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    }
       
       onceDec(String typeName, String anyName) {
+         onceDecRefsCount++=;
+         if (TS.notEmpty(onceDecRefs)) {
+           onceDecRefs += ", ";
+         }
+         onceDecRefs += "(BEC_2_6_6_SystemObject**) &" += anyName;
          return("static " + typeName + "* ");
       }
       
@@ -338,6 +347,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         beh += "public:\n";
         beh += classConf.typeEmitName += "();\n";
         beh += "virtual BEC_2_6_6_SystemObject* bems_createInstance();\n";
+        beh += "static BEC_2_6_6_SystemObject** bevs_bevo_refs[" += onceDecRefsCount += "];\n";
+        beh += "static int_fast32_t bevs_bevo_refs_count;\n";
+        beh += "static BEC_2_6_6_SystemObject** bevs_inst_ref;\n";
         beh += "};\n";
         heow.write(beh);
         
@@ -377,6 +389,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
           bet += "return new " += classConf.emitName += "();\n";
         }
         bet += "}\n";
+        onceDecs += "BEC_2_6_6_SystemObject** " += classConf.typeEmitName += "::bevs_bevo_refs[" += onceDecRefsCount += "] = { " += onceDecRefs += "};" += nl;
+        onceDecs += "int_fast32_t  " += classConf.typeEmitName += "::bevs_bevo_refs_count = " += onceDecRefsCount += ";\n";
+        onceDecRefs.clear();
+        onceDecRefsCount = 0;
+        //also need the count
         getClassOutput().write(bet);
         lineCount += countLines(bet);
     }
