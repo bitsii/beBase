@@ -973,6 +973,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         String onceDecs = String.new();
         Int onceCount = 0;
         String propertyDecs = String.new();
+        String gcMarks = String.new();
         Node cnode = node;
         Build:ClassSyn csyn = node.held.syn;
         String dynMethods = String.new();
@@ -1026,6 +1027,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                       propertyDecs += " = nullptr;" += nl;
                     } else {
                       propertyDecs += ";" += nl;
+                    }
+                    if(emitting("cc")) {
+                      String mvn = nameForVar(i);
+                      gcMarks += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != bevg_currentGcMark) {" += nl;
+                      gcMarks += mvn += "->bemg_doMark();" += nl;
+                      gcMarks += "}" += nl;
                     }
                 }
                 ovcount++=;

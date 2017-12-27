@@ -4,6 +4,8 @@ unordered_map<int32_t, string> BECS_Ids::idCalls;
 
 __thread BECS_FrameStack bevs_currentStack;
 
+int_fast16_t bevg_currentGcMark = 0;
+
 void BECS_Lib::putCallId(string name, int32_t iid) {
     BECS_Ids::callIds[name] = iid;
     BECS_Ids::idCalls[iid] = name;
@@ -37,6 +39,10 @@ void BECS_Object::bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst) { }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemc_getInitial() {
  return nullptr; 
+}
+
+void BECS_Object::bemg_doMark() {
+ 
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*> args) {

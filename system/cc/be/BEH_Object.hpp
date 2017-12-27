@@ -2,6 +2,8 @@
 
 extern __thread BECS_FrameStack bevs_currentStack;
 
+extern int_fast16_t bevg_currentGcMark;
+
 class BECS_Ids {
     public:
     static unordered_map<string, int32_t> callIds;
@@ -34,8 +36,8 @@ class BECS_FrameStack {
 
 class BECS_Object {
   public:
-    uint_fast16_t bevs_gcMark = 0;
-    BECS_Object* bevs_priorInst = nullptr;
+    int_fast16_t bevg_gcMark = 0;
+    BECS_Object* bevg_priorInst = nullptr;
     /*static void* operator new(size_t size) {
       BECS_FrameStack* bevs_myStack = &bevs_currentStack;
       bevs_myStack->bevs_allocInstructs = 1; //was alloced for "standard inst"
@@ -48,7 +50,7 @@ class BECS_Object {
     BECS_Object() {
       BECS_FrameStack* bevs_myStack = &bevs_currentStack;
       //if (bevs_myStack->bevs_allocInstructs == 1) { //was newly alloced for "standard inst"
-        this->bevs_priorInst = bevs_myStack->bevs_lastInst;
+        this->bevg_priorInst = bevs_myStack->bevs_lastInst;
         bevs_myStack->bevs_lastInst = this;
       //}
     }
@@ -58,6 +60,7 @@ class BECS_Object {
     virtual BEC_2_6_6_SystemObject* bemc_create();
     virtual void bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst);
     virtual BEC_2_6_6_SystemObject* bemc_getInitial();
+    virtual void bemg_doMark();
     //bemds, to 7 then x
     virtual BEC_2_6_6_SystemObject* bemd_0(int32_t callId);
     virtual BEC_2_6_6_SystemObject* bemd_1(int32_t callId, BEC_2_6_6_SystemObject* bevd_0);
