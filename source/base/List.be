@@ -147,6 +147,15 @@ final class List {
         bevp_multiplier = new BEC_2_4_3_MathInt(2);
     }
     
+    void bemg_markContent() {
+      for (size_t i = 0; i < bevi_list.size(); i++) {
+        BEC_2_6_6_SystemObject* bevg_le = bevi_list[i];
+        if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
+          bevg_le->bemg_doMark();
+        }
+      }
+    }
+    
   """
   }
    

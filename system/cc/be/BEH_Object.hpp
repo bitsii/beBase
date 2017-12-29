@@ -100,6 +100,8 @@ class BECS_Runtime {
     
     static int32_t getNlcForNlec(string clname, int32_t val);
     
+    static void bemg_markAll();
+    
 };
 
 class BECS_ThrowBack {
@@ -117,6 +119,7 @@ class BETS_Object {
     std::vector<std::string> bevs_fieldNames;
     virtual void bems_buildMethodNames(std::vector<std::string> names);
     virtual BEC_2_6_6_SystemObject* bems_createInstance();
+    virtual void bemgt_doMark();
 };
 
 class BECS_StackFrame {
@@ -137,9 +140,3 @@ class BECS_StackFrame {
   }
 };
 
-class BECS_MemMgr {
-  public:
-  BECS_FrameStack* bevs_firstFrameStack = nullptr;
-  //int32_t globalAllocsPerGc = 0;
-  //mutex gcLock
-};

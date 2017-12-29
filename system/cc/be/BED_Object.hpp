@@ -7,4 +7,3 @@ class BECS_ThrowBack;
 class BETS_Object;
 class BECS_StackFrame;
 class BECS_FrameStack;
-class BECS_MemMgr;

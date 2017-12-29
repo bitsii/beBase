@@ -148,6 +148,17 @@ int32_t BECS_Runtime::getNlcForNlec(string clname, int32_t val) {
   return -1;
 }
 
+void BECS_Runtime::bemg_markAll() {
+  //static unordered_map<string, BETS_Object*> typeRefs;
+  
+  //runtime true, false, initter
+  
+  for (auto nt : typeRefs) {
+    nt.second->bemgt_doMark();
+  }
+  
+}
+
 void BETS_Object::bems_buildMethodNames(std::vector<std::string> names) {
   for (unsigned i=0; i < names.size(); i++) {
       bevs_methodNames[names[i]] = true;
@@ -156,6 +167,9 @@ void BETS_Object::bems_buildMethodNames(std::vector<std::string> names) {
 
 BEC_2_6_6_SystemObject* BETS_Object::bems_createInstance() {
   return nullptr;
+}
+
+void BETS_Object::bemgt_doMark() {
 }
 
 BECS_ThrowBack::BECS_ThrowBack() { }

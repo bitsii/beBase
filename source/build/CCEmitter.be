@@ -341,6 +341,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
      }
    }
    
+   genMark(String mvn) String {
+       String bet = String.new();
+       bet += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != bevg_currentGcMark) {" += nl;
+       bet += mvn += "->bemg_doMark();" += nl;
+       bet += "}" += nl;
+       return(bet);
+   }
+   
    writeBET() {
         deow.write("class " + classConf.typeEmitName + ";\n");
         String beh = String.new();
@@ -348,8 +356,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         beh += "public:\n";
         beh += classConf.typeEmitName += "();\n";
         beh += "virtual BEC_2_6_6_SystemObject* bems_createInstance();\n";
+        beh += "virtual void bemgt_doMark();\n";
         beh += "static BEC_2_6_6_SystemObject** bevs_bevo_refs[" += onceDecRefsCount += "];\n";
-        beh += "static int_fast32_t bevs_bevo_refs_count;\n";
+        beh += "static size_t bevs_bevo_refs_count;\n";
         beh += "static BEC_2_6_6_SystemObject** bevs_inst_ref;\n";
         beh += "};\n";
         heow.write(beh);
@@ -390,8 +399,18 @@ use final class Build:CCEmitter(Build:EmitCommon) {
           bet += "return new " += classConf.emitName += "();\n";
         }
         bet += "}\n";
+        
+        bet += "void " += classConf.typeEmitName += "::bemgt_doMark() {\n";
+        bet += "BEC_2_6_6_SystemObject* bevsl_inst_ref = *bevs_inst_ref;\n";
+        bet += genMark("bevsl_inst_ref");
+        bet += "for (size_t i = 0; i < bevs_bevo_refs_count; i++) {\n";
+        bet += "BEC_2_6_6_SystemObject* bevg_le = *(bevs_bevo_refs[i]);\n";
+        bet += genMark("bevg_le");
+        bet += "}\n";
+        bet += "}\n";
+        
         onceDecs += "BEC_2_6_6_SystemObject** " += classConf.typeEmitName += "::bevs_bevo_refs[" += onceDecRefsCount += "] = { " += onceDecRefs += "};" += nl;
-        onceDecs += "int_fast32_t  " += classConf.typeEmitName += "::bevs_bevo_refs_count = " += onceDecRefsCount += ";\n";
+        onceDecs += "size_t  " += classConf.typeEmitName += "::bevs_bevo_refs_count = " += onceDecRefsCount += ";\n";
         onceDecRefs.clear();
         onceDecRefsCount = 0;
         //also need the count

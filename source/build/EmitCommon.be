@@ -1038,6 +1038,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 ovcount++=;
             }
         }
+        if (node.held.namepath.toString() == "Container:List") {
+          gcMarks += "this->bemg_markContent();\n";
+        } 
         
       //Its not clear how mtdlist ends up, so just use the map
       Map dynGen = Map.new();
