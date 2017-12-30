@@ -883,6 +883,14 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                  if (undef(ov.held)) {
                     throw(VisitError.new("Null arg held " + ov.toString(), ov));
                  }
+                 if(emitting("cc")) {
+                    unless(isFirstRef) {
+                      stackRefs += ", ";
+                    }
+                    isFirstRef = false;
+                    stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
+                    numRefs++=;
+                 }
                 decForVar(argDecs, ov.held);
              } else {
                 decForVar(locDecs, ov.held);

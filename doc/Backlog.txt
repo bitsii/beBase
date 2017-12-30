@@ -13,22 +13,23 @@ cla 9 sec extecbld, 14.3 sec 4bld post construct frame vars (no diff for not thr
   with -O1 4bld is 8 sec, -02 is 6 sec (-O3 also 6)
  
 cooperative gc
-  dont forget runtime refs during gc (bool true false, initializer)
+  try moving externs to rt statics (they have external linkage anyway)
   mark the stack - extended tests has examples
   object.bems_forwardCall needs a frame
-    in constructors that construct others (string, list) add a frame with self in it
-    for generic constructor put self in stack if doing gc (also frame)
-      get rid of no arg constructors (classhead) where unneeded
-    args are a problem - they can be reassigned in the method, need to add them to stack frames too
-  every X often do the marking
-    marks will start in constructs before assign, need to be sure to mark self
-    make sure temp vars are in the stack refs
+  in constructors that construct others (string, list) add a frame with self in it
+  for generic constructor put self in stack if doing gc (also frame)
+  make sure bevo_refs_count correct
   add the sweeping
-  
-  just do mark/sweep no reuse needed to start
-  call delete during sweep - fix pointers, do delete
+    call delete during sweep
+    output counts of deleted
+    if slow go to reuse/nosweep
   intensive gctest runs
-    
+  
+  gc tests in multi thread with jv cs
+  
+  get cc threads working generally
+  add in cc thread gc support
+    tics per check
     when threads exit need to give their lists away, redistro during gc, stacks for old threads
       stay until gc
     

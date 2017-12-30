@@ -2,7 +2,7 @@
 
 extern __thread BECS_FrameStack bevs_currentStack;
 
-extern int_fast16_t bevg_currentGcMark;
+extern uint_fast16_t bevg_currentGcMark;
 
 class BECS_Ids {
     public:
@@ -25,55 +25,14 @@ class BECS_Lib {
 class BECS_FrameStack {
   public:
   BECS_StackFrame* bevs_lastFrame = nullptr;
-  int_fast32_t bevs_allocsSinceGc = 0;
-  int_fast32_t bevs_allocsPerGc = 0;
-  //int_fast32_t bevs_allocInstructs = 0;
+  uint_fast32_t bevs_allocsSinceGc = 0;
+  uint_fast32_t bevs_allocsPerGc = 1000000; //0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec
+  //uint_fast32_t bevs_ticksSinceCheck = 0;
+  //uint_fast32_t bevs_ticksPerCheck = 5000;
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
   //bool gcWaiting = false;
   //bool gcBlocked = false;
   //mutex gcWaitingLock
-};
-
-class BECS_Object {
-  public:
-    int_fast16_t bevg_gcMark = 0;
-    BECS_Object* bevg_priorInst = nullptr;
-    /*static void* operator new(size_t size) {
-      BECS_FrameStack* bevs_myStack = &bevs_currentStack;
-      bevs_myStack->bevs_allocInstructs = 1; //was alloced for "standard inst"
-      BECS_Object* ni = (BECS_Object*) malloc(size);
-      return ni;
-    }
-    static void operator delete (void* inst) {
-      free(inst);
-    }*/
-    BECS_Object() {
-      BECS_FrameStack* bevs_myStack = &bevs_currentStack;
-      //if (bevs_myStack->bevs_allocInstructs == 1) { //was newly alloced for "standard inst"
-        this->bevg_priorInst = bevs_myStack->bevs_lastInst;
-        bevs_myStack->bevs_lastInst = this;
-      //}
-    }
-    virtual ~BECS_Object() = default;
-    virtual BEC_2_4_6_TextString* bemc_clnames();
-    virtual BEC_2_4_6_TextString* bemc_clfiles();
-    virtual BEC_2_6_6_SystemObject* bemc_create();
-    virtual void bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst);
-    virtual BEC_2_6_6_SystemObject* bemc_getInitial();
-    virtual void bemg_doMark();
-    //bemds, to 7 then x
-    virtual BEC_2_6_6_SystemObject* bemd_0(int32_t callId);
-    virtual BEC_2_6_6_SystemObject* bemd_1(int32_t callId, BEC_2_6_6_SystemObject* bevd_0);
-    virtual BEC_2_6_6_SystemObject* bemd_2(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1);
-    virtual BEC_2_6_6_SystemObject* bemd_3(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2);
-    virtual BEC_2_6_6_SystemObject* bemd_4(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3);
-    virtual BEC_2_6_6_SystemObject* bemd_5(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4);
-    virtual BEC_2_6_6_SystemObject* bemd_6(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5);
-    virtual BEC_2_6_6_SystemObject* bemd_7(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6);
-    virtual BEC_2_6_6_SystemObject* bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, vector<BEC_2_6_6_SystemObject*> bevd_x);
-    virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
-    virtual BEC_2_6_6_SystemObject* bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*> args);
-
 };
 
 class BECS_Runtime {
@@ -96,12 +55,57 @@ class BECS_Runtime {
     static unordered_map<string, vector<int32_t>> smnlcs;
     static unordered_map<string, vector<int32_t>> smnlecs;
     
+    //static std::atomic<bool> bevg_startGc;
+    
     static void init();
     
     static int32_t getNlcForNlec(string clname, int32_t val);
     
     static void bemg_markAll();
     
+};
+
+class BECS_Object {
+  public:
+    uint_fast16_t bevg_gcMark = 0;
+    BECS_Object* bevg_priorInst = nullptr;
+    BECS_Object() {
+      BECS_FrameStack* bevs_myStack = &bevs_currentStack;
+      this->bevg_priorInst = bevs_myStack->bevs_lastInst;
+      bevs_myStack->bevs_lastInst = this;
+      bevs_myStack->bevs_allocsSinceGc++;
+      if (bevs_myStack->bevs_allocsSinceGc > bevs_myStack->bevs_allocsPerGc) {
+        bevs_myStack->bevs_allocsSinceGc = 0;
+        //put in a stack stackframe
+        //increment gcmark
+        bevg_currentGcMark++;
+        if (bevg_currentGcMark > 60000) {
+          bevg_currentGcMark = 1;
+        }
+        //do all marking
+        BECS_Runtime::bemg_markAll();
+      }
+    }
+    virtual ~BECS_Object() = default;
+    virtual BEC_2_4_6_TextString* bemc_clnames();
+    virtual BEC_2_4_6_TextString* bemc_clfiles();
+    virtual BEC_2_6_6_SystemObject* bemc_create();
+    virtual void bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst);
+    virtual BEC_2_6_6_SystemObject* bemc_getInitial();
+    virtual void bemg_doMark();
+    //bemds, to 7 then x
+    virtual BEC_2_6_6_SystemObject* bemd_0(int32_t callId);
+    virtual BEC_2_6_6_SystemObject* bemd_1(int32_t callId, BEC_2_6_6_SystemObject* bevd_0);
+    virtual BEC_2_6_6_SystemObject* bemd_2(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1);
+    virtual BEC_2_6_6_SystemObject* bemd_3(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2);
+    virtual BEC_2_6_6_SystemObject* bemd_4(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3);
+    virtual BEC_2_6_6_SystemObject* bemd_5(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4);
+    virtual BEC_2_6_6_SystemObject* bemd_6(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5);
+    virtual BEC_2_6_6_SystemObject* bemd_7(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6);
+    virtual BEC_2_6_6_SystemObject* bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, vector<BEC_2_6_6_SystemObject*> bevd_x);
+    virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
+    virtual BEC_2_6_6_SystemObject* bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*> args);
+
 };
 
 class BECS_ThrowBack {

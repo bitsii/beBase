@@ -4,7 +4,9 @@ unordered_map<int32_t, string> BECS_Ids::idCalls;
 
 __thread BECS_FrameStack bevs_currentStack;
 
-int_fast16_t bevg_currentGcMark = 0;
+uint_fast16_t bevg_currentGcMark = 0;
+
+//std::atomic<bool> BECS_Runtime::bevg_startGc{false};
 
 void BECS_Lib::putCallId(string name, int32_t iid) {
     BECS_Ids::callIds[name] = iid;
@@ -151,11 +153,29 @@ int32_t BECS_Runtime::getNlcForNlec(string clname, int32_t val) {
 void BECS_Runtime::bemg_markAll() {
   //static unordered_map<string, BETS_Object*> typeRefs;
   
+  cout << "starting markAll" << endl;
+  
   //runtime true, false, initter
+  //static BEC_2_5_4_LogicBool* boolTrue;
+  //static BEC_2_5_4_LogicBool* boolFalse;
+  //static BEC_2_6_11_SystemInitializer* initializer;
+  if (boolTrue != nullptr && boolTrue->bevg_gcMark != bevg_currentGcMark) {
+    boolTrue->bemg_doMark();
+  }
+  if (boolFalse != nullptr && boolFalse->bevg_gcMark != bevg_currentGcMark) {
+    boolFalse->bemg_doMark();
+  }
+  if (initializer != nullptr && initializer->bevg_gcMark != bevg_currentGcMark) {
+    initializer->bemg_doMark();
+  }
+  
+  cout << "starting markAll typerefs" << endl;
   
   for (auto nt : typeRefs) {
     nt.second->bemgt_doMark();
   }
+  
+  cout << "ending markAll" << endl;
   
 }
 

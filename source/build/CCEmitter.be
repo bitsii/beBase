@@ -626,8 +626,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         ccMethods += "}" += nl;
         
         ccMethods += self.overrideMtdDec += "void " += newcc.emitName += "::bemg_doMark()" += exceptDec += " {" += nl;  //}
-        
-            ccMethods += "bevg_gcMark = bevg_currentGcMark;" += nl;
+            if (undef(cnode.held.extends) || cnode.held.extends == objectNp) {
+              ccMethods += "bevg_gcMark = bevg_currentGcMark;" += nl;
+            } else {
+              ccMethods += "bevs_super::bemg_doMark();" += nl;
+            }
             ccMethods += gcMarks;
             gcMarks.clear();
             
