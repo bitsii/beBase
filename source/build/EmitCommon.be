@@ -1038,7 +1038,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                     }
                     if(emitting("cc")) {
                       String mvn = nameForVar(i);
-                      gcMarks += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != bevg_currentGcMark) {" += nl;
+                      gcMarks += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != BECS_Runtime::bevg_currentGcMark) {" += nl;
                       gcMarks += mvn += "->bemg_doMark();" += nl;
                       gcMarks += "}" += nl;
                     }

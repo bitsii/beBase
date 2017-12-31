@@ -2,9 +2,9 @@
 unordered_map<string, int32_t> BECS_Ids::callIds;
 unordered_map<int32_t, string> BECS_Ids::idCalls;
 
-__thread BECS_FrameStack bevs_currentStack;
+__thread BECS_FrameStack BECS_Runtime::bevs_currentStack;
 
-uint_fast16_t bevg_currentGcMark = 0;
+uint_fast16_t BECS_Runtime::bevg_currentGcMark = 0;
 
 //std::atomic<bool> BECS_Runtime::bevg_startGc{false};
 

@@ -343,7 +343,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    genMark(String mvn) String {
        String bet = String.new();
-       bet += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != bevg_currentGcMark) {" += nl;
+       bet += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != BECS_Runtime::bevg_currentGcMark) {" += nl;
        bet += mvn += "->bemg_doMark();" += nl;
        bet += "}" += nl;
        return(bet);
@@ -627,7 +627,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         
         ccMethods += self.overrideMtdDec += "void " += newcc.emitName += "::bemg_doMark()" += exceptDec += " {" += nl;  //}
             if (undef(cnode.held.extends) || cnode.held.extends == objectNp) {
-              ccMethods += "bevg_gcMark = bevg_currentGcMark;" += nl;
+              ccMethods += "bevg_gcMark = BECS_Runtime::bevg_currentGcMark;" += nl;
             } else {
               ccMethods += "bevs_super::bemg_doMark();" += nl;
             }

@@ -1,9 +1,4 @@
 
-
-extern __thread BECS_FrameStack bevs_currentStack;
-
-extern uint_fast16_t bevg_currentGcMark;
-
 class BECS_Ids {
     public:
     static unordered_map<string, int32_t> callIds;
@@ -55,6 +50,10 @@ class BECS_Runtime {
     static unordered_map<string, vector<int32_t>> smnlcs;
     static unordered_map<string, vector<int32_t>> smnlecs;
     
+    static __thread BECS_FrameStack bevs_currentStack;
+    
+    static uint_fast16_t bevg_currentGcMark;
+    
     //static std::atomic<bool> bevg_startGc;
     
     static void init();
@@ -70,7 +69,7 @@ class BECS_Object {
     uint_fast16_t bevg_gcMark = 0;
     BECS_Object* bevg_priorInst = nullptr;
     BECS_Object() {
-      BECS_FrameStack* bevs_myStack = &bevs_currentStack;
+      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       this->bevg_priorInst = bevs_myStack->bevs_lastInst;
       bevs_myStack->bevs_lastInst = this;
       bevs_myStack->bevs_allocsSinceGc++;
@@ -78,9 +77,9 @@ class BECS_Object {
         bevs_myStack->bevs_allocsSinceGc = 0;
         //put in a stack stackframe
         //increment gcmark
-        bevg_currentGcMark++;
-        if (bevg_currentGcMark > 60000) {
-          bevg_currentGcMark = 1;
+        BECS_Runtime::bevg_currentGcMark++;
+        if (BECS_Runtime::bevg_currentGcMark > 60000) {
+          BECS_Runtime::bevg_currentGcMark = 1;
         }
         //do all marking
         BECS_Runtime::bemg_markAll();
@@ -135,7 +134,7 @@ class BECS_StackFrame {
   BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, int beva_numVars) {
     bevs_localVars = beva_localVars;
     bevs_numVars = beva_numVars;
-    bevs_myStack = &bevs_currentStack;
+    bevs_myStack = &BECS_Runtime::bevs_currentStack;
     bevs_priorFrame = bevs_myStack->bevs_lastFrame;
     bevs_myStack->bevs_lastFrame = this;
   }
