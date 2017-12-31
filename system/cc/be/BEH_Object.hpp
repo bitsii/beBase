@@ -129,9 +129,9 @@ class BECS_StackFrame {
   public:
   BECS_StackFrame* bevs_priorFrame;
   BEC_2_6_6_SystemObject*** bevs_localVars;
-  int bevs_numVars;
+  size_t bevs_numVars;
   BECS_FrameStack* bevs_myStack;
-  BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, int beva_numVars) {
+  BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars) {
     bevs_localVars = beva_localVars;
     bevs_numVars = beva_numVars;
     bevs_myStack = &BECS_Runtime::bevs_currentStack;

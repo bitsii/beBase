@@ -175,6 +175,20 @@ void BECS_Runtime::bemg_markAll() {
     nt.second->bemgt_doMark();
   }
   
+  cout << "starting markAll stack" << endl;
+  
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  BECS_StackFrame* bevs_currFrame = bevs_myStack->bevs_lastFrame;
+  while (bevs_currFrame != nullptr) {
+    for (size_t i = 0; i < bevs_currFrame->bevs_numVars; i++) {
+      BEC_2_6_6_SystemObject* bevg_le = *(bevs_currFrame->bevs_localVars[i]);
+      if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
+        bevg_le->bemg_doMark();
+      }
+    }
+    bevs_currFrame = bevs_currFrame->bevs_priorFrame;
+  }
+  
   cout << "ending markAll" << endl;
   
 }
