@@ -882,9 +882,15 @@ emit(cc) {
    """
 
 BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
+  BEC_2_4_6_TextString* name = nullptr;
+  BEC_2_9_4_ContainerList* args = nullptr;
+  
+  BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &name, (BEC_2_6_6_SystemObject**) &args };
+  BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2);
+
   //cout << "in sfwdcall " << endl;
-  BEC_2_4_6_TextString* name = new BEC_2_4_6_TextString(mname);
-  BEC_2_9_4_ContainerList* args = new BEC_2_9_4_ContainerList(bevd_x, numargs);
+  name = new BEC_2_4_6_TextString(mname);
+  args = new BEC_2_9_4_ContainerList(bevd_x, numargs);
   //args = args->bem_copy_0();
   return bem_forwardCall_2(name, args);
   //return nullptr;

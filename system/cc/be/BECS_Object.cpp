@@ -153,7 +153,7 @@ int32_t BECS_Runtime::getNlcForNlec(string clname, int32_t val) {
 void BECS_Runtime::bemg_markAll() {
   //static unordered_map<string, BETS_Object*> typeRefs;
   
-  cout << "starting markAll" << endl;
+  //cout << "starting markAll" << endl;
   
   //runtime true, false, initter
   //static BEC_2_5_4_LogicBool* boolTrue;
@@ -169,13 +169,13 @@ void BECS_Runtime::bemg_markAll() {
     initializer->bemg_doMark();
   }
   
-  cout << "starting markAll typerefs" << endl;
+  //cout << "starting markAll typerefs" << endl;
   
   for (auto nt : typeRefs) {
     nt.second->bemgt_doMark();
   }
   
-  cout << "starting markAll stack" << endl;
+  //cout << "starting markAll stack" << endl;
   
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   BECS_StackFrame* bevs_currFrame = bevs_myStack->bevs_lastFrame;
@@ -189,7 +189,7 @@ void BECS_Runtime::bemg_markAll() {
     bevs_currFrame = bevs_currFrame->bevs_priorFrame;
   }
   
-  cout << "ending markAll" << endl;
+  //cout << "ending markAll" << endl;
   
 }
 
