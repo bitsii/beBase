@@ -133,24 +133,44 @@ final class String {
     BEC_2_4_6_TextString() { }
     
     BEC_2_4_6_TextString(vector<unsigned char> a_bevi_bytes) { 
+    
+      BEC_2_6_6_SystemObject* bevsl_thiso = this;
+      BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
+    
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_bytes.size());
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
     }
     
     BEC_2_4_6_TextString(vector<unsigned char> a_bevi_bytes, int32_t bevi_length) { 
+    
+      BEC_2_6_6_SystemObject* bevsl_thiso = this;
+      BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
+    
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_length);
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
     }
     
     BEC_2_4_6_TextString(int32_t bevi_length, vector<unsigned char> a_bevi_bytes) { 
+    
+      BEC_2_6_6_SystemObject* bevsl_thiso = this;
+      BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
+    
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_length);
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
     }
     
     BEC_2_4_6_TextString(string bevi_string) { 
+    
+      BEC_2_6_6_SystemObject* bevsl_thiso = this;
+      BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
+    
       bevi_bytes = vector<unsigned char>(bevi_string.begin(), bevi_string.end());
       bevp_size = new BEC_2_4_3_MathInt(bevi_bytes.size());
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());

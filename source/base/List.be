@@ -134,6 +134,11 @@ final class List {
     BEC_2_9_4_ContainerList() { }
     
     BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*> a_bevi_list) {
+    
+        BEC_2_6_6_SystemObject* bevsl_thiso = this;
+        BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
+        BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
+    
         bevi_list = a_bevi_list;
         bevp_length = new BEC_2_4_3_MathInt(bevi_list.size());
         bevp_capacity = new BEC_2_4_3_MathInt(bevi_list.size());
@@ -141,6 +146,11 @@ final class List {
     }
     
     BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*> a_bevi_list, int32_t len) {
+    
+        BEC_2_6_6_SystemObject* bevsl_thiso = this;
+        BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
+        BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
+        
         bevi_list = a_bevi_list;
         bevp_length = new BEC_2_4_3_MathInt(len);
         bevp_capacity = new BEC_2_4_3_MathInt(bevi_list.size());

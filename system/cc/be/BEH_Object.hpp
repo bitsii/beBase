@@ -21,7 +21,7 @@ class BECS_FrameStack {
   public:
   BECS_StackFrame* bevs_lastFrame = nullptr;
   uint_fast32_t bevs_allocsSinceGc = 0;
-  uint_fast32_t bevs_allocsPerGc = 1000000; //0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec
+  uint_fast32_t bevs_allocsPerGc = 10000000; //0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec, diff is 1 0
   //uint_fast32_t bevs_ticksSinceCheck = 0;
   //uint_fast32_t bevs_ticksPerCheck = 5000;
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
@@ -64,6 +64,24 @@ class BECS_Runtime {
     
 };
 
+class BECS_StackFrame {
+  public:
+  BECS_StackFrame* bevs_priorFrame;
+  BEC_2_6_6_SystemObject*** bevs_localVars;
+  size_t bevs_numVars;
+  BECS_FrameStack* bevs_myStack;
+  BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars) {
+    bevs_localVars = beva_localVars;
+    bevs_numVars = beva_numVars;
+    bevs_myStack = &BECS_Runtime::bevs_currentStack;
+    bevs_priorFrame = bevs_myStack->bevs_lastFrame;
+    bevs_myStack->bevs_lastFrame = this;
+  }
+  ~BECS_StackFrame() {
+    bevs_myStack->bevs_lastFrame = bevs_priorFrame;
+  }
+};
+
 class BECS_Object {
   public:
     uint_fast16_t bevg_gcMark = 0;
@@ -76,6 +94,9 @@ class BECS_Object {
       if (bevs_myStack->bevs_allocsSinceGc > bevs_myStack->bevs_allocsPerGc) {
         bevs_myStack->bevs_allocsSinceGc = 0;
         //put in a stack stackframe
+        BEC_2_6_6_SystemObject* bevsl_thiso = (BEC_2_6_6_SystemObject*) this;
+        BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
+        BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
         //increment gcmark
         BECS_Runtime::bevg_currentGcMark++;
         if (BECS_Runtime::bevg_currentGcMark > 60000) {
@@ -124,22 +145,3 @@ class BETS_Object {
     virtual BEC_2_6_6_SystemObject* bems_createInstance();
     virtual void bemgt_doMark();
 };
-
-class BECS_StackFrame {
-  public:
-  BECS_StackFrame* bevs_priorFrame;
-  BEC_2_6_6_SystemObject*** bevs_localVars;
-  size_t bevs_numVars;
-  BECS_FrameStack* bevs_myStack;
-  BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars) {
-    bevs_localVars = beva_localVars;
-    bevs_numVars = beva_numVars;
-    bevs_myStack = &BECS_Runtime::bevs_currentStack;
-    bevs_priorFrame = bevs_myStack->bevs_lastFrame;
-    bevs_myStack->bevs_lastFrame = this;
-  }
-  ~BECS_StackFrame() {
-    bevs_myStack->bevs_lastFrame = bevs_priorFrame;
-  }
-};
-

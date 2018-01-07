@@ -790,7 +790,7 @@ use final class System:Thread:Lock {
   lock() Bool {
     emit(cs) {
     """
-    Monitor.Enter(this);
+    Monitor.Enter(this); //yes, monitor is reentrant
     """
     }
     emit(jv) {
