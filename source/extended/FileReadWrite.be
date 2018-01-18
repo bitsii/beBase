@@ -585,6 +585,11 @@ class IO:Writer {
       }
    }
    
+   writeClose(String stri) {
+     write(stri);
+     close();
+   }
+   
 }
 
 final class IO:File:NamedReaders {

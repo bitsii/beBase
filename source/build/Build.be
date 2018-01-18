@@ -122,9 +122,9 @@ final class Build:Build {
 
    go() {
       Int whatResult = 1;//default to fail
-      config();
       Bool buildFailed = false;
       try {
+         config();
          buildMessage = "Build Incomplete";
          whatResult = doWhat();
          buildMessage = "Build Complete";
