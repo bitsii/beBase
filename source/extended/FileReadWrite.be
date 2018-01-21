@@ -585,7 +585,7 @@ class IO:Writer {
       }
    }
    
-   writeClose(String stri) {
+   writeStringClose(String stri) {
      write(stri);
      close();
    }
