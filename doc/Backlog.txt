@@ -101,6 +101,10 @@ not handling return type checks properly
 
 get rid of bems_forwardCall
 
+split with max num of splits
+
+sep mem model option for threading (like dart/js)
+
 see if javascript slower if untyped calls are reflective
   in object bems_call("name", args)
   some sort of apply override
