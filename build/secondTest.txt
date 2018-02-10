@@ -4,4 +4,4 @@ deploy
 target
 --mainClass
 System:StartupWithParameters
-source/test/SecondTest.be
+source/baseTest/SecondTest.be

@@ -977,6 +977,18 @@ class System:Thread:ContainerLocker {
     return(rc);
   }
   
+  getSet() {
+    lock.lock();
+    try {
+      Map rc = container.getSet();
+      lock.unlock();
+    } catch (any e) {
+      lock.unlock();
+      throw(e);
+    }
+    return(rc);
+  }
+  
   getMap() {
     lock.lock();
     try {

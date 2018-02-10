@@ -1,22 +1,6 @@
-
 cc
 
-perf info
-no mem mgt, stack, etc
-gcc 2 sec extecbld, 8 sec 4bld
-cla 6.5 sec extecbld, 10 sec 4bld
-(70% time spent in malloc, so pools or better alloc likely to help)
-gcc 6 sec extecbld, 9 4bld post stack array
-cla 7.3 sec extecbld, 12.2 sec 4bld post stack array
-cla 7.4 sec extecbld, 12.3 sec 4bld post construct frame novars
-cla 9 sec extecbld, 14.3 sec 4bld post construct frame vars (no diff for not thread local...)
-  with -O1 4bld is 8 sec, -02 is 6 sec (-O3 also 6)
-
-rename test to baseTest
-
 inline stack calls (construct, etc)
-
-linkedlist copy doesn't work, same with params (there isn't one)
 
 cooperative gc
   add the sweeping
@@ -84,6 +68,19 @@ cooperative gc
       intensive gctest runs
  
 bring in stack walk from elsewhere (dump shadow stack when possible)
+
+perf info
+no mem mgt, stack, etc
+gcc 2 sec extecbld, 8 sec 4bld
+cla 6.5 sec extecbld, 10 sec 4bld
+(70% time spent in malloc, so pools or better alloc likely to help)
+gcc 6 sec extecbld, 9 4bld post stack array
+cla 7.3 sec extecbld, 12.2 sec 4bld post stack array
+cla 7.4 sec extecbld, 12.3 sec 4bld post construct frame novars
+cla 9 sec extecbld, 14.3 sec 4bld post construct frame vars (no diff for not thread local...)
+  with -O1 4bld is 8 sec, -02 is 6 sec (-O3 also 6)
+  
+linkedlist copy doesn't work, same with params (there isn't one)
 
 ditto stop the world vs cooperative
 

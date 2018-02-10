@@ -9,4 +9,4 @@ target
 Utilities_SRep
 --mainClass
 System:StartupWithParameters
-source/test/SRep.be
+source/baseTest/SRep.be

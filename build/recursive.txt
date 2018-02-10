@@ -9,4 +9,4 @@ target
 BenchmarkRecursive
 --mainClass
 Benchmark:Recursive
-source/test/Recursive.be
+source/baseTest/Recursive.be
