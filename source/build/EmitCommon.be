@@ -629,6 +629,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           main += "be::BECS_Runtime::argv = argv;" += nl;
           main += "be::BEX_E::init();" += nl;
           main += "be::" += maincc.emitName += "* mc = new be::" += maincc.emitName += "();" += nl;
+          main += "be::BECS_Runtime::maino = mc;" += nl;
           main += "mc->bem_new_0();" += nl;
           main += "mc->bem_main_0();" += nl;
           //end lock
@@ -1896,9 +1897,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           if (isConstruct) {
                 if (node.held.isLiteral) {
                     if (newcc.np == intNp) {
-                        newCall = lintConstruct(newcc, node);
+                        newCall = lintConstruct(newcc, node, isOnce);
                     } elseIf (newcc.np == floatNp) {
-                        newCall = lfloatConstruct(newcc, node);
+                        newCall = lfloatConstruct(newcc, node, isOnce);
                     } elseIf (newcc.np == stringNp) {
                         String belsName = "bece_" + classConf.emitName + "_bels_" + cnode.held.belsCount.toString();                        
                         cnode.held.belsCount++=;
@@ -1940,7 +1941,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     }
                 } else {
                   if (emitting("cc")) {
-                    newCall = "new " + newcc.relEmitName(build.libName) + "()";
+                    newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "())";
                   } else {
                     String newCall = "new " + newcc.relEmitName(build.libName) + "()";
                   }
@@ -2104,11 +2105,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     return(nccn + "." + bein);
    }
    
-   lintConstruct(ClassConfig newcc, Node node) String {
+   lintConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
       return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + ")");
    }
    
-   lfloatConstruct(ClassConfig newcc, Node node) String {
+   lfloatConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
       return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f)");
    }
    

@@ -24,7 +24,7 @@ class Test:BaseTest:Gc(BaseTest) {
    testGc() {
       "In testGc()".print();
       for (Int i = 0;i < 3;i = i++) {
-         for (Int j = 0;j < 50000;j = j++) {
+         for (Int j = 0;j < 5000000;j = j++) { //normally 50000 did 5000000 to stress with threads
             Int k = Int.new();
          }
       }

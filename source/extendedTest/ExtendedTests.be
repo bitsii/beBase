@@ -322,6 +322,7 @@ class Test:ETThreads {
     Test:BaseTest:Encode.new().main();
     Test:BaseTest:Text.new().main();
     Test:BaseTest:Serialize.new().main();
+    Test:BaseTest:Gc.new().main(); 
   
   }
 

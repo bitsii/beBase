@@ -224,19 +224,30 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       ccMethods += "}" += nl;
   }
    
-   lintConstruct(ClassConfig newcc, Node node) String {
-      return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + ")");
+   lintConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
+      if (isOnce) {
+        return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + ")");
+      }
+      String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
+      return(newCall);
    }
    
-   lfloatConstruct(ClassConfig newcc, Node node) String {
-      return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f)");
+   lfloatConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
+      if (isOnce) {
+        return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f)");
+      }
+      String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
+      return(newCall);
    }
    
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {
       if (isOnce) {
         return("new " + newcc.relEmitName(build.libName) + "(" + belsName + ", " + lisz + ")");
       }
-      return("new " + newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
+      //return("new " + newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
+      String litArgs = "" + lisz + ", " + belsName;
+      String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
+      return(newCall);
    }
       
       onceDec(String typeName, String anyName) {

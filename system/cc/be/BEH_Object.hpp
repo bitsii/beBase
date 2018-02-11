@@ -21,7 +21,7 @@ class BECS_FrameStack {
   public:
   BECS_StackFrame* bevs_lastFrame = nullptr;
   uint_fast32_t bevs_allocsSinceGc = 0;
-  uint_fast32_t bevs_allocsPerGc = 10000000; //0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec, diff is 1 0
+  uint_fast32_t bevs_allocsPerGc = 4000000; //0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec, diff is 1 0
   //uint_fast32_t bevs_ticksSinceCheck = 0;
   //uint_fast32_t bevs_ticksPerCheck = 5000;
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
@@ -41,6 +41,9 @@ class BECS_Runtime {
     
     //for setting up initial instances
     static BEC_2_6_11_SystemInitializer* initializer;
+    
+    //the main instance
+    static BEC_2_6_6_SystemObject* maino;
     
     static string platformName;
     
@@ -62,6 +65,8 @@ class BECS_Runtime {
     
     static void bemg_markAll();
     
+    static void bemg_sweep();
+    
 };
 
 class BECS_StackFrame {
@@ -70,16 +75,21 @@ class BECS_StackFrame {
   BEC_2_6_6_SystemObject*** bevs_localVars;
   size_t bevs_numVars;
   BECS_FrameStack* bevs_myStack;
+  BEC_2_6_6_SystemObject* bevs_lastConstruct;
+  
   BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars) {
     bevs_localVars = beva_localVars;
     bevs_numVars = beva_numVars;
     bevs_myStack = &BECS_Runtime::bevs_currentStack;
     bevs_priorFrame = bevs_myStack->bevs_lastFrame;
     bevs_myStack->bevs_lastFrame = this;
+    bevs_lastConstruct = nullptr;
   }
+  
   ~BECS_StackFrame() {
     bevs_myStack->bevs_lastFrame = bevs_priorFrame;
   }
+  
 };
 
 class BECS_Object {
@@ -104,6 +114,8 @@ class BECS_Object {
         }
         //do all marking
         BECS_Runtime::bemg_markAll();
+        //do all sweeping
+        BECS_Runtime::bemg_sweep();
       }
     }
     virtual ~BECS_Object() = default;

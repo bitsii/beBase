@@ -1,17 +1,9 @@
 cc
 
-inline stack calls (construct, etc)
-
 cooperative gc
-  add the sweeping
-    call delete during sweep
-    output counts of deleted
-    if slow go to reuse/nosweep
-    output counts of swept
-  intensive gctest runs
-  
-  gc tests in multi thread with jv cs
-  
+
+  test having some threads locked waiting and just sleeping while others do gc
+
   get cc threads working generally
     need c++14 for reentrant mutexes
   add in cc thread gc support
@@ -68,6 +60,11 @@ cooperative gc
       intensive gctest runs
  
 bring in stack walk from elsewhere (dump shadow stack when possible)
+ditto stop the world
+
+output counts of deleted
+if slow go to reuse/nosweep
+output counts of swept
 
 perf info
 no mem mgt, stack, etc
@@ -79,10 +76,12 @@ cla 7.3 sec extecbld, 12.2 sec 4bld post stack array
 cla 7.4 sec extecbld, 12.3 sec 4bld post construct frame novars
 cla 9 sec extecbld, 14.3 sec 4bld post construct frame vars (no diff for not thread local...)
   with -O1 4bld is 8 sec, -02 is 6 sec (-O3 also 6)
+cla with sweep 4bld 22 
+  with -O1 4bld 16
+gcc with sweep 4bld 21 
+  with -O1 4bld 15
   
 linkedlist copy doesn't work, same with params (there isn't one)
-
-ditto stop the world vs cooperative
 
 ?for own gc steal stack scan from boehm where possible, dump shadow stack
 

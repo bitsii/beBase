@@ -11,6 +11,10 @@ clang++ -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++11 ./targetEc/Base/ta
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
+time ./targetEc/BEX_E_cl.exe
+
+lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
+
 CYC2=`date +%s`
 
 expr \( $CYC2 - $CYC1 \)

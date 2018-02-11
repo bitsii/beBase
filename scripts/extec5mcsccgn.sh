@@ -25,6 +25,10 @@ g++ $CPFLAGS -o targetEc/BEX_E_gn.exe ./targetEc/Base/target/cc/be/BEX_E.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
+time ./targetEc/BEX_E_gn.exe
+
+lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
+
 CYC2=`date +%s`
 
 expr \( $CYC2 - $CYC1 \)

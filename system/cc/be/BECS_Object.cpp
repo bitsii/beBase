@@ -115,6 +115,8 @@ unordered_map<string, BETS_Object*> BECS_Runtime::typeRefs;
 //for setting up initial instances
 BEC_2_6_11_SystemInitializer* BECS_Runtime::initializer;
 
+BEC_2_6_6_SystemObject * BECS_Runtime::maino;
+
 string BECS_Runtime::platformName;
 
 int BECS_Runtime::argc;
@@ -168,6 +170,9 @@ void BECS_Runtime::bemg_markAll() {
   if (initializer != nullptr && initializer->bevg_gcMark != bevg_currentGcMark) {
     initializer->bemg_doMark();
   }
+  if (maino != nullptr && maino->bevg_gcMark != bevg_currentGcMark) {
+    maino->bemg_doMark();
+  }
   
   //cout << "starting markAll typerefs" << endl;
   
@@ -177,11 +182,16 @@ void BECS_Runtime::bemg_markAll() {
   
   //cout << "starting markAll stack" << endl;
   
+  BEC_2_6_6_SystemObject* bevg_le = nullptr;
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   BECS_StackFrame* bevs_currFrame = bevs_myStack->bevs_lastFrame;
   while (bevs_currFrame != nullptr) {
+    bevg_le = bevs_currFrame->bevs_lastConstruct;
+    if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
+      bevg_le->bemg_doMark();
+    }
     for (size_t i = 0; i < bevs_currFrame->bevs_numVars; i++) {
-      BEC_2_6_6_SystemObject* bevg_le = *(bevs_currFrame->bevs_localVars[i]);
+      bevg_le = *(bevs_currFrame->bevs_localVars[i]);
       if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
         bevg_le->bemg_doMark();
       }
@@ -190,6 +200,26 @@ void BECS_Runtime::bemg_markAll() {
   }
   
   //cout << "ending markAll" << endl;
+  
+}
+
+void BECS_Runtime::bemg_sweep() {
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  uint_fast16_t bevg_currentGcMark = BECS_Runtime::bevg_currentGcMark;
+  
+  BECS_Object* bevs_lastInst = bevs_myStack->bevs_lastInst;
+  
+  BECS_Object* bevs_currInst = bevs_lastInst->bevg_priorInst;
+  while (bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
+    if (bevs_currInst->bevg_gcMark != bevg_currentGcMark) {
+      bevs_lastInst->bevg_priorInst = bevs_currInst->bevg_priorInst;
+      delete bevs_currInst;
+      bevs_currInst = bevs_lastInst->bevg_priorInst;
+    } else {
+      bevs_lastInst = bevs_currInst;
+      bevs_currInst = bevs_currInst->bevg_priorInst;
+    }
+  }
   
 }
 

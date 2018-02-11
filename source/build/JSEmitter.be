@@ -247,11 +247,11 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         return(extstr);
     }
 
-    lintConstruct(ClassConfig newcc, Node node) String {
+    lintConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_int(" + node.held.literalValue + ")");
    }
 
-   lfloatConstruct(ClassConfig newcc, Node node) String {
+   lfloatConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_float(" + node.held.literalValue + ")");
    }
 
