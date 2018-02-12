@@ -57,6 +57,10 @@ class BECS_Runtime {
     
     static uint_fast16_t bevg_currentGcMark;
     
+    static uint_fast64_t bevg_countNews;
+    static uint_fast64_t bevg_countDeletes;
+    static uint_fast64_t bevg_countConstructs;
+    
     //static std::atomic<bool> bevg_startGc;
     
     static void init();
@@ -96,7 +100,16 @@ class BECS_Object {
   public:
     uint_fast16_t bevg_gcMark = 0;
     BECS_Object* bevg_priorInst = nullptr;
+    void* operator new(size_t size) {
+      BECS_Runtime::bevg_countNews++;
+      return malloc(size);
+    }
+    void operator delete(void* theinst, size_t size) {
+      BECS_Runtime::bevg_countDeletes++;
+      free(theinst);
+    }
     BECS_Object() {
+      BECS_Runtime::bevg_countConstructs++;
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       this->bevg_priorInst = bevs_myStack->bevs_lastInst;
       bevs_myStack->bevs_lastInst = this;
@@ -116,6 +129,9 @@ class BECS_Object {
         BECS_Runtime::bemg_markAll();
         //do all sweeping
         BECS_Runtime::bemg_sweep();
+        
+        cout << "gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << endl;
+        
       }
     }
     virtual ~BECS_Object() = default;
@@ -157,3 +173,5 @@ class BETS_Object {
     virtual BEC_2_6_6_SystemObject* bems_createInstance();
     virtual void bemgt_doMark();
 };
+
+

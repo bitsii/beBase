@@ -1,5 +1,21 @@
 cc
 
+try gc without sweep
+    override allocation (first just this, malloc)
+      SWEEP IS NOW OFF
+      do with malloc free
+        make sure it's being used - counts for constructors and news
+        turn on sweep for awhile
+      could have a genned virtual overriden method to give the size
+        could call during constructor and store if expensive at alloc time
+        is there a genned constructor for every class already? could use
+      change destructor call (do it during reuse)
+    
+    sweep every N
+    hold a "nextAlloc" (reset at gc)
+    set to gen when taking
+    put size in when newing (or allocating)
+
 cooperative gc + threading
   more test, sleep in threads while other stuff, etc
   c++14 mutex
@@ -64,22 +80,7 @@ cooperative gc + threading
       
   intensive mt thread tests 
       intensive gctest runs
- 
-boehm gc
 
-try gc without sweep
-    override allocation (first just this, malloc)
-      "placement new"
-      https://stackoverflow.com/questions/2494471/c-is-it-possible-to-call-a-constructor-directly-without-new
-      https://en.wikipedia.org/wiki/Placement_syntax
-      change destructor call
-    
-    sweep every N
-    hold a "nextAlloc" (reset at gc)
-    set to gen when taking
-    put size in when newing (or allocating)
-
-  test having some threads locked waiting and just sleeping while others do gc
 output counts of deleted
 if slow go to reuse/nosweep
 output counts of swept
@@ -98,10 +99,10 @@ cla with sweep 4bld 22
   with -O1 4bld 16
 gcc with sweep 4bld 21 
   with -O1 4bld 15
+gcc without sweep 4bld 14 
+  with -O1 4bld 8 -O2 4bld 8
   
 linkedlist copy doesn't work, same with params (there isn't one)
-
-boehmgc support?
 
 change int32_t et all to "fast" vers
 

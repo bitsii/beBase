@@ -6,6 +6,10 @@ __thread BECS_FrameStack BECS_Runtime::bevs_currentStack;
 
 uint_fast16_t BECS_Runtime::bevg_currentGcMark = 0;
 
+uint_fast64_t BECS_Runtime::bevg_countNews = 0;
+uint_fast64_t BECS_Runtime::bevg_countConstructs = 0;
+uint_fast64_t BECS_Runtime::bevg_countDeletes = 0;
+
 //std::atomic<bool> BECS_Runtime::bevg_startGc{false};
 
 void BECS_Lib::putCallId(string name, int32_t iid) {
