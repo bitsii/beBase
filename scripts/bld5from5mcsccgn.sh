@@ -15,7 +15,7 @@ mono --debug target5/BEX_E_mcs.exe --buildFile build/buildbuild.txt --emitLang c
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #export CC=g++
-#export CPFLAGS="-std=c++11 -Wfatal-errors -ggdb"
+#export CPFLAGS="-std=c++14 -Wfatal-errors -ggdb"
 
 #singleCC false saveIds true
 #g++ $CPFLAGS target5/Base/target/cc/be/BEH_4_Base.hpp
@@ -24,6 +24,6 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #-O1, O2, O3
 
-time g++ -o ./target5/BEX_E_gn.exe -Wfatal-errors -ggdb -std=c++11 ./target5/Base/target/cc/be/BEX_E.cpp
+time g++ -o ./target5/BEX_E_gn.exe -Wfatal-errors -ggdb -std=c++14 ./target5/Base/target/cc/be/BEX_E.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi

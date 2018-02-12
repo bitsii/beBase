@@ -21,6 +21,6 @@ time ./target5/BEX_E_cl.exe --buildFile build/buildbuild.txt --emitLang cc --sin
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-#time clang++ -o ./target4/BEX_E_cl.exe -ferror-limit=1 -std=c++11 ./target4/Base/target/cc/be/BEX_E.cpp
+#time clang++ -o ./target4/BEX_E_cl.exe -ferror-limit=1 -std=c++14 ./target4/Base/target/cc/be/BEX_E.cpp
 
 

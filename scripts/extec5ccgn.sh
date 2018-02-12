@@ -23,13 +23,13 @@ CYC1=`date +%s`
 #exit 0
 
 #export CC=g++
-#export CPFLAGS="-std=c++11 -Wfatal-errors -ggdb"
+#export CPFLAGS="-std=c++14 -Wfatal-errors -ggdb"
 
 #g++ $CPFLAGS targetEc/Base/target/cc/be/BEH_4_Base.hpp
 #time $MAKNAME -j 8 -f scripts/extecc.make
 #time g++ $CPFLAGS -o targetEc/BEX_E_gn.exe targetEc/Base/target/cc/be/*.o
 
-g++ -o ./targetEc/BEX_E_gn.exe -Wfatal-errors -ggdb -std=c++11 ./targetEc/Base/target/cc/be/BEX_E.cpp
+g++ -o ./targetEc/BEX_E_gn.exe -Wfatal-errors -ggdb -std=c++14 ./targetEc/Base/target/cc/be/BEX_E.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
