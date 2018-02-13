@@ -25,6 +25,7 @@ class BECS_FrameStack {
   //uint_fast32_t bevs_ticksSinceCheck = 0;
   //uint_fast32_t bevs_ticksPerCheck = 5000;
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
+  BECS_Object* bevs_nextReuse = nullptr;
   //bool gcWaiting = false;
   //bool gcBlocked = false;
   //mutex gcWaitingLock
@@ -58,8 +59,10 @@ class BECS_Runtime {
     static uint_fast16_t bevg_currentGcMark;
     
     static uint_fast64_t bevg_countNews;
-    static uint_fast64_t bevg_countDeletes;
     static uint_fast64_t bevg_countConstructs;
+    static uint_fast64_t bevg_countDeletes;
+    static uint_fast64_t bevg_countRecycles;
+    
     
     //static std::atomic<bool> bevg_startGc;
     
@@ -100,10 +103,35 @@ class BECS_Object {
   public:
     uint_fast16_t bevg_gcMark = 0;
     BECS_Object* bevg_priorInst = nullptr;
+    
     void* operator new(size_t size) {
+      
+      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+      uint_fast16_t bevg_currentGcMark = BECS_Runtime::bevg_currentGcMark;
+      
+      BECS_Object* bevs_lastInst = bevs_myStack->bevs_nextReuse;
+      
+      if (bevs_lastInst != nullptr) {
+        BECS_Object* bevs_currInst = bevs_lastInst->bevg_priorInst;
+        int tries = 0;
+        while (tries < 10 && bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
+          tries++;
+          if (bevs_currInst->bevg_gcMark != bevg_currentGcMark && bevs_currInst->bemg_getSize() >= size) {
+            bevs_lastInst->bevg_priorInst = bevs_currInst->bevg_priorInst;
+            BECS_Runtime::bevg_countRecycles++;
+            bevs_currInst->~BECS_Object();
+            bevs_myStack->bevs_nextReuse = bevs_lastInst;
+            return bevs_currInst;
+          } else {
+            bevs_lastInst = bevs_currInst;
+            bevs_currInst = bevs_currInst->bevg_priorInst;
+          }
+        }
+      }
       BECS_Runtime::bevg_countNews++;
       return malloc(size);
     }
+    
     void operator delete(void* theinst, size_t size) {
       BECS_Runtime::bevg_countDeletes++;
       free(theinst);
@@ -127,12 +155,19 @@ class BECS_Object {
         }
         //do all marking
         BECS_Runtime::bemg_markAll();
-        //do all sweeping
-        BECS_Runtime::bemg_sweep();
+        if (BECS_Runtime::bevg_currentGcMark % 15 == 0) {
+          //do all sweeping
+          BECS_Runtime::bemg_sweep();
+        }
         
-        cout << "gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << endl;
+        bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
+        
+        cout << "gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
         
       }
+      
+      bevg_gcMark = BECS_Runtime::bevg_currentGcMark;
+      
     }
     virtual ~BECS_Object() = default;
     virtual BEC_2_4_6_TextString* bemc_clnames();
@@ -141,6 +176,7 @@ class BECS_Object {
     virtual void bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst);
     virtual BEC_2_6_6_SystemObject* bemc_getInitial();
     virtual void bemg_doMark();
+    virtual size_t bemg_getSize();
     //bemds, to 7 then x
     virtual BEC_2_6_6_SystemObject* bemd_0(int32_t callId);
     virtual BEC_2_6_6_SystemObject* bemd_1(int32_t callId, BEC_2_6_6_SystemObject* bevd_0);

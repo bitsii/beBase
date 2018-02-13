@@ -81,6 +81,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual void bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst);\n");
        heow.write("virtual BEC_2_6_6_SystemObject* bemc_getInitial();\n");
        heow.write("virtual void bemg_doMark();\n");
+       heow.write("virtual size_t bemg_getSize();\n");
        heow.write("virtual BETS_Object* bemc_getType();\n");
        heow.write("static vector<int32_t> bevs_smnlc;\n");
        heow.write("static vector<int32_t> bevs_smnlec;\n");
@@ -645,6 +646,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             ccMethods += gcMarks;
             gcMarks.clear();
             
+        //{
+        ccMethods += "}" += nl;
+        
+        ccMethods += self.overrideMtdDec += "size_t " += newcc.emitName += "::bemg_getSize()" += exceptDec += " {" += nl;  //}
+              ccMethods += "return sizeof(*this);" += nl;
         //{
         ccMethods += "}" += nl;
         

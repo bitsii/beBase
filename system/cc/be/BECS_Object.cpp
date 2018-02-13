@@ -9,6 +9,7 @@ uint_fast16_t BECS_Runtime::bevg_currentGcMark = 0;
 uint_fast64_t BECS_Runtime::bevg_countNews = 0;
 uint_fast64_t BECS_Runtime::bevg_countConstructs = 0;
 uint_fast64_t BECS_Runtime::bevg_countDeletes = 0;
+uint_fast64_t BECS_Runtime::bevg_countRecycles = 0;
 
 //std::atomic<bool> BECS_Runtime::bevg_startGc{false};
 
@@ -49,6 +50,10 @@ BEC_2_6_6_SystemObject* BECS_Object::bemc_getInitial() {
 
 void BECS_Object::bemg_doMark() {
  
+}
+
+size_t BECS_Object::bemg_getSize() {
+   return sizeof(*this);
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*> args) {
@@ -213,15 +218,17 @@ void BECS_Runtime::bemg_sweep() {
   
   BECS_Object* bevs_lastInst = bevs_myStack->bevs_lastInst;
   
-  BECS_Object* bevs_currInst = bevs_lastInst->bevg_priorInst;
-  while (bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
-    if (bevs_currInst->bevg_gcMark != bevg_currentGcMark) {
-      bevs_lastInst->bevg_priorInst = bevs_currInst->bevg_priorInst;
-      delete bevs_currInst;
-      bevs_currInst = bevs_lastInst->bevg_priorInst;
-    } else {
-      bevs_lastInst = bevs_currInst;
-      bevs_currInst = bevs_currInst->bevg_priorInst;
+  if (bevs_lastInst != nullptr) {
+    BECS_Object* bevs_currInst = bevs_lastInst->bevg_priorInst;
+    while (bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
+      if (bevs_currInst->bevg_gcMark != bevg_currentGcMark) {
+        bevs_lastInst->bevg_priorInst = bevs_currInst->bevg_priorInst;
+        delete bevs_currInst;
+        bevs_currInst = bevs_lastInst->bevg_priorInst;
+      } else {
+        bevs_lastInst = bevs_currInst;
+        bevs_currInst = bevs_currInst->bevg_priorInst;
+      }
     }
   }
   

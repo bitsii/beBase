@@ -1,15 +1,7 @@
 cc
 
 try gc without sweep
-    override allocation (first just this, malloc)
-      SWEEP IS NOW OFF
-      do with malloc free
-        make sure it's being used - counts for constructors and news
-        turn on sweep for awhile
-      could have a genned virtual overriden method to give the size
-        could call during constructor and store if expensive at alloc time
-        is there a genned constructor for every class already? could use
-      change destructor call (do it during reuse)
+  amortize the delete - any not in gcmark removed per alloc
     
     sweep every N
     hold a "nextAlloc" (reset at gc)
