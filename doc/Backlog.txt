@@ -1,13 +1,7 @@
 cc
 
 try gc without sweep
-  amortize the delete - any not in gcmark removed per alloc
-    
-    sweep every N
-    hold a "nextAlloc" (reset at gc)
-    set to gen when taking
-    put size in when newing (or allocating)
-
+ 
 cooperative gc + threading
   more test, sleep in threads while other stuff, etc
   c++14 mutex
@@ -91,6 +85,10 @@ cla with sweep 4bld 22
   with -O1 4bld 16
 gcc with sweep 4bld 21 
   with -O1 4bld 15
+gcc with recycle 4bld 20
+  with -O1 4bld 14
+cla with recycle 4bld 20
+  with -O1 4bld 
 gcc without sweep 4bld 14 
   with -O1 4bld 8 -O2 4bld 8
   

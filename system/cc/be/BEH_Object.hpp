@@ -21,7 +21,7 @@ class BECS_FrameStack {
   public:
   BECS_StackFrame* bevs_lastFrame = nullptr;
   uint_fast32_t bevs_allocsSinceGc = 0;
-  uint_fast32_t bevs_allocsPerGc = 4000000; //0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec, diff is 1 0
+  uint_fast32_t bevs_allocsPerGc = 6000000; //0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec, diff is 1 0
   //uint_fast32_t bevs_ticksSinceCheck = 0;
   //uint_fast32_t bevs_ticksPerCheck = 5000;
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
@@ -58,6 +58,8 @@ class BECS_Runtime {
     
     static uint_fast16_t bevg_currentGcMark;
     
+    static uint_fast64_t bevg_countGcs;
+    static uint_fast64_t bevg_countSweeps;
     static uint_fast64_t bevg_countNews;
     static uint_fast64_t bevg_countConstructs;
     static uint_fast64_t bevg_countDeletes;
@@ -107,6 +109,9 @@ class BECS_Object {
     void* operator new(size_t size) {
       
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+      
+      bevs_myStack->bevs_allocsSinceGc++;
+      
       uint_fast16_t bevg_currentGcMark = BECS_Runtime::bevg_currentGcMark;
       
       BECS_Object* bevs_lastInst = bevs_myStack->bevs_nextReuse;
@@ -114,19 +119,25 @@ class BECS_Object {
       if (bevs_lastInst != nullptr) {
         BECS_Object* bevs_currInst = bevs_lastInst->bevg_priorInst;
         int tries = 0;
-        while (tries < 10 && bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
+        while (tries < 3 && bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
           tries++;
-          if (bevs_currInst->bevg_gcMark != bevg_currentGcMark && bevs_currInst->bemg_getSize() >= size) {
+          if (bevs_currInst->bevg_gcMark != bevg_currentGcMark) {
             bevs_lastInst->bevg_priorInst = bevs_currInst->bevg_priorInst;
-            BECS_Runtime::bevg_countRecycles++;
-            bevs_currInst->~BECS_Object();
-            bevs_myStack->bevs_nextReuse = bevs_lastInst;
-            return bevs_currInst;
+            if (bevs_currInst->bemg_getSize() == size) {
+              BECS_Runtime::bevg_countRecycles++;
+              bevs_currInst->~BECS_Object();
+              bevs_myStack->bevs_nextReuse = bevs_lastInst;
+              return bevs_currInst;
+            } else {
+              delete bevs_currInst;
+              bevs_currInst = bevs_lastInst->bevg_priorInst; 
+            }
           } else {
             bevs_lastInst = bevs_currInst;
             bevs_currInst = bevs_currInst->bevg_priorInst;
           }
         }
+        bevs_myStack->bevs_nextReuse = bevs_lastInst;
       }
       BECS_Runtime::bevg_countNews++;
       return malloc(size);
@@ -141,8 +152,8 @@ class BECS_Object {
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       this->bevg_priorInst = bevs_myStack->bevs_lastInst;
       bevs_myStack->bevs_lastInst = this;
-      bevs_myStack->bevs_allocsSinceGc++;
       if (bevs_myStack->bevs_allocsSinceGc > bevs_myStack->bevs_allocsPerGc) {
+        BECS_Runtime::bevg_countGcs++;
         bevs_myStack->bevs_allocsSinceGc = 0;
         //put in a stack stackframe
         BEC_2_6_6_SystemObject* bevsl_thiso = (BEC_2_6_6_SystemObject*) this;
@@ -155,14 +166,15 @@ class BECS_Object {
         }
         //do all marking
         BECS_Runtime::bemg_markAll();
-        if (BECS_Runtime::bevg_currentGcMark % 15 == 0) {
+        if (BECS_Runtime::bevg_currentGcMark % 6 == 0) {
           //do all sweeping
+          BECS_Runtime::bevg_countSweeps++;
           BECS_Runtime::bemg_sweep();
         }
         
         bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
         
-        cout << "gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
+        //cout << "gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
         
       }
       
