@@ -21,9 +21,6 @@ class BECS_FrameStack {
   public:
   BECS_StackFrame* bevs_lastFrame = nullptr;
   uint_fast32_t bevs_allocsSinceGc = 0;
-  uint_fast32_t bevs_allocsPerGc = 6000000; //0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec, diff is 1 0
-  //uint_fast32_t bevs_ticksSinceCheck = 0;
-  //uint_fast32_t bevs_ticksPerCheck = 5000;
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
   BECS_Object* bevs_nextReuse = nullptr;
   //bool gcWaiting = false;
@@ -54,9 +51,20 @@ class BECS_Runtime {
     static unordered_map<string, vector<int32_t>> smnlcs;
     static unordered_map<string, vector<int32_t>> smnlecs;
     
-    static __thread BECS_FrameStack bevs_currentStack;
+    static thread_local BECS_FrameStack bevs_currentStack;
     
     static uint_fast16_t bevg_currentGcMark;
+    static atomic<uint_fast16_t> bevg_gcState;
+      //0 don't do gc now, 1 do gc now
+    static atomic<uint_fast32_t> bevg_sharedAllocsSinceGc;
+    
+    static map<std::thread::id, BECS_FrameStack*> bevg_frameStacks;
+    
+    static BECS_FrameStack bevg_oldInstsStack;
+    
+    static std::recursive_mutex bevs_initLock;
+    
+    static std::mutex bevg_gcLock;
     
     static uint_fast64_t bevg_countGcs;
     static uint_fast64_t bevg_countSweeps;
@@ -65,16 +73,21 @@ class BECS_Runtime {
     static uint_fast64_t bevg_countDeletes;
     static uint_fast64_t bevg_countRecycles;
     
-    
-    //static std::atomic<bool> bevg_startGc;
-    
     static void init();
+    
+    static void doGc();
     
     static int32_t getNlcForNlec(string clname, int32_t val);
     
     static void bemg_markAll();
     
+    static void bemg_markStack(BECS_FrameStack* bevs_myStack);
+    
     static void bemg_sweep();
+    
+    static void bemg_sweepStack(BECS_FrameStack* bevs_myStack);
+    
+    static void bemg_addMyFrameStack();
     
 };
 
@@ -152,30 +165,39 @@ class BECS_Object {
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       this->bevg_priorInst = bevs_myStack->bevs_lastInst;
       bevs_myStack->bevs_lastInst = this;
-      if (bevs_myStack->bevs_allocsSinceGc > bevs_myStack->bevs_allocsPerGc) {
-        BECS_Runtime::bevg_countGcs++;
-        bevs_myStack->bevs_allocsSinceGc = 0;
+      
+      //should I do gc
+      bool doGc = false;
+      
+      //sync count sometimes
+      if (bevs_myStack->bevs_allocsSinceGc % 8192 == 0) {
+        bevs_myStack->bevs_allocsSinceGc = BECS_Runtime::bevg_sharedAllocsSinceGc += 8192;
+      }
+      
+      //allocsPerGc 0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec, diff is 1 0
+      if (bevs_myStack->bevs_allocsSinceGc > 6000000) {
+        BECS_Runtime::bevg_gcState.store(1, std::memory_order_release);
+        doGc = true;
+      }
+      
+      //sync do gc moretimes 16 32 64 128
+      if (bevs_myStack->bevs_allocsSinceGc % 32 == 0 && BECS_Runtime::bevg_gcState.load(std::memory_order_acquire) == 1) {
+        doGc = true;
+      }
+      
+      //https://www.arangodb.com/2015/02/comparing-atomic-mutex-rwlocks/
+      //#include <atomic>
+      //std::atomic<uint64_t> atomic_uint;
+      //atomic_uint.store(i, std::memory_order_release);
+      //current = atomic_uint.load(std::memory_order_acquire);
+      
+      if (doGc) {
         //put in a stack stackframe
         BEC_2_6_6_SystemObject* bevsl_thiso = (BEC_2_6_6_SystemObject*) this;
         BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
-        //increment gcmark
-        BECS_Runtime::bevg_currentGcMark++;
-        if (BECS_Runtime::bevg_currentGcMark > 60000) {
-          BECS_Runtime::bevg_currentGcMark = 1;
-        }
-        //do all marking
-        BECS_Runtime::bemg_markAll();
-        if (BECS_Runtime::bevg_currentGcMark % 6 == 0) {
-          //do all sweeping
-          BECS_Runtime::bevg_countSweeps++;
-          BECS_Runtime::bemg_sweep();
-        }
         
-        bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
-        
-        //cout << "gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
-        
+        BECS_Runtime::doGc();
       }
       
       bevg_gcMark = BECS_Runtime::bevg_currentGcMark;

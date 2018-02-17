@@ -1,76 +1,24 @@
 cc
 
-try gc without sweep
- 
 cooperative gc + threading
+
+  add a state to framestack (atomic) - running, waiting (ok for gc)
+  
+  for waiting entry or gc, inside lock check and set own waiting/ok for gc to yes, if should gc global is set then check all to see if all 
+    are waiting/ok for gc, if so do the gc, unlock, exit, if not all are waiting then hold on condition variable (with the gc lock)
+  on exiting entry wait, inside lock set own waiting/ok for gc to no, unlock, exit
+  always in try catch
+
+  when starting thread (inside method in new thread) lock on gc lock, put the framestack in map
+  
+  when finishing thread lock on gc lock and remove framestack from map (unlock)
+    at exit, inside lock, grab the last one (stack frame), go to the first (prior null), point first to last, make last the last one,then rm
+  
+  add pre post gc check into all sleeps, locks
+  
   more test, sleep in threads while other stuff, etc
-  c++14 mutex
   test having some threads locked waiting and just sleeping while others do gc
- 
-  shared counter
-  shared state
-  when over lock, check others - mark self and mark any in waiting, lock on waiter
-  when only yourself do the gc
-  when reusing have to lock when marking
-
-  get cc threads working generally
-  add in cc thread gc support
-    tics per check
-    when threads exit need to give their lists away, redistro during gc, stacks for old threads
-      stay until gc
-    
-    thread support
-    stack for each thread, all stacks centrally located, in thread too
-    gc per thread counts for when to gc (divide total by numthreads at threadstart)
-    local counters per stack to decide on time to add to global atomic and check
-    lots of testing/gc/threads
-    
-    in thread create
-      lock gc
-      create thread
-    
-    pre alloc, loop
-      check alloc counter, if > N trygc
-      
-    trygc
-      lock gc
-        innertrygc
-      unlock gc
-      
-    innertrygc
-          if alloc counter > N check threads, if all either gc waiting or blocked, do gc
-          else thread to gc waiting (set gcwaiting, lock gcthreadmut, unlock gc, lock gcthreadmut again (for the block))
-      
-    do gc
-      only from trygc in lock gc
-      if need to reset gc marker do (all instances to 0, marker to 1) else marker++
-      go through all stacks, marker = need to traverse
-      go through all allocs, marker is need to travers, marker + 1 is traversed
-      after alloc pass with no new need to traverse then go through all allocs < marker and sweep
-      unlock all the gcwaiting locks (per thread)
-      unlock gc
-      
-    in blocking/mutex
-      lock gc
-      mark as blocking
-      unlock gc
-      do blocking thing
-      lock gc
-      unmark as blocking
-      unlock gc
-      
-      atomics do what's needed re ordering (happens before, for non-atomics)
-        http://en.cppreference.com/w/c/atomic/memory_order#Sequentially-consistent_ordering
-        
-      ??have a single-threaded option??
-      
-  intensive mt thread tests 
-      intensive gctest runs
-
-output counts of deleted
-if slow go to reuse/nosweep
-output counts of swept
-
+  
 perf info
 no mem mgt, stack, etc
 gcc 2 sec extecbld, 8 sec 4bld
@@ -487,6 +435,7 @@ multi value return
 
 arbitrary precision arithmetic
 btrees, binary search trees
+  could have super type (association) with shared api
 
 method invocations which are final for object should be handled in a final way for untyped anys as for typed anys
 

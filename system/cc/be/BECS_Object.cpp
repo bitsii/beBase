@@ -2,9 +2,19 @@
 unordered_map<string, int32_t> BECS_Ids::callIds;
 unordered_map<int32_t, string> BECS_Ids::idCalls;
 
-__thread BECS_FrameStack BECS_Runtime::bevs_currentStack;
+thread_local BECS_FrameStack BECS_Runtime::bevs_currentStack;
 
 uint_fast16_t BECS_Runtime::bevg_currentGcMark = 0;
+atomic<uint_fast16_t> BECS_Runtime::bevg_gcState{0};
+atomic<uint_fast32_t> BECS_Runtime::bevg_sharedAllocsSinceGc{0};
+
+map<std::thread::id, BECS_FrameStack*> BECS_Runtime::bevg_frameStacks;
+
+BECS_FrameStack BECS_Runtime::bevg_oldInstsStack;
+
+std::recursive_mutex BECS_Runtime::bevs_initLock;
+
+std::mutex BECS_Runtime::bevg_gcLock;
 
 uint_fast64_t BECS_Runtime::bevg_countGcs = 0;
 uint_fast64_t BECS_Runtime::bevg_countSweeps = 0;
@@ -12,8 +22,6 @@ uint_fast64_t BECS_Runtime::bevg_countNews = 0;
 uint_fast64_t BECS_Runtime::bevg_countConstructs = 0;
 uint_fast64_t BECS_Runtime::bevg_countDeletes = 0;
 uint_fast64_t BECS_Runtime::bevg_countRecycles = 0;
-
-//std::atomic<bool> BECS_Runtime::bevg_startGc{false};
 
 void BECS_Lib::putCallId(string name, int32_t iid) {
     BECS_Ids::callIds[name] = iid;
@@ -139,9 +147,39 @@ unordered_map<string, vector<int32_t>> BECS_Runtime::smnlecs;
 void BECS_Runtime::init() { 
     if (isInitted) { return; }
     isInitted = true;
+    BECS_Runtime::bemg_addMyFrameStack();
     BECS_Runtime::boolTrue = new BEC_2_5_4_LogicBool(true);
     BECS_Runtime::boolFalse = new BEC_2_5_4_LogicBool(false);
     BECS_Runtime::initializer = new BEC_2_6_11_SystemInitializer();
+}
+
+void BECS_Runtime::doGc() {
+  
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  
+  bevs_myStack->bevs_allocsSinceGc = 0;
+  BECS_Runtime::bevg_sharedAllocsSinceGc.store(0, std::memory_order_release);
+  
+  BECS_Runtime::bevg_countGcs++;
+  //increment gcmark
+  BECS_Runtime::bevg_currentGcMark++;
+  if (BECS_Runtime::bevg_currentGcMark > 60000) {
+    BECS_Runtime::bevg_currentGcMark = 1;
+  }
+  //do all marking
+  BECS_Runtime::bemg_markAll();
+  if (BECS_Runtime::bevg_currentGcMark % 6 == 0) {
+    //do all sweeping
+    BECS_Runtime::bevg_countSweeps++;
+    BECS_Runtime::bemg_sweep();
+  }
+
+  bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
+
+  BECS_Runtime::bevg_gcState.store(0, std::memory_order_release);
+  
+  cout << "gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
+
 }
 
 int32_t BECS_Runtime::getNlcForNlec(string clname, int32_t val) {
@@ -193,9 +231,20 @@ void BECS_Runtime::bemg_markAll() {
   
   //cout << "starting markAll stack" << endl;
   
-  BEC_2_6_6_SystemObject* bevg_le = nullptr;
-  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  //BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  //BECS_Runtime::bemg_markStack(bevs_myStack);
+  
+  for(auto const &idStack : bevg_frameStacks) {
+    bemg_markStack(idStack.second);
+  }
+  bemg_markStack(&bevg_oldInstsStack);
+  //cout << "ending markAll" << endl;
+  
+}
+
+void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
   BECS_StackFrame* bevs_currFrame = bevs_myStack->bevs_lastFrame;
+  BEC_2_6_6_SystemObject* bevg_le = nullptr;
   while (bevs_currFrame != nullptr) {
     bevg_le = bevs_currFrame->bevs_lastConstruct;
     if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
@@ -209,13 +258,19 @@ void BECS_Runtime::bemg_markAll() {
     }
     bevs_currFrame = bevs_currFrame->bevs_priorFrame;
   }
-  
-  //cout << "ending markAll" << endl;
-  
 }
 
 void BECS_Runtime::bemg_sweep() {
-  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  //BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  //BECS_Runtime::bemg_sweepStack(bevs_myStack);
+  for(auto const &idStack : bevg_frameStacks) {
+    bemg_sweepStack(idStack.second);
+  }
+  bemg_sweepStack(&bevg_oldInstsStack);
+}
+
+void BECS_Runtime::bemg_sweepStack(BECS_FrameStack* bevs_myStack) {
+  
   uint_fast16_t bevg_currentGcMark = BECS_Runtime::bevg_currentGcMark;
   
   BECS_Object* bevs_lastInst = bevs_myStack->bevs_lastInst;
@@ -233,7 +288,13 @@ void BECS_Runtime::bemg_sweep() {
       }
     }
   }
-  
+   
+}
+
+void BECS_Runtime::bemg_addMyFrameStack() {
+  std::thread::id tid = std::this_thread::get_id();
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bevg_frameStacks[tid] = bevs_myStack;
 }
 
 void BETS_Object::bems_buildMethodNames(std::vector<std::string> names) {
