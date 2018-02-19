@@ -15,6 +15,7 @@ BECS_FrameStack BECS_Runtime::bevg_oldInstsStack;
 std::recursive_mutex BECS_Runtime::bevs_initLock;
 
 std::mutex BECS_Runtime::bevg_gcLock;
+std::condition_variable BECS_Runtime::bevg_gcWaiter;
 
 uint_fast64_t BECS_Runtime::bevg_countGcs = 0;
 uint_fast64_t BECS_Runtime::bevg_countSweeps = 0;
@@ -295,6 +296,64 @@ void BECS_Runtime::bemg_addMyFrameStack() {
   std::thread::id tid = std::this_thread::get_id();
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bevg_frameStacks[tid] = bevs_myStack;
+}
+
+//RT
+//static std::mutex bevg_gcLock;
+//static std::condition_variable bevg_gcWaiter;
+//static atomic<uint_fast16_t> bevg_gcState;
+//FS
+//uint_fast16_t bevg_stackGcState = 0;
+
+void BECS_Runtime::bemg_checkDoGc() {
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  //lock
+  std::unique_lock<std::mutex> ulock(bevg_gcLock);
+  //if time for gc
+  if (bevg_gcState.load(std::memory_order_acquire) == 1) {
+    uint_fast16_t bevg_stackGcState = bevs_myStack->bevg_stackGcState;
+    if (bevg_stackGcState != 1) {
+      bevs_myStack->bevg_stackGcState = 1;
+    }
+    bool readyForGc = bemg_readyForGc();
+    if (readyForGc) {
+      //do gc
+      doGc();
+      if (bevg_stackGcState != 1) {
+        bevs_myStack->bevg_stackGcState = bevg_stackGcState;
+      }
+      //notify all
+      bevg_gcWaiter.notify_all();
+    } else {
+      //wait until gc is done (condvar, recheck)
+      while (bevg_gcState.load(std::memory_order_acquire) == 1) {
+        bevg_gcWaiter.wait(ulock);//is going to unlock then relock
+      }
+      if (bevg_stackGcState != 1) {
+        bevs_myStack->bevg_stackGcState = bevg_stackGcState;
+      }
+    }
+  }
+}
+
+void BECS_Runtime::bevg_setStackGcState(uint_fast16_t bevg_stackGcState) {
+  //need to set state in lock and do a check do gc
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bevg_gcLock.lock();
+  bevs_myStack->bevg_stackGcState = bevg_stackGcState;
+  bevg_gcLock.unlock();
+  //? could only do checkDo if old state was 0
+  bemg_checkDoGc();
+}
+
+bool BECS_Runtime::bemg_readyForGc() {
+  bool readyForGc = true;
+  for(auto const &idStack : bevg_frameStacks) {
+    if (idStack.second->bevg_stackGcState == 0) {
+      readyForGc = false;
+    }
+  }
+  return readyForGc;
 }
 
 void BETS_Object::bems_buildMethodNames(std::vector<std::string> names) {

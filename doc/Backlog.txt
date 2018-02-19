@@ -2,19 +2,14 @@ cc
 
 cooperative gc + threading
 
-  add a state to framestack (atomic) - running, waiting (ok for gc)
+  add pre post gc check into all sleeps, locks
   
-  for waiting entry or gc, inside lock check and set own waiting/ok for gc to yes, if should gc global is set then check all to see if all 
-    are waiting/ok for gc, if so do the gc, unlock, exit, if not all are waiting then hold on condition variable (with the gc lock)
-  on exiting entry wait, inside lock set own waiting/ok for gc to no, unlock, exit
-  always in try catch
+  create threads etc
 
   when starting thread (inside method in new thread) lock on gc lock, put the framestack in map
   
   when finishing thread lock on gc lock and remove framestack from map (unlock)
     at exit, inside lock, grab the last one (stack frame), go to the first (prior null), point first to last, make last the last one,then rm
-  
-  add pre post gc check into all sleeps, locks
   
   more test, sleep in threads while other stuff, etc
   test having some threads locked waiting and just sleeping while others do gc

@@ -23,9 +23,7 @@ class BECS_FrameStack {
   uint_fast32_t bevs_allocsSinceGc = 0;
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
   BECS_Object* bevs_nextReuse = nullptr;
-  //bool gcWaiting = false;
-  //bool gcBlocked = false;
-  //mutex gcWaitingLock
+  uint_fast16_t bevg_stackGcState = 0;
 };
 
 class BECS_Runtime {
@@ -65,6 +63,7 @@ class BECS_Runtime {
     static std::recursive_mutex bevs_initLock;
     
     static std::mutex bevg_gcLock;
+    static std::condition_variable bevg_gcWaiter;
     
     static uint_fast64_t bevg_countGcs;
     static uint_fast64_t bevg_countSweeps;
@@ -80,14 +79,17 @@ class BECS_Runtime {
     static int32_t getNlcForNlec(string clname, int32_t val);
     
     static void bemg_markAll();
-    
     static void bemg_markStack(BECS_FrameStack* bevs_myStack);
-    
     static void bemg_sweep();
-    
     static void bemg_sweepStack(BECS_FrameStack* bevs_myStack);
     
     static void bemg_addMyFrameStack();
+    
+    static void bemg_checkDoGc();
+    
+    static void bevg_setStackGcState(uint_fast16_t bevg_stackGcState);
+      
+    static bool bemg_readyForGc();
     
 };
 
@@ -197,7 +199,7 @@ class BECS_Object {
         BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
         
-        BECS_Runtime::doGc();
+        BECS_Runtime::bemg_checkDoGc();
       }
       
       bevg_gcMark = BECS_Runtime::bevg_currentGcMark;
