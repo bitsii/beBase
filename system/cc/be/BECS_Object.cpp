@@ -298,6 +298,42 @@ void BECS_Runtime::bemg_addMyFrameStack() {
   bevg_frameStacks[tid] = bevs_myStack;
 }
 
+void BECS_Runtime::bemg_deleteMyFrameStack() {
+  std::thread::id tid = std::this_thread::get_id();
+  auto it = bevg_frameStacks.find(tid);
+  bevg_frameStacks.erase(it);
+}
+
+void BECS_Runtime::bemg_beginThread() {
+  bevg_gcLock.lock();
+  bemg_addMyFrameStack();
+  bevg_gcLock.unlock();
+  bemg_checkDoGc();
+}
+
+void BECS_Runtime::bemg_endThread() {
+  bevg_gcLock.lock();
+  bemg_deleteMyFrameStack();
+  bevg_gcLock.unlock();
+  bemg_checkDoGc();
+}
+
+void BECS_Runtime::bemg_enterBlocking() {
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bevg_gcLock.lock();
+  bevs_myStack->bevg_stackGcState = 1;
+  bevg_gcLock.unlock();
+  bemg_checkDoGc();
+}
+
+void BECS_Runtime::bemg_exitBlocking() {
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bevg_gcLock.lock();
+  bevs_myStack->bevg_stackGcState = 0;
+  bevg_gcLock.unlock();
+  bemg_checkDoGc();
+}
+
 //RT
 //static std::mutex bevg_gcLock;
 //static std::condition_variable bevg_gcWaiter;
@@ -336,16 +372,6 @@ void BECS_Runtime::bemg_checkDoGc() {
   }
 }
 
-void BECS_Runtime::bevg_setStackGcState(uint_fast16_t bevg_stackGcState) {
-  //need to set state in lock and do a check do gc
-  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
-  bevg_gcLock.lock();
-  bevs_myStack->bevg_stackGcState = bevg_stackGcState;
-  bevg_gcLock.unlock();
-  //? could only do checkDo if old state was 0
-  bemg_checkDoGc();
-}
-
 bool BECS_Runtime::bemg_readyForGc() {
   bool readyForGc = true;
   for(auto const &idStack : bevg_frameStacks) {
@@ -378,5 +404,3 @@ BECS_ThrowBack::BECS_ThrowBack(BEC_2_6_6_SystemObject* thrown) {
 BEC_2_6_6_SystemObject* BECS_ThrowBack::handleThrow(BECS_ThrowBack thrown) {
   return thrown.wasThrown;
 }
-
-

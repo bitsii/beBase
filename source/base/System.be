@@ -698,6 +698,13 @@ use local class System:ThinThread {
    }
    """
    }
+   emit(cc_classHead) {
+   """
+   void bems_runMain() {
+     bem_main_0();
+   }
+   """
+   }
    
    new(_toRun) self {
      fields {
@@ -717,6 +724,11 @@ use local class System:ThinThread {
      BECS_Runnable bevi_runnable = new BECS_Runnable(this);
      bevi_thread = new Thread(bevi_runnable);
      bevi_thread.start();
+     """
+     }
+     emit(cc) {
+     """
+     std::thread t(&BEC_2_6_10_SystemThinThread::bems_runMain, this);
      """
      }
    }

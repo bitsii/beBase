@@ -84,11 +84,15 @@ class BECS_Runtime {
     static void bemg_sweepStack(BECS_FrameStack* bevs_myStack);
     
     static void bemg_addMyFrameStack();
+    static void bemg_deleteMyFrameStack();
+    
+    static void bemg_beginThread();
+    static void bemg_endThread();
+    
+    static void bemg_enterBlocking();
+    static void bemg_exitBlocking();
     
     static void bemg_checkDoGc();
-    
-    static void bevg_setStackGcState(uint_fast16_t bevg_stackGcState);
-      
     static bool bemg_readyForGc();
     
 };
