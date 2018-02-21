@@ -700,8 +700,11 @@ use local class System:ThinThread {
    }
    emit(cc_classHead) {
    """
+   std::shared_ptr<std::thread> bevi_thread;
    void bems_runMain() {
-     bem_main_0();
+       BECS_Runtime::bemg_beginThread();
+       bem_main_0();
+       BECS_Runtime::bemg_endThread();
    }
    """
    }
@@ -728,7 +731,8 @@ use local class System:ThinThread {
      }
      emit(cc) {
      """
-     std::thread t(&BEC_2_6_10_SystemThinThread::bems_runMain, this);
+     //std::thread t(&BEC_2_6_10_SystemThinThread::bems_runMain, this);
+     bevi_thread = std::make_shared<std::thread>(&BEC_2_6_10_SystemThinThread::bems_runMain, this);
      """
      }
    }
@@ -750,6 +754,11 @@ use local class System:ThinThread {
      emit(jv) {
      """
      bevi_thread.join();
+     """
+     }
+     emit(cc) {
+     """
+     bevi_thread->join();
      """
      }
      return(true);
