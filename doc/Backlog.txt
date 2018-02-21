@@ -1,20 +1,17 @@
 cc
 
 cooperative gc + threading
- 
- add the thread/remove the thread in the main
     
-  when finishing thread lock on gc lock and remove framestack from map (unlock)
-    at exit, inside lock, grab the last one (stack frame), go to the first (prior null), point first to last, make last the last one,then rm
+  rc mutex types
     
-  create thread, do stuff, exit thread
-  
   add pre post gc check into all sleeps, locks
   
-  create threads, rc mutex types
+  some basic thread test
   
-  more test, sleep in threads while other stuff, etc
+  test, sleep in threads while other stuff, etc
   test having some threads locked waiting and just sleeping while others do gc
+  
+  test varying lifetime threads
   
 perf info
 no mem mgt, stack, etc

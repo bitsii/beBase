@@ -313,6 +313,19 @@ void BECS_Runtime::bemg_beginThread() {
 
 void BECS_Runtime::bemg_endThread() {
   bevg_gcLock.lock();
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  BECS_Object* bevs_lastInst = bevs_myStack->bevs_lastInst;
+  
+  if (bevs_lastInst != nullptr) {
+    BECS_Object* bevs_currInst = bevs_lastInst;
+    while (bevs_currInst != nullptr) {
+      bevs_lastInst = bevs_currInst;
+      bevs_currInst = bevs_currInst->bevg_priorInst;
+    }
+  }
+  bevs_lastInst->bevg_priorInst = BECS_Runtime::bevg_oldInstsStack.bevs_lastInst;
+  BECS_Runtime::bevg_oldInstsStack.bevs_lastInst = bevs_myStack->bevs_lastInst;
+  
   bemg_deleteMyFrameStack();
   bevg_gcLock.unlock();
   bemg_checkDoGc();
