@@ -758,7 +758,11 @@ use local class System:ThinThread {
      }
      emit(cc) {
      """
-     bevi_thread->join();
+     BECS_Runtime::bemg_enterBlocking();
+     if (bevi_thread->joinable()) {
+      bevi_thread->join();
+     }
+     BECS_Runtime::bemg_exitBlocking();
      """
      }
      return(true);

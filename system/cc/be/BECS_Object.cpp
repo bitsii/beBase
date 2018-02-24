@@ -148,13 +148,13 @@ unordered_map<string, vector<int32_t>> BECS_Runtime::smnlecs;
 void BECS_Runtime::init() { 
     if (isInitted) { return; }
     isInitted = true;
-    BECS_Runtime::bemg_addMyFrameStack();
     BECS_Runtime::boolTrue = new BEC_2_5_4_LogicBool(true);
     BECS_Runtime::boolFalse = new BEC_2_5_4_LogicBool(false);
     BECS_Runtime::initializer = new BEC_2_6_11_SystemInitializer();
 }
 
 void BECS_Runtime::doGc() {
+  //cout << "GCDEBUG starting gc " << endl;
   
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   
@@ -175,11 +175,9 @@ void BECS_Runtime::doGc() {
     BECS_Runtime::bemg_sweep();
   }
 
-  bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
-
   BECS_Runtime::bevg_gcState.store(0, std::memory_order_release);
   
-  cout << "gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
+  //cout << "GCDEBUG gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
 
 }
 
@@ -259,6 +257,7 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
     }
     bevs_currFrame = bevs_currFrame->bevs_priorFrame;
   }
+  bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
 }
 
 void BECS_Runtime::bemg_sweep() {
@@ -299,19 +298,24 @@ void BECS_Runtime::bemg_addMyFrameStack() {
 }
 
 void BECS_Runtime::bemg_deleteMyFrameStack() {
+  //cout << "GCDEBUG dmfs b " << bevg_frameStacks.size() << endl;
   std::thread::id tid = std::this_thread::get_id();
   auto it = bevg_frameStacks.find(tid);
   bevg_frameStacks.erase(it);
+  //cout << "GCDEBUG dmfs e " << bevg_frameStacks.size() << endl;
 }
 
 void BECS_Runtime::bemg_beginThread() {
+  //cout << "GCDEBUG start begin thread" << endl;
   bevg_gcLock.lock();
   bemg_addMyFrameStack();
   bevg_gcLock.unlock();
+  //cout << "GCDEBUG st do gc" << endl;
   bemg_checkDoGc();
 }
 
 void BECS_Runtime::bemg_endThread() {
+  //cout << "GCDEBUG start end thread" << endl;
   bevg_gcLock.lock();
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   BECS_Object* bevs_lastInst = bevs_myStack->bevs_lastInst;
@@ -328,6 +332,7 @@ void BECS_Runtime::bemg_endThread() {
   
   bemg_deleteMyFrameStack();
   bevg_gcLock.unlock();
+  //cout << "GCDEBUG et do gc" << endl;
   bemg_checkDoGc();
 }
 
@@ -372,6 +377,7 @@ void BECS_Runtime::bemg_checkDoGc() {
         bevs_myStack->bevg_stackGcState = bevg_stackGcState;
       }
       //notify all
+      //cout << "GCDEBUG gc na" << endl;
       bevg_gcWaiter.notify_all();
     } else {
       //wait until gc is done (condvar, recheck)
@@ -386,8 +392,10 @@ void BECS_Runtime::bemg_checkDoGc() {
 }
 
 bool BECS_Runtime::bemg_readyForGc() {
+  //cout << "GCDEBUG ready for gc " << endl;
   bool readyForGc = true;
   for(auto const &idStack : bevg_frameStacks) {
+    //cout << "GCDEBUG rgc sgc " << idStack.second->bevg_stackGcState << endl;
     if (idStack.second->bevg_stackGcState == 0) {
       readyForGc = false;
     }

@@ -1,12 +1,10 @@
 cc
 
 cooperative gc + threading
-    
+  
   rc mutex types
     
   add pre post gc check into all sleeps, locks
-  
-  some basic thread test
   
   test, sleep in threads while other stuff, etc
   test having some threads locked waiting and just sleeping while others do gc
@@ -33,6 +31,7 @@ cla with recycle 4bld 20
   with -O1 4bld 
 gcc without sweep 4bld 14 
   with -O1 4bld 8 -O2 4bld 8
+cla with whole 9 yards 4bld 20
   
 linkedlist copy doesn't work, same with params (there isn't one)
 

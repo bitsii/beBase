@@ -17,7 +17,7 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #-O1, O2, O3
 
-time clang++ -o ./target5/BEX_E_cl.exe -ferror-limit=1 -std=c++14 ./target5/Base/target/cc/be/BEX_E.cpp
+time clang++ -pthread -o ./target5/BEX_E_cl.exe -ferror-limit=1 -std=c++14 ./target5/Base/target/cc/be/BEX_E.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

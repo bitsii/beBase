@@ -622,17 +622,17 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         String main = "";
         if(emitting("cc")) {
           main += "int main(int argc, char **argv) {" += nl;
-          //lock start on something in lib
           //main += "be.BECS_Runtime.args = args;" += nl;
           main += "be::BECS_Runtime::platformName = string(\"" += build.outputPlatform.name += "\");" += nl;
           main += "be::BECS_Runtime::argc = argc;" += nl;
           main += "be::BECS_Runtime::argv = argv;" += nl;
+          main += "be::BECS_Runtime::bemg_beginThread();" += nl;
           main += "be::BEX_E::init();" += nl;
           main += "be::" += maincc.emitName += "* mc = new be::" += maincc.emitName += "();" += nl;
           main += "be::BECS_Runtime::maino = mc;" += nl;
           main += "mc->bem_new_0();" += nl;
           main += "mc->bem_main_0();" += nl;
-          //end lock
+          main += "be::BECS_Runtime::bemg_endThread();" += nl;
           main += "}\n";
         } else {
           main += self.mainStart;

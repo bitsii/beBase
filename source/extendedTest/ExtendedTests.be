@@ -148,10 +148,10 @@ class Test:ExtendedTest:EC(BaseTest) {
         Test:BaseTest:System.new().main(); //random not impl for all
       }
       
-      ifEmit(jv, cs) {
-        testSha256();
+      ifEmit(jv, cs, cc) {
+        //testSha256();
         testThreads();
-        testLocks();
+        //testLocks();
       }
       
       ifEmit(cc) {
