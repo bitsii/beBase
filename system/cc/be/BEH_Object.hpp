@@ -186,8 +186,8 @@ class BECS_Object {
         doGc = true;
       }
       
-      //sync do gc moretimes 16 32 64 128
-      if (bevs_myStack->bevs_allocsSinceGc % 32 == 0 && BECS_Runtime::bevg_gcState.load(std::memory_order_acquire) == 1) {
+      //sync do gc moretimes 2 4 8 16 32 64 128
+      if (bevs_myStack->bevs_allocsSinceGc % 16 == 0 && BECS_Runtime::bevg_gcState.load(std::memory_order_acquire) == 1) {
         doGc = true;
       }
       

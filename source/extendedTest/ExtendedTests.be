@@ -149,9 +149,11 @@ class Test:ExtendedTest:EC(BaseTest) {
       }
       
       ifEmit(jv, cs, cc) {
-        //testSha256();
+        ifEmit(jv, cs) {
+          testSha256();
+        }
         testThreads();
-        //testLocks();
+        testLocks();
       }
       
       ifEmit(cc) {

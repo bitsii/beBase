@@ -1,15 +1,5 @@
-cc
 
-cooperative gc + threading
-  
-  rc mutex types
-    
-  add pre post gc check into all sleeps, locks
-  
-  test, sleep in threads while other stuff, etc
-  test having some threads locked waiting and just sleeping while others do gc
-  
-  test varying lifetime threads
+libraries
   
 perf info
 no mem mgt, stack, etc
@@ -37,10 +27,6 @@ linkedlist copy doesn't work, same with params (there isn't one)
 
 change int32_t et all to "fast" vers
 
-cc could do alloc pools
-
-compare offsetof getting member setting member to perf of call for mark
-
 gratuituous returns
 transitive this support in typecheck
 not handling return type checks properly
@@ -48,6 +34,10 @@ not handling return type checks properly
 get rid of bems_forwardCall
 
 split with max num of splits
+
+test having some threads locked waiting and just sleeping while others do gc
+  add sleep, lock testing to the thread test
+  varying lifetime threads
 
 sep mem model option for threading (like dart/js)
 

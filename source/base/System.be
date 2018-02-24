@@ -811,6 +811,11 @@ use final class System:Thread:Lock {
   volatile public ReentrantLock bevi_lock = new ReentrantLock();
   """
   }
+  emit(cc_classHead) {
+  """
+  std::recursive_mutex bevi_lock;
+  """
+  }
   
   lock() Bool {
     emit(cs) {
@@ -823,6 +828,13 @@ use final class System:Thread:Lock {
     bevi_lock.lock();
     """
     }
+    emit(cc) {
+    """
+    BECS_Runtime::bemg_enterBlocking();
+    bevi_lock.lock();
+    BECS_Runtime::bemg_exitBlocking();
+    """
+    }
     return(true);
   }
   
@@ -833,6 +845,11 @@ use final class System:Thread:Lock {
     """
     }
     emit(jv) {
+    """
+    bevi_lock.unlock();
+    """
+    }
+    emit(cc) {
     """
     bevi_lock.unlock();
     """

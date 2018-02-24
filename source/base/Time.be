@@ -79,7 +79,9 @@ void** bevl_msecs;
       }
       emit(cc) {
       """
+      BECS_Runtime::bemg_enterBlocking();
       this_thread::sleep_for(chrono::milliseconds(beva_msecs->bevi_int));
+      BECS_Runtime::bemg_exitBlocking();
       """
       }
       emit(js) {
