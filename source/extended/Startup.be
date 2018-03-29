@@ -105,9 +105,9 @@ local class Parameters {
    new() self {
    
       fields {
-         List args;
-         Map params;
-         List ordered;
+         List args = List.new();
+         Map params = Map.new();
+         List ordered = List.new();
          Text:Tokenizer fileTok = Text:Tokenizer.new("\r\n");
          any preProcessor;
       }
@@ -125,13 +125,7 @@ local class Parameters {
             _args[ii] = preProcessor.process(_args[ii]);
          }
       }
-      if (undef(args)) {
-         args = _args;
-         params = Map.new();
-         ordered = List.new();
-      } else {
-         args = args + _args;
-      }
+      args = args + _args;
       String pname = null;
       Bool pnameComment = false;
       for (String i in _args) {
@@ -244,6 +238,10 @@ local class Parameters {
    }
    
    addParameter(String name, String value) {
+     addParam(name, value);
+   }
+   
+   addParam(String name, String value) {
       //("ADDING " + name + " " + value).print();
       LinkedList vals = params[name];
       if (undef(vals)) {
@@ -251,6 +249,7 @@ local class Parameters {
          params.put(name, vals);
       }
       vals += value;
+      //("add done").print();
    }
    
    addFile(File file) {
@@ -258,6 +257,10 @@ local class Parameters {
       file.reader.close();
       List fargs = fileTok.tokenize(fcontents).toList();
       addArgs(fargs);
+   }
+   
+   iteratorGet() {
+     return(params.iterator);
    }
 
 }

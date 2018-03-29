@@ -704,7 +704,9 @@ class Sets(Variadic) {
   default() self { }
 
   from(List list) {
-    Set set = Set.new(list.size * 2);
+    Int ssz = list.size * 2;
+    ssz++=;
+    Set set = Set.new(ssz);
     for (any v in list) {
       set.put(v);
     }
@@ -719,7 +721,7 @@ class Maps(Variadic) {
 
   from(List list) {
     Int ls = list.size;
-    Map map = Map.new(ls);
+    Map map = Map.new(ls + 1);
     for (Int i = 0;i < ls;i++=) {
       map.put(list[i], list[i++=]);
     }
