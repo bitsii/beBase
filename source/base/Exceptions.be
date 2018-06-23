@@ -66,9 +66,10 @@ class System:Exception {
        translateEmittedExceptionInner();
      } catch(any e) {
        ("Exception translation failed").print();
-       //if (def(e)) {
-       //  try { e.print(); } catch (any ee) { }
-       //}
+       if (def(e) && e.can("getDescription", 0)) {
+         e.description.print();
+         //try { e.print(); } catch (any ee) { }
+       }
      }
    }
    

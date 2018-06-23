@@ -1,6 +1,6 @@
-Abe is a general - purpose object - oriented programming language with an emphasis on simplicity and practicality.  It is implemented as a self-hosted source-to-source translator targeting C#/.Net, Java, and JavaScript - which takes inspiration from Python and Perl as well as Java/C#/Objc/C/C++/D/Smalltalk/Eiffel/and many others.  One of the goals is to be able to write core code once and use it in a hybrid application targeting the major environments - a Linux, Windows, or Mac application as well as Andriod and IOS mobile applications along with hosting the application as a website for access from browsers.  The translator and base library are available under the MIT License.
+Abelii is a general - purpose object - oriented programming language with an emphasis on simplicity and practicality.  It is implemented as a self-hosted source-to-source translator targeting C#/.Net, C++, Java, and JavaScript - which takes inspiration from Python and Perl as well as Java/C#/Objc/C/C++/D/Smalltalk/Eiffel/and many others.  One of the goals is to be able to write core code once and use it in a hybrid application targeting the major environments - a Linux, Windows, or Mac application as well as Andriod and IOS mobile applications along with hosting the application as a website for access from browsers.  The translator and base library are available under the MIT License.
 
-The language borrows automatic memory management via garbage collection from it's host runtimes and supports both statically and dynamically typed variables.  There are no function calls which are not methods and no types which are not realized as instances of classes.  Single-Parent inheritance is supported and all classes derive from a base class System:Object.  Operator overloading is supported (operations are translated to method call names by convention, in fact all operations are implemented in this way).  There is also built - in support for accessors, default accessors are created for all member variables but can be overriden to modify their behavior (and "virtual" members can be created simply by implementing properly named methods).  try/catch/finally exception handling syntax is supported.  All variables are either member variables (accomplished by enclosing their declaration in a fields { } block) or method-scope local variables (ala Python).  
+The language borrows automatic memory management via garbage collection from it's host runtimes and supports both statically and dynamically typed variables.  There are no function calls which are not methods and no types which are not realized as instances of classes.  Single-Parent inheritance is supported and all classes derive from a base class System:Object.  Operator overloading is supported (operations are translated to method call names by convention, in fact all operations are implemented in this way).  There is also built - in support for accessors, default accessors are created for all member variables but can be overriden to modify their behavior (and "virtual" members can be created simply by implementing properly named methods).  try/catch exception handling syntax is supported.  All variables are either member variables (accomplished by enclosing their declaration in a fields { } block) or method-scope local variables (ala Python).  
 
 An example: 
 
@@ -22,7 +22,7 @@ use Hi;
 
 /*...*/
 
-Hi.new().main();
+Hi.main();
 ```
 
 (Arguments from the command line can be retrieved from environment classes available in the base library - optional command line parsing for dash-notation parameters, etc, is available in the base library as well).
@@ -31,14 +31,14 @@ A simple base library includes mutable String and Int(eger) implementations as w
 
 **Where to go next:**
 
-[More about the Language with Examples] (https://gitlab.com/ioturl/abe-pl/wikis/more-information-and-examples)
+[More about the Language with Examples] (https://gitlab.com/abelii/abelii/wikis/more-information-and-examples)
 
-[Getting started - get the code, build, run] (https://gitlab.com/ioturl/abe-pl/wikis/getting-started)
+[Getting started - get the code, build, run] (https://gitlab.com/abelii/abelii/wikis/getting-started)
 
-[Show me the code (where is it, really)] (https://bitbucket.org/ioturl/abe-pl)
+[Show me the code] (https://gitlab.com/abelii/abelii)
 
-[Houston, we have a problem (issue tracking)] (https://gitlab.com/ioturl/abe-pl/issues)
+[Need some help...] (https://stackoverflow.com/questions/tagged/abelii)
 
-[Wha how's that again (q&a)] (https://stackoverflow.com/questions/tagged/abe-pl)
+[Houston, we have a problem] (https://gitlab.com/abelii/abelii/issues)
 
-[...and the authoritative version of this very page...] (https://gitlab.com/ioturl/abe-pl/wikis/home)
+[...and the authoritative version of this very page...] (https://gitlab.com/abelii/abelii/wikis/home)

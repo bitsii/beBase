@@ -2,6 +2,7 @@
 libraries
   
 perf info
+mcs 6 sec 4bld
 no mem mgt, stack, etc
 gcc 2 sec extecbld, 8 sec 4bld
 cla 6.5 sec extecbld, 10 sec 4bld
