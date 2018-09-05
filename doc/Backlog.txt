@@ -1,5 +1,14 @@
 
-libraries
+sep mem model option for threading (like dart/js)
+  simplifies gc
+  aligns all the langs
+ 
+? isolated memory for threads
+  try rm thread tests and switch all to thread local, see perf
+   have entry points for threads check and init all
+   get tests going, ? ok
+  
+libraries/packaging
   
 perf info
 mcs 6 sec 4bld
@@ -39,8 +48,6 @@ split with max num of splits
 test having some threads locked waiting and just sleeping while others do gc
   add sleep, lock testing to the thread test
   varying lifetime threads
-
-sep mem model option for threading (like dart/js)
 
 see if javascript slower if untyped calls are reflective
   in object bems_call("name", args)
@@ -350,7 +357,7 @@ http://jsperf.com/object-create-vs-crockford-vs-jorge-vs-constructor/10
 http://ejohn.org/apps/learn/#64
 
 perf
-THE NEXT LINE IS THE JS SPEEDUP ONE!!! (prototype actually looks to be fastest...)
+THE NEXT LINE IS THE JS SPEEDUP ONE!!! (prototype actually looks to be fastest...) javascript
 http://coding.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/ (Module pattern with cached functions)
 http://stackoverflow.com/questions/3493252/javascript-prototype-operator-performance-saves-memory-but-is-it-faster
 
