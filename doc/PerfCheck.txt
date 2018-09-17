@@ -1,3 +1,27 @@
+
+cc perf info
+mcs 6 sec 4bld
+no mem mgt, stack, etc
+gcc 2 sec extecbld, 8 sec 4bld
+cla 6.5 sec extecbld, 10 sec 4bld
+(70% time spent in malloc, so pools or better alloc likely to help)
+gcc 6 sec extecbld, 9 4bld post stack array
+cla 7.3 sec extecbld, 12.2 sec 4bld post stack array
+cla 7.4 sec extecbld, 12.3 sec 4bld post construct frame novars
+cla 9 sec extecbld, 14.3 sec 4bld post construct frame vars (no diff for not thread local...)
+  with -O1 4bld is 8 sec, -02 is 6 sec (-O3 also 6)
+cla with sweep 4bld 22 
+  with -O1 4bld 16
+gcc with sweep 4bld 21 
+  with -O1 4bld 15
+gcc with recycle 4bld 20
+  with -O1 4bld 14
+cla with recycle 4bld 20
+  with -O1 4bld 
+gcc without sweep 4bld 14 
+  with -O1 4bld 8 -O2 4bld 8
+cla with whole 9 yards 4bld 20
+
 simple performance check - run cycle with a stopwatch:
 
 time scripts/cyclejv5.sh

@@ -408,6 +408,10 @@ final class String {
       return(true);
    }
    
+   isIntegerGet() Bool {
+     return(isInteger());
+   }
+   
    isInteger() Bool {
       Int ic = Int.new();
       for (Int j = 0;j < size;j++=;) {
