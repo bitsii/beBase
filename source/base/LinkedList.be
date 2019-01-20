@@ -166,6 +166,7 @@ local LinkedList {
          lastNode = node;
          firstNode = node;
       }
+      node.mylist = self;
    }
    
    prependNode(node) {
@@ -178,6 +179,7 @@ local LinkedList {
          lastNode = node;
          firstNode = node;
       }
+      node.mylist = self;
    }
    
    deleteNode(node) {

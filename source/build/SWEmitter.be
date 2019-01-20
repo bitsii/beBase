@@ -94,7 +94,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
     methodCatch++=;
     methodBody += " catch (System.Exception " += catchVar += ") {" += nl; //}
     
-    methodBody += finalAssign(node.contained.first.contained.first, "(be.BECS_ThrowBack.handleThrow(" + catchVar + "))", null);
+    methodBody += finalAssign(node.contained.first.contained.first, "(be.BECS_ThrowBack.handleThrow(" + catchVar + "))", null, null);
 
    }
     

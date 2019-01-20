@@ -505,6 +505,10 @@ use final class System:Environment {
         }
         return(value);
     }
+    
+    getVar(String name) String {
+      return(getVariable(name));
+    }
 
 }
 
