@@ -1946,7 +1946,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                   if (emitting("cc")) {
                     newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "())";
                   } else {
-                    String newCall = "new " + newcc.relEmitName(build.libName) + "()";
+                    String newCall = self.newDec + newcc.relEmitName(build.libName) + "()";
                   }
                 }
                 target = "(" + newCall + ")";
@@ -1987,10 +1987,18 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     Build:MtdSyn msyn = asyn.mtdMap.get("new_0");
                     if (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "System:Object") {
                       //("Found a skippable new for class " + asyn.namepath.toString()).print();
-                      methodBody += callAssign += cast += initialTarg += afterCast += ";" += nl;
+                      if (emitting("sw") && def(castTo)) {
+                        methodBody += callAssign += formCast(getClassConfig(castTo), castType, initialTarg) += afterCast += ";" += nl;
+                      } else {
+                        methodBody += callAssign += cast += initialTarg += afterCast += ";" += nl;
+                      }
                     } elseIf (Text:Strings.notEmpty(callAssign) && node.held.name == "new_0" && msyn.origin.toString() == "Math:Int" && emitting("js")!) {
-                      //("Found a skippable int new for class " + asyn.namepath.toString()).print();
-                      methodBody += callAssign += cast += initialTarg += afterCast += ";" += nl;
+                      if (emitting("sw") && def(castTo)) {
+                        methodBody += callAssign += formCast(getClassConfig(castTo), castType, initialTarg) += afterCast += ";" += nl;
+                      } else {
+                        //("Found a skippable int new for class " + asyn.namepath.toString()).print();
+                        methodBody += callAssign += cast += initialTarg += afterCast += ";" += nl;
+                      }
                     } else {
                       methodBody += callAssign += cast += emitCall(initialTarg + invp, node, callArgs) += afterCast += ";" += nl;
                     }
@@ -2108,19 +2116,23 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     return(nccn + "." + bein);
    }
    
+   newDecGet() String {
+    return("new ");
+   }
+   
    lintConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
-      return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + ")");
+      return(self.newDec + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + ")");
    }
    
    lfloatConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
-      return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f)");
+      return(self.newDec + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f)");
    }
    
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {
       if (isOnce) {
-        return("new " + newcc.relEmitName(build.libName) + "(" + belsName + ", " + lisz + ")");
+        return(self.newDec + newcc.relEmitName(build.libName) + "(" + belsName + ", " + lisz + ")");
       }
-      return("new " + newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
+      return(self.newDec + newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
    }
    
    lstringStart(String sdec, String belsName) {
@@ -2355,8 +2367,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         return("");
     }
     
-    //Does this emit lang support coanyiant return types
-    coanyiantReturnsGet() {
+    //Does this emit lang support covariant return types
+    covariantReturnsGet() {
         return(true);
     }
     

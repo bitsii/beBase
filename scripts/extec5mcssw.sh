@@ -9,13 +9,15 @@ CYC1=`date +%s`
 
 #time clang++ -pthread -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++14 ./targetEc/Base/target/cc/be/BEX_E.cpp
 
+swiftc targetEc/Base/target/sw/be/* 2>&1 | more
+
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #time ./targetEc/BEX_E_cl.exe
 
-lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
+#lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-CYC2=`date +%s`
+#CYC2=`date +%s`
 
-expr \( $CYC2 - $CYC1 \)
+#expr \( $CYC2 - $CYC1 \)
 

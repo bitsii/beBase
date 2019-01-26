@@ -17,7 +17,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
     new(Build:Build _build) {
         emitLang = "sw";
         fileExt = ".swift";
-        exceptDec = "";
+        exceptDec = " throws";
         fields {
         }
         //super new depends on some things we set here, so it must follow
@@ -109,6 +109,28 @@ use final class Build:SWEmitter(Build:EmitCommon) {
     overrideMtdDec(Build:MtdSyn msyn) String {
        return("override func ");
     }
+    
+    newDecGet() String {
+    return("");
+   }
+   
+   formCast(ClassConfig cc, String type) String { //no need for type check
+        return(" as " + cc.relEmitName(build.libName));
+   }
+   
+   formCast(ClassConfig cc, String type, String targ) String {
+        return(targ + formCast(cc, type));
+   }
+    
+  startMethod(String mtdDec, ClassConfig returnType, String mtdName, String argDecs, exceptDec) {
+     
+     methods += mtdDec += mtdName += "(";
+      
+     methods += argDecs;
+      
+     methods += ")" += exceptDec += " -> " += returnType.relEmitName(build.libName) += " {" += nl; //}
+    
+  }
   
   superNameGet() String {
     return("super");

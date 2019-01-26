@@ -28,3 +28,5 @@ source/base/EcProcess.be
 source/base/EcProcess.be
 --js_source
 source/base/EcProcess.be
+--sw_source
+source/base/EcProcess.be

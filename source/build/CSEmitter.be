@@ -147,7 +147,7 @@ use final class Build:CSEmitter(Build:EmitCommon) {
         return(" : "@ + parent);
     }
     
-    coanyiantReturnsGet() {
+    covariantReturnsGet() {
         return(false);
     }
 

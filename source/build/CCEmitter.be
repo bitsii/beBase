@@ -555,7 +555,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         //end module
     }
     
-    coanyiantReturnsGet() {
+    covariantReturnsGet() {
         return(false);
     }
     

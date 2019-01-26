@@ -473,13 +473,13 @@ final class Build:MtdSyn {
    }
    
    getEmitReturnType(ClassSyn csyn, Build:Build build) NamePath {
-      Bool coanyiantReturns = true;
+      Bool covariantReturns = true;
       Build:EmitCommon ec = build.emitCommon;
       if (def(ec)) {
-        coanyiantReturns = ec.coanyiantReturns;
+        covariantReturns = ec.covariantReturns;
       }
       if (def(rsyn)) {
-          if (coanyiantReturns) {
+          if (covariantReturns) {
             if (rsyn.isSelf) {
                 return(csyn.namepath);
             } else {

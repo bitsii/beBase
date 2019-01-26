@@ -578,7 +578,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                      }
                   }
                   if (def(oany) && (oany.isTyped)) {
-                     //here is where return type checking coanyiant / getEmitReturnType needs to happen
+                     //here is where return type checking covariant / getEmitReturnType needs to happen
                      Bool castForSelf = false;
                      if (oany.isSelf) {
                         //syn is call target class from above, nulled before set
@@ -591,7 +591,7 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
                         if (mtdc.origin != tany.namepath) { //TODO just test for tany being BELOW mtdc.origin in hierarchy
                             //we will need to cast despite compatibility TODO FASTER this could be a fast-cast...
                             castForSelf = true;
-                        } elseIf (def(build.emitCommon) && build.emitCommon.coanyiantReturns!) {
+                        } elseIf (def(build.emitCommon) && build.emitCommon.covariantReturns!) {
                             castForSelf = true;
                         }
                      } elseIf (def(mtdc)) {
