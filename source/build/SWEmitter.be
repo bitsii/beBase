@@ -22,16 +22,24 @@ use final class Build:SWEmitter(Build:EmitCommon) {
         }
         //super new depends on some things we set here, so it must follow
         super.new(_build);
+        
+        trueValue = "BECS_Runtime.prototype.boolTrue";
+        falseValue = "BECS_Runtime.prototype.boolFalse";
+    }
+    
+    acceptThrow(Node node) {
+        methodBody += "throw new BECS_ThrowBack(" += formTarg(node.second) += ", new Error());" += nl;
     }
     
     classBegin(Build:ClassSyn csyn) String {
        if (def(parentConf)) {
           String extends = extend(parentConf.relEmitName(build.libName));
        } else {
-          extends = extend("be.BECS_Object");
+          extends = extend("BECS_Object");
        }
        String clb = "/* IO:File: " += inFilePathed += " */" += nl;
        clb += self.klassDec(csyn.isFinal) += classConf.emitName += extends += " {" += nl; //}
+       clb += "override init() { }" += nl;
        return(clb)
     }
     
@@ -43,8 +51,10 @@ use final class Build:SWEmitter(Build:EmitCommon) {
         return("");
     }
     
-    decForVar(String b, Build:Var v) {
-      b += "var ";
+    decForVar(String b, Build:Var v, Bool isArg) {
+      unless (isArg) {
+        b += "var ";
+      }
       b += nameForVar(v);
       b += ":";
       typeDecForVar(b, v);
@@ -77,11 +87,66 @@ use final class Build:SWEmitter(Build:EmitCommon) {
 	}
 	
   baseSpropDec(String typeName, String anyName) {
-     return("var " + anyName + ":" + typeName + " ");
+     return("static var " + anyName + ":" + typeName + " ");
+  }
+  
+    buildCreate() {
+        ccMethods += self.overrideMtdDec += " bemc_create()" += exceptDec += " -> " += getClassConfig(objectNp).relEmitName(build.libName) += " {" += nl;  //}
+            ccMethods += "return " += getClassConfig(cnode.held.namepath).relEmitName(build.libName) += "();" += nl;
+        //{
+        ccMethods += "}" += nl;
+    }
+  
+  buildInitial() {
+        String oname = getClassConfig(objectNp).relEmitName(build.libName);
+        String tname = getClassConfig(objectNp).typeEmitName;
+        String mname = classConf.emitName;
+        ClassConfig newcc = getClassConfig(cnode.held.namepath);
+        String stinst = getInitialInst(newcc);
+        
+        ccMethods += self.overrideMtdDec += "bemc_setInitial( becc_inst:" += oname += " )" += exceptDec += " {" += nl;  //}
+            
+            if (mname != oname) {
+                String vcast = formCast(classConf, "unchecked", "becc_inst");//no need for type check
+            } else {
+                vcast = "becc_inst";
+            }
+            
+            ccMethods += stinst += " = " += vcast += ";" += nl;
+        //{
+        ccMethods += "}" += nl;
+        
+        
+        ccMethods += self.overrideMtdDec += " bemc_getInitial()" += exceptDec += " -> " += oname += " {" += nl;  //}
+            
+            ccMethods += "return " += stinst += ";" += nl;
+        //{
+        ccMethods += "}" += nl;
+        
+        String tinst = getTypeInst(newcc);
+        
+        ccMethods += self.overrideMtdDec += " bemc_getType()" += exceptDec += " -> BETS_Object {" += nl;  //}
+            
+            ccMethods += "return " += tinst += ";" += nl;
+        //{
+        ccMethods += "}" += nl;
+        
+    }
+  
+  buildClassInfoMethod(String bemBase, String belsBase, Int len) {
+      /*ccMethods += self.overrideMtdDec += "byte[] bemc_" += bemBase += "()" += exceptDec += " {" += nl;  //}
+      ccMethods += "return becc_" += belsBase += ";" += nl;
+      //{
+      ccMethods += "}" += nl;*/
+      
+      ccMethods += self.overrideMtdDec += "bemc_" += bemBase += "s()" += exceptDec += " -> BEC_2_4_6_TextString {" += nl;  //}
+      ccMethods += "return BEC_2_4_6_TextString(" += len += ", becc_" += belsBase += ");" += nl;
+      //{
+      ccMethods += "}" += nl;
   }
   
   overrideSpropDec(String typeName, String anyName) {
-    return("var " + anyName + ":" + typeName + " ");
+    return("static var " + anyName + ":" + typeName + " ");
   }
   
 	lstringEnd(String sdec) {
@@ -94,7 +159,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
     methodCatch++=;
     methodBody += " catch (System.Exception " += catchVar += ") {" += nl; //}
     
-    methodBody += finalAssign(node.contained.first.contained.first, "(be.BECS_ThrowBack.handleThrow(" + catchVar + "))", null, null);
+    methodBody += finalAssign(node.contained.first.contained.first, "(BECS_ThrowBack.handleThrow(" + catchVar + "))", null, null);
 
    }
     
@@ -137,7 +202,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
   }
   
   onceDec(String typeName, String anyName) {
-     return("var " + anyName + ":" + typeName + "? ");
+     return("static var " + anyName + ":" + typeName + "? ");
   }
   
   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {

@@ -719,7 +719,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           libe.write("void " + libEmitName + "::init() {" + nl); //}
           libe.write("BECS_Runtime::bevs_initLock.lock();\n");
           libe.write("if (BECS_Runtime::isInitted) { BECS_Runtime::bevs_initLock.unlock(); return; }" + nl);
-          
+        } elseIf (emitting("sw")) {
+          libe.write("func " + libEmitName + "_init() {" + nl); //}
+          libe.write("if (BECS_Runtime.isInitted) { return; }" + nl);
         } else {
           libe.write(self.baseSmtdDec + "void init()" += exceptDec += " {" + nl); //}
           if(emitting("jv")) {
@@ -742,6 +744,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         //{
         libe.write("}" + nl);
+        
+        if (emitting("sw")) {
+          main = "";
+        }
         
         if (self.mainInClass) {
             libe.write(main);
@@ -826,7 +832,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       }
    }
    
-   decForVar(String b, Build:Var v) {
+   decForVar(String b, Build:Var v, Bool isArg) {
       typeDecForVar(b, v);
       b += " ";
       b += nameForVar(v);
@@ -895,9 +901,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                     stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
                     numRefs++=;
                  }
-                decForVar(argDecs, ov.held);
+                decForVar(argDecs, ov.held, true);
              } else {
-                decForVar(locDecs, ov.held);
+                decForVar(locDecs, ov.held, false);
                 if(emitting("js")) {
                     locDecs += ";" += nl;
                 } elseIf(emitting("cc")) {
@@ -1034,7 +1040,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             if (i.isDeclared) {
                 if (ovcount >= nativeCSlots) {
                     propertyDecs += self.propDec;
-                    decForVar(propertyDecs, i);
+                    decForVar(propertyDecs, i, false);
                     if (emitting("cc")) {
                       propertyDecs += " = nullptr;" += nl;
                     } else {
@@ -1095,6 +1101,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         String superArgs = "callId";
         if(emitting("cc")) {
           args = "int32_t callId";
+        } elseIf (emitting("sw")) {
+          args = "callId:Int";
         } else {
           String args = "int callId";
         }
@@ -1118,16 +1126,29 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         } else {
           
           while (j < (dnumargs + 1) && j < maxDynArgs) {
-              args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
+              if (emitting("sw")) {
+                args = args + ", bevd_" + (j - 1) + ":" + objectCc.relEmitName(build.libName);
+              } else {
+                args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
+              }
               superArgs = superArgs + ", " + "bevd_" + (j - 1);
               j++=;
           }
           if (dnumargs >= maxDynArgs) {
+            if (emitting("sw")) {
+               args = args + ", bevd_x:[" + objectCc.relEmitName(build.libName) + "]";
+            } else {
               args = args + ", " + objectCc.relEmitName(build.libName) + "[] bevd_x";
-              superArgs = superArgs + ", bevd_x";
+             
+            }
+            superArgs = superArgs + ", bevd_x";
           }
           
-          dynMethods += self.overrideMtdDec += objectCc.relEmitName(build.libName) += " " += dmname += "(" += args += ")" += exceptDec += " {" += nl;  //}
+          if (emitting("sw")) {
+            dynMethods += self.overrideMtdDec += dmname += "(" += args += ")" += exceptDec += " -> " += objectCc.relEmitName(build.libName) += " {" += nl;  //}
+          } else {
+            dynMethods += self.overrideMtdDec += objectCc.relEmitName(build.libName) += " " += dmname += "(" += args += ")" += exceptDec += " {" += nl;  //}
+          }
         }
         dynMethods += "switch (callId) {" += nl; //}
         
@@ -1973,7 +1994,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                         }
                     }
                     if (onceDeced) {
-                      onceDecs += odec += callAssign += cast += target += afterCast += ";" += nl;
+                      if (emitting("sw")) {
+                        onceDecs += odec += " = " += cast += target += afterCast += ";" += nl;
+                      } else {
+                        onceDecs += odec += callAssign += cast += target += afterCast += ";" += nl;
+                      }
                     } else {
                         methodBody += callAssign += cast += target += afterCast += ";" += nl;
                     }
@@ -2086,7 +2111,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         methodBody += postOnceCallAssign;
         if (onceDeced!) {
             if (odec.isEmpty!) {
-              onceDecs += odec += oany += ";" += nl;
+              if (emitting("sw")) {
+                onceDecs += odec += ";" += nl;
+              } else {
+                onceDecs += odec += oany += ";" += nl;
+              }
             }
         }
       }

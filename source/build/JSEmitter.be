@@ -218,7 +218,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
     }
 
-   decForVar(String b, Build:Var v) {
+   decForVar(String b, Build:Var v, Bool isArg) {
       if (v.isProperty) {
         //b += "public bevp_" + v.name;
       } else {
