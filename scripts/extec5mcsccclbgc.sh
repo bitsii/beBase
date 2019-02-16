@@ -11,7 +11,7 @@ time clang++ -DBEDCC_BGC=1 -pthread -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-#time ./targetEc/BEX_E_cl.exe
+time ./targetEc/BEX_E_cl.exe
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

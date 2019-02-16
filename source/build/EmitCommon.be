@@ -626,6 +626,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           main += "be::BECS_Runtime::platformName = string(\"" += build.outputPlatform.name += "\");" += nl;
           main += "be::BECS_Runtime::argc = argc;" += nl;
           main += "be::BECS_Runtime::argv = argv;" += nl;
+          if (build.emitChecks.has("ccBgc")) {
+            main += "GC_INIT();" += nl;
+            main += "GC_allow_register_threads();" += nl;
+          }
           main += "be::BECS_Runtime::bemg_beginThread();" += nl;
           main += "be::BEX_E::init();" += nl;
           main += "be::" += maincc.emitName += "* mc = new be::" += maincc.emitName += "();" += nl;

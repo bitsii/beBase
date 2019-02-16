@@ -423,6 +423,12 @@ void BECS_Runtime::bemg_beginThread() {
   bemg_checkDoGc();
 #endif
 
+#ifdef BEDCC_BGC
+struct GC_stack_base sb;
+GC_get_stack_base(&sb);
+GC_register_my_thread(&sb);
+#endif
+
 }
 
 void BECS_Runtime::bemg_endThread() {
@@ -449,6 +455,10 @@ void BECS_Runtime::bemg_endThread() {
   //cout << "GCDEBUG et do gc" << endl;
   bemg_checkDoGc();
 
+#endif
+
+#ifdef BEDCC_BGC
+GC_unregister_my_thread();
 #endif
 
 }
