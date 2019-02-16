@@ -652,7 +652,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         unless(emitting("cc")) {
         
           libe.write(self.beginNs());
-          String extends = extend("be.BECS_Lib");
+          if (emitting("sw")) {
+            extends = extend("BECS_Lib");
+          } else {            
+            String extends = extend("be.BECS_Lib");
+          }
           libe.write(self.klassDec(true) + libEmitName + extends + "  {" + nl); //}
           
         }
@@ -914,6 +918,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                     isFirstRef = false;
                     stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
                     numRefs++=;
+                } elseIf(emitting("sw")) {
+                    locDecs += " = nil;" += nl;
                 } else  {
                     locDecs += " = null;" += nl;
                 }
@@ -923,9 +929,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       }
       
       if(emitting("cc")) {
-        locDecs += "BEC_2_6_6_SystemObject** bevls_stackRefs[" += numRefs.toString() += "] = { " += stackRefs += " };" += nl;
-        //stackframe
-        locDecs += "BECS_StackFrame bevs_stackFrame(bevls_stackRefs, " += numRefs.toString() += ");" += nl;
+        if (build.emitChecks.has("ccSgc")) {
+          locDecs += "BEC_2_6_6_SystemObject** bevls_stackRefs[" += numRefs.toString() += "] = { " += stackRefs += " };" += nl;
+          //stackframe
+          locDecs += "BECS_StackFrame bevs_stackFrame(bevls_stackRefs, " += numRefs.toString() += ");" += nl;
+        }
         //BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
       }
       
@@ -1116,8 +1124,13 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
               j++=;
           }
           if (dnumargs >= maxDynArgs) {
+            if (build.emitChecks.has("ccBgc")) {
+              args = args + ", vector<" + objectCc.relEmitName(build.libName) + "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x";
+              superArgs = superArgs + ", bevd_x";
+            } elseIf (build.emitChecks.has("ccSgc")) {
               args = args + ", vector<" + objectCc.relEmitName(build.libName) + "*> bevd_x";
               superArgs = superArgs + ", bevd_x";
+            }
           }
           
           String dmh = "virtual " + objectCc.relEmitName(build.libName) + "* " + dmname + "(" + args + ");" + nl;
@@ -1127,7 +1140,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           
           while (j < (dnumargs + 1) && j < maxDynArgs) {
               if (emitting("sw")) {
-                args = args + ", bevd_" + (j - 1) + ":" + objectCc.relEmitName(build.libName);
+                args = args + ", bevd_" + (j - 1) + ":" + objectCc.relEmitName(build.libName) + "?";
               } else {
                 args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
               }
@@ -1145,7 +1158,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           }
           
           if (emitting("sw")) {
-            dynMethods += self.overrideMtdDec += dmname += "(" += args += ")" += exceptDec += " -> " += objectCc.relEmitName(build.libName) += " {" += nl;  //}
+            dynMethods += self.overrideMtdDec += dmname += "(" += args += ")" += exceptDec += " -> " += objectCc.relEmitName(build.libName) += "? {" += nl;  //}
           } else {
             dynMethods += self.overrideMtdDec += objectCc.relEmitName(build.libName) += " " += dmname += "(" += args += ")" += exceptDec += " {" += nl;  //}
           }
@@ -1416,7 +1429,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                 //what about return_1, return_2?
                 //TODO check for types in case not ok for self return
                 unless(emitting("cc")) {
-                  methodBody += "return this;" += nl;//default self return
+                  if (emitting("sw")) {
+                    methodBody += "return self;" += nl;//default self return
+                  } else {
+                    methodBody += "return this;" += nl;//default self return
+                  }
                 } else {
                   methodBody += "return this;" += nl;//default self return
                 }
@@ -1426,7 +1443,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                if (emitting("js")) {
                 methods += "var bevd_x = new Array(" += maxSpillArgsLen.toString() += ");" += nl;
                } elseIf (emitting("cc")) {
-                 methods += "vector<" += objectCc.relEmitName(build.libName) += "*> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
+                 if (build.emitChecks.has("ccBgc")) {
+                   methods += "vector<" += objectCc.relEmitName(build.libName) += "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
+                 } elseIf (build.emitChecks.has("ccSgc")) {
+                   methods += "vector<" += objectCc.relEmitName(build.libName) += "*> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
+                 }
                } else {
                 methods += objectCc.relEmitName(build.libName) += "[] bevd_x = new " += objectCc.relEmitName(build.libName) += "[" += maxSpillArgsLen.toString() += "];" += nl;
                }
@@ -1965,7 +1986,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     }
                 } else {
                   if (emitting("cc")) {
-                    newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "())";
+                    if (build.emitChecks.has("ccSgc")) {
+                      newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "())";
+                    } else {
+                      newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())";
+                    }
                   } else {
                     String newCall = self.newDec + newcc.relEmitName(build.libName) + "()";
                   }

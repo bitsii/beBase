@@ -10,7 +10,7 @@ use Build:JVEmitter;
 use Build:CSEmitter;
 use Build:CCEmitter;
 use Build:JSEmitter;
-use Build:SWEmitter;
+//use Build:SWEmitter;
 use System:Parameters;
 
 final class Build:Build {
@@ -83,6 +83,7 @@ final class Build:Build {
          String compiler;
          LinkedList emitLangs;
          LinkedList emitFlags;
+         Set emitChecks;
          String makeName;
          String makeArgs;
          Bool putLineNumbersInTrace = false;
@@ -248,6 +249,13 @@ final class Build:Build {
       putLineNumbersInTrace = params.isTrue("putLineNumbersInTrace", true);
       emitLangs = params["emitLang"];
       emitFlags = params["emitFlag"];
+      emitChecks = Set.new();
+      if (def(emitFlags)) {
+        for (String ec in emitFlags) {
+          //("adding emitcheck " + ec).print();
+          emitChecks += ec;
+        }
+      }
       compiler = params.get("compiler", "gcc").first;
       makeName = params.get("make", "make").first;
       makeArgs = params.get("makeArgs_" + makeName, "").first;
@@ -354,8 +362,8 @@ final class Build:Build {
              emitCommon = CCEmitter.new(self);
         } elseIf (emitLang == "js") {
              emitCommon = JSEmitter.new(self);
-        } elseIf (emitLang == "sw") {
-             emitCommon = SWEmitter.new(self);
+        //} elseIf (emitLang == "sw") {
+        //     emitCommon = SWEmitter.new(self);
         } else {
             throw(System:Exception.new("Unknown emitLang, supported emit langs are cs, jv"));
         }

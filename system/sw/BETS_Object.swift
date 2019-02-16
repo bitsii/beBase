@@ -4,20 +4,20 @@
 // for full license information.
 
 class BETS_Object {
-    
-  //public Dictionary<string, bool> bevs_methodNames;
-  //public string[] bevs_fieldNames;
   
-  /*public void bems_buildMethodNames(string[] names) {
-    bevs_methodNames = new Dictionary<string, bool>();
+  var bevs_methodNames:[String: Bool]?;
+  var bevs_fieldNames:[String]?;
+  
+  func bems_buildMethodNames(names:[String]?) {
+    /*bevs_methodNames = new Dictionary<string, bool>();
     for (int i = 0;i < names.Length;i++) {
        bevs_methodNames[names[i]] = true;
-    }
+    }*/
   }
   
-  public virtual BEC_2_6_6_SystemObject bems_createInstance() {
-    return null;
-  }*/
+  func bems_createInstance() throws -> BEC_2_6_6_SystemObject? {
+    return nil;
+  }
 
 }
 

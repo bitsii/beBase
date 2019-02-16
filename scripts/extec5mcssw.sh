@@ -11,7 +11,7 @@ CYC1=`date +%s`
 
 #rm targetEc/Base/target/sw/be/BEX_E.swift 
 
-swiftc system/sw/*.swift targetEc/Base/target/sw/be/*.swift 2>&1 | more
+swiftc -suppress-warnings system/sw/*.swift targetEc/Base/target/sw/be/*.swift 2>&1 | more
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

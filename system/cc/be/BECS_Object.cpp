@@ -67,7 +67,13 @@ size_t BECS_Object::bemg_getSize() {
    return sizeof(*this);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*> args) {
+#ifdef BEDCC_BGC
+    BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args) {
+#endif
+
+#ifdef BEDCC_SGC
+    BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*> args) {
+#endif  
   BEC_2_6_6_SystemObject* so = static_cast<BEC_2_6_6_SystemObject*>(this);
   BEC_2_9_4_ContainerList* beArgs = new BEC_2_9_4_ContainerList(args);
   BEC_2_4_6_TextString* beCallId = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
@@ -76,52 +82,119 @@ BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, vecto
 
 //bemds
 BEC_2_6_6_SystemObject* BECS_Object::bemd_0(int32_t callId) {
+#ifdef BEDCC_BGC
+  vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { };
+#endif
+
+#ifdef BEDCC_SGC
   vector<BEC_2_6_6_SystemObject*> args = { };
+#endif 
   return bems_methodNotDefined(callId, args);
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_1(int32_t callId, BEC_2_6_6_SystemObject* bevd_0) {
+#ifdef BEDCC_BGC
+  vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0 };
+#endif
+
+#ifdef BEDCC_SGC
   vector<BEC_2_6_6_SystemObject*> args = { bevd_0 };
+#endif
   return bems_methodNotDefined(callId, args);
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_2(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1) {
+#ifdef BEDCC_BGC
+  vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1 };
+#endif
+
+#ifdef BEDCC_SGC
   vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1 };
+#endif
   return bems_methodNotDefined(callId, args);
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_3(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2) {
+#ifdef BEDCC_BGC
+  vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2 };
+#endif
+
+#ifdef BEDCC_SGC
   vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2 };
+#endif
   return bems_methodNotDefined(callId, args);
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_4(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3) {
+#ifdef BEDCC_BGC
+  vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3 };
+#endif
+
+#ifdef BEDCC_SGC
   vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3 };
+#endif  
   return bems_methodNotDefined(callId, args);
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_5(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4) {
+#ifdef BEDCC_BGC
+  vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4 };
+#endif
+
+#ifdef BEDCC_SGC
   vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4 };
+#endif  
   return bems_methodNotDefined(callId, args);
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_6(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5) {
+#ifdef BEDCC_BGC
+  vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5 };
+#endif
+
+#ifdef BEDCC_SGC
   vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5 };
+#endif  
   return bems_methodNotDefined(callId, args);
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_7(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6) {
+#ifdef BEDCC_BGC
+  vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
+#endif
+
+#ifdef BEDCC_SGC
   vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
+#endif 
   return bems_methodNotDefined(callId, args);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, vector<BEC_2_6_6_SystemObject*> bevd_x) {
+#ifdef BEDCC_BGC
+    BEC_2_6_6_SystemObject* BECS_Object::bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x) {
+#endif
+
+#ifdef BEDCC_SGC
+    BEC_2_6_6_SystemObject* BECS_Object::bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, vector<BEC_2_6_6_SystemObject*> bevd_x) {
+#endif 
+
+#ifdef BEDCC_BGC
+  vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
+#endif
+
+#ifdef BEDCC_SGC
   vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
+#endif
   args.insert(args.end(), bevd_x.begin(), bevd_x.end());
   return bems_methodNotDefined(callId, args);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
+#ifdef BEDCC_BGC
+  BEC_2_6_6_SystemObject* BECS_Object::bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs) {
+#endif
+
+#ifdef BEDCC_SGC
+  BEC_2_6_6_SystemObject* BECS_Object::bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
+#endif
   return nullptr;
 }
 
@@ -154,8 +227,11 @@ void BECS_Runtime::init() {
 }
 
 void BECS_Runtime::doGc() {
+
+#ifdef BEDCC_SGC
+
   //cout << "GCDEBUG starting gc " << endl;
-  
+
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   
   bevs_myStack->bevs_allocsSinceGc = 0;
@@ -179,6 +255,8 @@ void BECS_Runtime::doGc() {
   
   //cout << "GCDEBUG gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
 
+#endif
+
 }
 
 int32_t BECS_Runtime::getNlcForNlec(string clname, int32_t val) {
@@ -201,6 +279,9 @@ int32_t BECS_Runtime::getNlcForNlec(string clname, int32_t val) {
 }
 
 void BECS_Runtime::bemg_markAll() {
+  
+#ifdef BEDCC_SGC
+
   //static unordered_map<string, BETS_Object*> typeRefs;
   
   //cout << "starting markAll" << endl;
@@ -238,10 +319,15 @@ void BECS_Runtime::bemg_markAll() {
   }
   bemg_markStack(&bevg_oldInstsStack);
   //cout << "ending markAll" << endl;
+
+#endif
   
 }
 
 void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
+  
+#ifdef BEDCC_SGC
+
   BECS_StackFrame* bevs_currFrame = bevs_myStack->bevs_lastFrame;
   BEC_2_6_6_SystemObject* bevg_le = nullptr;
   while (bevs_currFrame != nullptr) {
@@ -258,19 +344,30 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
     bevs_currFrame = bevs_currFrame->bevs_priorFrame;
   }
   bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
+  
+#endif
+
 }
 
 void BECS_Runtime::bemg_sweep() {
+
+#ifdef BEDCC_SGC
+
   //BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   //BECS_Runtime::bemg_sweepStack(bevs_myStack);
   for(auto const &idStack : bevg_frameStacks) {
     bemg_sweepStack(idStack.second);
   }
   bemg_sweepStack(&bevg_oldInstsStack);
+  
+#endif
+
 }
 
 void BECS_Runtime::bemg_sweepStack(BECS_FrameStack* bevs_myStack) {
-  
+
+#ifdef BEDCC_SGC
+
   uint_fast16_t bevg_currentGcMark = BECS_Runtime::bevg_currentGcMark;
   
   BECS_Object* bevs_lastInst = bevs_myStack->bevs_lastInst;
@@ -288,33 +385,50 @@ void BECS_Runtime::bemg_sweepStack(BECS_FrameStack* bevs_myStack) {
       }
     }
   }
-   
+
+#endif
+
 }
 
 void BECS_Runtime::bemg_addMyFrameStack() {
+
+#ifdef BEDCC_SGC
   std::thread::id tid = std::this_thread::get_id();
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bevg_frameStacks[tid] = bevs_myStack;
+#endif
+
 }
 
 void BECS_Runtime::bemg_deleteMyFrameStack() {
+
+#ifdef BEDCC_SGC
   //cout << "GCDEBUG dmfs b " << bevg_frameStacks.size() << endl;
   std::thread::id tid = std::this_thread::get_id();
   auto it = bevg_frameStacks.find(tid);
   bevg_frameStacks.erase(it);
   //cout << "GCDEBUG dmfs e " << bevg_frameStacks.size() << endl;
+#endif
+
 }
 
 void BECS_Runtime::bemg_beginThread() {
+
+#ifdef BEDCC_SGC
   //cout << "GCDEBUG start begin thread" << endl;
   bevg_gcLock.lock();
   bemg_addMyFrameStack();
   bevg_gcLock.unlock();
   //cout << "GCDEBUG st do gc" << endl;
   bemg_checkDoGc();
+#endif
+
 }
 
 void BECS_Runtime::bemg_endThread() {
+
+#ifdef BEDCC_SGC
+
   //cout << "GCDEBUG start end thread" << endl;
   bevg_gcLock.lock();
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
@@ -334,22 +448,33 @@ void BECS_Runtime::bemg_endThread() {
   bevg_gcLock.unlock();
   //cout << "GCDEBUG et do gc" << endl;
   bemg_checkDoGc();
+
+#endif
+
 }
 
 void BECS_Runtime::bemg_enterBlocking() {
+
+#ifdef BEDCC_SGC
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bevg_gcLock.lock();
   bevs_myStack->bevg_stackGcState = 1;
   bevg_gcLock.unlock();
   bemg_checkDoGc();
+#endif
+
 }
 
 void BECS_Runtime::bemg_exitBlocking() {
+
+#ifdef BEDCC_SGC
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bevg_gcLock.lock();
   bevs_myStack->bevg_stackGcState = 0;
   bevg_gcLock.unlock();
   bemg_checkDoGc();
+#endif
+
 }
 
 //RT
@@ -360,6 +485,8 @@ void BECS_Runtime::bemg_exitBlocking() {
 //uint_fast16_t bevg_stackGcState = 0;
 
 void BECS_Runtime::bemg_checkDoGc() {
+  
+#ifdef BEDCC_SGC
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   //lock
   std::unique_lock<std::mutex> ulock(bevg_gcLock);
@@ -389,17 +516,21 @@ void BECS_Runtime::bemg_checkDoGc() {
       }
     }
   }
+#endif
+
 }
 
 bool BECS_Runtime::bemg_readyForGc() {
   //cout << "GCDEBUG ready for gc " << endl;
   bool readyForGc = true;
+#ifdef BEDCC_SGC
   for(auto const &idStack : bevg_frameStacks) {
     //cout << "GCDEBUG rgc sgc " << idStack.second->bevg_stackGcState << endl;
     if (idStack.second->bevg_stackGcState == 0) {
       readyForGc = false;
     }
   }
+#endif
   return readyForGc;
 }
 

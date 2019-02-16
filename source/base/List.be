@@ -129,11 +129,23 @@ final class List {
    
    emit(cc_classHead) {
   """
+#ifdef BEDCC_BGC
+    vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevi_list;
+#endif
+
+#ifdef BEDCC_SGC
     vector<BEC_2_6_6_SystemObject*> bevi_list;
+#endif
     
     BEC_2_9_4_ContainerList() { }
-    
+
+#ifdef BEDCC_BGC
+    BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> a_bevi_list) {
+#endif
+
+#ifdef BEDCC_SGC
     BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*> a_bevi_list) {
+#endif    
     
         BEC_2_6_6_SystemObject* bevsl_thiso = this;
         BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
@@ -143,9 +155,15 @@ final class List {
         bevp_length = new BEC_2_4_3_MathInt(bevi_list.size());
         bevp_capacity = new BEC_2_4_3_MathInt(bevi_list.size());
         bevp_multiplier = new BEC_2_4_3_MathInt(2);
-    }
-    
+    } //}
+
+#ifdef BEDCC_BGC
+    BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> a_bevi_list, int32_t len) {
+#endif
+
+#ifdef BEDCC_SGC
     BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*> a_bevi_list, int32_t len) {
+#endif
     
         BEC_2_6_6_SystemObject* bevsl_thiso = this;
         BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
@@ -155,7 +173,7 @@ final class List {
         bevp_length = new BEC_2_4_3_MathInt(len);
         bevp_capacity = new BEC_2_4_3_MathInt(bevi_list.size());
         bevp_multiplier = new BEC_2_4_3_MathInt(2);
-    }
+    } //}
     
     void bemg_markContent() {
       for (size_t i = 0; i < bevi_list.size(); i++) {

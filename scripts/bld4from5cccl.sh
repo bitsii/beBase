@@ -17,10 +17,10 @@ rm -rf target4/Base/target/cc ./target4/BEX_E_cl.exe
 #catch throw
 #run
 
-time ./target5/BEX_E_cl.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy4 --buildPath target4
+time ./target5/BEX_E_cl.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy4 --buildPath target4 --emitFlag ccSgc
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-#time clang++ -o ./target4/BEX_E_cl.exe -ferror-limit=1 -std=c++14 -pthread ./target4/Base/target/cc/be/BEX_E.cpp
+#time clang++ -DBEDCC_SGC=1 -o ./target4/BEX_E_cl.exe -ferror-limit=1 -std=c++14 -pthread ./target4/Base/target/cc/be/BEX_E.cpp
 
 

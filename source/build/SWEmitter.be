@@ -18,6 +18,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
         emitLang = "sw";
         fileExt = ".swift";
         exceptDec = " throws";
+        nullValue = "nil";
         fields {
         }
         //super new depends on some things we set here, so it must follow
@@ -66,12 +67,74 @@ use final class Build:SWEmitter(Build:EmitCommon) {
          String initialDec = String.new();
          
          if (csyn.namepath == objectNp) {
-            initialDec += baseSpropDec(classConf.emitName, "bece_" + classConf.emitName + "_bevs_inst") += ";" += nl;
+            initialDec += baseSpropDec(classConf.emitName, "bece_" + classConf.emitName + "_bevs_inst") += "?;" += nl;
          } else {
-            initialDec += overrideSpropDec(classConf.emitName, "bece_" + classConf.emitName + "_bevs_inst") += ";" += nl;
+            initialDec += overrideSpropDec(classConf.emitName, "bece_" + classConf.emitName + "_bevs_inst") += "?;" += nl;
          }
          
          return(initialDec);
+    }
+    
+    typeDecGet() String {
+       
+       String initialDec = String.new();
+       
+       String bein = "bece_" + classConf.emitName + "_bevs_type";
+       
+       if (csyn.namepath == objectNp) {
+          initialDec += baseSpropDec(classConf.typeEmitName, bein) += "?;" += nl;
+       } else {
+          initialDec += overrideSpropDec(classConf.typeEmitName, bein) += "?;" += nl;
+       }
+       
+       return(initialDec);
+  }
+    
+    writeBET() {
+       if (classConf.classDir.file.exists!) {
+            classConf.classDir.file.makeDirs();
+        } 
+        auto tout = classConf.typePath.file.writer.open();
+        String bet = String.new();
+        bet += "class " += classConf.typeEmitName += " : BETS_Object {\n";
+        
+        /*
+        bet += "override init() {\n";
+        
+        bet += "string[] bevs_mtnames = new string[] { ";
+        Bool firstmnsyn = true;
+        for (Build:MtdSyn mnsyn in csyn.mtdList) {
+          if (firstmnsyn) {
+            firstmnsyn = false;
+          } else {
+            bet += ", ";
+          }
+          bet += q += mnsyn.name += q;
+         }
+         bet += " };\n";
+        bet += "bems_buildMethodNames(bevs_mtnames);\n";
+        
+        bet += "bevs_fieldNames = new string[] { ";
+        Bool firstptsyn = true;
+        for (Build:PtySyn ptySyn in csyn.ptyList) {
+          if (firstptsyn) {
+            firstptsyn = false;
+          } else {
+            bet += ", ";
+          }
+          bet += q += ptySyn.name += q;
+        }
+        bet += " };\n";
+        
+        bet += "}\n";
+        */
+        //bet += "static " += classConf.typeEmitName += "() { }\n";
+        bet += "override func bems_createInstance() throws -> BEC_2_6_6_SystemObject {\n";
+        bet += "return " += classConf.emitName += "();\n";
+        bet += "}\n";
+        bet += "}\n";
+        tout.write(bet);
+        tout.close();
     }
     
     getInitialInst(ClassConfig newcc) String {
@@ -87,7 +150,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
 	}
 	
   baseSpropDec(String typeName, String anyName) {
-     return("static var " + anyName + ":" + typeName + " ");
+     return("static var " + anyName + ":" + typeName);
   }
   
     buildCreate() {
@@ -146,7 +209,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
   }
   
   overrideSpropDec(String typeName, String anyName) {
-    return("static var " + anyName + ":" + typeName + " ");
+    return("static var " + anyName + ":" + typeName);
   }
   
 	lstringEnd(String sdec) {
@@ -179,8 +242,11 @@ use final class Build:SWEmitter(Build:EmitCommon) {
     return("");
    }
    
-   formCast(ClassConfig cc, String type) String { //no need for type check
-        return(" as " + cc.relEmitName(build.libName));
+   formCast(ClassConfig cc, String type) String {
+     if (type == "unchecked") {
+       return(" as " + cc.relEmitName(build.libName) + "?");
+     }
+     return(" as! " + cc.relEmitName(build.libName) + "?");
    }
    
    formCast(ClassConfig cc, String type, String targ) String {
@@ -193,7 +259,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
       
      methods += argDecs;
       
-     methods += ")" += exceptDec += " -> " += returnType.relEmitName(build.libName) += " {" += nl; //}
+     methods += ")" += exceptDec += " -> " += returnType.relEmitName(build.libName) += "? {" += nl; //}
     
   }
   

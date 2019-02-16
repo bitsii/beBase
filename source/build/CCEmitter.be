@@ -229,7 +229,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       if (isOnce) {
         return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + ")");
       }
-      String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
+      if (build.emitChecks.has("ccSgc")) {
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
+      } else {
+        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
+      }
       return(newCall);
    }
    
@@ -237,7 +241,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       if (isOnce) {
         return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f)");
       }
-      String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
+      if (build.emitChecks.has("ccSgc")) {
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
+      } else {
+        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
+      }
       return(newCall);
    }
    
@@ -247,7 +255,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       }
       //return("new " + newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
       String litArgs = "" + lisz + ", " + belsName;
-      String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
+      if (build.emitChecks.has("ccSgc")) {
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
+      } else {
+        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
+      }
       return(newCall);
    }
       
@@ -355,9 +367,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    genMark(String mvn) String {
        String bet = String.new();
-       bet += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != BECS_Runtime::bevg_currentGcMark) {" += nl;
-       bet += mvn += "->bemg_doMark();" += nl;
-       bet += "}" += nl;
+       if (build.emitChecks.has("ccSgc")) {
+         bet += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != BECS_Runtime::bevg_currentGcMark) {" += nl;
+         bet += mvn += "->bemg_doMark();" += nl;
+         bet += "}" += nl;
+       }
        return(bet);
    }
    
@@ -560,7 +574,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
     
    lstringStart(String sdec, String belsName) {
-      sdec += "static vector<unsigned char> " += belsName += " = {"; //}
+      if (build.emitChecks.has("ccSgc")) {
+        sdec += "static vector<unsigned char> " += belsName += " = {"; //}
+      } elseIf (build.emitChecks.has("ccBgc")) {
+        sdec += "static vector<unsigned char, gc_allocator<unsigned char>> " += belsName += " = {"; //}
+      } 
    }
    
    buildPropList() {

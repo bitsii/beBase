@@ -126,7 +126,8 @@ class BECS_Object {
     BECS_Object* bevg_priorInst = nullptr;
     
     void* operator new(size_t size) {
-      
+
+#ifdef BEDCC_SGC
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       
       bevs_myStack->bevs_allocsSinceGc++;
@@ -158,8 +159,12 @@ class BECS_Object {
         }
         bevs_myStack->bevs_nextReuse = bevs_lastInst;
       }
-      BECS_Runtime::bevg_countNews++;
       return malloc(size);
+#endif
+      BECS_Runtime::bevg_countNews++;
+#ifdef BEDCC_BGC
+      return GC_MALLOC(size);
+#endif
     }
     
     void operator delete(void* theinst, size_t size) {
@@ -168,6 +173,7 @@ class BECS_Object {
     }
     BECS_Object() {
       BECS_Runtime::bevg_countConstructs++;
+#ifdef BEDCC_SGC
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       this->bevg_priorInst = bevs_myStack->bevs_lastInst;
       bevs_myStack->bevs_lastInst = this;
@@ -180,7 +186,7 @@ class BECS_Object {
         bevs_myStack->bevs_allocsSinceGc = BECS_Runtime::bevg_sharedAllocsSinceGc += 8192;
       }
       
-      //allocsPerGc 0-4,294,967,295 :: 10000000 OKish bld, 1000000 extec, diff is 1 0
+      //allocsPerGc 0-4,294,967,295 :: 10000000 >>6000000<< OKish bld, 1000000 extec, diff is 1 0
       if (bevs_myStack->bevs_allocsSinceGc > 6000000) {
         BECS_Runtime::bevg_gcState.store(1, std::memory_order_release);
         doGc = true;
@@ -207,6 +213,7 @@ class BECS_Object {
       }
       
       bevg_gcMark = BECS_Runtime::bevg_currentGcMark;
+#endif
       
     }
     virtual ~BECS_Object() = default;
@@ -226,9 +233,30 @@ class BECS_Object {
     virtual BEC_2_6_6_SystemObject* bemd_5(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4);
     virtual BEC_2_6_6_SystemObject* bemd_6(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5);
     virtual BEC_2_6_6_SystemObject* bemd_7(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6);
+
+#ifdef BEDCC_BGC
+    virtual BEC_2_6_6_SystemObject* bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x);
+#endif
+
+#ifdef BEDCC_SGC
     virtual BEC_2_6_6_SystemObject* bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, vector<BEC_2_6_6_SystemObject*> bevd_x);
-    virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
+#endif 
+    
+#ifdef BEDCC_BGC
+    virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs);
+#endif
+
+#ifdef BEDCC_SGC
+  virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
+#endif
+    
+#ifdef BEDCC_BGC
+    virtual BEC_2_6_6_SystemObject* bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args);
+#endif
+
+#ifdef BEDCC_SGC
     virtual BEC_2_6_6_SystemObject* bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*> args);
+#endif      
 
 };
 

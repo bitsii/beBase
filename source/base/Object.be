@@ -874,14 +874,26 @@ void** bevl_other;
 
 emit(cc_classHead) {
    """
-virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
+#ifdef BEDCC_BGC
+   virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs);
+#endif
+
+#ifdef BEDCC_SGC
+   virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
+#endif 
   """
 }
 
 emit(cc) {
    """
 
-BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
+#ifdef BEDCC_BGC
+    BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs) {
+#endif
+
+#ifdef BEDCC_SGC
+    BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
+#endif  
   BEC_2_4_6_TextString* name = nullptr;
   BEC_2_9_4_ContainerList* args = nullptr;
   
@@ -894,7 +906,7 @@ BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(string mname, v
   //args = args->bem_copy_0();
   return bem_forwardCall_2(name, args);
   //return nullptr;
-}
+} //}
 
   """
 }

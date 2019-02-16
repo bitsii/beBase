@@ -127,12 +127,24 @@ final class String {
    
    emit(cc_classHead) {
    """
-   
+
+#ifdef BEDCC_BGC
+    vector<unsigned char, gc_allocator<unsigned char>> bevi_bytes;
+#endif
+
+#ifdef BEDCC_SGC
     vector<unsigned char> bevi_bytes;
-    
+#endif
+   
     BEC_2_4_6_TextString() { }
-    
-    BEC_2_4_6_TextString(vector<unsigned char> a_bevi_bytes) { 
+
+#ifdef BEDCC_BGC
+    BEC_2_4_6_TextString(vector<unsigned char, gc_allocator<unsigned char>> a_bevi_bytes) {
+#endif
+
+#ifdef BEDCC_SGC
+    BEC_2_4_6_TextString(vector<unsigned char> a_bevi_bytes) {
+#endif  
     
       BEC_2_6_6_SystemObject* bevsl_thiso = this;
       BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
@@ -141,9 +153,15 @@ final class String {
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_bytes.size());
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
-    }
-    
+    } //}
+
+#ifdef BEDCC_BGC
+    BEC_2_4_6_TextString(vector<unsigned char, gc_allocator<unsigned char>> a_bevi_bytes, int32_t bevi_length) { 
+#endif
+
+#ifdef BEDCC_SGC
     BEC_2_4_6_TextString(vector<unsigned char> a_bevi_bytes, int32_t bevi_length) { 
+#endif     
     
       BEC_2_6_6_SystemObject* bevsl_thiso = this;
       BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
@@ -152,9 +170,15 @@ final class String {
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_length);
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
-    }
-    
+    } //}
+ 
+#ifdef BEDCC_BGC
+    BEC_2_4_6_TextString(int32_t bevi_length, vector<unsigned char, gc_allocator<unsigned char>> a_bevi_bytes) { 
+#endif
+
+#ifdef BEDCC_SGC
     BEC_2_4_6_TextString(int32_t bevi_length, vector<unsigned char> a_bevi_bytes) { 
+#endif 
     
       BEC_2_6_6_SystemObject* bevsl_thiso = this;
       BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
@@ -163,7 +187,7 @@ final class String {
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_length);
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
-    }
+    } //}
     
     BEC_2_4_6_TextString(string bevi_string) { 
     
@@ -171,7 +195,7 @@ final class String {
       BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
       BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
     
-      bevi_bytes = vector<unsigned char>(bevi_string.begin(), bevi_string.end());
+      bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
       bevp_size = new BEC_2_4_3_MathInt(bevi_bytes.size());
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
     }
