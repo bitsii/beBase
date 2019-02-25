@@ -39,6 +39,19 @@ final class Command {
       }
    }
    
+   listNew(List _commands) self {
+     fields {
+       List commands = _commands;
+     }
+     command = "";
+     for (String c in commands) {
+      if (TS.notEmpty(command)) {
+        command += " ";
+      }
+      command += c;
+     }
+   }
+   
    run(String _command) Int {
       new(_command);
       return(run());
@@ -74,11 +87,38 @@ final class Command {
           }
       }
       
-      emit(jv) {
-      """
-      bevi_p = Runtime.getRuntime().exec(bevp_command.bems_toJvString());
-      """
+      if (def(commands)) {
+        Int cl = commands.size;
+        emit(jv) {
+        """
+        String[] cmds = new String[bevl_cl.bevi_int]; 
+        """
+        }
+        for (Int i = 0;i < cl;i++=) {
+          String cmdi = commands[i];
+          emit(jv) {
+          """
+          cmds[bevl_i.bevi_int] = bevl_cmdi.bems_toJvString();
+          """
+          }
+        }
+        
+        emit(jv) {
+        """
+        bevi_p = Runtime.getRuntime().exec(cmds);
+        """
+        }
+        
+      } else {
+      
+        emit(jv) {
+        """
+        bevi_p = Runtime.getRuntime().exec(bevp_command.bems_toJvString());
+        """
+        }
+        
       }
+      
       return(res);
    }
    
