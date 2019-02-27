@@ -13,4 +13,5 @@ cd ../../..
 mcs -debug:pdbonly -warn:0 -out:target5/BEX_E_mcs.exe system/cs/be/*.cs target5/Base/target/cs/be/*.cs
 
 ./scripts/bld4from5mcs.sh
+./scripts/bld5from4mcs.sh
 
