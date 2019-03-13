@@ -114,6 +114,39 @@ local class Parameters {
       
    }
    
+   toJson() String {
+     Map jsm = Maps.from("args", args, "params", params, "ordered", ordered);
+     return(Json:Marshaller.marshall(jsm));
+   }
+   
+   fromJson(String jsms) self {
+     Map jsm = Json:Unmarshaller.unmarshall(jsms);
+     args = jsm["args"];
+     params = jsm["params"];
+     ordered = jsm["ordered"];
+   }
+   
+   fromJsonFile(File jsf) self {
+     fromJson(jsf.reader.open().readStringClose());
+   }
+   
+   toJsonFile(File jsf) self {
+     jsf.writer.open().writeStringClose(toJson());
+   }
+   
+   addValue(Parameters p) self {
+     args += p.args;
+     ordered += p.ordered;
+     for (auto kv in p.params) {
+       LinkedList cp = params.get(kv.key);
+       if (def(cp)) {
+        cp += kv.value;
+       } else {
+        params.put(kv.key, kv.value);
+       }
+     }
+   }
+   
    new(List _args) self {
       self.new();
       addArgs(_args);

@@ -251,6 +251,10 @@ if (def(length)) {
       return(length);
    }
    
+   sizeSet(Int val) {
+     self.length = val;
+   }
+   
    isEmptyGet() Bool {
       if (length == 0) {
         return(true);

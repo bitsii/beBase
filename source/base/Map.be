@@ -450,6 +450,7 @@ class Set {
    
    clear() this {
       slots.clear();
+      slots.size = modu;
       size = 0;
    }
    
