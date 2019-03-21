@@ -3,6 +3,27 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root 
 // for full license information.
 
+class System:Exceptions {
+  tS(any e) {
+    String esm = "Failure occurred";
+    if (def(e)) {
+      String es = e.toString();
+      if (undef(es)) {
+        es = "...failure toString null..."
+      }
+    } else {
+      es = "...failure is null...";
+    }
+    esm += es;
+    return(esm);
+  }
+  
+  toString(any e) {
+    return(tS(e));
+  }
+  
+}
+
 use System:Exception;
 
 class System:Exception {
