@@ -1204,10 +1204,13 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 dynMethods += mcall;
             }
         }
+        if (emitting("sw")) {
+          dynMethods += "default: return " + self.superName + invp += dmname += "(" += superArgs += ");" += nl; 
+        }
         dynMethods += "}" += nl; //end of switch
         if(emitting("cc")) {
           dynMethods += "return bevs_super::" += dmname += "(" += superArgs += ");" += nl; 
-        } else {
+        } elseIf (emitting("sw")!) {
           dynMethods += "return " + self.superName + invp += dmname += "(" += superArgs += ");" += nl; 
         }
         dynMethods += "}" += nl; //end of method for this argnum
