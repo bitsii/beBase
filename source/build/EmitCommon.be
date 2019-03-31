@@ -621,7 +621,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
         String main = "";
         if(emitting("cc")) {
-          main += "int main(int argc, char **argv) {" += nl;
+          if (build.emitChecks.has("ccBeMain")) {
+            main += "int bems_relocMain(int argc, char **argv) {" += nl;
+          } else {
+            main += "int main(int argc, char **argv) {" += nl;
+          }
           //main += "be.BECS_Runtime.args = args;" += nl;
           main += "be::BECS_Runtime::platformName = string(\"" += build.outputPlatform.name += "\");" += nl;
           main += "be::BECS_Runtime::argc = argc;" += nl;
@@ -637,6 +641,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           main += "mc->bem_new_0();" += nl;
           main += "mc->bem_main_0();" += nl;
           main += "be::BECS_Runtime::bemg_endThread();" += nl;
+          main += "return 0;" += nl;
           main += "}\n";
         } else {
           main += self.mainStart;
