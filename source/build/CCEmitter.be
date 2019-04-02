@@ -558,12 +558,20 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
 
     finishLibOutput(IO:File:Writer libe) {
+      
         libe.close();
         shlibe = null;
         //{
         deow.write("}\n");//end namespace
         //{
         heow.write("}\n");//end namespace
+        
+        if (build.emitChecks.has("ccBeMain")) {
+          String mh = String.new();
+          mh += "int bems_relocMain(int argc, char **argv);" += nl;
+          heow.write(mh); 
+        }
+        
         deow.close();
         heow.close();
         //end module
