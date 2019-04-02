@@ -1112,11 +1112,11 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
       
      emit(cc) {
      """
-#ifdef BEDCC_IOS
+#ifdef BEDCC_ISIOS
     NSLog(@"%@", @(this->bems_toCcString().c_str()));
 #endif
 
-#ifndef BEDCC_IOS
+#ifndef BEDCC_ISIOS
      cout.write(reinterpret_cast<const char*>(&bevi_bytes[0]), bevp_size->bevi_int);
      cout << endl;
 #endif
