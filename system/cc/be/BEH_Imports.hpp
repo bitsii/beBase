@@ -11,6 +11,7 @@
 #include <chrono>
 #include <thread>
 #include <sys/types.h>
+#include <dirent.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <atomic>

@@ -531,6 +531,12 @@ final class DirectoryIterator {
    """
    }
    
+   emit(cc_classHead) {
+   """
+   DIR* bevi_dir;
+   """
+   }
+   
    new() self {
    
       fields {
@@ -585,6 +591,18 @@ final class DirectoryIterator {
       }
       """
       }
+      emit(cc) {
+      """
+      string path = bevl_path->bems_toCcString();
+      bevi_dir = opendir(path.c_str());
+      struct dirent* buffer;  
+      buffer = readdir(bevi_dir); 
+      if (buffer != NULL) {
+        string ccnm(buffer->d_name);
+        bevl_newName = new $class/Text:String$(ccnm);
+      }
+      """
+      }
       if (def(newName)) {
          //("open succeeded " + dir.path + " " + newName).print();
          opened = true;
@@ -632,6 +650,18 @@ final class DirectoryIterator {
       }
       """
       }
+      emit(cc) {
+      """
+      struct dirent* buffer; 
+      if (bevi_dir != NULL) { 
+        buffer = readdir(bevi_dir); 
+        if (buffer != NULL) {
+          string ccnm(buffer->d_name);
+          bevl_newName = new $class/Text:String$(ccnm);
+        }
+      }
+      """
+      }
       if (def(newName)) {
          opened = true;
          current = File.apNew(newName);
@@ -653,6 +683,12 @@ final class DirectoryIterator {
       """
       bevi_dir = null;
       bevi_pos = 0;
+      """
+      }
+      emit(cc) {
+      """
+      closedir(bevi_dir);
+      bevi_dir = NULL;
       """
       }
    }
