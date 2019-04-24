@@ -99,6 +99,13 @@ void** bevl_llpath;
           File.Delete(bevls_path);
           """
           }
+          emit(cc) {
+           """
+           string path = bevp_path->bevp_path->bems_toCcString();
+           struct stat buffer;   
+           remove(path.c_str());
+           """
+           }
       }
    }
    
