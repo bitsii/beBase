@@ -149,10 +149,12 @@ final class Command {
    }
    
    closeOutput() {
-     if (def(outputReader)) {
-       outputReader.close();
-       outputReader = null;
-     }
+     try {
+       if (def(outputReader)) {
+         outputReader.close();
+         outputReader = null;
+       }
+      } catch (any e) { }
    }
    
    close() {
@@ -167,6 +169,19 @@ final class Command {
      bevi_p = null;
      """
      }
+   }
+   
+   outputContentGet() String {
+     String res;
+     try {
+       res = self.open().output.readString();
+       self.close();
+     } catch (any e) {
+       try {
+         self.close();
+       } catch (any ee) { }
+     }
+     return(res);
    }
 }
 
