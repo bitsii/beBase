@@ -25,6 +25,9 @@ class Logs {
       
       Int defaultOutputLevel = error;
       Int defaultLevel = info;
+      
+      any sink;
+      
     }
   }
   
@@ -50,12 +53,9 @@ class Logs {
       lock.lock();
       overrides.put(key);
       
-      //("putting kl for " + key).print();
-      //("levels " + level + " " + outputLevel).print();
-      
       Log log = loggers.get(key);
       if (undef(log)) {
-        log = Log.new(level, outputLevel);
+        log = Log.new(sink, level, outputLevel);
         loggers.put(key, log);
       } else {
         log.level = level;
@@ -68,9 +68,7 @@ class Logs {
   }
   
   putLevels(inst, Int level, Int outputLevel) {
-    //("in putlevels").print();
     putKeyLevels(inst.className, level, outputLevel);
-    //("after putkey").print();
   }
   
   getKey(String key) Log {
@@ -78,7 +76,7 @@ class Logs {
       lock.lock();
       Log log = loggers.get(key);
       if (undef(log)) {
-        log = Log.new(defaultOutputLevel, defaultLevel);
+        log = Log.new(sink, defaultOutputLevel, defaultLevel);
         loggers.put(key, log);
       }
       lock.unlock();
@@ -95,10 +93,8 @@ class Logs {
   turnOn(inst) {
     try {
       lock.lock();
-      //"in turnon".print();
       IO:Log log = get(inst);
       putLevels(inst, log.level, log.level);
-      //"after pl".print();
       lock.unlock();
     } catch (any e) {
       lock.unlock();
@@ -108,13 +104,24 @@ class Logs {
   turnOnAll() {
     try {
       lock.lock();
-      //"in turnon".print();
       defaultOutputLevel = defaultLevel;
       for (any kv in loggers) {
         kv.value.outputLevel = defaultOutputLevel;
         kv.value.level = defaultLevel;
       }
-      //"after pl".print();
+      lock.unlock();
+    } catch (any e) {
+      lock.unlock();
+    }
+  }
+  
+  setAllSinks(any _sink) {
+    try {
+      lock.lock();
+      sink = _sink;
+      for (any kv in loggers) {
+        kv.value.sink = _sink;
+      }
       lock.unlock();
     } catch (any e) {
       lock.unlock();
@@ -125,10 +132,11 @@ class Logs {
 
 class Log {
 
-  new(_outputLevel, _level) self {
+  new(_sink, _outputLevel, _level) self {
     fields {
       Int outputLevel = _outputLevel;
       Int level = _level;
+      any sink = _sink;
     }
   }
   
@@ -146,23 +154,26 @@ class Log {
     return(false);
   }
   
+  out(String msg) {
+    if (undef(msg)) {
+      msg = "null";
+    }
+    if (def(sink)) {
+      sink.out(msg);
+    } else {
+      msg.print();
+    }
+  }
+  
   log(String msg) {
     if (level <= outputLevel) {
-      if (def(msg)) {
-        msg.print();
-      } else {
-        "null".print();
-      }
+      out(msg);
     }
   }
   
   log(Int _level, String msg) {
     if (_level <= outputLevel) {
-      if (def(msg)) {
-        msg.print();
-      } else {
-        "null".print();
-      }
+      out(msg);
     }
   }
   
@@ -192,11 +203,7 @@ class Log {
   }
   
   output(String msg) {
-    if (def(msg)) {
-      msg.print();
-    } else {
-      "null".print();
-    }
+    out(msg);
   }
 
 }
