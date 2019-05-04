@@ -10,6 +10,8 @@ use Math:Int;
 use Text:String;
 use System:Thread:Lock;
 
+use System:Exceptions as Ex;
+
 class Logs {
   
   default() self {
@@ -165,10 +167,18 @@ class Log {
     }
   }
   
+  elog(String msg, e) {
+    log(msg + " " + Ex.tS(e));
+  }
+  
   log(String msg) {
     if (level <= outputLevel) {
       out(msg);
     }
+  }
+  
+  elog(Int level, String msg, e) {
+    log(level, msg + " " + Ex.tS(e));
   }
   
   log(Int _level, String msg) {
