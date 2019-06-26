@@ -234,7 +234,7 @@ class Test:ExtendedTest:EC(BaseTest) {
      log.log("Doing a log");
    
      Int lev = IO:Logs.error;
-     IO:Log log = IO:Log.new(IO:Logs.error, IO:Logs.debug);
+     IO:Log log = IO:Logs.get(self);
      log.log("Don't see this");
      log.log(lev, "Do see this");
      
