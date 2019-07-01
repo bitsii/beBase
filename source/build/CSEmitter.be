@@ -120,7 +120,11 @@ use final class Build:CSEmitter(Build:EmitCommon) {
   }
   
   mainStartGet() String {
-        String ms = "public static void Main(string[] args)" + exceptDec + " {" + nl; //}
+        if (build.emitChecks.has("relocMain")) {
+          ms = "public static void bems_relocMain(string[] args)" + exceptDec + " {" + nl; //}
+        } else {
+          String ms = "public static void Main(string[] args)" + exceptDec + " {" + nl; //}
+        }
         ms += "lock (typeof(" += libEmitName += ")) {" += nl;//}
         ms += "be.BECS_Runtime.args = args;" += nl;
         ms += "be.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;

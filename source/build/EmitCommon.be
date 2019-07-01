@@ -621,7 +621,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
         String main = "";
         if(emitting("cc")) {
-          if (build.emitChecks.has("ccBeMain")) {
+          if (build.emitChecks.has("relocMain")) {
             main += "int bems_relocMain(int argc, char **argv) {" += nl;
           } else {
             main += "int main(int argc, char **argv) {" += nl;
