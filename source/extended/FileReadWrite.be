@@ -429,9 +429,9 @@ void** bevl_mode;
       if (this.bevi_os == null) {
         string bevls_spath = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
         if (bevl_append.bevi_bool) {
-            this.bevi_os = new FileStream(bevls_spath, FileMode.Append);
+            this.bevi_os = new FileStream(bevls_spath, FileMode.Append, FileAccess.Write, FileShare.Write, 2);
         } else {
-            this.bevi_os = new FileStream(bevls_spath, FileMode.Create);
+            this.bevi_os = new FileStream(bevls_spath, FileMode.Create, FileAccess.Write, FileShare.Write, 2);
         }
       }
       bevp_isClosed = be.BECS_Runtime.boolFalse;

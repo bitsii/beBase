@@ -20,7 +20,8 @@ use class IO:Log:Sink {
       Int maxLogs = 3;
       Int logSize = 0;
       //Int rotateSize = 1 * 10000;
-      Int rotateSize = 128 * 1000000;
+      Int rotateSize = 128 * 1000000; //typical
+      //Int rotateSize = 1; //test
       Lock wl = Lock.new();
       String nl = System:CurrentPlatform.newline;
       Path dir;
@@ -39,6 +40,7 @@ use class IO:Log:Sink {
         dir = Path.apNew("/tmp");
       }
     }
+    ("opening log " + prefix + currentLog + suffix).print();
     output = dir.copy().addStep(prefix + currentLog + suffix).file.writer.open();
   }
   
