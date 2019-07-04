@@ -429,9 +429,9 @@ void** bevl_mode;
       if (this.bevi_os == null) {
         string bevls_spath = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
         if (bevl_append.bevi_bool) {
-            this.bevi_os = new FileStream(bevls_spath, FileMode.Append, FileAccess.Write, FileShare.Write, 2);
+            this.bevi_os = new FileStream(bevls_spath, FileMode.Append, FileAccess.Write, FileShare.Write, 64);
         } else {
-            this.bevi_os = new FileStream(bevls_spath, FileMode.Create, FileAccess.Write, FileShare.Write, 2);
+            this.bevi_os = new FileStream(bevls_spath, FileMode.Create, FileAccess.Write, FileShare.Write, 64);
         }
       }
       bevp_isClosed = be.BECS_Runtime.boolFalse;
@@ -537,6 +537,7 @@ class IO:Writer {
       emit(cs) {
       """
       if (this.bevi_os != null) {
+        this.bevi_os.Flush();
         this.bevi_os.Dispose();
         this.bevi_os = null;
       }
@@ -571,6 +572,7 @@ class IO:Writer {
       emit(cs) {
       """
       this.bevi_os.Write(beva_stri.bevi_bytes, 0, beva_stri.bevp_size.bevi_int);
+      this.bevi_os.Flush();
       """
       }
       emit(cc) {
