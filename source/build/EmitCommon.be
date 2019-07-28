@@ -640,7 +640,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           main += "be::BECS_Runtime::maino = mc;" += nl;
           main += "mc->bem_new_0();" += nl;
           main += "mc->bem_main_0();" += nl;
-          main += "be::BECS_Runtime::bemg_endThread();" += nl;
+          unless (build.emitChecks.has("holdMain")) {
+            main += "be::BECS_Runtime::bemg_endThread();" += nl;
+          }
           main += "return 0;" += nl;
           main += "}\n";
         } else {
