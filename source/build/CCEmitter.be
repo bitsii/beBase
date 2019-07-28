@@ -566,7 +566,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         //{
         heow.write("}\n");//end namespace
         
-        if (build.emitChecks.has("ccBeMain")) {
+        if (build.emitChecks.has("relocMain")) {
           String mh = String.new();
           mh += "int bems_relocMain(int argc, char **argv);" += nl;
           heow.write(mh); 
