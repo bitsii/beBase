@@ -187,7 +187,7 @@ class BECS_Object {
       }
       
       //allocsPerGc 0-4,294,967,295 :: 10000000 >>6000000<< OKish bld, 1000000 extec, diff is 1 0
-      if (bevs_myStack->bevs_allocsSinceGc > 6000000) {
+      if (bevs_myStack->bevs_allocsSinceGc > 1000000) {
         BECS_Runtime::bevg_gcState.store(1, std::memory_order_release);
         doGc = true;
       }
