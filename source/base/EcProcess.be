@@ -95,10 +95,12 @@ final class System:Process {
           }
           emit(js) {
           """
+            if (typeof(be_BECS_Runtime.prototype.args) !== 'undefined') {
             for (var i = be_BECS_Runtime.prototype.minArg;i < be_BECS_Runtime.prototype.args.length;i++) {
                 var bevls_arg = this.bems_stringToBytes_1(be_BECS_Runtime.prototype.args[i]);
                 bevls_arg = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(bevls_arg, bevls_arg.length);
                 this.bevp_args.bem_addValue_1(bevls_arg);
+            }
             }
           """
           }
