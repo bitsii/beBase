@@ -472,7 +472,8 @@ bevi_int = beva_xi->bevi_int;
             }
             emit(js) {
             """
-                bevl_res.bevi_int = Math.floor(this.bevi_int / beva_xi.bevi_int);
+                //bevl_res.bevi_int = Math.floor(this.bevi_int / beva_xi.bevi_int);
+                bevl_res.bevi_int = ~~(this.bevi_int / beva_xi.bevi_int);
             """
             }
             return(res);
@@ -496,7 +497,8 @@ bevi_int = beva_xi->bevi_int;
       }
       emit(js) {
       """
-      this.bevi_int = Math.floor(this.bevi_int / beva_xi.bevi_int);
+      //this.bevi_int = Math.floor(this.bevi_int / beva_xi.bevi_int);
+      this.bevi_int = ~~(this.bevi_int / beva_xi.bevi_int);
       """
       }
       return(self);

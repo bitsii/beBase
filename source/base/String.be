@@ -978,7 +978,10 @@ BEINT bevl_val;
    """
    if (this.bevp_size.bevi_int === beva_stri.bevp_size.bevi_int) {
        for (var i = 0;i < this.bevp_size.bevi_int;i++) {
-          if (this.bevi_bytes[i] !== beva_stri.bevi_bytes[i]) {
+          if (~~(this.bevi_bytes[i]) !== ~~(beva_stri.bevi_bytes[i])) {
+            //console.log("diff bytes at " + i);
+            //console.log(this.bevi_bytes[i]);
+            //console.log(beva_stri.bevi_bytes[i]);
             return be_BECS_Runtime.prototype.boolFalse;
           }
        }

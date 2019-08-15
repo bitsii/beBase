@@ -106,6 +106,15 @@ void** bevl_llpath;
            remove(path.c_str());
            """
            }
+           ifEmit(apwk) {
+          String jspw = "deleteFile:" + path.toString();
+          emit(js) {
+          """
+          var jsres = prompt(bevl_jspw.bems_toJsString());
+          """
+          }
+          //"mkdirs done".print();
+          }
       }
    }
    
@@ -174,6 +183,7 @@ void** bevl_frv;
          mkdir(path.c_str(), 0775);
          """
          }
+         ifNotEmit(apwk) {
          emit(js) {
          """
          var bevls_path = this.bems_stringToJsString_1(this.bevp_path.bevp_path);
@@ -182,6 +192,19 @@ void** bevl_frv;
          }
          """
          }
+         }
+        ifEmit(apwk) {
+        //"doing mkdirs".print();
+        //String jspw = Json:Marshaller.marshall(Maps.from("call", "makeDirs", "path", path.toString()));
+        String jspw = "makeDirs:" + path.toString();
+        emit(js) {
+        """
+        var jsres = prompt(bevl_jspw.bems_toJsString());
+        //bevl_jspw = new be_$class/Text:String$().bems_new(jsres);
+        """
+        }
+        //"mkdirs done".print();
+        }
          
       }
    }
@@ -365,10 +388,22 @@ void** bevl_spa;
    }
    
    contentsNoCheckGet() String {
-      any r = self.reader;
-      r.open();
-      String res = r.readString();
-      r.close();
+      ifEmit(apwk) {
+        String ps = path.toString();
+        String jspw = "fileContentsGet:" + ps;
+        emit(js) {
+        """
+        var jsres = prompt(bevl_jspw.bems_toJsString());
+        bevl_res = new be_$class/Text:String$().bems_new(jsres);
+        """
+        }
+      }
+      ifNotEmit(apwk) {
+        any r = self.reader;
+        r.open();
+        String res = r.readString();
+        r.close();
+      }
       return(res);
    }
    
@@ -380,10 +415,21 @@ void** bevl_spa;
    }
    
    contentsNoCheckSet(String contents) self {
-      any w = self.writer;
-      w.open();
-      w.write(contents);
-      w.close();
+      ifEmit(apwk) {
+        String ps = path.toString();
+        String jspw = "fileContentsSet:" + ps + ":" + contents;
+        emit(js) {
+        """
+        var jsres = prompt(bevl_jspw.bems_toJsString());
+        """
+        }
+      }
+      ifNotEmit(apwk) {
+        any w = self.writer;
+        w.open();
+        w.write(contents);
+        w.close();
+      }
    }
    
    sizeGet() Int {
@@ -434,6 +480,7 @@ void** bevl_mpath;
       }
       """
       }
+      ifNotEmit(apwk) {
      emit(js) {
      """
      var bevls_path = this.bems_stringToJsString_1(this.bevp_path.bevp_path);
@@ -442,6 +489,20 @@ void** bevl_mpath;
      }
      """
      }
+     }
+     ifEmit(apwk) {
+    //"checking exists".print();
+    //String jspw = Json:Marshaller.marshall(Maps.from("call", "fileExists", "path", path.toString()));
+    String jspw = "fileExists:" + path.toString();
+    emit(js) {
+    """
+    var jsres = prompt(bevl_jspw.bems_toJsString());
+    bevl_jspw = new be_$class/Text:String$().bems_new(jsres);
+    """
+    }
+    //"exists done".print();
+    tvala = Bool.new(jspw);
+    }
      emit(cc) {
      """
      string path = bevp_path->bevp_path->bems_toCcString();
@@ -551,8 +612,8 @@ final class DirectoryIterator {
          Bool opened = false;
          Bool closed = false;
          File current = null;
+         any jsiter = null;
       }
-      
    }
    
    new(File _dir) self {
@@ -609,6 +670,26 @@ final class DirectoryIterator {
         bevl_newName = new $class/Text:String$(ccnm);
       }
       """
+      }
+      ifEmit(apwk) {
+        String ps = path.toString();
+        String jspw = "listFiles:" + ps;
+        emit(js) {
+        """
+        var jsres = prompt(bevl_jspw.bems_toJsString());
+        bevl_jspw = new be_$class/Text:String$().bems_new(jsres);
+        """
+        }
+        ("res from listfiles " + jspw).print();
+        //deserialize json, start iterating, put in new name (need dir path too)
+        if (TS.notEmpty(jspw)) {
+         List jsfiles = Json:Unmarshaller.unmarshall(jspw);
+         jsiter = jsfiles.iterator;
+         if (jsiter.hasNext) {
+          String currlp = jsiter.next;
+          newName = dir.path.copy().addStep(currlp).toString();
+         }
+        }
       }
       if (def(newName)) {
          //("open succeeded " + dir.path + " " + newName).print();
@@ -668,6 +749,12 @@ final class DirectoryIterator {
         }
       }
       """
+      }
+      ifEmit(apwk) {
+        if (def(jsiter) && jsiter.hasNext) {
+          String currlp = jsiter.next;
+          newName = dir.path.copy().addStep(currlp).toString();
+         }
       }
       if (def(newName)) {
          opened = true;
