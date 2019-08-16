@@ -87,6 +87,7 @@ void** bevl_msecs;
       emit(js) {
       """
       //this is bad, don't use it, replace with npm when available or something better
+      //?set timeout (node too?)
       var start = new Date().getTime();
       while (1) {
         if ((new Date().getTime() - start) > beva_msecs.bevi_int){
@@ -153,7 +154,7 @@ class Interval {
         """
         var d = new Date();
         var ctm = d.getTime(); 
-        this.bevp_secs.bevi_int = (ctm / 1000);
+        this.bevp_secs.bevi_int = ~~(ctm / 1000);
         this.bevp_millis.bevi_int = (ctm % 1000);
         """
         }
