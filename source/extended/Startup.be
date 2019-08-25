@@ -105,6 +105,7 @@ local class Parameters {
    new() self {
    
       fields {
+         List initialArgs = List.new();
          List args = List.new();
          Map params = Map.new();
          List ordered = List.new();
@@ -149,6 +150,7 @@ local class Parameters {
    
    new(List _args) self {
       self.new();
+      initialArgs = _args;
       addArgs(_args);
    }
    
