@@ -84,17 +84,27 @@ void** bevl_msecs;
       BECS_Runtime::bemg_exitBlocking();
       """
       }
-      emit(js) {
-      """
-      //this is bad, don't use it, replace with npm when available or something better
-      //?set timeout (node too?)
-      var start = new Date().getTime();
-      while (1) {
-        if ((new Date().getTime() - start) > beva_msecs.bevi_int){
-          break;
+      ifNotEmit(apwk) {
+        emit(js) {
+        """
+        //this is bad, don't use it, replace with npm when available or something better
+        //?set timeout (node too?)
+        var start = new Date().getTime();
+        while (1) {
+          if ((new Date().getTime() - start) > beva_msecs.bevi_int){
+            break;
+          }
+        }
+        """
         }
       }
-      """
+      ifEmit(apwk) {
+        String jspw = "sleepMillis:" + msecs
+        emit(js) {
+        """
+        var jsres = prompt(bevl_jspw.bems_toJsString());
+        """
+        }
       }
    }
    
