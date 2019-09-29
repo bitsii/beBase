@@ -167,6 +167,10 @@ class Log {
     }
   }
   
+  elog(e) {
+    elog("Error logged ", e);
+  }
+  
   elog(String msg, e) {
     log(msg + " " + Ex.tS(e));
   }
