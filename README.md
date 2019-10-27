@@ -1,4 +1,4 @@
-Brace is a general purpose, object oriented programming language with an emphasis on simplicity and practicality, with a translator and base library licensed under the [MIT](https://opensource.org/licenses/MIT) open source license.  It is implemented as a self-hosted source-to-source translator targeting C#/.Net, Java, and JavaScript.  The language takes inspiration from Python and Perl as well as Java/C#/D/Smalltalk/Eiffel and others.  One of the goals is to be able to write core code once and use it in a hybrid application targeting the major platforms - a Linux, Windows, or Mac application, a hosted application as a website, and Android IOS mobile applications (see [braceApp](https://gitlab.com/abelii/abeliiapp).
+Brace is a general purpose, object oriented programming language with an emphasis on simplicity and practicality, with a translator and base library licensed under the [MIT](https://opensource.org/licenses/MIT) open source license.  It is implemented as a self-hosted source-to-source translator targeting C#/.Net, Java, and JavaScript.  The language takes inspiration from Python and Perl as well as Java and C#.  One of the goals is to be able to write core code once and use it in a hybrid application targeting the major platforms - a Linux, Windows, or Mac application, a hosted application as a website, and Android and IOS mobile applications (see [braceApp](https://gitlab.com/cwsyncdev/braceApp).
 
 The language borrows automatic memory management via garbage collection from it's host runtimes and supports both statically and dynamically typed variables.  There are no function calls which are not methods and no values which are not references to instances of classes.  Single-Parent inheritance is supported and all classes derive from a base class System:Object.  Operator overloading is supported (operations are translated to method call names by convention).  There is also built - in support for accessors, default accessors are created for all member variables but can be overriden to modify their behavior (and "virtual" members can be created simply by implementing properly named methods).  try/catch exception handling syntax is supported.  All variables are either member variables (accomplished by enclosing their declaration in a fields { } block) or method-scope local variables (ala Python).  
 
@@ -31,14 +31,14 @@ A simple base library includes mutable String and Int(eger) implementations as w
 
 **Where to go next:**
 
-[More about the Language with Examples] (https://gitlab.com/abelii/abelii/wikis/more-information-and-examples)
+[More about the Language with Examples] (https://gitlab.com/cwsyncdev/brace/wikis/more-information-and-examples)
 
-[Getting started - get the code, build, run] (https://gitlab.com/abelii/abelii/wikis/getting-started)
+[Getting started - get the code, build, run] (https://gitlab.com/cwsyncdev/brace/wikis/getting-started)
 
-[Show me the code] (https://gitlab.com/abelii/abelii)
+[Show me the code] (https://gitlab.com/cwsyncdev/brace)
 
-[Need some help...] (https://stackoverflow.com/questions/tagged/abelii)
+[Need some help...] (https://stackoverflow.com/questions/tagged/brace)
 
-[Houston, we have a problem] (https://gitlab.com/abelii/abelii/issues)
+[Houston, we have a problem] (https://gitlab.com/cwsyncdev/brace/issues)
 
-[...and the authoritative version of this very page...] (https://gitlab.com/abelii/abelii/wikis/home)
+[...and the authoritative version of this very page...] (https://gitlab.com/cwsyncdev/brace/wikis/home)
