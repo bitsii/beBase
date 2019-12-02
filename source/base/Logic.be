@@ -140,5 +140,12 @@ final class Logic:Bools {
       return(false);
    }
    
+   isTrue(Bool val) {
+     if (def(val) && val) {
+      return(true);
+     }
+     return(false);
+   }
+   
 }
 
