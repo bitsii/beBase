@@ -4,7 +4,7 @@
 // for full license information.
 
 class System:Exceptions {
-  tS(any e) {
+  ts(any e) {
     String esm = "Failure occurred";
     if (def(e)) {
       String es = e.toString();
@@ -18,8 +18,12 @@ class System:Exceptions {
     return(esm);
   }
   
+  tS(any e) {
+    return(ts(e));
+  }
+  
   toString(any e) {
-    return(tS(e));
+    return(ts(e));
   }
   
 }

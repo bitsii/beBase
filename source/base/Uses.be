@@ -20,3 +20,5 @@ local use Container:LinkedList;
 local use Container:Queue;
 local use System:Exception;
 local use Text:Strings as TS;
+local use System:Exception as SE;
+local use System:Exceptions as SES;

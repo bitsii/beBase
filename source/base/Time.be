@@ -352,3 +352,171 @@ class Interval {
    }
    
 }
+
+class Time:Stamp(Interval) {
+
+   emit(jv) {
+   """
+   java.util.TimeZone bevi_zone = java.util.TimeZone.getTimeZone("Etc/UTC");
+   """
+   }
+   
+   new() {
+     self.now();
+   }
+   
+   copy() self {
+      auto cp = Time:Stamp.new(secs, millis);
+      cp.localZone = localZone;
+   }
+   
+   localZoneSet(Bool _localZone) {
+     if (undef(localZone)) {
+       localZone = false;
+     }
+     fields {
+       Bool localZone = _localZone;
+     }
+     if (localZone) {
+       emit(jv) {
+       """
+         bevi_zone = java.util.TimeZone.getDefault();
+       """
+       }
+     }
+   }
+   
+   localZoneGet() Bool {
+     if (undef(localZone)) { return(false); }
+     return(localZone);
+   }
+   
+   yearGet() String {
+     String rval;
+     emit(jv) {
+     """
+       
+       long ms = (long) bevp_secs.bevi_int;
+       ms = ms * 1000;
+       ms = ms + ((long) bevp_millis.bevi_int);
+       
+       java.util.Date date = new java.util.Date(ms);
+       java.text.DateFormat format = new java.text.SimpleDateFormat("yyyy");
+       format.setTimeZone(bevi_zone);
+       String formatted = format.format(date);
+       bevl_rval = new $class/Text:String$(formatted);
+       
+     """
+     }
+     return(rval);
+   }
+   
+   monthGet() String {
+     String rval;
+     emit(jv) {
+     """
+       
+       long ms = (long) bevp_secs.bevi_int;
+       ms = ms * 1000;
+       ms = ms + ((long) bevp_millis.bevi_int);
+       
+       java.util.Date date = new java.util.Date(ms);
+       java.text.DateFormat format = new java.text.SimpleDateFormat("MM");
+       format.setTimeZone(bevi_zone);
+       String formatted = format.format(date);
+       bevl_rval = new $class/Text:String$(formatted);
+       
+     """
+     }
+     return(rval);
+   }
+   
+   dayGet() String {
+     String rval;
+     emit(jv) {
+     """
+       
+       long ms = (long) bevp_secs.bevi_int;
+       ms = ms * 1000;
+       ms = ms + ((long) bevp_millis.bevi_int);
+       
+       java.util.Date date = new java.util.Date(ms);
+       java.text.DateFormat format = new java.text.SimpleDateFormat("dd");
+       format.setTimeZone(bevi_zone);
+       String formatted = format.format(date);
+       bevl_rval = new $class/Text:String$(formatted);
+       
+     """
+     }
+     return(rval);
+   }
+   
+   hourGet() String {
+     String rval;
+     emit(jv) {
+     """
+       
+       long ms = (long) bevp_secs.bevi_int;
+       ms = ms * 1000;
+       ms = ms + ((long) bevp_millis.bevi_int);
+       
+       java.util.Date date = new java.util.Date(ms);
+       java.text.DateFormat format = new java.text.SimpleDateFormat("HH");
+       format.setTimeZone(bevi_zone);
+       String formatted = format.format(date);
+       bevl_rval = new $class/Text:String$(formatted);
+       
+     """
+     }
+     return(rval);
+   }
+   
+   minuteGet() String {
+     String rval;
+     emit(jv) {
+     """
+       
+       long ms = (long) bevp_secs.bevi_int;
+       ms = ms * 1000;
+       ms = ms + ((long) bevp_millis.bevi_int);
+       
+       java.util.Date date = new java.util.Date(ms);
+       java.text.DateFormat format = new java.text.SimpleDateFormat("mm");
+       format.setTimeZone(bevi_zone);
+       String formatted = format.format(date);
+       bevl_rval = new $class/Text:String$(formatted);
+       
+     """
+     }
+     return(rval);
+   }
+   
+   secondGet() String {
+     String rval;
+     emit(jv) {
+     """
+       
+       long ms = (long) bevp_secs.bevi_int;
+       ms = ms * 1000;
+       ms = ms + ((long) bevp_millis.bevi_int);
+       
+       java.util.Date date = new java.util.Date(ms);
+       java.text.DateFormat format = new java.text.SimpleDateFormat("ss");
+       format.setTimeZone(bevi_zone);
+       String formatted = format.format(date);
+       bevl_rval = new $class/Text:String$(formatted);
+       
+     """
+     }
+     return(rval);
+   }
+   
+   millisecondGet() String {
+     return(millis.toString());
+   }
+   
+   //("dd/MM/yyyy HH:mm:ss")
+   
+}
+
+

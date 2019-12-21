@@ -87,12 +87,48 @@ class Test:BaseTest:EC(BaseTest) {
         //}
         "end main".print();
     }    
+    
+    testStamps() {
+    
+      //Time:Stamp s = Time:Stamp.now();
+      Time:Stamp s = Time:Stamp.new(1576964368, 589);
+      s.print();
+      s.year.print();
+      assertEqual(s.year, "2019");
+      s.month.print();
+      assertEqual(s.month, "12");
+      s.day.print();
+      assertEqual(s.day, "21");
+      s.hour.print();
+      assertEqual(s.hour, "21");
+      s.minute.print();
+      assertEqual(s.minute, "39");
+      s.second.print();
+      assertEqual(s.second, "28");
+      s.millisecond.print();
+      assertEqual(s.millisecond, "589");
+      
+      s.localZone = true;
+      s.year.print();
+      s.month.print();
+      s.day.print();
+      s.hour.print();
+      s.minute.print();
+      s.second.print();
+      s.millisecond.print();
+    
+      //if (true) { throw(SE.new("throwing")); }
+    
+    }
 
 
     runTests() {
         
         printHi();
         
+        ifEmit(jv) {
+          testStamps();
+        }
         
         intCompares();
         
