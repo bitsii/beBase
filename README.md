@@ -31,10 +31,6 @@ A simple base library includes mutable String and Int(eger) implementations as w
 
 **Where to go next:**
 
-[More about the Language with Examples](https://gitlab.com/edgii/abelii/wikis/more-information-and-examples)
-
-[Getting started - get the code, build, run](https://gitlab.com/edgii/abelii/wikis/getting-started)
-
 [Show me the code](https://gitlab.com/edgii/abelii)
 
 [Need some help...](https://stackoverflow.com/questions/tagged/abelii)
