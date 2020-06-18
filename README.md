@@ -41,4 +41,3 @@ A simple base library includes mutable String and Int(eger) implementations as w
 
 [Houston, we have a problem](https://gitlab.com/edgii/abelii/issues)
 
-[...and the authoritative version of this very page...](https://gitlab.com/edgii/abelii/wikis/home)
