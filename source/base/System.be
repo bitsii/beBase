@@ -615,6 +615,7 @@ class System:Platform {
    
       fields {
          Text:String name;
+         Text:String properName;
          Logic:Bool isNix;
          Logic:Bool isWin;
          Text:String separator;
@@ -638,12 +639,20 @@ class System:Platform {
          separator = "/";
          otherSeparator = "\\";
          nullFile = "/dev/null";
+         if (name == "macos") {
+           properName = "MacOS";
+         } elseIf (name == "linux") {
+           properName = "Linux";
+         } elseIf (name == "freebsd") {
+           properName = "FreeBSD";
+         }
       } elseIf (name == "mswin") {
          isNix = false;
          isWin = true;
          separator = "\\";
          otherSeparator = "/";
          nullFile = "nul";
+         properName = "MSWin";
       } else {
          throw(System:Exception.new("Platform " + name + " is not defined, platform must be defined in System:Platform"));
       }
