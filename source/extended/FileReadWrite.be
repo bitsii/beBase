@@ -319,6 +319,18 @@ class IO:Reader {
       return(builder);
    }
    
+   readDiscard() {
+      String builder = String.new(blockSize);
+      Int at = 0;
+      Int nowAt = Int.new();
+      readIntoBuffer(builder, at, nowAt);
+      while (nowAt > at) {
+        nowAt.setValue(0);
+        readIntoBuffer(builder, at, nowAt);
+      }
+      return(builder);
+   }
+   
    readBufferLine() String {
       return(readBufferLine(String.new()));
    }
@@ -355,6 +367,12 @@ class IO:Reader {
    
    readStringClose() String {
     String res = readString();
+    close();
+    return(res);
+   }
+   
+   readDiscardClose() String {
+    String res = readDiscard();
     close();
     return(res);
    }
