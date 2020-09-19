@@ -622,6 +622,7 @@ class System:Platform {
          Text:String newline;
          Text:String otherSeparator;
          Text:String nullFile;
+         Text:String scriptExt;
       }
    
    }
@@ -639,6 +640,7 @@ class System:Platform {
          separator = "/";
          otherSeparator = "\\";
          nullFile = "/dev/null";
+         scriptExt = ".sh";
          if (name == "macos") {
            properName = "MacOS";
          } elseIf (name == "linux") {
@@ -652,6 +654,7 @@ class System:Platform {
          separator = "\\";
          otherSeparator = "/";
          nullFile = "nul";
+         scriptExt = ".bat";
          properName = "MSWin";
       } else {
          throw(System:Exception.new("Platform " + name + " is not defined, platform must be defined in System:Platform"));
