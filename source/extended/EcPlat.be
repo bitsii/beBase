@@ -570,6 +570,14 @@ use final class System:Environment {
             }
         """
         }
+        emit(js) {
+        """
+            var value = process.env[beva_name.bems_toJsString()];
+            if (value !== null) {
+                bevl_value = new be_$class/Text:String$().bems_new(value);
+            }
+        """
+        }
         return(value);
     }
     
