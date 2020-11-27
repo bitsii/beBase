@@ -448,6 +448,21 @@ final class String {
       return(true);
    }
    
+   isAlphaNumGet() Bool {
+      Int ic = Int.new();
+      for (Int j = 0;j < size;j++=;) {
+        getInt(j, ic);
+        unless ((ic > 47 && ic < 58) || (ic > 64 && ic < 91) || (ic > 96 && ic < 123)) {
+            return(false);
+        }
+      }
+      return(true);
+   }
+   
+   isAlphaNumericGet() Bool {
+     return(isAlphaNumGet());
+   }
+   
    lowerValue() self {
       Int vc = Int.new();
       for (Int j = 0;j < size;j++=;) {
