@@ -1,4 +1,36 @@
-Brace is a general purpose, object oriented programming language with an emphasis on simplicity and practicality, with a translator and base library licensed under the [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) open source license.  It is implemented as a self-hosted source-to-source translator targeting C#/.Net, Java, and JavaScript.  The language takes inspiration from Python and Perl as well as Java and C#.  One of the goals is to be able to write core code once and use it in a hybrid application targeting the major platforms - a Linux, Windows, or Mac application, a hosted application as a website, and Android and IOS mobile applications ( see [braceApp](https://gitlab.com/edgii/braceApp) ).
+
+First - quick Getting Started for Development! (more about Brace below...)
+
+First, install git for your platform (if not already done)
+
+Debian et all Linux:
+(run at command line)
+sudo apt-get install git git-gui
+
+Macos:
+First install brew if you don't have it - https://brew.sh/
+(run at command line)
+brew install git 
+
+Windows:
+(download and install)
+https://git-scm.com/download/win
+
+(the rest of the instructions assume running in terminal after performing the above
+  on windows this means opening the shell installed when git-scm installed)
+  
+create and enter a working directory of your choosing (cd $HOME;mkdir Workspace - possibly)
+git clone https://gitlab.com/edgii/brace.git
+cd brace
+./scripts/devprep.sh
+
+devprep will install some more things / tell you to install some more things
+(those things are jdk11, node.js, mono)
+and then tell you to run the initial build to bootstrap your environment
+
+End of Getting Started for Development!
+
+Brace is a general purpose, object oriented programming language with an emphasis on simplicity and practicality, with a translator and base library licensed under the [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) open source license.  It is implemented as a self-hosted source-to-source translator targeting C#/.Net, Java, and JavaScript.  The language takes inspiration from Python, Perl, Java, C#, and C++.  One of the features is to be able to write core code once and use it in a hybrid application targeting the major platforms - a Linux, Windows, or Mac application, a hosted application as a website, and Android and IOS mobile applications ( see [braceApp](https://gitlab.com/edgii/braceApp) ).
 
 The language borrows automatic memory management via garbage collection from it's host runtimes and supports both statically and dynamically typed variables (is "gradually typed" ).  All function calls are methods and all values are references to instances of classes.  Single-Parent inheritance is supported and all classes derive from a base class System:Object.  Operator overloading is supported (operations are translated to method call names by convention).  There is also built - in support for accessors, default accessors are created for all member variables but can be overriden to modify their behavior (and "virtual" members can be created simply by implementing properly named methods).  try/catch exception handling syntax is supported.  All variables are either member variables (accomplished by enclosing their declaration in a fields { } block) or method-scope local variables (ala Python).  Support for global state is available through a built in singleton behavior activated by implementing a default() { } method for a class and there is also a static, single-assignment mechanism ( only performed the first time the given code is execute, =@ ).
 
