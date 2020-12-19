@@ -27,7 +27,7 @@ if [ "$OSTYPE" == "Linux" ]; then
   echo "Linux"
   sudo apt-get install nodejs
   sudo apt-get install openjdk-11-jdk-headless
-  sudo apt-get install mono-mcs
+  sudo apt-get install mono-complete mono-devel mono-mcs
   sudo apt-get install git
   sudo apt-get install git-gui
   echo "make sure you are in the brace checked out directory"
