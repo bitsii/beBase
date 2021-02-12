@@ -568,13 +568,17 @@ class Test:BaseTest:EC(BaseTest) {
         res = changeLetO(0, 67).print();
         assertEqual(res, "Coo");
         
+        "test!".print();
         "nxt".print();
         res = changeLetO(2, 67).print();
         assertEqual(res, "CoC");
+        "test!".print();
         
+        "test!!".print();
         "nxt".print();
         res = changeLetNO(0, 67).print();
         assertEqual(res, "Coo");
+        "test!!".print();
         
         "nxt".print();
         res = changeLetNO(2, 67).print();

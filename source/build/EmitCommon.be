@@ -1017,6 +1017,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         List superCalls = List.new();
         Int nativeCSlots = 0;
         String inFilePathed = node.held.fromFile.toStringWithSeparator("/");
+        Map belslits = Map.new();
      }
      
      any te = node.transUnit.held.emits;
@@ -1959,20 +1960,30 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     } elseIf (newcc.np == floatNp) {
                         newCall = lfloatConstruct(newcc, node, isOnce);
                     } elseIf (newcc.np == stringNp) {
-                        String belsName = "bece_" + classConf.emitName + "_bels_" + cnode.held.belsCount.toString();                        
+                    
+                      String liorg = node.held.literalValue;
+                  
+                      if (node.wideString) {
+                        String lival = liorg;
+                      } else {
+                        lival = Json:Unmarshaller.unmarshall("[" + TS.quote + liorg + TS.quote + "]").first;
+                      }
+                      
+                      String belsName;
+                      Int lisz;
+                      
+                      String exname = belslits.get(lival);
+                      if (Text:Strings.notEmpty(exname)) {
+                        belsName = exname;
+                        lisz = lival.size;
+                      } else {
+                        belsName = "bece_" + classConf.emitName + "_bels_" + cnode.held.belsCount.toString();                        
                         cnode.held.belsCount++=;
+                        belslits.put(lival, belsName);
                         String sdec = String.new();
                         lstringStart(sdec, belsName);
-                        
-                        String liorg = node.held.literalValue;
-                      
-                          if (node.wideString) {
-                            String lival = liorg;
-                          } else {
-                            lival = Json:Unmarshaller.unmarshall("[" + TS.quote + liorg + TS.quote + "]").first;
-                          }
                           
-                          Int lisz = lival.size;
+                          lisz = lival.size;
                           Int lipos = 0;
                           Int bcode = Int.new();
                           String hs = String.new(2);
@@ -1986,6 +1997,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                           lstringEnd(sdec);
                           
                         onceDecs += sdec;
+                        }
                         newCall = lstringConstruct(newcc, node, belsName, lisz, isOnce);
                     } elseIf (newcc.np == boolNp) {
                         if (node.held.literalValue == "true") {

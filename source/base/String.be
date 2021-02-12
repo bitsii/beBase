@@ -62,10 +62,11 @@ final class String {
         bevp_capacity = new $class/Math:Int$(bevi_bytes.length);
     }
     public $class/Text:String$(byte[] bevi_bytes, int bevi_length) {
-        //no copy, isOnce
-        this.bevi_bytes = bevi_bytes; 
-        bevp_size = new $class/Math:Int$(bevi_length);
-        bevp_capacity = new $class/Math:Int$(bevi_length);
+      //do copy, isOnce
+      this.bevi_bytes = new byte[bevi_length];
+      System.arraycopy( bevi_bytes, 0, this.bevi_bytes, 0, bevi_length );
+      bevp_size = new $class/Math:Int$(bevi_length);
+      bevp_capacity = new $class/Math:Int$(bevi_length);
     }
     public $class/Text:String$(int bevi_length, byte[] bevi_bytes) {
         //do copy, not isOnce
@@ -98,10 +99,11 @@ final class String {
         bevp_capacity = new $class/Math:Int$(bevi_bytes.Length);
     }
     public $class/Text:String$(byte[] bevi_bytes, int bevi_length) { 
-        //no copy, isOnce
-        this.bevi_bytes = bevi_bytes; 
-        bevp_size = new $class/Math:Int$(bevi_length);
-        bevp_capacity = new $class/Math:Int$(bevi_length);
+      //do copy, isOnce
+      this.bevi_bytes = new byte[bevi_length];
+      Array.Copy( bevi_bytes, 0, this.bevi_bytes, 0, bevi_length );
+      bevp_size = new $class/Math:Int$(bevi_length);
+      bevp_capacity = new $class/Math:Int$(bevi_length);
     }
     public $class/Text:String$(int bevi_length, byte[] bevi_bytes) { 
         //do copy, not isOnce
@@ -224,7 +226,7 @@ final class String {
         return this;
     }
     be_$class/Text:String$.prototype.beml_set_bevi_bytes_len = function(bevi_bytes, bevi_length) {
-        this.bevi_bytes = bevi_bytes;
+        this.bevi_bytes = bevi_bytes.slice(0);
         this.bevp_size = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         return this;
