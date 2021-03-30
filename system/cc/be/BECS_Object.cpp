@@ -230,8 +230,8 @@ void BECS_Runtime::doGc() {
 
 #ifdef BEDCC_SGC
 
-  cout << "GCDEBUG starting gc " << endl;
-  cout << "GCDEBUG thread " << std::this_thread::get_id() << endl;
+  ////cout << "GCDEBUG starting gc " << endl;
+  ////cout << "GCDEBUG thread " << std::this_thread::get_id() << endl;
 
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   
@@ -246,7 +246,7 @@ void BECS_Runtime::doGc() {
   }
   //do all marking
   BECS_Runtime::bemg_markAll();
-  if (BECS_Runtime::bevg_currentGcMark % 1 == 0) {
+  if (BECS_Runtime::bevg_currentGcMark % 4 == 0) {
     //do all sweeping
     BECS_Runtime::bevg_countSweeps++;
     BECS_Runtime::bemg_sweep();
@@ -254,7 +254,7 @@ void BECS_Runtime::doGc() {
 
   BECS_Runtime::bevg_gcState.store(0, std::memory_order_release);
   
-  cout << "GCDEBUG gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
+  ////cout << "GCDEBUG gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
 
 #endif
 

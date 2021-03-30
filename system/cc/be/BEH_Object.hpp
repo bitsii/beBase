@@ -139,7 +139,7 @@ class BECS_Object {
       if (bevs_lastInst != nullptr) {
         BECS_Object* bevs_currInst = bevs_lastInst->bevg_priorInst;
         int tries = 0;
-        while (tries < 3 && bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
+        while (tries < 2 && bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
           tries++;
           if (bevs_currInst->bevg_gcMark != bevg_currentGcMark) {
             bevs_lastInst->bevg_priorInst = bevs_currInst->bevg_priorInst;
