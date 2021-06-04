@@ -1,5 +1,6 @@
 cycle/
 deploy*/
+lib/
 target*/
 include/mswin/
 include/linux/
