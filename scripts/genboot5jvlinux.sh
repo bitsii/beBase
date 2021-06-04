@@ -2,7 +2,7 @@
 
 export CLASSPATH=target5/*
 
-java be.BEX_E --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv --outputPlatform linux
+java be.BEL_Base --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv --outputPlatform linux
 
 find system -name "*.class" -exec rm {} \;
 find target5 -name "*.class" -exec rm {} \;
