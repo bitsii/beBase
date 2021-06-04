@@ -4,7 +4,6 @@
 -mainClass=Test:ExtendedTest:EC
 -buildFile=build/baseTestShared.txt
 -buildFile=build/extendedTestShared.txt
--initLib=BEL_4_Base
 #-jsInclude=system/js/be/BECS_Runtime.js
 #-jsInclude=system/js/be/BECS_Object.js
 #-saveSyns=true

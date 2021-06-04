@@ -12,6 +12,7 @@
 -jsInclude=system/js/be/BECS_Runtime.js
 -jsInclude=system/js/be/BECS_Object.js
 -saveSyns=true
+-saveIds=true
 #-emitLang=jv
 #-emitLang=cs
 

@@ -7,7 +7,7 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 CYC1=`date +%s`
 
-time clang++ -DBEDCC_BGC=1 -pthread -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++14 ./targetEc/Base/target/cc/be/BEX_E.cpp /usr/lib/x86_64-linux-gnu/libgc.a
+time clang++ -DBEDCC_BGC=1 -pthread -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++14 ./targetEc/Base/target/cc/be/BEL_Base.cpp /usr/lib/x86_64-linux-gnu/libgc.a
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

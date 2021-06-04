@@ -299,11 +299,6 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
    
    mainStartGet() String {
-        String ms = "main(String[] args)" + exceptDec + " {" + nl;//}
-        ms += "synchronized (" += libEmitName += ".class) {" += nl;//}
-        ms += "be.BECS_Runtime.args = args;" += nl;
-        ms += "be.BECS_Runtime.platformName = \"" += build.outputPlatform.name += "\";" += nl;
-        //return(ms);
         return("");
    }
     
@@ -691,8 +686,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     
     emitLib() {
       
-      deow.write("class BEX_E;\n");
-      heow.write("class BEX_E : public BECS_Lib {\npublic:\nstatic void init();\n};\n");
+      deow.write("class " + libEmitName + ";\n");
+      heow.write("class " + libEmitName + " : public BECS_Lib {\npublic:\nstatic void init();\n};\n");
       
       super.emitLib();
       

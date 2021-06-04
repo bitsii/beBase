@@ -21,7 +21,7 @@ CYC1=`date +%s`
 export CC=g++
 export CPFLAGS="-std=c++14 -Wfatal-errors -ggdb"
 
-time g++ $CPFLAGS -DBEDCC_SGC=1 -pthread -o targetEc/BEX_E_gn.exe ./targetEc/Base/target/cc/be/BEX_E.cpp
+time g++ $CPFLAGS -DBEDCC_SGC=1 -pthread -o targetEc/BEX_E_gn.exe ./targetEc/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

@@ -2,7 +2,7 @@
 
 export CLASSPATH=target4/*
 
-java be.BEX_E --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv
+java be.BEL_Base --buildFile build/buildbuild.txt --deployPath deploy5 --buildPath target5 --emitLang jv
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

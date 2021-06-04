@@ -149,14 +149,38 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         if (build.saveIds) {
           loadIds();
         }
+        
+        if (def(build.loadIds)) {
+          for (String loadPref in build.loadIds) {
+            loadIds(loadPref);
+          }
+        }
     }
+    
+    loadIds(String loadPref) {
+      loadIdsInner(loadPref, "_itn.ids", idToName);
+      loadIdsInner(loadPref, "_nti.ids", nameToId);
+    }
+    
+    loadIdsInner(String loadPref, String loadEnd, Map addto) {
+       IO:File:Path synEmitPath = IO:File:Path.apNew(loadPref + loadEnd);
+       ("Loading Ids " + synEmitPath).print();
+       Time:Interval sst = Time:Interval.now();
+       IO:File:Reader syne = synEmitPath.file.reader.open()
+       Map scls = System:Serializer.new().deserialize(syne);
+       syne.close();
+       addto += scls;
+       Time:Interval sse = Time:Interval.now() - sst;
+       ("Loading Ids took " + sse).print();
+     }
     
     runtimeInitGet() String {
         return("be.BECS_Runtime.init();" + nl);
     }
     
     libEmitName(String libName) {
-        return("BEX_E");
+        //return("BEX_E");
+        return("BEL_" + libName);
     }
     
     fullLibEmitName(String libName) { 
@@ -524,7 +548,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
     
     saveIds() {
-        //"Saving Ids".print();
+        "Saving Ids".print();
         Time:Interval sst = Time:Interval.now();
         IO:File:Writer idf;
         
@@ -537,11 +561,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         idf.close();
         
         Time:Interval sse = Time:Interval.now() - sst;
-        //("Saving Ids took " + sse).print();
+        ("Saving Ids took " + sse).print();
     }
     
     loadIds() {
-        //"Loading Ids".print();
+        "Loading Ids".print();
         Time:Interval sst = Time:Interval.now();
         IO:File:Reader idf;
         
@@ -558,7 +582,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         
         Time:Interval sse = Time:Interval.now() - sst;
-        //("Loading Ids took " + sse).print();
+        ("Loading Ids took " + sse).print();
     }
     
     finishLibOutput(IO:File:Writer libe) {
@@ -634,7 +658,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             main += "GC_allow_register_threads();" += nl;
           }
           main += "be::BECS_Runtime::bemg_beginThread();" += nl;
-          main += "be::BEX_E::init();" += nl;
+          main += "be::" + libEmitName + "::init();" += nl;
           main += "be::" += maincc.emitName += "* mc = new be::" += maincc.emitName += "();" += nl;
           main += "be::BECS_Runtime::maino = mc;" += nl;
           main += "mc->bem_new_0();" += nl;
@@ -737,13 +761,22 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           libe.write("func " + libEmitName + "_init() {" + nl); //}
           libe.write("if (BECS_Runtime.isInitted) { return; }" + nl);
         } else {
-          libe.write(self.baseSmtdDec + "void init()" += exceptDec += " {" + nl); //}
           if(emitting("jv")) {
-            libe.write("synchronized (" + libEmitName + ".class) {" + nl);//}
+            libe.write("static boolean initted = false;" + nl);
+            libe.write(self.baseSmtdDec + "void init()" += exceptDec += " {" + nl); //}
+            libe.write("synchronized (be.BECS_Runtime.class) {" + nl);//}
           } elseIf(emitting("cs")) {
-            libe.write("lock (typeof(" + libEmitName + ")) {" + nl);//}
+            libe.write("static bool initted = false;" + nl);
+            libe.write(self.baseSmtdDec + "void init()" += exceptDec += " {" + nl); //}
+            libe.write("lock (typeof(be.BECS_Runtime)) {" + nl);//}
           }
-          libe.write("if (BECS_Runtime.isInitted) { return; }" + nl);
+          libe.write("if (initted) { return; }" + nl);
+          libe.write("initted = true;" + nl);
+          if (def(build.initLibs)) {
+            for (String lib in build.initLibs) {
+              libe.write("be.BEL_" + lib + ".init();" + nl);
+            }
+          }
         }
         libe.write(self.runtimeInit);
         libe.write(getNames);
@@ -763,7 +796,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           main = "";
         }
         
-        if (self.mainInClass) {
+        if (self.mainInClass && build.doMain) {
             libe.write(main);
         }
         
@@ -772,7 +805,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
         libe.write(self.endNs());
         
-        if (self.mainOutsideNs) {
+        if (self.mainOutsideNs && build.doMain) {
             libe.write(main);
         }
         
@@ -979,11 +1012,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
   }
   
   isClose(NamePath np) Bool {
-    Build:ClassSyn orgsyn = build.getSynNp(np);
-    if (build.closeLibraries.has(orgsyn.libName)) {
+    //Build:ClassSyn orgsyn = build.getSynNp(np);
+    //if (build.closeLibraries.has(orgsyn.libName)) {
         return(true);
-    }
-    return(false);
+    //}
+    //return(false);
   }
   
   addClassHeader(String h) {

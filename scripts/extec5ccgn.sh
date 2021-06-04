@@ -29,7 +29,7 @@ CYC1=`date +%s`
 #time $MAKNAME -j 8 -f scripts/extecc.make
 #time g++ $CPFLAGS -o targetEc/BEX_E_gn.exe targetEc/Base/target/cc/be/*.o
 
-time g++ -DBEDCC_SGC=1 -o ./targetEc/BEX_E_gn.exe -Wfatal-errors -ggdb -std=c++14 ./targetEc/Base/target/cc/be/BEX_E.cpp
+time g++ $CPFLAGS -DBEDCC_SGC=1 -pthread -o targetEc/BEX_E_gn.exe ./targetEc/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

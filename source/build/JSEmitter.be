@@ -199,7 +199,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
           main += "be_BECS_Runtime.prototype.args = process.argv;" += nl;
         }
         main += "be_BECS_Runtime.prototype.platformName = \"" += build.outputPlatform.name += "\";" += nl;
-        libe.write(main);
+        if (build.doMain) {
+          libe.write(main);
+        }
         main = "";
         libe.write(allOnceDecs);
         libe.write(notNullInitDefault);
@@ -207,7 +209,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
           main += "mc.bem_new_0();" += nl;
           main += "mc.bem_main_0();" += nl;
         }
-        libe.write(main);
+        if (build.doMain) {
+          libe.write(main);
+        }
 
         finishLibOutput(libe);
         

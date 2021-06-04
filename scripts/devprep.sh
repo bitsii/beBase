@@ -30,6 +30,7 @@ if [ "$OSTYPE" == "Linux" ]; then
   sudo apt-get install mono-complete mono-devel mono-mcs
   sudo apt-get install git
   sudo apt-get install git-gui
+  sudo apt-get install clang
   echo "make sure you are in the abelii checked out directory"
   echo "and run ./scripts/boot5jvlinux.sh"
   echo "after it completes run ./scripts/boot5mcslinux.sh"

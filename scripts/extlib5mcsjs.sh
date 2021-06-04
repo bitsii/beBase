@@ -13,7 +13,7 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-time mono --debug target5/BEX_E_mcs.exe source/base/Uses.be --buildFile build/extExe.txt -loadSyns=targetExtLib/Base/target/js/be/BEX_E.syn -jsInclude=targetExtLib/Base/target/js/be/BEX_E.js --emitLang js
+time mono --debug target5/BEX_E_mcs.exe source/base/Uses.be --buildFile build/extExe.txt -loadSyns=targetExtLib/Base/target/js/be/BEL_Base.syn -jsInclude=targetExtLib/Base/target/js/be/BEL_Base.js --emitLang js
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
@@ -21,6 +21,6 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-node targetExtLib/Test/target/js/be/BEX_E.js $*
+node targetExtLib/Test/target/js/be/BEL_Test.js $*
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi

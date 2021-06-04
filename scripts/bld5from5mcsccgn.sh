@@ -25,6 +25,6 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 #-O1, O2, O3
 
 #-pg
-time g++ -DBEDCC_SGC=1 -pthread -o ./target5/BEX_E_gn.exe -Wfatal-errors -ggdb -std=c++14 ./target5/Base/target/cc/be/BEX_E.cpp
+time g++ -DBEDCC_SGC=1 -pthread -o ./target5/BEX_E_gn.exe -Wfatal-errors -ggdb -std=c++14 ./target5/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
