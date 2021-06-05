@@ -4,7 +4,7 @@ rm -rf targetEc/Base/target/jv
 
 export CLASSPATH=target5/*
 
-java be.BEX_E --buildFile build/extendedEc.txt --emitLang jv
+java be.BEL_Base --buildFile build/extendedEc.txt --emitLang jv
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
@@ -24,6 +24,6 @@ cd ../../../..
 
 export CLASSPATH=targetEc/*
 
-java be.BEX_E $*
+java be.BEL_Base $*
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi

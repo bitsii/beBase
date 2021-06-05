@@ -17,8 +17,6 @@ time mono --debug target5/BEX_E_mcs.exe source/base/Uses.be --buildFile build/ex
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-#mcs -debug:pdbonly /warn:0 -main:be.BEX_E -r:targetExtLib/BEX_E_mcs.dll -out:targetExtLib/BEX_E_mcs.exe /warn:0 targetExtLib/Test/target/cs/be/*.cs
-
 mcs -debug:pdbonly /warn:0 -out:targetExtLib/BEL_Test.exe -reference:targetExtLib/BEL_Base.dll /warn:0 targetExtLib/Test/target/cs/be/*.cs
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
