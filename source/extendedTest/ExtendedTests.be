@@ -29,7 +29,7 @@ class Test:ExtendedTest:Log(BaseTest) {
 class Test:ExtendedTest:EC(BaseTest) {
    
    main() {
-     innerMain();
+     //innerMain();
      try {
        Int howManyTimes = 1;
        for (Int i = 0;i < howManyTimes;i++=) {
