@@ -1,0 +1,6 @@
+-deployPath=deployLibBasebrTest
+-buildPath=targetLibBasebrTest
+-jsInclude=lib/br/js/BEL_Base.js
+-libraryName=Test
+-mainClass=Test:BaseTest:EC
+-buildFile=build/baseTestShared.txt
