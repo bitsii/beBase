@@ -1,5 +1,5 @@
--deployPath=deployLibBaseTest
--buildPath=targetLibBaseTest
+-deployPath=deployLibBaseexTest
+-buildPath=targetLibBaseexTest
 -libraryName=Test
 -mainClass=Test:ExtendedTest:EC
 -buildFile=build/baseTestShared.txt

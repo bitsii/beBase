@@ -1,5 +1,5 @@
--deployPath=lib/deploy
--buildPath=lib/
+-deployPath=lib/ex/deploy
+-buildPath=lib/ex
 -libraryName=Base
 -mainClass=System:DoNothing
 -buildFile=build/baseSource.txt
