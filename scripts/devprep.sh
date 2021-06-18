@@ -18,7 +18,7 @@ if [[ "$OSTYPE" == *"MINGW"* ]]; then
   echo "then download and install nodejs"
   echo "https://nodejs.org/en/download/"
   echo "(put it on your path)"
-  echo "then make sure you are in the abelii checked out directory"
+  echo "then make sure you are in the brace checked out directory"
   echo "and run ./scripts/boot5jvmswin.sh"
   echo "after it completes run ./scripts/boot5mcsmswin.sh"
 fi
@@ -31,7 +31,7 @@ if [ "$OSTYPE" == "Linux" ]; then
   sudo apt-get install git
   sudo apt-get install git-gui
   sudo apt-get install clang
-  echo "make sure you are in the abelii checked out directory"
+  echo "make sure you are in the brace checked out directory"
   echo "and run ./scripts/boot5jvlinux.sh"
   echo "after it completes run ./scripts/boot5mcslinux.sh"
 fi
@@ -52,7 +52,7 @@ if [ "$OSTYPE" == "Darwin" ]; then
   brew install node
   brew install git
   brew install git-gui
-  echo "make sure you are in the abelii checked out directory"
+  echo "make sure you are in the brace checked out directory"
   echo "and run ./scripts/boot5jvmacos.sh"
   echo "after it completes run ./scripts/boot5mcsmacos.sh"
 fi
