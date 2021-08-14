@@ -27,6 +27,9 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 time ./targetEc/BEX_E_gn.exe
 
+#sudo apt-get install valgrind kcachegrind graphviz
+#valgrind --tool=callgrind ./targetEc/BEX_E_gn.exe
+
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 CYC2=`date +%s`

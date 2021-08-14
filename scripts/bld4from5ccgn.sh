@@ -17,6 +17,10 @@ esac
 
 time ./target5/BEX_E_gn.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy4 --buildPath target4 --emitFlag ccSgc
 
+#sudo apt-get install valgrind kcachegrind graphviz
+#after just run kcachegrind
+#time valgrind --tool=callgrind ./target5/BEX_E_gn.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy4 --buildPath target4 --emitFlag ccSgc
+
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #export CC=g++
