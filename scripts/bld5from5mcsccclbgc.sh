@@ -17,7 +17,8 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #-O1, O2, O3
 
-time clang++ -DBEDCC_BGC=1 -pthread -o ./target5/BEX_E_cl.exe -ferror-limit=1 -std=c++14 ./target5/Base/target/cc/be/BEX_E.cpp /usr/lib/x86_64-linux-gnu/libgc.a
+#sudo apt-get install libgc-dev
+time clang++ -DBEDCC_BGC=1 -pthread -o ./target5/BEX_E_cl.exe -ferror-limit=1 -std=c++14 ./target5/Base/target/cc/be/BEL_Base.cpp /usr/lib/x86_64-linux-gnu/libgc.a
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
