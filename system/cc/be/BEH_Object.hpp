@@ -105,7 +105,7 @@ class BECS_StackFrame {
   BECS_FrameStack* bevs_myStack;
   BEC_2_6_6_SystemObject* bevs_lastConstruct;
   
-  BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars) {
+  inline BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars) {
     bevs_localVars = beva_localVars;
     bevs_numVars = beva_numVars;
     bevs_myStack = &BECS_Runtime::bevs_currentStack;
@@ -114,7 +114,7 @@ class BECS_StackFrame {
     bevs_lastConstruct = nullptr;
   }
   
-  ~BECS_StackFrame() {
+  inline ~BECS_StackFrame() {
     bevs_myStack->bevs_lastFrame = bevs_priorFrame;
   }
   
