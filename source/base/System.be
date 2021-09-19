@@ -711,7 +711,9 @@ use local class System:ThinThread {
    }
    emit(cc_classHead) {
    """
+#ifdef BEDCC_PT
    std::shared_ptr<std::thread> bevi_thread;
+#endif
    void bems_runMain() {
        BECS_Runtime::bemg_beginThread();
        bem_main_0();
@@ -742,8 +744,9 @@ use local class System:ThinThread {
      }
      emit(cc) {
      """
-     //std::thread t(&BEC_2_6_10_SystemThinThread::bems_runMain, this);
+#ifdef BEDCC_PT
      bevi_thread = std::make_shared<std::thread>(&BEC_2_6_10_SystemThinThread::bems_runMain, this);
+#endif
      """
      }
    }
@@ -770,9 +773,11 @@ use local class System:ThinThread {
      emit(cc) {
      """
      BECS_Runtime::bemg_enterBlocking();
+#ifdef BEDCC_PT
      if (bevi_thread->joinable()) {
       bevi_thread->join();
      }
+#endif
      BECS_Runtime::bemg_exitBlocking();
      """
      }
@@ -824,7 +829,9 @@ use final class System:Thread:Lock {
   }
   emit(cc_classHead) {
   """
+#ifdef BEDCC_PT
   std::recursive_mutex bevi_lock;
+#endif
   """
   }
   
@@ -842,7 +849,9 @@ use final class System:Thread:Lock {
     emit(cc) {
     """
     BECS_Runtime::bemg_enterBlocking();
+#ifdef BEDCC_PT
     bevi_lock.lock();
+#endif
     BECS_Runtime::bemg_exitBlocking();
     """
     }
@@ -862,7 +871,9 @@ use final class System:Thread:Lock {
     }
     emit(cc) {
     """
+#ifdef BEDCC_PT
     bevi_lock.unlock();
+#endif
     """
     }
     return(true);

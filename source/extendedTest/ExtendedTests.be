@@ -147,11 +147,13 @@ class Test:ExtendedTest:EC(BaseTest) {
         Test:BaseTest:System.new().main(); //random not impl for all
       }
       
-      //ifEmit(jv, cs, cc) { }
       ifEmit(jv, cs) {
-        ifEmit(jv, cs) {
-          testSha256();
-        }
+        testSha256();
+        testThreads();
+        testLocks();
+      }
+      
+      ifEmit(ccPt) {
         testThreads();
         testLocks();
       }
