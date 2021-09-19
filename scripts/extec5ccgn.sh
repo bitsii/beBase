@@ -23,7 +23,7 @@ CYC1=`date +%s`
 #exit 0
 
 #export CC=g++
-#export CPFLAGS="-std=c++14 -Wfatal-errors -ggdb"
+#export CPFLAGS="-std=c++11 -Wfatal-errors -ggdb"
 
 #g++ $CPFLAGS targetEc/Base/target/cc/be/BEH_4_Base.hpp
 #time $MAKNAME -j 8 -f scripts/extecc.make

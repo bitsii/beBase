@@ -24,11 +24,11 @@ CYC1=`date +%s`
 
 #exit 0
 
-#clang++ -DBEDCC_SGC=1 -o ./targetEc/BEX_E_cl.exe -pthread -ferror-limit=1 -std=c++14 ./targetEc/Base/target/cc/be/BEL_Base.cpp
+#clang++ -DBEDCC_SGC=1 -o ./targetEc/BEX_E_cl.exe -pthread -ferror-limit=1 -std=c++11 ./targetEc/Base/target/cc/be/BEL_Base.cpp
 
 #lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-time clang++ -DBEDCC_SGC=1 -pthread -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++14 ./targetEc/Base/target/cc/be/BEL_Base.cpp
+time clang++ -DBEDCC_SGC=1 -pthread -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++11 ./targetEc/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
