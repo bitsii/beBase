@@ -6,6 +6,7 @@ class Test:TestHelloWorld{
    
    main() {
       "Content-type: text/html\n\n<html><body>Hello there</body></html>".print();
+      //Time:Sleep.sleepSeconds(120);
    }
    
 }
