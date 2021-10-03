@@ -9,31 +9,21 @@ if [[ "$OSTYPE" == *"MINGW"* ]]; then
   echo "the output :-)"
   echo "but in case you're reading this some other way"
   echo "https://git-scm.com/download/win"
-  echo "then download and install java:"
-  echo "https://adoptopenjdk.net/"
-  echo "(put it on your path)"
   echo "then download and install mono"
   echo "https://www.mono-project.com/download/stable/#download-win"
   echo "(put it on your path)"
-  echo "then download and install nodejs"
-  echo "https://nodejs.org/en/download/"
-  echo "(put it on your path)"
   echo "then make sure you are in the brace checked out directory"
-  echo "and run ./scripts/boot5jvmswin.sh"
-  echo "after it completes run ./scripts/boot5mcsmswin.sh"
+  echo "and run ./scripts/boot5mcsmswin.sh"
 fi
 
 if [ "$OSTYPE" == "Linux" ]; then
   echo "Linux"
-  sudo apt-get install nodejs
-  sudo apt-get install openjdk-11-jdk-headless
   sudo apt-get install mono-complete mono-devel mono-mcs
   sudo apt-get install git
   sudo apt-get install git-gui
-  sudo apt-get install clang
+  #sudo apt-get install clang
   echo "make sure you are in the brace checked out directory"
-  echo "and run ./scripts/boot5jvlinux.sh"
-  echo "after it completes run ./scripts/boot5mcslinux.sh"
+  echo "and run ./scripts/boot5mcslinux.sh"
 fi
 
 if [ "$OSTYPE" == "Darwin" ]; then
@@ -46,19 +36,13 @@ if [ "$OSTYPE" == "Darwin" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
   brew tap homebrew/cask-versions
-  brew install openjdk@11
-  brew link --force openjdk@11
   brew install mono
   brew install git
   brew install git-gui
-  brew install node
   echo "make sure you are in the brace checked out directory"
-  echo "and run ./scripts/boot5jvmacos.sh"
-  echo "after it completes run ./scripts/boot5mcsmacos.sh"
+  echo "and run ./scripts/boot5mcsmacos.sh"
 fi
 
 echo "then you should be ready to go. test builds:"
 echo "./script/extec5mcs.sh"
-echo "./script/extec5jv.sh"
-echo "./script/cyclejv5.sh"
 echo "./script/cyclemcs5.sh"
