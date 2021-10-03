@@ -1,5 +1,5 @@
 
-First - quick Getting Started for Development! (more about Brace below...)
+Quick Getting Started for Development! (more about Brace below...)
 
 First, install git for your platform (if not already done)
 
@@ -25,8 +25,20 @@ cd brace
 ./scripts/devprep.sh
 
 devprep will install some more things / tell you to install some more things
-(those things are jdk11, node.js, mono)
+(those things are mono)
 and then tell you to run the initial build to bootstrap your environment
+
+The above sets up the basic environment for brace to emit C# and compile / run with mono (the default).  You can also use javascript (nodejs, browser).  After the base mono setup is done you can run 
+
+./scripts/devprepjs.sh
+
+for that.  
+
+Java is also supported, run 
+
+./scripts/devprepjv.sh
+
+for that.
 
 End of Getting Started for Development!
 
