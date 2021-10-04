@@ -207,7 +207,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
      if (type == "unchecked") {
        String ccall = "static_cast";
      } else {
-       ccall = "dynamic_cast";
+       if (build.emitChecks.has("ccNoRtti")) {
+         ccall = "static_cast";
+       } else {
+         ccall = "dynamic_cast";
+       }
      }
      return(ccall + "<" + cc.relEmitName(build.libName) + "*>(");//)
    }

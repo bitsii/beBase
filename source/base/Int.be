@@ -734,7 +734,13 @@ bevi_int = beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      if (bevi_int == dynamic_cast<BEC_2_4_3_MathInt*>(beva_xi)->bevi_int) {
+#ifndef BEDCC_NORTTI
+      BEC_2_4_3_MathInt* bevls_xi = dynamic_cast<BEC_2_4_3_MathInt*>(beva_xi);
+#endif
+#ifdef BEDCC_NORTTI
+      BEC_2_4_3_MathInt* bevls_xi = static_cast<BEC_2_4_3_MathInt*>(beva_xi);
+#endif
+      if (bevi_int == bevls_xi->bevi_int) {
         return BECS_Runtime::boolTrue;
       }
       """
@@ -770,7 +776,13 @@ bevi_int = beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      if (bevi_int != dynamic_cast<BEC_2_4_3_MathInt*>(beva_xi)->bevi_int) {
+#ifndef BEDCC_NORTTI
+      BEC_2_4_3_MathInt* bevls_xi = dynamic_cast<BEC_2_4_3_MathInt*>(beva_xi);
+#endif
+#ifdef BEDCC_NORTTI
+      BEC_2_4_3_MathInt* bevls_xi = static_cast<BEC_2_4_3_MathInt*>(beva_xi);
+#endif
+      if (bevi_int != bevls_xi ->bevi_int) {
         return BECS_Runtime::boolTrue;
       }
       """
