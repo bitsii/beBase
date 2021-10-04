@@ -176,7 +176,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
           //break;
         }
 
+        unless (build.emitChecks.has("jsNoSmap")) {
         libe.write(smap);
+        }
 
         //("Used lib size " + build.usedLibrarys.size).print();
         if (build.usedLibrarys.size == 0) {
@@ -196,7 +198,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         String main = "";
         main += "var mc = new " += maincc.fullEmitName += "();" += nl;
         if (build.ownProcess) {
-          main += "be_BECS_Runtime.prototype.args = process.argv;" += nl;
+          unless (build.emitChecks.has("embJs")) {
+            main += "be_BECS_Runtime.prototype.args = process.argv;" += nl;
+          }
         }
         main += "be_BECS_Runtime.prototype.platformName = \"" += build.outputPlatform.name += "\";" += nl;
         if (build.doMain) {

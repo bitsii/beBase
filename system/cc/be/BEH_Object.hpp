@@ -56,7 +56,7 @@ class BECS_Runtime {
       //0 don't do gc now, 1 do gc now
     static atomic<uint_fast32_t> bevg_sharedAllocsSinceGc;
     
-    static map<std::thread::id, BECS_FrameStack*> bevg_frameStacks;
+    static std::map<std::thread::id, BECS_FrameStack*> bevg_frameStacks;
     
     static BECS_FrameStack bevg_oldInstsStack;
     

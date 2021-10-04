@@ -8,7 +8,7 @@ uint_fast16_t BECS_Runtime::bevg_currentGcMark = 0;
 atomic<uint_fast16_t> BECS_Runtime::bevg_gcState{0};
 atomic<uint_fast32_t> BECS_Runtime::bevg_sharedAllocsSinceGc{0};
 
-map<std::thread::id, BECS_FrameStack*> BECS_Runtime::bevg_frameStacks;
+std::map<std::thread::id, BECS_FrameStack*> BECS_Runtime::bevg_frameStacks;
 
 BECS_FrameStack BECS_Runtime::bevg_oldInstsStack;
 

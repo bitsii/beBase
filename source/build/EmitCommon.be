@@ -461,8 +461,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                methods += " = bems_smnlec();" += nl;
              }
             if (emitting("js")) {
+              unless (build.emitChecks.has("jsNoSmap")) {
               methods += smpref += "bevs_smnlec";
               methods += " = [" += nlecs += "];" += nl;
+              }
             }
             if(emitting("cc")) {
                //header too
