@@ -198,7 +198,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         String main = "";
         main += "var mc = new " += maincc.fullEmitName += "();" += nl;
         if (build.ownProcess) {
-          unless (build.emitChecks.has("embJs")) {
+          unless (build.emitChecks.has("embPlat")) {
             main += "be_BECS_Runtime.prototype.args = process.argv;" += nl;
           }
         }

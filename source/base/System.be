@@ -567,10 +567,10 @@ final class System:CurrentPlatform (System:Platform) {
                     bevl_platformName = new $class/Text:String$(System.Text.Encoding.UTF8.GetBytes(be.BECS_Runtime.platformName));
                 """
                 }
-                ifEmit(embJs) {
+                ifEmit(embPlat) {
                   platformName = "linux";
                 }
-                ifNotEmit(embJs) {
+                ifNotEmit(embPlat) {
                   emit(js) {
                   """
                       bevls_name = this.bems_stringToBytes_1(be_BECS_Runtime.prototype.platformName);
@@ -578,10 +578,12 @@ final class System:CurrentPlatform (System:Platform) {
                   """
                   }
                 }
+                ifNotEmit(embPlat) {
                 emit(cc) {
                 """
                     bevl_platformName = new BEC_2_4_6_TextString(BECS_Runtime::platformName);
                 """
+                }
                 }
                 setName(platformName);
            }

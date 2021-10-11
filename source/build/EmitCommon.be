@@ -446,8 +446,13 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             }
             if(emitting("cc")) {
                //header too
-               methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlc" += nl;
-               methods += " = {" += nlcs += "};" += nl;
+               if (build.emitChecks.has("noSmap")) {
+                 methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlc" += nl;
+                 methods += " = { };" += nl;
+               } else {
+                 methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlc" += nl;
+                 methods += " = {" += nlcs += "};" += nl;
+               }
             }
             if(emitting("cs")) {
               //("nlcs " + nlcs + " nlecs " + nlecs).print();
@@ -797,7 +802,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         libe.write(self.runtimeInit);
         libe.write(getNames);
-        libe.write(smap);
+        unless (build.emitChecks.has("noSmap")) {
+          libe.write(smap);
+        }
         libe.write(notNullInitConstruct);
         libe.write(notNullInitDefault);
         if(emitting("jv") || emitting("cs")) {
