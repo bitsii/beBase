@@ -176,7 +176,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
           //break;
         }
 
-        unless (build.emitChecks.has("jsNoSmap")) {
+        unless (build.emitChecks.has("noSmap")) {
         libe.write(smap);
         }
 

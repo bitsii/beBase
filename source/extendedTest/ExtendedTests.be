@@ -96,8 +96,9 @@ class Test:ExtendedTest:EC(BaseTest) {
       //if (true) { return(self); }
    
       Test:BaseTest:All.new().main();
-      
+      ifNotEmit(noSmap) {
       Tests:Exceptions.new().main();
+      }
 
       //try {
       //Test:ExtendedTest:All.new().main();

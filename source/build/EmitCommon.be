@@ -436,8 +436,13 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                methods += " = bems_smnlc();" += nl;
              }
             if (emitting("js")) {
-              methods += smpref += "bevs_smnlc";
-              methods += " = [" += nlcs += "];" += nl;
+              if (build.emitChecks.has("noSmap")) {
+                methods += smpref += "bevs_smnlc";
+                methods += " = [ ];" += nl;
+              } else {
+                methods += smpref += "bevs_smnlc";
+                methods += " = [" += nlcs += "];" += nl;
+              }
             }
             if(emitting("cc")) {
                //header too
@@ -461,18 +466,28 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                methods += " = bems_smnlec();" += nl;
              }
             if (emitting("js")) {
-              unless (build.emitChecks.has("jsNoSmap")) {
-              methods += smpref += "bevs_smnlec";
-              methods += " = [" += nlecs += "];" += nl;
+              if (build.emitChecks.has("noSmap")) {
+                methods += smpref += "bevs_smnlec";
+                methods += " = [];" += nl;
+              } else {
+                methods += smpref += "bevs_smnlec";
+                methods += " = [" += nlecs += "];" += nl;
               }
             }
             if(emitting("cc")) {
                //header too
-               methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlec" += nl;
-               methods += " = {" += nlecs += "};" += nl;
+               if (build.emitChecks.has("noSmap")) {
+                 methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlec" += nl;
+                 methods += " = { };" += nl;
+               } else {
+                methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlec" += nl;
+                methods += " = {" += nlecs += "};" += nl;
+              }
             }
             
+            unless (build.emitChecks.has("noSmap")) {
             methods += lineInfo;
+            }
             
             //methods
             lineCount += countLines(methods);
@@ -1450,7 +1465,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
   getTraceInfo(Node node) {
     String trInfo = String.new();
     if (def(node) && def(node.nlc)) {
-      trInfo += "Line: " += node.nlc.toString();
+      unless (build.emitChecks.has("noSmap")) {
+        trInfo += "/* Line: " += node.nlc.toString() += "*/";
+      }
     }
     return(trInfo);
   }
@@ -1460,7 +1477,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
          Int typename = node.container.typename;
          if (typename != ntypes.METHOD && typename != ntypes.CLASS && typename != ntypes.EXPR && typename != ntypes.PROPERTIES && typename != ntypes.CATCH) {
             
-            methodBody += " /* " += getTraceInfo(node) += " */ {" += nl; //}
+            methodBody += getTraceInfo(node) += " {" += nl; //}
          }
       }
   }
@@ -1526,13 +1543,17 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
              maxSpillArgsLen = 0;
              
              //{
-             methods += "} /*method end*/" += nl;
+             methods += "}";
+             unless (build.emitChecks.has("noSmap")) {
+               methods += " /*method end*/";
+             }
+             methods += nl;
              msyn = null;
              mnode = null;
            }
         } elseIf (typename != ntypes.EXPR && typename != ntypes.PROPERTIES && typename != ntypes.CLASS) {
             //{
-           methodBody += "} /* " += getTraceInfo(node) += " */" += nl;
+           methodBody += "} " += getTraceInfo(node) += nl;
         }
       }
   }

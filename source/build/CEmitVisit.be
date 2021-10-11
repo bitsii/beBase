@@ -543,7 +543,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          if ((i.held.name != "self") && (i.held.name != "super")) {
             Int reuse = -1;
             if (ic > node.held.numargs) {
-               if (i.held.isTmpVar && i.held.suffix == "phold") {
+               if (i.held.isTmpVar && i.held.suffix == "ph") {
                   reuse = attemptReuse(i, reum);
                   if (reuse > -1) {
                      i.held.vpos = reuse;
@@ -554,7 +554,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                   i.held.vpos = hmax;
                   inMtdNode.held.hmax = hmax++;
                }
-               if (i.held.isTmpVar && i.held.suffix == "phold") {
+               if (i.held.isTmpVar && i.held.suffix == "ph") {
                   LinkedList ll = reum[i.held.vpos];
                   if (undef(ll)) { ll = LinkedList.new(); reum[i.held.vpos] = ll; }
                   ll += i;

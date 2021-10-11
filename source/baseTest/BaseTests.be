@@ -1105,7 +1105,9 @@ class Test:BaseTest:All(BaseTest) {
          Test:BaseTest:Calls.new().main();
          Tests:CallArgs.new().main();
          Tests:CallArgsFinal.new().main();
+         ifNotEmit(noSmap) {
          Tests:Exceptions.new().main();
+         }
          Test:BaseTest:Invoke.new().main();
          //ifNotEmit(cc) {
           Test:BaseTest:Gc.new().main(); 

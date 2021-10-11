@@ -244,7 +244,7 @@ final class Node {
        tmpany.isTmpVar = true;
        tmpany.autoType = true;
        tmpany.suffix = suffix;
-       tmpany.name = tmpanyn + "_tmpany_" + suffix;
+       tmpany.name = tmpanyn + "_ta_" + suffix;
        return(tmpany)
    }
    
