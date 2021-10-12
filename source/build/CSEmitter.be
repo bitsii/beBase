@@ -100,10 +100,6 @@ use final class Build:CSEmitter(Build:EmitCommon) {
     return("base");
   }
   
-  onceDec(String typeName, String anyName) {
-     return("private static " + typeName + " ");
-  }
-  
   lstringByte(String sdec, String lival, Int lipos, Int bcode, String hs) {
         
         lival.getCode(lipos, bcode);

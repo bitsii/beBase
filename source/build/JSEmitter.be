@@ -399,10 +399,6 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         return("static " + anyName + ": " + typeName);
       }
 
-      onceDec(String typeName, String anyName) {
-         return("");
-      }
-
        getInitialInst(ClassConfig newcc) String {
         return(newcc.relEmitName(build.libName) + ".prototype.becs_insts.bevs_inst");
        }

@@ -75,12 +75,7 @@ use final class Build:JVEmitter(Build:EmitCommon) {
     methodBody += finalAssign(node.contained.first.contained.first, "(be.BECS_ThrowBack.handleThrow(" + catchVar + "))", null, null);
 
    }
-      
-      onceDec(String typeName, String anyName) {
-      //here could put final for once deced
-         return("private static " + typeName + " ");
-      }
-      
+
       lstringByte(String sdec, String lival, Int lipos, Int bcode, String hs) {
         
         lival.getInt(lipos, bcode);

@@ -1064,7 +1064,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         String preClass = String.new();
         String classEmits = String.new();
         String onceDecs = String.new();
-        Int onceCount = 0;
         String propertyDecs = String.new();
         String gcMarks = String.new();
         Node cnode = node;
@@ -1459,12 +1458,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
   baseSpropDec(String typeName, String anyName) {
      return("public static " + typeName + " " + anyName);
   }
-  
-    onceDec(String typeName, String anyName) {
-        return("");
-    }
-  
-  
+
   overrideSpropDec(String typeName, String anyName) {
     return("");
   }
@@ -1953,7 +1947,6 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         throw(VisitError.new("isConstruct but not isTyped", node));
       }
       
-      Bool onceDeced = false;
       String cast = "";
       String afterCast = "";
       
@@ -2051,14 +2044,6 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                 
                 if (node.held.isLiteral) {
                     if (newcc.np == boolNp) {
-                        if (onceDeced) {
-                          String odinfo = String.new();
-                          for (any n in node.container.contained.first.held.allCalls) {
-                            odinfo += n.held.name += " ";
-                          }
-                          throw(System:Exception.new("oh noes once deced " + 
-                          odinfo));
-                        }
                         if (node.held.literalValue == "true") {
                             target = trueValue;
                             callTarget = trueValue + invp;
@@ -2067,15 +2052,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                             callTarget = falseValue + invp;
                         }
                     }
-                    if (onceDeced) {
-                      if (emitting("sw")) {
-                        onceDecs += odec += " = " += cast += target += afterCast += ";" += nl;
-                      } else {
-                        onceDecs += odec += callAssign += cast += target += afterCast += ";" += nl;
-                      }
-                    } else {
-                        methodBody += callAssign += cast += target += afterCast += ";" += nl;
-                    }
+                    methodBody += callAssign += cast += target += afterCast += ";" += nl;
                 } else {
                     Build:ClassSyn asyn = build.getSynNp(newcc.np);
                     if (asyn.hasDefault) {

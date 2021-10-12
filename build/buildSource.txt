@@ -26,5 +26,4 @@ source/build/JVEmitter.be
 source/build/CSEmitter.be
 source/build/CCEmitter.be
 source/build/JSEmitter.be
-#source/build/SWEmitter.be
 source/build/EmitCommon.be
