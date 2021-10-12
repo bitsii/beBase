@@ -1502,18 +1502,6 @@ final class CallCursor {
       
    }
    
-    hasOnceAssignGet() Bool {
-        if (def(asnCall)) {
-            if (asnCall.held.isMany) {
-                return(false);
-            }
-            if (asnCall.held.isOnce) {
-                return(true);
-            }
-        }
-        return(false);
-    }
-   
    //In cases where there are changes to the assigned to value which depend on it's previous value, 
    //(this is only true for some assemblies, incDec and modify, for example) and
    //in that case embed assign is set back to false, but the type check has already been set to the post assign, so their

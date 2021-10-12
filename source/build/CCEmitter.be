@@ -228,10 +228,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       ccMethods += "}" += nl;
   }
    
-   lintConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
-      if (isOnce) {
-        return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + ")");
-      }
+   lintConstruct(ClassConfig newcc, Node node) String {
       if (build.emitChecks.has("ccSgc")) {
         String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
       } else {
@@ -240,10 +237,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       return(newCall);
    }
    
-   lfloatConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
-      if (isOnce) {
-        return("new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f)");
-      }
+   lfloatConstruct(ClassConfig newcc, Node node) String {
       if (build.emitChecks.has("ccSgc")) {
         String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
       } else {
@@ -252,10 +246,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       return(newCall);
    }
    
-   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {
-      if (isOnce) {
-        return("new " + newcc.relEmitName(build.libName) + "(" + belsName + ", " + lisz + ")");
-      }
+   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz) String {
       //return("new " + newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
       String litArgs = "" + lisz + ", " + belsName;
       if (build.emitChecks.has("ccSgc")) {

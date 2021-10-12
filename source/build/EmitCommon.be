@@ -1953,25 +1953,14 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         throw(VisitError.new("isConstruct but not isTyped", node));
       }
       
-      Bool isOnce = false;
       Bool onceDeced = false;
       String cast = "";
       String afterCast = "";
       
       //Prepare Assignment
       if ((node.container.typename == ntypes.CALL) && (node.container.held.orgName == "assign")) {
-        if (isOnceAssign(node.container) && ((isConstruct && newcc.np == boolNp)!)) {
-            isOnce = true;
-            String oany = onceVarDec(onceCount.toString());
-            onceCount = onceCount++;
-            
-            if (node.container.contained.first.held.isTyped!) {
-               String odec = onceDec(objectCc.relEmitName(build.libName), oany);
-            } else {
-               odec = onceDec(getClassConfig(node.container.contained.first.held.namepath).relEmitName(build.libName), oany);
-            }
-            
-        }
+        String oany;
+        String odec;
         //node.container.held.checkTypes
         if (node.container.held.checkTypes) {
             //("assign casting").print();
@@ -1985,43 +1974,15 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         callAssign = "";
       }
       
-      if (isOnce) {
-        //no cast for the post assign, the oany is always typed based on the type assigned to, so the case when assigning to oany 
-        //is all that's needed and the oany is always the same type as the assign to target
-        String postOnceCallAssign = nameForVar(node.container.contained.first.held) + " = " + oany + ";" + nl;
-        if (def(castTo) && (isConstruct && node.held.isLiteral)!) {
-           cast = formCast(getClassConfig(castTo), castType); //do type check
-           afterCast = afterCast();
-        } else {
-           cast = "";
-           afterCast = "";
-        }
-        callAssign = oany + " = ";
-      }
-      
-      //also did include  && odec.isEmpty!
-      if ((isTyped || mUseDyn!) && isConstruct && node.held.isLiteral && isOnce) {
-       onceDeced = true;
-      } elseIf (isOnce) {
-        //add flag for warning option later on
-        //("!!!Found once not deced for node " + node).print();
-        if(emitting("jv")) {
-          methodBody += "synchronized (" += classConf.emitName += ".class) {" += nl;//}
-        } elseIf(emitting("cs")) {
-          methodBody += "lock (typeof(" += classConf.emitName += ")) {" += nl;//}
-        }
-        methodBody += "if (" + oany + " == " + nullValue + ") {" += nl; //}
-      }
-      
       //FASTER if undef or def is inside an if skip the assign and just put it into the if
       //FASTER no-call get and set where possible (typed, lib/final, closelib)
       if (isTyped || mUseDyn!) {
           if (isConstruct) {
                 if (node.held.isLiteral) {
                     if (newcc.np == intNp) {
-                        newCall = lintConstruct(newcc, node, isOnce);
+                        newCall = lintConstruct(newcc, node);
                     } elseIf (newcc.np == floatNp) {
-                        newCall = lfloatConstruct(newcc, node, isOnce);
+                        newCall = lfloatConstruct(newcc, node);
                     } elseIf (newcc.np == stringNp) {
                     
                       String liorg = node.held.literalValue;
@@ -2061,7 +2022,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                           
                         onceDecs += sdec;
                         }
-                        newCall = lstringConstruct(newcc, node, belsName, lisz, isOnce);
+                        newCall = lstringConstruct(newcc, node, belsName, lisz);
                     } elseIf (newcc.np == boolNp) {
                         if (node.held.literalValue == "true") {
                             newCall = trueValue;
@@ -2211,27 +2172,6 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           methodBody += callAssign += cast += callTarget += "bemd_" += dm += "(" += getCallId(node.held.name).toString() += fc += callArgs += callArgSpill += ")" += afterCast += ";" += nl;
         }
       }
-      
-      if (isOnce) {
-        if (onceDeced!) {
-            //{
-            methodBody += "}" += nl; //close to check for oany null
-            if(emitting("jv") || emitting("cs")) {
-              //{
-              methodBody += "}" += nl; //close the synchronized or lock on class
-            }
-        }
-        methodBody += postOnceCallAssign;
-        if (onceDeced!) {
-            if (odec.isEmpty!) {
-              if (emitting("sw")) {
-                onceDecs += odec += ";" += nl;
-              } else {
-                onceDecs += odec += oany += ";" += nl;
-              }
-            }
-        }
-      }
    
    }
    
@@ -2262,18 +2202,15 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     return("new ");
    }
    
-   lintConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
+   lintConstruct(ClassConfig newcc, Node node) String {
       return(self.newDec + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + ")");
    }
    
-   lfloatConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
+   lfloatConstruct(ClassConfig newcc, Node node) String {
       return(self.newDec + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f)");
    }
    
-   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {
-      if (isOnce) {
-        return(self.newDec + newcc.relEmitName(build.libName) + "(" + belsName + ", " + lisz + ")");
-      }
+   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz) String {
       return(self.newDec + newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
    }
    
@@ -2290,16 +2227,6 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         //sdec += "0x00};" += nl;
         //{
         sdec += "};" += nl;
-    }
-   
-   isOnceAssign(Node asnCall) Bool {
-        if (asnCall.held.isMany) {
-            return(false);
-        }
-        if (asnCall.held.isOnce) {
-            return(true);
-        }
-        return(false);
     }
    
    acceptEmit(Node node) {

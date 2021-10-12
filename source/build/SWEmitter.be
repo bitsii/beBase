@@ -270,10 +270,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
      return("static var " + anyName + ":" + typeName + "? ");
   }
   
-  lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {
-      if (isOnce) {
-        return(newcc.relEmitName(build.libName) + "(" + belsName + ", " + lisz + ")");
-      }
+  lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz) String {
       return(newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
    }
   

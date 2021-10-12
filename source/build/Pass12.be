@@ -293,11 +293,6 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
                c0.held.numAssigns++=;
             }
             any c1 = node.contained.second;
-            if (def(c1) && c1.typename == ntypes.CALL) {
-               //if (c1.held.isLiteral) {
-               //   node.held.isOnce = true;  //no longer always, since now mutable - node.isLiteralOnce used instead
-               //}
-            }
          }
       } elseIf (node.typename == ntypes.BRACES) {
          any bn = Node.new(build);

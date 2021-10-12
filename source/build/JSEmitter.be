@@ -254,18 +254,15 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         return(extstr);
     }
 
-    lintConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
+    lintConstruct(ClassConfig newcc, Node node) String {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_int(" + node.held.literalValue + ")");
    }
 
-   lfloatConstruct(ClassConfig newcc, Node node, Bool isOnce) String {
+   lfloatConstruct(ClassConfig newcc, Node node) String {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_float(" + node.held.literalValue + ")");
    }
 
-   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, Bool isOnce) String {
-      if (isOnce) {
-        return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len(" + classConf.emitName + ".prototype.becs_insts." + belsName + ", " + lisz + ")");
-      }
+   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz) String {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len_copy(" + classConf.emitName + ".prototype.becs_insts." + belsName + ", " + lisz + ")");
    }
 

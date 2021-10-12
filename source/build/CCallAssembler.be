@@ -128,27 +128,6 @@ local class CCallAssembler {
    }
    
    processCall(CallCursor ca) String {
-      if (ca.hasOnceAssign) {
-         String nl = ca.emvisit.build.nl;
-         Build:Visit:CEmit emvisit = ca.emvisit;
-         Int onceEvalCount = emvisit.inClass.held.onceEvalCount;
-         emvisit.inClass.held.onceEvalCount = emvisit.inClass.held.onceEvalCount++;
-         if (emvisit.mtdDeclared.has("twtc_onceEvalVars")!) {
-            emvisit.mtdDeclared.put("twtc_onceEvalVars", true);
-            
-            emvisit.mtdDeclares += "void** twtc_onceEvalVars;" += nl;
-            emvisit.postPrep += "twtc_onceEvalVars = (void**) berv_sts->onceEvalVars[" + emvisit.classInfo.cldefName + "->classId];" += nl;
-            
-            emvisit.mtdDeclares += "BEINT* twtc_onceEvalFlags;" += nl;
-            emvisit.postPrep += "twtc_onceEvalFlags = berv_sts->onceEvalFlags[" + emvisit.classInfo.cldefName + "->classId];" += nl;
-         }
-         ca.preOnceEval += ca.assignToV += "twtc_onceEvalVars[" += onceEvalCount.toString() += "];" += nl;
-         ca.preOnceEval += "if (" += ca.embedTarg += " == NULL && twtc_onceEvalFlags[" += onceEvalCount.toString() += "] == 0) {" += nl;
-         ca.postOnceEval += "twtc_onceEvalVars[" += onceEvalCount.toString() += "] = " += emvisit.formRTarg(ca.asnR) += ";" += nl;
-         ca.postOnceEval += "twtc_onceEvalFlags[" += onceEvalCount.toString() += "] = 1;" += nl;
-         ca.postOnceEval += "BERF_Add_Once(berv_sts, " += ca.embedTarg += ");" += nl; 
-         ca.postOnceEval += "}" += nl;
-      }
       if (ca.node.held.orgName == "assign") {
          return(processAssign(ca));
       }

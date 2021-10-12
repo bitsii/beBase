@@ -303,8 +303,6 @@ final class Build:Call {
          Bool wasAccessor = false;
          Bool wasOper = false;
          Bool isLiteral = false;
-         Bool isOnce = false; //explicit isonce (=@)
-         Bool isMany = false; //explicit ismany (=#)
          Bool checkTypes = true;
          String checkTypesType = "checked";//checked or unchecked cast
          Bool superCall = false; //set late, in emitcommon
