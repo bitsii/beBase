@@ -297,13 +297,6 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
                //if (c1.held.isLiteral) {
                //   node.held.isOnce = true;  //no longer always, since now mutable - node.isLiteralOnce used instead
                //}
-               //for explicit ""@ and ""#
-               if (c1.held.name == "once_0") {
-                  node.held.isOnce = true;
-               }
-               if (c1.held.name == "many_0") {
-                  node.held.isMany = true;
-               }
             }
          }
       } elseIf (node.typename == ntypes.BRACES) {

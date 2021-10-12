@@ -89,9 +89,9 @@ use final class Build:JVEmitter(Build:EmitCommon) {
             bc = bc.substring(1);
             sdec += "-";
         }
-        sdec += "0x"@;
+        sdec += "0x";
         sdec += bc;
-        //sdec += ","@;
+        //sdec += ",";
     }
       
       
@@ -142,7 +142,7 @@ use final class Build:JVEmitter(Build:EmitCommon) {
     }
     
     extend(String parent) String {
-        return(" extends "@ + parent);
+        return(" extends " + parent);
     }
 
 }

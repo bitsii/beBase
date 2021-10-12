@@ -107,7 +107,7 @@ class HasProps {
    }
 
    serializationIteratorGet() {
-      List names =@ self.serializationNames;
+      List names = self.serializationNames;
       return(System:NamedPropertiesIterator.new(self, names));
    }
 
@@ -136,7 +136,7 @@ class SerProps {
    }
 
    serializationIteratorGet() {
-      List names =@ self.serializationNames;
+      List names = self.serializationNames;
       return(System:NamedPropertiesIterator.new(self, names));
    }
 

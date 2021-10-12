@@ -46,9 +46,6 @@ c++ unsigned char (like cs) (vector of)
 
 <<type sizes>>
 
-be clear that =@ and @ are hints/suggestions not definite, default is tho
-  efficiency hint / may reuse
-
 git based packaging (based on libs)
 
 TS.ne (notEmpty)

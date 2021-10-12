@@ -270,7 +270,7 @@ final class String {
    }
    
    new() self {
-      new(0@);
+      new(0);
    }
    
    capacitySet(Int ncap) self {
@@ -320,9 +320,9 @@ final class String {
    }
    
    hexNew(String val) self {
-     new(1@);
-     size.setValue(1@);
-     setHex(0@, val);
+     new(1);
+     size.setValue(1);
+     setHex(0, val);
    }
    
    getHex(Int pos) String {
@@ -380,15 +380,15 @@ final class String {
    
    clear() this {
       if (size > 0) {
-        setIntUnchecked(0@, 0@);
-        size.setValue(0@);
+        setIntUnchecked(0, 0);
+        size.setValue(0);
       }
    }
    
    codeNew(codei) self {
         new(1);
-        size.setValue(1@);
-        setCodeUnchecked(0@, codei);
+        size.setValue(1);
+        setCodeUnchecked(0, codei);
    }
    
    chomp() String {
@@ -848,7 +848,7 @@ BEINT bevl_val;
                 if (end2 > size) {
                     return(null);//doesn't fit
                 }
-                currentstr2.setValue(1@);
+                currentstr2.setValue(1);
                 while (current2 < end2) {
                     self.getInt(current2, myval);
                     str.getInt(currentstr2, strval);
@@ -1409,7 +1409,7 @@ local class Text:ByteIterator {
             buf.capacitySet(1);
          }
          if (buf.size != 1) {
-            buf.size.setValue(1@);
+            buf.size.setValue(1);
          }
          buf.setIntUnchecked(0, str.getInt(pos, vcopy));
          ifEmit(c) {

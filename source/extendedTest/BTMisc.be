@@ -179,7 +179,7 @@ static const unsigned char s[] = {0x41,0x42,0x43, 0};
    }
    
    testOnceAssignInner(String expected) {
-      InheritFrom ih =@ InheritFrom.new();
+      InheritFrom ih = InheritFrom.new();
       assertEqual(ih.hi, expected);
       ih.hi = "yo";
    }

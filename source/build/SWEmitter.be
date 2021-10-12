@@ -281,9 +281,9 @@ use final class Build:SWEmitter(Build:EmitCommon) {
         
         lival.getCode(lipos, bcode);
         String bc = bcode.toHexString(hs);
-        sdec += "0x"@;
+        sdec += "0x";
         sdec += bc;
-        //sdec += ","@;
+        //sdec += ",";
     }
   
   mainStartGet() String {
@@ -295,7 +295,7 @@ use final class Build:SWEmitter(Build:EmitCommon) {
    }
     
     extend(String parent) String {
-        return(" : "@ + parent);
+        return(" : " + parent);
     }
 
 }

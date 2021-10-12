@@ -209,7 +209,7 @@ struct BERS_Stacks {
    BEINT forwardNumargs;
    char* forwardName;
    void** onceInstances; /*class instances*/
-   void** onceEvalVars; /*once variables, assigned with =@ or literals (String, Int)*/
+   void** onceEvalVars; /*once variables, assigned with = or literals (String, Int)*/
    BEINT** onceEvalFlags; /*flag to foce once assign, only matters in null return cases*/
 #ifdef BED_GCSTATS
    size_t collects;

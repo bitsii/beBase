@@ -186,13 +186,6 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          node.nextPeer.delayDelete();
          return(toRet);
        }
-       if ((typename == ntypes.ASSIGN) && (def(nextPeer)) && (nextPeerTypename == ntypes.ONCE || nextPeerTypename == ntypes.MANY)) {
-         //concatenates the text of node.held into =@ (or =#), which is later used to see that it was a "once" (or a many :-)
-         node.held = node.held + node.nextPeer.held;
-         toRet = node.nextPeer.nextDescend;
-         node.nextPeer.delayDelete();
-         return(toRet);
-       }
        if ((typename == ntypes.NOT) && (def(nextPeer)) && (nextPeerTypename == ntypes.ASSIGN)) {
          node.typename = ntypes.NOT_EQUALS;
          node.held = node.held + node.nextPeer.held;

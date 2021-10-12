@@ -118,7 +118,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         lival.getCode(lipos, bcode);
         String bc = bcode.toString();
         sdec += bc;
-        //sdec += ","@;
+        //sdec += ",";
     }
 
     lstringEnd(String sdec) {

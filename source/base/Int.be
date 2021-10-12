@@ -84,11 +84,11 @@ final class Int {
    }
    
    setStringValueDec(String str) self {
-      setStringValue(str, 10@, 58@, 65@, 97@);
+      setStringValue(str, 10, 58, 65, 97);
    }
    
    setStringValueHex(String str) self {
-      setStringValue(str, 16@, 58@, 71@, 103@);
+      setStringValue(str, 16, 58, 71, 103);
    }
    
    setStringValue(String str, Int radix) self {
@@ -192,7 +192,7 @@ bevl_float = (BEFLOAT*) (bevl_fi + bercps);
    }
    
    toString() Text:String {
-       return(toString(String.new(1), 1@, 10@, null));
+       return(toString(String.new(1), 1, 10, null));
    }
    
    toHexString() Text:String {
@@ -200,15 +200,15 @@ bevl_float = (BEFLOAT*) (bevl_fi + bercps);
    }
    
    toHexString(String res) Text:String {
-       return(toString(res, 2@, 16@));
+       return(toString(res, 2, 16));
    }
    
    toString(Int zeroPad, Int radix) Text:String {
-        return(toString(String.new(zeroPad), zeroPad, radix, 55@));
+        return(toString(String.new(zeroPad), zeroPad, radix, 55));
    }
    
    toString(String res, Int zeroPad, Int radix) Text:String {
-        return(toString(res, zeroPad, radix, 55@));
+        return(toString(res, zeroPad, radix, 55));
    }
    
    toString(String res, Int zeroPad, Int radix, Int alphaStart) Text:String {
@@ -230,7 +230,7 @@ bevl_float = (BEFLOAT*) (bevl_fi + bercps);
         res.setIntUnchecked(res.size, val);
         res.size = res.size + 1;//TODO setValue
         ifEmit(c) {
-            res.setIntUnchecked(res.size, 0@);
+            res.setIntUnchecked(res.size, 0);
         }
         ts /= radix;
       }
@@ -239,10 +239,10 @@ bevl_float = (BEFLOAT*) (bevl_fi + bercps);
         if (res.capacity <= res.size) {
             res.capacity = res.capacity + 4;
         }
-        res.setIntUnchecked(res.size, 48@);
+        res.setIntUnchecked(res.size, 48);
         res.size = res.size + 1;//TODO setValue
         ifEmit(c) {
-            res.setIntUnchecked(res.size, 0@);
+            res.setIntUnchecked(res.size, 0);
         }
       }
       if (self < 0) {

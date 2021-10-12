@@ -47,8 +47,6 @@ final class Build:NodeTypes {
          Int ASSIGN = 35;
          Int EQUALS = 36;
          Int NOT = 37;
-         Int ONCE = 81;
-         Int MANY = 82;
          Int NOT_EQUALS = 38;
          Int OR = 39;
          Int AND = 40;

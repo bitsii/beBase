@@ -1379,7 +1379,7 @@ buildClassInfo(String bemBase, String belsBase, String lival) self {
       String hs = String.new(2);
       while (lipos < lisz) {
         if (lipos > 0) {
-            sdec += ","@;
+            sdec += ",";
         }
         lstringByte(sdec, lival, lipos, bcode, hs);
         lipos++=;
@@ -2052,7 +2052,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                           String hs = String.new(2);
                           while (lipos < lisz) {
                             if (lipos > 0) {
-                                sdec += ","@;
+                                sdec += ",";
                             }
                             lstringByte(sdec, lival, lipos, bcode, hs);
                             lipos++=;
@@ -2296,7 +2296,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         if (asnCall.held.isMany) {
             return(false);
         }
-        if (asnCall.held.isOnce || asnCall.isLiteralOnce) {
+        if (asnCall.held.isOnce) {
             return(true);
         }
         return(false);

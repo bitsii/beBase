@@ -191,27 +191,27 @@ class Log {
   }
   
   debug(String msg) {
-    Int lev =@ 400;
+    Int lev = 400;
     log(lev, msg);
   }
   
   info(String msg) {
-    Int lev =@ 300;
+    Int lev = 300;
     log(lev, msg);
   }
   
   warn(String msg) {
-    Int lev =@ 200;
+    Int lev = 200;
     log(lev, msg);
   }
   
   error(String msg) {
-    Int lev =@ 100;
+    Int lev = 100;
     log(lev, msg);
   }
   
   fatal(String msg) {
-    Int lev =@ 0;
+    Int lev = 0;
     log(lev, msg);
   }
   

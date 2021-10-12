@@ -132,14 +132,6 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
       }
       //TODO change x_y to xY without custom logic
       gc.wasBound = true;
-      if (op.typename == ntypes.ASSIGN && op.held == "=@") {
-         //("FOUND once assign !!!").print();
-         gc.isOnce = true;
-      }
-      if (op.typename == ntypes.ASSIGN && op.held == "=#") {
-         //("FOUND many assign !!!").print();
-         gc.isMany = true;
-      }
       if (op.typename == ntypes.GET_METHOD) {
         build.buildLiteral(nx, "Text:String");
       }

@@ -564,42 +564,9 @@ class Test:BaseTest:EC(BaseTest) {
         
         String res;
         
-        "nxt".print();
-        res = changeLetO(0, 67).print();
-        assertEqual(res, "Coo");
         
-        "test!".print();
-        "nxt".print();
-        res = changeLetO(2, 67).print();
-        assertEqual(res, "CoC");
-        "test!".print();
         
-        "test!!".print();
-        "nxt".print();
-        res = changeLetNO(0, 67).print();
-        assertEqual(res, "Coo");
-        "test!!".print();
         
-        "nxt".print();
-        res = changeLetNO(2, 67).print();
-        assertEqual(res, "foC");
-        
-    }
-    
-    changeLetO(Int pos, Int to) String {
-        
-        String foo = "foo"@;
-        
-        foo.setInt(pos, to);
-        return(foo);
-    }
-    
-    changeLetNO(Int pos, Int to) String {
-        
-        String foo = "foo";
-        
-        foo.setInt(pos, to);
-        return(foo);
     }
     
     intMinMax() {
@@ -734,7 +701,7 @@ class Test:BaseTest:EC(BaseTest) {
         
         i = 18;
        Int j = i.shiftLeft(2);
-       assertEqual(j, 72@);
+       assertEqual(j, 72);
        assertEqual(i.shiftLeftValue(2), j);
        
        assertEqual(23.shiftLeft(1), 46);
@@ -755,8 +722,6 @@ class Test:BaseTest:Current(BaseTest) {
         //BaseTest:Class.new().main();
         //BaseTest:Calls.new().main();
         //BaseTest:Invoke.new().main();
-        
-        //BaseTest:OnceMany.new().main();
         
         Test:BaseTest:MutInt.new().main();
         
@@ -1009,71 +974,6 @@ class Test:BaseTest:MutInt(BaseTest) {
     
 }
 
-class Test:BaseTest:OnceMany(BaseTest) {
-
-    main() {
-    
-        fields {
-            Object lastOne;
-            Object lastMany;
-            String lastHi;
-            String lastForceOne;
-            String lastForceMany;
-            Int lastFoi;
-        }
-        
-        testom();
-        testom();
-      
-    }
-    
-    testom() {
-        Object one =@ Object.new();
-        Object many =# Object.new();
-        
-        if (def(lastOne)) {
-            assertEqual(lastOne, one);
-        }
-        
-        if (def(lastMany)) {
-            assertNotEqual(lastMany, many);
-        }
-        
-        lastOne = one;
-        lastMany = many;
-        
-        String hi = "hi";
-        if (def(lastHi)) {
-            assertFalse(hi.sameObject(lastHi));
-        }
-        lastHi = hi;
-        
-        String forceOne = "fo"@;
-        if (def(lastForceOne)) {
-            assertTrue(forceOne.sameObject(lastForceOne));
-        }
-        lastForceOne = forceOne;
-        
-        String forceMany = "fm"#;
-        if (def(lastForceMany)) {
-            assertFalse(forceMany.sameObject(lastForceMany));
-        }
-        lastForceMany = forceMany;
-        
-        Int foi = 1@;
-        if (def(lastFoi)) {
-            assertTrue(foi.sameObject(lastFoi));
-        }
-        foi++=;
-        lastFoi = foi;
-        
-        
-        ("TestOm done").print();
-        
-    }
-
-}
-
 class Test:BaseTest:RunCount {
 
   default() self {
@@ -1098,7 +998,6 @@ class Test:BaseTest:All(BaseTest) {
          Test:BaseTest:EC.new().main();
          Test:BaseTest:MutString.new().main();
          Test:BaseTest:MutInt.new().main();
-         Test:BaseTest:OnceMany.new().main();
          Test:BaseTest:Null.new().main();
          Test:BaseTest:Int.new().main();
          Test:BaseTest:ParseCorners.new().main();

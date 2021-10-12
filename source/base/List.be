@@ -201,7 +201,7 @@ final class List {
    }
    
    new() self {
-      self.new(0@, 16@);
+      self.new(0, 16);
    }
    
    new(Int leni) self {
@@ -242,7 +242,7 @@ if (def(length)) {
          //any anyray;
          Int length = leni.copy();
          Int capacity = capi.copy();
-         Int multiplier =@ 2;
+         Int multiplier = 2;
       }
    }
    

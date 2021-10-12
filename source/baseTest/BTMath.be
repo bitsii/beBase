@@ -30,7 +30,7 @@ class Test:BaseTest:Int(BaseTest) {
        Int i = Int.hexNew("12");
        Int j = i.shiftLeft(2);
        j.toHexString().print();
-       assertEqual(j, 72@);
+       assertEqual(j, 72);
        assertEqual(i.shiftLeftValue(2), j);
        
        assertEqual(23.shiftLeft(1), 46);

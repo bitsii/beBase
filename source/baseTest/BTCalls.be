@@ -28,7 +28,6 @@ local class Test:BaseTest:Calls(BaseTest) {
         throw(e);
       }
       
-      doOnceEval();
       doIntish();
       Bool caught = false;
       try {
@@ -92,19 +91,6 @@ local class Test:BaseTest:Calls(BaseTest) {
          ("fcall.arg " + i).print();
       }
       return(Container:Pair.new(name, args));
-   }
-   
-   doOnceEval() {
-      ("Doing OnceEval").print();
-      
-      Int lastHash;
-      for (Int i = 0; i < 2;i = i++) {
-         Stack one =@ Stack.new();
-         one.hash.print();
-         if (undef(lastHash)) { lastHash = one.hash; }
-      }
-      assertEquals(lastHash, one.hash);
-      
    }
    
 }

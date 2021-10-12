@@ -1119,9 +1119,9 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
                   String hs = String.new(2);
                   while (lipos < lisz) {
                     lival.getCode(lipos, bcode);
-                    mtdDeclares += "0x"@;
+                    mtdDeclares += "0x";
                     mtdDeclares += bcode.toHexString(hs);
-                    mtdDeclares += ","@;
+                    mtdDeclares += ",";
                     lipos++=;
                   }
                   mtdDeclares += "0};\n";
@@ -1507,7 +1507,7 @@ final class CallCursor {
             if (asnCall.held.isMany) {
                 return(false);
             }
-            if (asnCall.held.isOnce || asnCall.isLiteralOnce) {
+            if (asnCall.held.isOnce) {
                 return(true);
             }
         }

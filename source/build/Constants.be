@@ -37,8 +37,6 @@ final class Build:Constants {
       unwindOk.put("parens", true);
       
       oper.put(ntypes.NOT, 0);
-      oper.put(ntypes.ONCE, 0);
-      oper.put(ntypes.MANY, 0);
       oper.put(ntypes.INCREMENT, 0);
       oper.put(ntypes.DECREMENT, 0);
       oper.put(ntypes.INCREMENT_ASSIGN, 0);
@@ -70,8 +68,6 @@ final class Build:Constants {
       oper.put(ntypes.ASSIGN, 9);
       
       operNames.put(ntypes.NOT, "NOT");
-      operNames.put(ntypes.ONCE, "ONCE");
-      operNames.put(ntypes.MANY, "MANY");
       operNames.put(ntypes.INCREMENT, "INCREMENT");
       operNames.put(ntypes.DECREMENT, "DECREMENT");
       operNames.put(ntypes.MULTIPLY, "MULTIPLY");
@@ -192,14 +188,6 @@ final class Build:Constants {
       ntok = "-";
       twtok.addToken(ntok);
       matchMap.put(ntok, ntypes.SUBTRACT);
-      
-      ntok = "@";
-      twtok.addToken(ntok);
-      matchMap.put(ntok, ntypes.ONCE);
-      
-      ntok = "#";
-      twtok.addToken(ntok);
-      matchMap.put(ntok, ntypes.MANY);
       
       ntok = "~";
       twtok.addToken(ntok);

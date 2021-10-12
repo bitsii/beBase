@@ -108,9 +108,9 @@ use final class Build:CSEmitter(Build:EmitCommon) {
         
         lival.getCode(lipos, bcode);
         String bc = bcode.toHexString(hs);
-        sdec += "0x"@;
+        sdec += "0x";
         sdec += bc;
-        //sdec += ","@;
+        //sdec += ",";
     }
   
   
@@ -147,7 +147,7 @@ use final class Build:CSEmitter(Build:EmitCommon) {
     }
     
     extend(String parent) String {
-        return(" : "@ + parent);
+        return(" : " + parent);
     }
     
     covariantReturnsGet() {

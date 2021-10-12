@@ -237,7 +237,7 @@ class IO:Reader {
    }
    
    readIntoBuffer(String readBuf) Int {
-		return(readIntoBuffer(readBuf, 0@));
+		return(readIntoBuffer(readBuf, 0));
    }
    
    readIntoBuffer(String readBuf, Int at) Int {
@@ -288,7 +288,7 @@ class IO:Reader {
    }
    
    copyData(IO:Writer outw, String rwbufE, Int rsz) {
-      Int at =@ 0;
+      Int at = 0;
       while (readIntoBuffer(rwbufE, at, rsz) > 0) {
         outw.write(rwbufE);
       }

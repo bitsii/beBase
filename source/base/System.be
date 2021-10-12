@@ -257,13 +257,13 @@ final class Random {
       }
       str.size = size.copy();
       ifEmit(c) {
-        str.setIntUnchecked(size, 0@);
+        str.setIntUnchecked(size, 0);
       }
       //TODO for jv, cs could just call nextBytes
       Int value = Int.new();
       for (Int i = 0;i < size;i++=) {
           //TODO lc and ints too
-          str.setIntUnchecked(i, getIntMax(value, 26@).addValue(65@));
+          str.setIntUnchecked(i, getIntMax(value, 26).addValue(65));
       }
       return(str);
    }

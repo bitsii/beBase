@@ -396,13 +396,13 @@ use class Json:Marshaller {
         }
       } elseIf (rcap > 3) {
       if (rcap == 7) {
-        txt += "\\u" += value.toString(String.new(4@), 4@, 16@, 87@);
+        txt += "\\u" += value.toString(String.new(4), 4, 16, 87);
       } elseIf (rcap == 13) {
         value -= Int.hexNew("10000");
         Int first = Int.hexNew("D800").or(value.and(Int.hexNew("ffc00")).shiftRight(10));
         Int last = Int.hexNew("DC00").or(value.and(Int.hexNew("003ff")));
-        txt += "\\u" += first.toString(String.new(4@), 4@, 16@, 87@);
-        txt += "\\u" += last.toString(String.new(4@), 4@, 16@, 87@);
+        txt += "\\u" += first.toString(String.new(4), 4, 16, 87);
+        txt += "\\u" += last.toString(String.new(4), 4, 16, 87);
       }
       }
    }
