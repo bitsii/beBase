@@ -392,7 +392,7 @@ final class String {
    }
    
    chomp() String {
-      String nl = System:CurrentPlatform.newline;
+      String nl = "\n";
       if (ends(nl)) {
          return(substring(0, size - nl.size));
       }
@@ -1129,11 +1129,7 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
    }
     
     print() {
-      //IO:File:Writer output = IO:File:NamedWriters.new().output;
-      //String nl = System:CurrentPlatform.newline;
-      //output.writeIfPossible(self);
-      //output.writeIfPossible(nl);
-      
+    
      emit(cc) {
      """
 #ifdef BEDCC_ISIOS
