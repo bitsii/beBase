@@ -60,7 +60,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
    lstringStart(String sdec, String belsName) {
 
-      sdec += classConf.emitName += ".prototype.becs_insts." += belsName += " = ["; //}
+      sdec += "["; //}
    }
    
    lstringStartCi(String sdec, String belsName) {
@@ -128,8 +128,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
     lstringEnd(String sdec) {
         //{
-        sdec += "];" += nl;
-        onceDecs += sdec;
+        sdec += "]" += nl;
     }
     
     lstringEndCi(String sdec) {
@@ -275,7 +274,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
    }
 
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
-      return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len_copy(" + classConf.emitName + ".prototype.becs_insts." + belsName + ", " + lisz + ")");
+      return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len_nocopy(" + sdec + ", " + lisz + ")");
    }
 
     classBegin(Build:ClassSyn csyn) String {

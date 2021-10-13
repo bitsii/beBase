@@ -237,6 +237,12 @@ final class String {
         this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         return this;
     }
+    be_$class/Text:String$.prototype.beml_set_bevi_bytes_len_nocopy = function(bevi_bytes, bevi_length) {
+        this.bevi_bytes = bevi_bytes;
+        this.bevp_size = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        return this;
+    }
     be_$class/Text:String$.prototype.bems_toJsString = function() {
         return this.bems_stringToJsString_1(this);
     }
