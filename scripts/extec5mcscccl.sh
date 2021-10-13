@@ -22,7 +22,7 @@ time clang++ -DBEDCC_SGC=1 -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++11
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-time ./targetEc/BEX_E_gn.exe
+time ./targetEc/BEX_E_cl.exe
 
 #sudo apt-get install valgrind kcachegrind graphviz
 #valgrind --tool=callgrind ./targetEc/BEX_E_gn.exe

@@ -17,7 +17,7 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #-O1, O2, O3 - most of the difference is O1
 
-time clang++ -O1 -DBEDCC_SGC=1 -o ./target5/BEX_E_cl.exe -ferror-limit=1 -std=c++11 ./target5/Base/target/cc/be/BEL_Base.cpp
+time clang++ -DBEDCC_SGC=1 -o ./target5/BEX_E_cl.exe -ferror-limit=1 -std=c++11 ./target5/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
