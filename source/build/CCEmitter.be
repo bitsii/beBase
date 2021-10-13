@@ -244,7 +244,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       return(newCall);
    }
    
-   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz) String {
+   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
       //return("new " + newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
       String litArgs = "" + lisz + ", " + belsName;
       if (build.emitChecks.has("ccSgc")) {
@@ -550,6 +550,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
     
    lstringStart(String sdec, String belsName) {
+      if (build.emitChecks.has("ccSgc")) {
+        sdec += "static vector<unsigned char> " += belsName += " = {"; //}
+      } elseIf (build.emitChecks.has("ccBgc")) {
+        sdec += "static vector<unsigned char, gc_allocator<unsigned char>> " += belsName += " = {"; //}
+      } 
+   }
+   
+   lstringStartCi(String sdec, String belsName) {
       if (build.emitChecks.has("ccSgc")) {
         sdec += "static vector<unsigned char> " += belsName += " = {"; //}
       } elseIf (build.emitChecks.has("ccBgc")) {

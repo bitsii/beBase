@@ -445,10 +445,12 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       bevl_xi = bemc_clfiles();
       """
       }
+      ifNotEmit(noSmap) {
       emit(js) {
       """
       bevl_xi = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clfile, this.becs_insts.becc_clfile.length);
       """
+      }
       }
       return(xi);
    }

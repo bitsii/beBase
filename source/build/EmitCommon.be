@@ -1358,7 +1358,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
 
 buildClassInfo() self {
     buildClassInfo("clname", classConf.emitName + "_clname", cnode.held.namepath.toString());
+    String ifp = inFilePathed;
+    unless (build.emitChecks.has("noSmap") && emitting("js")) {
     buildClassInfo("clfile", classConf.emitName + "_clfile", inFilePathed);
+    }
   }
  
 buildClassInfo(String bemBase, String belsBase, String lival) self {
@@ -1367,9 +1370,9 @@ buildClassInfo(String bemBase, String belsBase, String lival) self {
     
     String sdec = String.new();
     if(emitting("js")) {
-      lstringStart(sdec, "becc_" + bemBase);
+      lstringStartCi(sdec, "becc_" + bemBase);
     } else {
-      lstringStart(sdec, belsName);
+      lstringStartCi(sdec, belsName);
     }
       
       Int lisz = lival.size;
@@ -1383,9 +1386,7 @@ buildClassInfo(String bemBase, String belsBase, String lival) self {
         lstringByte(sdec, lival, lipos, bcode, hs);
         lipos++=;
       }
-      lstringEnd(sdec);
-      
-    onceDecs += sdec;
+      lstringEndCi(sdec);
     
     buildClassInfoMethod(bemBase, belsBase, lival.size);
 
@@ -2012,10 +2013,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                             lipos++=;
                           }
                           lstringEnd(sdec);
-                          
-                        onceDecs += sdec;
                         }
-                        newCall = lstringConstruct(newcc, node, belsName, lisz);
+                        newCall = lstringConstruct(newcc, node, belsName, lisz, sdec);
                     } elseIf (newcc.np == boolNp) {
                         if (node.held.literalValue == "true") {
                             newCall = trueValue;
@@ -2187,11 +2186,15 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       return(self.newDec + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f)");
    }
    
-   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz) String {
+   lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
       return(self.newDec + newcc.relEmitName(build.libName) + "(" + lisz + ", " + belsName + ")");
    }
    
    lstringStart(String sdec, String belsName) {
+      sdec += "private static byte[] " += belsName += " = {"; //}
+   }
+   
+   lstringStartCi(String sdec, String belsName) {
       sdec += "private static byte[] " += belsName += " = {"; //}
    }
    
@@ -2204,6 +2207,15 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         //sdec += "0x00};" += nl;
         //{
         sdec += "};" += nl;
+        onceDecs += sdec;
+    }
+    
+    lstringEndCi(String sdec) {
+        //{
+        //sdec += "0x00};" += nl;
+        //{
+        sdec += "};" += nl;
+        onceDecs += sdec;
     }
    
    acceptEmit(Node node) {
