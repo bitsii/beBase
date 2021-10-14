@@ -71,8 +71,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        
        classHeadBody.clear();
        
-       heow.write("virtual BEC_2_4_6_TextString* bemc_clnames();\n");
        unless (build.emitChecks.has("noSmap")) {
+        heow.write("virtual BEC_2_4_6_TextString* bemc_clnames();\n");
         heow.write("virtual BEC_2_4_6_TextString* bemc_clfiles();\n");
        }
        heow.write("virtual BEC_2_6_6_SystemObject* bemc_create();\n");

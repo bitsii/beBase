@@ -436,10 +436,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                methods += " = bems_smnlc();" += nl;
              }
             if (emitting("js")) {
-              if (build.emitChecks.has("noSmap")) {
-                methods += smpref += "bevs_smnlc";
-                methods += " = [ ];" += nl;
-              } else {
+              unless (build.emitChecks.has("noSmap")) {
                 methods += smpref += "bevs_smnlc";
                 methods += " = [" += nlcs += "];" += nl;
               }
@@ -468,10 +465,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                methods += " = bems_smnlec();" += nl;
              }
             if (emitting("js")) {
-              if (build.emitChecks.has("noSmap")) {
-                methods += smpref += "bevs_smnlec";
-                methods += " = [];" += nl;
-              } else {
+              unless (build.emitChecks.has("noSmap")) {
                 methods += smpref += "bevs_smnlec";
                 methods += " = [" += nlecs += "];" += nl;
               }
@@ -1351,10 +1345,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     }
 
 buildClassInfo() self {
-    buildClassInfo("clname", classConf.emitName + "_clname", cnode.held.namepath.toString());
-    String ifp = inFilePathed;
     unless (build.emitChecks.has("noSmap") && (emitting("js") || emitting("cc"))) {
-    buildClassInfo("clfile", classConf.emitName + "_clfile", inFilePathed);
+      buildClassInfo("clname", classConf.emitName + "_clname", cnode.held.namepath.toString());
+      buildClassInfo("clfile", classConf.emitName + "_clfile", inFilePathed);
     }
   }
  
