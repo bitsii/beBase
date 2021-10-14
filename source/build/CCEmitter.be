@@ -72,7 +72,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        classHeadBody.clear();
        
        heow.write("virtual BEC_2_4_6_TextString* bemc_clnames();\n");
-       heow.write("virtual BEC_2_4_6_TextString* bemc_clfiles();\n");
+       unless (build.emitChecks.has("noSmap")) {
+        heow.write("virtual BEC_2_4_6_TextString* bemc_clfiles();\n");
+       }
        heow.write("virtual BEC_2_6_6_SystemObject* bemc_create();\n");
        heow.write("static " + classConf.emitName + "* " + getHeaderInitialInst(classConf) + ";\n");
        heow.write("virtual void bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst);\n");
@@ -80,8 +82,10 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual void bemg_doMark();\n");
        heow.write("virtual size_t bemg_getSize();\n");
        heow.write("virtual BETS_Object* bemc_getType();\n");
-       heow.write("static vector<int32_t> bevs_smnlc;\n");
-       heow.write("static vector<int32_t> bevs_smnlec;\n");
+       unless (build.emitChecks.has("noSmap")) {
+        heow.write("static vector<int32_t> bevs_smnlc;\n");
+        heow.write("static vector<int32_t> bevs_smnlec;\n");
+       }
        heow.write("virtual ~" + classConf.emitName + "() = default;\n");
        
        deow.write("class " + classConf.emitName + ";\n");
