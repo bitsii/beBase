@@ -190,6 +190,23 @@ final class String {
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
     } //}
     
+    #ifdef BEDCC_BGC
+        BEC_2_4_6_TextString(int32_t bevi_length, initializer_list<unsigned char> a_bevi_bytes) { 
+    #endif
+    
+    #ifdef BEDCC_SGC
+        BEC_2_4_6_TextString(int32_t bevi_length, initializer_list<unsigned char> a_bevi_bytes) { 
+    #endif 
+        
+          BEC_2_6_6_SystemObject* bevsl_thiso = this;
+          BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
+          BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 1);
+        
+          bevi_bytes = a_bevi_bytes;
+          bevp_size = new BEC_2_4_3_MathInt(bevi_length);
+          bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
+        } //}
+    
     BEC_2_4_6_TextString(string bevi_string) { 
     
       BEC_2_6_6_SystemObject* bevsl_thiso = this;

@@ -128,7 +128,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
     lstringEnd(String sdec) {
         //{
-        sdec += "]" += nl;
+        sdec += "]";
     }
     
     lstringEndCi(String sdec) {
