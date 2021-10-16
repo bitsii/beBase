@@ -381,7 +381,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
           bet += q += mnsyn.name += q;
          }
          bet += " };\n";
-        bet += "bems_buildMethodNames(bevs_mtnames);\n";
+         //noRfl
+         bet += "bems_buildMethodNames(bevs_mtnames);\n";
         
         bet += "bevs_fieldNames = { ";
         Bool firstptsyn = true;

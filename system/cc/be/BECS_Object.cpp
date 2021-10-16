@@ -8,7 +8,9 @@ uint_fast16_t BECS_Runtime::bevg_currentGcMark = 0;
 atomic<uint_fast16_t> BECS_Runtime::bevg_gcState{0};
 atomic<uint_fast32_t> BECS_Runtime::bevg_sharedAllocsSinceGc{0};
 
+#ifdef BEDCC_PT
 std::map<std::thread::id, BECS_FrameStack*> BECS_Runtime::bevg_frameStacks;
+#endif
 
 BECS_FrameStack BECS_Runtime::bevg_oldInstsStack;
 
@@ -229,6 +231,9 @@ void BECS_Runtime::init() {
 void BECS_Runtime::doGc() {
 
 #ifdef BEDCC_SGC
+#ifdef BED_GCSTATS
+cout << "GCDEBUG starting gc " << endl;
+#endif
 
   ////cout << "GCDEBUG starting gc " << endl;
   ////cout << "GCDEBUG thread " << std::this_thread::get_id() << endl;
@@ -314,10 +319,15 @@ void BECS_Runtime::bemg_markAll() {
   
   //BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   //BECS_Runtime::bemg_markStack(bevs_myStack);
-  
+#ifdef BEDCC_PT  
   for(auto const &idStack : bevg_frameStacks) {
     bemg_markStack(idStack.second);
   }
+#endif
+#ifndef BEDCC_PT 
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bemg_markStack(bevs_myStack);
+#endif
   bemg_markStack(&bevg_oldInstsStack);
   //cout << "ending markAll" << endl;
 
@@ -356,9 +366,15 @@ void BECS_Runtime::bemg_sweep() {
 
   //BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   //BECS_Runtime::bemg_sweepStack(bevs_myStack);
+#ifdef BEDCC_PT  
   for(auto const &idStack : bevg_frameStacks) {
     bemg_sweepStack(idStack.second);
   }
+#endif
+#ifndef BEDCC_PT 
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bemg_sweepStack(bevs_myStack);
+#endif
   bemg_sweepStack(&bevg_oldInstsStack);
   
 #endif
@@ -394,9 +410,11 @@ void BECS_Runtime::bemg_sweepStack(BECS_FrameStack* bevs_myStack) {
 void BECS_Runtime::bemg_addMyFrameStack() {
 
 #ifdef BEDCC_SGC
+#ifdef BEDCC_PT 
   std::thread::id tid = std::this_thread::get_id();
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bevg_frameStacks[tid] = bevs_myStack;
+#endif
 #endif
 
 }
@@ -404,11 +422,13 @@ void BECS_Runtime::bemg_addMyFrameStack() {
 void BECS_Runtime::bemg_deleteMyFrameStack() {
 
 #ifdef BEDCC_SGC
+#ifdef BEDCC_PT  
   //cout << "GCDEBUG dmfs b " << bevg_frameStacks.size() << endl;
   std::thread::id tid = std::this_thread::get_id();
   auto it = bevg_frameStacks.find(tid);
   bevg_frameStacks.erase(it);
   //cout << "GCDEBUG dmfs e " << bevg_frameStacks.size() << endl;
+#endif
 #endif
 
 }
@@ -416,12 +436,14 @@ void BECS_Runtime::bemg_deleteMyFrameStack() {
 void BECS_Runtime::bemg_beginThread() {
 
 #ifdef BEDCC_SGC
+#ifdef BEDCC_PT 
   //cout << "GCDEBUG start begin thread" << endl;
   bevg_gcLock.lock();
   bemg_addMyFrameStack();
   bevg_gcLock.unlock();
   //cout << "GCDEBUG st do gc" << endl;
   bemg_checkDoGc();
+#endif
 #endif
 
 #ifdef BEDCC_BGC
@@ -435,7 +457,7 @@ GC_register_my_thread(&sb);
 void BECS_Runtime::bemg_endThread() {
 
 #ifdef BEDCC_SGC
-
+#ifdef BEDCC_PT
   //cout << "GCDEBUG start end thread" << endl;
   bevg_gcLock.lock();
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
@@ -455,7 +477,7 @@ void BECS_Runtime::bemg_endThread() {
   bevg_gcLock.unlock();
   //cout << "GCDEBUG et do gc" << endl;
   bemg_checkDoGc();
-
+#endif
 #endif
 
 #ifdef BEDCC_BGC
@@ -467,11 +489,13 @@ GC_unregister_my_thread();
 void BECS_Runtime::bemg_enterBlocking() {
 
 #ifdef BEDCC_SGC
+#ifdef BEDCC_PT
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bevg_gcLock.lock();
   bevs_myStack->bevg_stackGcState = 1;
   bevg_gcLock.unlock();
   bemg_checkDoGc();
+#endif
 #endif
 
 }
@@ -479,11 +503,13 @@ void BECS_Runtime::bemg_enterBlocking() {
 void BECS_Runtime::bemg_exitBlocking() {
 
 #ifdef BEDCC_SGC
+#ifdef BEDCC_PT
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bevg_gcLock.lock();
   bevs_myStack->bevg_stackGcState = 0;
   bevg_gcLock.unlock();
   bemg_checkDoGc();
+#endif
 #endif
 
 }
@@ -535,12 +561,14 @@ bool BECS_Runtime::bemg_readyForGc() {
   //cout << "GCDEBUG ready for gc " << endl;
   bool readyForGc = true;
 #ifdef BEDCC_SGC
+#ifdef BEDCC_PT
   for(auto const &idStack : bevg_frameStacks) {
     //cout << "GCDEBUG rgc sgc " << idStack.second->bevg_stackGcState << endl;
     if (idStack.second->bevg_stackGcState == 0) {
       readyForGc = false;
     }
   }
+#endif
 #endif
   return readyForGc;
 }
