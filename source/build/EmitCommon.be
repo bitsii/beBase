@@ -750,8 +750,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             }
         }
         
-        for (String callName in callNames) {
-            getNames += "putCallId(" += TS.quote += callName += TS.quote += ", " += getCallId(callName) += ");" += nl;
+        unless (build.emitChecks.has("noRfl")) {
+          for (String callName in callNames) {
+              getNames += "putCallId(" += TS.quote += callName += TS.quote += ", " += getCallId(callName) += ");" += nl;
+          }
         }
         
         String smap = String.new();

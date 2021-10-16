@@ -382,7 +382,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
          }
          bet += " };\n";
          //noRfl
-         bet += "bems_buildMethodNames(bevs_mtnames);\n";
+         unless (build.emitChecks.has("noRfl")) {
+           bet += "bems_buildMethodNames(bevs_mtnames);\n";
+         }
         
         bet += "bevs_fieldNames = { ";
         Bool firstptsyn = true;
