@@ -184,18 +184,18 @@ class BECS_Object {
       bool doGc = false;
       
       //sync count sometimes
-      if (bevs_myStack->bevs_allocsSinceGc % 8192 == 0) {
-        bevs_myStack->bevs_allocsSinceGc = BECS_Runtime::bevg_sharedAllocsSinceGc += 8192;
+      if (bevs_myStack->bevs_allocsSinceGc % BEDCC_GCSHASYNC == 0) {
+        bevs_myStack->bevs_allocsSinceGc = BECS_Runtime::bevg_sharedAllocsSinceGc += BEDCC_GCSHASYNC;
       }
       
       //allocsPerGc 0-4,294,967,295 :: 10000000 >>6000000<< OKish bld, 1000000 extec, diff is 1 0
-      if (bevs_myStack->bevs_allocsSinceGc > 1000000) {
+      if (bevs_myStack->bevs_allocsSinceGc > BEDCC_GCAPERGC) {
         BECS_Runtime::bevg_gcState.store(1, std::memory_order_release);
         doGc = true;
       }
       
       //sync do gc moretimes 2 4 8 16 32 64 128
-      if (bevs_myStack->bevs_allocsSinceGc % 16 == 0 && BECS_Runtime::bevg_gcState.load(std::memory_order_acquire) == 1) {
+      if (bevs_myStack->bevs_allocsSinceGc % BEDCC_GCSSCHECK == 0 && BECS_Runtime::bevg_gcState.load(std::memory_order_acquire) == 1) {
         doGc = true;
       }
       

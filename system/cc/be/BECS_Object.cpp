@@ -246,12 +246,12 @@ cout << "GCDEBUG starting gc " << endl;
   BECS_Runtime::bevg_countGcs++;
   //increment gcmark
   BECS_Runtime::bevg_currentGcMark++;
-  if (BECS_Runtime::bevg_currentGcMark > 60000) {
+  if (BECS_Runtime::bevg_currentGcMark > BEDCC_GCRWM) {
     BECS_Runtime::bevg_currentGcMark = 1;
   }
   //do all marking
   BECS_Runtime::bemg_markAll();
-  if (BECS_Runtime::bevg_currentGcMark % 4 == 0) {
+  if (BECS_Runtime::bevg_currentGcMark % BEDCC_GCMPERS == 0) {
     //do all sweeping
     BECS_Runtime::bevg_countSweeps++;
     BECS_Runtime::bemg_sweep();

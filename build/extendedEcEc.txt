@@ -10,6 +10,7 @@
 -jsInclude=system/js/be/BECS_Runtime.js
 -jsInclude=system/js/be/BECS_Object.js
 -cchImport=system/cc/be/BEH_Imports.hpp
+-cchImport=system/cc/be/BEH_GCConf.hpp
 -ccImport=system/cc/be/BECS_Imports.cpp
 -ccdInclude=system/cc/be/BED_Object.hpp
 -cchInclude=system/cc/be/BEH_Object.hpp

@@ -2,6 +2,7 @@
 -jsInclude=../brace/system/js/be/BECS_Runtime.js
 -jsInclude=../brace/system/js/be/BECS_Object.js
 -cchImport=../brace/system/cc/be/BEH_Imports.hpp
+-cchImport=../brace/system/cc/be/BEH_GCConf.hpp
 -ccImport=../brace/system/cc/be/BECS_Imports.cpp
 -ccdInclude=../brace/system/cc/be/BED_Object.hpp
 -cchInclude=../brace/system/cc/be/BEH_Object.hpp
