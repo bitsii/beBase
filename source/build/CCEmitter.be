@@ -452,7 +452,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             }
             
             heow.write("#include \"BED_4_Base.hpp\"\n");
-            heow.write("using namespace std;\n");
+            //heow.write("using namespace std;\n");
             
             deow.write("namespace be {\n");//}
             heow.write("namespace be {\n");//}

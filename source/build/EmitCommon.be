@@ -444,7 +444,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             if(emitting("cc")) {
                //header too
                unless (build.emitChecks.has("noSmap")) {
-                 methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlc" += nl;
+                 methods += "std::vector<int32_t> " += classConf.emitName += "::bevs_smnlc" += nl;
                  methods += " = {" += nlcs += "};" += nl;
                }
             }
@@ -473,7 +473,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             if(emitting("cc")) {
                //header too
                unless (build.emitChecks.has("noSmap")) {
-                methods += "vector<int32_t> " += classConf.emitName += "::bevs_smnlec" += nl;
+                methods += "std::vector<int32_t> " += classConf.emitName += "::bevs_smnlec" += nl;
                 methods += " = {" += nlecs += "};" += nl;
               }
             }
@@ -660,7 +660,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             main += "int main(int argc, char **argv) {" += nl;
           }
           //main += "be.BECS_Runtime.args = args;" += nl;
-          main += "be::BECS_Runtime::platformName = string(\"" += build.outputPlatform.name += "\");" += nl;
+          main += "be::BECS_Runtime::platformName = std::string(\"" += build.outputPlatform.name += "\");" += nl;
           main += "be::BECS_Runtime::argc = argc;" += nl;
           main += "be::BECS_Runtime::argv = argv;" += nl;
           if (build.emitChecks.has("ccBgc")) {
@@ -1188,10 +1188,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           }
           if (dnumargs >= maxDynArgs) {
             if (build.emitChecks.has("ccBgc")) {
-              args = args + ", vector<" + objectCc.relEmitName(build.libName) + "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x";
+              args = args + ", std::vector<" + objectCc.relEmitName(build.libName) + "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x";
               superArgs = superArgs + ", bevd_x";
             } elseIf (build.emitChecks.has("ccSgc")) {
-              args = args + ", vector<" + objectCc.relEmitName(build.libName) + "*> bevd_x";
+              args = args + ", std::vector<" + objectCc.relEmitName(build.libName) + "*> bevd_x";
               superArgs = superArgs + ", bevd_x";
             }
           }
@@ -1507,9 +1507,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                 methods += "var bevd_x = new Array(" += maxSpillArgsLen.toString() += ");" += nl;
                } elseIf (emitting("cc")) {
                  if (build.emitChecks.has("ccBgc")) {
-                   methods += "vector<" += objectCc.relEmitName(build.libName) += "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
+                   methods += "std::vector<" += objectCc.relEmitName(build.libName) += "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
                  } elseIf (build.emitChecks.has("ccSgc")) {
-                   methods += "vector<" += objectCc.relEmitName(build.libName) += "*> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
+                   methods += "std::vector<" += objectCc.relEmitName(build.libName) += "*> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
                  }
                } else {
                 methods += objectCc.relEmitName(build.libName) += "[] bevd_x = new " += objectCc.relEmitName(build.libName) += "[" += maxSpillArgsLen.toString() += "];" += nl;
