@@ -100,7 +100,7 @@ void** bevl_llpath;
           }
           emit(cc) {
            """
-           string path = bevp_path->bevp_path->bems_toCcString();
+           std::string path = bevp_path->bevp_path->bems_toCcString();
            struct stat buffer;   
            remove(path.c_str());
            """
@@ -178,7 +178,7 @@ void** bevl_frv;
          }
          emit(cc) {
          """
-         string path = bevp_path->bevp_path->bems_toCcString();
+         std::string path = bevp_path->bevp_path->bems_toCcString();
          mkdir(path.c_str(), 0775);
          """
          }
@@ -306,7 +306,7 @@ void** bevl_spa;
          }
          emit(cc) {
          """
-         string path = bevp_path->bevp_path->bems_toCcString();
+         std::string path = bevp_path->bevp_path->bems_toCcString();
          struct stat buffer; 
          if (stat(path.c_str(), &buffer) == 0 && buffer.st_mode & S_IFDIR) {
             bevl_result = BECS_Runtime::boolTrue;
@@ -363,7 +363,7 @@ void** bevl_spa;
          }
          emit(cc) {
          """
-         string path = bevp_path->bevp_path->bems_toCcString();
+         std::string path = bevp_path->bevp_path->bems_toCcString();
          struct stat buffer; 
          if (stat(path.c_str(), &buffer) == 0 && buffer.st_mode & S_IFREG) {
             bevl_result = BECS_Runtime::boolTrue;
@@ -504,7 +504,7 @@ void** bevl_mpath;
     }
      emit(cc) {
      """
-     string path = bevp_path->bevp_path->bems_toCcString();
+     std::string path = bevp_path->bevp_path->bems_toCcString();
      struct stat buffer;   
      if (stat (path.c_str(), &buffer) == 0) {
        bevl_tvala = BECS_Runtime::boolTrue;
@@ -668,12 +668,12 @@ final class DirectoryIterator {
       }
       emit(cc) {
       """
-      string path = bevl_path->bems_toCcString();
+      std::string path = bevl_path->bems_toCcString();
       bevi_dir = opendir(path.c_str());
       struct dirent* buffer;  
       buffer = readdir(bevi_dir); 
       if (buffer != NULL) {
-        string ccnm(buffer->d_name);
+        std::string ccnm(buffer->d_name);
         bevl_newName = new $class/Text:String$(ccnm);
       }
       """
@@ -751,7 +751,7 @@ final class DirectoryIterator {
       if (bevi_dir != NULL) { 
         buffer = readdir(bevi_dir); 
         if (buffer != NULL) {
-          string ccnm(buffer->d_name);
+          std::string ccnm(buffer->d_name);
           bevl_newName = new $class/Text:String$(ccnm);
         }
       }
