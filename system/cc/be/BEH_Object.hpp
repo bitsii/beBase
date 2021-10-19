@@ -61,11 +61,15 @@ class BECS_Runtime {
 #endif
     
     static BECS_FrameStack bevg_oldInstsStack;
-    
+
+#ifdef BEDCC_PT    
     static std::recursive_mutex bevs_initLock;
-    
+#endif
+
+#ifdef BEDCC_PT   
     static std::mutex bevg_gcLock;
     static std::condition_variable bevg_gcWaiter;
+#endif
     
     static uint_fast64_t bevg_countGcs;
     static uint_fast64_t bevg_countSweeps;

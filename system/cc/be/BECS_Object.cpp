@@ -14,10 +14,11 @@ std::map<std::thread::id, BECS_FrameStack*> BECS_Runtime::bevg_frameStacks;
 
 BECS_FrameStack BECS_Runtime::bevg_oldInstsStack;
 
+#ifdef BEDCC_PT
 std::recursive_mutex BECS_Runtime::bevs_initLock;
-
 std::mutex BECS_Runtime::bevg_gcLock;
 std::condition_variable BECS_Runtime::bevg_gcWaiter;
+#endif
 
 uint_fast64_t BECS_Runtime::bevg_countGcs = 0;
 uint_fast64_t BECS_Runtime::bevg_countSweeps = 0;
@@ -525,8 +526,13 @@ void BECS_Runtime::bemg_checkDoGc() {
   
 #ifdef BEDCC_SGC
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+#ifndef BEDCC_PT
+  doGc();
+#endif 
+#ifdef BEDCC_PT 
   //lock
   std::unique_lock<std::mutex> ulock(bevg_gcLock);
+
   //if time for gc
   if (bevg_gcState.load(std::memory_order_acquire) == 1) {
     uint_fast16_t bevg_stackGcState = bevs_myStack->bevg_stackGcState;
@@ -553,6 +559,7 @@ void BECS_Runtime::bemg_checkDoGc() {
       }
     }
   }
+#endif
 #endif
 
 }

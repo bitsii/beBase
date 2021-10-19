@@ -767,8 +767,12 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         
         if(emitting("cc")) {
           libe.write("void " + libEmitName + "::init() {" + nl); //}
-          libe.write("BECS_Runtime::bevs_initLock.lock();\n");
-          libe.write("if (BECS_Runtime::isInitted) { BECS_Runtime::bevs_initLock.unlock(); return; }" + nl);
+          if (build.emitChecks.has("ccPt")) {
+            libe.write("BECS_Runtime::bevs_initLock.lock();\n");
+            libe.write("if (BECS_Runtime::isInitted) { BECS_Runtime::bevs_initLock.unlock(); return; }" + nl);
+          } else {
+            libe.write("if (BECS_Runtime::isInitted) { return; }" + nl);
+          }
         } elseIf (emitting("sw")) {
           libe.write("func " + libEmitName + "_init() {" + nl); //}
           libe.write("if (BECS_Runtime.isInitted) { return; }" + nl);
@@ -801,7 +805,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           //{
           libe.write("}" + nl);
         } elseIf(emitting("cc")) {
-          libe.write("BECS_Runtime::bevs_initLock.unlock();\n");
+          if (build.emitChecks.has("ccPt")) {
+            libe.write("BECS_Runtime::bevs_initLock.unlock();\n");
+          }
         }
         //{
         libe.write("}" + nl);
