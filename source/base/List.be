@@ -133,17 +133,17 @@ final class List {
 #endif
 
 #ifdef BEDCC_SGC
-    vector<BEC_2_6_6_SystemObject*> bevi_list;
+    std::vector<BEC_2_6_6_SystemObject*> bevi_list;
 #endif
     
     BEC_2_9_4_ContainerList() { }
 
 #ifdef BEDCC_BGC
-    BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> a_bevi_list) {
+    BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> a_bevi_list) {
 #endif
 
 #ifdef BEDCC_SGC
-    BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*> a_bevi_list) {
+    BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list) {
 #endif    
     
         BEC_2_6_6_SystemObject* bevsl_thiso = this;
@@ -157,11 +157,11 @@ final class List {
     } //}
 
 #ifdef BEDCC_BGC
-    BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> a_bevi_list, int32_t len) {
+    BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> a_bevi_list, int32_t len) {
 #endif
 
 #ifdef BEDCC_SGC
-    BEC_2_9_4_ContainerList(vector<BEC_2_6_6_SystemObject*> a_bevi_list, int32_t len) {
+    BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list, int32_t len) {
 #endif
     
         BEC_2_6_6_SystemObject* bevsl_thiso = this;

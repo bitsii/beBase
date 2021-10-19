@@ -27,12 +27,12 @@ uint_fast64_t BECS_Runtime::bevg_countConstructs = 0;
 uint_fast64_t BECS_Runtime::bevg_countDeletes = 0;
 uint_fast64_t BECS_Runtime::bevg_countRecycles = 0;
 
-void BECS_Lib::putCallId(string name, int32_t iid) {
+void BECS_Lib::putCallId(std::string name, int32_t iid) {
     BECS_Ids::callIds[name] = iid;
     BECS_Ids::idCalls[iid] = name;
 }
     
-int32_t BECS_Lib::getCallId(string name) {
+int32_t BECS_Lib::getCallId(std::string name) {
     return BECS_Ids::callIds[name];
 }
     
@@ -213,7 +213,7 @@ BEC_2_6_11_SystemInitializer* BECS_Runtime::initializer;
 
 BEC_2_6_6_SystemObject * BECS_Runtime::maino;
 
-string BECS_Runtime::platformName;
+std::string BECS_Runtime::platformName;
 
 int BECS_Runtime::argc;
 char** BECS_Runtime::argv;

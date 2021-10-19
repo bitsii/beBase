@@ -117,7 +117,7 @@ class System:Object {
       }
       emit(cc) {
         """
-        string key = beva_cname->bems_toCcString();
+        std::string key = beva_cname->bems_toCcString();
         //cout << key << endl;
         if (BECS_Runtime::typeRefs.count(key) > 0) {
           //cout << "has key" << endl;
@@ -369,7 +369,7 @@ class System:Object {
       emit(cc) {
       """
       
-      string name = bevl_cname->bems_toCcString();
+      std::string name = bevl_cname->bems_toCcString();
       
       BETS_Object* bevs_cano = bemc_getType();
       

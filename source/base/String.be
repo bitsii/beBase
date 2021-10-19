@@ -140,11 +140,11 @@ final class String {
     BEC_2_4_6_TextString() { }
 
 #ifdef BEDCC_BGC
-    BEC_2_4_6_TextString(vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes) {
+    BEC_2_4_6_TextString(std::vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes) {
 #endif
 
 #ifdef BEDCC_SGC
-    BEC_2_4_6_TextString(vector<unsigned char>& a_bevi_bytes) {
+    BEC_2_4_6_TextString(std::vector<unsigned char>& a_bevi_bytes) {
 #endif  
     
       BEC_2_6_6_SystemObject* bevsl_thiso = this;
@@ -157,11 +157,11 @@ final class String {
     } //}
 
 #ifdef BEDCC_BGC
-    BEC_2_4_6_TextString(vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes, int32_t bevi_length) { 
+    BEC_2_4_6_TextString(std::vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes, int32_t bevi_length) { 
 #endif
 
 #ifdef BEDCC_SGC
-    BEC_2_4_6_TextString(vector<unsigned char>& a_bevi_bytes, int32_t bevi_length) { 
+    BEC_2_4_6_TextString(std::vector<unsigned char>& a_bevi_bytes, int32_t bevi_length) { 
 #endif     
     
       BEC_2_6_6_SystemObject* bevsl_thiso = this;
@@ -191,11 +191,11 @@ final class String {
     } //}
     
     #ifdef BEDCC_BGC
-        BEC_2_4_6_TextString(int32_t bevi_length, initializer_list<unsigned char> a_bevi_bytes) : bevi_bytes(a_bevi_bytes) { 
+        BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) : bevi_bytes(a_bevi_bytes) { 
     #endif
     
     #ifdef BEDCC_SGC
-        BEC_2_4_6_TextString(int32_t bevi_length, initializer_list<unsigned char> a_bevi_bytes) : bevi_bytes(a_bevi_bytes) { 
+        BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) : bevi_bytes(a_bevi_bytes) { 
     #endif 
         
           BEC_2_6_6_SystemObject* bevsl_thiso = this;
@@ -207,7 +207,7 @@ final class String {
           bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
         } //}
     
-    BEC_2_4_6_TextString(string bevi_string) { 
+    BEC_2_4_6_TextString(std::string bevi_string) { 
     
       BEC_2_6_6_SystemObject* bevsl_thiso = this;
       BEC_2_6_6_SystemObject** bevls_stackRefs[1] = { &bevsl_thiso };
@@ -218,15 +218,15 @@ final class String {
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
     }
     
-    string bems_toCcString();
+    std::string bems_toCcString();
     
    """
    }
    
    emit("cc") {
    """
-   string BEC_2_4_6_TextString::bems_toCcString() {
-      string ccString(bevi_bytes.begin(), bevi_bytes.end());
+   std::string BEC_2_4_6_TextString::bems_toCcString() {
+      std::string ccString(bevi_bytes.begin(), bevi_bytes.end());
       ccString.resize(bevp_size->bevi_int);
       return ccString;
     }
@@ -1160,8 +1160,8 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
 #endif
 
 #ifndef BEDCC_ISIOS
-     cout.write(reinterpret_cast<const char*>(&bevi_bytes[0]), bevp_size->bevi_int);
-     cout << endl;
+     std::cout.write(reinterpret_cast<const char*>(&bevi_bytes[0]), bevp_size->bevi_int);
+     std::cout << std::endl;
 #endif
      """
      }

@@ -959,8 +959,8 @@ void** bevl__min;
       }
       emit(cc) {
       """
-      bevl__max->bevi_int = numeric_limits<int32_t>::max();
-      bevl__min->bevi_int = numeric_limits<int32_t>::min();
+      bevl__max->bevi_int = std::numeric_limits<int32_t>::max();
+      bevl__min->bevi_int = std::numeric_limits<int32_t>::min();
       """
       }
       fields {
