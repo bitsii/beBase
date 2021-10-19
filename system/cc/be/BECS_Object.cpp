@@ -5,8 +5,11 @@ std::unordered_map<int32_t, std::string> BECS_Ids::idCalls;
 thread_local BECS_FrameStack BECS_Runtime::bevs_currentStack;
 
 uint_fast16_t BECS_Runtime::bevg_currentGcMark = 0;
+
+#ifdef BEDCC_PT
 std::atomic<uint_fast16_t> BECS_Runtime::bevg_gcState{0};
 std::atomic<uint_fast32_t> BECS_Runtime::bevg_sharedAllocsSinceGc{0};
+#endif
 
 #ifdef BEDCC_PT
 std::map<std::thread::id, BECS_FrameStack*> BECS_Runtime::bevg_frameStacks;
@@ -242,7 +245,10 @@ cout << "GCDEBUG starting gc " << endl;
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   
   bevs_myStack->bevs_allocsSinceGc = 0;
+  
+#ifdef BEDCC_PT
   BECS_Runtime::bevg_sharedAllocsSinceGc.store(0, std::memory_order_release);
+#endif
   
   BECS_Runtime::bevg_countGcs++;
   //increment gcmark
@@ -258,8 +264,10 @@ cout << "GCDEBUG starting gc " << endl;
     BECS_Runtime::bemg_sweep();
   }
 
+#ifdef BEDCC_PT
   BECS_Runtime::bevg_gcState.store(0, std::memory_order_release);
-  
+#endif
+
   ////cout << "GCDEBUG gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
 
 #endif

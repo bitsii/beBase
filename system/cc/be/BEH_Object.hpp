@@ -52,9 +52,11 @@ class BECS_Runtime {
     static thread_local BECS_FrameStack bevs_currentStack;
     
     static uint_fast16_t bevg_currentGcMark;
+#ifdef BEDCC_PT
     static std::atomic<uint_fast16_t> bevg_gcState;
       //0 don't do gc now, 1 do gc now
     static std::atomic<uint_fast32_t> bevg_sharedAllocsSinceGc;
+#endif
     
 #ifdef BEDCC_PT    
     static std::map<std::thread::id, BECS_FrameStack*> bevg_frameStacks;
@@ -186,22 +188,28 @@ class BECS_Object {
       
       //should I do gc
       bool doGc = false;
-      
+
+#ifdef BEDCC_PT
       //sync count sometimes
       if (bevs_myStack->bevs_allocsSinceGc % BEDCC_GCSHASYNC == 0) {
         bevs_myStack->bevs_allocsSinceGc = BECS_Runtime::bevg_sharedAllocsSinceGc += BEDCC_GCSHASYNC;
       }
+#endif
       
       //allocsPerGc 0-4,294,967,295 :: 10000000 >>6000000<< OKish bld, 1000000 extec, diff is 1 0
       if (bevs_myStack->bevs_allocsSinceGc > BEDCC_GCAPERGC) {
+#ifdef BEDCC_PT
         BECS_Runtime::bevg_gcState.store(1, std::memory_order_release);
+#endif
         doGc = true;
       }
-      
+
+#ifdef BEDCC_PT      
       //sync do gc moretimes 2 4 8 16 32 64 128
       if (bevs_myStack->bevs_allocsSinceGc % BEDCC_GCSSCHECK == 0 && BECS_Runtime::bevg_gcState.load(std::memory_order_acquire) == 1) {
         doGc = true;
       }
+#endif
       
       //https://www.arangodb.com/2015/02/comparing-atomic-mutex-rwlocks/
       //#include <atomic>
