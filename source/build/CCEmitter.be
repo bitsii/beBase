@@ -83,8 +83,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual size_t bemg_getSize();\n");
        heow.write("virtual BETS_Object* bemc_getType();\n");
        unless (build.emitChecks.has("noSmap")) {
-        heow.write("static vector<int32_t> bevs_smnlc;\n");
-        heow.write("static vector<int32_t> bevs_smnlec;\n");
+        heow.write("static std::vector<int32_t> bevs_smnlc;\n");
+        heow.write("static std::vector<int32_t> bevs_smnlec;\n");
        }
        heow.write("virtual ~" + classConf.emitName + "() = default;\n");
        
@@ -565,9 +565,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    lstringStartCi(String sdec, String belsName) {
       if (build.emitChecks.has("ccSgc")) {
-        sdec += "static vector<unsigned char> " += belsName += " = {"; //}
+        sdec += "static std::vector<unsigned char> " += belsName += " = {"; //}
       } elseIf (build.emitChecks.has("ccBgc")) {
-        sdec += "static vector<unsigned char, gc_allocator<unsigned char>> " += belsName += " = {"; //}
+        sdec += "static std::vector<unsigned char, gc_allocator<unsigned char>> " += belsName += " = {"; //}
       } 
    }
    

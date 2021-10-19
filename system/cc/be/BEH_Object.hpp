@@ -1,20 +1,20 @@
 
 class BECS_Ids {
     public:
-    static unordered_map<string, int32_t> callIds;
-    static unordered_map<int32_t, string> idCalls;
+    static std::unordered_map<std::string, int32_t> callIds;
+    static std::unordered_map<int32_t, std::string> idCalls;
     
 };
 
 class BECS_Lib {
     public:
-    static void putCallId(string name, int32_t iid);
+    static void putCallId(std::string name, int32_t iid);
     
-    static int32_t getCallId(string name);
+    static int32_t getCallId(std::string name);
     
-    static void putNlcSourceMap(string clname, vector<int32_t>& vals);
+    static void putNlcSourceMap(std::string clname, std::vector<int32_t>& vals);
     
-    static void putNlecSourceMap(string clname, vector<int32_t>& vals);
+    static void putNlecSourceMap(std::string clname, std::vector<int32_t>& vals);
 };
 
 class BECS_FrameStack {
@@ -33,7 +33,7 @@ class BECS_Runtime {
     static BEC_2_5_4_LogicBool* boolTrue;
     static BEC_2_5_4_LogicBool* boolFalse;
     
-    static unordered_map<string, BETS_Object*> typeRefs;
+    static std::unordered_map<std::string, BETS_Object*> typeRefs;
     
     //for setting up initial instances
     static BEC_2_6_11_SystemInitializer* initializer;
@@ -41,20 +41,20 @@ class BECS_Runtime {
     //the main instance
     static BEC_2_6_6_SystemObject* maino;
     
-    static string platformName;
+    static std::string platformName;
     
     static int argc;
     static char** argv;
     
-    static unordered_map<string, vector<int32_t>> smnlcs;
-    static unordered_map<string, vector<int32_t>> smnlecs;
+    static std::unordered_map<std::string, std::vector<int32_t>> smnlcs;
+    static std::unordered_map<std::string, std::vector<int32_t>> smnlecs;
     
     static thread_local BECS_FrameStack bevs_currentStack;
     
     static uint_fast16_t bevg_currentGcMark;
-    static atomic<uint_fast16_t> bevg_gcState;
+    static std::atomic<uint_fast16_t> bevg_gcState;
       //0 don't do gc now, 1 do gc now
-    static atomic<uint_fast32_t> bevg_sharedAllocsSinceGc;
+    static std::atomic<uint_fast32_t> bevg_sharedAllocsSinceGc;
     
 #ifdef BEDCC_PT    
     static std::map<std::thread::id, BECS_FrameStack*> bevg_frameStacks;
@@ -82,7 +82,7 @@ class BECS_Runtime {
     
     static void doGc();
     
-    static int32_t getNlcForNlec(string clname, int32_t val);
+    static int32_t getNlcForNlec(std::string clname, int32_t val);
     
     static void bemg_markAll();
     static void bemg_markStack(BECS_FrameStack* bevs_myStack);
@@ -245,23 +245,23 @@ class BECS_Object {
 #endif
 
 #ifdef BEDCC_SGC
-    virtual BEC_2_6_6_SystemObject* bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, vector<BEC_2_6_6_SystemObject*> bevd_x);
+    virtual BEC_2_6_6_SystemObject* bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, std::vector<BEC_2_6_6_SystemObject*> bevd_x);
 #endif 
     
 #ifdef BEDCC_BGC
-    virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs);
+    virtual BEC_2_6_6_SystemObject* bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs);
 #endif
 
 #ifdef BEDCC_SGC
-  virtual BEC_2_6_6_SystemObject* bems_forwardCall(string mname, vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
+  virtual BEC_2_6_6_SystemObject* bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
 #endif
     
 #ifdef BEDCC_BGC
-    virtual BEC_2_6_6_SystemObject* bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args);
+    virtual BEC_2_6_6_SystemObject* bems_methodNotDefined(int32_t callId, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args);
 #endif
 
 #ifdef BEDCC_SGC
-    virtual BEC_2_6_6_SystemObject* bems_methodNotDefined(int32_t callId, vector<BEC_2_6_6_SystemObject*> args);
+    virtual BEC_2_6_6_SystemObject* bems_methodNotDefined(int32_t callId, std::vector<BEC_2_6_6_SystemObject*> args);
 #endif      
 
 };

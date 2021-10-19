@@ -129,7 +129,7 @@ final class List {
    emit(cc_classHead) {
   """
 #ifdef BEDCC_BGC
-    vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevi_list;
+    std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevi_list;
 #endif
 
 #ifdef BEDCC_SGC

@@ -130,11 +130,11 @@ final class String {
    """
 
 #ifdef BEDCC_BGC
-    vector<unsigned char, gc_allocator<unsigned char>> bevi_bytes;
+    std::vector<unsigned char, gc_allocator<unsigned char>> bevi_bytes;
 #endif
 
 #ifdef BEDCC_SGC
-    vector<unsigned char> bevi_bytes;
+    std::vector<unsigned char> bevi_bytes;
 #endif
    
     BEC_2_4_6_TextString() { }
@@ -174,11 +174,11 @@ final class String {
     } //}
  
 #ifdef BEDCC_BGC
-    BEC_2_4_6_TextString(int32_t bevi_length, vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes) { 
+    BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes) { 
 #endif
 
 #ifdef BEDCC_SGC
-    BEC_2_4_6_TextString(int32_t bevi_length, vector<unsigned char>& a_bevi_bytes) { 
+    BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
 #endif 
     
       BEC_2_6_6_SystemObject* bevsl_thiso = this;
