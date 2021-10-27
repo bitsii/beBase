@@ -17,30 +17,7 @@ using System;
 class System:Object {
 
    new() self { }
-   
-   //EmitCommon has def/undef inline, so no implementation here
-   final undefined(ref) Bool {
-      emit(c) {
-      """
-      if ($ref* == NULL) {
-         BEVReturn(berv_sts->bool_True);
-      }
-      """
-      }
-      return(false);
-   }
-   
-   final defined(ref) Bool {
-      emit(c) {
-      """
-      if ($ref* == NULL) {
-         BEVReturn(berv_sts->bool_False);
-      }
-      """
-      }
-      return(true);
-   }
-   
+      
    final undef(ref) Bool {
       emit(c) {
       """
@@ -61,10 +38,6 @@ class System:Object {
       """
       }
       return(true);
-   }
-   
-   final toAny() any {
-     return(self);
    }
    
    methodNotDefined(String name, List args) any {
@@ -841,11 +814,6 @@ void** bevl_other;
    final getInvocation(String name, List args) System:Invocation {
       return(System:Invocation.new(self, name, args));
    }
-
-    //below two methods for handling x@ x#
-    final once() self { }
-
-    final many() self { }
     
    emit(cs) {
    """

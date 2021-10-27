@@ -1744,8 +1744,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
             methodBody += finalAssign(node.contained.first, trueValue, castTo, castType);
          } elseIf (node.second.typename == ntypes.FALSE) {
             methodBody += finalAssign(node.contained.first, falseValue, castTo, castType);
-         } elseIf (node.second.held.name == "undef_1" || node.second.held.name == "undefined_1" ||
-            node.second.held.name == "def_1" || node.second.held.name == "defined_1") {
+         } elseIf (node.second.held.name == "undef_1" ||
+            node.second.held.name == "def_1") {
             //if (node.second.second.held.isTyped) {
             //    Build:ClassSyn dsyn = build.getSynNp(node.second.second.held.namepath);
             //    if (dsyn.isNotNull) {
@@ -1851,7 +1851,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
           methodBody += "return " += formTarg(node.second) += ";" += nl; //first is self
         }
         return(self);
-      } elseIf (node.held.name == "def_1" || node.held.name == "defined_1" || node.held.name == "undef_1" || node.held.name == "undefined_1" || node.inlined) {
+      } elseIf (node.held.name == "def_1" || node.held.name == "undef_1" || node.inlined) {
         //previously detected and handled during assignment section above (possible due to unwind...)
         return(self);
       }

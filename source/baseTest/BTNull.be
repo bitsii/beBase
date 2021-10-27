@@ -18,13 +18,9 @@ class Test:BaseTest:Null(BaseTest) {
       String s;
       assertTrue(undef(s));
       assertFalse(def(s));
-      assertTrue(undefined(s));
-      assertFalse(defined(s));
       s = "Defined";
       assertTrue(def(s));
       assertFalse(undef(s));
-      assertTrue(defined(s));
-      assertFalse(undefined(s));
       
       //badAccess();//this is signal based and somewhat platform specific at the moment
       

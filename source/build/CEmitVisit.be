@@ -969,7 +969,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
             ca.asnCall = node;
             ca.callAssign = finalAssign(ca.asnR, "berv_sts->bool_False", true);
             thisMtd += cassem.processCall(ca);
-         } elseIf (node.second.typename == ntypes.CALL && (node.second.held.name == "undef_1" || node.second.held.name == "undefined_1")) {
+         } elseIf (node.second.typename == ntypes.CALL && (node.second.held.name == "undef_1")) {
             //if (node.second.second.held.isTyped) {
             //    Build:ClassSyn dsyn = build.getSynNp(node.second.second.held.namepath);
             //    if (dsyn.isNotNull) {
@@ -989,7 +989,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
             ca.callAssign = ca.callAssign + finalAssign(ca.asnR, "berv_sts->bool_False", true);
             ca.callAssign = ca.callAssign + " }" + nl;
             thisMtd += cassem.processCall(ca);
-         } elseIf (node.second.typename == ntypes.CALL && (node.second.held.name == "def_1" || node.second.held.name == "defined_1")) {
+         } elseIf (node.second.typename == ntypes.CALL && (node.second.held.name == "def_1")) {
             //if (node.second.second.held.isTyped) {
             //    dsyn = build.getSynNp(node.second.second.held.namepath);
             //    if (dsyn.isNotNull) {
@@ -1013,7 +1013,7 @@ final class Build:Visit:CEmit(Build:Visit:Visitor) {
          return(self);
       } elseIf (node.held.orgName == "return") {
          return(acceptReturn(node));
-      } elseIf (node.held.name == "def_1" || node.held.name == "defined_1" || node.held.name == "undef_1" || node.held.name == "undefined_1") {
+      } elseIf (node.held.name == "def_1" || node.held.name == "undef_1") {
          return(self);
       }
       
