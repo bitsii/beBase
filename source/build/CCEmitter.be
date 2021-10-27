@@ -371,14 +371,16 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         String bet = String.new();
         bet += classConf.typeEmitName += "::" += classConf.typeEmitName += "() {\n";
         bet += "std::vector<std::string> bevs_mtnames = { ";
-        Bool firstmnsyn = true;
-        for (Build:MtdSyn mnsyn in csyn.mtdList) {
-          if (firstmnsyn) {
-            firstmnsyn = false;
-          } else {
-            bet += ", ";
-          }
-          bet += q += mnsyn.name += q;
+        unless (build.emitChecks.has("noRfl")) {
+          Bool firstmnsyn = true;
+          for (Build:MtdSyn mnsyn in csyn.mtdList) {
+            if (firstmnsyn) {
+              firstmnsyn = false;
+            } else {
+              bet += ", ";
+            }
+            bet += q += mnsyn.name += q;
+           }
          }
          bet += " };\n";
          //noRfl
@@ -387,14 +389,16 @@ use final class Build:CCEmitter(Build:EmitCommon) {
          }
         
         bet += "bevs_fieldNames = { ";
-        Bool firstptsyn = true;
-        for (Build:PtySyn ptySyn in csyn.ptyList) {
-          if (firstptsyn) {
-            firstptsyn = false;
-          } else {
-            bet += ", ";
+        unless (build.emitChecks.has("noRfl")) {
+          Bool firstptsyn = true;
+          for (Build:PtySyn ptySyn in csyn.ptyList) {
+            if (firstptsyn) {
+              firstptsyn = false;
+            } else {
+              bet += ", ";
+            }
+            bet += q += ptySyn.name += q;
           }
-          bet += q += ptySyn.name += q;
         }
         bet += " };\n";
         
