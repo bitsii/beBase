@@ -12,7 +12,7 @@ esac
 
 rm -rf targets/min/Base/target/js/be
 
-mono --debug ../brace/target5/BEX_E_mcs.exe -deployPath=targets/min -buildPath=targets/min --buildFile build/minBase.txt --emitLang js --emitFlag noSmap --mainClass Test:TestHelloWorld ../brace/source/baseTest/TestHelloWorld.be
+mono --debug ../brace/target5/BEX_E_mcs.exe -deployPath=targets/min -buildPath=targets/min --buildFile build/minBase.txt --emitLang js --emitFlag noSmap --emitFlag noRfl --mainClass Test:TestHelloWorld ../brace/source/baseTest/TestHelloWorld.be
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

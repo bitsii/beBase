@@ -236,7 +236,7 @@ void BECS_Runtime::doGc() {
 
 #ifdef BEDCC_SGC
 #ifdef BED_GCSTATS
-cout << "GCDEBUG starting gc " << endl;
+std::cout << "GCDEBUG starting gc " << std::endl;
 #endif
 
   ////cout << "GCDEBUG starting gc " << endl;
@@ -269,6 +269,10 @@ cout << "GCDEBUG starting gc " << endl;
 #endif
 
   ////cout << "GCDEBUG gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
+
+#ifdef BED_GCSTATS
+std::cout << "GCDEBUG ending gc " << std::endl;
+#endif
 
 #endif
 

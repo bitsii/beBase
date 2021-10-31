@@ -82,16 +82,17 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
         ccMethods += classConf.emitName += ".prototype.bepn_pnames = ["; //]
 
-        Bool first = true;
-        for (Build:PtySyn ptySyn in ptyList) {
-            if (first) {
-                first = false;
-            } else {
-                ccMethods += ", ";
-            }
-            ccMethods += q += "bevp_" += ptySyn.name += q;
+        unless (build.emitChecks.has("noRfl")) {
+          Bool first = true;
+          for (Build:PtySyn ptySyn in ptyList) {
+              if (first) {
+                  first = false;
+              } else {
+                  ccMethods += ", ";
+              }
+              ccMethods += q += "bevp_" += ptySyn.name += q;
+          }
         }
-
         //[
         ccMethods += "];" += nl;
     }
@@ -160,8 +161,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
             any clnode = ci.next;
 
-            notNullInitConstruct += "be_BECS_Runtime.prototype.typeRefs[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;
-
+            unless (build.emitChecks.has("noRfl")) {
+              notNullInitConstruct += "be_BECS_Runtime.prototype.typeRefs[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;
+            }
             if (clnode.held.syn.hasDefault) {
                 //("Class " + clnode.held.namepath + " isNotNull").print();
                 String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
