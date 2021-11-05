@@ -225,7 +225,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    buildClassInfoMethod(String bemBase, String belsBase, Int len) {      
       ccMethods += self.overrideMtdDec += "BEC_2_4_6_TextString* " += classConf.emitName += "::bemc_" += bemBase += "s()" += exceptDec += " {" += nl;  //}
-      ccMethods += "return new BEC_2_4_6_TextString(" += len += ", becc_" += belsBase += ");" += nl;
+      ccMethods += "return (new BEC_2_4_6_TextString())->bems_fromLenVector(" += len += ", becc_" += belsBase += ");" += nl;
       //{
       ccMethods += "}" += nl;
   }
@@ -251,9 +251,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
       String litArgs = "" + lisz + ", " + sdec;
       if (build.emitChecks.has("ccSgc")) {
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = (new " + newcc.relEmitName(build.libName) + "())->bems_fromLenInit(" + litArgs + "))";
       } else {
-        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
+        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())->bems_fromLenInit(" + litArgs + ")";
       }
       return(newCall);
    }

@@ -81,8 +81,8 @@ size_t BECS_Object::bemg_getSize() {
     BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, std::vector<BEC_2_6_6_SystemObject*> args) {
 #endif  
   BEC_2_6_6_SystemObject* so = static_cast<BEC_2_6_6_SystemObject*>(this);
-  BEC_2_9_4_ContainerList* beArgs = new BEC_2_9_4_ContainerList(args);
-  BEC_2_4_6_TextString* beCallId = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
+  BEC_2_9_4_ContainerList* beArgs = (new BEC_2_9_4_ContainerList())->bems_fromList(args);
+  BEC_2_4_6_TextString* beCallId = (new BEC_2_4_6_TextString())->bems_fromCcString(BECS_Ids::idCalls[callId]);
   return so->bem_methodNotDefined_2(beCallId, beArgs);
 }
 
@@ -377,6 +377,10 @@ void BECS_Runtime::bemg_sweep() {
 
 #ifdef BEDCC_SGC
 
+#ifdef BED_GCSTATS
+std::cout << "GCDEBUG starting sweep " << std::endl;
+#endif
+
   //BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   //BECS_Runtime::bemg_sweepStack(bevs_myStack);
 #ifdef BEDCC_PT  
@@ -389,6 +393,10 @@ void BECS_Runtime::bemg_sweep() {
   bemg_sweepStack(bevs_myStack);
 #endif
   bemg_sweepStack(&bevg_oldInstsStack);
+
+#ifdef BED_GCSTATS
+std::cout << "GCDEBUG ending sweep " << std::endl;
+#endif
   
 #endif
 

@@ -175,7 +175,7 @@ class System:Object {
 
       for (int i = 0;i < fnames->size();i++) {
 
-       bevl_names->bem_addValue_1(new BEC_2_4_6_TextString(fnames->at(i)));
+       bevl_names->bem_addValue_1((new BEC_2_4_6_TextString())->bems_fromCcString(fnames->at(i)));
 
       }
       
@@ -874,8 +874,8 @@ emit(cc) {
   BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2);
 
   //cout << "in sfwdcall " << endl;
-  name = new BEC_2_4_6_TextString(mname);
-  args = new BEC_2_9_4_ContainerList(bevd_x, numargs);
+  name = (new BEC_2_4_6_TextString())->bems_fromCcString(mname);
+  args = (new BEC_2_9_4_ContainerList())->bems_fromListLen(bevd_x, numargs);
   //args = args->bem_copy_0();
   return bem_forwardCall_2(name, args);
   //return nullptr;
