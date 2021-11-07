@@ -25,8 +25,6 @@ std::condition_variable BECS_Runtime::bevg_gcWaiter;
 
 uint_fast64_t BECS_Runtime::bevg_countGcs = 0;
 uint_fast64_t BECS_Runtime::bevg_countSweeps = 0;
-uint_fast64_t BECS_Runtime::bevg_countNews = 0;
-uint_fast64_t BECS_Runtime::bevg_countConstructs = 0;
 uint_fast64_t BECS_Runtime::bevg_countDeletes = 0;
 uint_fast64_t BECS_Runtime::bevg_countRecycles = 0;
 
@@ -268,8 +266,6 @@ std::cout << "GCDEBUG starting gc " << std::endl;
   BECS_Runtime::bevg_gcState.store(0, std::memory_order_release);
 #endif
 
-  ////cout << "GCDEBUG gcs " << BECS_Runtime::bevg_countGcs << " sweeps " << BECS_Runtime::bevg_countSweeps << " gc news " << BECS_Runtime::bevg_countNews << " gc deletes " << BECS_Runtime::bevg_countDeletes << " gc constructs " << BECS_Runtime::bevg_countConstructs << " recycles " << BECS_Runtime::bevg_countRecycles << endl;
-
 #ifdef BED_GCSTATS
 std::cout << "GCDEBUG ending gc " << std::endl;
 #endif
@@ -355,10 +351,6 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
   BECS_StackFrame* bevs_currFrame = bevs_myStack->bevs_lastFrame;
   BEC_2_6_6_SystemObject* bevg_le = nullptr;
   while (bevs_currFrame != nullptr) {
-    bevg_le = bevs_currFrame->bevs_lastConstruct;
-    if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
-      bevg_le->bemg_doMark();
-    }
     for (size_t i = 0; i < bevs_currFrame->bevs_numVars; i++) {
       bevg_le = *(bevs_currFrame->bevs_localVars[i]);
       if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {

@@ -2027,7 +2027,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                 } else {
                   if (emitting("cc")) {
                     if (build.emitChecks.has("ccSgc")) {
-                      newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "())";
+                      newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())";
                     } else {
                       newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())";
                     }

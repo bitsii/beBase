@@ -232,7 +232,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    lintConstruct(ClassConfig newcc, Node node) String {
       if (build.emitChecks.has("ccSgc")) {
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
       } else {
         newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
       }
@@ -241,7 +241,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    lfloatConstruct(ClassConfig newcc, Node node) String {
       if (build.emitChecks.has("ccSgc")) {
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
       } else {
         newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
       }
@@ -251,7 +251,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
       String litArgs = "" + lisz + ", " + sdec;
       if (build.emitChecks.has("ccSgc")) {
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (bevs_stackFrame.bevs_lastConstruct = (new " + newcc.relEmitName(build.libName) + "())->bems_fromLenInit(" + litArgs + "))";
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) ((new " + newcc.relEmitName(build.libName) + "())->bems_fromLenInit(" + litArgs + "))";
       } else {
         newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())->bems_fromLenInit(" + litArgs + ")";
       }

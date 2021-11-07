@@ -75,8 +75,6 @@ class BECS_Runtime {
     
     static uint_fast64_t bevg_countGcs;
     static uint_fast64_t bevg_countSweeps;
-    static uint_fast64_t bevg_countNews;
-    static uint_fast64_t bevg_countConstructs;
     static uint_fast64_t bevg_countDeletes;
     static uint_fast64_t bevg_countRecycles;
     
@@ -111,7 +109,6 @@ class BECS_StackFrame {
   BEC_2_6_6_SystemObject*** bevs_localVars;
   size_t bevs_numVars;
   BECS_FrameStack* bevs_myStack;
-  BEC_2_6_6_SystemObject* bevs_lastConstruct;
   
   inline BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars) {
     bevs_localVars = beva_localVars;
@@ -119,7 +116,6 @@ class BECS_StackFrame {
     bevs_myStack = &BECS_Runtime::bevs_currentStack;
     bevs_priorFrame = bevs_myStack->bevs_lastFrame;
     bevs_myStack->bevs_lastFrame = this;
-    bevs_lastConstruct = nullptr;
   }
   
   inline ~BECS_StackFrame() {
@@ -205,7 +201,6 @@ class BECS_Object {
       }
       return malloc(size);
 #endif
-      BECS_Runtime::bevg_countNews++;
 #ifdef BEDCC_BGC
       return GC_MALLOC(size);
 #endif
@@ -216,7 +211,6 @@ class BECS_Object {
       free(theinst);
     }
     BECS_Object() {
-      BECS_Runtime::bevg_countConstructs++;
 #ifdef BEDCC_SGC
       
       bevg_gcMark = BECS_Runtime::bevg_currentGcMark;
