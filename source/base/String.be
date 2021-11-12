@@ -143,6 +143,8 @@ final class String {
 
 #ifdef BEDCC_SGC
     BEC_2_4_6_TextString* bems_fromVector(std::vector<unsigned char>& a_bevi_bytes) {
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif  
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_bytes.size());
@@ -156,6 +158,8 @@ final class String {
 
 #ifdef BEDCC_SGC
     BEC_2_4_6_TextString* bems_fromVectorLen(std::vector<unsigned char>& a_bevi_bytes, int32_t bevi_length) { 
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif     
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_length);
@@ -169,6 +173,8 @@ final class String {
 
 #ifdef BEDCC_SGC
     BEC_2_4_6_TextString* bems_fromLenVector(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif 
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_length);
@@ -182,6 +188,8 @@ final class String {
     
     #ifdef BEDCC_SGC
         BEC_2_4_6_TextString* bems_fromLenInit(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
+          BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+          BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
     #endif 
           bevi_bytes = a_bevi_bytes;
           bevp_size = new BEC_2_4_3_MathInt(bevi_length);
@@ -190,6 +198,8 @@ final class String {
         } //}
     
     BEC_2_4_6_TextString* bems_fromCcString(std::string bevi_string) { 
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
       bevp_size = new BEC_2_4_3_MathInt(bevi_string.length()); //is this right?
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());

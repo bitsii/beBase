@@ -142,6 +142,8 @@ final class List {
 
 #ifdef BEDCC_SGC
     BEC_2_9_4_ContainerList* bems_fromList(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list) {
+             BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+             BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif    
         bevi_list = a_bevi_list;
         bevp_length = new BEC_2_4_3_MathInt(bevi_list.size());
@@ -156,6 +158,8 @@ final class List {
 
 #ifdef BEDCC_SGC
     BEC_2_9_4_ContainerList* bems_fromListLen(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list, int32_t len) {
+        BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+        BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif
         bevi_list = a_bevi_list;
         bevp_length = new BEC_2_4_3_MathInt(len);

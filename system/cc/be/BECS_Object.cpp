@@ -357,6 +357,10 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
         bevg_le->bemg_doMark();
       }
     }
+    bevg_le = bevs_currFrame->bevs_thiso;
+    if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
+      bevg_le->bemg_doMark();
+    }
     bevs_currFrame = bevs_currFrame->bevs_priorFrame;
   }
   bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;

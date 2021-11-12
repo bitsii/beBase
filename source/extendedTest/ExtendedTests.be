@@ -174,25 +174,6 @@ class Test:ExtendedTest:EC(BaseTest) {
    
    testSF() {
     "in testSF".print();
-    
-    Int x0;
-    Int x1;
-    
-    emit(cc) {
-    """
-    //BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
-    BEC_2_6_6_SystemObject** xa[2] = { (BEC_2_6_6_SystemObject**) &bevl_x0, (BEC_2_6_6_SystemObject**) &bevl_x1 };
-    """
-    }
-    x1 = 10;
-    emit(cc) {
-    """
-    *xa[0] = *xa[1];
-    bevl_x1->bevi_int = 5;
-    """
-    }
-    assertEqual(x0, x1);
-    assertEqual(x0, 5);
    
    }
    

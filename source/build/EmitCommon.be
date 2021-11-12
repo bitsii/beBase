@@ -997,7 +997,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         if (build.emitChecks.has("ccSgc")) {
           locDecs += "BEC_2_6_6_SystemObject** bevls_stackRefs[" += numRefs.toString() += "] = { " += stackRefs += " };" += nl;
           //stackframe
-          locDecs += "BECS_StackFrame bevs_stackFrame(bevls_stackRefs, " += numRefs.toString() += ");" += nl;
+          locDecs += "BECS_StackFrame bevs_stackFrame(bevls_stackRefs, " += numRefs.toString() += ", this);" += nl;
         }
         //BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
       }

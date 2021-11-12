@@ -109,10 +109,12 @@ class BECS_StackFrame {
   BEC_2_6_6_SystemObject*** bevs_localVars;
   size_t bevs_numVars;
   BECS_FrameStack* bevs_myStack;
+  BEC_2_6_6_SystemObject* bevs_thiso;
   
-  inline BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars) {
+  inline BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars, BEC_2_6_6_SystemObject* beva_thiso) {
     bevs_localVars = beva_localVars;
     bevs_numVars = beva_numVars;
+    bevs_thiso = beva_thiso;
     bevs_myStack = &BECS_Runtime::bevs_currentStack;
     bevs_priorFrame = bevs_myStack->bevs_lastFrame;
     bevs_myStack->bevs_lastFrame = this;
@@ -178,7 +180,7 @@ class BECS_Object {
       
       if (bevs_lastInst != nullptr) {
         BECS_Object* bevs_currInst = bevs_lastInst->bevg_priorInst;
-        int tries = 0;
+        int tries = 2;
         while (tries < 2 && bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
           tries++;
           if (bevs_currInst->bevg_gcMark != bevg_currentGcMark) {
