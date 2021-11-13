@@ -4,7 +4,7 @@ std::unordered_map<int32_t, std::string> BECS_Ids::idCalls;
 
 thread_local BECS_FrameStack BECS_Runtime::bevs_currentStack;
 
-uint_fast16_t BECS_Runtime::bevg_currentGcMark = 0;
+uint_fast16_t BECS_Runtime::bevg_currentGcMark = 1;
 
 #ifdef BEDCC_PT
 std::atomic<uint_fast16_t> BECS_Runtime::bevg_gcState{0};
@@ -27,6 +27,7 @@ uint_fast64_t BECS_Runtime::bevg_countGcs = 0;
 uint_fast64_t BECS_Runtime::bevg_countSweeps = 0;
 uint_fast64_t BECS_Runtime::bevg_countDeletes = 0;
 uint_fast64_t BECS_Runtime::bevg_countRecycles = 0;
+uint_fast64_t BECS_Runtime::bevg_countAllocs = 0;
 
 void BECS_Lib::putCallId(std::string name, int32_t iid) {
     BECS_Ids::callIds[name] = iid;
@@ -78,9 +79,19 @@ size_t BECS_Object::bemg_getSize() {
 #ifdef BEDCC_SGC
     BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, std::vector<BEC_2_6_6_SystemObject*> args) {
 #endif  
+
   BEC_2_6_6_SystemObject* so = static_cast<BEC_2_6_6_SystemObject*>(this);
-  BEC_2_9_4_ContainerList* beArgs = (new BEC_2_9_4_ContainerList())->bems_fromList(args);
-  BEC_2_4_6_TextString* beCallId = (new BEC_2_4_6_TextString())->bems_fromCcString(BECS_Ids::idCalls[callId]);
+  
+  BEC_2_9_4_ContainerList* beArgs = nullptr;
+  BEC_2_4_6_TextString* beCallId = nullptr;
+
+#ifdef BEDCC_SGC
+  BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &beArgs, (BEC_2_6_6_SystemObject**) &beCallId };
+  BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, so);
+#endif
+
+  beArgs = (new BEC_2_9_4_ContainerList())->bems_fromList(args);
+  beCallId = (new BEC_2_4_6_TextString())->bems_fromCcString(BECS_Ids::idCalls[callId]);
   return so->bem_methodNotDefined_2(beCallId, beArgs);
 }
 
@@ -253,6 +264,7 @@ std::cout << "GCDEBUG starting gc " << std::endl;
   BECS_Runtime::bevg_currentGcMark++;
   if (BECS_Runtime::bevg_currentGcMark > BEDCC_GCRWM) {
     BECS_Runtime::bevg_currentGcMark = 1;
+    BECS_Runtime::bemg_zero();
   }
   //do all marking
   BECS_Runtime::bemg_markAll();
@@ -268,6 +280,8 @@ std::cout << "GCDEBUG starting gc " << std::endl;
 
 #ifdef BED_GCSTATS
 std::cout << "GCDEBUG ending gc " << std::endl;
+//std::cout << "GCDEBUG recycles " << BECS_Runtime::bevg_countRecycles  << std::endl;
+//std::cout << "GCDEBUG allocs " << BECS_Runtime::bevg_countAllocs  << std::endl;
 #endif
 
 #endif
@@ -418,6 +432,48 @@ void BECS_Runtime::bemg_sweepStack(BECS_FrameStack* bevs_myStack) {
         bevs_currInst = bevs_currInst->bevg_priorInst;
       }
     }
+  }
+
+#endif
+
+}
+
+void BECS_Runtime::bemg_zero() {
+
+#ifdef BEDCC_SGC
+
+#ifdef BED_GCSTATS
+std::cout << "GCDEBUG starting zero " << std::endl;
+#endif
+
+#ifdef BEDCC_PT  
+  for(auto const &idStack : bevg_frameStacks) {
+    bemg_zeroStack(idStack.second);
+  }
+#endif
+#ifndef BEDCC_PT 
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bemg_zeroStack(bevs_myStack);
+#endif
+  bemg_zeroStack(&bevg_oldInstsStack);
+
+#ifdef BED_GCSTATS
+std::cout << "GCDEBUG ending zero " << std::endl;
+#endif
+  
+#endif
+
+}
+
+void BECS_Runtime::bemg_zeroStack(BECS_FrameStack* bevs_myStack) {
+
+#ifdef BEDCC_SGC
+  
+  BECS_Object* bevs_currInst = bevs_myStack->bevs_lastInst;
+  
+  while (bevs_currInst != nullptr) {
+    bevs_currInst->bevg_gcMark = 0;
+    bevs_currInst = bevs_currInst->bevg_priorInst;
   }
 
 #endif

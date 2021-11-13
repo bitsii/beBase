@@ -1,30 +1,6 @@
-if you get it working, jump to "after working"
-try small alloc counts with gcdebug off when looking decent
-
-need to still do for BECS_Object::bems_methodNotDefined
-seems to be all working, try on arduino
-see if still works when recycling
-see if faster with recycling
-maybe don't need froms in list and string
-   
-when resetting gc counter reset everything to the old value first
-  make configurable, every 10k or so
-  add to gcdebug
   
-sweep needs to sweep everything
 
-? - gcs happen outside of any construction. check ccclassheads for other constructors
-checkDoGc needs to check for no pt too, move it outside BEDCC_PT
-just every so many stack creates will checkdogc (after other setup, or before)
-
-after working no segmentation 
-make reuse count also configured in gc macros, try tuning (5?)
-get sweep to reset the mark for everything it's keeping (and the count), dump BEDCC_GCRWM
-keep track of total allocation (ignore string vector content) with adding mallocs and rmming sweeps
-stackRefs should not need to include args to method
-stacks of size 0 shoudl be skippable
-
-change string equals, not equals, etc, to work with sizes, then make sure ts notempty and empty work
+make sure ts notempty and empty work arduino
 
 ====
 
@@ -32,13 +8,12 @@ gdb (catch throw) (run) start continue backtrace bld -ggdb
 
 ====
 
+change string equals, not equals, etc, to work with sizes, then 
+maybe don't need froms in list and string
 speedup gc cc
   look at how c did it
   get away from calls for the mark, have offsets or somesuch
-  
-?boehm
-?cc dump recycle?
-  
+
 libraries/packaging
 
 linkedlist copy doesn't work, same with params (there isn't one)

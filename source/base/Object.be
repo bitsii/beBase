@@ -869,9 +869,11 @@ emit(cc) {
 #endif  
   BEC_2_4_6_TextString* name = nullptr;
   BEC_2_9_4_ContainerList* args = nullptr;
-  
+
+#ifdef BEDCC_SGC
   BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &name, (BEC_2_6_6_SystemObject**) &args };
   BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, this);
+#endif
 
   //cout << "in sfwdcall " << endl;
   name = (new BEC_2_4_6_TextString())->bems_fromCcString(mname);

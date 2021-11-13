@@ -77,6 +77,7 @@ class BECS_Runtime {
     static uint_fast64_t bevg_countSweeps;
     static uint_fast64_t bevg_countDeletes;
     static uint_fast64_t bevg_countRecycles;
+    static uint_fast64_t bevg_countAllocs;
     
     static void init();
     
@@ -88,6 +89,8 @@ class BECS_Runtime {
     static void bemg_markStack(BECS_FrameStack* bevs_myStack);
     static void bemg_sweep();
     static void bemg_sweepStack(BECS_FrameStack* bevs_myStack);
+    static void bemg_zero();
+    static void bemg_zeroStack(BECS_FrameStack* bevs_myStack);
     
     static void bemg_addMyFrameStack();
     static void bemg_deleteMyFrameStack();
@@ -180,13 +183,15 @@ class BECS_Object {
       
       if (bevs_lastInst != nullptr) {
         BECS_Object* bevs_currInst = bevs_lastInst->bevg_priorInst;
-        int tries = 2;
+        int tries = 0;
         while (tries < 2 && bevs_currInst != nullptr && bevs_currInst->bevg_priorInst != nullptr) {
           tries++;
           if (bevs_currInst->bevg_gcMark != bevg_currentGcMark) {
             bevs_lastInst->bevg_priorInst = bevs_currInst->bevg_priorInst;
             if (bevs_currInst->bemg_getSize() == size) {
+#ifdef BED_GCSTATS
               BECS_Runtime::bevg_countRecycles++;
+#endif
               bevs_currInst->~BECS_Object();
               bevs_myStack->bevs_nextReuse = bevs_lastInst;
               return bevs_currInst;
@@ -201,6 +206,9 @@ class BECS_Object {
         }
         bevs_myStack->bevs_nextReuse = bevs_lastInst;
       }
+#ifdef BED_GCSTATS
+      BECS_Runtime::bevg_countAllocs++;
+#endif
       return malloc(size);
 #endif
 #ifdef BEDCC_BGC
@@ -209,13 +217,15 @@ class BECS_Object {
     }
     
     void operator delete(void* theinst, size_t size) {
+#ifdef BED_GCSTATS
       BECS_Runtime::bevg_countDeletes++;
+#endif
       free(theinst);
     }
     BECS_Object() {
 #ifdef BEDCC_SGC
       
-      bevg_gcMark = BECS_Runtime::bevg_currentGcMark;
+      bevg_gcMark = 0;
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       this->bevg_priorInst = bevs_myStack->bevs_lastInst;
       bevs_myStack->bevs_lastInst = this;
