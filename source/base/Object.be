@@ -877,7 +877,7 @@ emit(cc) {
 
   //cout << "in sfwdcall " << endl;
   name = (new BEC_2_4_6_TextString())->bems_ccsnew(mname);
-  args = new BEC_2_9_4_ContainerList(bevd_x, numargs);
+  args = (new BEC_2_9_4_ContainerList())->bems_cclnew(bevd_x, numargs);
   //args = args->bem_copy_0();
   return bem_forwardCall_2(name, args);
   //return nullptr;
