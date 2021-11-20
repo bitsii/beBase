@@ -138,41 +138,44 @@ final class String {
 #endif
 
 #ifdef BEDCC_BGC
-    BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes) { 
+    BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes) { 
 #endif
 
 #ifdef BEDCC_SGC
-    BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
+    BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
       BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
       BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif 
       bevi_bytes = a_bevi_bytes;
       bevp_size = new BEC_2_4_3_MathInt(bevi_length);
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
+      return this;
     } //}
     
     #ifdef BEDCC_BGC
-        BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
+        BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
     #endif
     
     #ifdef BEDCC_SGC
-        BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
+        BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
           BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
           BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
     #endif 
           bevi_bytes = a_bevi_bytes;
           bevp_size = new BEC_2_4_3_MathInt(bevi_length);
           bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
+          return this;
         } //}
     
-    BEC_2_4_6_TextString() { }
-    
-    BEC_2_4_6_TextString(std::string bevi_string) {
+    BEC_2_4_6_TextString* bems_ccsnew(std::string bevi_string) {
+#ifdef BEDCC_SGC
       BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
       BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+#endif
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
       bevp_size = new BEC_2_4_3_MathInt(bevi_string.length()); //is this right?
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
+      return this;
     }
     
     std::string bems_toCcString();

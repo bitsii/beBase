@@ -674,7 +674,7 @@ final class DirectoryIterator {
       buffer = readdir(bevi_dir); 
       if (buffer != NULL) {
         std::string ccnm(buffer->d_name);
-        bevl_newName = new $class/Text:String$(ccnm);
+        bevl_newName = (new $class/Text:String$())->bems_ccsnew(ccnm);
       }
       """
       }
@@ -752,7 +752,7 @@ final class DirectoryIterator {
         buffer = readdir(bevi_dir); 
         if (buffer != NULL) {
           std::string ccnm(buffer->d_name);
-          bevl_newName = new $class/Text:String$(ccnm);
+          bevl_newName = (new $class/Text:String$())->bems_ccsnew(ccnm);
         }
       }
       """

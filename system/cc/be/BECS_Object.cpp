@@ -91,7 +91,7 @@ size_t BECS_Object::bemg_getSize() {
 #endif
 
   beArgs = new BEC_2_9_4_ContainerList(args);
-  beCallId = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
+  beCallId = (new BEC_2_4_6_TextString())->bems_ccsnew(BECS_Ids::idCalls[callId]);
   return so->bem_methodNotDefined_2(beCallId, beArgs);
 }
 

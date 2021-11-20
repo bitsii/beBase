@@ -1396,7 +1396,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     ccMethods += "}" += nl;*/
     
     ccMethods += self.overrideMtdDec += "BEC_2_4_6_TextString bemc_" += bemBase += "s()" += exceptDec += " {" += nl;  //}
-    ccMethods += "return new BEC_2_4_6_TextString(" += len += ", becc_" += belsBase += ");" += nl;
+    ccMethods += "return (new BEC_2_4_6_TextString())->bems_ccsnew(" += len += ", becc_" += belsBase += ");" += nl;
     //{
     ccMethods += "}" += nl;
 }
