@@ -146,9 +146,9 @@ final class List {
              BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif    
         bevi_list = a_bevi_list;
-        bevp_length = new BEC_2_4_3_MathInt(bevi_list.size());
-        bevp_capacity = new BEC_2_4_3_MathInt(bevi_list.size());
-        bevp_multiplier = new BEC_2_4_3_MathInt(2);
+        bevp_length = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_list.size());
+        bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_list.size());
+        bevp_multiplier = (new BEC_2_4_3_MathInt())->bems_ccinew(2);
         return this;
     } //}
 
@@ -162,9 +162,9 @@ final class List {
         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif
         bevi_list = a_bevi_list;
-        bevp_length = new BEC_2_4_3_MathInt(len);
-        bevp_capacity = new BEC_2_4_3_MathInt(bevi_list.size());
-        bevp_multiplier = new BEC_2_4_3_MathInt(2);
+        bevp_length = (new BEC_2_4_3_MathInt())->bems_ccinew(len);
+        bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_list.size());
+        bevp_multiplier = (new BEC_2_4_3_MathInt())->bems_ccinew(2);
         return this;
     } //}
     

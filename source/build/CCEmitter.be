@@ -232,9 +232,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    lintConstruct(ClassConfig newcc, Node node) String {
       if (build.emitChecks.has("ccSgc")) {
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) ((new " + newcc.relEmitName(build.libName) + ")->bems_ccinew(" + node.held.literalValue + "))";
       } else {
-        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
+        newCall = "(" + newcc.relEmitName(build.libName) + "*) ((new " + newcc.relEmitName(build.libName) + ")->bems_ccinew(" + node.held.literalValue + "))";
       }
       return(newCall);
    }

@@ -147,8 +147,8 @@ final class String {
       BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif 
       bevi_bytes = a_bevi_bytes;
-      bevp_size = new BEC_2_4_3_MathInt(bevi_length);
-      bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
+      bevp_size = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
+      bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
       return this;
     } //}
     
@@ -162,8 +162,8 @@ final class String {
           BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
     #endif 
           bevi_bytes = a_bevi_bytes;
-          bevp_size = new BEC_2_4_3_MathInt(bevi_length);
-          bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
+          bevp_size = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
+          bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
           return this;
         } //}
     
@@ -173,8 +173,8 @@ final class String {
       BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
-      bevp_size = new BEC_2_4_3_MathInt(bevi_string.length()); //is this right?
-      bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
+      bevp_size = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_string.length()); //is this right?
+      bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_bytes.size());
       return this;
     }
     
