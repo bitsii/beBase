@@ -1396,7 +1396,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     ccMethods += "}" += nl;*/
     
     ccMethods += self.overrideMtdDec += "BEC_2_4_6_TextString bemc_" += bemBase += "s()" += exceptDec += " {" += nl;  //}
-    ccMethods += "return (new BEC_2_4_6_TextString())->bems_ccsnew(" += len += ", becc_" += belsBase += ");" += nl;
+    ccMethods += "return new BEC_2_4_6_TextString(" += len += ", becc_" += belsBase += ");" += nl;
     //{
     ccMethods += "}" += nl;
 }
@@ -2137,9 +2137,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
         }
         if (isForward) {
           if (emitting("cs")) {
-            methodBody += callAssign += cast += callTarget += "bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), (new BEC_2_9_4_ContainerList())->bems_cclnew(bevd_x, " += numargs.toString() += "));" += nl;
+            methodBody += callAssign += cast += callTarget += "bems_forwardCallCp(new BEC_2_4_6_TextString(System.Text.Encoding.UTF8.GetBytes(\"" += node.held.orgName += "\")), new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += "));" += nl;
           } elseIf (emitting("jv")) {
-             methodBody += callAssign += cast += callTarget += "bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), ((new BEC_2_9_4_ContainerList())->bems_cclnew(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
+             methodBody += callAssign += cast += callTarget += "bem_forwardCall_2(new BEC_2_4_6_TextString(\"" += node.held.orgName += "\".getBytes(\"UTF-8\")), (new BEC_2_9_4_ContainerList(bevd_x, " += numargs.toString() += ")).bem_copy_0());" += nl;
           } else {
             methodBody += callAssign += cast += callTarget += "bems_forwardCall(\"" += node.held.orgName += "\"" += callArgSpill += ", " += numargs.toString() += ")" += afterCast += ";" += nl;
           }

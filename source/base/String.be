@@ -245,10 +245,6 @@ final class String {
          //any vstring;
          Int size;
          Int capacity;
-         
-         //for no alloc copyValue et all
-         Int leni;
-         Int sizi;
       }
    }
    
@@ -319,18 +315,16 @@ final class String {
    
    addValue(astr) self {
       String str = astr.toString();
-      if (undef(leni)) {
-        leni = Int.new();
-        sizi = Int.new();
-      }
+      
+      Int sizi = Int.new();
       sizi.setValue(str.size);
       sizi.addValue(size);
-      //used to add +1 to the right hand of compare, should not be needed
+       //used to add +1 to the right hand of compare, should not be needed
       if (capacity < sizi) { 
         Int nsize = ((sizi + 16) * 3) / 2;
         capacitySet(nsize);
       }
-      copyValue(str, 0, str.size, size);
+      copyValue(str, TS.zero, str.size, size);
    }
    
    readBuffer() String {
@@ -1012,19 +1006,16 @@ BEINT bevl_val;
    
    // Reader:readIntoBuffer (buffer, offset)
    copyValue(String org, Int starti, Int endi, Int dstarti) self {
-      if ((starti < 0) || ((starti > org.size) || (endi > org.size))) {
+      if ((starti < TS.zero) || ((starti > org.size) || (endi > org.size))) {
          throw(System:Exception.new("copyValue request out of bounds"));
       } else {
       
-         //these are members to avoid alloc cost during repeat operations (leni, sizi) (only where capacity unchanged)
-         if (undef(leni)) {
-            leni = Int.new();
-            sizi = Int.new();
-         }
+         Int leni = Int.new();
          leni.setValue(endi);
          leni -= starti;
          Int mleni = leni;//for inline ref, until props supported
          
+         Int sizi = Int.new();
          sizi.setValue(dstarti);
          sizi += leni;
          
@@ -1064,7 +1055,7 @@ BEINT bevl_val;
          
          if (sizi > size) {
             ifEmit(c) {
-                setIntUnchecked(sizi, 0);
+                setIntUnchecked(sizi, TS.zero);
             }
             size.setValue(sizi);
          }
@@ -1243,6 +1234,7 @@ final class Text:Strings {
    default() self {
       
       fields {
+         Int zero = 0;
          String space = " ";
          String empty = Text:String.new();
          String quote = String.codeNew(34);
