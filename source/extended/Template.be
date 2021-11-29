@@ -83,7 +83,7 @@ class Replace {
             if (i > last) {
                if (nextIsCall) {
                   String payload = template.substring(last, i).strip();
-                  LinkedList payloads = payload.split(" ");
+                  LinkedList payloads = Text:Tokenizer.new(" ").tokenize(payload);
                   if (undef(runner)) {
                      // Call based
                     Replace:CallStep rcs = Replace:CallStep.new(payloads);

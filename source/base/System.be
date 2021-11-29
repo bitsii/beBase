@@ -4,7 +4,6 @@
 
  use Container:LinkedList;
  use Container:LinkedList:Node;
- use Container:LinkedList:Iterator as LIter;
  use Container:Map;
  use System:Random;
  use System:Identity;

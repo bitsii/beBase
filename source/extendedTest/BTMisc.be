@@ -404,22 +404,22 @@ MMM'''; //needs to stay unindented
       LinkedList.new().reverse();
       
       begin = "a b c d e";
-      end = Text:Strings.join(" ", begin.split(" ").reverse());
+      end = Text:Strings.join(" ", LinkedList.addAll(begin.split(" ")).reverse());
       ("Reverse " + end).print();
       assertEquals(end, "e d c b a");
       
       begin = "a";
-      end = Text:Strings.join(" ", begin.split(" ").reverse());
+      end = Text:Strings.join(" ", LinkedList.addAll(begin.split(" ")).reverse());
       ("Reverse " + end).print();
       assertEquals(end, "a");
       
       begin = "a b";
-      end = Text:Strings.join(" ", begin.split(" ").reverse());
+      end = Text:Strings.join(" ", LinkedList.addAll(begin.split(" ")).reverse());
       ("Reverse " + end).print();
       assertEquals(end, "b a");
       
       begin = "a b c";
-      end = Text:Strings.join(" ", begin.split(" ").reverse());
+      end = Text:Strings.join(" ", LinkedList.addAll(begin.split(" ")).reverse());
       ("Reverse " + end).print();
       assertEquals(end, "c b a");
    }

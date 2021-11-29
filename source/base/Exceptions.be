@@ -41,7 +41,7 @@ class System:Exception {
          any lineNumber;
          String lang;
          String emitLang;
-         LinkedList frames;
+         List frames;
          String framesText;
          Bool translated;
          Bool vv = false;
@@ -87,7 +87,7 @@ class System:Exception {
       return(toRet);
    }
     
-   framesGet() LinkedList {
+   framesGet() List {
     //translate frames from emit lang to be if needed
     //will get from existing frames or from frame text depending on lang
     ifNotEmit(noSmap) {
@@ -105,7 +105,7 @@ class System:Exception {
         createInstance("System:ExceptionTranslator").new().translateEmittedException(self);
       }
       String toRet = String.new();
-      LinkedList myFrames = self.frames;
+      List myFrames = self.frames;
       if (def(myFrames)) {
          toRet = toRet + "\n";
          for (any ft in myFrames) {
@@ -121,7 +121,7 @@ class System:Exception {
    
    addFrame(Exception:Frame frame) {
      if (undef(frames)) {
-        frames = LinkedList.new();
+        frames = List.new();
      }
      frames += frame;
    }

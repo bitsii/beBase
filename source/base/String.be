@@ -839,8 +839,8 @@ BEINT bevl_val;
       return(null);
    }
    
-   split(String delim) Container:LinkedList {
-      Container:LinkedList splits = Container:LinkedList.new();
+   split(String delim) Container:List {
+      Container:List splits = Container:List.new();
       Int last = 0;
       Int i = find(delim, last);
       Int ds = delim.size;

@@ -82,21 +82,21 @@ class System:BasePath {
    }
    
    toStringWithSeparator(String newsep) Text:String {
-      LinkedList fpath = path.split(separator);
+      LinkedList fpath = self.stepList;
       String npath = Text:Strings.new().join(newsep, fpath);
       return(npath);
    }
    
    stepListGet() LinkedList {
-      return(path.split(separator));
+      return(TT.new(separator).tokenize(path));
    }
    
    firstStepGet() String {
-      return(path.split(separator).first);
+      return(self.stepList.first);
    }
    
    lastStepGet() String {
-      return(path.split(separator).last);
+      return(self.stepList.last);
    }
    
    add(other) self {
@@ -106,8 +106,8 @@ class System:BasePath {
       if (other.isAbsolute) {
          return(other.copy());
       }
-      LinkedList fpath = path.split(separator);
-      LinkedList spath = other.path.split(separator);
+      LinkedList fpath = self.stepList;
+      LinkedList spath = other.stepList;
       for (LIter i = spath.linkedListIterator;i.hasNext;;) {
          any l = i.next;
          fpath.addValue(l);
@@ -120,7 +120,7 @@ class System:BasePath {
    }
    
    parentGet() System:BasePath  {
-      LinkedList fpath = path.split(separator);
+      LinkedList fpath = self.stepList;
       System:BasePath rpath = copy();
       rpath.path = String.new();
       Int rpl = fpath.length;
@@ -163,7 +163,7 @@ class System:BasePath {
    trimParents(Int howMany) self {
       if (howMany > 0) {
          makeNonAbsolute();
-         LinkedList fpath = path.split(separator);
+         LinkedList fpath = self.stepList;
          Node current;
          Node next = fpath.firstNode;
          for (Int i = 0;i < howMany;i = i++) {
@@ -177,7 +177,7 @@ class System:BasePath {
    }
    
    addStep(step) self {
-      LinkedList fpath = path.split(separator);
+      LinkedList fpath = self.stepList;
       fpath.addValue(step);
       path = path.join(separator, fpath);
    }
@@ -192,7 +192,7 @@ class System:BasePath {
    }
    
    addStepList(LinkedList sl) {
-      LinkedList fpath = path.split(separator);
+      LinkedList fpath = self.stepList;
       for (LIter i = sl.linkedListIterator;i.hasNext;;) {
          fpath.addValue(i.next);
       }
@@ -204,7 +204,7 @@ class System:BasePath {
    }
    
    addSteps(s1, s2) {
-      LinkedList fpath = path.split(separator);
+      LinkedList fpath = self.stepList;
       fpath.addValue(s1);
       fpath.addValue(s2);
       path = path.join(separator, fpath);
@@ -218,7 +218,7 @@ class System:BasePath {
    }
    
    stepsGet() LinkedList {
-      return(path.split(separator));
+      return(self.stepList);
    }
    
    hashGet() Math:Int {
@@ -1019,7 +1019,7 @@ class OLocker {
   
 }
 
-
+use Text:Tokenizer as TT;
 use Text:Glob;
 
 class Glob {
@@ -1029,7 +1029,7 @@ class Glob {
    }
    
    globSet(String _glob) {
-      Text:Tokenizer tok = Text:Tokenizer.new("*?", true);
+      TT tok = TT.new("*?", true);
       LinkedList _splits = tok.tokenize(_glob);
       fields {
          String glob = _glob;
@@ -1120,7 +1120,7 @@ use class System:ExceptionTranslator {
     }
     tt.translated = true;
     if (def(tt.framesText) && def(tt.lang) && (tt.lang == "cs" || tt.lang == "js")) {
-       Text:Tokenizer ltok = Text:Tokenizer.new("\r\n");
+       TT ltok = TT.new("\r\n");
        LinkedList lines = ltok.tokenize(tt.framesText);
        if (tt.lang == "cs") {
            Bool isCs = true;
@@ -1210,7 +1210,7 @@ use class System:ExceptionTranslator {
                if (def(callPart)) {
                  if (isCs) {
                    //("callPart |" + callPart + "|").print();
-                   LinkedList parts = callPart.split(".");
+                   List parts = callPart.split(".");
                    //3rd is class, 4th is method
                    String klass = parts.get(1);
                    String mtd = parts.get(2);
@@ -1307,7 +1307,7 @@ use class System:ExceptionTranslator {
   
   extractKlassLib(String callPart) String {
     //("in extractKlassLib " + callPart).print();
-    LinkedList parts = callPart.split(".");
+    List parts = callPart.split(".");
     //3rd is class, 4th is method
     return(extractKlass(parts.get(1)));
   }
@@ -1325,7 +1325,7 @@ use class System:ExceptionTranslator {
    if (undef(klass) || klass.begins("BEC_")!) {
        return(klass);
    }
-   LinkedList kparts = klass.substring(6).split("_");
+   List kparts = klass.substring(6).split("_");
    Int kps = kparts.size - 1; //last is the string, rest is the sizes
    String rawkl = kparts.get(kps);
    String bec = String.new();
@@ -1345,7 +1345,7 @@ use class System:ExceptionTranslator {
    if (undef(mtd) || mtd.begins("bem_")!) {
        return(mtd);
    }
-   LinkedList mparts = mtd.substring(4).split("_");
+   List mparts = mtd.substring(4).split("_");
    Int mps = mparts.size - 1; //last is the argnum, rest is the name
    String bem = String.new();
    for (Int i = 0;i < mps;i++=) {
