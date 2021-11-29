@@ -108,7 +108,7 @@ final class Float {
       }
       emit(cc) {
       """
-      bevi_float = (float) beva_int.bevi_int;
+      bevi_float = (float) beva_int->bevi_int;
       """
       }
    }

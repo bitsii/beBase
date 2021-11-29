@@ -200,7 +200,7 @@ local class Host {
       any r = IO:File:Reader:Command.new("hostname -s").open();
       String o = r.readString();
       r.close();
-      any l = o.splitLines();
+      any l = Text:Tokenizer.new(TS.dosNewline).tokenize(o);
       name = l.first;
       //("Got name " + name).print();
       return(name);

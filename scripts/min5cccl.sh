@@ -13,7 +13,7 @@ esac
 rm -rf targets/min/Base/target/cc/be
 rm -f targets/min/BEX_E_cl.exe
 
-time target5/BEX_E_cl.exe -deployPath=targets/min -buildPath=targets/min --buildFile build/minBase.txt --emitLang cc --singleCC true --emitFlag ccSgc --mainClass Test:TestHelloWorld ../brace/source/baseTest/TestHelloWorld.be
+time target5/BEX_E_cl.exe -deployPath=targets/min -buildPath=targets/min --buildFile build/minBase.txt --emitLang cc --singleCC true --emitFlag ccSgc --emitFlag noSmap --mainClass Test:TestHelloWorld ../brace/source/baseTest/TestHelloWorld.be
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

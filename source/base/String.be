@@ -472,11 +472,6 @@ final class String {
        return(copy().upperValue());
    }
    
-   swap0(String from, String to) {
-      return(Text:Strings.join(to, self.split(from)));//so, change the values....TODO and have this be a mutator
-      //doesn't work in some cases (trailing case)
-   }
-   
    swapFirst(String from, String to) {
       //("in swap 2").print();
       String res = String.new();
@@ -863,10 +858,6 @@ BEINT bevl_val;
    join(String delim, splits) String {
       return(Text:Strings.join(delim, splits));
    }
-   
-   splitLines() Container:LinkedList {
-      return(Text:Strings.lineSplitter.tokenize(self));
-   }
 
    toString() Text:String {
       return(self);
@@ -1245,7 +1236,6 @@ final class Text:Strings {
          String cr = String.codeNew(13); //carriage return
          String lf = "\n";
          String colon = ":";
-         Text:Tokenizer lineSplitter = Text:Tokenizer.new(dosNewline);
          Set ws = Set.new();
       }
       

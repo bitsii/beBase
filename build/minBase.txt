@@ -18,6 +18,6 @@
 ../brace/source/base/Map.be
 ../brace/source/base/System.be
 ../brace/source/base/Exceptions.be
-../brace/source/base/Tokenize.be
+#../brace/source/base/Tokenize.be
 #../brace/source/base/Functions.be
 ../brace/source/base/OpiFc.be
