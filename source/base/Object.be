@@ -799,21 +799,6 @@ void** bevl_other;
    otherType(other) Bool {
       return(sameType(other).not());
    }
-   
-   final getMethod(String nameac) Method {
-     Int cd = nameac.rfind("_");
-     String name = nameac.substring(0, cd);
-     Int ac = Int.new(nameac.substring(cd + 1));
-     return(getMethod(name, ac));
-   }
-   
-   final getMethod(String name, Int ac) Method {
-      return(Method.new(self, name, ac));
-   }
-   
-   final getInvocation(String name, List args) System:Invocation {
-      return(System:Invocation.new(self, name, args));
-   }
     
    emit(cs) {
    """

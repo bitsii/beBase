@@ -120,10 +120,6 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
       if (gc.name == "logical_or") {
          gc.name = "logicalOr";
       }
-      if (gc.name == "get_method") {
-         //"GOT A GET METHOD".print();
-         gc.name = "getMethod";
-      }
       if (gc.name == "and_value") {
          gc.name = "andValue";
       }
@@ -132,9 +128,6 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
       }
       //TODO change x_y to xY without custom logic
       gc.wasBound = true;
-      if (op.typename == ntypes.GET_METHOD) {
-        build.buildLiteral(nx, "Text:String");
-      }
       op.typename = ntypes.CALL;
       op.held = gc;
       pr.delete();

@@ -21,23 +21,23 @@ class Tests:Function(BaseTest) {
       
       List n = List.new(5);
       
-      auto p = getMethod("one", 1);
+      auto p = Method.new(self, "one", 1);
       
       Mapper.map(n, p);
       
-      p = getMethod("addOne_1");
+      p = Method.new(self, "addOne_1");
       Mapper.map(n, p);
       
-      p = self~printOne_1;
+      p = Method.new(self, "printOne_1");
       
-      //p = getMethod("printOne_1");
+      //p = Method.new("printOne_1");
       Mapper.map(n, p);
       "gonna print n3".print();
       //return(self);
       n[3].print();
       assertEquals(n[3], 2);
       
-      p = getMethod("addOne", 1);
+      p = Method.new(self, "addOne", 1);
       List n2 = Mapper.mapCopy(n, p);
       
       assertEquals(n2[4], 3);

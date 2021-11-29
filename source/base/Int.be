@@ -2,8 +2,6 @@
 // Use of this source code is governed by the BSD-3-Clause
 // license that can be found in the LICENSE file.
 
-use Math:Float;
-
 emit(cs) {
     """
 using System.IO;
@@ -161,40 +159,6 @@ final class Int {
    
    hashGet() Math:Int {
       return(self);
-   }
-   
-   toFloat() Float {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BEFLOAT* bevl_float;
-void** bevl_fi;
-      """
-      }
-      Float fi = Float.new();
-      emit(c) {
-"""
-bevl_fi = $fi&*;
-bevl_float = (BEFLOAT*) (bevl_fi + bercps);
-*bevl_float = (BEFLOAT) *((BEINT*) (bevs + bercps));
-"""
-      }
-      emit(jv, cs) {
-      """
-      bevl_fi.bevi_float = (float) this.bevi_int;
-      """
-      }
-      emit(js) {
-      """
-      bevl_fi.bevi_float = this.bevi_int * 1.0;
-      """
-      }
-      emit(cc) {
-      """
-      bevl_fi->bevi_float = (float) bevi_int;
-      """
-      }
-      return(fi);
    }
    
    toString() Text:String {

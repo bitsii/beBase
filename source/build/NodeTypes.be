@@ -53,7 +53,6 @@ final class Build:NodeTypes {
          Int OR_ASSIGN = 92;
          Int AND_ASSIGN = 91;
          Int LOGICAL_OR = 89;
-         Int GET_METHOD = 94;
          Int LOGICAL_AND = 90;
          Int GREATER = 41;
          Int GREATER_EQUALS = 42;

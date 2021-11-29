@@ -31,6 +31,13 @@ use final class Function:Mapper {
 
 class System:Method {
 
+  new(_target, String nameac) self {
+    Int cd = nameac.rfind("_");
+    String name = nameac.substring(0, cd);
+    Int _ac = Int.new(nameac.substring(cd + 1));
+    return(new(_target, name, _ac));
+  }
+  
   new(_target, String _callName, Int _ac) {
       fields {
           any target = _target;

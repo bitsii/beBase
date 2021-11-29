@@ -88,10 +88,29 @@ final class Float {
             rhs *= -1;
             lhs *= -1;
         }
-        Float rhsf = rhs.toFloat() / divby.toFloat();
-        Float lhsf = lhs.toFloat();
+        Float rhsf = Float.intNew(rhs) / Float.intNew(divby);
+        Float lhsf = Float.intNew(lhs);
         Float res = lhsf + rhsf;
         return(res);
+   }
+   
+   
+   intNew(Int int) self {
+      emit(jv, cs) {
+      """
+      bevi_float = (float) beva_int.bevi_int;
+      """
+      }
+      emit(js) {
+      """
+      bevi_float = beva_int.bevi_int * 1.0;
+      """
+      }
+      emit(cc) {
+      """
+      bevi_float = (float) beva_int.bevi_int;
+      """
+      }
    }
    
    create() self { return(Float.new()); }
@@ -134,7 +153,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
    
    toString() Text:String {
       Int lhi = toInt();
-      Float rh = self - lhi.toFloat();
+      Float rh = self - Float.intNew(lhi);
       rh = rh * 1000000.0;//arbitrary... TODO support specifying this
       Int rhi = rh.toInt();
       return(lhi.toString() + "." + rhi.toString());
