@@ -2,24 +2,9 @@
 std::unordered_map<std::string, int32_t> BECS_Ids::callIds;
 std::unordered_map<int32_t, std::string> BECS_Ids::idCalls;
 
-uint_fast16_t BECS_Runtime::bevg_currentGcMark = 1;
-
-#ifdef BEDCC_PT
-std::atomic<uint_fast16_t> BECS_Runtime::bevg_gcState{0};
-std::atomic<uint_fast32_t> BECS_Runtime::bevg_sharedAllocsSinceGc{0};
-#endif
-
 #ifdef BEDCC_PT
 std::recursive_mutex BECS_Runtime::bevs_initLock;
-std::mutex BECS_Runtime::bevg_gcLock;
-std::condition_variable BECS_Runtime::bevg_gcWaiter;
 #endif
-
-uint_fast64_t BECS_Runtime::bevg_countGcs = 0;
-uint_fast64_t BECS_Runtime::bevg_countSweeps = 0;
-uint_fast64_t BECS_Runtime::bevg_countDeletes = 0;
-uint_fast64_t BECS_Runtime::bevg_countRecycles = 0;
-uint_fast64_t BECS_Runtime::bevg_countAllocs = 0;
 
 void BECS_Lib::putCallId(std::string name, int32_t iid) {
     BECS_Ids::callIds[name] = iid;

@@ -39,28 +39,10 @@ class BECS_Runtime {
     
     static std::unordered_map<std::string, std::vector<int32_t>> smnlcs;
     static std::unordered_map<std::string, std::vector<int32_t>> smnlecs;
-    
-    static uint_fast16_t bevg_currentGcMark;
-#ifdef BEDCC_PT
-    static std::atomic<uint_fast16_t> bevg_gcState;
-      //0 don't do gc now, 1 do gc now
-    static std::atomic<uint_fast32_t> bevg_sharedAllocsSinceGc;
-#endif
 
 #ifdef BEDCC_PT    
     static std::recursive_mutex bevs_initLock;
 #endif
-
-#ifdef BEDCC_PT   
-    static std::mutex bevg_gcLock;
-    static std::condition_variable bevg_gcWaiter;
-#endif
-    
-    static uint_fast64_t bevg_countGcs;
-    static uint_fast64_t bevg_countSweeps;
-    static uint_fast64_t bevg_countDeletes;
-    static uint_fast64_t bevg_countRecycles;
-    static uint_fast64_t bevg_countAllocs;
     
     static void init();
     
