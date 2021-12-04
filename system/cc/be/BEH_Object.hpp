@@ -57,16 +57,17 @@ class BECS_Runtime {
 class BECS_Object {
   public:
     
-    void* operator new(size_t size) {
+    /*void* operator new(size_t size) {
       return malloc(size);
     }
-    
     void operator delete(void* theinst, size_t size) {
       free(theinst);
-    }
+    }*/
+    
     BECS_Object() {
     }
     virtual ~BECS_Object() = default;
+    
     virtual BEC_2_4_6_TextString* bemc_clnames();
     virtual BEC_2_4_6_TextString* bemc_clfiles();
     virtual BEC_2_6_6_SystemObject* bemc_create();
