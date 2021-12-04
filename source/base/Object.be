@@ -832,33 +832,15 @@ void** bevl_other;
 
 emit(cc_classHead) {
    """
-#ifdef BEDCC_BGC
-   virtual BEC_2_6_6_SystemObject* bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs);
-#endif
-
-#ifdef BEDCC_SGC
    virtual BEC_2_6_6_SystemObject* bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
-#endif 
   """
 }
 
 emit(cc) {
    """
-
-#ifdef BEDCC_BGC
-    BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs) {
-#endif
-
-#ifdef BEDCC_SGC
     BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
-#endif  
   BEC_2_4_6_TextString* name = nullptr;
   BEC_2_9_4_ContainerList* args = nullptr;
-
-#ifdef BEDCC_SGC
-  BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &name, (BEC_2_6_6_SystemObject**) &args };
-  BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, this);
-#endif
 
   //cout << "in sfwdcall " << endl;
   name = (new BEC_2_4_6_TextString())->bems_ccsnew(mname);

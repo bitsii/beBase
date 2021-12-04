@@ -30,10 +30,6 @@ final class Int {
   """
     int32_t bevi_int = 0;
     BEC_2_4_3_MathInt* bems_ccinew(int32_t a_bevi_int) { 
-#ifdef BEDCC_SGC
-      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
-#endif
       bevi_int = a_bevi_int; 
       return this; 
     }

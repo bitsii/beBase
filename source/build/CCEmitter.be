@@ -79,7 +79,6 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("static " + classConf.emitName + "* " + getHeaderInitialInst(classConf) + ";\n");
        heow.write("virtual void bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst);\n");
        heow.write("virtual BEC_2_6_6_SystemObject* bemc_getInitial();\n");
-       heow.write("virtual void bemg_doMark();\n");
        heow.write("virtual size_t bemg_getSize();\n");
        heow.write("virtual BETS_Object* bemc_getType();\n");
        unless (build.emitChecks.has("noSmap")) {
@@ -231,30 +230,18 @@ use final class Build:CCEmitter(Build:EmitCommon) {
   }
    
    lintConstruct(ClassConfig newcc, Node node) String {
-      if (build.emitChecks.has("ccSgc")) {
         String newCall = "(" + newcc.relEmitName(build.libName) + "*) ((new " + newcc.relEmitName(build.libName) + ")->bems_ccinew(" + node.held.literalValue + "))";
-      } else {
-        newCall = "(" + newcc.relEmitName(build.libName) + "*) ((new " + newcc.relEmitName(build.libName) + ")->bems_ccinew(" + node.held.literalValue + "))";
-      }
       return(newCall);
    }
    
    lfloatConstruct(ClassConfig newcc, Node node) String {
-      if (build.emitChecks.has("ccSgc")) {
         String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
-      } else {
-        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
-      }
       return(newCall);
    }
    
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
       String litArgs = "" + lisz + ", " + sdec;
-      if (build.emitChecks.has("ccSgc")) {
         String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())->bems_ccsnew(" + litArgs + ")";
-      } else {
-        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())->bems_ccsnew(" + litArgs + ")";
-      }
       return(newCall);
    }
       
@@ -346,16 +333,6 @@ use final class Build:CCEmitter(Build:EmitCommon) {
      }
    }
    
-   genMark(String mvn) String {
-       String bet = String.new();
-       if (build.emitChecks.has("ccSgc")) {
-         bet += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != BECS_Runtime::bevg_currentGcMark) {" += nl;
-         bet += mvn += "->bemg_doMark();" += nl;
-         bet += "}" += nl;
-       }
-       return(bet);
-   }
-   
    writeBET() {
         deow.write("class " + classConf.typeEmitName + ";\n");
         String beh = String.new();
@@ -363,7 +340,6 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         beh += "public:\n";
         beh += classConf.typeEmitName += "();\n";
         beh += "virtual BEC_2_6_6_SystemObject* bems_createInstance();\n";
-        beh += "virtual void bemgt_doMark();\n";
         beh += "static BEC_2_6_6_SystemObject** bevs_inst_ref;\n";
         beh += "};\n";
         heow.write(beh);
@@ -410,11 +386,6 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         } else {
           bet += "return new " += classConf.emitName += "();\n";
         }
-        bet += "}\n";
-        
-        bet += "void " += classConf.typeEmitName += "::bemgt_doMark() {\n";
-        bet += "BEC_2_6_6_SystemObject* bevsl_inst_ref = *bevs_inst_ref;\n";
-        bet += genMark("bevsl_inst_ref");
         bet += "}\n";
         
         //also need the count
@@ -568,11 +539,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    }
    
    lstringStartCi(String sdec, String belsName) {
-      if (build.emitChecks.has("ccSgc")) {
         sdec += "static std::vector<unsigned char> " += belsName += " = {"; //}
-      } elseIf (build.emitChecks.has("ccBgc")) {
-        sdec += "static std::vector<unsigned char, gc_allocator<unsigned char>> " += belsName += " = {"; //}
-      } 
    }
    
    buildPropList() {
@@ -646,18 +613,6 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             //} else {
               ccMethods += "return " += stinst += ";" += nl;
             //}
-        //{
-        ccMethods += "}" += nl;
-        
-        ccMethods += self.overrideMtdDec += "void " += newcc.emitName += "::bemg_doMark()" += exceptDec += " {" += nl;  //}
-            if (undef(cnode.held.extends) || cnode.held.extends == objectNp) {
-              ccMethods += "bevg_gcMark = BECS_Runtime::bevg_currentGcMark;" += nl;
-            } else {
-              ccMethods += "bevs_super::bemg_doMark();" += nl;
-            }
-            ccMethods += gcMarks;
-            gcMarks.clear();
-            
         //{
         ccMethods += "}" += nl;
         

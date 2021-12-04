@@ -14,7 +14,7 @@ esac
 #start with "perf record" to profile, see results with "perf report"
 #gdb --args ...
 
-time target5/BEX_E_gn.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC true --saveIds false --emitFlag ccSgc
+time target5/BEX_E_gn.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC true --saveIds false
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
@@ -29,7 +29,7 @@ CYC1=`date +%s`
 #time $MAKNAME -j 8 -f scripts/extecc.make
 #time g++ $CPFLAGS -o targetEc/BEX_E_gn.exe targetEc/Base/target/cc/be/*.o
 
-time g++ $CPFLAGS -DBEDCC_SGC=1 -pthread -o targetEc/BEX_E_gn.exe ./targetEc/Base/target/cc/be/BEL_Base.cpp
+time g++ $CPFLAGS -pthread -o targetEc/BEX_E_gn.exe ./targetEc/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

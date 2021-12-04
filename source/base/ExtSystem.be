@@ -499,13 +499,11 @@ use local class System:ThinThread {
      }
      emit(cc) {
      """
-     BECS_Runtime::bemg_enterBlocking();
 #ifdef BEDCC_PT
      if (bevi_thread->joinable()) {
       bevi_thread->join();
      }
 #endif
-     BECS_Runtime::bemg_exitBlocking();
      """
      }
      return(true);
@@ -575,11 +573,9 @@ use final class System:Thread:Lock {
     }
     emit(cc) {
     """
-    BECS_Runtime::bemg_enterBlocking();
 #ifdef BEDCC_PT
     bevi_lock.lock();
 #endif
-    BECS_Runtime::bemg_exitBlocking();
     """
     }
     return(true);
