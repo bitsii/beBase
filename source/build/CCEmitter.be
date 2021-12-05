@@ -72,14 +72,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        classHeadBody.clear();
        
        unless (build.emitChecks.has("noSmap")) {
-        heow.write("virtual BEC_2_4_6_TextString* bemc_clnames();\n");
-        heow.write("virtual BEC_2_4_6_TextString* bemc_clfiles();\n");
+         heow.write("virtual std::shared_ptr<BEC_2_4_6_TextString> bemc_clnames();\n");
+         heow.write("virtual std::shared_ptr<BEC_2_4_6_TextString> bemc_clfiles();\n");
        }
-       heow.write("virtual BEC_2_6_6_SystemObject* bemc_create();\n");
-       heow.write("static " + classConf.emitName + "* " + getHeaderInitialInst(classConf) + ";\n");
-       heow.write("virtual void bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst);\n");
-       heow.write("virtual BEC_2_6_6_SystemObject* bemc_getInitial();\n");
-       heow.write("virtual size_t bemg_getSize();\n");
+       heow.write("virtual std::shared_ptr<BEC_2_6_6_SystemObject> bemc_create();\n");
+       heow.write("static std::shared_ptr<" + classConf.emitName + "> " + getHeaderInitialInst(classConf) + ";\n");
+       heow.write("virtual void bemc_setInitial(std::shared_ptr<BEC_2_6_6_SystemObject> becc_inst);\n");
+       heow.write("virtual std::shared_ptr<BEC_2_6_6_SystemObject> bemc_getInitial();\n");
+       
        heow.write("virtual BETS_Object* bemc_getType();\n");
        unless (build.emitChecks.has("noSmap")) {
         heow.write("static std::vector<int32_t> bevs_smnlc;\n");
@@ -93,8 +93,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
     
     buildCreate() {
-        ccMethods += self.overrideMtdDec += getClassConfig(objectNp).relEmitName(build.libName) += "* " += classConf.emitName += "::bemc_create()" += exceptDec += " {" += nl;  //}
-            ccMethods += "return new " += getClassConfig(cnode.held.namepath).relEmitName(build.libName) += "();" += nl;
+    
+    ccMethods += self.overrideMtdDec += "std::shared_ptr<" += getClassConfig(objectNp).relEmitName(build.libName) += "> " += classConf.emitName += "::bemc_create()" += exceptDec += " {" += nl;  //}
+    ccMethods += "return std::make_shared<" += getClassConfig(cnode.held.namepath).relEmitName(build.libName) += ">();" += nl;
         //{
         ccMethods += "}" += nl;
     }
@@ -122,13 +123,13 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    startMethod(String mtdDec, ClassConfig returnType, String mtdName, String argDecs, exceptDec) {
      
-       methods += mtdDec += returnType.relEmitName(build.libName) += "* " += classConf.emitName += "::" += mtdName += "(";
+       methods += mtdDec += "std::shared_ptr<" += returnType.relEmitName(build.libName) += "> " += classConf.emitName += "::" += mtdName += "(";
         
        methods += argDecs;
         
        methods += ")" += exceptDec += " {" += nl; //}
        
-       classHeadBody += "virtual " += returnType.relEmitName(build.libName) += "* " += mtdName += "(";
+       classHeadBody += "virtual std::shared_ptr<" += returnType.relEmitName(build.libName) += "> " += mtdName += "(";
         
        classHeadBody += argDecs;
         
@@ -141,7 +142,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       if (node.typename == ntypes.NULL) {
          tcall = "nullptr";
       } elseIf (node.held.name == "self") {
-         tcall = "this";
+         tcall = "static_pointer_cast<" + classConf.emitName + ">(shared_from_this())";
       } elseIf (node.held.name == "super") {
          tcall = "bee_yosuperthis";
       } else {
@@ -198,23 +199,23 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    typeDecForVar(String b, Build:Var v) {
       if (v.isTyped!) {
-        b += objectCc.relEmitName(build.libName) += "*";
+        b += "std::shared_ptr<" += objectCc.relEmitName(build.libName) += ">";
       } else {
-        b += getClassConfig(v.namepath).relEmitName(build.libName) += "*";
+        b += "std::shared_ptr<" += getClassConfig(v.namepath).relEmitName(build.libName) += ">";
       }
    }
    
    formCast(ClassConfig cc, String type) String {
      if (type == "unchecked") {
-       String ccall = "static_cast";
+       String ccall = "std::static_pointer_cast";
      } else {
        if (build.emitChecks.has("ccNoRtti")) {
-         ccall = "static_cast";
+         ccall = "std::static_pointer_cast";
        } else {
-         ccall = "dynamic_cast";
+         ccall = "std::dynamic_pointer_cast";
        }
      }
-     return(ccall + "<" + cc.relEmitName(build.libName) + "*>(");//)
+     return(ccall + "<" + cc.relEmitName(build.libName) + ">(");//)
    }
    
    afterCast() String {
@@ -222,26 +223,28 @@ use final class Build:CCEmitter(Build:EmitCommon) {
      return(")");
    }
    
-   buildClassInfoMethod(String bemBase, String belsBase, Int len) {      
-      ccMethods += self.overrideMtdDec += "BEC_2_4_6_TextString* " += classConf.emitName += "::bemc_" += bemBase += "s()" += exceptDec += " {" += nl;  //}
-      ccMethods += "return (new BEC_2_4_6_TextString())->bems_ccsnew(" += len += ", becc_" += belsBase += ");" += nl;
+   buildClassInfoMethod(String bemBase, String belsBase, Int len) { 
+      ccMethods += self.overrideMtdDec += "std::shared_ptr<BEC_2_4_6_TextString> " += classConf.emitName += "::bemc_" += bemBase += "s()" += exceptDec += " {" += nl;  //}
+      ccMethods += "return std::make_shared<BEC_2_4_6_TextString>(" += len += ", becc_" += belsBase += ");" += nl;
       //{
       ccMethods += "}" += nl;
   }
    
    lintConstruct(ClassConfig newcc, Node node) String {
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) ((new " + newcc.relEmitName(build.libName) + ")->bems_ccinew(" + node.held.literalValue + "))";
+        String newCall = "std::make_shared<" + newcc.relEmitName(build.libName) + ">(" + node.held.literalValue + ")";
       return(newCall);
    }
    
    lfloatConstruct(ClassConfig newcc, Node node) String {
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
+        String newCall = "std::make_shared<" + newcc.relEmitName(build.libName) + ">(" + node.held.literalValue + "f)";
       return(newCall);
    }
    
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
       String litArgs = "" + lisz + ", " + sdec;
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())->bems_ccsnew(" + litArgs + ")";
+      
+      String newCall = "std::make_shared<" + newcc.relEmitName(build.libName) + ">(" + litArgs + ")";
+      
       return(newCall);
    }
       
@@ -380,11 +383,11 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         
         bet += "}\n";
         
-        bet += "BEC_2_6_6_SystemObject* " += classConf.typeEmitName += "::bems_createInstance() {\n";
+        bet += "std::shared_ptr<BEC_2_6_6_SystemObject> " += classConf.typeEmitName += "::bems_createInstance() {\n";
         if (classConf.emitName == "BEC_2_6_6_SystemObject") {
-          bet += "return new " += classConf.emitName += "();\n";
+          bet += "return std::make_shared<" += classConf.emitName += ">();\n";
         } else {
-          bet += "return new " += classConf.emitName += "();\n";
+          bet += "return std::static_pointer_cast<BEC_2_6_6_SystemObject>(std::make_shared<" += classConf.emitName += ">());\n";
         }
         bet += "}\n";
         
@@ -569,7 +572,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
          
          String bein = "bece_" + classConf.emitName + "_bevs_inst";
          
-         initialDec += classConf.emitName += "* " += classConf.emitName += "::" += bein += ";\n";
+         initialDec += "std::shared_ptr<" += classConf.emitName += "> " += classConf.emitName += "::" += bein += ";\n";
          
          return(initialDec);
     }
@@ -595,7 +598,8 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         ClassConfig newcc = getClassConfig(cnode.held.namepath);
         String stinst = getInitialInst(newcc);
         
-        ccMethods += self.overrideMtdDec += "void " += newcc.emitName += "::bemc_setInitial(" += oname += "* becc_inst)" += exceptDec += " {" += nl;  //}
+        ccMethods += self.overrideMtdDec += "void " += newcc.emitName += "::bemc_setInitial(std::shared_ptr<" += oname += "> becc_inst)" += exceptDec += " {" += nl;  //}
+
             asnr = "becc_inst";
             if (newcc.emitName != oname) {
                 String asnr = formCast(classConf, "unchecked", asnr);//no need for type check
@@ -606,18 +610,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         ccMethods += "}" += nl;
         
         
-        ccMethods += self.overrideMtdDec += oname += "* " += newcc.emitName += "::bemc_getInitial()" += exceptDec += " {" += nl;  //}
+        ccMethods += self.overrideMtdDec += "std::shared_ptr<" += oname += "> " += newcc.emitName += "::bemc_getInitial()" += exceptDec += " {" += nl;  //}
+
             
-            //if (newcc.emitName != oname) {
-            //  ccMethods += "return static_cast<" += oname += "*>(" += stinst += ");" += nl;
-            //} else {
+            if (newcc.emitName != oname) {
+              ccMethods += "return std::static_pointer_cast<" += oname += ">(" += stinst += ");" += nl;
+            } else {
               ccMethods += "return " += stinst += ";" += nl;
-            //}
-        //{
-        ccMethods += "}" += nl;
-        
-        ccMethods += self.overrideMtdDec += "size_t " += newcc.emitName += "::bemg_getSize()" += exceptDec += " {" += nl;  //}
-              ccMethods += "return sizeof(*this);" += nl;
+            }
         //{
         ccMethods += "}" += nl;
         

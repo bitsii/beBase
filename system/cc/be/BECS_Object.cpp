@@ -23,34 +23,30 @@ void BECS_Lib::putNlecSourceMap(std::string clname, std::vector<int32_t>& vals) 
   BECS_Runtime::smnlecs[clname] = vals;  
 }
 
-BEC_2_4_6_TextString* BECS_Object::bemc_clnames() {
+std::shared_ptr<BEC_2_4_6_TextString> BECS_Object::bemc_clnames() {
   return nullptr;  
 }
 
-BEC_2_4_6_TextString* BECS_Object::bemc_clfiles() {
+std::shared_ptr<BEC_2_4_6_TextString> BECS_Object::bemc_clfiles() {
   return nullptr; 
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemc_create() {
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemc_create() {
   return nullptr;
 }
 
-void BECS_Object::bemc_setInitial(BEC_2_6_6_SystemObject* becc_inst) { }
+void BECS_Object::bemc_setInitial(std::shared_ptr<BEC_2_6_6_SystemObject> becc_inst) { }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemc_getInitial() {
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemc_getInitial() {
  return nullptr; 
 }
 
-size_t BECS_Object::bemg_getSize() {
-   return sizeof(*this);
-}
+    std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bems_methodNotDefined(int32_t callId, std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args) {
 
-    BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, std::vector<BEC_2_6_6_SystemObject*> args) {
-
-  BEC_2_6_6_SystemObject* so = static_cast<BEC_2_6_6_SystemObject*>(this);
+  std::shared_ptr<BEC_2_6_6_SystemObject> so = static_cast<std::shared_ptr<BEC_2_6_6_SystemObject>>(this);
   
-  BEC_2_9_4_ContainerList* beArgs = nullptr;
-  BEC_2_4_6_TextString* beCallId = nullptr;
+  std::shared_ptr<BEC_2_9_4_ContainerList> beArgs = nullptr;
+  std::shared_ptr<BEC_2_4_6_TextString> beCallId = nullptr;
 
   beArgs = (new BEC_2_9_4_ContainerList())->bems_cclnew(args);
   beCallId = (new BEC_2_4_6_TextString())->bems_ccsnew(BECS_Ids::idCalls[callId]);
@@ -58,69 +54,69 @@ size_t BECS_Object::bemg_getSize() {
 }
 
 //bemds
-BEC_2_6_6_SystemObject* BECS_Object::bemd_0(int32_t callId) {
-  std::vector<BEC_2_6_6_SystemObject*> args = { };
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_0(int32_t callId) {
+  std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args = { };
   return bems_methodNotDefined(callId, args);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemd_1(int32_t callId, BEC_2_6_6_SystemObject* bevd_0) {
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_1(int32_t callId, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_0) {
 
-  std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0 };
+  std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args = { bevd_0 };
   return bems_methodNotDefined(callId, args);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemd_2(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1) {
-  std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1 };
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_2(int32_t callId, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_0, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_1) {
+  std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args = { bevd_0, bevd_1 };
   return bems_methodNotDefined(callId, args);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemd_3(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2) {
-  std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2 };
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_3(int32_t callId, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_0, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_1, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_2) {
+  std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args = { bevd_0, bevd_1, bevd_2 };
   return bems_methodNotDefined(callId, args);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemd_4(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3) {
-  std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3 };
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_4(int32_t callId, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_0, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_1, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_2, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_3) {
+  std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args = { bevd_0, bevd_1, bevd_2, bevd_3 };
   return bems_methodNotDefined(callId, args);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemd_5(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4) {
-  std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4 };
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_5(int32_t callId, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_0, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_1, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_2, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_3, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_4) {
+  std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4 };
   return bems_methodNotDefined(callId, args);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemd_6(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5) {
-  std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5 };
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_6(int32_t callId, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_0, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_1, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_2, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_3, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_4, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_5) {
+  std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5 };
   return bems_methodNotDefined(callId, args);
 }
 
-BEC_2_6_6_SystemObject* BECS_Object::bemd_7(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6) {
-  std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_7(int32_t callId, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_0, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_1, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_2, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_3, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_4, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_5, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_6) {
+  std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
   return bems_methodNotDefined(callId, args);
 }
 
-    BEC_2_6_6_SystemObject* BECS_Object::bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, std::vector<BEC_2_6_6_SystemObject*> bevd_x) {
+    std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemd_x(int32_t callId, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_0, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_1, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_2, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_3, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_4, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_5, std::shared_ptr<BEC_2_6_6_SystemObject> bevd_6, std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> bevd_x) {
 
-  std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
+  std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
   args.insert(args.end(), bevd_x.begin(), bevd_x.end());
   return bems_methodNotDefined(callId, args);
 }
 
-  BEC_2_6_6_SystemObject* BECS_Object::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bems_forwardCall(std::string mname, std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> bevd_x, int32_t numargs) {
   return nullptr;
 }
 
 bool BECS_Runtime::isInitted = false;
 
-BEC_2_5_4_LogicBool* BECS_Runtime::boolTrue;
-BEC_2_5_4_LogicBool* BECS_Runtime::boolFalse;
+std::shared_ptr<BEC_2_5_4_LogicBool> BECS_Runtime::boolTrue;
+std::shared_ptr<BEC_2_5_4_LogicBool> BECS_Runtime::boolFalse;
 
 std::unordered_map<std::string, BETS_Object*> BECS_Runtime::typeRefs;
 
 //for setting up initial instances
-BEC_2_6_11_SystemInitializer* BECS_Runtime::initializer;
+std::shared_ptr<BEC_2_6_11_SystemInitializer> BECS_Runtime::initializer;
 
-BEC_2_6_6_SystemObject * BECS_Runtime::maino;
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Runtime::maino;
 
 std::string BECS_Runtime::platformName;
 
@@ -133,9 +129,9 @@ std::unordered_map<std::string, std::vector<int32_t>> BECS_Runtime::smnlecs;
 void BECS_Runtime::init() { 
     if (isInitted) { return; }
     isInitted = true;
-    BECS_Runtime::boolTrue = new BEC_2_5_4_LogicBool(true);
-    BECS_Runtime::boolFalse = new BEC_2_5_4_LogicBool(false);
-    BECS_Runtime::initializer = new BEC_2_6_11_SystemInitializer();
+    BECS_Runtime::boolTrue = std::make_shared<BEC_2_5_4_LogicBool>(true);
+    BECS_Runtime::boolFalse = std::make_shared<BEC_2_5_4_LogicBool>(false);
+    BECS_Runtime::initializer = std::make_shared<BEC_2_6_11_SystemInitializer>();
 }
 
 int32_t BECS_Runtime::getNlcForNlec(std::string clname, int32_t val) {
@@ -169,16 +165,16 @@ void BETS_Object::bems_buildMethodNames(std::vector<std::string> names) {
   }
 }
 
-BEC_2_6_6_SystemObject* BETS_Object::bems_createInstance() {
+std::shared_ptr<BEC_2_6_6_SystemObject> BETS_Object::bems_createInstance() {
   return nullptr;
 }
 
 BECS_ThrowBack::BECS_ThrowBack() { }
 
-BECS_ThrowBack::BECS_ThrowBack(BEC_2_6_6_SystemObject* thrown) {
+BECS_ThrowBack::BECS_ThrowBack(std::shared_ptr<BEC_2_6_6_SystemObject> thrown) {
   wasThrown = thrown;
 }
 
-BEC_2_6_6_SystemObject* BECS_ThrowBack::handleThrow(BECS_ThrowBack thrown) {
+std::shared_ptr<BEC_2_6_6_SystemObject> BECS_ThrowBack::handleThrow(BECS_ThrowBack thrown) {
   return thrown.wasThrown;
 }
