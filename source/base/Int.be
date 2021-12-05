@@ -701,10 +701,10 @@ bevi_int = beva_xi->bevi_int;
       emit(cc) {
       """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_3_MathInt* bevls_xi = dynamic_cast<BEC_2_4_3_MathInt*>(beva_xi);
+      std::shared_ptr<BEC_2_4_3_MathInt> bevls_xi = std::dynamic_pointer_cast<BEC_2_4_3_MathInt>(beva_xi);
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_3_MathInt* bevls_xi = static_cast<BEC_2_4_3_MathInt*>(beva_xi);
+      std::shared_ptr<BEC_2_4_3_MathInt> bevls_xi = std::static_pointer_cast<BEC_2_4_3_MathInt>(beva_xi);
 #endif
       if (bevi_int == bevls_xi->bevi_int) {
         return BECS_Runtime::boolTrue;
@@ -743,12 +743,12 @@ bevi_int = beva_xi->bevi_int;
       emit(cc) {
       """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_3_MathInt* bevls_xi = dynamic_cast<BEC_2_4_3_MathInt*>(beva_xi);
+      std::shared_ptr<BEC_2_4_3_MathInt> bevls_xi = std::dynamic_pointer_cast<BEC_2_4_3_MathInt>(beva_xi);
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_3_MathInt* bevls_xi = static_cast<BEC_2_4_3_MathInt*>(beva_xi);
+      std::shared_ptr<BEC_2_4_3_MathInt> bevls_xi = std::static_pointer_cast<BEC_2_4_3_MathInt>(beva_xi);
 #endif
-      if (bevi_int != bevls_xi ->bevi_int) {
+      if (bevi_int != bevls_xi->bevi_int) {
         return BECS_Runtime::boolTrue;
       }
       """

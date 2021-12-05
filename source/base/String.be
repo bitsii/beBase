@@ -129,26 +129,25 @@ final class String {
    emit(cc_classHead) {
    """
     std::vector<unsigned char> bevi_bytes;
-
-    BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
+    
+    BEC_2_4_6_TextString() { }
+    
+    BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
       bevi_bytes = a_bevi_bytes;
-      bevp_size = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
-      bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
-      return this;
+      bevp_size = std::make_shared<BEC_2_4_3_MathInt>(bevi_length);
+      bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(sbevi_length);
     } //}
     
-        BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
-          bevi_bytes = a_bevi_bytes;
-          bevp_size = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
-          bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
-          return this;
-        } //}
+    BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
+      bevi_bytes = a_bevi_bytes;
+      bevp_size = std::make_shared<BEC_2_4_3_MathInt>(bevi_length);
+      bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(bevi_length);
+    } //}
     
-    BEC_2_4_6_TextString* bems_ccsnew(std::string bevi_string) {
+    BEC_2_4_6_TextString(std::string bevi_string) {
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
-      bevp_size = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_string.length()); //is this right?
-      bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_bytes.size());
-      return this;
+      bevp_size = std::make_shared<BEC_2_4_3_MathInt>(bevi_string.length()); //is this right?
+      bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(bevi_bytes.size());
     }
     
     std::string bems_toCcString();
@@ -921,10 +920,10 @@ BEINT bevl_val;
   emit(cc) {
   """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_6_TextString* bevls_stri = dynamic_cast<BEC_2_4_6_TextString*>(beva_stri);
+      std::shared_ptr<BEC_2_4_6_TextString> bevls_stri = std::static_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_6_TextString* bevls_stri = static_cast<BEC_2_4_6_TextString*>(beva_stri);
+      std::shared_ptr<BEC_2_4_6_TextString> bevls_stri = std::dynamic_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
 #endif
     if (bevp_size->bevi_int == bevls_stri->bevp_size->bevi_int) {
        for (int32_t i = 0;i < bevp_size->bevi_int;i++) {

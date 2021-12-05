@@ -342,7 +342,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         beh += "class " += classConf.typeEmitName += " : public BETS_Object {\n";
         beh += "public:\n";
         beh += classConf.typeEmitName += "();\n";
-        beh += "virtual BEC_2_6_6_SystemObject* bems_createInstance();\n";
+        beh += "virtual std::shared_ptr<BEC_2_6_6_SystemObject> bems_createInstance();\n";
         beh += "static BEC_2_6_6_SystemObject** bevs_inst_ref;\n";
         beh += "};\n";
         heow.write(beh);
