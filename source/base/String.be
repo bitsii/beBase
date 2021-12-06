@@ -920,10 +920,10 @@ BEINT bevl_val;
   emit(cc) {
   """
 #ifndef BEDCC_NORTTI
-      std::shared_ptr<BEC_2_4_6_TextString> bevls_stri = std::static_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
+      std::shared_ptr<BEC_2_4_6_TextString> bevls_stri = std::dynamic_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
 #endif
 #ifdef BEDCC_NORTTI
-      std::shared_ptr<BEC_2_4_6_TextString> bevls_stri = std::dynamic_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
+      std::shared_ptr<BEC_2_4_6_TextString> bevls_stri = std::static_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
 #endif
     if (bevp_size->bevi_int == bevls_stri->bevp_size->bevi_int) {
        for (int32_t i = 0;i < bevp_size->bevi_int;i++) {
