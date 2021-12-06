@@ -128,26 +128,54 @@ final class String {
    
    emit(cc_classHead) {
    """
+
+#ifdef BEDCC_BGC
+    std::vector<unsigned char, gc_allocator<unsigned char>> bevi_bytes;
+#endif
+
+#ifdef BEDCC_SGC
     std::vector<unsigned char> bevi_bytes;
-    
-    BEC_2_4_6_TextString() { }
-    
-    BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char> a_bevi_bytes) { 
+#endif
+
+#ifdef BEDCC_BGC
+    BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes) { 
+#endif
+
+#ifdef BEDCC_SGC
+    BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+#endif 
       bevi_bytes = a_bevi_bytes;
-      bevp_size = std::make_shared<BEC_2_4_3_MathInt>(bevi_length);
-      bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(bevi_length);
+      bevp_size = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
+      bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
+      return this;
     } //}
     
-    /*BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
-      bevi_bytes = a_bevi_bytes;
-      bevp_size = std::make_shared<BEC_2_4_3_MathInt>(bevi_length);
-      bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(bevi_length);
-    } //}*/
+    #ifdef BEDCC_BGC
+        BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
+    #endif
     
-    BEC_2_4_6_TextString(std::string bevi_string) {
+    #ifdef BEDCC_SGC
+        BEC_2_4_6_TextString* bems_ccsnew(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
+          BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+          BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+    #endif 
+          bevi_bytes = a_bevi_bytes;
+          bevp_size = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
+          bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_length);
+          return this;
+        } //}
+    
+    BEC_2_4_6_TextString* bems_ccsnew(std::string bevi_string) {
+#ifdef BEDCC_SGC
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+#endif
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
-      bevp_size = std::make_shared<BEC_2_4_3_MathInt>(bevi_string.length()); //is this right?
-      bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(bevi_bytes.size());
+      bevp_size = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_string.length()); //is this right?
+      bevp_capacity = (new BEC_2_4_3_MathInt())->bems_ccinew(bevi_bytes.size());
+      return this;
     }
     
     std::string bems_toCcString();
@@ -920,10 +948,10 @@ BEINT bevl_val;
   emit(cc) {
   """
 #ifndef BEDCC_NORTTI
-      std::shared_ptr<BEC_2_4_6_TextString> bevls_stri = std::dynamic_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
+      BEC_2_4_6_TextString* bevls_stri = dynamic_cast<BEC_2_4_6_TextString*>(beva_stri);
 #endif
 #ifdef BEDCC_NORTTI
-      std::shared_ptr<BEC_2_4_6_TextString> bevls_stri = std::static_pointer_cast<BEC_2_4_6_TextString>(beva_stri);
+      BEC_2_4_6_TextString* bevls_stri = static_cast<BEC_2_4_6_TextString*>(beva_stri);
 #endif
     if (bevp_size->bevi_int == bevls_stri->bevp_size->bevi_int) {
        for (int32_t i = 0;i < bevp_size->bevi_int;i++) {

@@ -663,9 +663,13 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           main += "be::BECS_Runtime::platformName = std::string(\"" += build.outputPlatform.name += "\");" += nl;
           main += "be::BECS_Runtime::argc = argc;" += nl;
           main += "be::BECS_Runtime::argv = argv;" += nl;
+          if (build.emitChecks.has("ccBgc")) {
+            main += "GC_INIT();" += nl;
+            main += "GC_allow_register_threads();" += nl;
+          }
           main += "be::BECS_Runtime::bemg_beginThread();" += nl;
           main += "be::" + libEmitName + "::init();" += nl;
-          main += "std::shared_ptr<be::" += maincc.emitName += "> mc = std::make_shared<be::" += maincc.emitName += ">();" += nl;
+          main += "be::" += maincc.emitName += "* mc = new be::" += maincc.emitName += "();" += nl;
           main += "be::BECS_Runtime::maino = mc;" += nl;
           main += "mc->bem_new_0();" += nl;
           main += "mc->bem_main_0();" += nl;
@@ -721,7 +725,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             
             if (clnode.held.syn.hasDefault) {
                 if(emitting("cc")) {
-                  nc = "std::make_shared<" + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + ">()";
+                  nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
                 } else {
                   String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
                 }
@@ -939,6 +943,14 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       String argDecs = String.new();
       String locDecs = String.new();
       
+      //for (Node ovlc in node.held.orderedVars) {
+      //  lookatComp(ovlc);
+      //}
+      
+      String stackRefs = String.new();
+      Bool isFirstRef = true;
+      Int numRefs = 0;
+      
       Bool isFirstArg = true;
       for (Node ov in node.held.orderedVars) {
          if ((ov.held.name != "self") && (ov.held.name != "super")) {
@@ -950,13 +962,27 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                  if (undef(ov.held)) {
                     throw(VisitError.new("Null arg held " + ov.toString(), ov));
                  }
+                 if(emitting("cc")) {
+                    unless(isFirstRef) {
+                      stackRefs += ", ";
+                    }
+                    isFirstRef = false;
+                    stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
+                    numRefs++=;
+                 }
                 decForVar(argDecs, ov.held, true);
              } else {
                 decForVar(locDecs, ov.held, false);
                 if(emitting("js")) {
                     locDecs += ";" += nl;
                 } elseIf(emitting("cc")) {
-                    locDecs += ";" += nl
+                    locDecs += " = nullptr;" += nl;
+                    unless(isFirstRef) {
+                      stackRefs += ", ";
+                    }
+                    isFirstRef = false;
+                    stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
+                    numRefs++=;
                 } elseIf(emitting("sw")) {
                     locDecs += " = nil;" += nl;
                 } else  {
@@ -965,6 +991,15 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
              }
              ov.held.nativeName = nameForVar(ov.held);
          }
+      }
+      
+      if(emitting("cc")) {
+        if (build.emitChecks.has("ccSgc")) {
+          locDecs += "BEC_2_6_6_SystemObject** bevls_stackRefs[" += numRefs.toString() += "] = { " += stackRefs += " };" += nl;
+          //stackframe
+          locDecs += "BECS_StackFrame bevs_stackFrame(bevls_stackRefs, " += numRefs.toString() += ", this);" += nl;
+        }
+        //BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
       }
       
       NamePath ertype = msyn.getEmitReturnType(csyn, build);
@@ -1028,6 +1063,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         String classEmits = String.new();
         String onceDecs = String.new();
         String propertyDecs = String.new();
+        String gcMarks = String.new();
         Node cnode = node;
         Build:ClassSyn csyn = node.held.syn;
         String dynMethods = String.new();
@@ -1079,14 +1115,23 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                     propertyDecs += self.propDec;
                     decForVar(propertyDecs, i, false);
                     if (emitting("cc")) {
-                      propertyDecs += ";" += nl;
+                      propertyDecs += " = nullptr;" += nl;
                     } else {
                       propertyDecs += ";" += nl;
+                    }
+                    if(emitting("cc")) {
+                      String mvn = nameForVar(i);
+                      gcMarks += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != BECS_Runtime::bevg_currentGcMark) {" += nl;
+                      gcMarks += mvn += "->bemg_doMark();" += nl;
+                      gcMarks += "}" += nl;
                     }
                 }
                 ovcount++=;
             }
         }
+        if (node.held.namepath.toString() == "Container:List") {
+          gcMarks += "this->bemg_markContent();\n";
+        } 
         
       //Its not clear how mtdlist ends up, so just use the map
       Map dynGen = Map.new();
@@ -1139,19 +1184,24 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         if(emitting("cc")) {
         
           while (j < (dnumargs + 1) && j < maxDynArgs) {
-               args = args + ", std::shared_ptr<" + objectCc.relEmitName(build.libName) + "> bevd_" + (j - 1);
+              args = args + ", " + objectCc.relEmitName(build.libName) + "* bevd_" + (j - 1);
               superArgs = superArgs + ", " + "bevd_" + (j - 1);
               j++=;
           }
           if (dnumargs >= maxDynArgs) {
-              args = args + ", std::vector<std::shared_ptr<" + objectCc.relEmitName(build.libName) + ">> bevd_x";        
+            if (build.emitChecks.has("ccBgc")) {
+              args = args + ", std::vector<" + objectCc.relEmitName(build.libName) + "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x";
               superArgs = superArgs + ", bevd_x";
+            } elseIf (build.emitChecks.has("ccSgc")) {
+              args = args + ", std::vector<" + objectCc.relEmitName(build.libName) + "*> bevd_x";
+              superArgs = superArgs + ", bevd_x";
+            }
           }
           
-          String dmh = "virtual std::shared_ptr<" + objectCc.relEmitName(build.libName) + "> " + dmname + "(" + args + ");" + nl;
+          String dmh = "virtual " + objectCc.relEmitName(build.libName) + "* " + dmname + "(" + args + ");" + nl;
           addClassHeader(dmh);
-          dynMethods += "std::shared_ptr<" += objectCc.relEmitName(build.libName) += "> " += classConf.emitName += "::" += dmname += "(" += args += ") {" += nl; //}
-         } else {
+          dynMethods += objectCc.relEmitName(build.libName) += "* " += classConf.emitName += "::" += dmname += "(" += args += ") {" += nl; //}
+        } else {
           
           while (j < (dnumargs + 1) && j < maxDynArgs) {
               if (emitting("sw")) {
@@ -1450,7 +1500,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     methodBody += "return this;" += nl;//default self return
                   }
                 } else {
-                  methodBody += "return std::static_pointer_cast<" += classConf.emitName += ">(shared_from_this());" += nl;                 
+                  methodBody += "return this;" += nl;//default self return
                 }
              }
              
@@ -1458,7 +1508,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                if (emitting("js")) {
                 methods += "var bevd_x = new Array(" += maxSpillArgsLen.toString() += ");" += nl;
                } elseIf (emitting("cc")) {
-                  methods += "std::vector<std::shared_ptr<" += objectCc.relEmitName(build.libName) += ">> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
+                 if (build.emitChecks.has("ccBgc")) {
+                   methods += "std::vector<" += objectCc.relEmitName(build.libName) += "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
+                 } elseIf (build.emitChecks.has("ccSgc")) {
+                   methods += "std::vector<" += objectCc.relEmitName(build.libName) += "*> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
+                 }
                } else {
                 methods += objectCc.relEmitName(build.libName) += "[] bevd_x = new " += objectCc.relEmitName(build.libName) += "[" += maxSpillArgsLen.toString() += "];" += nl;
                }
@@ -1972,7 +2026,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     }
                 } else {
                   if (emitting("cc")) {
-                      newCall = "std::make_shared<" + newcc.relEmitName(build.libName) + ">()";
+                    if (build.emitChecks.has("ccSgc")) {
+                      newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())";
+                    } else {
+                      newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())";
+                    }
                   } else {
                     String newCall = self.newDec + newcc.relEmitName(build.libName) + "()";
                   }

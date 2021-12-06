@@ -11,7 +11,7 @@ case "$una" in
 esac
 
 #rm -rf target5/Base/target/cc
-mono --debug target5/BEX_E_mcs.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy5 --buildPath target5
+mono --debug target5/BEX_E_mcs.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy5 --buildPath target5 --emitFlag ccSgc
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #export CC=g++
@@ -25,6 +25,6 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 #-O1, O2, O3
 
 #-pg for gprof perf, not needed for valgrind, which is better anyway
-time g++ -o ./target5/BEX_E_gn.exe -Wfatal-errors -ggdb -std=c++11 ./target5/Base/target/cc/be/BEL_Base.cpp
+time g++ -DBEDCC_SGC=1 -o ./target5/BEX_E_gn.exe -Wfatal-errors -ggdb -std=c++11 ./target5/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi

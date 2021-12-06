@@ -175,8 +175,7 @@ class System:Object {
 
       for (int i = 0;i < fnames->size();i++) {
 
-       bevl_names->bem_addValue_1(std::static_pointer_cast<BEC_2_6_6_SystemObject>(std::make_shared<BEC_2_4_6_TextString>(fnames->at(i))));
-
+       bevl_names->bem_addValue_1((new BEC_2_4_6_TextString())->bems_ccsnew(fnames->at(i)));
 
       }
       
@@ -464,7 +463,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (dynamic_cast<BECS_Object*>(this) != dynamic_cast<BECS_Object*>(beva_x.get())) {
+      if (this != beva_x) {
         return BECS_Runtime::boolFalse;
       }
       """
@@ -503,7 +502,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (dynamic_cast<BECS_Object*>(this) != dynamic_cast<BECS_Object*>(beva_x.get())) {
+      if (this != beva_x) {
         return BECS_Runtime::boolFalse;
       }
       """
@@ -833,17 +832,37 @@ void** bevl_other;
 
 emit(cc_classHead) {
    """
-   virtual std::shared_ptr<BEC_2_6_6_SystemObject> bems_forwardCall(std::string mname, std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> bevd_x, int32_t numargs);
+#ifdef BEDCC_BGC
+   virtual BEC_2_6_6_SystemObject* bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs);
+#endif
+
+#ifdef BEDCC_SGC
+   virtual BEC_2_6_6_SystemObject* bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
+#endif 
   """
 }
 
 emit(cc) {
    """
-    std::shared_ptr<BEC_2_6_6_SystemObject> BEC_2_6_6_SystemObject::bems_forwardCall(std::string mname, std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> bevd_x, int32_t numargs) {
+
+#ifdef BEDCC_BGC
+    BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs) {
+#endif
+
+#ifdef BEDCC_SGC
+    BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
+#endif  
+  BEC_2_4_6_TextString* name = nullptr;
+  BEC_2_9_4_ContainerList* args = nullptr;
+
+#ifdef BEDCC_SGC
+  BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &name, (BEC_2_6_6_SystemObject**) &args };
+  BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, this);
+#endif
 
   //cout << "in sfwdcall " << endl;
-  std::shared_ptr<BEC_2_4_6_TextString> name = std::make_shared<BEC_2_4_6_TextString>(mname);
-  std::shared_ptr<BEC_2_9_4_ContainerList> args = std::make_shared<BEC_2_9_4_ContainerList>(bevd_x, numargs);
+  name = (new BEC_2_4_6_TextString())->bems_ccsnew(mname);
+  args = (new BEC_2_9_4_ContainerList())->bems_cclnew(bevd_x, numargs);
   //args = args->bem_copy_0();
   return bem_forwardCall_2(name, args);
   //return nullptr;

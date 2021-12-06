@@ -16,7 +16,7 @@ esac
 
 rm -rf targetEc/Base/target/cc ./targetEc/BEX_E_cl.exe
 
-time target5/BEX_E_cl.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC true
+time target5/BEX_E_cl.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC true --emitFlag ccSgc
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
@@ -24,11 +24,11 @@ CYC1=`date +%s`
 
 #exit 0
 
-#clang++ -o ./targetEc/BEX_E_cl.exe -pthread -ferror-limit=1 -std=c++11 ./targetEc/Base/target/cc/be/BEL_Base.cpp
+#clang++ -DBEDCC_SGC=1 -o ./targetEc/BEX_E_cl.exe -pthread -ferror-limit=1 -std=c++11 ./targetEc/Base/target/cc/be/BEL_Base.cpp
 
 #lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-time clang++ -pthread -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++11 ./targetEc/Base/target/cc/be/BEL_Base.cpp
+time clang++ -DBEDCC_SGC=1 -pthread -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++11 ./targetEc/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

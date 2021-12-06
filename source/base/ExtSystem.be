@@ -291,7 +291,7 @@ final class System:CurrentPlatform (System:Platform) {
                 ifNotEmit(embPlat) {
                 emit(cc) {
                 """
-                    bevl_platformName = std::make_shared<BEC_2_4_6_TextString>(BECS_Runtime::platformName);
+                    bevl_platformName = (new BEC_2_4_6_TextString())->bems_ccsnew(BECS_Runtime::platformName);
                 """
                 }
                 }
@@ -499,11 +499,13 @@ use local class System:ThinThread {
      }
      emit(cc) {
      """
+     BECS_Runtime::bemg_enterBlocking();
 #ifdef BEDCC_PT
      if (bevi_thread->joinable()) {
       bevi_thread->join();
      }
 #endif
+     BECS_Runtime::bemg_exitBlocking();
      """
      }
      return(true);
@@ -573,9 +575,11 @@ use final class System:Thread:Lock {
     }
     emit(cc) {
     """
+    BECS_Runtime::bemg_enterBlocking();
 #ifdef BEDCC_PT
     bevi_lock.lock();
 #endif
+    BECS_Runtime::bemg_exitBlocking();
     """
     }
     return(true);

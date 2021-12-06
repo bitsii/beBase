@@ -674,7 +674,7 @@ final class DirectoryIterator {
       buffer = readdir(bevi_dir); 
       if (buffer != NULL) {
         std::string ccnm(buffer->d_name);
-        bevl_newName = std::make_shared<BEC_2_4_6_TextString>(ccnm);
+        bevl_newName = (new $class/Text:String$())->bems_ccsnew(ccnm);
       }
       """
       }
@@ -752,7 +752,7 @@ final class DirectoryIterator {
         buffer = readdir(bevi_dir); 
         if (buffer != NULL) {
           std::string ccnm(buffer->d_name);
-          bevl_newName = std::make_shared<BEC_2_4_6_TextString>(ccnm);
+          bevl_newName = (new $class/Text:String$())->bems_ccsnew(ccnm);
         }
       }
       """
