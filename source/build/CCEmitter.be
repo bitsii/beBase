@@ -241,9 +241,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    }
    
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
-      String litArgs = "" + lisz + ", " + sdec;
+      //String litArgs = "" + lisz + ", " + sdec;
       
-      String newCall = "std::make_shared<" + newcc.relEmitName(build.libName) + ">(" + litArgs + ")";
+      String newCall = "std::make_shared<" + newcc.relEmitName(build.libName) + ">(" + lisz + ", std::vector<unsigned char>(" + sdec + "))";
       
       return(newCall);
    }

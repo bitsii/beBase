@@ -312,10 +312,10 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(cc) {
       """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_5_MathFloat* bevls_xi = dynamic_cast<BEC_2_4_5_MathFloat*>(beva_xi);
+      std::shared_ptr<BEC_2_4_5_MathFloat> bevls_xi = std::dynamic_pointer_cast<BEC_2_4_5_MathFloat>(beva_xi);
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_5_MathFloat* bevls_xi = static_cast<BEC_2_4_5_MathFloat*>(beva_xi);
+      std::shared_ptr<BEC_2_4_5_MathFloat> bevls_xi = std::static_pointer_cast<BEC_2_4_5_MathFloat>(beva_xi);
 #endif
       if (bevi_float == bevls_xi->bevi_float) {
         return BECS_Runtime::boolTrue;
@@ -354,10 +354,10 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       emit(cc) {
       """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_5_MathFloat* bevls_xi = dynamic_cast<BEC_2_4_5_MathFloat*>(beva_xi);
+      std::shared_ptr<BEC_2_4_5_MathFloat> bevls_xi = std::dynamic_pointer_cast<BEC_2_4_5_MathFloat>(beva_xi);
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_5_MathFloat* bevls_xi = static_cast<BEC_2_4_5_MathFloat*>(beva_xi);
+      std::shared_ptr<BEC_2_4_5_MathFloat> bevls_xi = std::static_pointer_cast<BEC_2_4_5_MathFloat>(beva_xi);
 #endif
       if (bevi_float != bevls_xi->bevi_float) {
         return BECS_Runtime::boolTrue;

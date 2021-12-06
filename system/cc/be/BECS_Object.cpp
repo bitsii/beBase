@@ -43,13 +43,13 @@ std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bemc_getInitial() {
 
     std::shared_ptr<BEC_2_6_6_SystemObject> BECS_Object::bems_methodNotDefined(int32_t callId, std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> args) {
 
-  std::shared_ptr<BEC_2_6_6_SystemObject> so = static_cast<std::shared_ptr<BEC_2_6_6_SystemObject>>(this);
+  std::shared_ptr<BEC_2_6_6_SystemObject> so = std::static_pointer_cast<BEC_2_6_6_SystemObject>(shared_from_this());
   
   std::shared_ptr<BEC_2_9_4_ContainerList> beArgs = nullptr;
   std::shared_ptr<BEC_2_4_6_TextString> beCallId = nullptr;
 
-  beArgs = (new BEC_2_9_4_ContainerList())->bems_cclnew(args);
-  beCallId = (new BEC_2_4_6_TextString())->bems_ccsnew(BECS_Ids::idCalls[callId]);
+  beArgs = std::make_shared<BEC_2_9_4_ContainerList>(args);
+  beCallId = std::make_shared<BEC_2_4_6_TextString>(BECS_Ids::idCalls[callId]);
   return so->bem_methodNotDefined_2(beCallId, beArgs);
 }
 

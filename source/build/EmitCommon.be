@@ -1450,7 +1450,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     methodBody += "return this;" += nl;//default self return
                   }
                 } else {
-                  methodBody += "return static_pointer_cast<" += classConf.emitName += ">(shared_from_this());" += nl;                 
+                  methodBody += "return std::static_pointer_cast<" += classConf.emitName += ">(shared_from_this());" += nl;                 
                 }
              }
              

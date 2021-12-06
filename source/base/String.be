@@ -135,7 +135,7 @@ final class String {
     BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
       bevi_bytes = a_bevi_bytes;
       bevp_size = std::make_shared<BEC_2_4_3_MathInt>(bevi_length);
-      bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(sbevi_length);
+      bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(bevi_length);
     } //}
     
     BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 

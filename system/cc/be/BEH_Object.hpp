@@ -30,7 +30,7 @@ class BECS_Runtime {
     static std::shared_ptr<BEC_2_6_11_SystemInitializer> initializer;
     
     //the main instance
-    static BEC_2_6_6_SystemObject* maino;
+    static std::shared_ptr<BEC_2_6_6_SystemObject> maino;
     
     static std::string platformName;
     

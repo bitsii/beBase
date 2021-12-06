@@ -29,9 +29,8 @@ final class Int {
   emit(cc_classHead) {
   """
     int32_t bevi_int = 0;
-    BEC_2_4_3_MathInt* bems_ccinew(int32_t a_bevi_int) { 
-      bevi_int = a_bevi_int; 
-      return this; 
+    BEC_2_4_3_MathInt(int32_t a_bevi_int) { 
+      bevi_int = a_bevi_int;
     }
   """
   }

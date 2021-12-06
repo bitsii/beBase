@@ -133,14 +133,14 @@ final class List {
 
     BEC_2_9_4_ContainerList() { }
     
-    BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list) {
+    BEC_2_9_4_ContainerList(std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> a_bevi_list) {
         bevi_list = a_bevi_list;
         bevp_length = std::make_shared<BEC_2_4_3_MathInt>(bevi_list.size());
         bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(bevi_list.size());
         bevp_multiplier = std::make_shared<BEC_2_4_3_MathInt>(2);
     } //}
 
-    BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list, int32_t len) {
+    BEC_2_9_4_ContainerList(std::vector<std::shared_ptr<BEC_2_6_6_SystemObject>> a_bevi_list, int32_t len) {
         bevi_list = a_bevi_list;
         bevp_length = std::make_shared<BEC_2_4_3_MathInt>(len);
         bevp_capacity = std::make_shared<BEC_2_4_3_MathInt>(bevi_list.size());
