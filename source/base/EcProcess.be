@@ -88,7 +88,7 @@ final class System:Process {
           emit(cc) {
           """
             for (int i = 1;i < BECS_Runtime::argc;i++) {
-                bevp_args->bem_addValue_1((new BEC_2_4_6_TextString())->bems_ccsnew(std::string(BECS_Runtime::argv[i])));
+                bevp_args->bem_addValue_1(new BEC_2_4_6_TextString(std::string(BECS_Runtime::argv[i])));
             }
           """
           }

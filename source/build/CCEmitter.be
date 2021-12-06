@@ -225,16 +225,16 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    buildClassInfoMethod(String bemBase, String belsBase, Int len) {      
       ccMethods += self.overrideMtdDec += "BEC_2_4_6_TextString* " += classConf.emitName += "::bemc_" += bemBase += "s()" += exceptDec += " {" += nl;  //}
-      ccMethods += "return (new BEC_2_4_6_TextString())->bems_ccsnew(" += len += ", becc_" += belsBase += ");" += nl;
+      ccMethods += "return new BEC_2_4_6_TextString(" += len += ", becc_" += belsBase += ");" += nl;
       //{
       ccMethods += "}" += nl;
   }
    
    lintConstruct(ClassConfig newcc, Node node) String {
       if (build.emitChecks.has("ccSgc")) {
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) ((new " + newcc.relEmitName(build.libName) + ")->bems_ccinew(" + node.held.literalValue + "))";
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
       } else {
-        newCall = "(" + newcc.relEmitName(build.libName) + "*) ((new " + newcc.relEmitName(build.libName) + ")->bems_ccinew(" + node.held.literalValue + "))";
+        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
       }
       return(newCall);
    }
@@ -251,9 +251,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
       String litArgs = "" + lisz + ", " + sdec;
       if (build.emitChecks.has("ccSgc")) {
-        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())->bems_ccsnew(" + litArgs + ")";
+        String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
       } else {
-        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())->bems_ccsnew(" + litArgs + ")";
+        newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
       }
       return(newCall);
    }

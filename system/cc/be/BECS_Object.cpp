@@ -90,8 +90,8 @@ size_t BECS_Object::bemg_getSize() {
   BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, so);
 #endif
 
-  beArgs = (new BEC_2_9_4_ContainerList())->bems_cclnew(args);
-  beCallId = (new BEC_2_4_6_TextString())->bems_ccsnew(BECS_Ids::idCalls[callId]);
+  beArgs = new BEC_2_9_4_ContainerList(args);
+  beCallId = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
   return so->bem_methodNotDefined_2(beCallId, beArgs);
 }
 
