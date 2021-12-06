@@ -142,7 +142,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       if (node.typename == ntypes.NULL) {
          tcall = "nullptr";
       } elseIf (node.held.name == "self") {
-         tcall = "static_pointer_cast<" + classConf.emitName + ">(shared_from_this())";
+         tcall = "std::static_pointer_cast<" + classConf.emitName + ">(shared_from_this())";
       } elseIf (node.held.name == "super") {
          tcall = "bee_yosuperthis";
       } else {

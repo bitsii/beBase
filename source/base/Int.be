@@ -28,7 +28,8 @@ final class Int {
    
   emit(cc_classHead) {
   """
-    int32_t bevi_int = 0;
+    int32_t bevi_int;
+    BEC_2_4_3_MathInt() { bevi_int = 0; }
     BEC_2_4_3_MathInt(int32_t a_bevi_int) { 
       bevi_int = a_bevi_int;
     }

@@ -464,7 +464,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (this != beva_x) {
+      if (dynamic_cast<BECS_Object*>(this) != dynamic_cast<BECS_Object*>(beva_x.get())) {
         return BECS_Runtime::boolFalse;
       }
       """
@@ -503,7 +503,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (this != beva_x) {
+      if (dynamic_cast<BECS_Object*>(this) != dynamic_cast<BECS_Object*>(beva_x.get())) {
         return BECS_Runtime::boolFalse;
       }
       """
