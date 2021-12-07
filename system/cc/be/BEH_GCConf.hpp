@@ -6,6 +6,8 @@
 //#define BEDCC_GCAPERGC 4444
 //how many marks before a sweep
 #define BEDCC_GCMPERS 16
+//#define BEDCC_GCMPERS 1
+//#define BED_GCNOREUSE
 //#define BEDCC_GCMPERS 4
 //sync count sometimes
 //#define BEDCC_GCSHASYNC 8192
