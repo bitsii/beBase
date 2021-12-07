@@ -137,7 +137,12 @@ final class String {
     std::vector<unsigned char> bevi_bytes;
 #endif
 
-   BEC_2_4_6_TextString() {  }
+   BEC_2_4_6_TextString() {  
+#ifdef BEDCC_SGC
+    BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+    BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+#endif
+   }
 
 #ifdef BEDCC_BGC
     BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes) { 
@@ -146,6 +151,10 @@ final class String {
 #ifdef BEDCC_SGC
     BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
 #endif 
+#ifdef BEDCC_SGC
+     BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+     BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+#endif
       bevi_bytes = a_bevi_bytes;
       bevp_size = nullptr;
       bevp_capacity = nullptr;
@@ -160,6 +169,10 @@ final class String {
     #ifdef BEDCC_SGC
         BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
     #endif 
+    #ifdef BEDCC_SGC
+         BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+    #endif
           bevi_bytes = a_bevi_bytes;
           bevp_size = nullptr;
           bevp_capacity = nullptr;
@@ -168,6 +181,10 @@ final class String {
         } //}
     
     BEC_2_4_6_TextString(std::string bevi_string) {
+    #ifdef BEDCC_SGC
+         BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+    #endif
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
       bevp_size = nullptr;
       bevp_capacity = nullptr;

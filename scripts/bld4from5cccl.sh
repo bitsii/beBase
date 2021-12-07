@@ -17,6 +17,10 @@ rm -rf target4/Base/target/cc ./target4/BEX_E_cl.exe
 #catch throw
 #run
 
+#debug "run" to get going, "backtrace" on fail
+#gdb --args ./target5/BEX_E_cl.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy4 --buildPath target4 --emitFlag ccSgc
+
+#nondebug
 time ./target5/BEX_E_cl.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy4 --buildPath target4 --emitFlag ccSgc
 
 #sudo apt-get install valgrind kcachegrind graphviz

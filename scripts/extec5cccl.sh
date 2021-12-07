@@ -16,6 +16,10 @@ esac
 
 rm -rf targetEc/Base/target/cc ./targetEc/BEX_E_cl.exe
 
+#debug "run" to get going, "backtrace" on fail
+#gdb --args ./target5/BEX_E_cl.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC true --emitFlag ccSgc
+
+#nondebug
 time target5/BEX_E_cl.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC true --emitFlag ccSgc
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi

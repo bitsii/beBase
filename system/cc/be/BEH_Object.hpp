@@ -48,9 +48,15 @@ class BECS_Runtime {
     
     static std::unordered_map<std::string, std::vector<int32_t>> smnlcs;
     static std::unordered_map<std::string, std::vector<int32_t>> smnlecs;
-    
+
+#ifdef BEDCC_PT
     static thread_local BECS_FrameStack bevs_currentStack;
-    
+#endif
+
+#ifndef BEDCC_PT
+    static BECS_FrameStack bevs_currentStack;
+#endif
+
     static uint_fast16_t bevg_currentGcMark;
 #ifdef BEDCC_PT
     static std::atomic<uint_fast16_t> bevg_gcState;
@@ -179,7 +185,8 @@ class BECS_Object {
       uint_fast16_t bevg_currentGcMark = BECS_Runtime::bevg_currentGcMark;
       
       BECS_Object* bevs_lastInst = bevs_myStack->bevs_nextReuse;
-      
+
+#ifndef BED_GCNOREUSE      
       if (bevs_lastInst != nullptr) {
         BECS_Object* bevs_currInst = bevs_lastInst->bevg_priorInst;
         int tries = 0;
@@ -205,6 +212,7 @@ class BECS_Object {
         }
         bevs_myStack->bevs_nextReuse = bevs_lastInst;
       }
+#endif
 #ifdef BED_GCSTATS
       BECS_Runtime::bevg_countAllocs++;
 #endif
@@ -224,16 +232,16 @@ class BECS_Object {
     BECS_Object() {
       
 #ifdef BEDCC_SGC
-      
       BEC_2_6_6_SystemObject* thiso = (BEC_2_6_6_SystemObject*) this;
       BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
       BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, thiso);
-      
+#endif
+
+#ifdef BEDCC_SGC
       bevg_gcMark = 0;
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       this->bevg_priorInst = bevs_myStack->bevs_lastInst;
       bevs_myStack->bevs_lastInst = this;
-      
 #endif
       
     }

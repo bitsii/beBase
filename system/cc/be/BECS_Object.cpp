@@ -2,7 +2,13 @@
 std::unordered_map<std::string, int32_t> BECS_Ids::callIds;
 std::unordered_map<int32_t, std::string> BECS_Ids::idCalls;
 
+#ifdef BEDCC_PT
 thread_local BECS_FrameStack BECS_Runtime::bevs_currentStack;
+#endif
+
+#ifndef BEDCC_PT
+BECS_FrameStack BECS_Runtime::bevs_currentStack;
+#endif
 
 uint_fast16_t BECS_Runtime::bevg_currentGcMark = 1;
 

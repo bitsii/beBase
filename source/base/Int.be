@@ -29,8 +29,17 @@ final class Int {
   emit(cc_classHead) {
   """
     int32_t bevi_int = 0;
-    BEC_2_4_3_MathInt() { }
+    BEC_2_4_3_MathInt() { 
+    #ifdef BEDCC_SGC
+         BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+    #endif
+    }
     BEC_2_4_3_MathInt(int32_t a_bevi_int) { 
+    #ifdef BEDCC_SGC
+         BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+    #endif
       bevi_int = a_bevi_int; 
     }
   """
