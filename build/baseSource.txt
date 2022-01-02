@@ -5,6 +5,7 @@ source/base/String.be
 source/base/Logic.be
 source/base/Float.be
 source/base/Encode.be
+source/base/EncodeHex.be
 source/base/EncodeUrl.be
 source/base/LinkedList.be
 source/base/Stack.be

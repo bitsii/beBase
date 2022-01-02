@@ -13,6 +13,7 @@
 ../brace/source/base/Int.be
 ../brace/source/base/String.be
 ../brace/source/base/Logic.be
+../brace/source/base/EncodeHex.be
 ../brace/source/base/EncodeUrl.be
 ../brace/source/base/List.be
 ../brace/source/base/Map.be
