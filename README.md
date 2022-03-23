@@ -22,29 +22,31 @@ https://git-scm.com/download/win
 create and enter a working directory of your choosing (cd $HOME;mkdir Workspace - possibly)
 git clone https://gitlab.com/bitsii/brace.git
 cd brace
-./scripts/devprep.sh
+./scripts/devprepjv.sh
 
 devprep will install some more things / tell you to install some more things
-(those things are mono)
+(those things are java)
 and then tell you to run the initial build to bootstrap your environment
 
-The above sets up the basic environment for brace to emit C# and compile / run with mono (the default).  You can also use javascript (nodejs, browser).  After the base mono setup is done you can run 
+The above sets up the basic environment for brace to emit Java and compile / run with the jdk (the default).  
+
+You can also use javascript (nodejs, browser).  After the base setup is done you can run 
 
 ./scripts/devprepjs.sh
 
 for that.  
 
-Java is also supported, run 
+C# is also supported, run 
 
-./scripts/devprepjv.sh
+./scripts/devprepcs.sh
 
 for that.
 
 End of Getting Started for Development!
 
-Brace is a general purpose, object oriented programming language with an emphasis on simplicity and practicality, with a translator and base library licensed under the [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) open source license.  It is implemented as a self-hosted source-to-source translator targeting C#/.Net, Java, and JavaScript.  The language takes inspiration from Python, Perl, Java, C#, and C++.  One of the features is to be able to write core code once and use it in a hybrid application targeting the major platforms - a Linux, Windows, or Mac application, a hosted application as a website, and Android and IOS mobile applications ( see [braceApp](https://gitlab.com/bitsii/braceApp) ).
+Brace is a general purpose, object oriented programming language with an emphasis on simplicity and practicality, with a translator and base library licensed under the [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) open source license.  It is implemented as a self-hosted source-to-source translator targeting Java, C++, JavaScript, and C#/.Net.  The language takes inspiration from Python, Perl, Java, C#, and C++.  One of the features is to be able to write core code once and use it in a hybrid application targeting the major platforms - a Linux, Windows, or Mac application, a hosted application as a website, and Android and IOS mobile applications ( see [braceApp](https://gitlab.com/bitsii/braceApp) ).  Another is support for Arduino (especially esp 8266) via C++ ( see [braceEmb](https://gitlab.com/bitsii/braceEmb) )
 
-The language borrows automatic memory management via garbage collection from it's host runtimes and supports both statically and dynamically typed variables (is "gradually typed" ).  All function calls are methods and all values are references to instances of classes.  Single-Parent inheritance is supported and all classes derive from a base class System:Object.  Operator overloading is supported (operations are translated to method call names by convention).  There is also built - in support for accessors, default accessors are created for all member variables but can be overriden to modify their behavior (and "virtual" members can be created simply by implementing properly named methods).  try/catch exception handling syntax is supported.  All variables are either member variables (accomplished by enclosing their declaration in a fields { } block) or method-scope local variables (ala Python).  Support for global state is available through a built in singleton behavior activated by implementing a default() { } method for a class and there is also a static, single-assignment mechanism ( only performed the first time the given code is execute, = ).
+The language borrows automatic memory management via garbage collection from it's host runtimes (usually - C++ has a built in collector, the SGC, and can use Boehm optionally instead) and supports both statically and dynamically typed variables (is "gradually typed" ).  All function calls are methods and all values are references to instances of classes.  Single-Parent inheritance is supported and all classes derive from a base class System:Object.  Operator overloading is supported (operations are translated to method call names by convention).  There is also built - in support for accessors, default accessors are created for all member variables but can be overriden to modify their behavior (and "virtual" members can be created simply by implementing properly named methods).  try/catch exception handling syntax is supported.  All variables are either member variables (accomplished by enclosing their declaration in a fields { } block) or method-scope local variables (ala Python).  Support for global state is available through a built in singleton behavior activated by implementing a default() { } method for a class and there is also a static, single-assignment mechanism ( only performed the first time the given code is execute, = ).
 
 An example: 
 
