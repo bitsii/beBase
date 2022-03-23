@@ -2,7 +2,10 @@
 
 export CLASSPATH=target5/*
 
-time java be.BEL_Base --buildFile build/buildbuild.txt --deployPath deploy4 --buildPath target4 --emitLang jv
+#-XX:+UseSerialGC good
+#-XX:TieredStopAtLevel=1 good
+
+time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base --buildFile build/buildbuild.txt --deployPath deploy4 --buildPath target4 --emitLang jv
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
