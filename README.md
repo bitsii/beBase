@@ -30,7 +30,7 @@ and then tell you to run the initial build to bootstrap your environment
 
 The above sets up the basic environment for brace to emit Java and compile / run with the jdk (the default).  
 
-You can also use javascript (nodejs, browser).  After the base setup is done you can run 
+You can also use javascript (nodejs, browser).  You don't need to install anything more to support using braceApps with brace in the browser, but if you want to develop with the self hosted brace compiler running with javascript you can (after the base setup is done) run 
 
 ./scripts/devprepjs.sh
 
