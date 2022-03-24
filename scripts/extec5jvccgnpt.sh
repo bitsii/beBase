@@ -12,7 +12,8 @@ esac
 
 #rm -rf targetEc/Base/target/cc
 
-mono --debug target5/BEX_E_mcs.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC true --emitFlag ccSgc --emitFlag ccPt
+export CLASSPATH=target5/*
+time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base --buildFile build/extendedEc.txt --emitLang cc --singleCC true --emitFlag ccSgc --emitFlag ccPt
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

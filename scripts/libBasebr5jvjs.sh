@@ -2,7 +2,8 @@
 
 rm -rf lib/br/js/BEL_Base_*
 
-time mono --debug target5/BEX_E_mcs.exe source/base/Uses.be --buildFile build/libBasebr.txt --emitLang js --ownProcess false
+export CLASSPATH=target5/*
+time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base source/base/Uses.be --buildFile build/libBasebr.txt --emitLang js --ownProcess false
 
 #source/extended/LogSink.be
 

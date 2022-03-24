@@ -1,6 +1,14 @@
 #!/bin/bash
 
 una=`uname -a`
+
+rm -rf targetLibBaseexTest
+
+export CLASSPATH=target5/*
+time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base source/base/Uses.be --buildFile build/libBaseexTest.txt -loadSyns=lib/ex/jv/BEL_Base.syn -loadIds=lib/ex/jv/BEL_Base -initLib=Base --emitLang jv
+
+lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
+
 case "$una" in
   *Msys*)
     export CLASSPATH="lib/ex/jv/BES_System.jar;lib/ex/jv/BEL_Base.jar;targetLibBaseexTest/Test/target/jv"
@@ -9,12 +17,6 @@ case "$una" in
     export CLASSPATH="lib/ex/jv/BES_System.jar:lib/ex/jv/BEL_Base.jar:targetLibBaseexTest/Test/target/jv"
     ;;
 esac
-
-rm -rf targetLibBaseexTest
-
-time mono --debug target5/BEX_E_mcs.exe source/base/Uses.be --buildFile build/libBaseexTest.txt -loadSyns=lib/ex/jv/BEL_Base.syn -loadIds=lib/ex/jv/BEL_Base -initLib=Base --emitLang jv
-
-lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 javac targetLibBaseexTest/Test/target/jv/be/*.java
 

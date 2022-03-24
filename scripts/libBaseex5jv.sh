@@ -2,7 +2,8 @@
 
 rm -rf lib/ex/jv/BEL_Base_*
 
-time mono --debug target5/BEX_E_mcs.exe source/base/Uses.be --buildFile build/libBaseex.txt --emitLang jv --doMain false source/extended/LogSink.be
+export CLASSPATH=target5/*
+time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base source/base/Uses.be --buildFile build/libBaseex.txt --emitLang jv --doMain false source/extended/LogSink.be
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

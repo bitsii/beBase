@@ -12,7 +12,8 @@ esac
 
 rm -rf target5/Base/target/cc ./target5/BEX_E_cl.exe
 
-mono --debug target5/BEX_E_mcs.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy5 --buildPath target5 --emitFlag ccBgc --emitFlag ccPt
+export CLASSPATH=target5/*
+time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy5 --buildPath target5 --emitFlag ccBgc --emitFlag ccPt
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #-O1, O2, O3 - most of the difference is O1, as fast as jv

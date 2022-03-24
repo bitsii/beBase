@@ -11,7 +11,8 @@ case "$una" in
 esac
 
 #rm -rf target5/Base/target/cc
-mono --debug target5/BEX_E_mcs.exe --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy5 --buildPath target5 --emitFlag ccSgc
+export CLASSPATH=target5/*
+time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy5 --buildPath target5 --emitFlag ccSgc
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
 #export CC=g++
