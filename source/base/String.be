@@ -336,6 +336,8 @@ final class String {
        //used to add +1 to the right hand of compare, should not be needed
       if (capacity < sizi) { 
         Int nsize = ((sizi + 16) * 3) / 2;
+        //Int nsize = sizi + (sizi / 2);
+        //nsize += 4;
         capacitySet(nsize);
       }
       copyValue(str, TS.zero, str.size, size);

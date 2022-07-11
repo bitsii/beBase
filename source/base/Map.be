@@ -432,6 +432,7 @@ class Set {
    }
    
    copy() self {
+      //this is wrong due to ints being changed in place
       any other = create();
       copyTo(other);
       other.slots = slots.copy();

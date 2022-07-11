@@ -379,24 +379,6 @@ class System:Platform {
    
 }
 
-final class System:GarbageCollector {
-
-    create() self { }
-   
-   default() self {
-      
-   }
-   
-   doFullCollection() {
-   emit(c) {
-   """
-   BERF_Collect(berv_sts);
-   """
-   }
-   }
-
-}
-
 //future, pass inst, mtd name, (optional) args
 //getresult (optional time to wait) (save result in lock, lock will be needed for this)
 //also queue/task/worker (queue in, out, things go in, things come out, # workers)

@@ -289,3 +289,21 @@ final class System:Thing {
       
    }
 }
+
+final class System:GC {
+
+   create() self { }
+   
+   default() self {
+      
+   }
+   
+   maybeGc() {
+   emit(cc) {
+   """
+   BECS_Runtime::doGc();
+   """
+   }
+   }
+
+}
