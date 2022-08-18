@@ -1339,8 +1339,8 @@ final class Text:Strings {
    }
    
    notEmpty(String value) Bool {
-     if (def(value) && value != "") {
-       return(true);
+     if (def(value) && value.size > 0) {
+        return(true);
      }
      return(false);
    }
