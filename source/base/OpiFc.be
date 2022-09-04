@@ -65,7 +65,7 @@ final class ObjectFieldIterator {
   currentGet() any {
     if (self.hasCurrent) {
       String currentName = self.currentName;
-      String invokeName = currentName + "GetDirect";
+      String invokeName = currentName + "Get";
       any res = instance.invoke(invokeName, List.new());
       return(res);
     }
@@ -80,7 +80,7 @@ final class ObjectFieldIterator {
   currentSet(value) this {
     if (self.hasCurrent) {
       String currentName = self.currentName;
-      String invokeName = currentName + "SetDirect";
+      String invokeName = currentName + "Set";
       List args = List.new(1);
       args[0] = value;
       instance.invoke(invokeName, args);

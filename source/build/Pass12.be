@@ -129,43 +129,6 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             }
             //end reg get
             
-            //direct get
-            tst.name = i.name.copy();
-            tst.accessorType = "GETDIRECT";
-            tst.toAccessorName();
-            ename = tst.name;
-            tst.name = tst.name + "_0";
-            if (i.isDeclared && (node.held.methods.has(tst.name)!)) {
-            
-               anode = getAccessor(node);
-               anode.held.isFinal = true;//for directs
-               anode.held.property = i;
-               anode.held.orgName = ename;
-               anode.held.name = tst.name;
-               anode.held.numargs = 0;
-               node.held.methods.put(anode.held.name, anode);
-               node.held.orderedMethods.addValue(anode);
-               node.contained.last.addValue(anode);
-               rettnode = getRetNode(node);
-               rin = Node.new(build);
-               rin.copyLoc(node);
-               rin.typename = ntypes.VAR;
-               rin.held = i.name.copy();
-               rettnode.addValue(rin);
-               anode.contained.last.addValue(rettnode);
-               rettnode.contained.first.syncVariable(self);
-               rin.syncVariable(self);
-               if (i.isTyped) {
-                  anode.held.rtype = i;
-               } else {
-                  anode.held.rtype = null;
-               }
-            
-            } elseIf (node.held.methods.has(tst.name)) {
-              throw(Build:VisitError.new("Cannot override direct get"));
-            }
-            //end direct get
-            
             //reg set
             tst.name = i.name.copy();
             tst.accessorType = "SET";
@@ -213,55 +176,6 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             }
             //end reg set
             
-            //direct set
-            tst.name = i.name.copy();
-            tst.accessorType = "SETDIRECT";
-            tst.toAccessorName();
-            ename = tst.name;
-            tst.name = tst.name + "_1";
-            if (i.isDeclared && (node.held.methods.has(tst.name)!)) {
-            
-               anode = getAccessor(node);
-               anode.held.isFinal = true;//for directs
-               anode.held.property = i;
-               anode.held.orgName = ename;
-               anode.held.name = tst.name;
-               anode.held.numargs = 1;
-               node.held.methods.put(anode.held.name, anode);
-               node.held.orderedMethods.addValue(anode);
-               node.contained.last.addValue(anode);
-               
-               sv = anode.tmpVar("SET", build);
-               sv.isArg = true;
-               svn = Node.new(build);
-               svn.copyLoc(node);
-               svn.typename = ntypes.VAR;
-               svn.held = sv;
-               
-               anode.contained.first.addValue(svn);
-               svn2 = Node.new();
-               svn2.copyLoc(node);
-               svn2.typename = ntypes.VAR;
-               svn2.held = sv;
-               
-               asn = self.getAsNode(node);
-               rin = Node.new(build);
-               rin.copyLoc(node);
-               rin.typename = ntypes.VAR;
-               rin.held = i.name.copy();
-               asn.addValue(rin);
-               asn.addValue(svn2);
-               anode.contained.last.addValue(asn);
-               
-               svn.addVariable();
-               rin.syncVariable(self);
-
-               //TODO first arg should be typed same as property
-            
-            } elseIf (node.held.methods.has(tst.name)) {
-              throw(Build:VisitError.new("Cannot override direct get"));
-            }
-            //end direct set
          }
       } elseIf (node.typename == ntypes.CALL) {
          if (undef(node.held)) {
