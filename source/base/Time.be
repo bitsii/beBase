@@ -314,14 +314,14 @@ class Interval {
    }
    
    equals(other) Bool {
-      if  (sameClass(other) && secs == other.secs && millis == other.millis) {
+      if  (System:Classes.sameClass(self, other) && secs == other.secs && millis == other.millis) {
          return(true);
       }
       return(false);
    }
    
    notEquals(other) Bool {
-      if (sameClass(other)! || secs != other.secs || millis != other.millis) {
+      if (System:Classes.sameClass(self, other)! || secs != other.secs || millis != other.millis) {
          return(true);
       }
       return(false);

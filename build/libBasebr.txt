@@ -7,6 +7,8 @@
 -saveSyns=true
 -saveIds=true
 ../brace/source/base/Object.be
+../brace/source/base/Classes.be
+../brace/source/base/Objects.be
 ../brace/source/base/Int.be
 ../brace/source/base/String.be
 ../brace/source/base/Logic.be

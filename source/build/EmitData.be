@@ -83,7 +83,7 @@ final Build:PropertyIndex {
    }
    
    equals(x) Logic:Bool {
-      if (undef(x) || sameClass(x)!) { return(false); }
+      if (undef(x) || System:Classes.sameClass(self, x)!) { return(false); }
       if (origin == x.origin && name == x.name) {
          return(true);
       }
@@ -108,7 +108,7 @@ final Build:MethodIndex {
    }
    
    equals(x) Logic:Bool {
-      if (undef(x) || sameClass(x)!) { return(false); }
+      if (undef(x) || System:Classes.sameClass(self, x)!) { return(false); }
       if (declaration == x.declaration && name == x.name) {
          return(true);
       }

@@ -38,10 +38,10 @@ void** bevl_ix;
       """
       }
       any arg;
-      if (ac.otherClass(System:Types.new().int)) {
+      if (System:Classes.otherClass(ac, System:Types.new().int)) {
          throw(System:IncorrectType.new(" Wanted type Math:Int not type " + ac.className));
       }
-      if (av.otherClass(System:Types.new().thing)) {
+      if (System:Classes.otherClass(av, System:Types.new().thing)) {
          throw(System:IncorrectType.new(" Wanted type System:Thing not type " + av.className));
       }
       any thing = Thing.new(); //make inline include if possible

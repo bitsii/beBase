@@ -1,5 +1,7 @@
 source/base/Uses.be
 source/base/Object.be
+source/base/Classes.be
+source/base/Objects.be
 source/base/Int.be
 source/base/String.be
 source/base/Logic.be

@@ -1281,7 +1281,7 @@ use class System:ExceptionTranslator {
      any i = createInstance(klassName, false);
      if (def(i)) {
        //("is def").print();
-       return(i.sourceFileName);
+       return(System:Objects.sourceFileName(i));
      }
      //("not def").print();
      return(null);

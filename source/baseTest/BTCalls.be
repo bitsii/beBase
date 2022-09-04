@@ -376,7 +376,7 @@ class Tests:Exceptions(BaseTest) {
         try {
             throw(NotExcept.new());
         } catch (any e) {
-            if (e.sameClass(NotExcept.new())!) {
+            if (System:Classes.sameClass(e, NotExcept.new())!) {
                 ("about to throw after same class").print();
                 throw(System:Exception.new("didn't get nonexcept"));
             }
@@ -391,7 +391,7 @@ class Tests:Exceptions(BaseTest) {
         try {
             throw(AnExcept.new());
         } catch (any e) {
-            if (e.sameClass(AnExcept.new())!) {
+            if (System:Classes.sameClass(e, AnExcept.new())!) {
                 throw(System:Exception.new("didn't get anexcept"));
             }
             if (true) { return(self); }

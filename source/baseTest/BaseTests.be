@@ -340,7 +340,7 @@ class Test:BaseTest:EC(BaseTest) {
     
     testGi() {
         any i = createInstance("Math:Int").new();
-        assertTrue(i.sameClass(Math:Int.new()));
+        assertTrue(System:Classes.sameClass(i, Math:Int.new()));
     }
     
     testCan() {
@@ -428,7 +428,7 @@ class Test:BaseTest:EC(BaseTest) {
     
     testCreate() {
         assertNotNull(create());
-        assertTrue(sameClass(create()));
+        assertTrue(System:Classes.sameClass(self, create()));
     }
     
     typeChecks() {
@@ -437,15 +437,15 @@ class Test:BaseTest:EC(BaseTest) {
         System:Object o = System:Object.new();
         System:Object o2 = System:Object.new();
         
-        assertFalse(o.sameClass(i));
-        assertFalse(i.sameClass(o));
-        assertTrue(o.sameClass(o));
-        assertTrue(o.sameClass(o2));
+        assertFalse(System:Classes.sameClass(o, i));
+        assertFalse(System:Classes.sameClass(i, o));
+        assertTrue(System:Classes.sameClass(o, o));
+        assertTrue(System:Classes.sameClass(o, o2));
         
-        assertTrue(o.otherClass(i));
-        assertTrue(i.otherClass(o));
-        assertFalse(o.otherClass(o));
-        assertFalse(o.otherClass(o2));
+        assertTrue(System:Classes.otherClass(o, i));
+        assertTrue(System:Classes.otherClass(i, o));
+        assertFalse(System:Classes.otherClass(o, o));
+        assertFalse(System:Classes.otherClass(o, o2));
         
     }
     

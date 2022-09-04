@@ -54,8 +54,6 @@ class System:Exception {
       ifNotEmit(noSmap) {
         createInstance("System:ExceptionTranslator").new().translateEmittedException(self);
       }
-      //"in tostring exception".print();
-      //self.sourceFileName.print();
       any toRet = "Exception> ";
       if (def(description)) {
          toRet = toRet + " Description: " + description;

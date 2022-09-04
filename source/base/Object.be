@@ -406,32 +406,6 @@ $xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
       return(xi);
    }
    
-   final sourceFileNameGet() String {
-      String xi;
-      emit(jv) {
-      """
-      //byte[] bevls_clname = bemc_clfile();
-      //bevl_xi = new $class/Text:String$(bevls_clname.length, bevls_clname);
-      bevl_xi = bemc_clfiles();
-      """
-      }
-      emit(cs) {
-      """
-      //byte[] bevls_clname = bemc_clfile();
-      //bevl_xi = new $class/Text:String$(bevls_clname.Length, bevls_clname);
-      bevl_xi = bemc_clfiles();
-      """
-      }
-      ifNotEmit(noSmap) {
-      emit(js) {
-      """
-      bevl_xi = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clfile, this.becs_insts.becc_clfile.length);
-      """
-      }
-      }
-      return(xi);
-   }
-   
    equals(x) Bool {
    emit(c) {
       """
@@ -657,67 +631,7 @@ BERT_ClassDef* bevl_scldef;
       }
       return(copy);
    }
-   
-   sameClass(other) Bool {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BERT_ClassDef* bevl_scldef;
-BERT_ClassDef* bevl_ocldef;
-void** bevl_other;
-      """
-      }
-      emit(c) {
-      """
-      bevl_other = $other&*;
-      if (bevl_other != NULL) {
-         bevl_scldef = (BERT_ClassDef*) bevs[berdef];
-         bevl_ocldef = (BERT_ClassDef*) bevl_other[berdef];
-         if ((size_t) bevl_scldef == (size_t) bevl_ocldef) {
-            BEVReturn(berv_sts->bool_True);
-         } else {
-            BEVReturn(berv_sts->bool_False);
-         }
-      }
-      """
-      }
-      emit(js) {
-      """
-      if (beva_other !== null && Object.getPrototypeOf(beva_other).isPrototypeOf(this) && Object.getPrototypeOf(this).isPrototypeOf(beva_other)) {
-        return be_BECS_Runtime.prototype.boolTrue;
-      }
-      """
-      }
-      emit(jv) {
-      """
-      if (beva_other != null && this.getClass().equals(beva_other.getClass())) {
-        return be.BECS_Runtime.boolTrue;
-      }
-      """
-      }
-      emit(cs) {
-      """
-      if (beva_other != null && this.GetType() == beva_other.GetType()) {
-        return be.BECS_Runtime.boolTrue;
-      }
-      """
-      }
-      emit(cc) {
-      """
-      if (beva_other != nullptr) {
-        if (this->bemc_getType() == beva_other->bemc_getType()) {
-          return BECS_Runtime::boolTrue;
-        }
-      }
-      """
-      }
-      return(false);
-   }
-   
-   otherClass(other) Bool {
-      return(sameClass(other).not());
-   }
-      
+
    /* 
       returns true if this instance (self) is an instance of the same
       class or a subclass of other sameType(Object.new()) is always true

@@ -485,14 +485,14 @@ use class Json:Unmarshaller {
         }
         any top = stack.peek();
         if (def(top)) {
-            if (top.sameClass(pair)) {
+            if (System:Classes.sameClass(top, pair)) {
                 if (def(top.second)) {
                     top.first.put(top.second, o);
                     top.second = null;
                 } else {
                     top.second = o;
                 }
-            } elseIf (top.sameClass(list)) {
+            } elseIf (System:Classes.sameClass(top, list)) {
                 top.addValueWhole(o);
             } else {
                 throw(System:Exception.new("unknown container"));
@@ -518,7 +518,7 @@ use class Json:Unmarshaller {
     
     kvMid() {
         //("kvMid").print();
-        if (stack.peek().sameClass(pair)! || undef(stack.peek().second)) {
+        if (System:Classes.sameClass(stack.peek(), pair)! || undef(stack.peek().second)) {
             throw(System:Exception.new("key undef in kvmid"));
         }
     }
