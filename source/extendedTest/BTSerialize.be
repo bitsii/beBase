@@ -325,6 +325,17 @@ class Test:BaseTest:Serialize(BaseTest) {
       sbuf.print();
       any y = s.deserialize(sbuf);
       y.print();
+
+      "doing to from map!".print();
+      Map rm = Maps.fieldsIntoMap(x, Map.new());
+      assertEquals(rm["x"], x.x);
+      assertEquals(rm["y"], x.y);
+      y = Test:Structy.new();
+      Maps.mapIntoFields(rm, y);
+      assertEquals(y.x[1], x.x[1]);
+      assertEquals(y.y, -1);
+
+      ("NEG ONE " + y.y).print();
       
    }
    

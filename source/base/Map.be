@@ -702,5 +702,19 @@ class Maps {
     return(map);
   }
 
+  fieldsIntoMap(any inst, Map res) Map {
+    for (any i = inst.fieldIterator;i.hasNext;) {
+      res.put(i.nextName, i.current);
+    }
+    return(res);
+  }
+
+  mapIntoFields(Map from, any inst) any {
+    for (any i = inst.fieldIterator;i.hasNext;) {
+      i.current = from.get(i.nextName);
+    }
+    return(inst);
+  }
+
 }
 
