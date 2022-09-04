@@ -158,7 +158,6 @@ final class System:ExceptionBuilder {
       
       fields {
          any except = Exception.new();
-         any thing = System:Thing.new();
          any int = Math:Int.new();
          any lastStr;
       }

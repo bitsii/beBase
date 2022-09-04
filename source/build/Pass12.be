@@ -104,7 +104,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             if (i.isDeclared && (node.held.methods.has(tst.name)!)) {
             
                anode = getAccessor(node);
-               anode.held.property = i;
+               anode.held.propertee = i;
                anode.held.orgName = ename;
                anode.held.name = tst.name;
                anode.held.numargs = 0;
@@ -139,7 +139,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             
                anode = getAccessor(node);
                anode.held.isFinal = true;//for directs
-               anode.held.property = i;
+               anode.held.propertee = i;
                anode.held.orgName = ename;
                anode.held.name = tst.name;
                anode.held.numargs = 0;
@@ -175,7 +175,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             if (i.isDeclared && (node.held.methods.has(tst.name)!)) {
             
                anode = getAccessor(node);
-               anode.held.property = i;
+               anode.held.propertee = i;
                anode.held.orgName = ename;
                anode.held.name = tst.name;
                anode.held.numargs = 1;
@@ -223,7 +223,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             
                anode = getAccessor(node);
                anode.held.isFinal = true;//for directs
-               anode.held.property = i;
+               anode.held.propertee = i;
                anode.held.orgName = ename;
                anode.held.name = tst.name;
                anode.held.numargs = 1;

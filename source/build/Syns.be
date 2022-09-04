@@ -427,8 +427,8 @@ final class Build:MtdSyn {
          Bool lastDef = true;
          Bool isOverride = false;
          Bool isFinal = s.isFinal;
-         if (def(s.property)) {
-            String propertyName = s.property.name;
+         if (def(s.propertee)) {
+            String propertyName = s.propertee.name;
          }
          if (def(s.rtype)) {
             VarSyn rsyn = VarSyn.anyNew(s.rtype);

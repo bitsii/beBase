@@ -11,6 +11,7 @@ source/base/LinkedList.be
 source/base/Stack.be
 source/base/List.be
 source/base/Map.be
+source/base/Initializer.be
 source/base/System.be
 source/base/ExtSystem.be
 source/base/Exceptions.be

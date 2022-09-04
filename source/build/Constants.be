@@ -110,7 +110,8 @@ final class Build:Constants {
       conTypes.put(ntypes.FINALLY, true);
       conTypes.put(ntypes.TRY, true);
       conTypes.put(ntypes.LOOP, true);
-      conTypes.put(ntypes.PROPERTIES, true);
+      conTypes.put(ntypes.FIELD, true);
+      conTypes.put(ntypes.PROPERTY, true);
       conTypes.put(ntypes.CATCH, true);
       conTypes.put(ntypes.TRANSUNIT, true);
       conTypes.put(ntypes.BRACES, true);
@@ -296,7 +297,9 @@ final class Build:Constants {
       rwords.put("else", ntypes.ELSE);
       rwords.put("finally", ntypes.FINALLY);
       rwords.put("loop", ntypes.LOOP);
-      rwords.put("fields", ntypes.PROPERTIES);
+      rwords.put("field", ntypes.FIELD);
+      rwords.put("fields", ntypes.PROPERTY);
+      rwords.put("property", ntypes.PROPERTY);
       rwords.put("while", ntypes.WHILE);
       rwords.put("until", ntypes.WHILE);
       rwords.put("for", ntypes.FOR);
