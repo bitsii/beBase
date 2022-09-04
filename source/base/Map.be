@@ -4,11 +4,8 @@
 
 use Container:Set:Relations;
 use Container:Set:SetNode;
-use Container:Set:IdentityRelations;
 use Container:Map;
 use Container:Set;
-use Container:IdentityMap;
-use Container:IdentitySet;
 use Container:Map:MapNode;
 use Container:List;
 use Math:Float;
@@ -69,34 +66,6 @@ class Relations {
    
    isEqual(k, l) {
       return(k == l);
-   }
-}
-
-class IdentityRelations(Relations) {
-   
-   getHash(k) {
-      return(k.tag);
-   }
-   
-   isEqual(k, l) {
-      return(k.sameObject(l));
-   }
-   
-}
-
-class IdentityMap(Map) {
-   
-   new() self {
-      self.new(11);
-   }
-   
-   new(Int _modu) self {
-      slots = List.new(_modu);
-      modu = _modu;
-      multi = 2;
-      rel = IdentityRelations.new();
-      baseNode = MapNode.new();
-      size = 0;
    }
 }
 
@@ -189,22 +158,6 @@ class Map(Set) {
       }
      }
      return(toRet);
-   }
-}
-
-class IdentitySet(Set) {
-   
-   new() self {
-      self.new(11);
-   }
-   
-   new(Int _modu) self {
-      slots = List.new(_modu);
-      modu = _modu;
-      multi = 2;
-      rel = IdentityRelations.new();
-      baseNode = SetNode.new();
-      size = 0;
    }
 }
 
