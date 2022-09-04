@@ -160,7 +160,7 @@ final class Build:Method {
          String name;
          String orgName;
          Int numargs;
-         any propertee;
+         any property;
          any rtype;
          any tmpVars;
          Map anyMap = Map.new();
