@@ -32,7 +32,7 @@ class IdentityMap(Map) {
    }
    
    new(Int _modu) self {
-      slots = List.new(_modu);
+      buckets = List.new(_modu);
       modu = _modu;
       multi = 2;
       rel = IdentityRelations.new();
@@ -48,7 +48,7 @@ class IdentitySet(Set) {
    }
    
    new(Int _modu) self {
-      slots = List.new(_modu);
+      buckets = List.new(_modu);
       modu = _modu;
       multi = 2;
       rel = IdentityRelations.new();

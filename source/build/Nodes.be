@@ -251,7 +251,7 @@ final class Node {
    inPropertiesGet() Bool {
       Node con = self.container;
       while (def(con)) {
-         if (con.typename == ntypes.PROPERTY || con.typename == ntypes.FIELD) {
+         if (con.typename == ntypes.SLOTS || con.typename == ntypes.FIELDS) {
             return(true);
          }
          con = con.container;

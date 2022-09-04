@@ -23,8 +23,8 @@ final class Build:NodeTypes {
          Int RBRACES = 13;
          Int RPARENS = 14;
          Int LOOP = 15;
-         Int FIELD = 94;
-         Int PROPERTY = 23;
+         Int FIELDS = 94;
+         Int SLOTS = 23;
          Int ELSE = 16;
          Int FINALLY = 93;
          Int TRY = 17;

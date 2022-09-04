@@ -103,7 +103,7 @@ final class Build:Transport {
             if (node.typename == ntypes.BRACES && curr.typename == ntypes.BRACES) {
             //&& curr.container.typename == ntypes.METHOD
                mnode = Node.new(build);
-               mnode.typename = ntypes.FIELD;
+               mnode.typename = ntypes.FIELDS;
                mnode.held = "fields";
                curr.addValue(mnode);
                curr = mnode;

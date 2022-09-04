@@ -77,7 +77,7 @@ class Map(Set) {
    }
    
    new(Int _modu) self {
-      slots = List.new(_modu);
+      buckets = List.new(_modu);
       modu = _modu;
       multi = 2;
       rel = Relations.new();
@@ -102,13 +102,13 @@ class Map(Set) {
    }
    
    put(k, v) {
-      if (innerPut(k, v, null, slots)!) {
-         List slt = slots;
+      if (innerPut(k, v, null, buckets)!) {
+         List slt = buckets;
          slt = rehash(slt);
          while (innerPut(k, v, null, slt)!) {
             slt = rehash(slt);
          }
-         slots = slt;
+         buckets = slt;
       } 
       if (innerPutAdded) {
          size = size++;
@@ -170,7 +170,7 @@ class Set {
    new(Int _modu) self {
    
       fields {
-         List slots = List.new(_modu);
+         List buckets = List.new(_modu);
          Int modu = _modu;
          Int multi = 2;
          Relations rel = Relations.new();
@@ -221,11 +221,11 @@ class Set {
    
    rehash(List slt) {
       /*"Rehashing now".print();*/
-      Int nslots = slt.size * multi + 1;
-      List ninner = List.new(nslots);
+      Int nbuckets = slt.size * multi + 1;
+      List ninner = List.new(nbuckets);
       while (insertAll(ninner, slt)!) {
-         nslots = nslots++;
-         ninner = List.new(nslots);
+         nbuckets = nbuckets++;
+         ninner = List.new(nbuckets);
       }
       return(ninner);
    }
@@ -279,13 +279,13 @@ class Set {
    }
    
    put(k) {
-      if (innerPut(k, k, null, slots)!) {
-         List slt = slots;
+      if (innerPut(k, k, null, buckets)!) {
+         List slt = buckets;
          slt = rehash(slt);
          while (innerPut(k, k, null, slt)!) {
             slt = rehash(slt);
          }
-         slots = slt;
+         buckets = slt;
       }
       if (innerPutAdded) {
          size = size++;
@@ -293,7 +293,7 @@ class Set {
    }
    
    get(k) {
-      List slt = slots;
+      List slt = buckets;
       Int modu = slt.size;
       Int hval = rel.getHash(k);
       if (hval < 0) {
@@ -319,7 +319,7 @@ class Set {
    }
    
    has(k) Bool {
-      List slt = slots;
+      List slt = buckets;
       Int modu = slt.size;
       Int hval = rel.getHash(k);
       if (hval < 0) {
@@ -345,7 +345,7 @@ class Set {
    }
    
    delete(k) {
-      List slt = slots;
+      List slt = buckets;
       Int modu = slt.size;
       
       Int hval = rel.getHash(k);
@@ -388,13 +388,13 @@ class Set {
       //this is wrong due to ints being changed in place
       any other = create();
       copyTo(other);
-      other.slots = slots.copy();
-      for (Int i = 0;i < slots.length;i = i++;) {
-         SetNode n = slots.get(i);
+      other.buckets = buckets.copy();
+      for (Int i = 0;i < buckets.length;i = i++;) {
+         SetNode n = buckets.get(i);
          if (def(n)) {
-            other.slots.put(i, baseNode.create().new(n.hval, n.key, n.getFrom()));
+            other.buckets.put(i, baseNode.create().new(n.hval, n.key, n.getFrom()));
          } else {
-            other.slots.put(i, null);
+            other.buckets.put(i, null);
          }
       }
       return(other);
@@ -402,8 +402,8 @@ class Set {
 
    
    clear() this {
-      slots.clear();
-      slots.size = modu;
+      buckets.clear();
+      buckets.size = modu;
       size = 0;
    }
    
@@ -596,8 +596,8 @@ class Container:Set:NodeIterator {
       
       fields {
          Set set = _set;
-         List slots = set.slots;
-         Int modu = slots.size;
+         List buckets = set.buckets;
+         Int modu = buckets.size;
          Int current = 0;
       }
       
@@ -609,7 +609,7 @@ class Container:Set:NodeIterator {
    
    hasNextGet() Bool {
       for (Int i = current;i < modu;i = i++;) {
-         if (def(slots.get(i))) {
+         if (def(buckets.get(i))) {
             current = i;
             return(true);
          }
@@ -619,7 +619,7 @@ class Container:Set:NodeIterator {
    
    nextGet() {
       for (Int i = current;i < modu;i = i++;) {
-         SetNode toRet = slots.get(i);
+         SetNode toRet = buckets.get(i);
          if (def(toRet)) {
             current = i + 1;
             return(toRet);
@@ -631,7 +631,7 @@ class Container:Set:NodeIterator {
    delete() Bool {
       Int i = current - 1;
       if (i >= 0) {
-         SetNode sn = slots.get(i);
+         SetNode sn = buckets.get(i);
          if (def(sn)) {
             if (set.delete(sn.key)) {
                current = i;
