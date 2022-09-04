@@ -38,13 +38,14 @@ void** bevl_ix;
       """
       }
       any arg;
-      if (System:Classes.otherClass(ac, System:Types.new().int)) {
+      any int = Int.new();
+      if (System:Classes.otherClass(ac, int)) {
          throw(System:IncorrectType.new(" Wanted type Math:Int not type " + ac.className));
       }
-      if (System:Classes.otherClass(av, System:Types.new().thing)) {
+      any thing = Thing.new();
+      if (System:Classes.otherClass(av, thing)) {
          throw(System:IncorrectType.new(" Wanted type System:Thing not type " + av.className));
       }
-      any thing = Thing.new(); //make inline include if possible
       args = Container:List.new(ac - 1);
       any ix = 1;
       emit(c) {

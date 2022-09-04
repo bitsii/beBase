@@ -32,26 +32,6 @@ use final class System:Main {
     
 }
 
-final class System:Types {
-
-   create() self { }
-   
-   default() self {
-      
-      fields {
-         Math:Int int = Math:Int.new();
-         Logic:Bool bool = false;
-         Math:Float float = Math:Float.new();
-         System:Thing thing = System:Thing.new();
-         Text:String string = Text:String.new();
-         Text:String byteBuffer = Text:String.new();
-//         IO:File:Writer fileWriter = IO:File:Writer.new();
-//         IO:File:Reader fileReader = IO:File:Reader.new();
-      }
-   }
-   
-}
-
 class System:BasePath {
    
    new() self {
