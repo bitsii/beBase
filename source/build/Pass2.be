@@ -24,8 +24,6 @@ final class Build:Visit:Pass2(Build:Visit:Visitor) {
    }
 
    accept(Build:Node node) Build:Node {
-      //"Node is".print();
-      //node.className.print();
       if (node.typename == ntypes.TRANSUNIT) {
          return(node.nextDescend);
       }

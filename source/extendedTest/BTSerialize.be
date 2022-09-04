@@ -175,7 +175,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       assertEquals(x.alpha, y.alpha);
       assertEquals(x.beta, y.beta);
       
-      any xi = x.fieldIterator;
+      any xi = System:ObjectFieldIterator.new(x);
       xi.next;
       assertEqual(xi.currentName, "alpha");
       assertEqual(xi.current, "a");

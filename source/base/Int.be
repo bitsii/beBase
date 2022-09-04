@@ -158,7 +158,7 @@ final class Int {
       self.new(snw);
    }
    
-   serializeContents() Bool {
+   serializeContentsGet() Bool {
       return(false);
    }
    

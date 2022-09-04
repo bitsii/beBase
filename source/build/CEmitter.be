@@ -721,8 +721,6 @@ final class Build:CEmitter {
       for (it = emitData.synClasses.keyIterator;it.hasNext;;) {
          //TODO add superclass h to dependent list
          any sname = it.next;
-         //("!!!SN!!" + sname + "!! len " + sname.length.toString() + " hash " + sname.hash.toString()).print();
-         //("sn class " + sname.className).print();
          any syn = emitData.synClasses.get(sname);
          if (syn.libName == build.libName) { //verify same libName
             any clinfo = getInfo(syn.namepath);

@@ -135,7 +135,7 @@ final class Float {
       self.new(snw);
    }
    
-   serializeContents() Bool {
+   serializeContentsGet() Bool {
       return(false);
    }
    

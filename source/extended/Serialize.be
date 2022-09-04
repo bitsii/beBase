@@ -95,7 +95,12 @@ final class Serializer {
    
    serializeI(instance, session) {
       defineInstance(instance, session);
-      if (instance.serializeContents()) {
+      if (instance.can("serializeContentsGet", 0)) {
+        Bool dosc = instance.serializeContents;
+      } else {
+        dosc = true;
+      }
+      if (dosc) {
          serializeC(instance, session);
       }
    }
@@ -169,7 +174,11 @@ final class Serializer {
       session.serialCount = scount + 1;
       
       any instWriter = session.instWriter;
-      String instClass = instance.deserializeClassName;
+      if (instance.can("deserializeClassNameGet", 0)) {
+        String instClass = instance.deserializeClassName;
+      } else {
+         instClass = instance.className;
+      }
       Int instClassTag = session.classTagMap.get(instClass);
       if (undef(instClassTag)) {
          instClassTag = session.classTagCount;
@@ -189,7 +198,12 @@ final class Serializer {
          instWriter.write(defineReference);
          instWriter.write(scount.toString());
       }
-      String serializedString = instance.serializeToString();
+
+      if (instance.can("serializeToString", 0)) {
+        String serializedString = instance.serializeToString();
+      } else {
+        serializedString = null;
+      }
       if (def(serializedString) && serializedString != "") {
          instWriter.write(constructString);
          instWriter.write(encoder.encode(serializedString));
@@ -277,7 +291,13 @@ final class Serializer {
             } elseIf (state == 8) {
                Int glassTagVal = Int.new(token);
                String klass = session.classTagMap.get(glassTagVal);
-               any inst = createInstance(klass).deserializeFromStringNew(instString).deserializeFromString(instString);
+               any inst = createInstance(klass);
+               if (inst.can("deserializeFromStringNew", 1)) {
+                  inst = inst.deserializeFromStringNew(instString);
+               }
+               if (inst.can("deserializeFromString", 1)) {
+                  inst = inst.deserializeFromString(instString);
+               }
                if (undef(rootInst)) {
                   rootInst = inst;
                }

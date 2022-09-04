@@ -60,7 +60,7 @@ final class Bool {
       return(false);
    }
    
-   serializeContents() Bool {
+   serializeContentsGet() Bool {
       return(false);
    }
    

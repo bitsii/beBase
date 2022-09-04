@@ -612,10 +612,6 @@ BEINT* bevl_toRet;
       toString().print();
    }
    
-   echo() {
-      toString().echo();
-   }
-   
    copy() self {
      return(copyTo(create()));
    }
@@ -630,32 +626,10 @@ BEINT* bevl_toRet;
             citer.next = siter.next;
         }
     }
-   
-   //Serialization related
-   deserializeClassNameGet() String {
-      return(self.className);
-   }
-   
-   deserializeFromString(String snw) any { }
-   
-   serializeToString() String {
-      return(null);
-   }
-   
-   deserializeFromStringNew(String snw) self { }
-   
+
    iteratorGet() any {
       return(System:ObjectFieldIterator.new(self));
    }
-   
-   final fieldIteratorGet() System:ObjectFieldIterator {
-      return(System:ObjectFieldIterator.new(self));
-   }
-   
-   serializeContents() Bool {
-      return(true);
-   }
-   //end serialization related
    
    create() self {
    any copy;

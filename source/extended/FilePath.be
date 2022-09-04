@@ -45,7 +45,7 @@ local class IO:File:Path(System:BasePath) {
       self.apNew(snw);
    }
    
-   serializeContents() Bool {
+   serializeContentsGet() Bool {
       return(false);
    }
    

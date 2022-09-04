@@ -1209,7 +1209,7 @@ stdout.WriteByte(10);
       }
    }
    
-   serializeContents() Bool {
+   serializeContentsGet() Bool {
       return(false);
    }
    

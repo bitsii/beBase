@@ -667,6 +667,10 @@ class Sets {
     return(result);
    }
 
+   fromList(List list) {
+     return(fromHandler(list));
+   }
+
   fromHandler(List list) {
     Int ssz = list.size * 2;
     ssz++=;
@@ -693,6 +697,10 @@ class Maps {
     return(result);
    }
 
+   fromList(List list) {
+     return(fromHandler(list));
+   }
+
   fromHandler(List list) {
     Int ls = list.size;
     Map map = Map.new(ls + 1);
@@ -703,14 +711,14 @@ class Maps {
   }
 
   fieldsIntoMap(any inst, Map res) Map {
-    for (any i = inst.fieldIterator;i.hasNext;) {
+    for (any i = System:ObjectFieldIterator.new(inst);i.hasNext;) {
       res.put(i.nextName, i.current);
     }
     return(res);
   }
 
   mapIntoFields(Map from, any inst) any {
-    for (any i = inst.fieldIterator;i.hasNext;) {
+    for (any i = System:ObjectFieldIterator.new(inst);i.hasNext;) {
       i.current = from.get(i.nextName);
     }
     return(inst);

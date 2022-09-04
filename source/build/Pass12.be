@@ -403,9 +403,6 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
                         targNp = tcall.held.newNp;
                      } else {
                         targ = tcall.contained.first;
-                        //targ.print();
-                        //("Considering call " + tcall.held.name).print();
-                        //targ.held.className.print();
                         if (targ.held.isDeclared) {
                            tany = targ.held;
                         } else {
@@ -509,7 +506,6 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
          any mtdc;
          if (node.held.orgName == "assign") {
             targ = node.contained.first;
-            //("About to check " + targ.toString() + " " + targ.held.className.toString()).print();
             if (targ.held.isDeclared) {
                tany = targ.held; //tany is the variable being assigned to
             } else {
@@ -684,7 +680,6 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
             }
          } else {
             targ = node.contained.first;
-            //("About to check " + targ.toString() + " " + targ.held.className.toString()).print();
             if (targ.held.isDeclared) {
                tany = targ.held;
             } else {
