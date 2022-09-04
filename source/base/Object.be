@@ -644,10 +644,6 @@ BEINT* bevl_toRet;
    
    deserializeFromStringNew(String snw) self { }
    
-   serializationIteratorGet() {
-      return(System:ObjectFieldIterator.new(self));
-   }
-   
    iteratorGet() any {
       return(System:ObjectFieldIterator.new(self));
    }

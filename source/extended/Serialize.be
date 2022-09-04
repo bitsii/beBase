@@ -18,7 +18,6 @@ use Text:String;
 use Text:Tokenizer;
 use Encode:Url;
 use System:Class;
-use System:DeserializationIterator;
 use IO:File;
 
 use System:Serializer:Session;
@@ -104,7 +103,11 @@ final class Serializer {
    serializeC(instance, session) {
       any instWriter = session.instWriter;
       Int multiNull = 0;
-      any iter = instance.serializationIterator;
+      if (instance.can("serializationIteratorGet", 0)) {
+        any iter = instance.serializationIterator;
+      } else {
+        iter = instance.iterator;
+      }
       if (iter.hasNext) {
          instWriter.write(group);
          while (iter.hasNext) {
@@ -236,7 +239,11 @@ final class Serializer {
                   if (def(groupInstIter)) {
                      iterStack.push(groupInstIter);
                   }
-                  groupInstIter = inst.serializationIterator;
+                  if (inst.can("serializationIteratorGet", 0)) {
+                    groupInstIter = inst.serializationIterator;
+                  } else {
+                    groupInstIter = inst.iterator;
+                  }
                   if (groupInstIter.can("postDeserialize", 0)) {
                      postDeserialize += groupInstIter;
                   }

@@ -284,10 +284,6 @@ if (def(length)) {
       self.new(Int.new(snw));
    }
    
-   serializationIteratorGet() {
-      return(self.iterator);
-   }
-   
    firstGet() {
       return(get(0));
    }
