@@ -700,11 +700,21 @@ class Container:Set:NodeIterator {
    
 }
 
-class Sets(Variadic) {
+class Sets {
 
   default() self { }
 
-  from(List list) {
+  forwardCall(String name, List args) any {
+    name = name + "Handler";
+    if (can(name, 1)) {
+      List varargs = List.new(1);
+      varargs[0] = args;
+      any result = invoke(name, varargs);
+    }
+    return(result);
+   }
+
+  fromHandler(List list) {
     Int ssz = list.size * 2;
     ssz++=;
     Set set = Set.new(ssz);
@@ -716,11 +726,21 @@ class Sets(Variadic) {
 
 }
 
-class Maps(Variadic) {
+class Maps {
 
   default() self { }
 
-  from(List list) {
+  forwardCall(String name, List args) any {
+    name = name + "Handler";
+    if (can(name, 1)) {
+      List varargs = List.new(1);
+      varargs[0] = args;
+      any result = invoke(name, varargs);
+    }
+    return(result);
+   }
+
+  fromHandler(List list) {
     Int ls = list.size;
     Map map = Map.new(ls + 1);
     for (Int i = 0;i < ls;i++=) {

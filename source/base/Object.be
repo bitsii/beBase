@@ -872,16 +872,3 @@ emit(cc) {
 }
 
 }
-
-class System:Variadic {
-
-  final forwardCall(String name, List args) any {
-    if (can(name, 1)) {
-      List varargs = List.new(1);
-      varargs[0] = args;
-      any result = invoke(name, varargs);
-    }
-    return(result);
-   }
-
-}

@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 local use System:Object;
-local use System:Variadic;
 local use System:WeakRef;
 local use System:Method;
 local use Math:Int;

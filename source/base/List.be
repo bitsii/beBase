@@ -610,11 +610,21 @@ if (def(length)) {
    }
 }
 
-class Lists(Variadic) {
+class Lists {
 
   default() self { }
 
-  from(List list) {
+  forwardCall(String name, List args) any {
+    name = name + "Handler";
+    if (can(name, 1)) {
+      List varargs = List.new(1);
+      varargs[0] = args;
+      any result = invoke(name, varargs);
+    }
+    return(result);
+   }
+
+  fromHandler(List list) {
     return(list);//use varargs for convenient list creation
   }
 
