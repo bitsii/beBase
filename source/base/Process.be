@@ -85,7 +85,7 @@ void** bevl_ix;
    }
    
    startByName(_name) {
-      any t = createInstance(_name).new();
+      any t = System:Objects.createInstance(_name).new();
       return(start(t));
    }
 

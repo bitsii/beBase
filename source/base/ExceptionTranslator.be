@@ -205,7 +205,7 @@ use class System:ExceptionTranslator {
   
    getSourceFileName(String klassName) String {
      //("getting source file name for " + klassName).print();
-     any i = createInstance(klassName, false);
+     any i = System:Objects.createInstance(klassName, false);
      if (def(i)) {
        //("is def").print();
        return(System:Objects.sourceFileName(i));

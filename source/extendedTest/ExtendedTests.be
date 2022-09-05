@@ -80,7 +80,7 @@ class Test:ExtendedTest:EC(BaseTest) {
       if (def(args)) {
           for (String arg in args) {
             ("Running test  " + arg).print();
-            createInstance(arg).new().main();
+            System:Objects.createInstance(arg).new().main();
           }
           if (args.isEmpty!) {
             "Had args, ran tests from args, returning".print();

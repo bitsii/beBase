@@ -291,7 +291,7 @@ final class Serializer {
             } elseIf (state == 8) {
                Int glassTagVal = Int.new(token);
                String klass = session.classTagMap.get(glassTagVal);
-               any inst = createInstance(klass);
+               any inst = System:Objects.createInstance(klass);
                if (inst.can("deserializeFromStringNew", 1)) {
                   inst = inst.deserializeFromStringNew(instString);
                }

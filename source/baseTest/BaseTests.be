@@ -330,7 +330,7 @@ class Test:BaseTest:EC(BaseTest) {
     }
     
     testGi() {
-        any i = createInstance("Math:Int").new();
+        any i = System:Objects.createInstance("Math:Int").new();
         assertTrue(System:Classes.sameClass(i, Math:Int.new()));
     }
     
@@ -738,7 +738,7 @@ class Test:BaseTest:MutString(BaseTest) {
     }
     
     gi() {
-        any x = createInstance("Math:Int").new();
+        any x = System:Objects.createInstance("Math:Int").new();
         x.setValue(10);
         (x + 1).print();
     

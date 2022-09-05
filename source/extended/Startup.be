@@ -31,7 +31,7 @@ class Startup {
       if (args.size < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main() method should be called"));
       }
-      any x = createInstance(args[0]).new();
+      any x = System:Objects.createInstance(args[0]).new();
       return(x.main());
    }
 }
@@ -49,7 +49,7 @@ class StartupIfArguments {
    main() {
       args = System:Process.new().args;
       if (args.size > 0) {
-         any x = createInstance(args[0]).new();
+         any x = System:Objects.createInstance(args[0]).new();
          return(x.main());
       }
       return(self);
@@ -71,7 +71,7 @@ class StartupWithArguments {
       if (args.size < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args) method should be called"));
       }
-      any x = createInstance(args[0]).new();
+      any x = System:Objects.createInstance(args[0]).new();
       return(x.main(args));
    }
 }
@@ -93,7 +93,7 @@ class StartupWithParameters {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args, Parameters params) method should be called"));
       }
       params = Parameters.new(args);
-      any x = createInstance(args[0]).new();
+      any x = System:Objects.createInstance(args[0]).new();
       return(x.main(args, params));
    }
 }
@@ -313,7 +313,7 @@ use class System:Startup:MainWithParameters {
       //Inherit from this class and override this method to have a main which starts off with params and
       //set that to be main class for the build, or use without override and
       //pass a class name as the first ordered argument on the command line to invoke it with the params
-      any x = createInstance(params.ordered[0]).new();
+      any x = System:Objects.createInstance(params.ordered[0]).new();
       return(x.main(params));
    }
    

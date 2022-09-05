@@ -90,4 +90,76 @@ class System:Objects {
       return(toRet);
    }
 
+   final createInstance(String cname) {
+     return(createInstance(cname, true));
+   }
+
+   final createInstance(String cname, Bool throwOnFail) {
+      if (undef(cname)) {
+         throw(System:InvocationException.new("class name is null"));
+      }
+      any result = null;
+
+      emit(jv) {
+        """
+        String key = new String(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int, "UTF-8");
+        BETS_Object ti = be.BECS_Runtime.typeRefs.get(key);
+        if (ti != null) {
+            bevl_result = ti.bems_createInstance();
+        }
+        """
+      }
+      emit(cs) {
+        """
+        string key = System.Text.Encoding.UTF8.GetString(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int);
+        BETS_Object ti = be.BECS_Runtime.typeRefs[key];
+        if (ti != null) {
+            bevl_result = ti.bems_createInstance();
+        }
+        """
+      }
+      emit(js) {
+      """
+      var ti = be_BECS_Runtime.prototype.typeRefs[this.bems_stringToJsString_1(beva_cname)];
+      if (null != ti) {
+        bevl_result = ti.bemc_create();
+      }
+      """
+      }
+      emit(cc) {
+        """
+        std::string key = beva_cname->bems_toCcString();
+        //cout << key << endl;
+        if (BECS_Runtime::typeRefs.count(key) > 0) {
+          //cout << "has key" << endl;
+
+          BETS_Object* ti = BECS_Runtime::typeRefs[key];
+
+          //works
+          //BETS_Object* ti = static_cast<BETS_Object*>   //(&BEC_2_4_3_MathInt::bece_BEC_2_4_3_MathInt_bevs_type);
+
+          //works
+          //BET_2_4_3_MathInt* mi = new BET_2_4_3_MathInt();
+          //BETS_Object* ti = dynamic_cast<BETS_Object*> (mi);
+
+
+          bevl_result = ti->bems_createInstance();
+
+        }
+        if (bevl_result == nullptr) {
+          //cout << "res nptr" << endl;
+        }
+        """
+      }
+
+      if (undef(result)) {
+        if (throwOnFail) {
+         throw(System:Exception.new("Class not found " + cname));
+        } else {
+          return(null);
+        }
+      }
+      return(System:Initializer.new().initializeIfShould(result));
+   }
+
 }
