@@ -392,12 +392,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         unless (build.emitChecks.has("noRfl")) {
           Bool firstptsyn = true;
           for (Build:PtySyn ptySyn in csyn.ptyList) {
-            if (firstptsyn) {
-              firstptsyn = false;
-            } else {
-              bet += ", ";
+            unless (ptySyn.isSlot) {
+              if (firstptsyn) {
+                firstptsyn = false;
+              } else {
+                bet += ", ";
+              }
+              bet += q += ptySyn.name += q;
             }
-            bet += q += ptySyn.name += q;
           }
         }
         bet += " };\n";
@@ -584,12 +586,14 @@ use final class Build:CCEmitter(Build:EmitCommon) {
 
         Bool first = true;
         for (Build:PtySyn ptySyn in ptyList) {
+          unless (ptySyn.isSlot) {
             if (first) {
                 first = false;
             } else {
                 ccMethods += ", ";
             }
             ccMethods += q += "bevp_" += ptySyn.name += q;
+          }
         }
 
         //[

@@ -169,14 +169,16 @@ class Set {
    
    new(Int _modu) self {
    
-      fields {
-         List buckets = List.new(_modu);
+      slots {
          Int modu = _modu;
          Int multi = 2;
          Relations rel = Relations.new();
          SetNode baseNode = SetNode.new();
-         Int size = 0;
          Bool innerPutAdded = false;
+      }
+      fields {
+         List buckets = List.new(_modu);
+         Int size = 0;
       }
       
    }
@@ -550,7 +552,7 @@ class Container:Map:SerializationIterator(Container:Map:KeyValueIterator) {
 class Container:Map:KeyValueIterator(Container:Set:NodeIterator) {
    
    new(Set _set) Container:Map:KeyValueIterator {
-      fields {
+      slots {
          any onNode;
       }
       super.new(_set);
@@ -594,7 +596,7 @@ class Container:Set:NodeIterator {
    
    new(Set _set) Container:Set:NodeIterator {
       
-      fields {
+      slots {
          Set set = _set;
          List buckets = set.buckets;
          Int modu = buckets.size;

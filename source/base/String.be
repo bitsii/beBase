@@ -1367,8 +1367,10 @@ local class Text:ByteIterator {
    
    new(String _str) self {
       fields {
-         String str = _str;
          Int pos = 0;
+      }
+      slots {
+         String str = _str;
          Int vcopy = Int.new();
       }
    }
@@ -1440,7 +1442,7 @@ local class Text:ByteIterator {
 final class Text:MultiByteIterator(Text:ByteIterator) {
 
    new(String _str) self {
-      fields {
+      slots {
         Int bcount = Int.new();
         Int ival = Int.new();
       }

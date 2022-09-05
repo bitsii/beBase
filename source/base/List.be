@@ -13,7 +13,7 @@ using System;
 final class Container:List:Iterator {
    
    new() self {
-      fields {
+      slots {
          Int pos = -1;
          List list = List.new(1);
          Int npos = Int.new();

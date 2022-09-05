@@ -85,12 +85,14 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         unless (build.emitChecks.has("noRfl")) {
           Bool first = true;
           for (Build:PtySyn ptySyn in ptyList) {
+            unless (ptySyn.isSlot) {
               if (first) {
                   first = false;
               } else {
                   ccMethods += ", ";
               }
               ccMethods += q += "bevp_" += ptySyn.name += q;
+            }
           }
         }
         //[

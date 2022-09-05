@@ -48,12 +48,14 @@ use final class Build:CSEmitter(Build:EmitCommon) {
         bet += "bevs_fieldNames = new string[] { ";
         Bool firstptsyn = true;
         for (Build:PtySyn ptySyn in csyn.ptyList) {
-          if (firstptsyn) {
-            firstptsyn = false;
-          } else {
-            bet += ", ";
+          unless (ptySyn.isSlot) {
+            if (firstptsyn) {
+              firstptsyn = false;
+            } else {
+              bet += ", ";
+            }
+            bet += q += ptySyn.name += q;
           }
-          bet += q += ptySyn.name += q;
         }
         bet += " };\n";
         

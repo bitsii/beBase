@@ -258,6 +258,17 @@ final class Node {
       }
       return(false);
    }
+
+   inSlotsGet() Bool {
+      Node con = self.container;
+      while (def(con)) {
+         if (con.typename == ntypes.SLOTS) {
+            return(true);
+         }
+         con = con.container;
+      }
+      return(false);
+   }
    
    addVariable() {
       any v = held;
@@ -270,6 +281,9 @@ final class Node {
          if (self.inProperties && v.isTmpVar!) {
             any sco = classGet();
             v.isProperty = true;
+            if (self.inSlots) {
+             v.isSlot = true;
+            }
          }
          any sc = sco.held;
          if (sc.anyMap.has(v.name)) {

@@ -17,7 +17,7 @@ final class ObjectFieldIterator {
   }
 
   new(_instance, Bool forceFirstSlot) ObjectFieldIterator {
-    fields {
+    slots {
       Int pos = -1;
       any instance = _instance;
       List instFieldNames = System:Types.fieldNames(instance);

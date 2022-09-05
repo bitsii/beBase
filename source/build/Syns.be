@@ -510,6 +510,7 @@ final class Build:PtySyn {
          String name = v.name;
          Build:NamePath origin = _origin;
          VarSyn memSyn = VarSyn.anyNew(v);
+         Bool isSlot = v.isSlot;
       }
    }
    

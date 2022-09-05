@@ -205,6 +205,7 @@ final class Build:Var {
          Bool autoType = false;
          Bool isDeclared = true;
          Bool isProperty = false;
+         Bool isSlot = false;
          Int numAssigns = 0;
          Bool isTyped = false;
          Int vpos = -1;
@@ -224,6 +225,7 @@ final class Build:Var {
       isAdded = full.isAdded;
       isTmpVar = full.isTmpVar;
       isProperty = full.isProperty;
+      isSlot = full.isSlot;
       numAssigns = 0;
       namepath = full.namepath;
       isTyped = full.isTyped;

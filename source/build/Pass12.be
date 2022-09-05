@@ -101,7 +101,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             tst.toAccessorName();
             ename = tst.name;
             tst.name = tst.name + "_0";
-            if (i.isDeclared && (node.held.methods.has(tst.name)!)) {
+            if (i.isDeclared && i.isSlot! && (node.held.methods.has(tst.name)!)) {
             
                anode = getAccessor(node);
                anode.held.property = i;
@@ -135,7 +135,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
             tst.toAccessorName();
             ename = tst.name;
             tst.name = tst.name + "_1";
-            if (i.isDeclared && (node.held.methods.has(tst.name)!)) {
+            if (i.isDeclared && i.isSlot! && (node.held.methods.has(tst.name)!)) {
             
                anode = getAccessor(node);
                anode.held.property = i;
