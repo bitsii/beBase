@@ -160,7 +160,6 @@ class Test:BaseTest:Serialize(BaseTest) {
       SerProps x = SerProps.new();
       x.beta = "uanyics";
       x.beta.print();
-      //throw(System:Exception.new("same instance " + x.sameObject(x)));
       ("clear").print();
       sbuf.clear();
       ("serialize").print();
@@ -370,7 +369,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       sbuf.print();
       any y = s.deserialize(sbuf);
       y.print();
-      assertTrue(y.x.sameObject(y.y));
+      assertTrue(System:Objects.sameObject(y.x, y.y));
 
       sbuf.clear();
       s.saveIdentity = false;
@@ -378,7 +377,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       sbuf.print();
       y = s.deserialize(sbuf);
       y.print();
-      assertFalse(y.x.sameObject(y.y));
+      assertFalse(System:Objects.sameObject(y.x, y.y));
    }
 
    testSerializePieces() {
@@ -434,7 +433,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       ("i " + y.i + " s " + y.s).print();
       if (undef(y.x)) {"y.x is null".print();}
       if (undef(y.y)) {"y.y is null".print();}
-      assertTrue(y.x.sameObject(y.y))
+      assertTrue(System:Objects.sameObject(y.x, y.y))
       //return(self);
       sbuf.clear();
       inst = true;

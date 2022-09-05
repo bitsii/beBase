@@ -482,8 +482,8 @@ MMM'''; //needs to stay unindented
    testSameObject() {
       Int x = Int.new();
       Int y = Int.new();
-      assertTrue(x.sameObject(x));
-      assertFalse(x.sameObject(y));
+      assertTrue(System:Objects.sameObject(x, x));
+      assertFalse(System:Objects.sameObject(x, y));
    }
    
    testSelfType() {

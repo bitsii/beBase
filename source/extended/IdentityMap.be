@@ -16,11 +16,11 @@ use Math:Float;
 class IdentityRelations(Relations) {
    
    getHash(k) {
-      return(k.tag);
+      return(System:Objects.tag(k));
    }
    
    isEqual(k, l) {
-      return(k.sameObject(l));
+      return(System:Objects.sameObject(k, l));
    }
    
 }

@@ -178,10 +178,10 @@ class Test:BaseTest:EC(BaseTest) {
     
       Object o1 = Object.new();
       Object o2 = Object.new();
-      ("o1t " + o1.tag + " o2t " + o2.tag).print();
-      assertNotEqual(o1.tag, o2.tag); //could fail
+      ("o1t " + System:Objects.tag(o1) + " o2t " + System:Objects.tag(o2)).print();
+      assertNotEqual(System:Objects.tag(o1), System:Objects.tag(o2)); //could fail
       assertNotEqual(o1.hash, o2.hash); //could fail
-      assertEqual(o1.tag, o1.tag);
+      assertEqual(System:Objects.tag(o1), System:Objects.tag(o1));
       assertEqual(o2.hash, o2.hash);
     
     }
@@ -410,7 +410,7 @@ class Test:BaseTest:EC(BaseTest) {
     
         Object o = Object.new();
         assertEqual(o.hash, o.hash);
-        assertEqual(o.tag, o.tag);
+        assertEqual(System:Objects.tag(o), System:Objects.tag(o));
         
         //not guaranteed always, just usually
         assertNotEqual(o.hash, Object.new().hash);
@@ -443,8 +443,8 @@ class Test:BaseTest:EC(BaseTest) {
     objEq() {
         Math:Int a = 1;
         Math:Int b = 2;
-        assertFalse(a.sameObject(b));
-        assertTrue(a.sameObject(a));
+        assertFalse(System:Objects.sameObject(a, b));
+        assertTrue(System:Objects.sameObject(a, a));
         
         System:Object c = System:Object.new();
         System:Object d = System:Object.new();
@@ -958,7 +958,7 @@ class Test:BaseTest:MutInt(BaseTest) {
         Int c = b.copy();
         
         assertEqual(b, c);
-        assertFalse(b.sameObject(c));
+        assertFalse(System:Objects.sameObject(b, c));
         ("Int copy test done").print();
         
         

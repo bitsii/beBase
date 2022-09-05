@@ -34,4 +34,60 @@ class System:Objects {
       return(xi);
    }
 
+   final sameObject(org, x) Bool {
+      emit(jv,cs) {
+      """
+      if (beva_org != beva_x) {
+        return be.BECS_Runtime.boolFalse;
+      }
+      """
+      }
+      emit(js) {
+      """
+      if (beva_org !== beva_x) {
+        return be_BECS_Runtime.prototype.boolFalse;
+      }
+      """
+      }
+      emit(cc) {
+      """
+      if (beva_org != beva_x) {
+        return BECS_Runtime::boolFalse;
+      }
+      """
+      }
+      return(true);
+   }
+
+   final tag(org) Math:Int {
+      Math:Int toRet = Math:Int.new();
+      emit(jv) {
+      """
+      bevl_toRet.bevi_int = beva_org.hashCode();
+      """
+      }
+      emit(cs) {
+      """
+      bevl_toRet.bevi_int = beva_org.GetHashCode();
+      """
+      }
+      emit(js) {
+      """
+      if (beva_org.becc_hash == null) {
+        beva_org.becc_hash = be_BECS_Runtime.prototype.hashCounter++;
+      }
+      bevl_toRet.bevi_int = beva_org.becc_hash;
+      """
+      }
+      emit(cc) {
+      """
+      BECS_Object* co = beva_org;
+      uintptr_t cou = (uintptr_t) co;
+      int32_t co3 = (int32_t) cou;
+      bevl_toRet->bevi_int = co3;
+      """
+      }
+      return(toRet);
+   }
+
 }
