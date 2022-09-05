@@ -51,9 +51,7 @@ class System:Exception {
    }
    
    toString() String {
-      ifNotEmit(noSmap) {
-        createInstance("System:ExceptionTranslator").new().translateEmittedException(self);
-      }
+      System:ExceptionTranslator.translateEmittedException(self);
       any toRet = "Exception> ";
       if (def(description)) {
          toRet = toRet + " Description: " + description;
@@ -88,9 +86,7 @@ class System:Exception {
    framesGet() List {
     //translate frames from emit lang to be if needed
     //will get from existing frames or from frame text depending on lang
-    ifNotEmit(noSmap) {
-      createInstance("System:ExceptionTranslator").new().translateEmittedException(self);
-    }
+    System:ExceptionTranslator.translateEmittedException(self);
     if(vv) {
     ("translation done").print();
     }
@@ -99,9 +95,7 @@ class System:Exception {
    }
    
    getFrameText() String {
-      ifNotEmit(noSmap) {
-        createInstance("System:ExceptionTranslator").new().translateEmittedException(self);
-      }
+      System:ExceptionTranslator.translateEmittedException(self);
       String toRet = String.new();
       List myFrames = self.frames;
       if (def(myFrames)) {

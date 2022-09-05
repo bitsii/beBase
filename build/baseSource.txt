@@ -16,6 +16,7 @@ source/base/Map.be
 source/base/Initializer.be
 source/base/System.be
 source/base/ExtSystem.be
+source/base/ExceptionTranslator.be
 source/base/Types.be
 source/base/Exceptions.be
 source/base/Tokenize.be
