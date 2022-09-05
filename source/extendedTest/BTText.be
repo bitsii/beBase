@@ -56,7 +56,7 @@ class Test:BaseTest:Text(BaseTest) {
       
       "Hi".copy().print();
       "10".print();
-      self.className.print();
+      System:Classes.className(self).print();
       
       "boo".print();
       //return(self);

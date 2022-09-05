@@ -13,15 +13,7 @@ local use Test:LocalUse;
 
 class BaseTest(Assertions) {
    
-   /*main() {
-      ("Test:BaseTest:main").print();
-      for (any i in args) {
-         if (i != self.className) {
-            any x = createInstance(i).new();
-            x.main();
-         }
-      }
-   }*/
+
 }
 
 class Test:BaseTest:CallTests {
@@ -81,7 +73,6 @@ class Test:BaseTest:EC(BaseTest) {
             "end runTests".print();
         //} catch (any e) {
         //    "got an except".print();
-            //e.className.print();
             //e.print();
         //}
         "end main".print();
@@ -488,8 +479,9 @@ class Test:BaseTest:EC(BaseTest) {
     ("!!!!!!!!!!!!!!!testing clname").print();
     
         any o = Math:Int.new();
-        o.className.print();
-        assertEqual(o.className, "Math:Int");
+        String cli = System:Classes.className(o);
+        cli.print();
+        assertEqual(cli, "Math:Int");
     
     }
     

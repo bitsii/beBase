@@ -18,7 +18,6 @@ class Build:VisitError(System:Exception) {
    }
    
    toString() Text:String {
-      //any toRet = self.className + " ";//something wrong with self.className
       
       any toRet = "";
       if (def(msg)) {

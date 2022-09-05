@@ -309,8 +309,7 @@ final class Build:Build {
    }
 
    toString() Text:String {
-      //self.className.print();
-      any toRet = self.className;
+      any toRet = System:Classes.className(self);
       toRet = toRet + nl + "buildPath is " + buildPath.toString();
       toRet = toRet + nl + "emitPath is " + emitPath.toString();
       return(toRet);

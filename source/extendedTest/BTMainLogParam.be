@@ -131,7 +131,7 @@ class Test:BaseTest:Parameters(BaseTest) {
 class Test:BaseTest:Host(BaseTest) {
    
    main() {
-      (self.className + ":main").print();
+      (System:Classes.className(self) + ":main").print();
       System:Host.hostname.print();
    }
 }

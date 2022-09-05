@@ -40,11 +40,11 @@ void** bevl_ix;
       any arg;
       any int = Int.new();
       if (System:Classes.otherClass(ac, int)) {
-         throw(System:IncorrectType.new(" Wanted type Math:Int not type " + ac.className));
+         throw(System:IncorrectType.new(" Wanted type Math:Int not type " + System:Classes.className(ac));
       }
       any thing = Thing.new();
       if (System:Classes.otherClass(av, thing)) {
-         throw(System:IncorrectType.new(" Wanted type System:Thing not type " + av.className));
+         throw(System:IncorrectType.new(" Wanted type System:Thing not type " + System:Classes.className(av));
       }
       args = Container:List.new(ac - 1);
       any ix = 1;

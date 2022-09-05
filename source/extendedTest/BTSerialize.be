@@ -276,7 +276,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       any y = s.deserialize(sbuf);
       y.print();
       assertTrue(x[0] == y[0]);
-      assertTrue(x.className == y.className);
+      assertTrue(System:Classes.className(x) == System:Classes.className(y));
       assertTrue(x.size == y.size);
    }
 
@@ -637,7 +637,7 @@ class Test:BaseTest:Serialize(BaseTest) {
          if (undef(j)) {
             ("Got null ").print();
          } else {
-            ("Got of type " + j.className).print();
+            ("Got of type " + System:Classes.className(j)).print();
          }
          v += j;
       }

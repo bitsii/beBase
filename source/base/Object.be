@@ -42,13 +42,13 @@ class System:Object {
    
    methodNotDefined(String name, List args) any {
      if(true) {
-       throw(System:MethodNotDefined.new("Method: " + name + " not defined for class " + self.className));
+       throw(System:MethodNotDefined.new("Method: " + name + " not defined"));
      }
    }
    
    forwardCall(String name, List args) any {
      if(true) {
-       throw(System:MethodNotDefined.new("Method: " + name + " not defined for class " + self.className));
+       throw(System:MethodNotDefined.new("Method: " + name + " not defined"));
      }
    }
    
@@ -298,52 +298,7 @@ class System:Object {
       }
       return(false);
    }
-   
-   final classNameGet() String {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BERT_ClassDef* bevl_cldef;
-      """
-      }
-      String xi;
-      emit(c) {
-"""
-bevl_cldef = (BERT_ClassDef*) bevs[berdef];
-$xi=* BERF_String_For_Chars(berv_sts, bevl_cldef->className);
-"""
-      }
-      emit(jv) {
-      """
-      //byte[] bevls_clname = bemc_clname();
-      //bevl_xi = new $class/Text:String$(bevls_clname.length, bevls_clname);
-      bevl_xi = bemc_clnames();
-      """
-      }
-      emit(cs) {
-      """
-      //byte[] bevls_clname = bemc_clname();
-      //bevl_xi = new $class/Text:String$(bevls_clname.Length, bevls_clname);
-      bevl_xi = bemc_clnames();
-      """
-      }
-      ifNotEmit(noSmap) {
-      emit(cc) {
-      """
-      bevl_xi = bemc_clnames();
-      """
-      }
-      }
-      ifNotEmit(noSmap) {
-      emit(js) {
-      """
-      bevl_xi = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(this.becs_insts.becc_clname, this.becs_insts.becc_clname.length);
-      """
-      }
-      }
-      return(xi);
-   }
-   
+
    equals(x) Bool {
    emit(c) {
       """
@@ -517,7 +472,7 @@ BEINT* bevl_toRet;
    }
    
    toString() String {
-      return(self.className);
+      return("Object.toString");
    }
    
    print() {

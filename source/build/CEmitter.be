@@ -629,7 +629,7 @@ final class Build:CEmitter {
          any xe = emitData.nameEntries.get(nm);
          any conflicts = xe.findConflicts();
          if (def(conflicts)) {
-            conflicts.className.print();
+            System:Classes.className(conflicts).print();
             any v = xe.values.first;
             for (any cu in conflicts) {
                sb = sb + "twnn_" + cu + "_" + nm + " = " + v.toString() + ";";

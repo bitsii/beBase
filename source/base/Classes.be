@@ -46,4 +46,33 @@ class System:Classes {
       return(sameClass(org, other).not());
    }
 
+   final className(org) String {
+      String xi;
+      emit(jv) {
+      """
+      bevl_xi = beva_org.bemc_clnames();
+      """
+      }
+      emit(cs) {
+      """
+      bevl_xi = beva_org.bemc_clnames();
+      """
+      }
+      ifNotEmit(noSmap) {
+      emit(cc) {
+      """
+      bevl_xi = beva_org->bemc_clnames();
+      """
+      }
+      }
+      ifNotEmit(noSmap) {
+      emit(js) {
+      """
+      bevl_xi = new be_$class/Text:String$().beml_set_bevi_bytes_len_copy(beva_org.becs_insts.becc_clname, beva_org.becs_insts.becc_clname.length);
+      """
+      }
+      }
+      return(xi);
+   }
+
 }

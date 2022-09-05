@@ -252,7 +252,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                   throw(VisitError.new("Error, subroutine declaration incomplete 2", node));
                }
             } catch (err) {
-               if (err.className == "Build:VisitError") { throw(err); }
+               if (System:Classes.className(err) == "Build:VisitError") { throw(err); }
                err.print();
                throw(VisitError.new("Error improper subroutine statement, contents appear to be missing or subroutine declared outside class.", node));
             }

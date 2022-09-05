@@ -15,7 +15,7 @@ class Utility:SRep {
    main() {
       ("Utility:SRep:main").print();
       for (Int i = 0;i < args.length;i = i++) {
-         if (args[i] == self.className) {
+         if (args[i] == System:Classes.className(self)) {
             changeFile(args[i + 1], args[i + 2]);
          }
       }

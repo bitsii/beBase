@@ -141,7 +141,7 @@ final class Build:Class {
    }
    
    toString() String {
-      String ret = self.className;
+      String ret = System:Classes.className(self);
       if (def(namepath)) {
          ret = ret + " namepath: " + namepath.toString();
          if (def(extends)) {
@@ -178,7 +178,7 @@ final class Build:Method {
    }
    
    toString() String {
-      String ret = self.className + " ";
+      String ret = System:Classes.className(self) + " ";
       if (def(name)) {
          ret = ret + " name: " + name.toString();
       }
@@ -263,7 +263,7 @@ final class Build:Var {
    }
    
    toString() String {
-      String ret = self.className;
+      String ret = System:Classes.className(self);
       if (def(name)) {
          ret = ret + " name: " + name.toString();
       }
@@ -318,7 +318,7 @@ final class Build:Call {
    }
    
    toString() String {
-      String ret = self.className;
+      String ret = System:Classes.className(self);
       if (def(name)) {
          ret = ret + " name: " + name.toString();
       }
@@ -357,7 +357,7 @@ final class Build:Accessor {
    }
    
    toString() String {
-      String ret = self.className;
+      String ret = System:Classes.className(self);
       if (def(name)) {
          ret = ret + " name: " + name.toString();
       }

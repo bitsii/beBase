@@ -69,7 +69,7 @@ class Logs {
   }
   
   putLevels(inst, Int level, Int outputLevel) {
-    putKeyLevels(inst.className, level, outputLevel);
+    putKeyLevels(System:Classes.className(inst), level, outputLevel);
   }
   
   getKey(String key) Log {
@@ -88,7 +88,7 @@ class Logs {
   }
   
   get(inst) Log {
-    return(getKey(inst.className));
+    return(getKey(System:Classes.className(inst)));
   }
   
   turnOn(inst) {

@@ -177,7 +177,7 @@ final class Serializer {
       if (instance.can("deserializeClassNameGet", 0)) {
         String instClass = instance.deserializeClassName;
       } else {
-         instClass = instance.className;
+         instClass = System:Classes.className(instance);
       }
       Int instClassTag = session.classTagMap.get(instClass);
       if (undef(instClassTag)) {
