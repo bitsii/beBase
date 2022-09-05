@@ -540,7 +540,7 @@ if (def(length)) {
    }
    
    addValue(val) self {
-      if (def(val) && val.sameType(self)) {
+      if (def(val) && System:Types.sameType(val, self)) {
         addAll(val);
       } else {
         addValueWhole(val);

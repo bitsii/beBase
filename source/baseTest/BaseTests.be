@@ -579,10 +579,10 @@ class Test:BaseTest:EC(BaseTest) {
     
     doTypes() {
         ("Begin assertTypes").print();
-        assertTrue(self.sameType(System:Object.new()));
-        assertFalse(System:Object.new().sameType(self));
-        assertFalse(self.otherType(System:Object.new()));
-        assertTrue(System:Object.new().otherType(self));
+        assertTrue(System:Types.sameType(self, System:Object.new()));
+        assertFalse(System:Types.sameType(System:Object.new(), self));
+        assertFalse(System:Types.otherType(self, System:Object.new()));
+        assertTrue(System:Types.otherType(System:Object.new(), self));
         ("End assertTypes").print();
     }
     

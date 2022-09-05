@@ -210,10 +210,7 @@ class System:BasePath {
    }
    
    equals(x) Bool {
-   //if (undef(x)) { "xnull".print(); }
-   //if (x.otherType(self)) { "xots".print(); }
-   //if (path != x.path) { ("xpne |" + path + "| |" + x.path + "|").print(); }
-      if (undef(x) || x.otherType(self) || path != x.path) {
+      if (undef(x) || System:Types.otherType(x, self) || path != x.path) {
          return(false);
       } 
       return(true);

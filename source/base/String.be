@@ -884,7 +884,7 @@ BEINT bevl_val;
         Int osize;
         Int maxsize;
         Int myret;
-        if (undef(stri) || stri.otherType(self)) {
+        if (undef(stri) || System:Types.otherType(stri, self)) {
             return(null);
         }
         mysize = size;

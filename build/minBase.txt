@@ -16,5 +16,6 @@
 ../brace/source/base/List.be
 ../brace/source/base/Map.be
 ../brace/source/base/Initializer.be
+../brace/source/base/Types.be
 ../brace/source/base/Exceptions.be
 ../brace/source/base/OpiFc.be

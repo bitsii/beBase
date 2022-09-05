@@ -570,58 +570,6 @@ BERT_ClassDef* bevl_scldef;
       return(copy);
    }
 
-   /* 
-      returns true if this instance (self) is an instance of the same
-      class or a subclass of other sameType(Object.new()) is always true
-      Object.new().sameType(NotObjectClass.new()) is always false 
-      (the instance which is the argument to the call is the limiter)
-      */
-      
-   sameType(other) Bool {
-      emit(js) {
-      """
-      if (beva_other !== null && Object.getPrototypeOf(beva_other).isPrototypeOf(this)) {
-        return be_BECS_Runtime.prototype.boolTrue;
-      }
-      """
-      }
-      emit(jv) {
-      """
-      if (beva_other != null && beva_other.getClass().isAssignableFrom(this.getClass())) {
-        return be.BECS_Runtime.boolTrue;
-      }
-      """
-      }
-      emit(cs) {
-      """
-      if (beva_other != null && beva_other.GetType().IsAssignableFrom(this.GetType())) {
-        return be.BECS_Runtime.boolTrue;
-      }
-      """
-      }
-      emit(cc) {
-      """
-      if (beva_other != nullptr) {
-        //if the other type is same or parent type of mine
-        BETS_Object* bevs_mt = bemc_getType();
-        BETS_Object* bevs_ot = beva_other->bemc_getType();
-        while (bevs_mt != NULL) {
-          if (bevs_mt == bevs_ot) {
-            return BECS_Runtime::boolTrue;
-          } else {
-            bevs_mt = bevs_mt->bevs_parentType;
-          }
-        }
-      }
-      """
-      }
-      return(false);
-   }
-   
-   otherType(other) Bool {
-      return(sameType(other).not());
-   }
-    
    emit(cs) {
    """
    public virtual BEC_2_6_6_SystemObject bems_methodNotDefined(string name, $class/System:Object$[] args) { 

@@ -20,9 +20,9 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             node.held = Build:TransUnit.new();
          }
          if (node.typename == ntypes.VAR) {
-            if (undef(node.held) || node.held.sameType(Text:Strings.new().empty)) {
+            if (undef(node.held) || System:Types.sameType(node.held, Text:Strings.new().empty)) {
                v = Build:Var.new();
-               if (def(node.held) && node.held.sameType(Text:Strings.new().empty) && node.held == "auto") {
+               if (def(node.held) && System:Types.sameType(node.held, Text:Strings.new().empty) && node.held == "auto") {
                 //"FOUND A AUTOTYPE VAR".print();
                 v.autoType = true;
                }

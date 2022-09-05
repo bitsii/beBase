@@ -33,7 +33,7 @@ final class Build:Visit:Pass1(Build:Visit:Visitor) {
        String inClassMethod;
      }
      if (node.typename == ntypes.CLASS) {
-         if ("".sameType(node.held)) {
+         if (System:Types.sameType("", node.held)) {
           inClass = node.held;
          } else {
           inClass = node.held.namepath.toString();
@@ -42,7 +42,7 @@ final class Build:Visit:Pass1(Build:Visit:Visitor) {
          inLine = null;
       }
       if (node.typename == ntypes.METHOD && def(inClass)) {
-         if ("".sameType(node.held)) {
+         if (System:Types.sameType("", node.held)) {
            inClassMethod = node.held;
          } elseIf (def(node.held.orgName)) {
            inClassMethod = inClass + "." + node.held.orgName;

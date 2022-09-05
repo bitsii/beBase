@@ -174,6 +174,7 @@ class Runner {
          Map handOff;
          Runner baton;
          Replace:RunStep runStep = Replace:RunStep.new();
+         System:Types stp = System:Types.new();
       }
    }
    
@@ -247,7 +248,7 @@ class Runner {
       any iter = self.stepIter;
       while (iter.hasNext) {
          any s = iter.next;
-         if (def(handOff) && s.sameType(runStep) && handOff.has(s.str)) {
+         if (def(handOff) && stp.sameType(s, runStep) && handOff.has(s.str)) {
             baton = handOff.get(s.str);
             baton.output = output;
             baton.swap = swap;
@@ -258,7 +259,7 @@ class Runner {
                baton.restart();
                baton = null;
             }
-         } elseIf (s.sameType(runStep) && s.str == label) {
+         } elseIf (stp.sameType(s, runStep) && s.str == label) {
             return(true);
          } else {
             output.write(s.handle(self));
@@ -280,7 +281,7 @@ class Runner {
       any iter = self.stepIter;
       while (iter.hasNext) {
          any s = iter.next;
-         if (def(handOff) && s.sameType(runStep) && handOff.has(s.str)) {
+         if (def(handOff) && stp.sameType(s, runStep) && handOff.has(s.str)) {
             baton = handOff.get(s.str);
             baton.output = output;
             baton.swap = swap;
@@ -291,7 +292,7 @@ class Runner {
                baton.restart();
                baton = null;
             }
-         } elseIf (s.sameType(runStep) && s.str == label) {
+         } elseIf (stp.sameType(s, runStep) && s.str == label) {
             return(true);
          }
       }
@@ -307,7 +308,7 @@ class Runner {
       any iter = self.stepIter;
       while (iter.hasNext) {
          any s = iter.next;
-         if (def(handOff) && s.sameType(runStep) && handOff.has(s.str)) {
+         if (def(handOff) && stp.sameType(s, runStep) && handOff.has(s.str)) {
             baton = handOff.get(s.str);
             baton.output = output;
             baton.swap = swap;

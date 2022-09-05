@@ -225,7 +225,7 @@ final class System:ExceptionBuilder {
    }
 
    buildException(passBack, smsg, sinClass, sinMtd, sfname, ilinep) {
-      if (def(passBack) && (passBack.sameType(except))) {
+      if (def(passBack) && System:Types.sameType(passBack, except)) {
          passBack.klassName = sinClass;
          passBack.methodName = sinMtd;
          passBack.fileName = sfname;

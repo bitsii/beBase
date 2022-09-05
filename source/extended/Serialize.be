@@ -220,7 +220,7 @@ final class Serializer {
       List postDeserialize = List.new();
       Session session = Session.new();
       Stack iterStack = Stack.new();
-      if (instReader.sameType(Text:Strings.empty)) {
+      if (System:Types.sameType(instReader, Text:Strings.empty)) {
          toks = toker.tokenize(instReader);
       } else {
          LinkedList toks = toker.tokenize(instReader.readString());

@@ -137,12 +137,12 @@ class Map(Set) {
    
    addValue(other) self {
       if (def(other)) {
-        if (other.sameType(self)) {
+        if (System:Types.sameType(other, self)) {
 		 Map otherMap = other; //could support adding sets to maps... by keys
          for (any x in otherMap) {
             put(x.key, x.value);
          }
-         } elseIf (other.sameType(baseNode)) {
+         } elseIf (System:Types.sameType(other, baseNode)) {
             put(other.key, other.value);
          } else {
             put(other, other);
@@ -464,11 +464,11 @@ class Set {
    
    addValue(other) self {
       if (def(other)) {
-         if (other.sameType(self)) {
+         if (System:Types.sameType(other, self)) {
              for (any x in other) {
                 put(x);
              }
-         } elseIf (other.sameType(baseNode)) {
+         } elseIf (System:Types.sameType(other, baseNode)) {
             put(other.key);
          } else {
             put(other);

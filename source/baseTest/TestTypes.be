@@ -19,11 +19,6 @@ class Test:TestTypes {
    }
    
    testTypes() {
-      any x = Clp.new();
-      any y = Clc.new();
-      x.sameType(y).print();
-      y.sameType(x).print();
-      x.sameType(x).print();
    }
    
 }

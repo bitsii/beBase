@@ -54,7 +54,7 @@ final class System:Types {
      emit(cc) {
       """
 
-      BETS_Object* bevs_cano = beva_org.bemc_getType();
+      BETS_Object* bevs_cano = beva_org->bemc_getType();
       std::vector<std::string>* fnames = &bevs_cano->bevs_fieldNames;
 
       for (int i = 0;i < fnames->size();i++) {
@@ -68,6 +68,58 @@ final class System:Types {
 
      return(names);
 
+   }
+
+      /*
+      returns true if this instance (self) is an instance of the same
+      class or a subclass of other sameType(Object.new()) is always true
+      Object.new().sameType(NotObjectClass.new()) is always false
+      (the instance which is the argument to the call is the limiter)
+      */
+
+   sameType(org, other) Bool {
+      emit(js) {
+      """
+      if (beva_other !== null && Object.getPrototypeOf(beva_other).isPrototypeOf(beva_org)) {
+        return be_BECS_Runtime.prototype.boolTrue;
+      }
+      """
+      }
+      emit(jv) {
+      """
+      if (beva_other != null && beva_other.getClass().isAssignableFrom(beva_org.getClass())) {
+        return be.BECS_Runtime.boolTrue;
+      }
+      """
+      }
+      emit(cs) {
+      """
+      if (beva_other != null && beva_other.GetType().IsAssignableFrom(beva_org.GetType())) {
+        return be.BECS_Runtime.boolTrue;
+      }
+      """
+      }
+      emit(cc) {
+      """
+      if (beva_other != nullptr) {
+        //if the other type is same or parent type of mine
+        BETS_Object* bevs_mt = beva_org->bemc_getType();
+        BETS_Object* bevs_ot = beva_other->bemc_getType();
+        while (bevs_mt != NULL) {
+          if (bevs_mt == bevs_ot) {
+            return BECS_Runtime::boolTrue;
+          } else {
+            bevs_mt = bevs_mt->bevs_parentType;
+          }
+        }
+      }
+      """
+      }
+      return(false);
+   }
+
+   otherType(org, other) Bool {
+      return(sameType(org, other).not());
    }
 
 }

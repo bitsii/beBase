@@ -274,7 +274,7 @@ local LinkedList {
    }
    
    addValue(held) {
-      if (def(held) && held.sameType(self)) {
+      if (def(held) && System:Types.sameType(held, self)) {
          addAll(held);
       } else {
          addValueWhole(held);

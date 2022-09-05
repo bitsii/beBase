@@ -303,6 +303,8 @@ use class Json:Marshaller {
           MultiByteIterator mbi = MultiByteIterator.new();
           String txtpt = String.new();
           String escaped = String.new();
+
+          System:Types stp = System:Types.new();
         }
     }
     
@@ -325,15 +327,15 @@ use class Json:Marshaller {
     marshallWriteInst(inst, writer) {
        if (undef(inst)) {
          writer.write("null");
-       } elseIf (inst.sameType(str)) {
+       } elseIf (stp.sameType(inst, str)) {
          marshallWriteString(inst, writer);
-       } elseIf (inst.sameType(arr)) {
+       } elseIf (stp.sameType(inst, arr)) {
          marshallWriteList(inst, writer);
-       } elseIf (inst.sameType(map)) {
+       } elseIf (stp.sameType(inst, map)) {
          marshallWriteMap(inst, writer);
-       } elseIf (inst.sameType(int)) {
+       } elseIf (stp.sameType(inst, int)) {
          writer.write(inst.toString());
-       } elseIf (inst.sameType(boo)) {
+       } elseIf (stp.sameType(inst, boo)) {
          writer.write(inst.toString());
        } else {
          marshallWriteString(inst.toString(), writer);
