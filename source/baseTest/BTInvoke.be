@@ -29,11 +29,11 @@ class Test:BaseTest:Invoke(BaseTest) {
    
    testFieldNames() {
      auto o = Object.new();
-     assertTrue(o.fieldNames.size == 0);
+     assertTrue(System:Types.fieldNames(o).size == 0);
      auto hf = HasFields.new();
-     assertTrue(hf.fieldNames.size == 2);
-     assertTrue(hf.fieldNames[0] == "hi");
-     assertTrue(hf.fieldNames[1] == "there");
+     assertTrue(System:Types.fieldNames(hf).size == 2);
+     assertTrue(System:Types.fieldNames(hf).get(0) == "hi");
+     assertTrue(System:Types.fieldNames(hf).get(1) == "there");
    }
    
    testDirectInvoke() {

@@ -4,6 +4,8 @@
 
 class System:Objects {
 
+  create() self { }
+
   default() self { }
 
    final sourceFileName(org) String {

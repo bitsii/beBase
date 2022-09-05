@@ -4,6 +4,8 @@
 
 class System:Classes {
 
+  create() self { }
+
   default() self { }
 
   sameClass(org, other) Bool {
