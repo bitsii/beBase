@@ -1252,13 +1252,7 @@ final class Text:Strings {
          String cr = String.codeNew(13); //carriage return
          String lf = "\n";
          String colon = ":";
-         Set ws = Set.new();
       }
-      
-      ws.put(space);
-      ws.put(tab);
-      ws.put(cr);
-      ws.put(unixNewline);
    }
    
    join(String delim, splits) String {
@@ -1286,7 +1280,7 @@ final class Text:Strings {
       Text:MultiByteIterator mb = str.mbiter;
       while (mb.hasNext) {
          String step = mb.next;
-         if (ws.has(step)) {
+         if (step == space || step == tab || step == cr || step == unixNewline) {
             if (foundChar) {
                end++=;
             } else {

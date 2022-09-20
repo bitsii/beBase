@@ -1,0 +1,13 @@
+-libraryName=Base
+-jsInclude=../brace/system/js/be/BECS_Runtime.js
+-jsInclude=../brace/system/js/be/BECS_Object.js
+-emitFlag=tiny
+../brace/source/base/Uses.be
+../brace/source/base/Object.be
+../brace/source/base/Int.be
+../brace/source/base/String.be
+../brace/source/base/Logic.be
+../brace/source/base/List.be
+../brace/source/base/Initializer.be
+../brace/source/base/TinyStandins.be
+#../brace/source/base/Map.be
