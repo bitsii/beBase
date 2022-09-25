@@ -1098,6 +1098,7 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
 """
       }
       
+      ifNotEmit(moab) {
       emit(js) {
       """
         //there's not really an general / portable way to skip the newline, so we don't try to
@@ -1105,6 +1106,16 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
         console.log(this.bems_stringToJsString_1(this));
 
       """
+      }
+      }
+
+      ifEmit(moab) {
+      emit(js) {
+      """
+        trace(this.bems_stringToJsString_1(this));
+
+      """
+      }
       }
       
    }
@@ -1145,6 +1156,7 @@ stdout.WriteByte(10);
 """
       }
       
+      ifNotEmit(moab) {
       emit(js) {
       """
       //console.log("Hi from JS!");
@@ -1162,6 +1174,16 @@ stdout.WriteByte(10);
         //console.log(e.stack);
       }
       """
+      }
+      }
+
+      ifEmit(moab) {
+      emit(js) {
+      """
+        trace(this.bems_stringToJsString_1(this));
+
+      """
+      }
       }
       
     }
