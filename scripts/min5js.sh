@@ -12,7 +12,7 @@ esac
 
 rm -rf targets/min/Base/target/js/be
 
-time node target5/Base/target/js/be/BEL_Base.js  -deployPath=targets/min -buildPath=targets/min --buildFile build/minBase.txt --emitLang js --emitFlag noSmap --mainClass Test:TestHelloWorld ../brace/source/baseTest/TestHelloWorld.be
+time node target5/Base/target/js/be/BEL_Base.js  -deployPath=targets/min -buildPath=targets/min --buildFile build/minBase.txt --emitLang js --emitFlag noSmap --mainClass Test:TestHelloWorld ../beBase/source/baseTest/TestHelloWorld.be
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
