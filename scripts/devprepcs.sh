@@ -12,7 +12,7 @@ if [[ "$OSTYPE" == *"MINGW"* ]]; then
   echo "then download and install mono"
   echo "https://www.mono-project.com/download/stable/#download-win"
   echo "(put it on your path)"
-  echo "then make sure you are in the brace checked out directory"
+  echo "then make sure you are in the beBase checked out directory"
   echo "(you likely are right now)"
   echo "and run ./scripts/boot5mcsmswin.sh"
 fi
@@ -23,7 +23,7 @@ if [ "$OSTYPE" == "Linux" ]; then
   sudo apt-get install git
   sudo apt-get install git-gui
   #sudo apt-get install clang
-  echo "make sure you are in the brace checked out directory"
+  echo "make sure you are in the beBase checked out directory"
   echo "(you likely are right now)"
   echo "and run ./scripts/boot5mcslinux.sh"
 fi
@@ -41,7 +41,7 @@ if [ "$OSTYPE" == "Darwin" ]; then
   brew install mono
   brew install git
   brew install git-gui
-  echo "make sure you are in the brace checked out directory"
+  echo "make sure you are in the beBase checked out directory"
   echo "(you likely are right now)"
   echo "and run ./scripts/boot5mcsmacos.sh"
 fi

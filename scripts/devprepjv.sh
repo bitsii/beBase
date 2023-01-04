@@ -12,7 +12,7 @@ if [[ "$OSTYPE" == *"MINGW"* ]]; then
   echo "download and install java:"
   echo "https://adoptopenjdk.net/"
   echo "(put it on your path)"
-  echo "then make sure you are in the brace checked out directory"
+  echo "then make sure you are in the beBase checked out directory"
   echo "(you likely are right now)"
   echo "and run ./scripts/boot5jvmswin.sh"
 fi
@@ -22,7 +22,7 @@ if [ "$OSTYPE" == "Linux" ]; then
   sudo apt-get install openjdk-11-jdk-headless
   sudo apt-get install git
   sudo apt-get install git-gui
-  echo "make sure you are in the brace checked out directory"
+  echo "make sure you are in the beBase checked out directory"
   echo "(you likely are right now)"
   echo "and run ./scripts/boot5jvlinux.sh"
 fi
@@ -41,7 +41,7 @@ if [ "$OSTYPE" == "Darwin" ]; then
   brew link --force openjdk@11
   brew install git
   brew install git-gui
-  echo "make sure you are in the brace checked out directory"
+  echo "make sure you are in the beBase checked out directory"
   echo "(you likely are right now)"
   echo "and run ./scripts/boot5jvmacos.sh"
 fi
