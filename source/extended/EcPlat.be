@@ -570,6 +570,7 @@ use final class System:Environment {
             }
         """
         }
+        ifNotEmit(apwk) {
         emit(js) {
         """
             var value = process.env[beva_name.bems_toJsString()];
@@ -577,6 +578,7 @@ use final class System:Environment {
                 bevl_value = new be_$class/Text:String$().bems_new(value);
             }
         """
+        }
         }
         return(value);
     }
