@@ -129,10 +129,6 @@ final class String {
    emit(cc_classHead) {
    """
 
-#ifdef BEDCC_BGC
-    std::vector<unsigned char, gc_allocator<unsigned char>> bevi_bytes;
-#endif
-
 #ifdef BEDCC_SGC
     std::vector<unsigned char> bevi_bytes;
 #endif
@@ -143,10 +139,6 @@ final class String {
     BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif
    }
-
-#ifdef BEDCC_BGC
-    BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char, gc_allocator<unsigned char>>& a_bevi_bytes) { 
-#endif
 
 #ifdef BEDCC_SGC
     BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
@@ -161,10 +153,6 @@ final class String {
       bevp_size = new BEC_2_4_3_MathInt(bevi_length);
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
     } //}
-    
-    #ifdef BEDCC_BGC
-        BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
-    #endif
     
     #ifdef BEDCC_SGC
         BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 

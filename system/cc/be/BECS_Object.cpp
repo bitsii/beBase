@@ -78,10 +78,6 @@ size_t BECS_Object::bemg_getSize() {
    return sizeof(*this);
 }
 
-#ifdef BEDCC_BGC
-    BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args) {
-#endif
-
 #ifdef BEDCC_SGC
     BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, std::vector<BEC_2_6_6_SystemObject*> args) {
 #endif  
@@ -103,10 +99,6 @@ size_t BECS_Object::bemg_getSize() {
 
 //bemds
 BEC_2_6_6_SystemObject* BECS_Object::bemd_0(int32_t callId) {
-#ifdef BEDCC_BGC
-  std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { };
-#endif
-
 #ifdef BEDCC_SGC
   std::vector<BEC_2_6_6_SystemObject*> args = { };
 #endif 
@@ -114,10 +106,6 @@ BEC_2_6_6_SystemObject* BECS_Object::bemd_0(int32_t callId) {
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_1(int32_t callId, BEC_2_6_6_SystemObject* bevd_0) {
-#ifdef BEDCC_BGC
-  std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0 };
-#endif
-
 #ifdef BEDCC_SGC
   std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0 };
 #endif
@@ -125,10 +113,6 @@ BEC_2_6_6_SystemObject* BECS_Object::bemd_1(int32_t callId, BEC_2_6_6_SystemObje
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_2(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1) {
-#ifdef BEDCC_BGC
-  std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1 };
-#endif
-
 #ifdef BEDCC_SGC
   std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1 };
 #endif
@@ -136,10 +120,6 @@ BEC_2_6_6_SystemObject* BECS_Object::bemd_2(int32_t callId, BEC_2_6_6_SystemObje
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_3(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2) {
-#ifdef BEDCC_BGC
-  std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2 };
-#endif
-
 #ifdef BEDCC_SGC
   std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2 };
 #endif
@@ -147,10 +127,6 @@ BEC_2_6_6_SystemObject* BECS_Object::bemd_3(int32_t callId, BEC_2_6_6_SystemObje
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_4(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3) {
-#ifdef BEDCC_BGC
-  std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3 };
-#endif
-
 #ifdef BEDCC_SGC
   std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3 };
 #endif  
@@ -158,10 +134,6 @@ BEC_2_6_6_SystemObject* BECS_Object::bemd_4(int32_t callId, BEC_2_6_6_SystemObje
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_5(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4) {
-#ifdef BEDCC_BGC
-  std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4 };
-#endif
-
 #ifdef BEDCC_SGC
   std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4 };
 #endif  
@@ -169,9 +141,6 @@ BEC_2_6_6_SystemObject* BECS_Object::bemd_5(int32_t callId, BEC_2_6_6_SystemObje
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_6(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5) {
-#ifdef BEDCC_BGC
-  std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5 };
-#endif
 
 #ifdef BEDCC_SGC
   std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5 };
@@ -180,27 +149,15 @@ BEC_2_6_6_SystemObject* BECS_Object::bemd_6(int32_t callId, BEC_2_6_6_SystemObje
 }
 
 BEC_2_6_6_SystemObject* BECS_Object::bemd_7(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6) {
-#ifdef BEDCC_BGC
-  std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
-#endif
-
 #ifdef BEDCC_SGC
   std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
 #endif 
   return bems_methodNotDefined(callId, args);
 }
 
-#ifdef BEDCC_BGC
-    BEC_2_6_6_SystemObject* BECS_Object::bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x) {
-#endif
-
 #ifdef BEDCC_SGC
     BEC_2_6_6_SystemObject* BECS_Object::bemd_x(int32_t callId, BEC_2_6_6_SystemObject* bevd_0, BEC_2_6_6_SystemObject* bevd_1, BEC_2_6_6_SystemObject* bevd_2, BEC_2_6_6_SystemObject* bevd_3, BEC_2_6_6_SystemObject* bevd_4, BEC_2_6_6_SystemObject* bevd_5, BEC_2_6_6_SystemObject* bevd_6, std::vector<BEC_2_6_6_SystemObject*> bevd_x) {
 #endif 
-
-#ifdef BEDCC_BGC
-  std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
-#endif
 
 #ifdef BEDCC_SGC
   std::vector<BEC_2_6_6_SystemObject*> args = { bevd_0, bevd_1, bevd_2, bevd_3, bevd_4, bevd_5, bevd_6 };
@@ -208,10 +165,6 @@ BEC_2_6_6_SystemObject* BECS_Object::bemd_7(int32_t callId, BEC_2_6_6_SystemObje
   args.insert(args.end(), bevd_x.begin(), bevd_x.end());
   return bems_methodNotDefined(callId, args);
 }
-
-#ifdef BEDCC_BGC
-  BEC_2_6_6_SystemObject* BECS_Object::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs) {
-#endif
 
 #ifdef BEDCC_SGC
   BEC_2_6_6_SystemObject* BECS_Object::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
@@ -525,12 +478,6 @@ void BECS_Runtime::bemg_beginThread() {
 #endif
 #endif
 
-#ifdef BEDCC_BGC
-struct GC_stack_base sb;
-GC_get_stack_base(&sb);
-GC_register_my_thread(&sb);
-#endif
-
 }
 
 void BECS_Runtime::bemg_endThread() {
@@ -557,10 +504,6 @@ void BECS_Runtime::bemg_endThread() {
   //cout << "GCDEBUG et do gc" << endl;
   bemg_checkDoGc();
 #endif
-#endif
-
-#ifdef BEDCC_BGC
-GC_unregister_my_thread();
 #endif
 
 }

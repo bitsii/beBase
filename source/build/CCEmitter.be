@@ -572,9 +572,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    lstringStartCi(String sdec, String belsName) {
       if (build.emitChecks.has("ccSgc")) {
         sdec += "static std::vector<unsigned char> " += belsName += " = {"; //}
-      } elseIf (build.emitChecks.has("ccBgc")) {
-        sdec += "static std::vector<unsigned char, gc_allocator<unsigned char>> " += belsName += " = {"; //}
-      } 
+      }
    }
    
    buildPropList() {

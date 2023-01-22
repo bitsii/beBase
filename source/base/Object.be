@@ -401,9 +401,6 @@ BERT_ClassDef* bevl_scldef;
 
 emit(cc_classHead) {
    """
-#ifdef BEDCC_BGC
-   virtual BEC_2_6_6_SystemObject* bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs);
-#endif
 
 #ifdef BEDCC_SGC
    virtual BEC_2_6_6_SystemObject* bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs);
@@ -413,10 +410,6 @@ emit(cc_classHead) {
 
 emit(cc) {
    """
-
-#ifdef BEDCC_BGC
-    BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x, int32_t numargs) {
-#endif
 
 #ifdef BEDCC_SGC
     BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {

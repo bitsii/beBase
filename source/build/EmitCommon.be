@@ -663,10 +663,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           main += "be::BECS_Runtime::platformName = std::string(\"" += build.outputPlatform.name += "\");" += nl;
           main += "be::BECS_Runtime::argc = argc;" += nl;
           main += "be::BECS_Runtime::argv = argv;" += nl;
-          if (build.emitChecks.has("ccBgc")) {
-            main += "GC_INIT();" += nl;
-            main += "GC_allow_register_threads();" += nl;
-          }
           main += "be::BECS_Runtime::bemg_beginThread();" += nl;
           main += "be::" + libEmitName + "::init();" += nl;
           main += "be::" += maincc.emitName += "* mc = new be::" += maincc.emitName += "();" += nl;
@@ -1189,10 +1185,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
               j++=;
           }
           if (dnumargs >= maxDynArgs) {
-            if (build.emitChecks.has("ccBgc")) {
-              args = args + ", std::vector<" + objectCc.relEmitName(build.libName) + "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x";
-              superArgs = superArgs + ", bevd_x";
-            } elseIf (build.emitChecks.has("ccSgc")) {
+            if (build.emitChecks.has("ccSgc")) {
               args = args + ", std::vector<" + objectCc.relEmitName(build.libName) + "*> bevd_x";
               superArgs = superArgs + ", bevd_x";
             }
@@ -1505,9 +1498,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                if (emitting("js")) {
                 methods += "var bevd_x = new Array(" += maxSpillArgsLen.toString() += ");" += nl;
                } elseIf (emitting("cc")) {
-                 if (build.emitChecks.has("ccBgc")) {
-                   methods += "std::vector<" += objectCc.relEmitName(build.libName) += "*, gc_allocator<BEC_2_6_6_SystemObject*>> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
-                 } elseIf (build.emitChecks.has("ccSgc")) {
+                 if (build.emitChecks.has("ccSgc")) {
                    methods += "std::vector<" += objectCc.relEmitName(build.libName) += "*> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
                  }
                } else {

@@ -128,9 +128,6 @@ final class List {
    
    emit(cc_classHead) {
   """
-#ifdef BEDCC_BGC
-    std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> bevi_list;
-#endif
 
 #ifdef BEDCC_SGC
     std::vector<BEC_2_6_6_SystemObject*> bevi_list;
@@ -142,10 +139,6 @@ final class List {
      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
 #endif
    }
-
-#ifdef BEDCC_BGC
-    BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> a_bevi_list) {
-#endif
 
 #ifdef BEDCC_SGC
     BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list) {
@@ -162,10 +155,6 @@ final class List {
         bevp_capacity = new BEC_2_4_3_MathInt(bevi_list.size());
         bevp_multiplier = new BEC_2_4_3_MathInt(2);
     } //}
-
-#ifdef BEDCC_BGC
-    BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*, gc_allocator<BEC_2_6_6_SystemObject*>> a_bevi_list, int32_t len) {
-#endif
 
 #ifdef BEDCC_SGC
     BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list, int32_t len) {

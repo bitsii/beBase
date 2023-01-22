@@ -18,9 +18,3 @@
 #include <map>
 #include <mutex>
 #include <condition_variable>
-#ifdef BEDCC_BGC
-#define GC_THREADS
-#include <gc.h>
-#include <gc/gc_cpp.h>
-#include <gc/gc_allocator.h>
-#endif
