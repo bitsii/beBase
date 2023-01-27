@@ -27,15 +27,9 @@ source/base/Time.be
 source/base/Functions.be
 source/base/DoNothing.be
 source/base/OpiFc.be
---c_source
-source/base/Process.be
 --jv_source
 source/base/EcProcess.be
 --cs_source
 source/base/EcProcess.be
---cc_source
-source/base/EcProcess.be
 --js_source
-source/base/EcProcess.be
---sw_source
 source/base/EcProcess.be

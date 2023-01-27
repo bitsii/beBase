@@ -1,12 +1,6 @@
---c_source_mswin
-source/extended/Win.be
---c_source_linux
-source/extended/Nix.be
 --jv_source
 source/extended/EcPlat.be
 --cs_source
-source/extended/EcPlat.be
---cc_source
 source/extended/EcPlat.be
 --js_source
 source/extended/EcPlat.be

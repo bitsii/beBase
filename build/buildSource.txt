@@ -24,6 +24,5 @@ source/build/Pass11.be
 source/build/Pass12.be
 source/build/JVEmitter.be
 source/build/CSEmitter.be
-source/build/CCEmitter.be
 source/build/JSEmitter.be
 source/build/EmitCommon.be
