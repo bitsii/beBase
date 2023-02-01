@@ -24,6 +24,9 @@ class BECS_FrameStack {
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
   BECS_Object* bevs_nextReuse = nullptr;
   uint_fast16_t bevg_stackGcState = 0;
+  //new for heap stack
+  BECS_Object** bevs_ohs;
+  BECS_Object** bevs_hs;
 };
 
 class BECS_Runtime {
@@ -116,6 +119,7 @@ class BECS_StackFrame {
   public:
   BECS_StackFrame* bevs_priorFrame;
   BEC_2_6_6_SystemObject*** bevs_localVars;
+  BEC_2_6_6_SystemObject** bevs_checkVars;
   size_t bevs_numVars;
   BECS_FrameStack* bevs_myStack;
   BEC_2_6_6_SystemObject* bevs_thiso;
@@ -127,10 +131,12 @@ class BECS_StackFrame {
     bevs_myStack = &BECS_Runtime::bevs_currentStack;
     bevs_priorFrame = bevs_myStack->bevs_lastFrame;
     bevs_myStack->bevs_lastFrame = this;
+    bevs_myStack->bevs_hs += bevs_numVars;
   }
   
   inline ~BECS_StackFrame() {
     bevs_myStack->bevs_lastFrame = bevs_priorFrame;
+    bevs_myStack->bevs_hs -= bevs_numVars;
   }
   
 };

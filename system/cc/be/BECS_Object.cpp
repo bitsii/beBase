@@ -195,6 +195,9 @@ std::unordered_map<std::string, std::vector<int32_t>> BECS_Runtime::smnlecs;
 void BECS_Runtime::init() { 
     if (isInitted) { return; }
     isInitted = true;
+    BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+    bevs_myStack->bevs_ohs = (BECS_Object**) malloc(5000 * sizeof(BECS_Object*));
+    bevs_myStack->bevs_hs = bevs_myStack->bevs_ohs;
     BECS_Runtime::boolTrue = new BEC_2_5_4_LogicBool(true);
     BECS_Runtime::boolFalse = new BEC_2_5_4_LogicBool(false);
     BECS_Runtime::initializer = new BEC_2_6_11_SystemInitializer();
@@ -321,8 +324,48 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
   
 #ifdef BEDCC_SGC
 
-  BECS_StackFrame* bevs_currFrame = bevs_myStack->bevs_lastFrame;
-  BEC_2_6_6_SystemObject* bevg_le = nullptr;
+  //decls
+  BECS_StackFrame* bevs_currFrame;
+  BEC_2_6_6_SystemObject* bevg_le;
+  BECS_Object* bevg_leo;
+
+  //diag pass
+  bevs_currFrame = bevs_myStack->bevs_lastFrame;
+  bevg_le = nullptr;
+  int fct = 0;
+  while (bevs_currFrame != nullptr) {
+    for (size_t i = 0; i < bevs_currFrame->bevs_numVars; i++) {
+      bevg_le = bevs_currFrame->bevs_checkVars[i];
+      if (bevg_le != nullptr) {
+        //add it
+        fct++;
+      }
+    }
+    bevg_le = bevs_currFrame->bevs_thiso;
+    if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
+      //later add it
+    }
+    bevs_currFrame = bevs_currFrame->bevs_priorFrame;
+  }
+  std::cout << "STCHK fct " << fct << std::endl;
+
+  int sct = 0;
+  BECS_Object** bevs_ohs = bevs_myStack->bevs_ohs;
+  BECS_Object** bevs_hs = bevs_myStack->bevs_hs;
+  bevg_leo = nullptr;
+  while (bevs_ohs < bevs_hs) {
+    bevg_leo = *(bevs_ohs);
+    if (bevg_leo != nullptr) {
+      //add it
+      sct++;
+    }
+    bevs_ohs++;
+  }
+  std::cout << "STCHK sct " << sct << std::endl;
+
+  //real pass
+  bevs_currFrame = bevs_myStack->bevs_lastFrame;
+  bevg_le = nullptr;
   while (bevs_currFrame != nullptr) {
     for (size_t i = 0; i < bevs_currFrame->bevs_numVars; i++) {
       bevg_le = *(bevs_currFrame->bevs_localVars[i]);
