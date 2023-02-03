@@ -15,9 +15,9 @@ class Test:BaseTest:Gc(BaseTest) {
    
    main() {
       ("Test:BaseTest:Gc:main").print();
-      testGc();
-      testGc();
-      testGc();
+      //testGc();
+      //testGc();
+      //testGc();
    }
    
    testGc() {

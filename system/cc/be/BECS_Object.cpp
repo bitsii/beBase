@@ -336,7 +336,7 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
   while (bevs_currFrame != nullptr) {
     for (size_t i = 0; i < bevs_currFrame->bevs_numVars; i++) {
       bevg_le = bevs_currFrame->bevs_checkVars[i];
-      if (bevg_le != nullptr) {
+      if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
         //add it
         fct++;
       }
@@ -355,7 +355,7 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
   bevg_leo = nullptr;
   while (bevs_ohs < bevs_hs) {
     bevg_leo = *(bevs_ohs);
-    if (bevg_leo != nullptr) {
+    if (bevg_leo != nullptr && bevg_leo->bevg_gcMark != bevg_currentGcMark) {
       //add it
       sct++;
     }
