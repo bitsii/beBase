@@ -1977,7 +1977,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                       String belsName;
                       Int lisz;
                       
-                      unless(emitting("js") || emitting("cc")) {
+                      unless((emitting("js") && build.emitChecks.has("jsStrInline")) || emitting("cc")) {
                       String exname = belslits.get(lival);
                       }
                       if (Text:Strings.notEmpty(exname)) {

@@ -59,8 +59,11 @@ use final class Build:JSEmitter(Build:EmitCommon) {
    buildClassInfoMethod(String bemBase, String belsBase, Int len) { }
 
    lstringStart(String sdec, String belsName) {
-
-      sdec += "["; //}
+      unless (build.emitChecks.has("jsStrInline")) {
+        sdec += classConf.emitName += ".prototype.becs_insts." += belsName += " = ["; //}
+      } else {
+        sdec += "["; //}
+      }
    }
    
    lstringStartCi(String sdec, String belsName) {
@@ -130,8 +133,14 @@ use final class Build:JSEmitter(Build:EmitCommon) {
     }
 
     lstringEnd(String sdec) {
+      unless (build.emitChecks.has("jsStrInline")) {
+        //{
+        sdec += "];" += nl;
+        onceDecs += sdec;
+      } else {
         //{
         sdec += "]";
+      }
     }
     
     lstringEndCi(String sdec) {
@@ -279,7 +288,11 @@ use final class Build:JSEmitter(Build:EmitCommon) {
    }
 
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
+     unless (build.emitChecks.has("jsStrInline")) {
+       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len_copy(" + classConf.emitName + ".prototype.becs_insts." + belsName + ", " + lisz + ")");
+     } else {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len_nocopy(" + sdec + ", " + lisz + ")");
+     }
    }
 
     classBegin(Build:ClassSyn csyn) String {
