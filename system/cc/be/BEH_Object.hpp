@@ -87,6 +87,7 @@ class BECS_Runtime {
     static uint_fast64_t bevg_countDeletes;
     static uint_fast64_t bevg_countRecycles;
     static uint_fast64_t bevg_countAllocs;
+    static uint_fast64_t bevg_maxHs;
     
     static void init();
     
@@ -119,7 +120,7 @@ class BECS_StackFrame {
   public:
   BECS_StackFrame* bevs_priorFrame;
   BEC_2_6_6_SystemObject*** bevs_localVars;
-  BEC_2_6_6_SystemObject** bevs_checkVars;
+  //BEC_2_6_6_SystemObject** bevs_checkVars;
   size_t bevs_numVars;
   BECS_FrameStack* bevs_myStack;
   BEC_2_6_6_SystemObject* bevs_thiso;

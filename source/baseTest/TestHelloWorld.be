@@ -12,7 +12,7 @@ class Test:TestHelloWorld {
       //Time:Sleep.sleepSeconds(120);
       String yo = "yo";
       String yar = "yar";
-      emit(cc) {
+      emit(ccc) {
      """
 printf("The address of bevl_yo is %p\n", (void *) bevl_yo);
 //bevl_yo->bevg_gcMark = 9;
@@ -53,7 +53,7 @@ printf("The address of bevg_leo is %p\n", (void *) bevg_leo);
      String boo;
      Int hi;
      Object there;
-     emit(cc) {
+     emit(ccc) {
      """
 printf("The address of beva_yo is %p\n", (void *) beva_yo);
 beva_yo->bevg_gcMark = 9;

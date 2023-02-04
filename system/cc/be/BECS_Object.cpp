@@ -34,6 +34,7 @@ uint_fast64_t BECS_Runtime::bevg_countSweeps = 0;
 uint_fast64_t BECS_Runtime::bevg_countDeletes = 0;
 uint_fast64_t BECS_Runtime::bevg_countRecycles = 0;
 uint_fast64_t BECS_Runtime::bevg_countAllocs = 0;
+uint_fast64_t BECS_Runtime::bevg_maxHs = 0;
 
 void BECS_Lib::putCallId(std::string name, int32_t iid) {
     BECS_Ids::callIds[name] = iid;
@@ -196,7 +197,7 @@ void BECS_Runtime::init() {
     if (isInitted) { return; }
     isInitted = true;
     BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
-    bevs_myStack->bevs_ohs = (BECS_Object**) malloc(5000 * sizeof(BECS_Object*));
+    bevs_myStack->bevs_ohs = (BECS_Object**) malloc(BEDCC_GCHSS * sizeof(BECS_Object*));
     bevs_myStack->bevs_hs = bevs_myStack->bevs_ohs;
     BECS_Runtime::boolTrue = new BEC_2_5_4_LogicBool(true);
     BECS_Runtime::boolFalse = new BEC_2_5_4_LogicBool(false);
@@ -242,8 +243,9 @@ std::cout << "GCDEBUG starting gc " << std::endl;
 
 #ifdef BED_GCSTATS
 std::cout << "GCDEBUG ending gc " << std::endl;
-//std::cout << "GCDEBUG recycles " << BECS_Runtime::bevg_countRecycles  << std::endl;
-//std::cout << "GCDEBUG allocs " << BECS_Runtime::bevg_countAllocs  << std::endl;
+std::cout << "GCDEBUG recycles " << BECS_Runtime::bevg_countRecycles  << std::endl;
+std::cout << "GCDEBUG allocs " << BECS_Runtime::bevg_countAllocs  << std::endl;
+std::cout << "GCDEBUG maxHs " << BECS_Runtime::bevg_maxHs  << std::endl;
 #endif
 
 #endif
@@ -330,7 +332,7 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
   BECS_Object* bevg_leo;
 
   //diag pass
-  bevs_currFrame = bevs_myStack->bevs_lastFrame;
+  /*bevs_currFrame = bevs_myStack->bevs_lastFrame;
   bevg_le = nullptr;
   int fct = 0;
   while (bevs_currFrame != nullptr) {
@@ -361,7 +363,14 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
     }
     bevs_ohs++;
   }
-  std::cout << "STCHK sct " << sct << std::endl;
+  std::cout << "STCHK sct " << sct << std::endl;*/
+
+#ifdef BED_GCSTATS
+  uint_fast64_t chs = (bevs_myStack->bevs_hs - bevs_myStack->bevs_ohs) / sizeof(BECS_Object*);
+  if (chs > bevg_maxHs) {
+    bevg_maxHs = chs;
+  }
+#endif
 
   //real pass
   bevs_currFrame = bevs_myStack->bevs_lastFrame;
