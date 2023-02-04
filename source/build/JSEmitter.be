@@ -265,6 +265,7 @@ use final class Build:JSEmitter(Build:EmitCommon) {
 
     extend(String parent) String {
         String extstr = classConf.emitName + ".prototype = new " + parent + "();" += nl;
+        //String extstr = classConf.emitName + ".prototype = Object.create(" + parent + ".prototype);" += nl;
         extstr = extstr + classConf.emitName + ".prototype.becs_insts = function() { }" += nl;
         return(extstr);
     }

@@ -722,6 +722,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
             if (clnode.held.syn.hasDefault) {
                 if(emitting("cc")) {
                   nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
+                //} elseIf (emitting("js")) {
+                //  nc = "Object.create(" + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + ")";
                 } else {
                   String nc = "new " + getClassConfig(clnode.held.namepath).relEmitName(build.libName) + "()";
                 }
