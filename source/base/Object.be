@@ -414,19 +414,24 @@ emit(cc) {
 #ifdef BEDCC_SGC
     BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
 #endif  
-  BEC_2_4_6_TextString* name = nullptr;
-  BEC_2_9_4_ContainerList* args = nullptr;
 
 #ifdef BEDCC_SGC
-  BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &name, (BEC_2_6_6_SystemObject**) &args };
-  BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, this);
+
+  struct bes {  BEC_2_4_6_TextString* name; BEC_2_9_4_ContainerList* args; BEC_2_6_6_SystemObject* bevr_this;  };
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bes* beq = (bes*) bevs_myStack->bevs_hs;
+  beq->name = nullptr;
+  beq->args = nullptr;
+  beq->bevr_this = this;
+  BECS_StackFrame bevs_stackFrame(3);
+
 #endif
 
   //cout << "in sfwdcall " << endl;
-  name = new BEC_2_4_6_TextString(mname);
-  args = new BEC_2_9_4_ContainerList(bevd_x, numargs);
+  beq->name = new BEC_2_4_6_TextString(mname);
+  beq->args = new BEC_2_9_4_ContainerList(bevd_x, numargs);
   //args = args->bem_copy_0();
-  return bem_forwardCall_2(name, args);
+  return bem_forwardCall_2(beq->name, beq->args);
   //return nullptr;
 } //}
 

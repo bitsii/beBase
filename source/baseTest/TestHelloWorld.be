@@ -42,7 +42,7 @@ printf("The address of bevg_leo is %p\n", (void *) bevg_leo);
      String boo;
      Int hi;
      Object there;
-     emit(cc) {
+     emit(ccc) {
      """
 
      """

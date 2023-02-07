@@ -31,14 +31,20 @@ final class Int {
     int32_t bevi_int = 0;
     BEC_2_4_3_MathInt() { 
     #ifdef BEDCC_SGC
-         BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+        struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+        BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+        bes* beq = (bes*) bevs_myStack->bevs_hs;
+        beq->bevr_this = this;
+        BECS_StackFrame bevs_stackFrame(1);
     #endif
     }
     BEC_2_4_3_MathInt(int32_t a_bevi_int) { 
     #ifdef BEDCC_SGC
-         BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+        struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+        BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+        bes* beq = (bes*) bevs_myStack->bevs_hs;
+        beq->bevr_this = this;
+        BECS_StackFrame bevs_stackFrame(1);
     #endif
       bevi_int = a_bevi_int; 
     }

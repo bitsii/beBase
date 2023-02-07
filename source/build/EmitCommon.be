@@ -1007,17 +1007,19 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       
       if(emitting("cc")) {
         if (build.emitChecks.has("ccSgc")) {
-          locDecs += "BEC_2_6_6_SystemObject** bevls_stackRefs[" += numRefs.toString() += "] = { " += stackRefs += " };" += nl;
-          //locDecs += "BEC_2_6_6_SystemObject* bevls_checkRefs[" += numRefs.toString() += "] = { " += checkRefs += " };" += nl;
+          //locDecs += "BEC_2_6_6_SystemObject** bevls_stackRefs[" += numRefs.toString() += "] = { " += stackRefs += " };" += nl;
           if (Text:Strings.notEmpty(besDef)) { besDef += ";" }
-          //locDecs += "struct bes { " += besDef += " };" += nl;
-          //locDecs += "BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;" += nl;
-          //locDecs += "bes* beq = (bes*) bevs_myStack->bevs_hs;" += nl;
-          //locDecs += beqAsn;
+          besDef += " BEC_2_6_6_SystemObject* bevr_this; ";
+          locDecs += "struct bes { " += besDef += " };" += nl;
+          locDecs += "BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;" += nl;
+          locDecs += "bes* beq = (bes*) bevs_myStack->bevs_hs;" += nl;
+          locDecs += beqAsn;
+          locDecs += "beq->bevr_this = this;" += nl;
           //("besDef " += besDef).print();
           //stackframe
-          locDecs += "BECS_StackFrame bevs_stackFrame(bevls_stackRefs, " += numRefs.toString() += ", this);" += nl;
-          //locDecs += "bevs_stackFrame.bevs_checkVars = bevls_checkRefs;" += nl;
+          //for hstack numRefs bigger for "this" ref
+          numRefs++=;
+          locDecs += "BECS_StackFrame bevs_stackFrame(" += numRefs.toString() += ");" += nl;
         }
         //BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
       }

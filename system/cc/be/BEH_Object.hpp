@@ -19,7 +19,6 @@ class BECS_Lib {
 
 class BECS_FrameStack {
   public:
-  BECS_StackFrame* bevs_lastFrame = nullptr;
   uint_fast32_t bevs_allocsSinceGc = 0;
   BECS_Object* bevs_lastInst = nullptr;//last inst, for appending new allocs
   BECS_Object* bevs_nextReuse = nullptr;
@@ -118,25 +117,16 @@ class BECS_Runtime {
 
 class BECS_StackFrame {
   public:
-  BECS_StackFrame* bevs_priorFrame;
-  BEC_2_6_6_SystemObject*** bevs_localVars;
-  //BEC_2_6_6_SystemObject** bevs_checkVars;
   size_t bevs_numVars;
-  BECS_FrameStack* bevs_myStack;
-  BEC_2_6_6_SystemObject* bevs_thiso;
   
-  inline BECS_StackFrame(BEC_2_6_6_SystemObject*** beva_localVars, size_t beva_numVars, BEC_2_6_6_SystemObject* beva_thiso) {
-    bevs_localVars = beva_localVars;
+  inline BECS_StackFrame(size_t beva_numVars) {
     bevs_numVars = beva_numVars;
-    bevs_thiso = beva_thiso;
-    bevs_myStack = &BECS_Runtime::bevs_currentStack;
-    bevs_priorFrame = bevs_myStack->bevs_lastFrame;
-    bevs_myStack->bevs_lastFrame = this;
+    BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
     bevs_myStack->bevs_hs += bevs_numVars;
   }
   
   inline ~BECS_StackFrame() {
-    bevs_myStack->bevs_lastFrame = bevs_priorFrame;
+    BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
     bevs_myStack->bevs_hs -= bevs_numVars;
   }
   
@@ -236,14 +226,17 @@ class BECS_Object {
     BECS_Object() {
       
 #ifdef BEDCC_SGC
-      BEC_2_6_6_SystemObject* thiso = (BEC_2_6_6_SystemObject*) this;
-      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, thiso);
+      BEC_2_6_6_SystemObject* thisoo = (BEC_2_6_6_SystemObject*) this;
+
+      struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+      bes* beq = (bes*) bevs_myStack->bevs_hs;
+      beq->bevr_this = thisoo;
+      BECS_StackFrame bevs_stackFrame(1);
 #endif
 
 #ifdef BEDCC_SGC
       bevg_gcMark = 0;
-      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       this->bevg_priorInst = bevs_myStack->bevs_lastInst;
       bevs_myStack->bevs_lastInst = this;
 #endif

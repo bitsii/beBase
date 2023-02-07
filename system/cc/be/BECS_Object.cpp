@@ -83,19 +83,22 @@ size_t BECS_Object::bemg_getSize() {
     BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, std::vector<BEC_2_6_6_SystemObject*> args) {
 #endif  
 
-  BEC_2_6_6_SystemObject* so = static_cast<BEC_2_6_6_SystemObject*>(this);
-  
-  BEC_2_9_4_ContainerList* beArgs = nullptr;
-  BEC_2_4_6_TextString* beCallId = nullptr;
+  BEC_2_6_6_SystemObject* soo = static_cast<BEC_2_6_6_SystemObject*>(this);
 
 #ifdef BEDCC_SGC
-  BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &beArgs, (BEC_2_6_6_SystemObject**) &beCallId };
-  BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, so);
+  struct bes {  BEC_2_9_4_ContainerList* beArgs; BEC_2_4_6_TextString* beCallId; BEC_2_6_6_SystemObject* bevr_this;  };
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bes* beq = (bes*) bevs_myStack->bevs_hs;
+  beq->beArgs = nullptr;
+  beq->beCallId = nullptr;
+  beq->bevr_this = soo;
+  BECS_StackFrame bevs_stackFrame(3);
+
 #endif
 
-  beArgs = new BEC_2_9_4_ContainerList(args);
-  beCallId = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
-  return so->bem_methodNotDefined_2(beCallId, beArgs);
+  beq->beArgs = new BEC_2_9_4_ContainerList(args);
+  beq->beCallId = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
+  return beq->bevr_this->bem_methodNotDefined_2(beq->beCallId, beq->beArgs);
 }
 
 //bemds
@@ -327,43 +330,20 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
 #ifdef BEDCC_SGC
 
   //decls
-  BECS_StackFrame* bevs_currFrame;
-  BEC_2_6_6_SystemObject* bevg_le;
   BECS_Object* bevg_leo;
 
-  //diag pass
-  /*bevs_currFrame = bevs_myStack->bevs_lastFrame;
-  bevg_le = nullptr;
-  int fct = 0;
-  while (bevs_currFrame != nullptr) {
-    for (size_t i = 0; i < bevs_currFrame->bevs_numVars; i++) {
-      bevg_le = bevs_currFrame->bevs_checkVars[i];
-      if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
-        //add it
-        fct++;
-      }
-    }
-    bevg_le = bevs_currFrame->bevs_thiso;
-    if (bevg_le != nullptr && bevg_le->bevg_gcMark != bevg_currentGcMark) {
-      //later add it
-    }
-    bevs_currFrame = bevs_currFrame->bevs_priorFrame;
-  }
-  std::cout << "STCHK fct " << fct << std::endl;
-
-  int sct = 0;
+  //new pass
   BECS_Object** bevs_ohs = bevs_myStack->bevs_ohs;
   BECS_Object** bevs_hs = bevs_myStack->bevs_hs;
   bevg_leo = nullptr;
   while (bevs_ohs < bevs_hs) {
     bevg_leo = *(bevs_ohs);
     if (bevg_leo != nullptr && bevg_leo->bevg_gcMark != bevg_currentGcMark) {
-      //add it
-      sct++;
+      bevg_leo->bemg_doMark();
     }
     bevs_ohs++;
   }
-  std::cout << "STCHK sct " << sct << std::endl;*/
+  bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
 
 #ifdef BED_GCSTATS
   uint_fast64_t chs = (bevs_myStack->bevs_hs - bevs_myStack->bevs_ohs) / sizeof(BECS_Object*);
@@ -372,8 +352,8 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
   }
 #endif
 
-  //real pass
-  bevs_currFrame = bevs_myStack->bevs_lastFrame;
+  //old pass
+  /*bevs_currFrame = bevs_myStack->bevs_lastFrame;
   bevg_le = nullptr;
   while (bevs_currFrame != nullptr) {
     for (size_t i = 0; i < bevs_currFrame->bevs_numVars; i++) {
@@ -388,7 +368,7 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
     }
     bevs_currFrame = bevs_currFrame->bevs_priorFrame;
   }
-  bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
+  bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;*/
   
 #endif
 
