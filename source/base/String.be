@@ -1046,8 +1046,8 @@ BEINT bevl_val;
          
          emit(cc) {
          """
-         for (int32_t i = 0; i < bevl_mleni->bevi_int;i++) {
-            bevi_bytes[i + beva_dstarti->bevi_int] = beva_org->bevi_bytes[i + beva_starti->bevi_int];
+         for (int32_t i = 0; i < beq->bevl_mleni->bevi_int;i++) {
+            bevi_bytes[i + beq->beva_dstarti->bevi_int] = beq->beva_org->bevi_bytes[i + beq->beva_starti->bevi_int];
          }
          """
          }

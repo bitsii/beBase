@@ -150,6 +150,38 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       }
       return(tcall);
    }
+
+   nameForVar(Build:Var v) String {
+
+      String prefix;
+      if (v.isTmpVar) {
+        prefix = "beq->bevt_";
+      } elseIf (v.isProperty) {
+        prefix = "bevp_";
+      } elseIf (v.isArg) {
+        prefix = "beq->beva_";
+      } else {
+        prefix = "beq->bevl_";
+      }
+      return(prefix + v.name);//weak here?
+
+   }
+
+   decNameForVar(Build:Var v) String {
+
+      String prefix;
+      if (v.isTmpVar) {
+        prefix = "bevt_";
+      } elseIf (v.isProperty) {
+        prefix = "bevp_";
+      } elseIf (v.isArg) {
+        prefix = "beva_";
+      } else {
+        prefix = "bevl_";
+      }
+      return(prefix + v.name);//weak here?
+
+   }
    
    formCallTarg(Node node) String {
       if (node.held.name == "super") {

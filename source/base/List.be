@@ -319,7 +319,7 @@ if (def(length)) {
       }
       emit(cc) {
       """
-      bevl_val = bevi_list[beva_posi->bevi_int];
+      beq->bevl_val = bevi_list[beq->beva_posi->bevi_int];
       """
       }
       }
@@ -482,7 +482,7 @@ if (def(length)) {
          }
          emit(cc) {
          """
-         bevi_list.resize(bevl_newcap->bevi_int);
+         bevi_list.resize(beq->bevl_newcap->bevi_int);
          """
          }
          capacity = newcap;

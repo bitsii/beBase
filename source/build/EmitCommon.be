@@ -888,6 +888,11 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       return(prefix + v.name);//weak here?
       
    }
+
+   decNameForVar(Build:Var v) String {
+     //some langs need diff names for var refs than for declarations (cc)
+     return(nameForVar(v));
+   }
    
    typeDecForVar(String b, Build:Var v) {
       if (v.isTyped!) {
@@ -900,7 +905,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
    decForVar(String b, Build:Var v, Bool isArg) {
       typeDecForVar(b, v);
       b += " ";
-      b += nameForVar(v);
+      b += decNameForVar(v);
    }
    
    emitNameForMethod(Node node) String {
@@ -943,8 +948,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       //  lookatComp(ovlc);
       //}
       
-      String stackRefs = String.new();
-      String checkRefs = String.new();
       String besDef = String.new();
       String beqAsn = String.new();
       Bool isFirstRef = true;
@@ -963,38 +966,31 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                  }
                  if(emitting("cc")) {
                     unless(isFirstRef) {
-                      stackRefs += ", ";
-                      checkRefs += ", ";
                       besDef += "; ";
                     }
                     isFirstRef = false;
-                    stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
-                    checkRefs += "(BEC_2_6_6_SystemObject*) " += nameForVar(ov.held);
                     numRefs++=;
                     decForVar(besDef, ov.held, true);
                     //besDef += " = " += nameForVar(ov.held);
-                    beqAsn += "beq->" += nameForVar(ov.held) += " = " += nameForVar(ov.held) += ";" += nl;
+                    beqAsn += nameForVar(ov.held) += " = " += nameForVar(ov.held) += ";" += nl;
                  }
                 decForVar(argDecs, ov.held, true);
              } else {
-                decForVar(locDecs, ov.held, false);
+                unless(emitting("cc")) {
+                  decForVar(locDecs, ov.held, false);
+                }
                 if(emitting("js")) {
                     locDecs += ";" += nl;
                 } elseIf(emitting("cc")) {
-                    locDecs += " = nullptr;" += nl;
+                    //locDecs += " = nullptr;" += nl;
                     unless(isFirstRef) {
-                      stackRefs += ", ";
-                      checkRefs += ", ";
                       besDef += "; ";
                     }
                     isFirstRef = false;
-                    stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
-                    //checkRefs += "(BEC_2_6_6_SystemObject*) " += nameForVar(ov.held);
-                    checkRefs += "nullptr";
                     numRefs++=;
                     decForVar(besDef, ov.held, false);
                     //besDef += " = " += "nullptr";
-                    beqAsn += "beq->" += nameForVar(ov.held) += " = nullptr;" += nl;
+                    beqAsn += nameForVar(ov.held) += " = nullptr;" += nl;
                 } elseIf(emitting("sw")) {
                     locDecs += " = nil;" += nl;
                 } else  {
@@ -1007,7 +1003,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       
       if(emitting("cc")) {
         if (build.emitChecks.has("ccSgc")) {
-          //locDecs += "BEC_2_6_6_SystemObject** bevls_stackRefs[" += numRefs.toString() += "] = { " += stackRefs += " };" += nl;
           if (Text:Strings.notEmpty(besDef)) { besDef += ";" }
           besDef += " BEC_2_6_6_SystemObject* bevr_this; ";
           locDecs += "struct bes { " += besDef += " };" += nl;

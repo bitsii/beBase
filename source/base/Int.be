@@ -277,7 +277,7 @@ bevi_int = beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                bevl_res->bevi_int = bevi_int + 1;
+                beq->bevl_res->bevi_int = bevi_int + 1;
             """
             }
             return(res);
@@ -292,7 +292,7 @@ bevi_int = beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                bevl_res->bevi_int = bevi_int - 1;
+                beq->bevl_res->bevi_int = bevi_int - 1;
             """
             }
             return(res);
@@ -345,7 +345,7 @@ bevi_int = beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                bevl_res->bevi_int = bevi_int + beva_xi->bevi_int;
+                beq->bevl_res->bevi_int = bevi_int + beva_xi->bevi_int;
             """
             }
             return(res);
@@ -379,7 +379,7 @@ bevi_int = beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                bevl_res->bevi_int = bevi_int - beva_xi->bevi_int;
+                beq->bevl_res->bevi_int = bevi_int - beva_xi->bevi_int;
             """
             }
             return(res);
@@ -413,7 +413,7 @@ bevi_int = beva_xi->bevi_int;
         }
         emit(cc) {
         """
-            bevl_res->bevi_int = bevi_int * beva_xi->bevi_int;
+            beq->bevl_res->bevi_int = bevi_int * beva_xi->bevi_int;
         """
         }
         return(res);
@@ -447,7 +447,7 @@ bevi_int = beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                bevl_res->bevi_int = bevi_int / beva_xi->bevi_int;
+                beq->bevl_res->bevi_int = bevi_int / beva_xi->bevi_int;
             """
             }
             emit(js) {
@@ -493,7 +493,7 @@ bevi_int = beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                bevl_res->bevi_int = bevi_int % beva_xi->bevi_int;
+                beq->bevl_res->bevi_int = bevi_int % beva_xi->bevi_int;
             """
             }
             return(res);
@@ -532,7 +532,7 @@ bevi_int = beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        bevl_toReti->bevi_int = bevi_int & beva_xi->bevi_int;
+        beq->bevl_toReti->bevi_int = bevi_int & beva_xi->bevi_int;
     """
     }
     return(toReti);
@@ -571,7 +571,7 @@ bevi_int = beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        bevl_toReti->bevi_int = bevi_int | beva_xi->bevi_int;
+        beq->bevl_toReti->bevi_int = bevi_int | beva_xi->bevi_int;
     """
     }
       return(toReti);
@@ -610,7 +610,7 @@ bevi_int = beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        bevl_toReti->bevi_int = bevi_int << beva_xi->bevi_int;
+        beq->bevl_toReti->bevi_int = bevi_int << beva_xi->bevi_int;
     """
     }
       return(toReti);
@@ -649,7 +649,7 @@ bevi_int = beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        bevl_toReti->bevi_int = bevi_int >> beva_xi->bevi_int;
+        beq->bevl_toReti->bevi_int = bevi_int >> beva_xi->bevi_int;
     """
     }
       return(toReti);
@@ -940,8 +940,8 @@ void** bevl__min;
       }
       emit(cc) {
       """
-      bevl__max->bevi_int = std::numeric_limits<int32_t>::max();
-      bevl__min->bevi_int = std::numeric_limits<int32_t>::min();
+      beq->bevl__max->bevi_int = std::numeric_limits<int32_t>::max();
+      beq->bevl__min->bevi_int = std::numeric_limits<int32_t>::min();
       """
       }
       fields {
