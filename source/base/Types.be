@@ -54,7 +54,7 @@ final class System:Types {
      emit(cc) {
       """
 
-      BETS_Object* bevs_cano = beva_org->bemc_getType();
+      BETS_Object* bevs_cano = beq->beva_org->bemc_getType();
       std::vector<std::string>* fnames = &bevs_cano->bevs_fieldNames;
 
       for (int i = 0;i < fnames->size();i++) {
