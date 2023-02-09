@@ -51,7 +51,7 @@ class System:Objects {
       }
       emit(cc) {
       """
-      if (beva_org != beva_x) {
+      if (beq->beva_org != beq->beva_x) {
         return BECS_Runtime::boolFalse;
       }
       """
@@ -81,10 +81,10 @@ class System:Objects {
       }
       emit(cc) {
       """
-      BECS_Object* co = beva_org;
+      BECS_Object* co = beq->beva_org;
       uintptr_t cou = (uintptr_t) co;
       int32_t co3 = (int32_t) cou;
-      bevl_toRet->bevi_int = co3;
+      beq->bevl_toRet->bevi_int = co3;
       """
       }
       return(toRet);
@@ -128,7 +128,7 @@ class System:Objects {
       }
       emit(cc) {
         """
-        std::string key = beva_cname->bems_toCcString();
+        std::string key = beq->beva_cname->bems_toCcString();
         //cout << key << endl;
         if (BECS_Runtime::typeRefs.count(key) > 0) {
           //cout << "has key" << endl;
@@ -143,10 +143,10 @@ class System:Objects {
           //BETS_Object* ti = dynamic_cast<BETS_Object*> (mi);
 
 
-          bevl_result = ti->bems_createInstance();
+          beq->bevl_result = ti->bems_createInstance();
 
         }
-        if (bevl_result == nullptr) {
+        if (beq->bevl_result == nullptr) {
           //cout << "res nptr" << endl;
         }
         """

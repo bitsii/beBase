@@ -241,7 +241,7 @@ if (def(length)) {
       if (bevi_list.size() > 0) {
         bevi_list.resize(0); //the others clear in this case, this preps for that
       }
-      bevi_list.resize(beva_capi->bevi_int);
+      bevi_list.resize(beq->beva_capi->bevi_int);
       """
       }
       
@@ -304,7 +304,7 @@ if (def(length)) {
       }
       emit(cc) {
       """
-      bevi_list[beva_posi->bevi_int] = beva_val;
+      bevi_list[beq->beva_posi->bevi_int] = beq->beva_val;
       """
       }
    }
@@ -527,7 +527,7 @@ if (def(length)) {
        }
        emit(cc) {
        """
-       bevi_list[bevp_length->bevi_int] = beva_val;
+       bevi_list[bevp_length->bevi_int] = beq->beva_val;
        """
        }
        length++=;

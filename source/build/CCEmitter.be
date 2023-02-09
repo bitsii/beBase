@@ -175,7 +175,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       } elseIf (v.isProperty) {
         prefix = "bevp_";
       } elseIf (v.isArg) {
-        prefix = "beva_";
+        prefix = "bevk_";
       } else {
         prefix = "bevl_";
       }

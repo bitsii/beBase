@@ -970,9 +970,18 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                     }
                     isFirstRef = false;
                     numRefs++=;
-                    decForVar(besDef, ov.held, true);
+                    //decForVar(besDef, ov.held, true);
+
+                    typeDecForVar(besDef, ov.held);
+                    besDef += " ";
+                    if (ov.held.isTmpVar) {
+                      besDef += "bevt_" += ov.held.name;
+                    } else {
+                      besDef += "beva_" += ov.held.name;
+                    }
+
                     //besDef += " = " += nameForVar(ov.held);
-                    beqAsn += nameForVar(ov.held) += " = " += nameForVar(ov.held) += ";" += nl;
+                    beqAsn += nameForVar(ov.held) += " = " += decNameForVar(ov.held) += ";" += nl;
                  }
                 decForVar(argDecs, ov.held, true);
              } else {

@@ -122,21 +122,21 @@ class System:Object {
         if (swi == 0) {
             beq->bevl_rval = bemd_0(ci);
         } else if (swi == 1) {
-            beq->bevl_rval = bemd_1(ci, beva_args->bevi_list[0]);
+            beq->bevl_rval = bemd_1(ci, beq->beva_args->bevi_list[0]);
         } else if (swi == 2) {
-            beq->bevl_rval = bemd_2(ci, beva_args->bevi_list[0], beva_args->bevi_list[1]);
+            beq->bevl_rval = bemd_2(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1]);
         } else if (swi == 3) {
-            beq->bevl_rval = bemd_3(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2]);
+            beq->bevl_rval = bemd_3(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2]);
         } else if (swi == 4) {
-            beq->bevl_rval = bemd_4(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3]);
+            beq->bevl_rval = bemd_4(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3]);
         } else if (swi == 5) {
-            beq->bevl_rval = bemd_5(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4]);
+            beq->bevl_rval = bemd_5(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3], beq->beva_args->bevi_list[4]);
         }  else if (swi == 6) {
-            beq->bevl_rval = bemd_6(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4], beva_args->bevi_list[5]);
+            beq->bevl_rval = bemd_6(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3], beq->beva_args->bevi_list[4], beq->beva_args->bevi_list[5]);
         }  else if (swi == 7) {
-            beq->bevl_rval = bemd_7(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4], beva_args->bevi_list[5], beva_args->bevi_list[6]);
+            beq->bevl_rval = bemd_7(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3], beq->beva_args->bevi_list[4], beq->beva_args->bevi_list[5], beq->beva_args->bevi_list[6]);
         }  else {
-            beq->bevl_rval = bemd_x(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4], beva_args->bevi_list[5], beva_args->bevi_list[6], beq->bevl_args2->bevi_list);
+            beq->bevl_rval = bemd_x(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3], beq->beva_args->bevi_list[4], beq->beva_args->bevi_list[5], beq->beva_args->bevi_list[6], beq->bevl_args2->bevi_list);
         }
         """
       }
@@ -259,7 +259,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (this != beva_x) {
+      if (this != beq->beva_x) {
         return BECS_Runtime::boolFalse;
       }
       """

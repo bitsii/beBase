@@ -294,7 +294,7 @@ final class String {
       }
       emit(cc) {
       """
-        bevi_bytes.resize(beva_ncap->bevi_int, 0);
+        bevi_bytes.resize(beq->beva_ncap->bevi_int, 0);
       """
       }
       emit(js) {
@@ -593,9 +593,9 @@ char* bevl_str;
          }
          emit(cc) {
          """
-         beva_into->bevi_int = (int32_t) bevi_bytes[beva_pos->bevi_int];
-         if (beva_into->bevi_int > 127) {
-            beva_into->bevi_int -= 256;
+         beq->beva_into->bevi_int = (int32_t) bevi_bytes[beq->beva_pos->bevi_int];
+         if (beq->beva_into->bevi_int > 127) {
+            beq->beva_into->bevi_int -= 256;
          }
          """
          }
@@ -644,7 +644,7 @@ BEINT bevl_val;
          }
          emit(cc) {
          """
-         beva_into->bevi_int = bevi_bytes[beva_pos->bevi_int];
+         beq->beva_into->bevi_int = bevi_bytes[beq->beva_pos->bevi_int];
          """
          }
       } else {
@@ -728,11 +728,11 @@ char* bevl_str;
      }
      emit(cc) {
      """
-     int32_t twvls_b = beva_into->bevi_int;
+     int32_t twvls_b = beq->beva_into->bevi_int;
      if (twvls_b < 0) {
         twvls_b += 256;
      }
-     bevi_bytes[beva_pos->bevi_int] = (unsigned char) twvls_b;
+     bevi_bytes[beq->beva_pos->bevi_int] = (unsigned char) twvls_b;
      """
      }
    }
@@ -777,7 +777,7 @@ BEINT bevl_val;
      }
      emit(cc) {
      """
-     bevi_bytes[beva_pos->bevi_int] = (unsigned char) beva_into->bevi_int;
+     bevi_bytes[beq->beva_pos->bevi_int] = (unsigned char) beq->beva_into->bevi_int;
      """
      }
    }
@@ -964,10 +964,10 @@ BEINT bevl_val;
   emit(cc) {
   """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_6_TextString* bevls_stri = dynamic_cast<BEC_2_4_6_TextString*>(beva_stri);
+      BEC_2_4_6_TextString* bevls_stri = dynamic_cast<BEC_2_4_6_TextString*>(beq->beva_stri);
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_6_TextString* bevls_stri = static_cast<BEC_2_4_6_TextString*>(beva_stri);
+      BEC_2_4_6_TextString* bevls_stri = static_cast<BEC_2_4_6_TextString*>(beq->beva_stri);
 #endif
     if (bevp_size->bevi_int == bevls_stri->bevp_size->bevi_int) {
        for (int32_t i = 0;i < bevp_size->bevi_int;i++) {

@@ -21,11 +21,13 @@ CYC1=`date +%s`
 
 #-DBED_GCSTATS=1
 
-time clang++ -DBEDCC_SGC=1 -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++11 ./targetEc/Base/target/cc/be/BEL_Base.cpp
+# -ggdb
+time clang++ -DBEDCC_SGC=1 -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -ggdb -std=c++11 ./targetEc/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
-time ./targetEc/BEX_E_cl.exe
+gdb --args ./targetEc/BEX_E_cl.exe
+#time ./targetEc/BEX_E_cl.exe
 
 #sudo apt-get install valgrind kcachegrind graphviz
 #valgrind --tool=callgrind ./targetEc/BEX_E_gn.exe
