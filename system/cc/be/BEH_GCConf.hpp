@@ -20,4 +20,4 @@
 //size for heap stack
 #define BEDCC_GCHSS 5000
 //turn on stats/debug
-#define BED_GCSTATS
+//#define BED_GCSTATS
