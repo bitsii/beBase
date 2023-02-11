@@ -89,7 +89,7 @@ class System:Object {
       }
       emit(cc) {
         """
-        int32_t ci = BECS_Ids::callIds[bevl_cname->bems_toCcString()];
+        int32_t ci = BECS_Ids::callIds[beq->bevl_cname->bems_toCcString()];
         //check for count first?  this inserts the val
         """
       }
@@ -118,24 +118,25 @@ class System:Object {
       }
       emit(cc) {
         """
-        if (bevl_numargs->bevi_int == 0) {
-            bevl_rval = bemd_0(ci);
-        } else if (bevl_numargs->bevi_int == 1) {
-            bevl_rval = bemd_1(ci, beva_args->bevi_list[0]);
-        } else if (bevl_numargs->bevi_int == 2) {
-            bevl_rval = bemd_2(ci, beva_args->bevi_list[0], beva_args->bevi_list[1]);
-        } else if (bevl_numargs->bevi_int == 3) {
-            bevl_rval = bemd_3(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2]);
-        } else if (bevl_numargs->bevi_int == 4) {
-            bevl_rval = bemd_4(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3]);
-        } else if (bevl_numargs->bevi_int == 5) {
-            bevl_rval = bemd_5(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4]);
-        }  else if (bevl_numargs->bevi_int == 6) {
-            bevl_rval = bemd_6(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4], beva_args->bevi_list[5]);
-        }  else if (bevl_numargs->bevi_int == 7) {
-            bevl_rval = bemd_7(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4], beva_args->bevi_list[5], beva_args->bevi_list[6]);
+        int32_t swi = beq->bevl_numargs->bevi_int;
+        if (swi == 0) {
+            beq->bevl_rval = bemd_0(ci);
+        } else if (swi == 1) {
+            beq->bevl_rval = bemd_1(ci, beq->beva_args->bevi_list[0]);
+        } else if (swi == 2) {
+            beq->bevl_rval = bemd_2(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1]);
+        } else if (swi == 3) {
+            beq->bevl_rval = bemd_3(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2]);
+        } else if (swi == 4) {
+            beq->bevl_rval = bemd_4(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3]);
+        } else if (swi == 5) {
+            beq->bevl_rval = bemd_5(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3], beq->beva_args->bevi_list[4]);
+        }  else if (swi == 6) {
+            beq->bevl_rval = bemd_6(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3], beq->beva_args->bevi_list[4], beq->beva_args->bevi_list[5]);
+        }  else if (swi == 7) {
+            beq->bevl_rval = bemd_7(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3], beq->beva_args->bevi_list[4], beq->beva_args->bevi_list[5], beq->beva_args->bevi_list[6]);
         }  else {
-            bevl_rval = bemd_x(ci, beva_args->bevi_list[0], beva_args->bevi_list[1], beva_args->bevi_list[2], beva_args->bevi_list[3], beva_args->bevi_list[4], beva_args->bevi_list[5], beva_args->bevi_list[6], bevl_args2->bevi_list);
+            beq->bevl_rval = bemd_x(ci, beq->beva_args->bevi_list[0], beq->beva_args->bevi_list[1], beq->beva_args->bevi_list[2], beq->beva_args->bevi_list[3], beq->beva_args->bevi_list[4], beq->beva_args->bevi_list[5], beq->beva_args->bevi_list[6], beq->bevl_args2->bevi_list);
         }
         """
       }
@@ -208,7 +209,7 @@ class System:Object {
       emit(cc) {
       """
       
-      std::string name = bevl_cname->bems_toCcString();
+      std::string name = beq->bevl_cname->bems_toCcString();
       
       BETS_Object* bevs_cano = bemc_getType();
       
@@ -258,7 +259,7 @@ void** bevl_x;
       }
       emit(cc) {
       """
-      if (this != beva_x) {
+      if (this != beq->beva_x) {
         return BECS_Runtime::boolFalse;
       }
       """
@@ -305,7 +306,7 @@ BEINT* bevl_toRet;
       BECS_Object* co = this;
       uintptr_t cou = (uintptr_t) co;
       int32_t co3 = (int32_t) cou;
-      bevl_toRet->bevi_int = co3;
+      beq->bevl_toRet->bevi_int = co3;
       """
       }
       return(toRet);
@@ -363,7 +364,7 @@ BERT_ClassDef* bevl_scldef;
       }
       emit(cc) {
       """
-      bevl_copy = this->bemc_create();
+      beq->bevl_copy = this->bemc_create();
       """
       }
       return(copy);
@@ -414,19 +415,24 @@ emit(cc) {
 #ifdef BEDCC_SGC
     BEC_2_6_6_SystemObject* BEC_2_6_6_SystemObject::bems_forwardCall(std::string mname, std::vector<BEC_2_6_6_SystemObject*> bevd_x, int32_t numargs) {
 #endif  
-  BEC_2_4_6_TextString* name = nullptr;
-  BEC_2_9_4_ContainerList* args = nullptr;
 
 #ifdef BEDCC_SGC
-  BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &name, (BEC_2_6_6_SystemObject**) &args };
-  BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, this);
+
+  struct bes {  BEC_2_4_6_TextString* name; BEC_2_9_4_ContainerList* args; BEC_2_6_6_SystemObject* bevr_this;  };
+  BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+  bes* beq = (bes*) bevs_myStack->bevs_hs;
+  beq->name = nullptr;
+  beq->args = nullptr;
+  beq->bevr_this = this;
+  BECS_StackFrame bevs_stackFrame(3);
+
 #endif
 
   //cout << "in sfwdcall " << endl;
-  name = new BEC_2_4_6_TextString(mname);
-  args = new BEC_2_9_4_ContainerList(bevd_x, numargs);
+  beq->name = new BEC_2_4_6_TextString(mname);
+  beq->args = new BEC_2_9_4_ContainerList(bevd_x, numargs);
   //args = args->bem_copy_0();
-  return bem_forwardCall_2(name, args);
+  return bem_forwardCall_2(beq->name, beq->args);
   //return nullptr;
 } //}
 

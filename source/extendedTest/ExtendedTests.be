@@ -31,7 +31,7 @@ class Test:ExtendedTest:EC(BaseTest) {
    main() {
      //innerMain();
      try {
-       Int howManyTimes = 1;
+       Int howManyTimes = 90;
        for (Int i = 0;i < howManyTimes;i++=) {
         innerMain();
       }

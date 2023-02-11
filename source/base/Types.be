@@ -54,12 +54,12 @@ final class System:Types {
      emit(cc) {
       """
 
-      BETS_Object* bevs_cano = beva_org->bemc_getType();
+      BETS_Object* bevs_cano = beq->beva_org->bemc_getType();
       std::vector<std::string>* fnames = &bevs_cano->bevs_fieldNames;
 
       for (int i = 0;i < fnames->size();i++) {
 
-       bevl_names->bem_addValue_1(new BEC_2_4_6_TextString(fnames->at(i)));
+       beq->bevl_names->bem_addValue_1(new BEC_2_4_6_TextString(fnames->at(i)));
 
       }
 
@@ -101,10 +101,10 @@ final class System:Types {
       }
       emit(cc) {
       """
-      if (beva_other != nullptr) {
+      if (beq->beva_other != nullptr) {
         //if the other type is same or parent type of mine
-        BETS_Object* bevs_mt = beva_org->bemc_getType();
-        BETS_Object* bevs_ot = beva_other->bemc_getType();
+        BETS_Object* bevs_mt = beq->beva_org->bemc_getType();
+        BETS_Object* bevs_ot = beq->beva_other->bemc_getType();
         while (bevs_mt != NULL) {
           if (bevs_mt == bevs_ot) {
             return BECS_Runtime::boolTrue;

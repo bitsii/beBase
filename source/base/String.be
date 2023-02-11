@@ -135,8 +135,11 @@ final class String {
 
    BEC_2_4_6_TextString() {  
 #ifdef BEDCC_SGC
-    BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-    BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+   struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+   bes* beq = (bes*) bevs_myStack->bevs_hs;
+   beq->bevr_this = this;
+   BECS_StackFrame bevs_stackFrame(1);
 #endif
    }
 
@@ -144,8 +147,11 @@ final class String {
     BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
 #endif 
 #ifdef BEDCC_SGC
-     BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-     BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+      struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+      bes* beq = (bes*) bevs_myStack->bevs_hs;
+      beq->bevr_this = this;
+      BECS_StackFrame bevs_stackFrame(1);
 #endif
       bevi_bytes = a_bevi_bytes;
       bevp_size = nullptr;
@@ -158,8 +164,11 @@ final class String {
         BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
     #endif 
     #ifdef BEDCC_SGC
-         BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+      struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+      bes* beq = (bes*) bevs_myStack->bevs_hs;
+      beq->bevr_this = this;
+      BECS_StackFrame bevs_stackFrame(1);
     #endif
           bevi_bytes = a_bevi_bytes;
           bevp_size = nullptr;
@@ -170,8 +179,11 @@ final class String {
     
     BEC_2_4_6_TextString(std::string bevi_string) {
     #ifdef BEDCC_SGC
-         BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-         BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+      struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+      bes* beq = (bes*) bevs_myStack->bevs_hs;
+      beq->bevr_this = this;
+      BECS_StackFrame bevs_stackFrame(1);
     #endif
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
       bevp_size = nullptr;
@@ -282,7 +294,7 @@ final class String {
       }
       emit(cc) {
       """
-        bevi_bytes.resize(beva_ncap->bevi_int, 0);
+        bevi_bytes.resize(beq->beva_ncap->bevi_int, 0);
       """
       }
       emit(js) {
@@ -581,9 +593,9 @@ char* bevl_str;
          }
          emit(cc) {
          """
-         beva_into->bevi_int = (int32_t) bevi_bytes[beva_pos->bevi_int];
-         if (beva_into->bevi_int > 127) {
-            beva_into->bevi_int -= 256;
+         beq->beva_into->bevi_int = (int32_t) bevi_bytes[beq->beva_pos->bevi_int];
+         if (beq->beva_into->bevi_int > 127) {
+            beq->beva_into->bevi_int -= 256;
          }
          """
          }
@@ -632,7 +644,7 @@ BEINT bevl_val;
          }
          emit(cc) {
          """
-         beva_into->bevi_int = bevi_bytes[beva_pos->bevi_int];
+         beq->beva_into->bevi_int = bevi_bytes[beq->beva_pos->bevi_int];
          """
          }
       } else {
@@ -716,11 +728,11 @@ char* bevl_str;
      }
      emit(cc) {
      """
-     int32_t twvls_b = beva_into->bevi_int;
+     int32_t twvls_b = beq->beva_into->bevi_int;
      if (twvls_b < 0) {
         twvls_b += 256;
      }
-     bevi_bytes[beva_pos->bevi_int] = (unsigned char) twvls_b;
+     bevi_bytes[beq->beva_pos->bevi_int] = (unsigned char) twvls_b;
      """
      }
    }
@@ -765,7 +777,7 @@ BEINT bevl_val;
      }
      emit(cc) {
      """
-     bevi_bytes[beva_pos->bevi_int] = (unsigned char) beva_into->bevi_int;
+     bevi_bytes[beq->beva_pos->bevi_int] = (unsigned char) beq->beva_into->bevi_int;
      """
      }
    }
@@ -952,10 +964,10 @@ BEINT bevl_val;
   emit(cc) {
   """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_6_TextString* bevls_stri = dynamic_cast<BEC_2_4_6_TextString*>(beva_stri);
+      BEC_2_4_6_TextString* bevls_stri = dynamic_cast<BEC_2_4_6_TextString*>(beq->beva_stri);
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_6_TextString* bevls_stri = static_cast<BEC_2_4_6_TextString*>(beva_stri);
+      BEC_2_4_6_TextString* bevls_stri = static_cast<BEC_2_4_6_TextString*>(beq->beva_stri);
 #endif
     if (bevp_size->bevi_int == bevls_stri->bevp_size->bevi_int) {
        for (int32_t i = 0;i < bevp_size->bevi_int;i++) {
@@ -1034,8 +1046,8 @@ BEINT bevl_val;
          
          emit(cc) {
          """
-         for (int32_t i = 0; i < bevl_mleni->bevi_int;i++) {
-            bevi_bytes[i + beva_dstarti->bevi_int] = beva_org->bevi_bytes[i + beva_starti->bevi_int];
+         for (int32_t i = 0; i < beq->bevl_mleni->bevi_int;i++) {
+            bevi_bytes[i + beq->beva_dstarti->bevi_int] = beq->beva_org->bevi_bytes[i + beq->beva_starti->bevi_int];
          }
          """
          }

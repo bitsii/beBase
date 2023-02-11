@@ -126,7 +126,7 @@ final class System:Process {
      }
      emit(cc) {
      """
-     exit(beva_code->bevi_int);
+     exit(beq->beva_code->bevi_int);
      """
      }
    }

@@ -14,7 +14,7 @@ esac
 #start with "perf record" to profile, see results with "perf report"
 #gdb --args ...
 
-rm -rf targetEc/Base/target/cc ./targetEc/BEX_E_cl.exe
+#rm -rf targetEc/Base/target/cc ./targetEc/BEX_E_cl.exe
 
 #debug "run" to get going, "backtrace" on fail
 #gdb --args ./target5/BEX_E_cl.exe --buildFile build/extendedEc.txt --emitLang cc --singleCC true --emitFlag ccSgc
@@ -32,10 +32,12 @@ CYC1=`date +%s`
 
 #lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
+# -ggdb
 time clang++ -DBEDCC_SGC=1 -pthread -o ./targetEc/BEX_E_cl.exe -ferror-limit=1 -std=c++11 ./targetEc/Base/target/cc/be/BEL_Base.cpp
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 
+#gdb --args
 time ./targetEc/BEX_E_cl.exe
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi

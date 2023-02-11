@@ -135,8 +135,11 @@ final class List {
 
    BEC_2_9_4_ContainerList() {  
 #ifdef BEDCC_SGC
-     BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-     BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+      struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+      bes* beq = (bes*) bevs_myStack->bevs_hs;
+      beq->bevr_this = this;
+      BECS_StackFrame bevs_stackFrame(1);
 #endif
    }
 
@@ -144,8 +147,11 @@ final class List {
     BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list) {
 #endif    
 #ifdef BEDCC_SGC
-     BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-     BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+      struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+      bes* beq = (bes*) bevs_myStack->bevs_hs;
+      beq->bevr_this = this;
+      BECS_StackFrame bevs_stackFrame(1);
 #endif
         bevi_list = a_bevi_list;
         bevp_length = nullptr;
@@ -160,8 +166,11 @@ final class List {
     BEC_2_9_4_ContainerList(std::vector<BEC_2_6_6_SystemObject*> a_bevi_list, int32_t len) {
 #endif
 #ifdef BEDCC_SGC
-     BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
-     BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+      struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
+      BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+      bes* beq = (bes*) bevs_myStack->bevs_hs;
+      beq->bevr_this = this;
+      BECS_StackFrame bevs_stackFrame(1);
 #endif
         bevi_list = a_bevi_list;
         bevp_length = nullptr;
@@ -232,7 +241,7 @@ if (def(length)) {
       if (bevi_list.size() > 0) {
         bevi_list.resize(0); //the others clear in this case, this preps for that
       }
-      bevi_list.resize(beva_capi->bevi_int);
+      bevi_list.resize(beq->beva_capi->bevi_int);
       """
       }
       
@@ -295,7 +304,7 @@ if (def(length)) {
       }
       emit(cc) {
       """
-      bevi_list[beva_posi->bevi_int] = beva_val;
+      bevi_list[beq->beva_posi->bevi_int] = beq->beva_val;
       """
       }
    }
@@ -310,7 +319,7 @@ if (def(length)) {
       }
       emit(cc) {
       """
-      bevl_val = bevi_list[beva_posi->bevi_int];
+      beq->bevl_val = bevi_list[beq->beva_posi->bevi_int];
       """
       }
       }
@@ -473,7 +482,7 @@ if (def(length)) {
          }
          emit(cc) {
          """
-         bevi_list.resize(bevl_newcap->bevi_int);
+         bevi_list.resize(beq->bevl_newcap->bevi_int);
          """
          }
          capacity = newcap;
@@ -518,7 +527,7 @@ if (def(length)) {
        }
        emit(cc) {
        """
-       bevi_list[bevp_length->bevi_int] = beva_val;
+       bevi_list[bevp_length->bevi_int] = beq->beva_val;
        """
        }
        length++=;
