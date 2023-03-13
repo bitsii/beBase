@@ -8,7 +8,49 @@ use Build:VisitError;
 use Build:Node;
 use Build:ClassSyn;
 
-final class Build:Visit:Pass12(Build:Visit:Visitor) {
+local class Build:Visit:ChkIfEmit(Build:Visit:Visitor) {
+
+      acceptIfEmit(Node node) {
+      Bool include = true;
+      String emitLang = build.emitLangs.first;
+      if (node.held.value == "ifNotEmit") {
+        Bool negate = true;
+      } else {
+        negate = false;
+      }
+      if (negate) {
+        if (node.held.langs.has(emitLang)) {
+          include = false;
+        }
+        if (def(build.emitFlags)) {
+          for (String flag in build.emitFlags) {
+            if (node.held.langs.has(flag)) {
+              include = false;
+            }
+          }
+        }
+      } else {
+        Bool foundFlag = false;
+        if (def(build.emitFlags)) {
+          for (flag in build.emitFlags) {
+            if (node.held.langs.has(flag)) {
+              foundFlag = true;
+            }
+          }
+        }
+        if (foundFlag! && node.held.langs.has(emitLang)!) {
+          include = false;
+        }
+      }
+      if (include) {
+        return(node.nextDescend);
+      }
+      return(node.nextPeer);
+   }
+
+}
+
+final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
 
    new() self {
       fields {
@@ -73,6 +115,9 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
       //if ((node.typename == ntypes.VAR) && (def(node.held.namepath))) {
       //   ("Found namepath typed any again " + node.held.name + " " + node.held.namepath.toString()).print();
       //}
+      if (node.typename == ntypes.IFEMIT) {
+         return(acceptIfEmit(node));
+      }
       if (node.typename == ntypes.METHOD) {
          any ia = node.contained.first.contained.first; //self
          ia.held.isTyped = true;
@@ -232,7 +277,7 @@ final class Build:Visit:Pass12(Build:Visit:Visitor) {
    
 }
 
-final class Build:Visit:Rewind(Build:Visit:Visitor) {
+final class Build:Visit:Rewind(Build:Visit:ChkIfEmit) {
 
    new() self {
       fields {
@@ -247,6 +292,9 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
    }
    
    accept(Node node) Node {
+      if (node.typename == ntypes.IFEMIT) {
+         return(acceptIfEmit(node));
+      }
       if (node.typename == ntypes.CALL && node.held.wasForeachGenned) {
         //("in wasforgenned 1").print();
         if (node.container.typename == ntypes.CALL && node.container.held.orgName == "assign" && node.isSecond) {
@@ -376,7 +424,7 @@ final class Build:Visit:Rewind(Build:Visit:Visitor) {
 
 }
 
-final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
+final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
    
    new() self {
       fields {
@@ -389,6 +437,9 @@ final class Build:Visit:TypeCheck(Build:Visit:Visitor) {
    }
    
    accept(Node node) Node {
+      if (node.typename == ntypes.IFEMIT) {
+         return(acceptIfEmit(node));
+      }
       if (node.typename == ntypes.CATCH) {
         if (node.contained.first.contained.first.held.isTyped) {
             throw(Build:VisitError.new("Catch variables must be declared untyped (any)"));
