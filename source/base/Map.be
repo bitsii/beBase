@@ -96,7 +96,9 @@ class Map(Set) {
       }
       for (any i in self) {
          any v = other.get(i.key);
-         if (undef(v) || (undef(i.value) && def(v)) || i.value != v) { return(false); }
+         if (def(i.value) && undef(v)) { return(false); }
+         if (def(v) && undef(i.value)) { return(false); }
+         if (def(v) && def(i.value) && i.value != v) { return(false); }
       }
       return(true);
    }
