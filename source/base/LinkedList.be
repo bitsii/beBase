@@ -190,9 +190,6 @@ local LinkedList {
    }
    
    get(Int pos) {
-      if (pos == 0) {
-         return(firstNode.held);
-      }
       Int i = 0;
       for (Iterator iter = self.linkedListIterator; iter.hasNext;;) {
          if (i < pos) {
@@ -250,9 +247,6 @@ local LinkedList {
    }
    
    getNode(pos) {
-      if (pos == 0) {
-         return(firstNode);
-      }
       Int i = 0;
       for (Iterator iter = self.linkedListIterator; iter.hasNext;;) {
          if (i < pos) {
