@@ -193,6 +193,7 @@ final class String {
     }
     
     std::string bems_toCcString();
+    char* bems_c_str(char* buf, int mxlen);
     
    """
    }
@@ -204,6 +205,18 @@ final class String {
       ccString.resize(bevp_size->bevi_int);
       return ccString;
     }
+
+   char* BEC_2_4_6_TextString::bems_c_str(char* buf, int mxlen) {
+      int i = 0;
+
+      for (i = 0;i < bevp_size->bevi_int && i < mxlen;i++) {
+         buf[i] = (char) bevi_bytes[i];
+      }
+      buf[i] = '\0';
+
+      return(buf);
+   }
+
    """
    }
    
