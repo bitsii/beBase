@@ -2284,40 +2284,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    }
    
    acceptIfEmit(Node node) {
-      Bool include = true;
-      if (node.held.value == "ifNotEmit") {
-        Bool negate = true;
-      } else {
-        negate = false;
-      }
-      if (negate) {
-        if (node.held.langs.has(self.emitLang)) {
-          include = false;
-        }
-        if (def(build.emitFlags)) {
-          for (String flag in build.emitFlags) {
-            if (node.held.langs.has(flag)) {
-              include = false;
-            }
-          }
-        }
-      } else {
-        Bool foundFlag = false;
-        if (def(build.emitFlags)) {
-          for (flag in build.emitFlags) {
-            if (node.held.langs.has(flag)) {
-              foundFlag = true;
-            }
-          }
-        }
-        if (foundFlag! && node.held.langs.has(self.emitLang)!) {
-          include = false;
-        }
-      }
-      if (include) {
-        return(node.nextDescend);
-      }
-      return(node.nextPeer);
+      //now handled in Pass6
+      return(node.nextDescend);
    }
       
    accept(Node node) Node {

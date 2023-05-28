@@ -77,6 +77,39 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             i = ii.next;
             i.delete();
          }
+         Bool include = true;
+         if (node.held.value == "ifNotEmit") {
+         Bool negate = true;
+         } else {
+         negate = false;
+         }
+         if (negate) {
+         if (node.held.langs.has(build.emitLangs.first)) {
+            include = false;
+         }
+         if (def(build.emitFlags)) {
+            for (String flag in build.emitFlags) {
+               if (node.held.langs.has(flag)) {
+               include = false;
+               }
+            }
+         }
+         } else {
+         Bool foundFlag = false;
+         if (def(build.emitFlags)) {
+            for (flag in build.emitFlags) {
+               if (node.held.langs.has(flag)) {
+               foundFlag = true;
+               }
+            }
+         }
+         if (foundFlag! && node.held.langs.has(build.emitLangs.first)!) {
+            include = false;
+         }
+         }
+        unless(include) {
+          node.contained = null;
+        }
       } elseIf (node.typename == ntypes.IF) {
          if (def(nnode)) {
             any lnode = node;

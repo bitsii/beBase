@@ -387,6 +387,7 @@ void** bevl_spa;
    }
    
    contentsNoCheckGet() String {
+      String res;
       ifEmit(apwk) {
         String ps = path.toString();
         String jspw = "fileContentsGet:" + ps;
@@ -400,7 +401,7 @@ void** bevl_spa;
       ifNotEmit(apwk) {
         any r = self.reader;
         r.open();
-        String res = r.readString();
+        res = r.readString();
         r.close();
       }
       return(res);
