@@ -1496,7 +1496,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
   acceptBraces(Node node) {
       if (def(node.container)) {
          Int typename = node.container.typename;
-         if (typename != ntypes.METHOD && typename != ntypes.CLASS && typename != ntypes.EXPR && typename != ntypes.FIELDS && typename != ntypes.SLOTS && typename != ntypes.CATCH) {
+         if (typename != ntypes.METHOD && typename != ntypes.CLASS && typename != ntypes.EXPR && typename != ntypes.FIELDS && typename != ntypes.SLOTS && typename != ntypes.CATCH && typename != ntypes.IFEMIT) {
             
             methodBody += getTraceInfo(node) += " {" += nl; //}
          }
@@ -1570,7 +1570,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
              msyn = null;
              mnode = null;
            }
-        } elseIf (typename != ntypes.EXPR && typename != ntypes.FIELDS && typename != ntypes.SLOTS && typename != ntypes.CLASS) {
+        } elseIf (typename != ntypes.EXPR && typename != ntypes.FIELDS && typename != ntypes.SLOTS && typename != ntypes.CLASS && typename != ntypes.IFEMIT) {
             //{
            methodBody += "} " += getTraceInfo(node) += nl;
         }
