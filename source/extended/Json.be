@@ -269,7 +269,7 @@ use final class Json:Escapes {
         toEscapes.put(String.new().addValue("\n"), "\\n");
         toEscapes.put(String.new().addValue("\r"), "\\r");
         toEscapes.put(String.new().addValue("\t"), "\\t");
-        toEscapes.put(String.new().addValue("/"), "\\/");
+        toEscapes.put(String.new().addValue("/"), "\\/"); //slightly questionable
         
         fromEscapes.put("\\", "\\");
         fromEscapes.put(Text:Strings.quote, Text:Strings.quote);
@@ -278,7 +278,7 @@ use final class Json:Escapes {
         fromEscapes.put("n", "\n");
         fromEscapes.put("r", "\r");
         fromEscapes.put("t", "\t");
-        fromEscapes.put("/", "/");
+        fromEscapes.put("/", "/");  //slightly questionable
     }
 
 }
