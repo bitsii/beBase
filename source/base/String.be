@@ -188,7 +188,7 @@ final class String {
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
       bevp_size = nullptr;
       bevp_capacity = nullptr;
-      bevp_size = new BEC_2_4_3_MathInt(bevi_string.length()); //is this right?
+      bevp_size = new BEC_2_4_3_MathInt(bevi_bytes.size());
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
     }
     
