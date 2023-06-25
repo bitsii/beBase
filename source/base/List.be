@@ -17,6 +17,8 @@ final class Container:List:Iterator {
          Int pos = -1;
          List list = List.new(1);
          Int npos = Int.new();
+         Int none = -1;
+         Int zero = 0;
       }
    }
    
@@ -24,6 +26,8 @@ final class Container:List:Iterator {
       pos = -1;
       list = a;
       npos = Int.new();
+      none = -1;
+      zero = 0;
    }
    
    containerGet() List {
@@ -31,7 +35,7 @@ final class Container:List:Iterator {
    }
    
    hasCurrentGet() Bool {
-      if ((pos > 0) && (pos < list.length)) {
+      if ((pos > zero) && (pos < list.length)) {
          return(true);
       }
       return(false);
@@ -48,7 +52,7 @@ final class Container:List:Iterator {
    hasNextGet() Bool {
       npos.setValue(pos);
       npos++=;
-      if ((pos >= -1) && (npos < list.length)) {
+      if ((pos >= none) && (npos < list.length)) {
          return(true);
       }
       return(false);
