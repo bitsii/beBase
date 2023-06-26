@@ -13,7 +13,7 @@ esac
 #rm -rf targetEc/Base/target/cc
 
 export CLASSPATH=target5/*
-time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base --buildFile build/extendedEc.txt --emitLang cc --singleCC true --emitFlag ccSgc
+time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base --buildFile build/extendedEc.txt --emitLang cc --singleCC true --emitFlag ccSgc --emitFlag bemdSmall
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

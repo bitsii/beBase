@@ -1061,14 +1061,6 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
     
   }
   
-  isClose(NamePath np) Bool {
-    //Build:ClassSyn orgsyn = build.getSynNp(np);
-    //if (build.closeLibraries.has(orgsyn.libName)) {
-        return(true);
-    //}
-    //return(false);
-  }
-  
   addClassHeader(String h) {
   
   }
@@ -1168,7 +1160,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
          unless(mq.has(msyn.name)) {
              mq.put(msyn.name);
              msyn = csyn.mtdMap.get(msyn.name);
-             if (isClose(msyn.origin)) {
+             if (undef(build.emitChecks.get("bemdSmall")) || msyn.origin == csyn.namepath) {
                 Int numargs = msyn.numargs;
                 if (numargs > maxDynArgs) {
                     numargs = maxDynArgs;
