@@ -1277,6 +1277,7 @@ final class Text:Strings {
       
       fields {
          Int zero = 0;
+         Int one = 1;
          String space = " ";
          String empty = Text:String.new();
          String quote = String.codeNew(34);
@@ -1361,14 +1362,14 @@ final class Text:Strings {
    }
    
    isEmpty(String value) Bool {
-     if (undef(value) || value.size < 1) {
+     if (undef(value) || value.size < one) {
        return(true);
      }
      return(false);
    }
    
    notEmpty(String value) Bool {
-     if (def(value) && value.size > 0) {
+     if (def(value) && value.size > zero) {
         return(true);
      }
      return(false);
