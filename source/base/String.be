@@ -1,4 +1,4 @@
-// Copyright 2006 The Brace Authors. All rights reserved.
+// Copyright 2006 The Bennt Authors. All rights reserved.
 // Use of this source code is governed by the BSD-3-Clause
 // license that can be found in the LICENSE file.
 
@@ -1146,6 +1146,17 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
      std::cout << std::endl;
 #endif
      """
+     }
+
+     ifEmit (embPlat) {
+        any pl = Embedded:App.plugin;
+        if (def(pl)) {
+          any concon = pl.concon;
+          if (def(concon) && concon.connected) {
+            concon.write(self);
+            concon.write(Text:Strings.unixNewline);
+          }
+        }
      }
       
      emit(c) {
