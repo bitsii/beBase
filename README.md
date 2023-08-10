@@ -86,3 +86,7 @@ A simple base library includes mutable String and Int(eger) implementations as w
 
 [Houston, we have a problem](https://gitlab.com/bitsii/beBase/issues)
 
+
+The official list of Bennt Authors:
+
+Craig Welch <mebitsii@gmail.com>

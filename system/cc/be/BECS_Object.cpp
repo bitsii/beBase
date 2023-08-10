@@ -1,7 +1,12 @@
-
-// Copyright 2015 The Bennt Authors. All rights reserved.
-// Use of this source code is governed by the BSD-3-Clause
-// license that can be found in the LICENSE file.
+/*
+ * Copyright (c) 2015-2023, the Bennt Authors.
+ *
+ * SPDX-License-Identifier: BSD-2-Clause
+ *
+ * Licensed under the BSD 2-Clause License (the "License").
+ * See the LICENSE file in the project root for more information.
+ *
+ */
 
 std::unordered_map<std::string, int32_t> BECS_Ids::callIds;
 std::unordered_map<int32_t, std::string> BECS_Ids::idCalls;
