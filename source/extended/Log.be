@@ -165,10 +165,20 @@ class Log {
     if (undef(msg)) {
       msg = "null";
     }
-    if (def(sink)) {
-      sink.out(msg);
-    } else {
-      msg.print();
+    ifNotEmit(apwk) {
+      if (def(sink)) {
+        sink.out(msg);
+      } else {
+        msg.print();
+      }
+    }
+    ifEmit(apwk) {
+       String jspw = "logStuff:" + msg
+        emit(js) {
+        """
+        var jsres = prompt(bevl_jspw.bems_toJsString());
+        """
+        }
     }
   }
   
