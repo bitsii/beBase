@@ -1391,6 +1391,20 @@ final class Text:Strings {
      }
      return(false);
    }
+
+   toAlphaNumSpace(String toCheck) String {
+      Int ic = Int.new();
+      Int size = toCheck.size;
+      String ret = String.new(toCheck.size);
+      for (Int j = 0;j < size;j++=;) {
+        toCheck.getInt(j, ic);
+        if ((ic > 47 && ic < 58) || (ic > 64 && ic < 91) || (ic > 96 && ic < 123) || ic == 32) {
+            ret.size = ret.size++;
+            ret.setInt(j, ic);
+        }
+      }
+      return(ret);
+   }
    
 }
 
