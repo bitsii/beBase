@@ -127,7 +127,7 @@ final class Float {
       }
       emit(js) {
       """
-      bevi_float = beva_int.bevi_int * 1.0;
+      this.bevi_float = beva_int.bevi_int * 1.0;
       """
       }
       emit(cc) {
@@ -166,6 +166,16 @@ bevl_ii = $ii&*;
 bevl_int = (BEINT*) (bevl_ii + bercps);
 *bevl_int = (int) *((BEFLOAT*) (bevs + bercps));
 """
+      }
+      emit(jv, cs) {
+      """
+      bevl_ii.bevi_int = (int) bevi_float;
+      """
+      }
+      emit(js) {
+      """
+      bevl_ii.bevi_int = Math.trunc(this.bevi_float);
+      """
       }
       return(ii);
    }
