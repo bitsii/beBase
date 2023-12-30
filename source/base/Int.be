@@ -689,6 +689,21 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       return(result);
    }
+
+   squaredGet() Int {
+     return (self * self);
+   }
+
+   squareRootGet() Int {
+     Int res = Int.new();
+     emit(jv) {
+      """
+      double rd = Math.sqrt((double) bevi_int);
+      bevl_res.bevi_int = (int) rd;
+      """
+     }
+     return(res);
+   }
    
    equals(xi) Bool {
       ifEmit(c) {
