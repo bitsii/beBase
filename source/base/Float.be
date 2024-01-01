@@ -177,6 +177,11 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       bevl_ii.bevi_int = Math.trunc(this.bevi_float);
       """
       }
+      emit(cc) {
+        """
+        beq->bevl_ii->bevi_int = (int32_t) bevi_float;
+        """
+      }
       return(ii);
    }
    
