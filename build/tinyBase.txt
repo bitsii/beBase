@@ -16,5 +16,5 @@
 ../beBase/source/base/List.be
 ../beBase/source/base/Initializer.be
 ../beBase/source/base/TinyStandins.be
-#../beBase/source/base/Map.be
-#../beBase/source/base/Random.be
+../beBase/source/base/EncodeHex.be
+../beBase/source/base/Random.be
