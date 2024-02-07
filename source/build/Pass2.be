@@ -41,14 +41,14 @@ final class Build:Visit:Pass2(Build:Visit:Visitor) {
             node.typename = type;
          } else {
             //"Not found type".print();
-            if (held.isInteger()) {
+            if (held.isInteger) {
                Node nxp = node.nextPeer;
                if (def(nxp) && def(nxp.held)) {
                   if (nxp.held == ".") {
                      Node nxp2 = nxp.nextPeer;
                      if (def(nxp2) && def(nxp2.held)) {
                         Node nxp3 = nxp2.nextDescend;
-                        if (nxp2.held.isInteger()) {
+                        if (nxp2.held.isInteger) {
                            node.held = node.held + nxp.held + nxp2.held;
                            node.typename = ntypes.FLOATL;
                            nxp2.delete();

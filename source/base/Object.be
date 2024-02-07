@@ -25,24 +25,10 @@ class System:Object {
    new() self { }
       
    final undef(ref) Bool {
-      emit(c) {
-      """
-      if ($ref* == NULL) {
-         BEVReturn(berv_sts->bool_True);
-      }
-      """
-      }
       return(false);
    }
    
    final def(ref) Bool {
-      emit(c) {
-      """
-      if ($ref* == NULL) {
-         BEVReturn(berv_sts->bool_False);
-      }
-      """
-      }
       return(true);
    }
    
@@ -235,20 +221,6 @@ class System:Object {
    }
 
    equals(x) Bool {
-   emit(c) {
-      """
-/*-attr- -dec-*/
-void** bevl_x;
-      """
-      }
-      emit(c) {
-      """
-      bevl_x = $x&*;
-      if ((bevl_x == NULL) || ((size_t) bevl_x != (size_t) bevs)) {
-         BEVReturn(berv_sts->bool_False);
-      }
-      """
-      }
       emit(jv,cs) {
       """
       if (this != beva_x) {
@@ -274,21 +246,7 @@ void** bevl_x;
    }
 
    hashGet() Math:Int {
-      emit(c) {
-      """
-/*-attr- -dec-*/
-void** bevl_toRetv;
-BEINT* bevl_toRet;
-      """
-      }
       Math:Int toRet = Math:Int.new();
-      emit(c) {
-      """
-      bevl_toRetv = $toRet&*;
-      bevl_toRet = (BEINT*) (bevl_toRetv + bercps);
-      *bevl_toRet = (BEINT) bevs;
-      """
-      }
       emit(jv) {
       """
       bevl_toRet.bevi_int = hashCode();
@@ -351,18 +309,6 @@ BEINT* bevl_toRet;
    
    create() self {
    any copy;
-   emit(c) {
-      """
-/*-attr- -dec-*/
-BERT_ClassDef* bevl_scldef;
-      """
-      }
-      emit(c) {
-      """
-         bevl_scldef = (BERT_ClassDef*) bevs[berdef];
-         $copy=* BERF_Create_Instance(berv_sts, bevl_scldef, 0);
-      """
-      }
       emit(jv,cs,js) {
       """
       bevl_copy = this.bemc_create();

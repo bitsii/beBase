@@ -82,12 +82,6 @@ final class Container:List:Iterator {
 
 final class List {
    
-   emit(c) {
-   """
-/*-attr- -firstSlotNative-*/
-   """
-   }
-   
    emit(jv,cs) {
    """
    
@@ -256,10 +250,11 @@ if (def(length)) {
       }
       
       fields {
-         //any anyray;
          Int length = leni.copy();
-         Int capacity = capi.copy();
          Int multiplier = 2;
+      }
+      slots {
+        Int capacity = capi.copy();
       }
    }
    
@@ -276,12 +271,6 @@ if (def(length)) {
         return(true);
       }
       return(false);
-   }
-   
-   anyrayGet() {
-   }
-   
-   anyraySet() {
    }
    
    serializeToString() String {
@@ -352,10 +341,6 @@ if (def(length)) {
    }
    
    iteratorGet() {
-      return(Container:List:Iterator.new(self));
-   }
-   
-   arrayIteratorGet() Container:List:Iterator {
       return(Container:List:Iterator.new(self));
    }
    
@@ -463,12 +448,6 @@ if (def(length)) {
          ra.mergeIn(fa, sa);
          return(ra);
       }
-   }
-   
-   capacitySet(Int newcap) {
-     if (true) {
-       throw(System:Exception.new("Not Supported"));
-     }
    }
    
    lengthSet(Int newlen) {

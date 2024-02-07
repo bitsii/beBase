@@ -16,12 +16,6 @@ using System;
 }
 
 final class Int {
-
-   emit(c) {
-   """
-/*-attr- -firstSlotNative-*/
-   """
-   }
    
    emit(jv,cs) {
    """
@@ -68,17 +62,7 @@ final class Int {
    """
    }
    
-   vintGet() {
-   }
-   
-   vintSet() {
-   }
-   
    new() self {
-   
-      fields {
-         //any vint;
-      }
       
       emit(js) {
       """
@@ -255,11 +239,6 @@ final class Int {
    }
    
    setValue(Int xi) Int {
-      emit(c) {
-"""
-(*((BEINT*) (bevs + bercps))) = (*((BEINT*) ($xi&* + bercps)));
-"""
-      }
       emit(jv,cs,js) {
 """
 this.bevi_int = beva_xi.bevi_int;
@@ -305,11 +284,6 @@ bevi_int = beq->beva_xi->bevi_int;
     }
    
    incrementValue() Int {
-      emit(c) {
-"""
-(*((BEINT*) (bevs + bercps)))++;
-"""
-      }
       emit(jv,cs,js) {
       """
       this.bevi_int++;
@@ -324,11 +298,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    decrementValue() Int {
-      emit(c) {
-"""
-(*((BEINT*) (bevs + bercps)))--;
-"""
-      }
       emit(jv,cs,js) {
       """
       this.bevi_int--;
@@ -358,11 +327,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    addValue(Int xi) Int {
-      emit(c) {
-"""
-(*((BEINT*) (bevs + bercps))) += (*((BEINT*) ($xi&* + bercps)));
-"""
-      }
       emit(jv,cs,js) {
       """
       this.bevi_int += beva_xi.bevi_int;
@@ -392,11 +356,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    subtractValue(Int xi) Int {
-      emit(c) {
-"""
-(*((BEINT*) (bevs + bercps))) -= (*((BEINT*) ($xi&* + bercps)));
-"""
-      }
       emit(jv,cs,js) {
       """
       this.bevi_int -= beva_xi.bevi_int;
@@ -426,11 +385,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    multiplyValue(Int xi) Int {
-      emit(c) {
-"""
-(*((BEINT*) (bevs + bercps))) *= (*((BEINT*) ($xi&* + bercps)));
-"""
-      }
       emit(jv,cs,js) {
       """
       this.bevi_int *= beva_xi.bevi_int;
@@ -466,11 +420,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    divideValue(Int xi) Int {
-      emit(c) {
-"""
-(*((BEINT*) (bevs + bercps))) /= (*((BEINT*) ($xi&* + bercps)));
-"""
-      }
       emit(jv,cs) {
       """
       this.bevi_int /= beva_xi.bevi_int;
@@ -506,11 +455,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    modulusValue(Int xi) Int {
-      emit(c) {
-"""
-(*((BEINT*) (bevs + bercps))) %= (*((BEINT*) ($xi&* + bercps)));
-"""
-      }
       emit(jv,cs,js) {
       """
       this.bevi_int %= beva_xi.bevi_int;
@@ -526,11 +470,6 @@ bevi_int = beq->beva_xi->bevi_int;
    
    and(Int xi) Int {
     Int toReti = Int.new();
-    emit(c) {
-    """
-        *((BEINT*) ($toReti&* + bercps)) = *((BEINT*) (bevs + bercps)) & *((BEINT*) ($xi&* + bercps));
-    """
-    }
     emit(jv,cs,js) {
     """
         bevl_toReti.bevi_int = this.bevi_int & beva_xi.bevi_int;
@@ -545,11 +484,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    andValue(Int xi) Int {
-      emit(c) {
-"""
-*((BEINT*) (bevs + bercps)) &= *((BEINT*) ($xi&* + bercps));
-"""
-      }
       emit(jv,cs,js) {
     """
         this.bevi_int &= beva_xi.bevi_int;
@@ -565,11 +499,6 @@ bevi_int = beq->beva_xi->bevi_int;
    
    or(Int xi) Int {
      Int toReti = Int.new();
-      emit(c) {
-"""
-*((BEINT*) ($toReti&* + bercps)) = *((BEINT*) (bevs + bercps)) | *((BEINT*) ($xi&* + bercps));
-"""
-      }
       emit(jv,cs,js) {
     """
         bevl_toReti.bevi_int = this.bevi_int | beva_xi.bevi_int;
@@ -584,11 +513,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    orValue(Int xi) Int {
-      emit(c) {
-"""
-*((BEINT*) (bevs + bercps)) |= *((BEINT*) ($xi&* + bercps));
-"""
-      }
        emit(jv,cs,js) {
     """
         this.bevi_int |= beva_xi.bevi_int;
@@ -604,11 +528,6 @@ bevi_int = beq->beva_xi->bevi_int;
    
    shiftLeft(Int xi) Int {
      Int toReti = Int.new();
-      emit(c) {
-"""
-*((BEINT*) ($toReti&* + bercps)) = *((BEINT*) (bevs + bercps)) << *((BEINT*) ($xi&* + bercps));
-"""
-      }
       emit(jv,cs,js) {
     """
         bevl_toReti.bevi_int = this.bevi_int << beva_xi.bevi_int;
@@ -623,11 +542,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    shiftLeftValue(Int xi) Int {
-      emit(c) {
-"""
-*((BEINT*) (bevs + bercps)) <<= *((BEINT*) ($xi&* + bercps));
-"""
-      }
        emit(jv,cs,js) {
     """
         this.bevi_int <<= beva_xi.bevi_int;
@@ -643,11 +557,6 @@ bevi_int = beq->beva_xi->bevi_int;
    
    shiftRight(Int xi) Int {
      Int toReti = Int.new();
-      emit(c) {
-"""
-*((BEINT*) ($toReti&* + bercps)) = *((BEINT*) (bevs + bercps)) >> *((BEINT*) ($xi&* + bercps));
-"""
-      }
       emit(jv,cs,js) {
     """
         bevl_toReti.bevi_int = this.bevi_int >> beva_xi.bevi_int;
@@ -662,11 +571,6 @@ bevi_int = beq->beva_xi->bevi_int;
    }
    
    shiftRightValue(Int xi) Int {
-      emit(c) {
-"""
-*((BEINT*) (bevs + bercps)) >>= *((BEINT*) ($xi&* + bercps));
-"""
-      }
       emit(jv,cs,js) {
     """
         this.bevi_int >>= beva_xi.bevi_int;
@@ -912,28 +816,9 @@ final class Math:Ints {
    
    default() self {
       
-      emit(c) {
-      """
-/*-attr- -dec-*/
-BEINT* bevl_int;
-void** bevl__max;
-void** bevl__min;
-      """
-      }
       Int _max = Int.new();
       Int _min = Int.new();
-      emit(c) {
-      """
-      bevl__max = $_max&*;
-      bevl__min = $_min&*;
-      
-      bevl_int = (BEINT*) (bevl__max + bercps);
-      *bevl_int = INT_MAX;
-      
-      bevl_int = (BEINT*) (bevl__min + bercps);
-      *bevl_int = INT_MIN;
-      """
-      }
+
       emit(jv) {
       """
       bevl__max.bevi_int = Integer.MAX_VALUE;

@@ -476,7 +476,7 @@ final class NamedPropertiesIterator {
    
    subIterGet() Container:List:Iterator {
       if (undef(subIter)) {
-         subIter = propNames.arrayIterator;
+         subIter = propNames.iterator;
       }
       return(subIter);
    }

@@ -59,13 +59,6 @@ final class Bool {
       return(false);
    }
    
-   checkDefNew(str) Bool {
-      if (def(str) && str == "true") {
-         return(true);
-      }
-      return(false);
-   }
-   
    serializeContentsGet() Bool {
       return(false);
    }
@@ -123,14 +116,7 @@ final class Logic:Bools {
    default() self {
       
    }
-   
-   forString(str) Bool {
-      if (str == "true") {
-         return(true);
-      }
-      return(false);
-   }
-   
+
    fromString(str) Bool {
       if (def(str) && str == "true") {
          return(true);
@@ -143,13 +129,6 @@ final class Logic:Bools {
          return(true);
       }
       return(false);
-   }
-   
-   isTrue(Bool val) {
-     if (def(val) && val) {
-      return(true);
-     }
-     return(false);
    }
    
 }

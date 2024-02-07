@@ -244,7 +244,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       any emvisit;
       
       if (build.printSteps) {
-         ". ".echo();
+         ". ".output();
       }
       emvisit = Build:Visit:Rewind.new();
       emvisit.emitter = self;
@@ -252,7 +252,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       trans.traverse(emvisit);
       
       if (build.printSteps) {
-         ".. ".echo();
+         ".. ".output();
       }
       emvisit = Build:Visit:TypeCheck.new();
       emvisit.emitter = self;
@@ -260,7 +260,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       trans.traverse(emvisit);
       
       if (build.printSteps) {
-         "... ".echo();
+         "... ".output();
          " ".print();
       }
       if (build.printSteps) {

@@ -621,7 +621,7 @@ final class Build:Build {
 
          //PREPARE VISIT
          if (printSteps) {
-            ". ".echo();
+            ". ".output();
          }
          nodify(trans.outermost, toks);
          if (printAllAst) {
@@ -630,7 +630,7 @@ final class Build:Build {
          }
          //VISIT NOW
          if (printSteps) {
-            ".. ".echo();
+            ".. ".output();
          }
          trans.traverse(Build:Visit:Pass2.new());
          if (printAllAst) {
@@ -638,7 +638,7 @@ final class Build:Build {
             trans.traverse(Build:Visit:Pass1.new(printAstElements, null));
          }
          if (printSteps) {
-            "... ".echo();
+            "... ".output();
          }
          //INITIAL CONTAIN
          trans.traverse(Build:Visit:Pass3.new());
@@ -649,7 +649,7 @@ final class Build:Build {
          }
 
          if (printSteps) {
-            ".... ".echo();
+            ".... ".output();
          }
          trans.traverse(Build:Visit:Pass4.new());
          if (printAllAst) {
@@ -658,7 +658,7 @@ final class Build:Build {
          }
 
          if (printSteps) {
-            "..... ".echo();
+            "..... ".output();
          }
          trans.traverse(Build:Visit:Pass5.new());
          if (printAllAst) {
@@ -667,7 +667,7 @@ final class Build:Build {
          }
 
          if (printSteps) {
-            "...... ".echo();
+            "...... ".output();
          }
          trans.traverse(Build:Visit:Pass6.new());
          if (printAllAst) {
@@ -676,7 +676,7 @@ final class Build:Build {
          }
 
          if (printSteps) {
-            "....... ".echo();
+            "....... ".output();
          }
          trans.traverse(Build:Visit:Pass7.new());
          if (printAllAst) {
@@ -685,7 +685,7 @@ final class Build:Build {
          }
 
          if (printSteps) {
-            "........ ".echo();
+            "........ ".output();
          }
          trans.traverse(Build:Visit:Pass8.new());
          if (printAllAst) {
@@ -694,7 +694,7 @@ final class Build:Build {
          }
 
          if (printSteps) {
-            "......... ".echo();
+            "......... ".output();
          }
          trans.traverse(Build:Visit:Pass9.new());
          if (printAllAst) {
@@ -703,7 +703,7 @@ final class Build:Build {
          }
 
          if (printSteps) {
-            ".......... ".echo();
+            ".......... ".output();
          }
          trans.traverse(Build:Visit:Pass10.new());
          if (printAllAst) {
@@ -711,7 +711,7 @@ final class Build:Build {
             trans.traverse(Build:Visit:Pass1.new(printAstElements, null));
          }
          if (printSteps) {
-            "........... ".echo();
+            "........... ".output();
          }
          trans.traverse(Build:Visit:Pass11.new());
          if (printAllAst) {
@@ -720,7 +720,7 @@ final class Build:Build {
          }
 
          if (printSteps) {
-            "............ ".echo();
+            "............ ".output();
             " ".print();
          }
          trans.traverse(Build:Visit:Pass12.new());

@@ -218,7 +218,7 @@ class Set {
    }
    
    insertAll(List ninner, List ir) {
-      for (Container:List:Iterator i = ir.arrayIterator;i.hasNext;) {
+      for (Container:List:Iterator i = ir.iterator;i.hasNext;) {
          SetNode ni = i.next;
          if (def(ni)) {
             if (innerPut(ni.key, null, ni, ninner)!) {

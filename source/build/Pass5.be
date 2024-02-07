@@ -247,7 +247,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                   }
                   if (m.typename == ntypes.ID) {
                      node.held.name = m.held;
-                     if (node.held.name.getPoint(0).isInteger()) {
+                     if (node.held.name.getPoint(0).isInteger) {
                         throw(VisitError.new("First character of anyiables and subroutine names cannot be a numeric digit", node));
                      }
                      m.delete();

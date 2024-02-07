@@ -78,7 +78,7 @@ use class System:ExceptionTranslator {
                                iv = iv.substring(5);
                            }
                            //("iv is |" + iv + "|").print();
-                           if (iv.isInteger()) {
+                           if (iv.isInteger) {
                              eline = Int.new(iv);
                            }
                          }
@@ -107,7 +107,7 @@ use class System:ExceptionTranslator {
                              }
                              iv = inPart.substring(pdelim + 1);
                              //("iv is |" + iv + "|").print();
-                             if (iv.isInteger()) {
+                             if (iv.isInteger) {
                                eline = Int.new(iv);
                              }
                            }

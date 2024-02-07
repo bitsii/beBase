@@ -40,24 +40,6 @@ using System;
 //same value, of course)
 final class String {
    
-   emit(c) {
-   """
-/*-attr- -firstSlotNative-*/
-   """
-   }
-   
-   emit(c) {
-   """
-/*-attr- -freeFirstSlot-*/
-   """
-   }
-   
-   emit(c) {
-   """
-#include <wchar.h>
-   """
-   }
-   
    emit(jv) {
    """
    
@@ -264,18 +246,10 @@ final class String {
    """
    }
    
-   vstringGet() {
-   //place holder for pointer to native char* string
-   }
-   
-   vstringSet() {
-   }
-   
    new(Int _capacity) self {
       size = 0;
       capacitySet(_capacity);
       fields {
-         //any vstring;
          Int size;
          Int capacity;
       }
@@ -446,10 +420,6 @@ final class String {
    }
    
    isIntegerGet() Bool {
-     return(isInteger());
-   }
-   
-   isInteger() Bool {
       Int ic = Int.new();
       for (Int j = 0;j < size;j++=;) {
         getInt(j, ic);
@@ -576,19 +546,7 @@ final class String {
    }
    
    getInt(Int pos, Int into) Int {
-   emit(c) {
-   """
-/*-attr- -dec-*/
-char* bevl_str;
-   """
-      }
       if (pos >= 0 && size > pos) {
-         emit(c) {
-         """
-         bevl_str = (char*) bevs[bercps];
-         *((BEINT*) ($into&* + bercps)) = (BEINT) bevl_str[*((BEINT*) ($pos&* + bercps))];
-         """
-         }
          emit(jv) {
          """
          beva_into.bevi_int = (int) bevi_bytes[beva_pos.bevi_int];
@@ -625,24 +583,7 @@ char* bevl_str;
    }
    
    getCode(Int pos, Int into) Int {
-   emit(c) {
-   """
-/*-attr- -dec-*/
-char* bevl_str;
-BEINT bevl_val;
-   """
-      }
       if (pos >= 0 && size > pos) {
-         emit(c) {
-         """
-         bevl_str = (char*) bevs[bercps];
-         bevl_val = (BEINT) bevl_str[*((BEINT*) ($pos&* + bercps))];
-         if (bevl_val < 0) {
-            bevl_val = bevl_val + 256;
-         }
-         *((BEINT*) ($into&* + bercps)) = bevl_val;
-         """
-         }
          emit(jv) {
          """
          beva_into.bevi_int = (int) bevi_bytes[beva_pos.bevi_int];
@@ -709,19 +650,7 @@ BEINT bevl_val;
    }
    
    setIntUnchecked(Int pos, Int into) self {
-   emit(c) {
-   """
-/*-attr- -dec-*/
-char* bevl_str;
-   """
-      }
-      
-     emit(c) {
-     """
-     bevl_str = (char*) bevs[bercps];
-     bevl_str[*((BEINT*) ($pos&* + bercps))] = (char) *((BEINT*) ($into&* + bercps));
-     """
-     }
+
      emit(jv) {
      """
      bevi_bytes[beva_pos.bevi_int] = (byte) beva_into.bevi_int;
@@ -757,24 +686,7 @@ char* bevl_str;
    }
    
    setCodeUnchecked(Int pos, Int into) self {
-   emit(c) {
-   """
-/*-attr- -dec-*/
-char* bevl_str;
-BEINT bevl_val;
-   """
-      }
       
-     emit(c) {
-     """
-     bevl_str = (char*) bevs[bercps];
-     bevl_val = *((BEINT*) ($into&* + bercps));
-     if (bevl_val > 127) {
-        bevl_val = bevl_val - 256;
-     }
-     bevl_str[*((BEINT*) ($pos&* + bercps))] = (char) bevl_val;
-     """
-     }
      emit(jv) {
      """
      int twvls_b = beva_into.bevi_int;
@@ -799,10 +711,6 @@ BEINT bevl_val;
      bevi_bytes[beq->beva_pos->bevi_int] = (unsigned char) beq->beva_into->bevi_int;
      """
      }
-   }
-   
-   reverseFind(String str) Int {
-     return(rfind(str));
    }
    
    rfind(String str) Int {
@@ -1098,11 +1006,6 @@ BEINT bevl_val;
    }
    
    output() {
-      emit(c) {
-"""
-printf("%s", (char*) bevs[bercps]);
-"""
-      }
       
       emit(jv) {
 """
@@ -1165,12 +1068,6 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
         }
      }
       
-     emit(c) {
-"""
-printf("%s\n", (char*) bevs[bercps]);
-"""
-      }
-      
       emit(jv) {
 """
 System.out.write(bevi_bytes, 0, bevp_size.bevi_int);
@@ -1217,22 +1114,8 @@ stdout.WriteByte(10);
       }
       
     }
-    
-    echo() {
-      //IO:File:Writer output = IO:File:NamedWriters.new().output;
-      //output.writeIfPossible(self);
-      output();
-    }
    
    iteratorGet() {
-      return(Text:MultiByteIterator.new(self));
-   }
-   
-   byteIteratorGet() Text:ByteIterator {
-      return(Text:ByteIterator.new(self));
-   }
-   
-   multiByteIteratorGet() Text:MultiByteIterator {
       return(Text:MultiByteIterator.new(self));
    }
    
@@ -1241,10 +1124,6 @@ stdout.WriteByte(10);
    }
    
    mbiterGet() Text:MultiByteIterator {
-      return(Text:MultiByteIterator.new(self));
-   }
-   
-   stringIteratorGet() Text:MultiByteIterator {
       return(Text:MultiByteIterator.new(self));
    }
    
@@ -1369,15 +1248,6 @@ final class Text:Strings {
       return(a.substring(0, i));
    }
    
-   anyEmpty(strs) Bool {
-     for (String i in strs) {
-       if (isEmpty(i)) {
-         return(true);
-       }
-     }
-     return(false);
-   }
-   
    isEmpty(String value) Bool {
      if (undef(value) || value.size < one) {
        return(true);
@@ -1494,10 +1364,6 @@ local class Text:ByteIterator {
       return(self);
    }
    
-   byteIteratorIteratorGet() Text:ByteIterator {
-      return(self);
-   }
-   
 }
 
 final class Text:MultiByteIterator(Text:ByteIterator) {
@@ -1536,10 +1402,6 @@ final class Text:MultiByteIterator(Text:ByteIterator) {
         pos.setValue(bcount);
       }
       return(buf);
-   }
-   
-   multiByteIteratorIteratorGet() Text:MultiByteIterator {
-      return(self);
    }
    
    iteratorGet() any {

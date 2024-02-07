@@ -644,20 +644,20 @@ class Test:BaseTest:Text(BaseTest) {
       }
       
       "IsInteger tests".print();
-      "hh".isInteger().print();
-      assertFalse("hh".isInteger());
+      "hh".isInteger.print();
+      assertFalse("hh".isInteger);
       
-      "778".isInteger().print();
-      assertTrue("778".isInteger());
+      "778".isInteger.print();
+      assertTrue("778".isInteger);
       
-      "0".isInteger().print();
-      assertTrue("0".isInteger());
+      "0".isInteger.print();
+      assertTrue("0".isInteger);
       
-      "9".isInteger().print();
-      assertTrue("9".isInteger());
+      "9".isInteger.print();
+      assertTrue("9".isInteger);
       
-      "778s".isInteger().print();
-      assertFalse("778s".isInteger());
+      "778s".isInteger.print();
+      assertFalse("778s".isInteger);
       
       any tolc = "UPPER";
       tolc.lower().print();
