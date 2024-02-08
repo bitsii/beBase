@@ -70,6 +70,7 @@ final class System:Types {
       }
       """
       }
+      ifNotEmit(noRfl) {
       emit(cc) {
       """
       if (beq->beva_other != nullptr) {
@@ -85,6 +86,7 @@ final class System:Types {
         }
       }
       """
+      }
       }
       return(false);
    }

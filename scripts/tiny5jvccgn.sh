@@ -14,7 +14,7 @@ rm -rf targets/min/Base/target/cc/be
 rm -f targets/min/BEX_E_cl.exe
 
 export CLASSPATH=target5/*
-time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base -deployPath=targets/tiny -buildPath=targets/tiny --buildFile build/tinyBase.txt --emitLang cc --singleCC true --emitFlag ccSgc --emitFlag ccNoRtti --emitFlag noSmap --emitFlag noRfl --mainClass Test:TestHelloWorld ../beBase/source/baseTest/TestHelloWorld.be
+time java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Base -deployPath=targets/tiny -buildPath=targets/tiny --buildFile build/tinyBase.txt --emitLang cc --singleCC true --emitFlag ccSgc --emitFlag ccNoRtti --emitFlag noSmap --emitFlag noRfl --emitFlag noBet --emitFlag bemdSmall --mainClass Test:TestHelloWorld ../beBase/source/baseTest/TestHelloWorld.be
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

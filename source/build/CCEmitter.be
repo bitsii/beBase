@@ -87,7 +87,9 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual BEC_2_6_6_SystemObject* bemc_getInitial();\n");
        heow.write("virtual void bemg_doMark();\n");
        heow.write("virtual size_t bemg_getSize();\n");
-       heow.write("virtual BETS_Object* bemc_getType();\n");
+       unless (build.emitChecks.has("noRfl") && csyn.hasDefault!) {
+         heow.write("virtual BETS_Object* bemc_getType();\n");
+       }
        unless (build.emitChecks.has("noSmap")) {
         heow.write("static std::vector<int32_t> bevs_smnlc;\n");
         heow.write("static std::vector<int32_t> bevs_smnlec;\n");
@@ -706,13 +708,15 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         //{
         ccMethods += "}" += nl;
         
-        String tinst = getTypeInst(newcc);
-        
-        ccMethods += "BETS_Object* " += newcc.emitName += "::bemc_getType() {" += nl;  //}
-            
-            ccMethods += "return &" += tinst += ";" += nl;
-        //{
-        ccMethods += "}" += nl;
+        unless (build.emitChecks.has("noRfl") && cnode.held.syn.hasDefault!) {
+          String tinst = getTypeInst(newcc);
+
+          ccMethods += "BETS_Object* " += newcc.emitName += "::bemc_getType() {" += nl;  //}
+
+              ccMethods += "return &" += tinst += ";" += nl;
+          //{
+          ccMethods += "}" += nl;
+        }
         
     }
     

@@ -198,6 +198,7 @@ class System:Object {
       }
       """
       }
+      ifNotEmit(noRfl) {
       emit(cc) {
       """
       
@@ -210,6 +211,7 @@ class System:Object {
       }
       
       """
+      }
       }
       if (false) {
          rval.toString();
