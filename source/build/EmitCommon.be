@@ -999,15 +999,13 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                 if(emitting("js")) {
                     locDecs += ";" += nl;
                 } elseIf(emitting("cc")) {
-                    //locDecs += " = nullptr;" += nl;
                     unless(isFirstRef) {
                       besDef += "; ";
                     }
                     isFirstRef = false;
                     numRefs++=;
                     decForVar(besDef, ov.held, false);
-                    //besDef += " = " += "nullptr";
-                    beqAsn += nameForVar(ov.held) += " = nullptr;" += nl;
+                    //beqAsn += nameForVar(ov.held) += " = nullptr;" += nl;
                 } elseIf(emitting("sw")) {
                     locDecs += " = nil;" += nl;
                 } else  {
@@ -1025,6 +1023,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           locDecs += "struct bes { " += besDef += " };" += nl;
           locDecs += "BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;" += nl;
           locDecs += "bes* beq = (bes*) bevs_myStack->bevs_hs;" += nl;
+          locDecs += "std::memset(beq, 0, sizeof (struct bes));" += nl;
           locDecs += beqAsn;
           locDecs += "beq->bevr_this = this;" += nl;
           //("besDef " += besDef).print();
