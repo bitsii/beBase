@@ -64,7 +64,7 @@ class PC(BaseTest) {
    }
    
    main() {
-      ("Test:BaseTest:ParseCorners:main").print();
+      print("Test:BaseTest:ParseCorners:main");
       
       Int x = 1 + 1;
       

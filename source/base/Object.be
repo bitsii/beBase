@@ -289,6 +289,10 @@ class System:Object {
    print() {
       toString().print();
    }
+
+   print(athing) {
+     athing.print();
+   }
    
    copy() self {
      return(copyTo(create()));
