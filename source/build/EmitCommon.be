@@ -215,7 +215,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
       if (undef(id)) {
         //get random int
         id = rand.getInt();
-        while (idToName.has(id)) {
+        while (idToName.contains(id)) {
           id = rand.getInt();
         }
         nameToId.put(name, id);
@@ -442,14 +442,14 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
                methods += " = bems_smnlc();" += nl;
              }
             if (emitting("js")) {
-              unless (build.emitChecks.has("noSmap")) {
+              unless (build.emitChecks.contains("noSmap")) {
                 methods += smpref += "bevs_smnlc";
                 methods += " = [" += nlcs += "];" += nl;
               }
             }
             if(emitting("cc")) {
                //header too
-               unless (build.emitChecks.has("noSmap")) {
+               unless (build.emitChecks.contains("noSmap")) {
                  methods += "std::vector<int32_t> " += classConf.emitName += "::bevs_smnlc" += nl;
                  methods += " = {" += nlcs += "};" += nl;
                }
@@ -471,20 +471,20 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
                methods += " = bems_smnlec();" += nl;
              }
             if (emitting("js")) {
-              unless (build.emitChecks.has("noSmap")) {
+              unless (build.emitChecks.contains("noSmap")) {
                 methods += smpref += "bevs_smnlec";
                 methods += " = [" += nlecs += "];" += nl;
               }
             }
             if(emitting("cc")) {
                //header too
-               unless (build.emitChecks.has("noSmap")) {
+               unless (build.emitChecks.contains("noSmap")) {
                 methods += "std::vector<int32_t> " += classConf.emitName += "::bevs_smnlec" += nl;
                 methods += " = {" += nlecs += "};" += nl;
               }
             }
             
-            unless (build.emitChecks.has("noSmap")) {
+            unless (build.emitChecks.contains("noSmap")) {
             methods += lineInfo;
             }
             
@@ -660,7 +660,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
         
         String main = "";
         if(emitting("cc")) {
-          if (build.emitChecks.has("relocMain")) {
+          if (build.emitChecks.contains("relocMain")) {
             main += "int bems_relocMain(int argc, char **argv) {" += nl;
           } else {
             main += "int main(int argc, char **argv) {" += nl;
@@ -675,7 +675,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
           main += "be::BECS_Runtime::maino = mc;" += nl;
           main += "mc->bem_new_0();" += nl;
           main += "mc->bem_main_0();" += nl;
-          unless (build.emitChecks.has("holdMain")) {
+          unless (build.emitChecks.contains("holdMain")) {
             main += "be::BECS_Runtime::bemg_endThread();" += nl;
           }
           main += "return 0;" += nl;
@@ -745,7 +745,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
             } elseIf(emitting("jv")) {
               notNullInitConstruct += "be.BECS_Runtime.typeRefs.put(" += q += clnode.held.namepath += q += ", " += getTypeInst(getClassConfig(clnode.held.namepath)) += ");\n";
             } elseIf(emitting("cc")) {
-              unless (build.emitChecks.has("noRfl") && clnode.held.syn.hasDefault!) {
+              unless (build.emitChecks.contains("noRfl") && clnode.held.syn.hasDefault!) {
                 notNullInitConstruct += "BECS_Runtime::typeRefs[" += q += clnode.held.namepath += q += "] = static_cast<BETS_Object*>   (&" += getTypeInst(getClassConfig(clnode.held.namepath)) += ");\n";
                 if (def(pti)) {
                   notNullInitConstruct += getTypeInst(getClassConfig(clnode.held.namepath)) += ".bevs_parentType = &" += pti += ";\n";
@@ -756,7 +756,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
             }
         }
         
-        unless (build.emitChecks.has("noRfl")) {
+        unless (build.emitChecks.contains("noRfl")) {
           for (String callName in callNames) {
               getNames += "putCallId(" += TS.quote += callName += TS.quote += ", " += getCallId(callName) += ");" += nl;
           }
@@ -773,7 +773,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
         
         if(emitting("cc")) {
           libe.write("void " + libEmitName + "::init() {" + nl); //}
-          if (build.emitChecks.has("ccPt")) {
+          if (build.emitChecks.contains("ccPt")) {
             libe.write("BECS_Runtime::bevs_initLock.lock();\n");
             libe.write("if (BECS_Runtime::isInitted) { BECS_Runtime::bevs_initLock.unlock(); return; }" + nl);
           } else {
@@ -802,7 +802,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
         }
         libe.write(self.runtimeInit);
         libe.write(getNames);
-        unless (build.emitChecks.has("noSmap")) {
+        unless (build.emitChecks.contains("noSmap")) {
           libe.write(smap);
         }
         libe.write(notNullInitConstruct);
@@ -811,7 +811,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
           //{
           libe.write("}" + nl);
         } elseIf(emitting("cc")) {
-          if (build.emitChecks.has("ccPt")) {
+          if (build.emitChecks.contains("ccPt")) {
             libe.write("BECS_Runtime::bevs_initLock.unlock();\n");
           }
         }
@@ -1019,7 +1019,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
       }
       
       if(emitting("cc")) {
-        if (build.emitChecks.has("ccSgc")) {
+        if (build.emitChecks.contains("ccSgc")) {
           if (Text:Strings.notEmpty(besDef)) { besDef += ";" }
           besDef += " BEC_2_6_6_SystemObject* bevr_this; ";
           locDecs += "struct bes { " += besDef += " };" += nl;
@@ -1072,13 +1072,13 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
   }
   
   handleTransEmit(Node jn) {
-    if (jn.held.langs.has(self.emitLang)) {
+    if (jn.held.langs.contains(self.emitLang)) {
         preClass += emitReplace(jn.held.text);
     }
   }
   
   handleClassEmit(Node innode) {
-    if (innode.held.langs.has(self.emitLang)) {
+    if (innode.held.langs.contains(self.emitLang)) {
         classEmits += emitReplace(innode.held.text);
     }
   }
@@ -1163,7 +1163,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
       Map dynGen = Map.new();
       Container:Set mq = Container:Set.new();
       for (Build:MtdSyn msyn in csyn.mtdList) {
-         unless(mq.has(msyn.name)) {
+         unless(mq.contains(msyn.name)) {
              mq.put(msyn.name);
              msyn = csyn.mtdMap.get(msyn.name);
              if (undef(build.emitChecks.get("bemdSmall")) || msyn.origin == csyn.namepath) {
@@ -1215,7 +1215,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
               j++=;
           }
           if (dnumargs >= maxDynArgs) {
-            if (build.emitChecks.has("ccSgc")) {
+            if (build.emitChecks.contains("ccSgc")) {
               args = args + ", std::vector<" + objectCc.relEmitName(build.libName) + "*> bevd_x";
               superArgs = superArgs + ", bevd_x";
             }
@@ -1375,7 +1375,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
     }
 
 buildClassInfo() self {
-    unless (build.emitChecks.has("noSmap") && (emitting("js") || emitting("cc"))) {
+    unless (build.emitChecks.contains("noSmap") && (emitting("js") || emitting("cc"))) {
       buildClassInfo("clname", classConf.emitName + "_clname", cnode.held.namepath.toString());
       buildClassInfo("clfile", classConf.emitName + "_clfile", inFilePathed);
     }
@@ -1484,7 +1484,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
   getTraceInfo(Node node) {
     String trInfo = String.new();
     if (def(node) && def(node.nlc)) {
-      unless (build.emitChecks.has("noSmap")) {
+      unless (build.emitChecks.contains("noSmap")) {
         trInfo += "/* Line: " += node.nlc.toString() += "*/";
       }
     }
@@ -1528,7 +1528,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                if (emitting("js")) {
                 methods += "var bevd_x = new Array(" += maxSpillArgsLen.toString() += ");" += nl;
                } elseIf (emitting("cc")) {
-                 if (build.emitChecks.has("ccSgc")) {
+                 if (build.emitChecks.contains("ccSgc")) {
                    methods += "std::vector<" += objectCc.relEmitName(build.libName) += "*> bevd_x(" += maxSpillArgsLen.toString() += ");" += nl;
                  }
                } else {
@@ -1561,7 +1561,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
              
              //{
              methods += "}";
-             unless (build.emitChecks.has("noSmap")) {
+             unless (build.emitChecks.contains("noSmap")) {
                methods += " /*method end*/";
              }
              methods += nl;
@@ -1696,7 +1696,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    
   for (Node cci in node.contained) {
     if (cci.typename == ntypes.VAR) {
-      if (cci.held.allCalls.has(node)!) {
+      if (cci.held.allCalls.contains(node)!) {
         throw(VisitError.new("VAR DOES NOT HAVE MY CALL " + node.held.name + node.toString(), cci));
       }
     }
@@ -2005,7 +2005,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                       String belsName;
                       Int lisz;
                       
-                      unless((emitting("js") && build.emitChecks.has("jsStrInline")) || emitting("cc")) {
+                      unless((emitting("js") && build.emitChecks.contains("jsStrInline")) || emitting("cc")) {
                       String exname = belslits.get(lival);
                       }
                       if (Text:Strings.notEmpty(exname)) {
@@ -2044,7 +2044,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                     }
                 } else {
                   if (emitting("cc")) {
-                    if (build.emitChecks.has("ccSgc")) {
+                    if (build.emitChecks.contains("ccSgc")) {
                       newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())";
                     } else {
                       newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "())";
@@ -2236,7 +2236,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     }
    
    acceptEmit(Node node) {
-     if (node.held.langs.has(self.emitLang)) {
+     if (node.held.langs.contains(self.emitLang)) {
         methodBody += emitReplace(node.held.text);
      }
    }
@@ -2245,7 +2245,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
      Int state = 0;
      Text:Tokenizer emitTok = Text:Tokenizer.new("$/", true);
      LinkedList toks = emitTok.tokenize(text);
-     if (text.has("/*-attr- -noreplace-*/") || text.has("$")!) {
+     if (text.contains("/*-attr- -noreplace-*/") || text.contains("$")!) {
        return(text);
      }
      String rtext = String.new();

@@ -443,8 +443,8 @@ class DirStore {
       }
       return(null);
    }
-   
-   has(String id) Bool {
+
+   contains(String id) Bool {
       if (undef(id) || id == "") { return(false); }
       IO:File:Path p = getPath(id);
       if (p.file.exists) {

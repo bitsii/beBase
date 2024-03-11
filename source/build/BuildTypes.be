@@ -39,7 +39,7 @@ final class Build:NamePath(System:BasePath) {
       if (undef(par)) {
         par = node.build.emitData.aliased.get(fstep);
       }
-      if (def(par) && self.path.has(":")!) {
+      if (def(par) && self.path.contains(":")!) {
          System:BasePath np2 = self.deleteFirstStep();
          System:BasePath np = par + np2;
          path = np.path;

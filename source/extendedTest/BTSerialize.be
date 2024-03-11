@@ -239,9 +239,9 @@ class Test:BaseTest:Serialize(BaseTest) {
    dirStoreTest() {
         DirStore ds = DirStore.new("test/tmp/ds");
         ds.delete("hi");
-        assertFalse(ds.has("hi"));
+        assertFalse(ds.contains("hi"));
         ds.put("hi","there");
-        assertTrue(ds.has("hi"));
+        assertTrue(ds.contains("hi"));
         assertEqual(ds.get("hi"), "there");
         ds.delete("hi");
     }
@@ -297,7 +297,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       sbuf.print();
       dyn y = s.deserialize(sbuf);
       //y.print();
-      assertTrue(y.has("Hi"));
+      assertTrue(y.contains("Hi"));
    }
 
    testMap() {

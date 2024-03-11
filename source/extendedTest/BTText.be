@@ -489,9 +489,9 @@ class Test:BaseTest:Text(BaseTest) {
    testFind() {
       String h = "hi there bob there";
       Int p = h.find("there");
-      assertTrue(h.has("there"));
-      assertFalse(h.has(null));
-      assertFalse(h.has("lala"));
+      assertTrue(h.contains("there"));
+      assertFalse(h.contains(null));
+      assertFalse(h.contains("lala"));
       p.print();
       p = h.find("there", p);
       p.print();

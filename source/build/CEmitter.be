@@ -442,7 +442,7 @@ final class Build:CEmitter {
          Build:ClassSyn syn = tckvs.next;
          if (syn.libName == build.libName) {
             for (dyn fkv in syn.foreignClasses) {
-               if (fkuniq.has(fkv.value)!) {
+               if (fkuniq.contains(fkv.value)!) {
                   fkuniq.put(fkv.value);
                   nuH += "extern BERT_ClassDef* " += fkv.value += ";" += nl;
                   nuC += "BERT_ClassDef* " += fkv.value += " = NULL;" += nl;
@@ -450,7 +450,7 @@ final class Build:CEmitter {
                }
             }
             for (dyn ankv in syn.allNames) {
-               if (anuniq.has(ankv.key)!) {
+               if (anuniq.contains(ankv.key)!) {
                   anuniq.put(ankv.key);
                   String nm = ankv.key;
                   
@@ -500,7 +500,7 @@ final class Build:CEmitter {
          pin = getMethodIndexName(mi.msyn);
          ci = getInfoSearch(mi.declaration);
          osyn = build.getSynNp(mi.declaration);
-         if (mi.syn.directMethods && build.closeLibraries.has(mi.syn.libName)) {
+         if (mi.syn.directMethods && build.closeLibraries.contains(mi.syn.libName)) {
             pinVal = (mi.msyn.mtdx + build.constants.mtdxPad).toString();
          } else {
             //could make it size_t max if needed for disambiguation...
@@ -518,13 +518,13 @@ final class Build:CEmitter {
             nuC += "size_t twmd_" += ci.midName += "_" += mi.msyn.name += "() {" += nl;
             //I think the closeLibraries check here is redundant, if the method origin
             //is in this library then it is always in closeLibraries...
-            if (mi.syn.directMethods && build.closeLibraries.has(mi.syn.libName)) {
+            if (mi.syn.directMethods && build.closeLibraries.contains(mi.syn.libName)) {
                nuC += "return " += pinVal += ";" += nl;
             } else {
                nuC += "return " += pin += ";" += nl;
             }
             nuC += "}" += nl;
-         } elseIf (mi.syn.directMethods! || build.closeLibraries.has(mi.syn.libName)!) {
+         } elseIf (mi.syn.directMethods! || build.closeLibraries.contains(mi.syn.libName)!) {
             //need to set pin by calling the origin lib if not direct properties and origin not in current lib
             fkcdget += pin += " = twmd_" += ci.midName += "_" += mi.msyn.name += "();" += nl;
          }

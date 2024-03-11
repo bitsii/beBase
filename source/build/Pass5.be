@@ -264,7 +264,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
             return(node.nextDescend);
          }
-         if (build.constants.parensReq.has(node.typename)) {
+         if (build.constants.parensReq.contains(node.typename)) {
             m = node.contained.first;
             if (undef(m) || (m.typename != ntypes.PARENS)) {
                throw(VisitError.new("Error, parensthesis missing (but required) after: ", node));

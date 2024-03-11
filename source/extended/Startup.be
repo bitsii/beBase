@@ -247,9 +247,9 @@ local class Parameters {
    isTrue(String name) Bool {
       return(isTrue(name, false));
    }
-   
-   has(String name) Bool {
-      return(params.has(name));
+
+   contains(String name) Bool {
+      return(params.contains(name));
    }
    
    get(String name) LinkedList {

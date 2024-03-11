@@ -245,7 +245,7 @@ class Set {
          return(false);
       }
       for (dyn i in self) {
-         if (other.has(i)!) { return(false); }
+         if (other.contains(i)!) { return(false); }
       }
       return(true);
    }
@@ -327,8 +327,8 @@ class Set {
          }
       }
    }
-   
-   has(k) Bool {
+
+   contains(k) Bool {
       List slt = buckets;
       Int modu = slt.size;
       Int hval = rel.getHash(k);
@@ -445,7 +445,7 @@ class Set {
       Set i = Set.new();
       if (def(other)) {
          for (dyn x in self) {
-            if (other.has(x)) {
+            if (other.contains(x)) {
                i.put(x);
             }
          }

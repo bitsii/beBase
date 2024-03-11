@@ -33,8 +33,8 @@ class Test:BaseTest:IO(BaseTest) {
       File:RecursiveIterator iter = File:RecursiveIterator.new(dir);
       "RecursiveIterator".print();
       Set names = Mapper.mapIterator(iter, mapr, Set.new());
-      assertTrue(names.has("hi"));
-      assertTrue(names.has("there"));
+      assertTrue(names.contains("hi"));
+      assertTrue(names.contains("there"));
       "RecursiveIterator close".print();
       iter = File:RecursiveIterator.new(dir);
       Bool worked = false;
@@ -50,36 +50,36 @@ class Test:BaseTest:IO(BaseTest) {
       File:FilterIterator fiter = File:FilterIterator.rNew(fdir);
       "FilterIterator".print();
       names = Mapper.mapIterator(fiter, mapr, Set.new());
-      assertTrue(names.has("a.xml"));
-      assertTrue(names.has("b.txt"));
-      assertTrue(names.has("c"));
+      assertTrue(names.contains("a.xml"));
+      assertTrue(names.contains("b.txt"));
+      assertTrue(names.contains("c"));
       
       fdir = File:Path.apNew("test/inputs/fiter").file;
       fiter = File:FilterIterator.rNew(fdir);
       fiter.includeType("f");
       "FilterIterator type f".print();
       names = Mapper.mapIterator(fiter, mapr, Set.new());
-      assertTrue(names.has("a.xml"));
-      assertTrue(names.has("b.txt"));
-      assertFalse(names.has("c"));
+      assertTrue(names.contains("a.xml"));
+      assertTrue(names.contains("b.txt"));
+      assertFalse(names.contains("c"));
       
       fdir = File:Path.apNew("test/inputs/fiter").file;
       fiter = File:FilterIterator.rNew(fdir);
       fiter.includeType("d");
       "FilterIterator type d".print();
       names = Mapper.mapIterator(fiter, mapr, Set.new());
-      assertFalse(names.has("a.xml"));
-      assertFalse(names.has("b.txt"));
-      assertTrue(names.has("c"));
+      assertFalse(names.contains("a.xml"));
+      assertFalse(names.contains("b.txt"));
+      assertTrue(names.contains("c"));
       
       fdir = File:Path.apNew("test/inputs/fiter").file;
       fiter = File:FilterIterator.rNew(fdir);
       fiter.includeGlob("*.xml");
       "FilterIterator xml glob".print();
       names = Mapper.mapIterator(fiter, mapr, Set.new());
-      assertTrue(names.has("a.xml"));
-      assertFalse(names.has("b.txt"));
-      assertFalse(names.has("c"));
+      assertTrue(names.contains("a.xml"));
+      assertFalse(names.contains("b.txt"));
+      assertFalse(names.contains("c"));
       
       fdir = File:Path.apNew("test/inputs/fiter").file;
       fiter = File:FilterIterator.rNew(fdir);
@@ -87,9 +87,9 @@ class Test:BaseTest:IO(BaseTest) {
       fiter.includeType("d");
       "FilterIterator xml glob d type".print();
       names = Mapper.mapIterator(fiter, mapr, Set.new());
-      assertFalse(names.has("a.xml"));
-      assertFalse(names.has("b.txt"));
-      assertFalse(names.has("c"));
+      assertFalse(names.contains("a.xml"));
+      assertFalse(names.contains("b.txt"));
+      assertFalse(names.contains("c"));
       
       fdir = File:Path.apNew("test/inputs/fiter").file;
       fiter = File:FilterIterator.rNew(fdir);
@@ -99,10 +99,10 @@ class Test:BaseTest:IO(BaseTest) {
       fiter.includeType("d");
       "FilterIterator xml *c glob d type".print();
       names = Mapper.mapIterator(fiter, mapr, Set.new());
-      assertFalse(names.has("a.xml"));
-      assertFalse(names.has("b.txt"));
-      assertFalse(names.has("b"));
-      assertTrue(names.has("c"));
+      assertFalse(names.contains("a.xml"));
+      assertFalse(names.contains("b.txt"));
+      assertFalse(names.contains("b"));
+      assertTrue(names.contains("c"));
       
    }
    

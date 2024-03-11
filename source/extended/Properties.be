@@ -100,7 +100,7 @@ char* bevl_rc;
    }
    
    getCached(String key) String {
-      if (map.has(key)) { return(map.get(key)); }
+      if (map.contains(key)) { return(map.get(key)); }
       return(get(key));
    }
    

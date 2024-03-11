@@ -292,7 +292,7 @@ final class Node {
             }
          }
          dyn sc = sco.held;
-         if (sc.anyMap.has(v.name)) {
+         if (sc.anyMap.contains(v.name)) {
             throw(Build:VisitError.new("Duplicate variable declaration", self));
          }
          sc.anyMap.put(v.name, self);
@@ -306,11 +306,11 @@ final class Node {
          v.isAdded = true;
          dyn sco = self.scope;
          dyn sc = sco.held;
-         if (sc.anyMap.has(v.name)) {
+         if (sc.anyMap.contains(v.name)) {
             held = sc.anyMap.get(v.name);
          } else {
             dyn cl = classGet().held;
-            if (cl.anyMap.has(v.name)) {
+            if (cl.anyMap.contains(v.name)) {
                held = cl.anyMap.get(v.name);
             } else {
                sc.anyMap.put(v.name, self);
@@ -327,11 +327,11 @@ final class Node {
    syncVariable(Build:Visit:Visitor visit) {
       dyn vname = held;
       dyn sc = self.scope.held;
-      if (sc.anyMap.has(vname)) {
+      if (sc.anyMap.contains(vname)) {
          held = sc.anyMap.get(vname).held;
       } else {
          dyn cl = classGet().held;
-         if (cl.anyMap.has(vname)) {
+         if (cl.anyMap.contains(vname)) {
             held = cl.anyMap.get(vname).held;
          } else {
             dyn tunode = self.transUnit;
@@ -367,7 +367,7 @@ final class Node {
        dyn node = self;
        if (true) {
        loop {
-          if (constants.anchorTypes.has(node.typename)) {
+          if (constants.anchorTypes.contains(node.typename)) {
              return(node);
           } else {
              node = node.container;

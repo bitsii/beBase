@@ -131,7 +131,7 @@ final class Build:Transport {
             } else {
                curr.addValue(node);
             }
-            if (conTypes.has(node.typename)) {
+            if (conTypes.contains(node.typename)) {
                curr = node;
             }
          }

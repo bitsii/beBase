@@ -60,7 +60,7 @@ final class Build:Visit:Pass1(Build:Visit:Visitor) {
       if (def(inClassMethod) && def(node.nlc)) {
         String inLine = inClassMethod + "." + node.nlc;
       }
-      if (allAstElements || (def(inClassMethod) && printAstElements.has(inClassMethod)) || (def(inLine) && printAstElements.has(inLine))) {
+      if (allAstElements || (def(inClassMethod) && printAstElements.contains(inClassMethod)) || (def(inLine) && printAstElements.contains(inLine))) {
          if (def(f)) {
             f.write(node.toString());
             f.write(Text:Strings.new().newline);

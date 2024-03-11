@@ -25,12 +25,12 @@ local class Build:Visit:ChkIfEmit(Build:Visit:Visitor) {
         negate = false;
       }
       if (negate) {
-        if (node.held.langs.has(emitLang)) {
+        if (node.held.langs.contains(emitLang)) {
           include = false;
         }
         if (def(build.emitFlags)) {
           for (String flag in build.emitFlags) {
-            if (node.held.langs.has(flag)) {
+            if (node.held.langs.contains(flag)) {
               include = false;
             }
           }
@@ -39,12 +39,12 @@ local class Build:Visit:ChkIfEmit(Build:Visit:Visitor) {
         Bool foundFlag = false;
         if (def(build.emitFlags)) {
           for (flag in build.emitFlags) {
-            if (node.held.langs.has(flag)) {
+            if (node.held.langs.contains(flag)) {
               foundFlag = true;
             }
           }
         }
-        if (foundFlag! && node.held.langs.has(emitLang)!) {
+        if (foundFlag! && node.held.langs.contains(emitLang)!) {
           include = false;
         }
       }
@@ -152,7 +152,7 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
             tst.toAccessorName();
             ename = tst.name;
             tst.name = tst.name + "_0";
-            if (i.isDeclared && i.isSlot! && (node.held.methods.has(tst.name)!)) {
+            if (i.isDeclared && i.isSlot! && (node.held.methods.contains(tst.name)!)) {
             
                anode = getAccessor(node);
                anode.held.property = i;
@@ -186,7 +186,7 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
             tst.toAccessorName();
             ename = tst.name;
             tst.name = tst.name + "_1";
-            if (i.isDeclared && i.isSlot! && (node.held.methods.has(tst.name)!)) {
+            if (i.isDeclared && i.isSlot! && (node.held.methods.contains(tst.name)!)) {
             
                anode = getAccessor(node);
                anode.held.property = i;

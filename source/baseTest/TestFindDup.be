@@ -49,7 +49,7 @@ class Test:TestFindDup {
       Map bunch = Map.new();
       for (String soFar in seeds) {
          Int sh = soFar.hash;
-         if (bunch.has(sh) && soFar != bunch.get(sh)) {
+         if (bunch.contains(sh) && soFar != bunch.get(sh)) {
             (soFar + " matches " + bunch.get(sh)).print();
             return(true);
          }
@@ -65,7 +65,7 @@ class Test:TestFindDup {
                soFar = x + toAdd;
                sh = soFar.hash;
                //soFar.print();
-               if (bunch.has(sh) && soFar != bunch.get(sh)) {
+               if (bunch.contains(sh) && soFar != bunch.get(sh)) {
                   (soFar + " matches " + bunch.get(sh)).print();
                   return(true);
                }

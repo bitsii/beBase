@@ -191,13 +191,13 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       Set sa = Sets.from(5, 6, 7, 8);
       assertEquals(sa.size, 4);
-      assertTrue(sa.has(5));
-      assertTrue(sa.has(8));
+      assertTrue(sa.contains(5));
+      assertTrue(sa.contains(8));
       
       Map ma = Maps.from(5, 6, 7, 8);
       assertEquals(ma[5], 6);
       assertEquals(ma[7], 8);
-      assertFalse(ma.has(8));
+      assertFalse(ma.contains(8));
       
       //throw(Exception.new("fail"));
    

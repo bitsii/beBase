@@ -65,7 +65,7 @@ import final class Build:JSEmitter(Build:EmitCommon) {
    buildClassInfoMethod(String bemBase, String belsBase, Int len) { }
 
    lstringStart(String sdec, String belsName) {
-      unless (build.emitChecks.has("jsStrInline")) {
+      unless (build.emitChecks.contains("jsStrInline")) {
         sdec += classConf.emitName += ".prototype.becs_insts." += belsName += " = ["; //}
       } else {
         sdec += "["; //}
@@ -91,7 +91,7 @@ import final class Build:JSEmitter(Build:EmitCommon) {
 
         ccMethods += classConf.emitName += ".prototype.bepn_pnames = ["; //]
 
-        unless (build.emitChecks.has("noRfl")) {
+        unless (build.emitChecks.contains("noRfl")) {
           Bool first = true;
           for (Build:PtySyn ptySyn in ptyList) {
             unless (ptySyn.isSlot) {
@@ -139,7 +139,7 @@ import final class Build:JSEmitter(Build:EmitCommon) {
     }
 
     lstringEnd(String sdec) {
-      unless (build.emitChecks.has("jsStrInline")) {
+      unless (build.emitChecks.contains("jsStrInline")) {
         //{
         sdec += "];" += nl;
         onceDecs += sdec;
@@ -178,7 +178,7 @@ import final class Build:JSEmitter(Build:EmitCommon) {
 
             dyn clnode = ci.next;
 
-            unless (build.emitChecks.has("noRfl")) {
+            unless (build.emitChecks.contains("noRfl")) {
               notNullInitConstruct += "be_BECS_Runtime.prototype.typeRefs[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;
             }
             if (clnode.held.syn.hasDefault) {
@@ -206,7 +206,7 @@ import final class Build:JSEmitter(Build:EmitCommon) {
           //break;
         }
 
-        unless (build.emitChecks.has("noSmap")) {
+        unless (build.emitChecks.contains("noSmap")) {
         libe.write(smap);
         }
 
@@ -228,7 +228,7 @@ import final class Build:JSEmitter(Build:EmitCommon) {
         String main = "";
         main += "var mc = new " += maincc.fullEmitName += "();" += nl;
         if (build.ownProcess) {
-          unless (build.emitChecks.has("embPlat")) {
+          unless (build.emitChecks.contains("embPlat")) {
             main += "be_BECS_Runtime.prototype.args = process.argv;" += nl;
           }
         }
@@ -294,7 +294,7 @@ import final class Build:JSEmitter(Build:EmitCommon) {
    }
 
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
-     unless (build.emitChecks.has("jsStrInline")) {
+     unless (build.emitChecks.contains("jsStrInline")) {
        return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len_copy(" + classConf.emitName + ".prototype.becs_insts." + belsName + ", " + lisz + ")");
      } else {
       return("new " + newcc.relEmitName(build.libName) + "().beml_set_bevi_bytes_len_nocopy(" + sdec + ", " + lisz + ")");
@@ -365,7 +365,7 @@ import final class Build:JSEmitter(Build:EmitCommon) {
            }
             shlibe = libEmitPath.file.writer.open();
             //incorporate base file - ext lib
-            if (build.params.has("jsInclude")) {
+            if (build.params.contains("jsInclude")) {
                 for (String p in build.params["jsInclude"]) {
                     File jsi = IO:File:Path.apNew(p).file;
                     String inc = jsi.reader.open().readString();

@@ -544,8 +544,8 @@ if (def(length)) {
      }
      return(null);
    }
-   
-   has(value) Bool {
+
+   contains(value) Bool {
      if (def(find(value))) {
        return(true);
      }
