@@ -148,9 +148,9 @@ final class Build:Constants {
     prepare() {
    
       matchMap = Map.new();
-      any space = " ";
+      dyn space = " ";
       
-      any ntok = "/";
+      dyn ntok = "/";
       twtok = Text:Tokenizer.new(ntok, true);
       matchMap.put(ntok, ntypes.DIVIDE);
       
@@ -295,8 +295,10 @@ final class Build:Constants {
       rwords.put("final", ntypes.DEFMOD);
       rwords.put("local", ntypes.DEFMOD);
       rwords.put("notNull", ntypes.DEFMOD);
-      rwords.put("any", ntypes.VAR);
       rwords.put("auto", ntypes.VAR);
+      rwords.put("dyn", ntypes.VAR);
+      rwords.put("dynamic", ntypes.VAR);
+      rwords.put("var", ntypes.VAR);
       rwords.put("if", ntypes.IF);
       rwords.put("unless", ntypes.IF);
       rwords.put("elseIf", ntypes.ELIF);

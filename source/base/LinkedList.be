@@ -18,7 +18,7 @@ use Container:NodeList;
 Single {
    new() self {
       {
-         any first;
+         dyn first;
       }
    }
    new(_first) self {
@@ -29,8 +29,8 @@ Single {
 Pair {
    new() self {
       {
-         any first;
-         any second;
+         dyn first;
+         dyn second;
       }
    }
    new(_first, _second) self {
@@ -47,7 +47,7 @@ local Node {
       
             Node prior;
             Node next;
-            any held = _held;
+            dyn held = _held;
             LinkedList mylist = _mylist;
       
       }
@@ -269,7 +269,7 @@ local LinkedList {
    }
    
    addValueWhole(held) {
-     any nn = newNode(held);
+     dyn nn = newNode(held);
      appendNode(nn);
    }
    
@@ -296,7 +296,7 @@ local LinkedList {
    }
    
    prepend(held) {
-      any nn = newNode(held);
+      dyn nn = newNode(held);
       prependNode(nn);
    }
    
@@ -372,7 +372,7 @@ local LinkedList {
          if (iter.hasNext!) {
             return(res);
          }
-         any x = iter.next;
+         dyn x = iter.next;
          if (i >= start) {
             res += x;
          }

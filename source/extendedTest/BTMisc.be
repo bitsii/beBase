@@ -202,8 +202,8 @@ static const unsigned char s[] = {0x41,0x42,0x43, 0};
    
    testNotter() {
       
-      any t = true;
-      any f = false;
+      dyn t = true;
+      dyn f = false;
       assertFalse(t!);
       assertTrue(f!);
       
@@ -254,12 +254,12 @@ MMM'''; //needs to stay unindented
       assertEqual(8, m);
       assertEqual(l, 2);
       
-      any n = 1;
-      any o = n + 3;
+      dyn n = 1;
+      dyn o = n + 3;
       assertEqual(4, o);
       assertEqual(n, 1);
       
-      any p = 4;
+      dyn p = 4;
       Int q = p - 2;
       assertEqual(q, 2);
       assertEqual(4, p);
@@ -281,12 +281,12 @@ MMM'''; //needs to stay unindented
       assertEqual(8.0, m);
       assertEqual(l, 2.0);
       
-      any n = 1.0;
-      any o = n + 3.0;
+      dyn n = 1.0;
+      dyn o = n + 3.0;
       assertEqual(4.0, o);
       assertEqual(n, 1.0);
       
-      any p = 4.0;
+      dyn p = 4.0;
       Float q = p - 2.0;
       assertEqual(q, 2.0);
       assertEqual(4.0, p);
@@ -304,14 +304,14 @@ MMM'''; //needs to stay unindented
    
    testTypeChecks() {
       Misc m = Misc.new();
-      any x = m;
+      dyn x = m;
       Misc y = x;
       
       x = 10;
       Bool caught = false;
       try {
          y = x;
-      } catch (any e) {
+      } catch (dyn e) {
          caught = true;
       }
       assertTrue(caught);
@@ -335,20 +335,20 @@ MMM'''; //needs to stay unindented
    testNullLoop() {
       ("Start null loops").print();
       
-      any x = null;
+      dyn x = null;
       while (x) {
          if (true) {
          throw(System:Exception.new("Entered null while loop"));
          }
       }
       
-      for (any i = 0;x;i = i++) {
+      for (dyn i = 0;x;i = i++) {
          if (true) {
          throw(System:Exception.new("Entered null for loop"));
          }
       }
       
-      //for (any j in x) {
+      //for (dyn j in x) {
       //   throw(System:Exception.new("Entered null for loop"));
       //}
       
@@ -358,7 +358,7 @@ MMM'''; //needs to stay unindented
    
    testNullIf() {
    
-      any val = null;
+      dyn val = null;
       if (val) {
          throw(System:Exception.new("IF FOR NULL FAILED"));
       } else {
@@ -463,7 +463,7 @@ MMM'''; //needs to stay unindented
    }
    
    testNPE() {
-      any x = null;
+      dyn x = null;
       x.blowup();
    }
    
@@ -570,7 +570,7 @@ use class MyPackage:MyUsedClass5(MyUsedClass) {
 use class SelfReturn {
 
    myNew() self {
-      any x = Int.new();
+      dyn x = Int.new();
       //return(x);
       //return(Int.new());
    }
@@ -622,7 +622,7 @@ use class Test:RunTryThings {
 use class Test:TryThings {
 
    tryThings() self {
-      any x = 1;
+      dyn x = 1;
       x.print();
    }
 
@@ -631,7 +631,7 @@ use class Test:TryThings {
 use class Test:InheritFrom {
    
    new() self { fields {
-   any hi = "wheredef";
+   dyn hi = "wheredef";
    } }
    
 }

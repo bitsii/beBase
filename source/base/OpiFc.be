@@ -25,7 +25,7 @@ final class ObjectFieldIterator {
   new(_instance, Bool forceFirstSlot) ObjectFieldIterator {
     slots {
       Int pos = -1;
-      any instance = _instance;
+      dyn instance = _instance;
       List instFieldNames = System:Types.fieldNames(instance);
       Int lastidx = instFieldNames.size - 1;
     }
@@ -63,16 +63,16 @@ final class ObjectFieldIterator {
     return(null);
   }
 
-  nextGet() any {
+  nextGet() dyn {
     advance();
     return(self.current);
   }
   
-  currentGet() any {
+  currentGet() dyn {
     if (self.hasCurrent) {
       String currentName = self.currentName;
       String invokeName = currentName + "Get";
-      any res = instance.invoke(invokeName, List.new());
+      dyn res = instance.invoke(invokeName, List.new());
       return(res);
     }
     return(null);

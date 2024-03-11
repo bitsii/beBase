@@ -39,7 +39,7 @@ class Test:SecondTest {
 class Test:SecondTest:InheritTo(InheritFrom) {
 
    //new() self { fields {
-   //any hi;
+   //dyn hi;
    //} }
    
 }

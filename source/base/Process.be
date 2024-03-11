@@ -21,11 +21,11 @@ final class System:Process {
       fields {
          Container:List args;
          Math:Int numArgs;
-         any execName;
+         dyn execName;
    
-         any target;
-         any result;
-         any except;
+         dyn target;
+         dyn result;
+         dyn except;
          
          System:CurrentPlatform platform;
       }
@@ -43,17 +43,17 @@ void** bevl_av;
 void** bevl_ix;
       """
       }
-      any arg;
-      any int = Int.new();
+      dyn arg;
+      dyn int = Int.new();
       if (System:Classes.otherClass(ac, int)) {
          throw(System:IncorrectType.new(" Wanted type Math:Int not type " + System:Classes.className(ac));
       }
-      any thing = Thing.new();
+      dyn thing = Thing.new();
       if (System:Classes.otherClass(av, thing)) {
          throw(System:IncorrectType.new(" Wanted type System:Thing not type " + System:Classes.className(av));
       }
       args = Container:List.new(ac - 1);
-      any ix = 1;
+      dyn ix = 1;
       emit(c) {
       """
       bevl_av = $av&*;
@@ -82,7 +82,7 @@ void** bevl_ix;
       target = _target;
       try {
          result = target.main();
-      } catch (any e) {
+      } catch (dyn e) {
          except = e;
          e.print();
          return(1);//return non-0 for main usecases (process exit code)
@@ -91,7 +91,7 @@ void** bevl_ix;
    }
    
    startByName(_name) {
-      any t = System:Objects.createInstance(_name).new();
+      dyn t = System:Objects.createInstance(_name).new();
       return(start(t));
    }
 

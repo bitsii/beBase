@@ -43,7 +43,7 @@ class Test:BaseTest:Invoke(BaseTest) {
    }
    
    testDirectInvoke() {
-      any x = DirectInvoke.new();
+      dyn x = DirectInvoke.new();
       List diarg = List.new(2);
       diarg[0] = 3;
       diarg[1] = 2;

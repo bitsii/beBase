@@ -35,7 +35,7 @@ class Session {
          Int classTagCount = 1;
          Int serialCount = 1; // Zero reserved for special cases
          Container:IdentityMap unique = Container:IdentityMap.new();
-         any instWriter;
+         dyn instWriter;
       }
    }
    
@@ -112,17 +112,17 @@ final class Serializer {
    }
    
    serializeC(instance, session) {
-      any instWriter = session.instWriter;
+      dyn instWriter = session.instWriter;
       Int multiNull = 0;
       if (instance.can("serializationIteratorGet", 0)) {
-        any iter = instance.serializationIterator;
+        dyn iter = instance.serializationIterator;
       } else {
         iter = instance.iterator;
       }
       if (iter.hasNext) {
          instWriter.write(group);
          while (iter.hasNext) {
-            any i = iter.next;
+            dyn i = iter.next;
             if (undef(i)) {
                //instWriter.write(nullMark);
                multiNull = multiNull++;
@@ -179,7 +179,7 @@ final class Serializer {
       Int scount = session.serialCount;
       session.serialCount = scount + 1;
       
-      any instWriter = session.instWriter;
+      dyn instWriter = session.instWriter;
       if (instance.can("deserializeClassNameGet", 0)) {
         String instClass = instance.deserializeClassName;
       } else {
@@ -232,10 +232,10 @@ final class Serializer {
          LinkedList toks = toker.tokenize(instReader.readString());
       }
       Map instances = Map.new();
-      any rootInst;
-      any groupInstIter;
+      dyn rootInst;
+      dyn groupInstIter;
       String defineClassTagName;
-      for (any i = toks.linkedListIterator;i.hasNext;) {
+      for (dyn i = toks.linkedListIterator;i.hasNext;) {
          String token = i.next;
          if (state == 0) {
             if (token == defineReference) {
@@ -297,7 +297,7 @@ final class Serializer {
             } elseIf (state == 8) {
                Int glassTagVal = Int.new(token);
                String klass = session.classTagMap.get(glassTagVal);
-               any inst = System:Objects.createInstance(klass);
+               dyn inst = System:Objects.createInstance(klass);
                if (inst.can("deserializeFromStringNew", 1)) {
                   inst = inst.deserializeFromStringNew(instString);
                }
@@ -396,7 +396,7 @@ class DirStore {
       fields {
          Serializer ser = Serializer.new();
          IO:File:Path storageDir = _storageDir;
-         any keyEncoder = null;
+         dyn keyEncoder = null;
       }
    }
    
@@ -436,7 +436,7 @@ class DirStore {
       if (def(id) && id != "") {
          IO:File:Path p = getPath(id);
          if (def(p) && p.file.exists) {
-            any object = ser.deserialize(p.file.reader.open());
+            dyn object = ser.deserialize(p.file.reader.open());
             p.file.reader.close();
             return(object);
          }
@@ -464,11 +464,11 @@ use System:NamedPropertiesIterator;
 
 final class NamedPropertiesIterator {
    
-   new(any _inst, List _propNames) {
+   new(dyn _inst, List _propNames) {
       fields {
          List propNames = _propNames;
          Container:List:Iterator subIter;
-         any inst = _inst;
+         dyn inst = _inst;
          List setArgs = List.new(1);
          List getArgs = List.new(0);
       }

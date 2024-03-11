@@ -159,7 +159,7 @@ final class Command {
          outputReader.close();
          outputReader = null;
        }
-      } catch (any e) { }
+      } catch (dyn e) { }
    }
    
    close() {
@@ -181,10 +181,10 @@ final class Command {
      try {
        res = self.open().output.readString();
        self.close();
-     } catch (any e) {
+     } catch (dyn e) {
        try {
          self.close();
-       } catch (any ee) { }
+       } catch (dyn ee) { }
      }
      return(res);
    }
@@ -203,10 +203,10 @@ local class Host {
    hostnameGet() String {
       //Not cached, could change
       String name;
-      any r = IO:File:Reader:Command.new("hostname -s").open();
+      dyn r = IO:File:Reader:Command.new("hostname -s").open();
       String o = r.readString();
       r.close();
-      any l = Text:Tokenizer.new(TS.dosNewline).tokenize(o);
+      dyn l = Text:Tokenizer.new(TS.dosNewline).tokenize(o);
       name = l.first;
       //("Got name " + name).print();
       return(name);

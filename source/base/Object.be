@@ -32,13 +32,13 @@ class System:Object {
       return(true);
    }
    
-   methodNotDefined(String name, List args) any {
+   methodNotDefined(String name, List args) dyn {
      if(true) {
        throw(System:MethodNotDefined.new("Method: " + name + " not defined"));
      }
    }
    
-   forwardCall(String name, List args) any {
+   forwardCall(String name, List args) dyn {
      if(true) {
        throw(System:MethodNotDefined.new("Method: " + name + " not defined"));
      }
@@ -46,7 +46,7 @@ class System:Object {
    
    final invoke(String name, List args) {
       String cname;
-      any rval;
+      dyn rval;
       Int numargs;
       
       if (undef(name)) {
@@ -155,7 +155,7 @@ class System:Object {
    final can(String name, Int numargs) Bool {
       String cname;
       Int chash;
-      any rval;
+      dyn rval;
       
       if (undef(name)) {
          throw(System:InvocationException.new("can() name is null"));
@@ -305,12 +305,12 @@ class System:Object {
         }
     }
 
-   iteratorGet() any {
+   iteratorGet() dyn {
       return(System:ObjectFieldIterator.new(self));
    }
    
    create() self {
-   any copy;
+   dyn copy;
       emit(jv,cs,js) {
       """
       bevl_copy = this.bemc_create();

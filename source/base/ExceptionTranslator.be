@@ -17,11 +17,11 @@ use class System:ExceptionTranslator {
   translateEmittedException(Exception tt) {
     try {
       translateEmittedExceptionInner(tt);
-    } catch(any e) {
+    } catch(dyn e) {
       ("Exception translation failed").print();
       if (def(e) && e.can("getDescription", 0)) {
         e.description.print();
-        //try { e.print(); } catch (any ee) { }
+        //try { e.print(); } catch (dyn ee) { }
       }
     }
   }
@@ -211,7 +211,7 @@ use class System:ExceptionTranslator {
   
    getSourceFileName(String klassName) String {
      //("getting source file name for " + klassName).print();
-     any i = System:Objects.createInstance(klassName, false);
+     dyn i = System:Objects.createInstance(klassName, false);
      if (def(i)) {
        //("is def").print();
        return(System:Objects.sourceFileName(i));
@@ -230,7 +230,7 @@ use class System:ExceptionTranslator {
   extractKlass(String klass) String {
     try {
       return(extractKlassInner(klass));
-    } catch (any e) {
+    } catch (dyn e) {
       
     }
     return(klass);

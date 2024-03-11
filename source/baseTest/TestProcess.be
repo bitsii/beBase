@@ -18,11 +18,11 @@ class Test:TestProcess{
    }
    
    TestProcess() {
-      any cnt = 0;
-      any ei = System:Process.new();
+      dyn cnt = 0;
+      dyn ei = System:Process.new();
       ei.numArgs.print();
       ei.execName.print();
-      for (any i = ei.args.iterator;i.hasNext;;) {
+      for (dyn i = ei.args.iterator;i.hasNext;;) {
          cnt = cnt++;
          i.next.print();
          //i.next;

@@ -23,7 +23,7 @@ final class System:Thing {
    new() self {
       
       fields {
-         //any vthing;
+         //dyn vthing;
       }
       
    }

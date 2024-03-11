@@ -10,15 +10,15 @@
 
 class Test:TAa {
    new() self { fields {
-      any boo;
-      any aac;
+      dyn boo;
+      dyn aac;
    } }
 }
 
 class Test:TAb (Test:TAa) {
    new() self { fields {
-      any bat;
-      any bac;
+      dyn bat;
+      dyn bac;
    } }
    bacSet(_bac) {
       "bacset".print();
@@ -37,13 +37,13 @@ class Test:TestAccessor {
    }
    
    testAccessor() {
-      any a = Test:TAa.new();
+      dyn a = Test:TAa.new();
       a.booSet("Hi");
-      any x = a.boo;
+      dyn x = a.boo;
       x.print();
       a.boo = "Goo";
       a.boo.print();
-      any b = Test:TAb.new();
+      dyn b = Test:TAb.new();
       b.bac = "Hi";
       b.bac.print();
       //b.bacSet("HiAcc");

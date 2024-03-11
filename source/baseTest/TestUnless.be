@@ -22,7 +22,7 @@ class Test:TestUnless {
       } else {
          "Second".print();
       }
-      any x = 0;
+      dyn x = 0;
       until(x == 1) {
          "Iter".print();
          x = x++;

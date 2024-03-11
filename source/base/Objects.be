@@ -104,7 +104,7 @@ class System:Objects {
       if (undef(cname)) {
          throw(System:InvocationException.new("class name is null"));
       }
-      any result = null;
+      dyn result = null;
 
       emit(jv) {
         """

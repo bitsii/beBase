@@ -18,17 +18,17 @@ use Build:Node;
 final class Build:Visit:Pass5(Build:Visit:Visitor) {
 
    accept(Build:Node node) Build:Node {
-         any err;
-         any v;
-         any ix;
-         any vinp;
+         dyn err;
+         dyn v;
+         dyn ix;
+         dyn vinp;
          if (node.typename == ntypes.TRANSUNIT) {
             node.held = Build:TransUnit.new();
          }
          if (node.typename == ntypes.VAR) {
             if (undef(node.held) || System:Types.sameType(node.held, Text:Strings.new().empty)) {
                v = Build:Var.new();
-               if (def(node.held) && System:Types.sameType(node.held, Text:Strings.new().empty) && node.held == "auto") {
+               if (def(node.held) && System:Types.sameType(node.held, Text:Strings.new().empty) && (node.held == "auto" || node.held == "var")) {
                 //"FOUND A AUTOTYPE VAR".print();
                 v.autoType = true;
                }
@@ -62,12 +62,12 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
          
             //get my name
-            any nnode = node.nextPeer;
+            dyn nnode = node.nextPeer;
             while (def(nnode) && (nnode.typename == ntypes.DEFMOD)) {
                nnode = nnode.nextPeer;
             }
             if (def(nnode) && nnode.typename == ntypes.CLASS) {
-               any clnode = nnode;
+               dyn clnode = nnode;
                nnode = clnode.contained.first;
             } else {
                clnode = null;
@@ -78,7 +78,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
             
             if (nnode.typename == ntypes.ID) {
-               any namepath = NamePath.new();
+               dyn namepath = NamePath.new();
                namepath.addStep(nnode.held);
             } elseIf (nnode.typename == ntypes.NAMEPATH) {
                namepath = nnode.held;
@@ -87,7 +87,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
             
             String alias = null;
-            any mas = nnode.nextPeer;
+            dyn mas = nnode.nextPeer;
             if (mas.typename == ntypes.AS) {
               nnode = mas.nextPeer;
               if (nnode.typename != ntypes.ID) {
@@ -97,7 +97,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
             
             if (undef(clnode)) {
-               any gnext = nnode.nextPeer;
+               dyn gnext = nnode.nextPeer;
                nnode.delete();
                
                if (gnext.typename == ntypes.SEMI) {
@@ -110,7 +110,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
             node.held = namepath;
             
-            any tnode = node.transUnit;
+            dyn tnode = node.transUnit;
             
             if (undef(tnode)) {
                throw(VisitError.new("Error improper statement, not within translation unit", node));
@@ -152,7 +152,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             node.held = Build:Class.new();
             node.held.fromFile = build.fromFile;
             try {
-               any m = node.contained.first;
+               dyn m = node.contained.first;
                if (m.typename == ntypes.ID) {
                   namepath = NamePath.new();
                   namepath.addStep(m.held);
@@ -227,7 +227,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             try {
                m = node.contained.first; //name
                if (def(m)) {
-                  any mx = m.nextPeer; //parens
+                  dyn mx = m.nextPeer; //parens
                   if (def(mx)) {
                      mx = mx.nextPeer; //return type if any
                      if (mx.typename == ntypes.ID || mx.typename == ntypes.NAMEPATH) {
@@ -248,7 +248,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                   if (m.typename == ntypes.ID) {
                      node.held.name = m.held;
                      if (node.held.name.getPoint(0).isInteger) {
-                        throw(VisitError.new("First character of anyiables and subroutine names cannot be a numeric digit", node));
+                        throw(VisitError.new("First character of variables and subroutine names cannot be a numeric digit", node));
                      }
                      m.delete();
                   } else {
@@ -278,11 +278,11 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
          }
          if (node.typename == ntypes.SEMI) {
-            any nx = node.priorPeer;
+            dyn nx = node.priorPeer;
             gnext = node.nextAscend;
             //"semi prior is ".print();
             //nx.print();
-            any con;
+            dyn con;
             while (def(nx) && (nx.typename != ntypes.SEMI) && (nx.typename != ntypes.BRACES) && (nx.typename != ntypes.EXPR)) {
                if (undef(con)) {
                   con = Container:LinkedList.new();
@@ -293,12 +293,12 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             if (def(con)) {
                node.typename = ntypes.EXPR;
                node.held = null;
-               any lpnode = Node.new(build);
+               dyn lpnode = Node.new(build);
                lpnode.typename = ntypes.PARENS;
                node.addValue(lpnode);
                lpnode.copyLoc(node);
-               for (any ii = con.iterator;ii.hasNext;;) {
-                  any i = ii.next;
+               for (dyn ii = con.iterator;ii.hasNext;;) {
+                  dyn i = ii.next;
                   i.delete();
                   lpnode.addValue(i);
                }

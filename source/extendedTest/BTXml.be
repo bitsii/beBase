@@ -26,7 +26,7 @@ class Test:BaseTest:Xml(BaseTest) {
       String q = Text:Strings.new().quote;
       
       TagIterator tp = TagIterator.new();
-      any e;
+      dyn e;
       
       tp.xmlString = "<xml></xml>";
       for (e in tp) {

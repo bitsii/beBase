@@ -73,7 +73,7 @@ final class Float {
    new() self { 
    
       fields {
-         //any vfloat;
+         //dyn vfloat;
       }
       
       emit(js) {

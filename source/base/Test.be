@@ -107,11 +107,11 @@ RunMethods {
    
    main(List _args, Parameters _params) {
       if (can("argsSet", 1)) {
-         any aset = self;
+         dyn aset = self;
          aset.args = _args;
       }
       if (can("paramsSet", 1)) {
-         any pset = self;
+         dyn pset = self;
          pset.params = _params;
       }
    }

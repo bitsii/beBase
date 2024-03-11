@@ -20,7 +20,7 @@ class Test:TestStack {
    }
    
    testStack() {
-      any uux = Stack.new();
+      dyn uux = Stack.new();
       uux.push(1);
       uux.push(2);
       uux.pop().print();
@@ -39,8 +39,8 @@ class Test:TestStack {
    testQueue() {
       Queue q = Queue.new();
       //try en/de 1
-      any a;
-      any b;
+      dyn a;
+      dyn b;
       Int i;
       
       q.enqueue("One");

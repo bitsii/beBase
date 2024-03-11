@@ -21,8 +21,8 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
    }
    
    prepOps() {
-      any ops = Container:List.new(10);
-      for (any i = 0;i < 10;i = i++) {
+      dyn ops = Container:List.new(10);
+      for (dyn i = 0;i < 10;i = i++) {
          ops.put(i,Container:LinkedList.new());
       }
       return(ops);
@@ -30,26 +30,26 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
 
    accept(Build:Node node) Build:Node {
       //("Visiting " + node.toString() ).print();
-      any i;
-      any it;
+      dyn i;
+      dyn it;
       if (node.typename == ntypes.CLASS) {
          acceptClass(node);
          return(node.nextDescend);
       }
-      any prec = const.oper.get(node.typename);
+      dyn prec = const.oper.get(node.typename);
       if (def(prec)) {
          //find range
          //det parens depth
          //bin impl parens
          //"Found prec".print();
-         any cont = node.container;
-         any ops = prepOps();
-         any onode = node;
-         any mo;
+         dyn cont = node.container;
+         dyn ops = prepOps();
+         dyn onode = node;
+         dyn mo;
          node = null;
          while (def(onode) && (def(prec)) && (onode.container == cont)) {
             ops.get(prec).addValue(onode);
-            any inode = onode.nextPeer;
+            dyn inode = onode.nextPeer;
             if (def(inode)) {
                inode = inode.nextPeer;
                if (def(inode)) {
@@ -72,7 +72,7 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
          for (it = ops.iterator;it.hasNext;;) {
             i = it.next;
             if (i.length > 0) {
-               for (any mt = i.iterator;mt.hasNext;;) {
+               for (dyn mt = i.iterator;mt.hasNext;;) {
                   mo = mt.next;
                   mo = callFromOper(mo, prec, mo.priorPeer, mo.nextPeer);
                   node = mo;
@@ -87,7 +87,7 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
    }
    
    callFromOper(op, prec, pr, nx) {
-      any gc = Build:Call.new();
+      dyn gc = Build:Call.new();
       gc.wasOper = true;
       gc.name = const.operNames.get(op.typename).lower();
       if (gc.name == "not_equals") {

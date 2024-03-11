@@ -124,7 +124,7 @@ final class Logic:Bools {
       return(false);
    }
    
-   deserializeFromString(String str) any {
+   deserializeFromString(String str) dyn {
       if (str == "1") {
          return(true);
       }

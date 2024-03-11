@@ -27,11 +27,11 @@ final class ObjectFieldIterator {
     return(false);
   }
 
-  nextGet() any {
+  nextGet() dyn {
     return(null);
   }
 
-  nextSet(any it) { 
+  nextSet(dyn it) {
   }
 }
 
@@ -104,7 +104,7 @@ class System:Exception {
    new(descr) self {
       
       fields {
-         any description;
+         dyn description;
       }
       
       description = descr;

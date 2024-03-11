@@ -37,7 +37,7 @@ class Startup {
       if (args.size < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main() method should be called"));
       }
-      any x = System:Objects.createInstance(args[0]).new();
+      dyn x = System:Objects.createInstance(args[0]).new();
       return(x.main());
    }
 }
@@ -55,7 +55,7 @@ class StartupIfArguments {
    main() {
       args = System:Process.new().args;
       if (args.size > 0) {
-         any x = System:Objects.createInstance(args[0]).new();
+         dyn x = System:Objects.createInstance(args[0]).new();
          return(x.main());
       }
       return(self);
@@ -77,7 +77,7 @@ class StartupWithArguments {
       if (args.size < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args) method should be called"));
       }
-      any x = System:Objects.createInstance(args[0]).new();
+      dyn x = System:Objects.createInstance(args[0]).new();
       return(x.main(args));
    }
 }
@@ -99,7 +99,7 @@ class StartupWithParameters {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args, Parameters params) method should be called"));
       }
       params = Parameters.new(args);
-      any x = System:Objects.createInstance(args[0]).new();
+      dyn x = System:Objects.createInstance(args[0]).new();
       return(x.main(args, params));
    }
 }
@@ -115,7 +115,7 @@ local class Parameters {
          Map params = Map.new();
          List ordered = List.new();
          Text:Tokenizer fileTok = Text:Tokenizer.new("\r\n");
-         any preProcessor;
+         dyn preProcessor;
       }
       
    }
@@ -206,7 +206,7 @@ local class Parameters {
       }
    }
    
-   preProcessorSet(any _preProcessor) {
+   preProcessorSet(dyn _preProcessor) {
       preProcessor = _preProcessor;
       if (def(args)) {
          for (Int i = 0;i < args.length;i = i++) {
@@ -220,7 +220,7 @@ local class Parameters {
       }
       if (def(params)) {
          Map _params = Map.new();
-         for (any it = params.keyIterator;it.hasNext;) {
+         for (dyn it = params.keyIterator;it.hasNext;) {
             String key = it.next;
             LinkedList vals = params[key];
             LinkedList _vals = LinkedList.new();
@@ -293,7 +293,7 @@ local class Parameters {
    }
    
    addFile(File file) {
-      any fcontents = file.reader.open().readString();
+      dyn fcontents = file.reader.open().readString();
       file.reader.close();
       List fargs = fileTok.tokenize(fcontents).toList();
       addArgs(fargs);
@@ -319,7 +319,7 @@ use class System:Startup:MainWithParameters {
       //Inherit from this class and override this method to have a main which starts off with params and
       //set that to be main class for the build, or use without override and
       //pass a class name as the first ordered argument on the command line to invoke it with the params
-      any x = System:Objects.createInstance(params.ordered[0]).new();
+      dyn x = System:Objects.createInstance(params.ordered[0]).new();
       return(x.main(params));
    }
    

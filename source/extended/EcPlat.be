@@ -42,8 +42,8 @@ local class File {
       
       fields {
          IO:File:Path path;
-         any reader;
-         any writer;
+         dyn reader;
+         dyn writer;
       }
       
    }
@@ -83,7 +83,7 @@ void** bevl_llpath;
       }
       ifEmit(c) {
         llpath = String.new(); //to prime String
-        any llpath = path.toString();
+        dyn llpath = path.toString();
       }
       if (self.exists) {
          emit(c) {
@@ -152,9 +152,9 @@ void** bevl_frv;
       String frs = path.toString();
       Bool r = false;
       Bool t = true;
-      any strn = Text:Strings.new();
+      dyn strn = Text:Strings.new();
       if ((path.toString() != strn.empty) && (self.exists!)) {
-         any parentpath = path.parent;
+         dyn parentpath = path.parent;
          if (path == parentpath) {
             //We're at the top and it doesn't exist
             return(self);
@@ -274,7 +274,7 @@ struct stat sa;
 void** bevl_spa;
       """
       }
-      any spa;
+      dyn spa;
       Bool result = false;
       spa = path.toString();
       if (self.exists) {
@@ -331,7 +331,7 @@ struct stat sa;
 void** bevl_spa;
       """
       }
-      any spa;
+      dyn spa;
       Bool result = false;
       spa = path.toString();
       if (self.exists) {
@@ -405,7 +405,7 @@ void** bevl_spa;
         }
       }
       ifNotEmit(apwk) {
-        any r = self.reader;
+        dyn r = self.reader;
         r.open();
         res = r.readString();
         r.close();
@@ -431,7 +431,7 @@ void** bevl_spa;
         }
       }
       ifNotEmit(apwk) {
-        any w = self.writer;
+        dyn w = self.writer;
         w.open();
         w.write(contents);
         w.close();
@@ -460,7 +460,7 @@ void** bevl_mpath;
       """
       }
       Bool tvala = false;
-      any mpath = path.toString();
+      dyn mpath = path.toString();
       emit(c) {
       """
       bevl_mpath = $mpath&*;
@@ -628,7 +628,7 @@ final class DirectoryIterator {
          Bool opened = false;
          Bool closed = false;
          File current = null;
-         any jsiter = null;
+         dyn jsiter = null;
       }
    }
    

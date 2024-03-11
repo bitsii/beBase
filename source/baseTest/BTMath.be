@@ -99,8 +99,8 @@ class Test:BaseTest:Int(BaseTest) {
       
       
    testMost() {
-      any uux = 1;
-      any uuy = 2;
+      dyn uux = 1;
+      dyn uuy = 2;
       
       Int ttx = 1;
       Int tty = 2;
@@ -113,11 +113,11 @@ class Test:BaseTest:Int(BaseTest) {
       assertEquals(uuy - uux, 1);
       assertEquals(tty - ttx, 1);     
       
-      any uuz = Int.new("4");
+      dyn uuz = Int.new("4");
       
       assertEquals(uuz, 4);
       
-      any uuw = uuz.copy();
+      dyn uuw = uuz.copy();
       
       assertEquals(uuw, uuz);
       
@@ -141,8 +141,8 @@ class Test:BaseTest:Float(BaseTest) {
    
    main() {
       ("Test:BaseTest:Float:main").print();
-      any uux = 1.5;
-      any uuy = 2.5;
+      dyn uux = 1.5;
+      dyn uuy = 2.5;
       
       Float ttx = 1.5;
       Float tty = 2.5;
@@ -163,11 +163,11 @@ class Test:BaseTest:Float(BaseTest) {
       
       assertEquals(uuz, 0.0 - 2.4);   
       
-      any uuz = Float.new("4.5");
+      dyn uuz = Float.new("4.5");
       
       assertEquals(uuz, 4.5);
       
-      any uuw = uuz.copy();
+      dyn uuw = uuz.copy();
       
       assertEquals(uuw, uuz);
       

@@ -12,8 +12,8 @@ class Test:TestCopy:Vars {
    
    prepare() {
       fields {
-         any a = System:Object.new();
-         any b = System:Object.new();
+         dyn a = System:Object.new();
+         dyn b = System:Object.new();
       }
    }
    
@@ -33,9 +33,9 @@ class Test:TestCopy {
       return(false);
       }
       
-      any other = Test:TestCopy:Vars.new();
+      dyn other = Test:TestCopy:Vars.new();
       other.prepare();
-      any othercp = other.copy();
+      dyn othercp = other.copy();
       if ((other.a == othercp.a) && (other != othercp)) {
       " PASSED testCopy other any".print();
       } else {

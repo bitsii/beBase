@@ -17,7 +17,7 @@ use Container:LinkedList;
 class Test:TestFindDup {
    
    main() {
-      any x = self;
+      dyn x = self;
       aa("3");
       bB("4");
       x.aa("1");
@@ -57,7 +57,7 @@ class Test:TestFindDup {
       }
       for (Int j = 0;j < 3;j = j++) {
          LinkedList ll = LinkedList.new();
-         for (any x = bunch.valueIterator;x.hasNext;) {
+         for (dyn x = bunch.valueIterator;x.hasNext;) {
             ll += x.next;
          }
          for (String toAdd in seeds) {

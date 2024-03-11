@@ -54,7 +54,7 @@ use class IO:Log:Sink {
       if (def(output)) {
         output.close();
       }
-    } catch (any e) {
+    } catch (dyn e) {
     
     }
     output = null;
@@ -80,7 +80,7 @@ use class IO:Log:Sink {
         openLog();
       }
       wl.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       wl.unlock();
     }
   }

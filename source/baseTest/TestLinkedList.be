@@ -60,7 +60,7 @@ class Test:TestLinkedList {
    }
    
    testLinkedList() {
-      any uux = LinkedList.new();
+      dyn uux = LinkedList.new();
       //if (undef(uux.firstItem)) { "isnull first".print(); } else { "notnull first".print(); }
       //return(false);
       if (testIter(uux, 0)) {
@@ -74,9 +74,9 @@ class Test:TestLinkedList {
          return(false);
       }
       
-      any uuy = uux.copy();
-      any ix = uux.iterator;
-      any iy = uuy.iterator;
+      dyn uuy = uux.copy();
+      dyn ix = uux.iterator;
+      dyn iy = uuy.iterator;
       while (ix.hasNext) {
          if (ix.next != iy.next) {
             "!FAILED copy 1".print();
@@ -96,10 +96,10 @@ class Test:TestLinkedList {
    }
    
    testIter(uux, should) {
-      any x = 0;
-      any i = uux.iterator;
+      dyn x = 0;
+      dyn i = uux.iterator;
       //if (i.hasNext) { "ihasnext".print(); } else { "inothavenext".print(); }
-      for (any h;i.hasNext;;) {
+      for (dyn h;i.hasNext;;) {
          //("In loop " + x.toString()).print();
          //i.next.print();
          i.next;

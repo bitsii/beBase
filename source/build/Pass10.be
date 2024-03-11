@@ -19,15 +19,15 @@ use Build:Node;
 final class Build:Visit:Pass10(Build:Visit:Visitor) {
 
    condCall(condany, value) {
-      any cnode = Node.new(build);
+      dyn cnode = Node.new(build);
       cnode.held = Build:Call.new();
       cnode.typename = ntypes.CALL;
-      any acc = Node.new(build);
+      dyn acc = Node.new(build);
       acc.typename = ntypes.VAR;
       acc.held = condany;
       cnode.addValue(acc);
       cnode.held.name = "assign";
-      any nnode = Node.new(build);
+      dyn nnode = Node.new(build);
       nnode.typename = value;
       cnode.addValue(nnode);
       return(cnode);
@@ -46,32 +46,32 @@ final class Build:Visit:Pass10(Build:Visit:Visitor) {
       
       if ((node.typename == ntypes.CALL) && ((node.held.name == "logicalOr") || (node.held.name == "logicalAnd"))) {
          
-         any anchor = node.anchor;
-         any condany = anchor.condany;
+         dyn anchor = node.anchor;
+         dyn condany = anchor.condany;
          //("Anchor is " + anchor.toString()).print();
          if (undef(condany)) {
             condany = anchor.tmpVar("anchor", build);
             condany.isTyped = true;
-            any cvnp = Build:NamePath.new();
+            dyn cvnp = Build:NamePath.new();
             cvnp.fromString("Logic:Bool");
             condany.namepath = cvnp;
             anchor.condany = condany;
          }
          
-         any inode = Node.new(build);
+         dyn inode = Node.new(build);
          inode.typename = ntypes.IF;
          inode.copyLoc(node);
          
-         any rinode = inode;
+         dyn rinode = inode;
          
-         any pnode = Node.new(build);
+         dyn pnode = Node.new(build);
          pnode.copyLoc(node);
          pnode.typename = ntypes.PARENS;
          inode.addValue(pnode);
          
          pnode.addValue(node.contained.first);
          
-         any bnode = Node.new(build);
+         dyn bnode = Node.new(build);
          bnode.copyLoc(node);
          bnode.typename = ntypes.BRACES;
          inode.addValue(bnode);
@@ -98,7 +98,7 @@ final class Build:Visit:Pass10(Build:Visit:Visitor) {
             inode.addValue(bnode);
             bnode.addValue(condCall(condany, ntypes.TRUE));
          
-            any enode = Node.new(build);
+            dyn enode = Node.new(build);
             enode.copyLoc(node);
             enode.typename = ntypes.ELSE;
             bnode = Node.new(build);

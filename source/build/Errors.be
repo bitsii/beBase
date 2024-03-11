@@ -18,19 +18,19 @@ class Build:VisitError(System:Exception) {
    
    new(msgi, nodei) self {
       fields {
-         any msg = msgi;
-         any node = nodei;
+         dyn msg = msgi;
+         dyn node = nodei;
       }
    }
    
    toString() Text:String {
       
-      any toRet = "";
+      dyn toRet = "";
       if (def(msg)) {
          toRet = toRet + msg + Text:Strings.new().newline;
       }
       if (def(node)) {
-        any nc = node;
+        dyn nc = node;
         while (def(nc)) {
           toRet += nc;
           toRet += Text:Strings.new().newline;

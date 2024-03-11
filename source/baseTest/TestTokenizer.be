@@ -17,11 +17,11 @@ class Test:TestTokenizer{
    }
    
    testTokenizer() {
-      any delims = ",.;:";
-      any str = "Hi;There,George.TaDa";
-      any toker = Text:Tokenizer.new(delims, true);
-      any toks = toker.tokenize(str);
-      for (any i = toks.iterator;i.hasNext;;) {
+      dyn delims = ",.;:";
+      dyn str = "Hi;There,George.TaDa";
+      dyn toker = Text:Tokenizer.new(delims, true);
+      dyn toks = toker.tokenize(str);
+      for (dyn i = toks.iterator;i.hasNext;;) {
          i.next.print();
       }
       

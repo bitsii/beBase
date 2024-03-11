@@ -126,10 +126,10 @@ class Replace {
       steps = splits;
    }
    
-   accept(any inst, any out) {
-      any iter = steps.iterator;
+   accept(dyn inst, dyn out) {
+      dyn iter = steps.iterator;
       while (iter.hasNext) {
-         any s = iter.next;
+         dyn s = iter.next;
          if (append) {
             out.write(s.handle(inst));
          }
@@ -174,8 +174,8 @@ class Runner {
    new() self {
       fields {
          Replace replace;
-         any output;
-         any stepIter;
+         dyn output;
+         dyn stepIter;
          Map swap;
          Map handOff;
          Runner baton;
@@ -194,7 +194,7 @@ class Runner {
       return(handOff);
    }
    
-   new(String template, any _output) self {
+   new(String template, dyn _output) self {
       new(template);
       output = _output;
    }
@@ -237,7 +237,7 @@ class Runner {
    
    currentNodeSet(node) Runner {
       //check for is my list?
-      any iter = self.stepIter;
+      dyn iter = self.stepIter;
       iter.currentNode = node;
    }
    
@@ -251,9 +251,9 @@ class Runner {
             baton = null;
          }
       }
-      any iter = self.stepIter;
+      dyn iter = self.stepIter;
       while (iter.hasNext) {
-         any s = iter.next;
+         dyn s = iter.next;
          if (def(handOff) && stp.sameType(s, runStep) && handOff.has(s.str)) {
             baton = handOff.get(s.str);
             baton.output = output;
@@ -284,9 +284,9 @@ class Runner {
             baton = null;
          }
       }
-      any iter = self.stepIter;
+      dyn iter = self.stepIter;
       while (iter.hasNext) {
-         any s = iter.next;
+         dyn s = iter.next;
          if (def(handOff) && stp.sameType(s, runStep) && handOff.has(s.str)) {
             baton = handOff.get(s.str);
             baton.output = output;
@@ -311,9 +311,9 @@ class Runner {
          baton.restart();
          baton = null;
       }
-      any iter = self.stepIter;
+      dyn iter = self.stepIter;
       while (iter.hasNext) {
-         any s = iter.next;
+         dyn s = iter.next;
          if (def(handOff) && stp.sameType(s, runStep) && handOff.has(s.str)) {
             baton = handOff.get(s.str);
             baton.output = output;

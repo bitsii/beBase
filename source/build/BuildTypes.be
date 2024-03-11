@@ -104,8 +104,8 @@ final class Build:Class {
          String name;
          Build:NamePath namepath;
          Build:ClassSyn syn;
-         any fromFile;
-         any libName;
+         dyn fromFile;
+         dyn libName;
          Map methods = Map.new();
          LinkedList orderedMethods = LinkedList.new();
          LinkedList used = LinkedList.new();
@@ -166,9 +166,9 @@ final class Build:Method {
          String name;
          String orgName;
          Int numargs;
-         any property;
-         any rtype;
-         any tmpVars;
+         dyn property;
+         dyn rtype;
+         dyn tmpVars;
          Map anyMap = Map.new();
          LinkedList orderedVars = LinkedList.new();
          Int tmpCnt = 0;
@@ -201,7 +201,7 @@ final class Build:Var {
       fields {
          String name;
          Build:NamePath namepath;
-         any refs;
+         dyn refs;
          Set allCalls;
          String suffix;
          
@@ -250,7 +250,7 @@ final class Build:Var {
    
    maxCposGet() Int {
       if (maxCpos > -1) { return(maxCpos); }
-      for (any n in allCalls) {
+      for (dyn n in allCalls) {
          if (n.held.cpos > maxCpos) {
             maxCpos = n.held.cpos;
          }
@@ -262,7 +262,7 @@ final class Build:Var {
       Int bigun = Math:Ints.new().max;
       //("Bigun is " + bigun).print();
       if (minCpos < bigun) { return(minCpos); }
-      for (any n in allCalls) {
+      for (dyn n in allCalls) {
          if (n.held.cpos < minCpos) {
             minCpos = n.held.cpos;
          }

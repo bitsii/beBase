@@ -41,7 +41,7 @@ class Test:ExtendedTest:EC(BaseTest) {
        for (Int i = 0;i < howManyTimes;i++=) {
         innerMain();
       }
-     } catch (any e) {
+     } catch (dyn e) {
        if (def(e)) {
         e.print();
         throw(e);
@@ -71,8 +71,8 @@ class Test:ExtendedTest:EC(BaseTest) {
       
       //Text:String readBuffer = Text:String.new(4096);
       //Text:String readBuffer = Text:String.new(26000);
-      //any toParse = IO:File:Path.apNew("source/base/Object.be");
-      //any src = toParse.file.reader.open().readBuffer(readBuffer);
+      //dyn toParse = IO:File:Path.apNew("source/base/Object.be");
+      //dyn src = toParse.file.reader.open().readBuffer(readBuffer);
       //toParse.file.reader.close();
       //"got src".print();
       //src.print();
@@ -169,7 +169,7 @@ class Test:ExtendedTest:EC(BaseTest) {
         testSF();
       }
       
-      //} catch (any e) { 
+      //} catch (dyn e) {
         //e.print();
      //}
      
@@ -228,7 +228,7 @@ class Test:ExtendedTest:EC(BaseTest) {
      log.log("Don't see this");
      log.log(lev, "Do see this");
      
-     any ddl = Test:ExtendedTest:DefaultDoesLogs.new();
+     dyn ddl = Test:ExtendedTest:DefaultDoesLogs.new();
      ("ddl levels " + ddl.log.outputLevel + " " + ddl.log.level).print();
      assertNotEqual(ddl.log.outputLevel, ddl.log.level);
      ddl.doLogging();

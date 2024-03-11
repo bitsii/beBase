@@ -9,7 +9,7 @@
  */
 
 class System:Exceptions {
-  ts(any e) {
+  ts(dyn e) {
     String esm = "Failure occurred";
     if (def(e)) {
       String es = e.toString();
@@ -23,11 +23,11 @@ class System:Exceptions {
     return(esm);
   }
   
-  tS(any e) {
+  tS(dyn e) {
     return(ts(e));
   }
   
-  toString(any e) {
+  toString(dyn e) {
     return(ts(e));
   }
   
@@ -40,11 +40,11 @@ class System:Exception {
    new(descr) self {
       
       fields {
-         any methodName;
-         any klassName;
-         any description;
-         any fileName;
-         any lineNumber;
+         dyn methodName;
+         dyn klassName;
+         dyn description;
+         dyn fileName;
+         dyn lineNumber;
          String lang;
          String emitLang;
          List frames;
@@ -58,7 +58,7 @@ class System:Exception {
    
    toString() String {
       System:ExceptionTranslator.translateEmittedException(self);
-      any toRet = "Exception> ";
+      dyn toRet = "Exception> ";
       if (def(description)) {
          toRet = toRet + " Description: " + description;
       }
@@ -106,7 +106,7 @@ class System:Exception {
       List myFrames = self.frames;
       if (def(myFrames)) {
          toRet = toRet + "\n";
-         for (any ft in myFrames) {
+         for (dyn ft in myFrames) {
             toRet = toRet + ft;
          }
       }
@@ -155,9 +155,9 @@ final class System:ExceptionBuilder {
    default() self {
       
       fields {
-         any except = Exception.new();
-         any int = Math:Int.new();
-         any lastStr;
+         dyn except = Exception.new();
+         dyn int = Math:Int.new();
+         dyn lastStr;
       }
       
    }
@@ -205,7 +205,7 @@ final class System:ExceptionBuilder {
       } else {
          try {
             ex.print();
-         } catch (any e) {
+         } catch (dyn e) {
             "Unable to print exception".print();
          }
       }
@@ -218,7 +218,7 @@ final class System:ExceptionBuilder {
       } else {
          try {
             //IO:File:NamedWriters.new().exceptionConsole.write(ex.toString());
-         } catch (any e) {
+         } catch (dyn e) {
             "Unable to print exception".print();
          }
       }

@@ -29,7 +29,7 @@ final class Build:Library {
          emitPath = basePath.copy();
       }
       if (def(libName)) {
-         any libnameNp = Build:NamePath.new();
+         dyn libnameNp = Build:NamePath.new();
          libnameNp.fromString(libName);
          if (undef(exeName)) { exeName = libName; }
          libnameInfo = Build:ClassInfo.new(libnameNp, build.emitter, emitPath, libName, exeName);

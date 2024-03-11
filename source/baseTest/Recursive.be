@@ -22,7 +22,7 @@ final class Recursive {
 
    main() {
       
-      any args = System:Process.new().args;
+      dyn args = System:Process.new().args;
       Int n = Int.new(args[0]) - 1;
       
       ( "Ack(3," + (n + 1) + "): " + ack(3, n + 1) ).print();

@@ -21,7 +21,7 @@ final class Build:Visit:Pass1(Build:Visit:Visitor) {
       fields {
          Set printAstElements;
          Bool allAstElements;
-         any f;
+         dyn f;
       }
    }
    

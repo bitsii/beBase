@@ -174,9 +174,9 @@ use final class Build:JSEmitter(Build:EmitCommon) {
         String libInit = String.new();
         String notNullInitConstruct = String.new();
         String notNullInitDefault = String.new();
-        for (any ci = classesInDepthOrder.iterator;ci.hasNext;;) {
+        for (dyn ci = classesInDepthOrder.iterator;ci.hasNext;;) {
 
-            any clnode = ci.next;
+            dyn clnode = ci.next;
 
             unless (build.emitChecks.has("noRfl")) {
               notNullInitConstruct += "be_BECS_Runtime.prototype.typeRefs[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;

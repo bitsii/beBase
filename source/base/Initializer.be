@@ -21,7 +21,7 @@ use final class System:Initializer {
     //also, this is one of the "special" calls, it can't reference itself (in c it's called with a null self reference)
     //first pass, just construct and set the class inst
     notNullInitConstruct(inst) {
-      any init;
+      dyn init;
       emit(jv,cs,js) {
       """
       bevl_init = beva_inst.bemc_getInitial();
@@ -50,7 +50,7 @@ use final class System:Initializer {
     
     //second pass - calling default - can only be called on instances which have the method :-)
     notNullInitDefault(inst) {
-      any init;
+      dyn init;
       emit(jv,cs,js) {
       """
       bevl_init = beva_inst.bemc_getInitial();
@@ -73,7 +73,7 @@ use final class System:Initializer {
 BERT_ClassDef* bevl_scldef;
       """
       }
-      any init;
+      dyn init;
       emit(c) {
       """
          bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];
@@ -113,7 +113,7 @@ BERT_ClassDef* bevl_scldef;
 BERT_ClassDef* bevl_scldef;
       """
       }
-      any init;
+      dyn init;
       emit(c) {
       """
          bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];

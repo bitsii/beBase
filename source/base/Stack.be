@@ -19,7 +19,7 @@ local class Node {
       fields {
          Node next;
          Node prior;
-         any held;
+         dyn held;
       }
    
    }
@@ -71,7 +71,7 @@ class Stack {
       if (undef(last)) {
          return(null);
       }
-      any item = last.held;
+      dyn item = last.held;
       last.held = null;
       size = size--;
       return(item);
@@ -152,7 +152,7 @@ class Queue {
       if (undef(bottom)) {
          return(null);
       }
-      any item = bottom.held;
+      dyn item = bottom.held;
       bottom.held = null;
       if (bottom == top) {
          bottom = null;
@@ -204,8 +204,8 @@ use System:Test:Extendable;
 class Extendable {
    new() self {
       fields {
-         any propa;
-         any propb;
+         dyn propa;
+         dyn propb;
       }
    }
    
@@ -220,7 +220,7 @@ class InExtending(Extendable) {
 
    new() self {
       fields {
-         any prop2a;
+         dyn prop2a;
       }
    }
    

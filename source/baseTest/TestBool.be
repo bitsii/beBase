@@ -15,7 +15,7 @@ class Test:TestBool {
    }
    
    testBool() {
-      any t = true;
+      dyn t = true;
       t = t!;
       if (t) {
          "!FAILED not".print();
@@ -24,13 +24,13 @@ class Test:TestBool {
       " PASSED not".print();
       
       t = true;
-      any f = false;
+      dyn f = false;
       if (t == f) {
          "!FAILED equals".print();
          return(false);
       }
       " PASSED equals".print();
-      any ts = Logic:Bool.new("true");
+      dyn ts = Logic:Bool.new("true");
       if (ts) {
          " PASSED str cons".print();
       } else {

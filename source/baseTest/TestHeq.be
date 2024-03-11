@@ -15,9 +15,9 @@ class Test:TestHeq {
    }
    
    testHeq() {
-      any s2 = self;
-      any y = s2.specialHeq1();
-      any x = s2.specialHeq2();
+      dyn s2 = self;
+      dyn y = s2.specialHeq1();
+      dyn x = s2.specialHeq2();
       //s2.noCallExists();//will fail
       if (x && (y!)) {
       " PASSED testHeq self id".print();

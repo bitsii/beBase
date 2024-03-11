@@ -50,7 +50,7 @@ use Test:BaseTest:ParseCorners as PC;
 
 class PC(BaseTest) {
 
-   amtd() any {
+   amtd() dyn {
    
    }
    

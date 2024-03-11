@@ -20,14 +20,14 @@ class Test:ToSerialize {
 
    new() self {
       fields {
-         any i = 10;
-         any s = "Hi";
-         any a = List.new(4);
-         any n = "Not so null";
-         any m = Map.new();
-         any v = List.new(3);
-         any t = true;
-         any f = false;
+         dyn i = 10;
+         dyn s = "Hi";
+         dyn a = List.new(4);
+         dyn n = "Not so null";
+         dyn m = Map.new();
+         dyn v = List.new(3);
+         dyn t = true;
+         dyn f = false;
       }
       a[1] = "a2";
       a[3] = "a4";
@@ -45,9 +45,9 @@ class Test:ToSerialize {
       r += "f is " += f.toString() += nl;
       return(r.toString());
    }
-   iteradd(String p, any a, String r) {
+   iteradd(String p, dyn a, String r) {
       String nl = "\n";
-      for (any j in a) {
+      for (dyn j in a) {
          if (undef(j)) {
             r += "next " += p += " is null " += nl;
          } else {
@@ -67,32 +67,32 @@ class Test:TestSerialize {
       //serializeNew(String, "Hi there").print();
       Serializer s = Serializer.new();
       
-      any x = Test:ToSerialize.new();
+      dyn x = Test:ToSerialize.new();
       x.n = null;
-      //any x = "Hi";
+      //dyn x = "Hi";
       
       /*
       x.serializeContents().print();
       1.serializeContents().print();
       */
       
-      any sbuf = String.new();
+      dyn sbuf = String.new();
       "1".print();
       s.serialize(x, sbuf);
       "2".print();
       sbuf.print();
       "3".print();
       
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       "4".print();
       y.print();
       "5".print();
       sbuf.clear();
-      any z = null;
+      dyn z = null;
       "6".print();
       s.serialize(z, sbuf);
       "7".print();
-      any zz = s.deserialize(sbuf);
+      dyn zz = s.deserialize(sbuf);
       "8".print();
       sbuf.print();
       "9".print();

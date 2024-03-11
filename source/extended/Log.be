@@ -33,7 +33,7 @@ class Logs {
       Int defaultOutputLevel = error;
       Int defaultLevel = info;
       
-      any sink;
+      dyn sink;
       
     }
   }
@@ -44,13 +44,13 @@ class Logs {
       lock.lock();
       defaultOutputLevel = _defaultOutputLevel;
       defaultLevel = _defaultLevel;
-      for (any kv in loggers) {
+      for (dyn kv in loggers) {
         unless (overrides.has(kv.key)) {
           kv.value.setLevels(defaultOutputLevel, defaultLevel);
         }
       }
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
     }
   }
@@ -69,7 +69,7 @@ class Logs {
         log.outputLevel = outputLevel;
       }
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
     }
   }
@@ -87,7 +87,7 @@ class Logs {
         loggers.put(key, log);
       }
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
     }
     return(log);
@@ -103,7 +103,7 @@ class Logs {
       IO:Log log = get(inst);
       putLevels(inst, log.level, log.level);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
     }
   }
@@ -112,25 +112,25 @@ class Logs {
     try {
       lock.lock();
       defaultOutputLevel = defaultLevel;
-      for (any kv in loggers) {
+      for (dyn kv in loggers) {
         kv.value.outputLevel = defaultOutputLevel;
         kv.value.level = defaultLevel;
       }
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
     }
   }
   
-  setAllSinks(any _sink) {
+  setAllSinks(dyn _sink) {
     try {
       lock.lock();
       sink = _sink;
-      for (any kv in loggers) {
+      for (dyn kv in loggers) {
         kv.value.sink = _sink;
       }
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
     }
   }
@@ -143,7 +143,7 @@ class Log {
     fields {
       Int outputLevel = _outputLevel;
       Int level = _level;
-      any sink = _sink;
+      dyn sink = _sink;
     }
   }
   

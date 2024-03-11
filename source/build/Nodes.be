@@ -19,12 +19,12 @@ final class Node {
       fields {
          NodeList contained;
          Node container;
-         any held;
+         dyn held;
          AwareNode heldBy;
-         any condany;
+         dyn condany;
          Build:NamePath inClassNp;
          String inFile;
-         any typeDetail;
+         dyn typeDetail;
          
          Bool delayDelete = false;
          Int nlc = 0;
@@ -73,7 +73,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      any hh = heldBy.next;
+      dyn hh = heldBy.next;
       if (undef(hh)) {
          return(hh);
       }
@@ -84,7 +84,7 @@ final class Node {
       if (undef(heldBy)) {
          return(null);
       }
-      any hh = heldBy.prior;
+      dyn hh = heldBy.prior;
       if (undef(hh)) {
          return(hh);
       }
@@ -172,7 +172,7 @@ final class Node {
    }
    
    toString() Text:String {
-     any e;
+     dyn e;
      try {
        String res = toStringCompact();
      } catch (e) {
@@ -183,8 +183,8 @@ final class Node {
    }
    
    toStringBig() Text:String {
-      any prefix = self.prefix;
-      any ret = prefix + "<" + typename.toString() + ">";
+      dyn prefix = self.prefix;
+      dyn ret = prefix + "<" + typename.toString() + ">";
       ret = ret + Text:Strings.new().newline + prefix + "line: " + nlc.toString();
       if (def(inClassNp) && def(inFile)) {
          ret = ret + Text:Strings.new().newline + prefix + " In Class: " + inClassNp.toString() + " In IO:File: " + inFile + Text:Strings.new().newline;
@@ -197,7 +197,7 @@ final class Node {
    }
    
    toStringCompact() Text:String {
-      any prefix = self.prefix;
+      dyn prefix = self.prefix;
       String ret = prefix + "<" + typename.toString() + ">";
       if (def(nlc)) {
         ret = ret + " line: " + nlc.toString();
@@ -232,7 +232,7 @@ final class Node {
    }
    
    transUnitGet() {
-      any targ = self;
+      dyn targ = self;
       while (def(targ) && (targ.typename != ntypes.TRANSUNIT)) {
          targ = targ.container;
       }
@@ -240,13 +240,13 @@ final class Node {
    }
    
    tmpVar(suffix, build) {
-       any clnode = self.scope;
+       dyn clnode = self.scope;
        if (clnode.typename != ntypes.METHOD) {
           throw(Build:VisitError.new("tmpVar scope not a sub", self));
        }
-       any tmpanyn = clnode.held.tmpCnt.toString();
+       dyn tmpanyn = clnode.held.tmpCnt.toString();
        clnode.held.tmpCnt++=;
-       any tmpany = Build:Var.new();
+       dyn tmpany = Build:Var.new();
        tmpany.isTmpVar = true;
        tmpany.autoType = true;
        tmpany.suffix = suffix;
@@ -277,7 +277,7 @@ final class Node {
    }
    
    addVariable() {
-      any v = held;
+      dyn v = held;
       if (v.isAdded!) {
          v.isAdded = true;
          sco = scopeGet();
@@ -285,13 +285,13 @@ final class Node {
             throw(Build:VisitError.new("Found a variable incorrectly declared outside a method", self));
          }
          if (self.inProperties && v.isTmpVar!) {
-            any sco = classGet();
+            dyn sco = classGet();
             v.isProperty = true;
             if (self.inSlots) {
              v.isSlot = true;
             }
          }
-         any sc = sco.held;
+         dyn sc = sco.held;
          if (sc.anyMap.has(v.name)) {
             throw(Build:VisitError.new("Duplicate variable declaration", self));
          }
@@ -301,15 +301,15 @@ final class Node {
    }
    
    syncAddVariable() {
-      any v = held;
+      dyn v = held;
       if (v.isAdded!) {
          v.isAdded = true;
-         any sco = self.scope;
-         any sc = sco.held;
+         dyn sco = self.scope;
+         dyn sc = sco.held;
          if (sc.anyMap.has(v.name)) {
             held = sc.anyMap.get(v.name);
          } else {
-            any cl = classGet().held;
+            dyn cl = classGet().held;
             if (cl.anyMap.has(v.name)) {
                held = cl.anyMap.get(v.name);
             } else {
@@ -325,17 +325,17 @@ final class Node {
    }
    
    syncVariable(Build:Visit:Visitor visit) {
-      any vname = held;
-      any sc = self.scope.held;
+      dyn vname = held;
+      dyn sc = self.scope.held;
       if (sc.anyMap.has(vname)) {
          held = sc.anyMap.get(vname).held;
       } else {
-         any cl = classGet().held;
+         dyn cl = classGet().held;
          if (cl.anyMap.has(vname)) {
             held = cl.anyMap.get(vname).held;
          } else {
-            any tunode = self.transUnit;
-            any np = tunode.held.aliased.get(vname);
+            dyn tunode = self.transUnit;
+            dyn np = tunode.held.aliased.get(vname);
             if (undef(np)) {
               np = build.emitData.aliased.get(vname);
             }
@@ -343,7 +343,7 @@ final class Node {
                throw(Build:VisitError.new("Found NP too late " + np, self));
             } else {
                //throw(Build:VisitError.new("No such variable exists during syncVariable", self));
-               any v = Build:Var.new();
+               dyn v = Build:Var.new();
                v.name = vname;
                if (vname == "super") {
                   held = v;
@@ -364,7 +364,7 @@ final class Node {
    }
    
    anchorGet() {
-       any node = self;
+       dyn node = self;
        if (true) {
        loop {
           if (constants.anchorTypes.has(node.typename)) {
@@ -380,7 +380,7 @@ final class Node {
     }
    
    classGet() {
-      any targ = self;
+      dyn targ = self;
       while (def(targ) && (targ.typename != ntypes.CLASS)) {
          targ = targ.container;
       }
@@ -388,7 +388,7 @@ final class Node {
    }
    
    scopeGet() {
-      any targ = self;
+      dyn targ = self;
       while (def(targ) && (targ.typename != ntypes.CLASS) && (targ.typename != ntypes.METHOD) && (targ.typename != ntypes.TRANSUNIT)) {
          targ = targ.container;
       }
@@ -410,8 +410,8 @@ final class Node {
    
    takeContents(Node other) {
       contained = other.contained;
-      for (any it = contained.iterator;it.hasNext;;) {
-         any i = it.next;
+      for (dyn it = contained.iterator;it.hasNext;;) {
+         dyn i = it.next;
          i.container = self;
       }
    }

@@ -24,7 +24,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
    }
 
    accept(Build:Node node) Build:Node {
-      //any chk = "TypeCheck checking ";
+      //dyn chk = "TypeCheck checking ";
       //if (def(node.inFile)) {
       //   chk = chk + node.inFile;
       //}
@@ -33,13 +33,13 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
       //}
       //chk.print();
       //node.print();
-      any v;
-      any np;
-      any toremove;
-      any i;
-      any ii;
-      any nnode = node.nextPeer;
-      any dnode;
+      dyn v;
+      dyn np;
+      dyn toremove;
+      dyn i;
+      dyn ii;
+      dyn nnode = node.nextPeer;
+      dyn dnode;
       Build:Node onode;
       if (node.typename == ntypes.CLASS) {
          inClassNp = node.held.namepath;
@@ -77,7 +77,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
       }
       elseIf ((node.typename == ntypes.VAR) && (node.held.isArg!)) {
          if (undef(node.held.name) && (undef(nnode) || (nnode.typename != ntypes.ID))) {
-            throw(VisitError.new("Error, anyiable declaration missing name " + node.held.name, node));
+            throw(VisitError.new("Error, variable declaration missing name " + node.held.name, node));
          } else {
             node.held.name = nnode.held;
             node.addVariable();
@@ -102,9 +102,9 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                   i.delete();
                }
             }
-            any pc = nnode;
+            dyn pc = nnode;
             pc.typename = ntypes.CALL;
-            any gc = Build:Call.new();
+            dyn gc = Build:Call.new();
             gc.name = node.held;
             pc.held = gc;
             node.delete();
@@ -172,11 +172,11 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
             throw(VisitError.new("Error, incomplete call or accessor", node));
          }
          if (nnode.typename == ntypes.ID) {
-            any pnode = nnode.nextPeer;
+            dyn pnode = nnode.nextPeer;
             if (undef(pnode) || (pnode.typename != ntypes.PARENS)) {
-               any ponode = onode.priorPeer;
+               dyn ponode = onode.priorPeer;
                node.typename = ntypes.ACCESSOR;
-               any ga = Build:Accessor.new();
+               dyn ga = Build:Accessor.new();
                ga.name = nnode.held;
                nnode.delete();
                onode.delete();

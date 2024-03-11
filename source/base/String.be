@@ -1058,9 +1058,9 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
      }
 
      ifEmit (embPlat) {
-        any pl = Embedded:App.plugin;
+        dyn pl = Embedded:App.plugin;
         if (def(pl)) {
-          any concon = pl.concon;
+          dyn concon = pl.concon;
           if (def(concon) && concon.connected) {
             concon.write(self);
             concon.write(Text:Strings.unixNewline);
@@ -1192,7 +1192,7 @@ final class Text:Strings {
    }
    
    joinBuffer(String delim, splits) String {
-      any i = splits.iterator;
+      dyn i = splits.iterator;
       if (i.hasNext!) {
          return(String.new());
       }
@@ -1234,8 +1234,8 @@ final class Text:Strings {
    commonPrefix(String a, String b) String {
       if (undef(a) || undef(b)) { return(null); }
       Int sz = Math:Ints.min(a.size, b.size);
-      any ai = a.biter;
-      any bi = b.biter;
+      dyn ai = a.biter;
+      dyn bi = b.biter;
       String av = String.new();
       String bv = String.new();
       for (Int i = 0;i < sz;i++=) {
@@ -1360,7 +1360,7 @@ local class Text:ByteIterator {
    }
    
    //trick to allow for use with either iter, for (x in y.biter) or for (x in y.mbiter)
-   iteratorGet() any {
+   iteratorGet() dyn {
       return(self);
    }
    
@@ -1404,7 +1404,7 @@ final class Text:MultiByteIterator(Text:ByteIterator) {
       return(buf);
    }
    
-   iteratorGet() any {
+   iteratorGet() dyn {
       return(self);
    }
    

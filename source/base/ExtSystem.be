@@ -95,7 +95,7 @@ class System:BasePath {
       LinkedList fpath = self.stepList;
       LinkedList spath = other.stepList;
       for (LIter i = spath.linkedListIterator;i.hasNext;;) {
-         any l = i.next;
+         dyn l = i.next;
          fpath.addValue(l);
       }
       String rstr = Text:Strings.new().join(separator, fpath);
@@ -229,11 +229,11 @@ class System:BasePath {
    subPath(Int start, Int end) {
       LinkedList st = self.steps;
       if (undef(end)) {
-         any ll = st.subList(start);
+         dyn ll = st.subList(start);
       } else {
          ll = st.subList(start, end);
       }
-      any res = create();
+      dyn res = create();
       res.separator = separator;
       res.path = Text:Strings.join(separator, ll);
       return(res);
@@ -290,7 +290,7 @@ final class System:CurrentPlatform (System:Platform) {
    
    buildProfile() {
       super.buildProfile();
-      any strings = Text:Strings.new();
+      dyn strings = Text:Strings.new();
       strings.newline = newline;
    }
    
@@ -351,7 +351,7 @@ class System:Platform {
       } else {
          throw(System:Exception.new("Platform " + name + " is not defined, platform must be defined in System:Platform"));
       }
-      any strings = Text:Strings.new();
+      dyn strings = Text:Strings.new();
       if (name == "mswin") {
          //newline = strings.dosNewline;
          newline = strings.unixNewline;
@@ -416,7 +416,7 @@ use local class System:ThinThread {
    
    new(_toRun) self {
      fields {
-       any toRun = _toRun;
+       dyn toRun = _toRun;
      }
    }
    
@@ -444,7 +444,7 @@ use local class System:ThinThread {
    }
    
    main() {
-     any e;
+     dyn e;
      try { 
       toRun.main();
      } catch (e) {
@@ -492,7 +492,7 @@ use final class System:Thread(ThinThread) {
    }
    
    main() {
-     any e;
+     dyn e;
      try { 
       started.o = true;
       returned.o = toRun.main();
@@ -579,13 +579,13 @@ class System:Thread:ContainerLocker {
   new(_container) self {
     fields {
       Lock lock = Lock.new();
-      any container;
+      dyn container;
     }
     lock.lock();
     try {
       container = _container;
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -596,7 +596,7 @@ class System:Thread:ContainerLocker {
     try {
       Bool r = container.has(key);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -608,7 +608,7 @@ class System:Thread:ContainerLocker {
     try {
       Bool r = container.has(key, key2);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -618,9 +618,9 @@ class System:Thread:ContainerLocker {
   get() {
     lock.lock();
     try {
-      any r = container.get();
+      dyn r = container.get();
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -630,9 +630,9 @@ class System:Thread:ContainerLocker {
   get(key) {
     lock.lock();
     try {
-      any r = container.get(key);
+      dyn r = container.get(key);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -642,10 +642,10 @@ class System:Thread:ContainerLocker {
   getAndClear(key) {
     lock.lock();
     try {
-      any r = container.get(key);
+      dyn r = container.get(key);
       container.delete(key);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -655,9 +655,9 @@ class System:Thread:ContainerLocker {
   get(p, k) {
     lock.lock();
     try {
-      any r = container.get(p, k);
+      dyn r = container.get(p, k);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -669,7 +669,7 @@ class System:Thread:ContainerLocker {
     try {
       container.addValue(key);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -678,9 +678,9 @@ class System:Thread:ContainerLocker {
   putReturn(key) {
     lock.lock();
     try {
-      any r = container.put(key);
+      dyn r = container.put(key);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -692,7 +692,7 @@ class System:Thread:ContainerLocker {
     try {
       container.put(key);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -701,9 +701,9 @@ class System:Thread:ContainerLocker {
   putReturn(key, value) {
     lock.lock();
     try {
-      any r = container.put(key, value);
+      dyn r = container.put(key, value);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -715,7 +715,7 @@ class System:Thread:ContainerLocker {
     try {
       container.put(key, value);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -724,9 +724,9 @@ class System:Thread:ContainerLocker {
   testAndPut(key, oldValue, value) {
     lock.lock();
     try {
-      any rc = container.testAndPut(key, oldValue, value);
+      dyn rc = container.testAndPut(key, oldValue, value);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -738,7 +738,7 @@ class System:Thread:ContainerLocker {
     try {
       Map rc = container.getSet();
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -750,7 +750,7 @@ class System:Thread:ContainerLocker {
     try {
       Map rc = container.getMap();
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -762,7 +762,7 @@ class System:Thread:ContainerLocker {
     try {
       Map rc = container.getMap(prefix);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -779,7 +779,7 @@ class System:Thread:ContainerLocker {
         didPut = true;
       }
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -790,13 +790,13 @@ class System:Thread:ContainerLocker {
     lock.lock();
     try {
       if (container.has(key)) {
-        any result = container.get(key);
+        dyn result = container.get(key);
       } else {
         container.put(key, value);
         result = value;
       }
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -808,7 +808,7 @@ class System:Thread:ContainerLocker {
     try {
       container.put(p, k, v);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -817,9 +817,9 @@ class System:Thread:ContainerLocker {
   delete(key) {
     lock.lock();
     try {
-      any r = container.delete(key);
+      dyn r = container.delete(key);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -829,9 +829,9 @@ class System:Thread:ContainerLocker {
   delete(p, k) {
     lock.lock();
     try {
-      any r = container.delete(p, k);
+      dyn r = container.delete(p, k);
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -843,7 +843,7 @@ class System:Thread:ContainerLocker {
     try {
       Int r = container.size;
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -855,7 +855,7 @@ class System:Thread:ContainerLocker {
     try {
       Bool r = container.isEmpty;
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -865,9 +865,9 @@ class System:Thread:ContainerLocker {
   copyContainer() {
     lock.lock();
     try {
-      any r = container.copy();
+      dyn r = container.copy();
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -879,7 +879,7 @@ class System:Thread:ContainerLocker {
     try {
       container.clear();
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -890,7 +890,7 @@ class System:Thread:ContainerLocker {
     try {
       container.close();
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -910,13 +910,13 @@ class OLocker {
   new(_obj) self {
     new();
     fields {
-      any obj;
+      dyn obj;
     }
     lock.lock();
     try {
       obj = _obj;
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -925,9 +925,9 @@ class OLocker {
   oGet() {
     lock.lock();
     try {
-      any r = obj;
+      dyn r = obj;
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -937,10 +937,10 @@ class OLocker {
   getAndClear() {
     lock.lock();
     try {
-      any r = obj;
+      dyn r = obj;
       obj = null;
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -956,7 +956,7 @@ class OLocker {
         res = true;
       }
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }
@@ -968,7 +968,7 @@ class OLocker {
     try {
       obj = _obj;
       lock.unlock();
-    } catch (any e) {
+    } catch (dyn e) {
       lock.unlock();
       throw(e);
     }

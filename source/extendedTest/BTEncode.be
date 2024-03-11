@@ -94,7 +94,7 @@ class Test:BaseTest:Encode(BaseTest) {
       
       IO:File.new("test/tmp").makeDirs();
       
-      any fout; any w;
+      dyn fout; dyn w;
       fout = IO:File.apNew("test/tmp/u8.html");
       w = fout.writer.open();
       writeHtmlPre(w);

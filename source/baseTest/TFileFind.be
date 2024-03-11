@@ -159,7 +159,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       if (f.exists && f.writable!) { f.writable = true;f.delete(); }
       
-      any w = f.writer.open();
+      dyn w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -192,7 +192,7 @@ class Test:BaseTest:IO(BaseTest) {
       String line03 = "Newcastle" + nl;
       
       if (tf.exists) { tf.delete(); }
-      any w = tf.writer.open();
+      dyn w = tf.writer.open();
       w.write(line01);
       w.write(line02);
       w.write(line03);
@@ -202,7 +202,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       String builder = String.new();
       
-      any r = tf.reader.open();
+      dyn r = tf.reader.open();
       String rl01 = r.readBufferLine(builder);
       assertNotNull(rl01);
       assertEquals(line01, rl01.toString());
@@ -221,7 +221,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       tf.reader.close();
       
-      any br = tf.reader.open().byteReader(8);
+      dyn br = tf.reader.open().byteReader(8);
       String brb = br.next;
       while (br.hasNext) {
          brb.print();
@@ -240,7 +240,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      any w = f.writer.open();
+      dyn w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -259,7 +259,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo hiss.txt");
       
-      any w = f.writer.open();
+      dyn w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -293,7 +293,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      any w = f.writer.open();
+      dyn w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -317,7 +317,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      any w = f.writer.open();
+      dyn w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -363,7 +363,7 @@ class Test:BaseTest:IO(BaseTest) {
    }
    
    testReadStdin() {
-      any r = File:Reader:Stdin.new();
+      dyn r = File:Reader:Stdin.new();
       String b = r.readBufferLine();
       b.print();
       b = r.readBufferLine();

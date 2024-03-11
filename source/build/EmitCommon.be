@@ -238,10 +238,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       if (build.printSteps || build.printPlaces) {
         ("Completing class " + clgen.held.name).print();
       }
-      any trans = Build:Transport.new(build, clgen.transUnit);
+      dyn trans = Build:Transport.new(build, clgen.transUnit);
       
       
-      any emvisit;
+      dyn emvisit;
       
       if (build.printSteps) {
          ". ".output();
@@ -288,7 +288,7 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         //order by depth (of inheritance) to guarantee that a classes ancestors
         //are processed before the class (important for some initialization)
         Map depthClasses = Map.new();
-        for (any ci = build.emitData.parseOrderClassNames.iterator;ci.hasNext;;) { 
+        for (dyn ci = build.emitData.parseOrderClassNames.iterator;ci.hasNext;;) {
             String clName = ci.next;
             
             Node clnode = build.emitData.classes.get(clName);
@@ -716,9 +716,9 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           initRef = "be.BECS_Runtime.initializer.";
         }
         
-        for (any ci = classesInDepthOrder.iterator;ci.hasNext;;) {  
+        for (dyn ci = classesInDepthOrder.iterator;ci.hasNext;;) {
         
-            any clnode = ci.next;
+            dyn clnode = ci.next;
             
             if (def(clnode.held.extends)) {
               Build:ClassSyn psyn = build.getSynNp(clnode.held.extends);
@@ -1100,10 +1100,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
         Map belslits = Map.new();
      }
      
-     any te = node.transUnit.held.emits;
+     dyn te = node.transUnit.held.emits;
       if (def(te)) {
          for (te = te.iterator;te.hasNext;;) {
-            any jn = te.next;
+            dyn jn = te.next;
             handleTransEmit(jn);
          }
       }
@@ -1134,8 +1134,8 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
        //Create property declarations
        //>= natives
        Int ovcount = 0;
-       for (any ii = node.held.orderedVars.iterator;ii.hasNext;;) {
-            any i = ii.next.held;
+       for (dyn ii = node.held.orderedVars.iterator;ii.hasNext;;) {
+            dyn i = ii.next.held;
             if (i.isDeclared) {
                 if (ovcount >= nativeCSlots) {
                     propertyDecs += self.propDec;
@@ -1313,10 +1313,10 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
   
   getNativeCSlots(String text) Int {
     Int nativeSlots = 0;
-    any ll = text.split("/");
-      any isfn = false;
-      any nextIsNativeSlots = false;
-      for (any i in ll) {
+    dyn ll = text.split("/");
+      dyn isfn = false;
+      dyn nextIsNativeSlots = false;
+      for (dyn i in ll) {
          if (nextIsNativeSlots) {
             nextIsNativeSlots = false;
             nativeSlots = Int.new(i);
@@ -1506,8 +1506,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
   
   acceptRbraces(Node node) {
      if (def(node.container) && def(node.container.container)) {
-        any nct = node.container.container;
-        any typename = nct.typename;
+        dyn nct = node.container.container;
+        dyn typename = nct.typename;
         if (typename == ntypes.METHOD) {
            if (def(mnode)) {
              if (undef(lastCall) || lastCall.held.orgName != "return") {
@@ -1718,7 +1718,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       //node.nlec = countLines(methodBody);
       
       if ((node.held.orgName == "assign") && (node.contained.length != 2)) {
-         any errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
+         dyn errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
          for (Int ei = 0;ei < node.contained.length;ei++=) {
             errmsg = errmsg + " !!!" + ei + "!! " + node.contained[ei];
          }
@@ -1914,11 +1914,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       String spillArgs = String.new();
       
       Int numargs = 0;
-      for (any it = node.contained.iterator;it.hasNext;;) {
+      for (dyn it = node.contained.iterator;it.hasNext;;) {
          List argCasts = node.held.argCasts;
-         any i = it.next;
+         dyn i = it.next;
          if (numargs == 0) {
-            //any targetOrg = i.held.name;
+            //dyn targetOrg = i.held.name;
             String target = formTarg(i);
             String callTarget = formCallTarg(i);
             Node targetNode = i;

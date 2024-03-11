@@ -77,7 +77,7 @@ class Test:BaseTest:EC(BaseTest) {
             "start runTests".print();
             runTests();
             "end runTests".print();
-        //} catch (any e) {
+        //} catch (dyn e) {
         //    "got an except".print();
             //e.print();
         //}
@@ -196,10 +196,10 @@ class Test:BaseTest:EC(BaseTest) {
       Hi.new().main();
     }
     
-    forwardCall(String name, List args) any {
+    forwardCall(String name, List args) dyn {
       name.print();
       args.length.print();
-      for (any i in args) {
+      for (dyn i in args) {
          ("fcall.arg " + i).print();
       }
       fields {
@@ -213,7 +213,7 @@ class Test:BaseTest:EC(BaseTest) {
    }
     
     testFc() {
-       any vs = self;
+       dyn vs = self;
        vs.quickOut("1");
        vs.quickOut("2");
        //if (true) { return(self); }
@@ -230,7 +230,7 @@ class Test:BaseTest:EC(BaseTest) {
         assertEqual(p1.a, "a");
         
         Int i = 0;
-        for (any v in p1) {
+        for (dyn v in p1) {
             if (i == 0) {
                 assertEqual(v, 1);
             } elseIf (i == 1) {
@@ -242,7 +242,7 @@ class Test:BaseTest:EC(BaseTest) {
         //if (true) { return(self); }
         
         i = 0;
-        for (any it = p1.iterator;it.hasNext) {
+        for (dyn it = p1.iterator;it.hasNext) {
             if (i == 0) {
                 it.next = 2;
             } elseIf (i == 1) {
@@ -271,11 +271,11 @@ class Test:BaseTest:EC(BaseTest) {
         //if (def(lb)) { }
         //if (undef(lb)) { }
         
-        any inn = IsNotNullNoDef.new();
-        any inh = IsNotNullHasDef.new();
+        dyn inn = IsNotNullNoDef.new();
+        dyn inh = IsNotNullHasDef.new();
         
-        any inn2 = IsNotNullNoDef.new();
-        any inh2 = IsNotNullHasDef.new();
+        dyn inn2 = IsNotNullNoDef.new();
+        dyn inh2 = IsNotNullHasDef.new();
         
         assertNotNull(inn);
         assertNotNull(inh);
@@ -336,7 +336,7 @@ class Test:BaseTest:EC(BaseTest) {
     }
     
     testGi() {
-        any i = System:Objects.createInstance("Math:Int").new();
+        dyn i = System:Objects.createInstance("Math:Int").new();
         assertTrue(System:Classes.sameClass(i, Math:Int.new()));
     }
     
@@ -469,7 +469,7 @@ class Test:BaseTest:EC(BaseTest) {
         ctt.threeArg(1, 2, 3).print();
         assertEqual(ctt.threeArg(1, 2, 3), "threeArg 1 2 3");
     
-        any ct = Test:BaseTest:CallTests.new();
+        dyn ct = Test:BaseTest:CallTests.new();
         ct.noArg().print();
         assertEqual(ctt.noArg(), "noArg");
         ct.oneArg(1).print();
@@ -484,7 +484,7 @@ class Test:BaseTest:EC(BaseTest) {
     
     ("!!!!!!!!!!!!!!!testing clname").print();
     
-        any o = Math:Int.new();
+        dyn o = Math:Int.new();
         String cli = System:Classes.className(o);
         cli.print();
         assertEqual(cli, "Math:Int");
@@ -589,7 +589,7 @@ class Test:BaseTest:EC(BaseTest) {
             if (true) {
                 throw(System:Exception.new("was thrown"));
             }
-        } catch (any e) {
+        } catch (dyn e) {
             ("Caught " + e.toString()).print();
         }
     }
@@ -744,7 +744,7 @@ class Test:BaseTest:MutString(BaseTest) {
     }
     
     gi() {
-        any x = System:Objects.createInstance("Math:Int").new();
+        dyn x = System:Objects.createInstance("Math:Int").new();
         x.setValue(10);
         (x + 1).print();
     
@@ -1012,7 +1012,7 @@ class Test:BaseTest:All(BaseTest) {
           Test:BaseTest:Gc.new().main(); 
          //}
          Test:CREComp.new();
-         //} catch (any e) { 
+         //} catch (dyn e) {
          //   e.print();
             
          //}
@@ -1028,9 +1028,9 @@ use Test:BaseTest:Weak;
 
 class Weak {
 
-  echo(o) any {
+  echo(o) dyn {
     fields {
-      any last = o;
+      dyn last = o;
     }
     return(o);
   }

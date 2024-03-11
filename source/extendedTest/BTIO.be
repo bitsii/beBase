@@ -101,7 +101,7 @@ class Test:BaseTest:IO(BaseTest) {
       "rbl1".print();
       if (tf.exists) { tf.delete(); }
       "rbl2".print();
-      any w = tf.writer.open();
+      dyn w = tf.writer.open();
       "write".print();
       w.write(line01);
       "write".print();
@@ -115,7 +115,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       String builder = String.new();
       "start read".print();
-      any r = tf.reader.open();
+      dyn r = tf.reader.open();
       String rl01 = r.readBufferLine(builder);
       "after read".print();
       //rl01.print();
@@ -137,7 +137,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       tf.reader.close();
       
-      any br = tf.reader.open().byteReader(8);
+      dyn br = tf.reader.open().byteReader(8);
       String brb = br.next;
       while (br.hasNext) {
          brb.print();
@@ -172,12 +172,12 @@ class Test:BaseTest:IO(BaseTest) {
       
       if (tf.exists) { tf.delete(); }
       
-      any w = tf.writer.open();
+      dyn w = tf.writer.open();
       w.write(dataIn);
       w.close();
       ("dataIn " + dataIn).print();
       
-      any r = tf.reader.open();
+      dyn r = tf.reader.open();
       String dataOut = r.readString();
       r.close();
       ("dataOut " + dataOut).print();
@@ -196,7 +196,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo hiss.txt");
       
-      any w = f.writer.open();
+      dyn w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -230,7 +230,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      any w = f.writer.open();
+      dyn w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -276,7 +276,7 @@ class Test:BaseTest:IO(BaseTest) {
    }
    
    testReadStdin() {
-      any r = IO:File:Reader:Stdin.new();
+      dyn r = IO:File:Reader:Stdin.new();
       String b = r.readBufferLine();
       b.print();
       b = r.readBufferLine();

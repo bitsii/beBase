@@ -32,8 +32,8 @@ class Test:Structy {
       fields {
          Int i;
          String s;
-         any x;
-         any y;
+         dyn x;
+         dyn y;
          String s2 = "StringS2";
       }
    }
@@ -43,19 +43,19 @@ class Test:Structy {
 class Test:ToSerialize {
 
    new() self {
-      any ai = 4;
-      any vi = 3;
+      dyn ai = 4;
+      dyn vi = 3;
       fields {
-         any i = 10;
-         any s = "Hi";
-         any a = List.new(ai);
-         any n = null;
-         any j = Set.new();
-         any m = Map.new();
-         any v = List.new(vi);
-         any l = LL.new();
-         any t = true;
-         any f = false;
+         dyn i = 10;
+         dyn s = "Hi";
+         dyn a = List.new(ai);
+         dyn n = null;
+         dyn j = Set.new();
+         dyn m = Map.new();
+         dyn v = List.new(vi);
+         dyn l = LL.new();
+         dyn t = true;
+         dyn f = false;
       }
       a[1] = "a2";
       a[3] = "a4";
@@ -79,9 +79,9 @@ class Test:ToSerialize {
       r += "i is " += i.toString() += nl;
       return(r.toString());
    }
-   iteradd(String p, any a, String r) {
+   iteradd(String p, dyn a, String r) {
       String nl = "\n";
-      for (any j in a) {
+      for (dyn j in a) {
          if (undef(j)) {
             r += "next " += p += " is null " += nl;
          } else {
@@ -161,7 +161,7 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerProps() {
       ("setup").print();
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
 
       SerProps x = SerProps.new();
       x.beta = "uanyics";
@@ -173,14 +173,14 @@ class Test:BaseTest:Serialize(BaseTest) {
       ("buf print").print();
       sbuf.print();
       ("deserialize").print();
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       ("asserts").print();
       assertEquals(x.beta, "uanyics");
       ("xa " + x.alpha + " ya " + y.alpha).print();
       assertEquals(x.alpha, y.alpha);
       assertEquals(x.beta, y.beta);
       
-      any xi = System:ObjectFieldIterator.new(x);
+      dyn xi = System:ObjectFieldIterator.new(x);
       xi.next;
       assertEqual(xi.currentName, "alpha");
       assertEqual(xi.current, "a");
@@ -250,7 +250,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       HasProps hp = HasProps.new();
 
-      any iter;
+      dyn iter;
 
       for (iter = hp.serializationIterator;iter.hasNext;) {
          iter.next.print();
@@ -270,7 +270,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
    testList() {
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
       sbuf.clear();
 
       List x = List.new();
@@ -278,7 +278,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       y.print();
       assertTrue(x[0] == y[0]);
       assertTrue(System:Classes.className(x) == System:Classes.className(y));
@@ -287,7 +287,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
    testSet() {
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
       sbuf.clear();
 
       Set x = Set.new(13);
@@ -295,14 +295,14 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       //y.print();
       assertTrue(y.has("Hi"));
    }
 
    testMap() {
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
       sbuf.clear();
 
       Map x = Map.new();
@@ -310,14 +310,14 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       //y.print();
       assertTrue(x["Hi"] == y["Hi"]);
    }
 
    testSimpleCase() {
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
       sbuf.clear();
 
       Test:Structy x = Test:Structy.new();
@@ -328,7 +328,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       y.print();
 
       "doing to from map!".print();
@@ -346,7 +346,7 @@ class Test:BaseTest:Serialize(BaseTest) {
    
    testFieldMNull() {
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
       sbuf.clear();
 
       Test:Structy x = Test:Structy.new();
@@ -355,7 +355,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       y.print();
       assertEquals(y.y, -1);
       assertEquals(y.s2, "StringS2");
@@ -364,7 +364,7 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSaveIdentity() {
       ("testSaveIdentity start").print();
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
       sbuf.clear();
 
       Test:Structy x = Test:Structy.new();
@@ -373,7 +373,7 @@ class Test:BaseTest:Serialize(BaseTest) {
 
       s.serialize(x, sbuf);
       sbuf.print();
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       y.print();
       assertTrue(System:Objects.sameObject(y.x, y.y));
 
@@ -389,12 +389,12 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerializePieces() {
       ("Test:BaseTest:Serialize:testSerializePieces").print();
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
 
-      any y;
-      any inst;
-      any sinst;
-      any iter;
+      dyn y;
+      dyn inst;
+      dyn sinst;
+      dyn iter;
 
       sbuf.clear();
       s.serialize(null, sbuf);
@@ -514,13 +514,13 @@ class Test:BaseTest:Serialize(BaseTest) {
    testEmptyString() {
 
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
 
       sbuf.clear();
       String str = "";
       s.serialize(str, sbuf);
       sbuf.print();
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       y.print();
       assertEquals(y, "");
 
@@ -529,12 +529,12 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerializePieces2() {
       ("Test:BaseTest:Serialize:testSerializePieces2").print();
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
 
-      any y;
-      any inst;
-      any sinst;
-      any iter;
+      dyn y;
+      dyn inst;
+      dyn sinst;
+      dyn iter;
 
       sbuf.clear();
 
@@ -633,12 +633,12 @@ class Test:BaseTest:Serialize(BaseTest) {
    }
 
    testPropertyIterator() {
-      any t = Test:ToSerialize.new();
-      any i = t.serializationIterator;
+      dyn t = Test:ToSerialize.new();
+      dyn i = t.serializationIterator;
       List v = List.new();
       ("Starting iterate").print();
       while (i.hasNext) {
-         any j = i.next;
+         dyn j = i.next;
          if (undef(j)) {
             ("Got null ").print();
          } else {
@@ -648,12 +648,12 @@ class Test:BaseTest:Serialize(BaseTest) {
       }
       ("End iterate").print();
       ("Starting insert iterate").print();
-      any tt = Test:ToSerialize.new();
+      dyn tt = Test:ToSerialize.new();
       v[0] = 25;
       v[8] = false;
       ("T" + t).print();
       i = tt.serializationIterator;
-      any vi = v.iterator;
+      dyn vi = v.iterator;
       while (vi.hasNext && i.hasNext) {
          i.next = vi.next;
       }
@@ -664,13 +664,13 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerialize() {
       ("Test:BaseTest:Serialize:testSerialize").print();
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
       ("Serialize").print();
       sbuf.clear();
-      any x = Test:ToSerialize.new();
+      dyn x = Test:ToSerialize.new();
       s.serialize(x, sbuf);
       ("Deserialize").print();
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
       ("Deserialize Done").print();
       assertEquals(y.i, 10);
       assertEquals(y.s, "Hi");
@@ -690,12 +690,12 @@ class Test:BaseTest:Serialize(BaseTest) {
    testSerialize2() {
       ("Test:BaseTest:Serialize:testSerialize2").print();
       Serializer s = Serializer.new();
-      any sbuf = String.new();
+      dyn sbuf = String.new();
 
       sbuf.clear();
-      any x = Test:ToSerialize.new();
+      dyn x = Test:ToSerialize.new();
       s.serialize(x, sbuf);
-      any y = s.deserialize(sbuf);
+      dyn y = s.deserialize(sbuf);
 
       assertEquals(y.i, 10);
       assertEquals(y.s, "Hi");

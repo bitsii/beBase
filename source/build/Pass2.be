@@ -33,9 +33,9 @@ final class Build:Visit:Pass2(Build:Visit:Visitor) {
       if (node.typename == ntypes.TRANSUNIT) {
          return(node.nextDescend);
       }
-      any held = node.held;
+      dyn held = node.held;
       if (def(held)) {
-         any type = matchMap.get(held);
+         dyn type = matchMap.get(held);
          if (def(type)) {
             //("Found type " + type.toString()).print();
             node.typename = type;

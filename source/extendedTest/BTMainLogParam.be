@@ -114,17 +114,17 @@ class Test:BaseTest:Parameters(BaseTest) {
       assertEquals(p.ordered[0], "hi");
       ("Tested newer params").print();
       
-      any cargs = System:Process.args;
+      dyn cargs = System:Process.args;
       if (def(cargs)) {
         ("process args not null").print();
-        for (any carg in cargs) {
+        for (dyn carg in cargs) {
             ("Got process arg " + carg).print();
         }
       } else {
         ("process args null").print();
       }
       
-      any execName = System:Process.execName;
+      dyn execName = System:Process.execName;
       if (def(execName)) {
         ("got execName " + execName).print();
       } else {

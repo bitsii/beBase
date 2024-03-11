@@ -51,7 +51,7 @@ final class Build:EmitData {
          }
          ub.put(myname);
       }
-      for (any iu = syn.superList.iterator;iu.hasNext;;) {
+      for (dyn iu = syn.superList.iterator;iu.hasNext;;) {
          s = iu.next.toString();
          ub = subClasses[s];
          if (undef(ub)) {

@@ -24,8 +24,8 @@ class Test:TestInvoke {
       List args1 = List.new(1);
       List args0 = List.new(0);
       
-      any x;
-      any i;
+      dyn x;
+      dyn i;
       
       i = 5;
       "First".print();

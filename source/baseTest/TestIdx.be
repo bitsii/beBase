@@ -16,7 +16,7 @@ class TestIdx {
    
    new() self {
       fields {
-         any outermem;
+         dyn outermem;
       }
    }
    
@@ -32,7 +32,7 @@ class TestIdx {
       m[1 + 1] = 2 + 7;
       m[9 - 7].print();
       
-      any x = Container:Map.new();
+      dyn x = Container:Map.new();
       x["hi bird"] = "foo";
       x["hi bird"].print();
    }

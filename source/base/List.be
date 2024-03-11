@@ -309,7 +309,7 @@ if (def(length)) {
    }
    
    get(Int posi) {
-      any val;
+      dyn val;
       if ((posi >= 0) && (posi < length)) {
       emit(jv,cs,js) {
       """
@@ -365,7 +365,7 @@ if (def(length)) {
    
    add(List xi) self {
       List yi = List.new(0, length + xi.length);
-      for (any c in self) {
+      for (dyn c in self) {
          yi.addValueWhole(c);
       }
       for (c in xi) {
@@ -390,7 +390,7 @@ if (def(length)) {
                c = j.copy();
             }
          }
-         any hold = self[i];
+         dyn hold = self[i];
          self[i] = self[c];
          self[c] = hold;
       }
@@ -404,8 +404,8 @@ if (def(length)) {
       Int sl = second.length;
       while (i < length) {
          if (fi < fl && si < sl) {
-            any fo = first.get(fi);
-            any so = second.get(si);
+            dyn fo = first.get(fi);
+            dyn so = second.get(si);
             if (so < fo) {
                si++=;
                put(i, so);
@@ -537,7 +537,7 @@ if (def(length)) {
    //find (or has) niavely finds
    find(value) Int {
      for (Int i = 0;i < length;i++=) {
-       any aval = get(i);
+       dyn aval = get(i);
        if (def(aval) && value == aval) {
          return(i);
        }
@@ -568,7 +568,7 @@ if (def(length)) {
      
      loop {
        Int mid = ((high - low) / 2) + low;
-       any aval = get(mid);
+       dyn aval = get(mid);
        if (value == aval) {
         return(mid);
        } elseIf (value > aval) {
@@ -597,12 +597,12 @@ class Lists {
 
   default() self { }
 
-  forwardCall(String name, List args) any {
+  forwardCall(String name, List args) dyn {
     name = name + "Handler";
     if (can(name, 1)) {
       List varargs = List.new(1);
       varargs[0] = args;
-      any result = invoke(name, varargs);
+      dyn result = invoke(name, varargs);
     }
     return(result);
    }

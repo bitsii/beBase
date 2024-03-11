@@ -46,7 +46,7 @@ class System:Method {
   
   new(_target, String _callName, Int _ac) {
       fields {
-          any target = _target;
+          dyn target = _target;
           auto callName = _callName;
           auto ac = _ac;
           //("new method " + _callName + " " + _ac).print();
@@ -54,10 +54,10 @@ class System:Method {
   }
 
   //use apply(args) to call (by convention)
-  forwardCall(String name, List args) any {
+  forwardCall(String name, List args) dyn {
     //"in fc".print();
     //("fc name " + callName + " fc args " + args.size).print();
-    any result = target.invoke(callName, args);
+    dyn result = target.invoke(callName, args);
     return(result);
   }
 
@@ -67,19 +67,19 @@ class System:Invocation {
 
   new(_target, String _callName, List _args) {
       fields {
-          any target = _target;
+          dyn target = _target;
           auto callName = _callName;
           auto args = _args;
       }
   }
 
-  invoke() any {
-    any result = target.invoke(callName, args);
+  invoke() dyn {
+    dyn result = target.invoke(callName, args);
     return(result);
   }
   
-  main() any {
-    any result = target.invoke(callName, args);
+  main() dyn {
+    dyn result = target.invoke(callName, args);
     return(result);
   }
 

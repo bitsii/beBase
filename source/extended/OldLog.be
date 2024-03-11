@@ -27,7 +27,7 @@ final class Log {
          LinkedList appenders = LinkedList.new();
          LinkedList fappenders = LinkedList.new();
          String nl = Text:Strings.newline;
-         any formatter;
+         dyn formatter;
       }
       
       appenders += IO:File:Writer:Stderr.new();
@@ -65,21 +65,21 @@ final class Log {
       if (def(formatter)) {
          message = formatter.format(message);
       }
-      for (any it = appenders.iterator;it.hasNext;) {
-         any i = it.next;
+      for (dyn it = appenders.iterator;it.hasNext;) {
+         dyn i = it.next;
          i.write(message);
          i.write(nl);
       }
       for (it = fappenders.iterator;it.hasNext;) {
          i = it.next;
-         any w = getWriter(i);
+         dyn w = getWriter(i);
          w.write(message);
          w.write(nl);
       }
    }
    
    getWriter(fappender) {
-      any w = fappender.writer;
+      dyn w = fappender.writer;
       if (w.isClosed) {
          w.openAppend();
       }
@@ -143,7 +143,7 @@ final class Logs {
    default() self {
       
       fields {
-         any defaultAppender = IO:File:Writer:Stderr.new();
+         dyn defaultAppender = IO:File:Writer:Stderr.new();
          Log default = Log.new(LogLevels.new().error, defaultAppender);
          Map logs = Map.new();
       }

@@ -54,9 +54,9 @@ use class Tests:TestJson(Assertions) {
     
         String sl = "\\";
         String str = "[" + Text:Strings.quote + "Hi " + sl + "n bob yoo" + sl + "byo" + sl + "tyar | " + sl + "u00c6 | **" + sl + Text:Strings.quote + " ya " + Text:Strings.quote + "]";
-        any s2 = Json:Unmarshaller.unmarshall(str);
+        dyn s2 = Json:Unmarshaller.unmarshall(str);
         s2.first.print();
-        any s3 = Json:Marshaller.marshall(s2.first);
+        dyn s3 = Json:Marshaller.marshall(s2.first);
         s3.print();
         str.print();
     }
@@ -65,7 +65,7 @@ use class Tests:TestJson(Assertions) {
     
                         // \"bfnrt/ u
         String ex;
-        any m;
+        dyn m;
         String ex2;
         
         ex = '{"k":"str \\ q\"q \/ "}';
@@ -229,7 +229,7 @@ use class Tests:TestJson(Assertions) {
         
         //Json:Parser.new().parse(ex1, Json:ParseLog.new());
         
-        any m;
+        dyn m;
         String val;
         
         val = '   {"hi":"\"1q"}   ';

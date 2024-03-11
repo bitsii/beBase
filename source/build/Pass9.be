@@ -19,19 +19,19 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
 
    accept(Build:Node node) Build:Node {
       //dump expr
-      any it;
-      any i;
-      any inode;
-      any lnode;
-      any lbrnode;
-      any loopif;
-      any enode;
-      any brnode;
-      any bnode;
-      any pnode;
-      any init;
-      any cond;
-      any atStep;
+      dyn it;
+      dyn i;
+      dyn inode;
+      dyn lnode;
+      dyn lbrnode;
+      dyn loopif;
+      dyn enode;
+      dyn brnode;
+      dyn bnode;
+      dyn pnode;
+      dyn init;
+      dyn cond;
+      dyn atStep;
       
       if (node.typename == ntypes.CALL) {
          //to remove no-longer-needed nested "parens"
@@ -46,7 +46,7 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
                   i.beforeInsert(i.contained.first);
                   i.delete();
                } else {
-                  any estr = "Error, parens length of contained too great " + i.contained.length.toString();
+                  dyn estr = "Error, parens length of contained too great " + i.contained.length.toString();
                   throw(VisitError.new(estr, node));
                }
             }
@@ -56,8 +56,8 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          //for accessors (accessor nodes):
          //if in assign call and in position 0, is set
          //else is get
-         any ac = node.held;
-         any c = Build:Call.new();
+         dyn ac = node.held;
+         dyn c = Build:Call.new();
          c.wasAccessor = true;
          if ((node.container.typename == ntypes.CALL) && (node.container.held.name == "assign") && (node.isFirst)) {
             c.accessorType = "SET";
@@ -68,7 +68,7 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          c.toAccessorName();
          if (c.accessorType == "SET") {
             node.container.held = c;
-            any ntarg = node.contained.first;
+            dyn ntarg = node.contained.first;
             
             node.typename = ntarg.typename;
             node.held = ntarg.held;
@@ -85,7 +85,7 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          c = Build:Call.new();
          if ((node.container.typename == ntypes.CALL) && (node.container.held.name == "assign") && (node.isFirst)) {
             //"IsPut".print();
-            any isPut = true;
+            dyn isPut = true;
          } else {
             //"IsGet".print();
             isPut = false;
@@ -132,9 +132,9 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          node.typename = ntypes.WHILE;
          pnode = node.contained.first;
          brnode = node.second;
-         any lin = pnode.contained.first;
-         any lany = lin.contained.first;
-         any toit = lin.second;
+         dyn lin = pnode.contained.first;
+         dyn lany = lin.contained.first;
+         dyn toit = lin.second;
          pnode.contained = null;
          /*
          if (undef(lany)) {
@@ -154,24 +154,24 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          }
          */
          
-         any tmpn = Node.new(build);
+         dyn tmpn = Node.new(build);
          tmpn.copyLoc(node);
          tmpn.typename = ntypes.VAR;
-         any tmpv = node.tmpVar("loop", build);
+         dyn tmpv = node.tmpVar("loop", build);
          tmpn.held = tmpv;
          
-         any gin = Node.new(build);
+         dyn gin = Node.new(build);
          gin.typename = ntypes.CALL;
-         any gic = Build:Call.new();
+         dyn gic = Build:Call.new();
          gin.held = gic;
          gic.name = "iteratorGet";
          gic.wasForeachGenned = true;
          gin.addValue(toit);
          
-         any asn = Node.new(build);
+         dyn asn = Node.new(build);
          asn.copyLoc(node);
          asn.typename = ntypes.CALL;
-         any asc = Build:Call.new();
+         dyn asc = Build:Call.new();
          asn.held = asc;
          asc.name = "assign";
          asn.addValue(tmpn);
@@ -180,38 +180,38 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          node.beforeInsert(asn);
          tmpn.addVariable();
          
-         any tmpnt = Node.new(build);
+         dyn tmpnt = Node.new(build);
          asn.copyLoc(node);
          tmpnt.typename = ntypes.VAR;
          tmpnt.held = tmpv;
          
-         any tcn = Node.new(build);
+         dyn tcn = Node.new(build);
          tcn.copyLoc(node);
          tcn.typename = ntypes.CALL;
-         any tcc = Build:Call.new();
+         dyn tcc = Build:Call.new();
          tcn.held = tcc;
          tcc.name = "hasNextGet";
          tcn.addValue(tmpnt);
          
          pnode.addValue(tcn);
          
-         any tmpng = Node.new(build);
+         dyn tmpng = Node.new(build);
          tmpng.copyLoc(node);
          tmpng.typename = ntypes.VAR;
          tmpng.held = tmpv;
          
-         any iagn = Node.new(build);
+         dyn iagn = Node.new(build);
          iagn.copyLoc(node);
          iagn.typename = ntypes.CALL;
-         any iagc = Build:Call.new();
+         dyn iagc = Build:Call.new();
          iagn.held = iagc;
          iagc.name = "nextGet";
          iagn.addValue(tmpng);
          
-         any iasn = Node.new(build);
+         dyn iasn = Node.new(build);
          iasn.copyLoc(node);
          iasn.typename = ntypes.CALL;
-         any iasc = Build:Call.new();
+         dyn iasc = Build:Call.new();
          iasn.held = iasc;
          iasc.name = "assign";
          iasn.addValue(lany);

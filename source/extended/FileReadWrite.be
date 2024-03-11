@@ -175,7 +175,7 @@ class IO:Reader {
 
     new() self {
       fields {
-         any vfile;
+         dyn vfile;
          Bool isClosed = true; 
          Int blockSize = 256;
       }
@@ -524,7 +524,7 @@ class IO:Writer {
    new() self {
       
       fields {
-         any vfile;
+         dyn vfile;
          Bool isClosed = true;
       }
       

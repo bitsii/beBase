@@ -437,7 +437,7 @@ use class Json:Marshaller {
     marshallWriteList(inst, writer) {
         writer.write("[");
         Bool first = true;
-        for (any instin in inst) {
+        for (dyn instin in inst) {
             if (first) {
               first = false;
             } else {
@@ -451,7 +451,7 @@ use class Json:Marshaller {
     marshallWriteMap(inst, writer) {
         writer.write("{");
         Bool first = true;
-        for (any kv in inst) {
+        for (dyn kv in inst) {
             //assumes keys are strings
             if (first) {
               first = false;
@@ -476,7 +476,7 @@ use class Json:Unmarshaller {
             Pair pair = Pair.new();
             Map map = Map.new();
             
-            any first = null;
+            dyn first = null;
             Container:Stack stack = Container:Stack.new(); //for containers only
         }
     }
@@ -491,7 +491,7 @@ use class Json:Unmarshaller {
         if (undef(first)) {
             first = o;
         }
-        any top = stack.peek();
+        dyn top = stack.peek();
         if (def(top)) {
             if (System:Classes.sameClass(top, pair)) {
                 if (def(top.second)) {
