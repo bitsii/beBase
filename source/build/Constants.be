@@ -295,7 +295,6 @@ final class Build:Constants {
       rwords.put("final", ntypes.DEFMOD);
       rwords.put("local", ntypes.DEFMOD);
       rwords.put("notNull", ntypes.DEFMOD);
-      rwords.put("auto", ntypes.VAR);
       rwords.put("dyn", ntypes.VAR);
       rwords.put("dynamic", ntypes.VAR);
       rwords.put("var", ntypes.VAR);

@@ -47,8 +47,8 @@ class System:Method {
   new(_target, String _callName, Int _ac) {
       fields {
           dyn target = _target;
-          auto callName = _callName;
-          auto ac = _ac;
+          var callName = _callName;
+          var ac = _ac;
           //("new method " + _callName + " " + _ac).print();
       }
   }
@@ -68,8 +68,8 @@ class System:Invocation {
   new(_target, String _callName, List _args) {
       fields {
           dyn target = _target;
-          auto callName = _callName;
-          auto args = _args;
+          var callName = _callName;
+          var args = _args;
       }
   }
 

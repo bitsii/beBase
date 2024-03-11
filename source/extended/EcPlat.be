@@ -220,7 +220,7 @@ void** bevl_frv;
    
    lastUpdatedGet() Time:Interval {
    
-     auto lu = Time:Interval.new();
+     var lu = Time:Interval.new();
      
      emit(cs) {
         """

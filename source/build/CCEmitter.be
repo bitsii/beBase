@@ -650,13 +650,13 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
     
     getHeaderInitialInst(ClassConfig newcc) String {
-      auto nccn = newcc.relEmitName(build.libName);
+      var nccn = newcc.relEmitName(build.libName);
       String bein = "bece_" + nccn + "_bevs_inst";
       return(bein);
      }
     
     getInitialInst(ClassConfig newcc) String {
-      auto nccn = newcc.relEmitName(build.libName);
+      var nccn = newcc.relEmitName(build.libName);
       String bein = "bece_" + nccn + "_bevs_inst";
       return(nccn + "::" + bein);
      }
@@ -730,7 +730,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
     }
     
     getTypeInst(ClassConfig newcc) String {
-    auto nccn = newcc.relEmitName(build.libName);
+    var nccn = newcc.relEmitName(build.libName);
     String bein = "bece_" + nccn + "_bevs_type";
     return(nccn + "::" + bein);
    }

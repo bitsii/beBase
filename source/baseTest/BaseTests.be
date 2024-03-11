@@ -399,14 +399,14 @@ class Test:BaseTest:EC(BaseTest) {
     }
     
     checkVart() {
-      auto x = 1;
+      var x = 1;
       //x.foo();
-      auto y = String.new().copy();
+      var y = String.new().copy();
       //y.booboo();
       
       fields {
-        auto m = Int.new();
-        auto o = self;
+        var m = Int.new();
+        var o = self;
       }
       //m.yukka();
       o.yolo(); //works with forwardcall

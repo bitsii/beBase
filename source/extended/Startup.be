@@ -143,7 +143,7 @@ local class Parameters {
    addValue(Parameters p) self {
      args += p.args;
      ordered += p.ordered;
-     for (auto kv in p.params) {
+     for (var kv in p.params) {
        LinkedList cp = params.get(kv.key);
        if (def(cp)) {
         cp += kv.value;

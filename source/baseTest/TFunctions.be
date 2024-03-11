@@ -27,7 +27,7 @@ class Tests:Function(BaseTest) {
       
       List n = List.new(5);
       
-      auto p = Method.new(self, "one", 1);
+      var p = Method.new(self, "one", 1);
       
       Mapper.map(n, p);
       

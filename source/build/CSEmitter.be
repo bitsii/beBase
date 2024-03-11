@@ -32,7 +32,7 @@ use final class Build:CSEmitter(Build:EmitCommon) {
        if (classConf.classDir.file.exists!) {
             classConf.classDir.file.makeDirs();
         } 
-        auto tout = classConf.typePath.file.writer.open();
+        var tout = classConf.typePath.file.writer.open();
         String bet = String.new();
         bet += "namespace be {\n";
         bet += "public class " += classConf.typeEmitName += " : BETS_Object {\n";

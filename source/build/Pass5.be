@@ -28,7 +28,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
          if (node.typename == ntypes.VAR) {
             if (undef(node.held) || System:Types.sameType(node.held, Text:Strings.new().empty)) {
                v = Build:Var.new();
-               if (def(node.held) && System:Types.sameType(node.held, Text:Strings.new().empty) && (node.held == "auto" || node.held == "var")) {
+               if (def(node.held) && System:Types.sameType(node.held, Text:Strings.new().empty) && node.held == "var") {
                 //"FOUND A AUTOTYPE VAR".print();
                 v.autoType = true;
                }

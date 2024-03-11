@@ -34,9 +34,9 @@ class Test:BaseTest:Invoke(BaseTest) {
    }
    
    testFieldNames() {
-     auto o = Object.new();
+     var o = Object.new();
      assertTrue(System:Types.fieldNames(o).size == 0);
-     auto hf = HasFields.new();
+     var hf = HasFields.new();
      assertTrue(System:Types.fieldNames(hf).size == 2);
      assertTrue(System:Types.fieldNames(hf).get(0) == "hi");
      assertTrue(System:Types.fieldNames(hf).get(1) == "there");

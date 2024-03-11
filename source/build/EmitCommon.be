@@ -2180,13 +2180,13 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    }
    
    getInitialInst(ClassConfig newcc) String {
-    auto nccn = newcc.relEmitName(build.libName);
+    var nccn = newcc.relEmitName(build.libName);
     String bein = "bece_" + nccn + "_bevs_inst";
     return(nccn + "." + bein);
    }
    
    getTypeInst(ClassConfig newcc) String {
-    auto nccn = newcc.relEmitName(build.libName);
+    var nccn = newcc.relEmitName(build.libName);
     String bein = "bece_" + nccn + "_bevs_type";
     return(nccn + "." + bein);
    }

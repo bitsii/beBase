@@ -371,7 +371,7 @@ class Time:Stamp(Interval) {
    }
    
    copy() self {
-      auto cp = Time:Stamp.new(secs, millis);
+      var cp = Time:Stamp.new(secs, millis);
       cp.localZone = localZone;
    }
    
