@@ -8,7 +8,7 @@
  *
  */
 
-use System:ObjectFieldIterator;
+import System:ObjectFieldIterator;
 
 
 final class ObjectFieldIterator {
@@ -97,7 +97,7 @@ final class System:Types {
 
 }
 
-use System:Exception;
+import System:Exception;
 
 class System:Exception {
    

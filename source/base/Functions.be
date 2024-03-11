@@ -8,7 +8,7 @@
  *
  */
 
-use final class Function:Mapper {
+import final class Function:Mapper {
 
     create() self { }
    

@@ -8,9 +8,9 @@
  *
  */
 
-use System:Thing;
-use Container:NodeList;
-use IO:File;
+import System:Thing;
+import Container:NodeList;
+import IO:File;
 
 emit(cs) {
     """

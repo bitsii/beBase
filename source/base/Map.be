@@ -8,13 +8,13 @@
  *
  */
 
-use Container:Set:Relations;
-use Container:Set:SetNode;
-use Container:Map;
-use Container:Set;
-use Container:Map:MapNode;
-use Container:List;
-use Math:Float;
+import Container:Set:Relations;
+import Container:Set:SetNode;
+import Container:Map;
+import Container:Set;
+import Container:Map:MapNode;
+import Container:List;
+import Math:Float;
 
 class SetNode {
    

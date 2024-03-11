@@ -8,17 +8,17 @@
  *
  */
 
-use Container:List;
-use System:Parameters;
-use Text:String;
-use Text:String;
+import Container:List;
+import System:Parameters;
+import Text:String;
+import Text:String;
 
-use Test:BaseTest;
-use Test:Failure;
-use Math:Int;
+import Test:BaseTest;
+import Test:Failure;
+import Math:Int;
 
-use Container:PropertyMap;
-use System:Env;
+import Container:PropertyMap;
+import System:Env;
 
 class Test:BaseTest:PropertyMap(BaseTest) {
    

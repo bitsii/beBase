@@ -8,12 +8,12 @@
  *
  */
 
-use Container:Single;
-use Container:Pair;
-use Container:LinkedList;
-use Container:LinkedList:Node;
-use Container:LinkedList:Iterator;
-use Container:NodeList;
+import Container:Single;
+import Container:Pair;
+import Container:LinkedList;
+import Container:LinkedList:Node;
+import Container:LinkedList:Iterator;
+import Container:NodeList;
 
 Single {
    new() self {

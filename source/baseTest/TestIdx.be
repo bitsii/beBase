@@ -8,9 +8,9 @@
  *
  */
 
-use Test:TestIdx;
-use Math:Int;
-use Container:List;
+import Test:TestIdx;
+import Math:Int;
+import Container:List;
 
 class TestIdx {
    

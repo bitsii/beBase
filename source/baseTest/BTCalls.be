@@ -8,14 +8,14 @@
  *
  */
 
-use System:Parameters;
+import System:Parameters;
 
-use Test:BaseTest;
-use Test:Failure;
+import Test:BaseTest;
+import Test:Failure;
 
-use Container:Stack;
-use Test:BaseTest:ImpliedNew;
-use Test:BaseTest:ImpliedNewSingle;
+import Container:Stack;
+import Test:BaseTest:ImpliedNew;
+import Test:BaseTest:ImpliedNewSingle;
 
 local class Test:BaseTest:Calls(BaseTest) {
    
@@ -409,7 +409,7 @@ class Tests:Exceptions(BaseTest) {
 
 }
 
-use class Test:NotExcept { }
+import class Test:NotExcept { }
 
-use class Test:AnExcept(System:Exception) { }
+import class Test:AnExcept(System:Exception) { }
 

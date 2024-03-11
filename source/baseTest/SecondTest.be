@@ -8,24 +8,24 @@
  *
  */
 
-use Container:List;
+import Container:List;
 
-use System:Parameters;
-use Text:String;
-use Text:String;
+import System:Parameters;
+import Text:String;
+import Text:String;
 
-use Test:BaseTest;
-use Test:Failure;
-use Math:Int;
+import Test:BaseTest;
+import Test:Failure;
+import Math:Int;
 
-use Logic:Bool;
+import Logic:Bool;
 
-use Test:FrontCons;
+import Test:FrontCons;
 
-use Container:LinkedList;
-use IO:File;
+import Container:LinkedList;
+import IO:File;
 
-use Test:InheritFrom;
+import Test:InheritFrom;
 
 class Test:SecondTest {
    

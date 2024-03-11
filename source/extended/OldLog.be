@@ -8,15 +8,15 @@
  *
  */
 
-use IO:Log;
-use IO:Logs;
-use IO:LogLevels;
-use IO:File;
-use Text:String;
-use Logic:Bool;
-use Math:Int;
-use Container:Map;
-use Container:LinkedList;
+import IO:Log;
+import IO:Logs;
+import IO:LogLevels;
+import IO:File;
+import Text:String;
+import Logic:Bool;
+import Math:Int;
+import Container:Map;
+import Container:LinkedList;
 
 final class Log {
    

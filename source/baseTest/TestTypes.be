@@ -8,11 +8,11 @@
  *
  */
 
-use Container:List;
+import Container:List;
 
-use Test:SClass;
-use Test:Clp;
-use Test:Clc;
+import Test:SClass;
+import Test:Clp;
+import Test:Clc;
 
 class Test:Clp { }
 

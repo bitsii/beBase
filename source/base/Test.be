@@ -8,11 +8,11 @@
  *
  */
 
-use System:Parameters;
+import System:Parameters;
 
-use Test:Assertions;
-use Test:Failure;
-use Test:RunMethods;
+import Test:Assertions;
+import Test:Failure;
+import Test:RunMethods;
 
 class Failure (System:Exception) {
    

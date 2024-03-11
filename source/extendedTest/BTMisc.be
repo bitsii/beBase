@@ -8,17 +8,17 @@
  *
  */
 
-use System:Parameters;
+import System:Parameters;
 
-use Test:BaseTest;
-use Test:Failure;
-use Math:Float;
-use System:Method;
+import Test:BaseTest;
+import Test:Failure;
+import Math:Float;
+import System:Method;
 
 
-use Logic:Bool;
+import Logic:Bool;
 
-use Test:FrontCons;
+import Test:FrontCons;
 
 class LocalUse {
   
@@ -42,12 +42,12 @@ static const unsigned char global_s[] = {0x41,0x42,0x43, 0};
       """
       }
 
-use Container:LinkedList;
-use IO:File;
+import Container:LinkedList;
+import IO:File;
 
 
 
-use Test:BaseTest:Misc(BaseTest) {
+import Test:BaseTest:Misc(BaseTest) {
    
    main() {
       ("Test:BaseTest:Misc:main").print();
@@ -514,16 +514,16 @@ MMM'''; //needs to stay unindented
 }
 
 
-// use class
+// import class
 
-use class MyUsedClass {
+import class MyUsedClass {
 
    fromMyUsedClass(String input) {
       return("Out: " + input);
    }
 }
 
-use final class MyUsedClass2 {
+import final class MyUsedClass2 {
 
    create() self { }
    
@@ -540,14 +540,14 @@ use final class MyUsedClass2 {
    }
 }
 
-use class MyPackage:MyUsedClass3 {
+import class MyPackage:MyUsedClass3 {
 
    fromMyUsedClass(String input) {
       return("Out: " + input);
    }
 }
 
-use class MyPackage:MyUsedClass4 {
+import class MyPackage:MyUsedClass4 {
 
    create() self { }
    
@@ -560,7 +560,7 @@ use class MyPackage:MyUsedClass4 {
    }
 }
 
-use class MyPackage:MyUsedClass5(MyUsedClass) {
+import class MyPackage:MyUsedClass5(MyUsedClass) {
 
    create() self { }
    
@@ -570,7 +570,7 @@ use class MyPackage:MyUsedClass5(MyUsedClass) {
    
 }
 
-use class SelfReturn {
+import class SelfReturn {
 
    myNew() self {
       dyn x = Int.new();
@@ -596,9 +596,9 @@ use class SelfReturn {
 
 }
 
-use class SelfReturn3(SelfReturn2) {  }
+import class SelfReturn3(SelfReturn2) {  }
 
-use class SelfReturn2(SelfReturn) {
+import class SelfReturn2(SelfReturn) {
 
    myNew() self {
       return(SelfReturn2.new());
@@ -615,14 +615,14 @@ use class SelfReturn2(SelfReturn) {
    re2() self { ("Hi from re2").print(); }
 }
 
-use class Test:RunTryThings {
+import class Test:RunTryThings {
 
    main() {
       TryThings.new().tryThings();
    }
 }
 
-use class Test:TryThings {
+import class Test:TryThings {
 
    tryThings() self {
       dyn x = 1;
@@ -631,7 +631,7 @@ use class Test:TryThings {
 
 }
 
-use class Test:InheritFrom {
+import class Test:InheritFrom {
    
    new() self { fields {
    dyn hi = "wheredef";

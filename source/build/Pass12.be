@@ -8,11 +8,11 @@
  *
  */
 
-use Build:Visit;
-use Build:NamePath;
-use Build:VisitError;
-use Build:Node;
-use Build:ClassSyn;
+import Build:Visit;
+import Build:NamePath;
+import Build:VisitError;
+import Build:Node;
+import Build:ClassSyn;
 
 local class Build:Visit:ChkIfEmit(Build:Visit:Visitor) {
 
@@ -239,7 +239,7 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
                   newNp = node.second;
                   if (newNp.typename != ntypes.NAMEPATH) {
                      ("Incorrect first argument for new, second try, first argument is " + newNp.toString()).print();
-                     throw(Build:VisitError.new("Incorrectly formed new, second try, namepath not first argument, namepath probably does not exist, verify name and use declarations", node));
+                     throw(Build:VisitError.new("Incorrectly formed new, second try, namepath not first argument, namepath probably does not exist, verify name and import declarations", node));
                   }
                } else {
                   ("Incorrect first argument for new, first argument is " + newNp.toString()).print();
@@ -494,7 +494,7 @@ final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
                   if (org.typename == ntypes.VAR) {
                      if (org.held.isDeclared) {
                         oany = org.held;
-                     } else { //TODO fix use of reserved word here
+                     } else { //TODO fix import of reserved word here
                         //targ.held.name.print();
                         oany = inClassSyn.ptyMap.get(org.held.name).memSyn; //all non-declared mmbers caught
                         //in syn generation

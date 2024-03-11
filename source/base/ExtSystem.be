@@ -8,7 +8,7 @@
  *
  */
 
-use Container:LinkedList:Iterator as LIter;
+import Container:LinkedList:Iterator as LIter;
 
 emit(cs) {
     """
@@ -24,7 +24,7 @@ import java.util.concurrent.locks.ReentrantLock;
 """
 }
 
-use final class System:Main {
+import final class System:Main {
 
     create() self { }
    
@@ -366,7 +366,7 @@ class System:Platform {
 //getresult (optional time to wait) (save result in lock, lock will be needed for this)
 //also queue/task/worker (queue in, out, things go in, things come out, # workers)
 
-use local class System:ThinThread {
+import local class System:ThinThread {
   
    //start (calls passed obj's main())
    //wait, wait(int millis) (bool true if worked, false if timed out) (see what happens when joining
@@ -478,7 +478,7 @@ use local class System:ThinThread {
    
 }
 
-use final class System:Thread(ThinThread) {
+import final class System:Thread(ThinThread) {
 
   new(_toRun) self {
      fields {
@@ -512,7 +512,7 @@ use final class System:Thread(ThinThread) {
 //in new thread - first calls "finished" then, if except "failed" with except
 //stop on nanny sets it to stop and results in a call to it's inner
 
-use final class System:Thread:Lock {
+import final class System:Thread:Lock {
 
   emit(jv) {
   """
@@ -573,7 +573,7 @@ use final class System:Thread:Lock {
 
 }
 
-use System:Thread:ContainerLocker as CLocker;
+import System:Thread:ContainerLocker as CLocker;
 class System:Thread:ContainerLocker {
   
   new(_container) self {
@@ -898,7 +898,7 @@ class System:Thread:ContainerLocker {
   
 }
 
-use System:Thread:ObjectLocker as OLocker;
+import System:Thread:ObjectLocker as OLocker;
 class OLocker {
   
   new() self {
@@ -984,8 +984,8 @@ class OLocker {
   
 }
 
-use Text:Tokenizer as TT;
-use Text:Glob;
+import Text:Tokenizer as TT;
+import Text:Glob;
 
 class Glob {
    
@@ -1060,5 +1060,5 @@ class Glob {
 
 }
 
-use Container:Single;
-use Container:LinkedList:Node;
+import Container:Single;
+import Container:LinkedList:Node;

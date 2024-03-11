@@ -8,13 +8,13 @@
  *
  */
 
-use System:Parameters;
-use Text:String;
-use Text:String;
+import System:Parameters;
+import Text:String;
+import Text:String;
 
-use Test:BaseTest;
-use Test:Failure;
-use Math:Int;
+import Test:BaseTest;
+import Test:Failure;
+import Math:Int;
 
 class Test:BaseTest:Null(BaseTest) {
    

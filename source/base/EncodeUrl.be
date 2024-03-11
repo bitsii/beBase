@@ -8,7 +8,7 @@
  *
  */
 
-use Encode:Url;
+import Encode:Url;
 
 local class Url {
 

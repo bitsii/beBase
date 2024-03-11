@@ -8,13 +8,13 @@
  *
  */
 
-use Container:List;
-use Math:Int;
-use Text:String;
-use Text:String;
-use System:Serializer;
-use Container:Map;
-use Container:List;
+import Container:List;
+import Math:Int;
+import Text:String;
+import Text:String;
+import System:Serializer;
+import Container:Map;
+import Container:List;
 
 class Test:ToSerialize {
 

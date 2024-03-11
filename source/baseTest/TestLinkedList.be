@@ -8,8 +8,8 @@
  *
  */
 
-use Container:LinkedList;
-use Math:Int;
+import Container:LinkedList;
+import Math:Int;
 
 class Test:TestLinkedList {
    

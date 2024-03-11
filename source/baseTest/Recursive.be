@@ -14,9 +14,9 @@
    contributed by Craig Welch
 */
 
-use Benchmark:Recursive;
-use Math:Int;
-use Math:Float;
+import Benchmark:Recursive;
+import Math:Int;
+import Math:Float;
    
 final class Recursive {
 

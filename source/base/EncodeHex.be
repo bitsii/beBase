@@ -8,7 +8,7 @@
  *
  */
 
-use Encode:Hex;
+import Encode:Hex;
 
 local class Hex {
 

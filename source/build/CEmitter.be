@@ -8,14 +8,14 @@
  *
  */
 
-use Container:Map;
-use Container:LinkedList;
-use IO:File;
-use Build:Visit;
-use Build:EmitException;
-use Text:String;
-use Text:String;
-use Logic:Bool;
+import Container:Map;
+import Container:LinkedList;
+import IO:File;
+import Build:Visit;
+import Build:EmitException;
+import Text:String;
+import Text:String;
+import Logic:Bool;
 
 class Build:EmitError(Build:VisitError) {
 }

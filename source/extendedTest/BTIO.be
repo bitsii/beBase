@@ -8,19 +8,19 @@
  *
  */
 
-use Container:List;
-use Container:Set;
-use System:Parameters;
-use Text:String;
-use Text:String;
-use Function:Mapper;
+import Container:List;
+import Container:Set;
+import System:Parameters;
+import Text:String;
+import Text:String;
+import Function:Mapper;
 
-use Test:BaseTest;
-use Test:Failure;
-use Math:Int;
-use IO:File;
-use IO:File:Path;
-use Logic:Bool;
+import Test:BaseTest;
+import Test:Failure;
+import Math:Int;
+import IO:File;
+import IO:File:Path;
+import Logic:Bool;
 
 class Test:BaseTest:IO(BaseTest) {
 
@@ -285,9 +285,9 @@ class Test:BaseTest:IO(BaseTest) {
    
 }
 
-use Net:Socket:Listener;
-use Net:Socket;
-use Net:Socket:Reader as SocketReader;
+import Net:Socket:Listener;
+import Net:Socket;
+import Net:Socket:Reader as SocketReader;
 
 class Util:Net:EchoServer {
 

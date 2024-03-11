@@ -8,7 +8,7 @@
  *
  */
 
-use class System:ExceptionTranslator {
+import class System:ExceptionTranslator {
   
   default() self { }
   

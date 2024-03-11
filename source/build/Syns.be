@@ -12,11 +12,11 @@
 go to serialization
 */
 
-use IO:File;
-use Build:ClassSyn;
-use Container:Set;
-use Build:NamePath;
-use Build:VarSyn;
+import IO:File;
+import Build:ClassSyn;
+import Container:Set;
+import Build:NamePath;
+import Build:VarSyn;
 
 final class VarSyn {
 

@@ -8,9 +8,9 @@
  *
  */
 
-use Text:String;
-use Math:Int;
-use System:Object;
+import Text:String;
+import Math:Int;
+import System:Object;
 
 class Test:TestHelloWorld {
    

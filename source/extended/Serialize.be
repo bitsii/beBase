@@ -11,22 +11,22 @@
 // Need to tokenize readers
 // Serialize contents could be more efficient
 
-use System:Serializer;
-use Math:Int;
-use Logic:Bool;
-use Container:Stack;
-use Container:LinkedList;
-use Container:List;
-use Container:Map;
-use Container:Pair;
-use Text:String;
-use Text:String;
-use Text:Tokenizer;
-use Encode:Url;
-use System:Class;
-use IO:File;
+import System:Serializer;
+import Math:Int;
+import Logic:Bool;
+import Container:Stack;
+import Container:LinkedList;
+import Container:List;
+import Container:Map;
+import Container:Pair;
+import Text:String;
+import Text:String;
+import Text:Tokenizer;
+import Encode:Url;
+import System:Class;
+import IO:File;
 
-use System:Serializer:Session;
+import System:Serializer:Session;
 
 class Session {
    new() self {
@@ -354,7 +354,7 @@ final class Serializer {
    
 }
 
-use Db:DirStoreString;
+import Db:DirStoreString;
 
 class DirStoreString(DirStore) {
     
@@ -379,7 +379,7 @@ class DirStoreString(DirStore) {
    
 }
 
-use Db:DirStore;
+import Db:DirStore;
 
 class DirStore {
    
@@ -460,7 +460,7 @@ class DirStore {
 
 }
 
-use System:NamedPropertiesIterator;
+import System:NamedPropertiesIterator;
 
 final class NamedPropertiesIterator {
    

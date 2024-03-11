@@ -8,14 +8,14 @@
  *
  */
 
-use System:Parameters;
-use System:Object;
+import System:Parameters;
+import System:Object;
 
-use Test:BaseTest;
-use Test:Assertions;
-use Test:Failure;
+import Test:BaseTest;
+import Test:Assertions;
+import Test:Failure;
 
-local use Test:LocalUse;
+local import Test:LocalUse;
 
 class BaseTest(Assertions) {
    
@@ -42,17 +42,17 @@ class Test:BaseTest:CallTests {
     
 }
 
-use class Test:BaseTest:Init {
+import class Test:BaseTest:Init {
     default() self {
       
    }
 }
 
-use notNull class Test:BaseTest:IsNotNullNoDef {
+import notNull class Test:BaseTest:IsNotNullNoDef {
 
 }
 
-use notNull class Test:BaseTest:IsNotNullHasDef {
+import notNull class Test:BaseTest:IsNotNullHasDef {
     default() self {
         fields {
             String hooka = "hooka";
@@ -60,7 +60,7 @@ use notNull class Test:BaseTest:IsNotNullHasDef {
     }
 }
 
-use class Test:Pic {
+import class Test:Pic {
     new() self {
         fields {
             Math:Int one = 1;
@@ -730,8 +730,8 @@ class Test:BaseTest:Current(BaseTest) {
     }
 }
 
-use Text:ByteIterator;
-use Text:MultiByteIterator;
+import Text:ByteIterator;
+import Text:MultiByteIterator;
 
 class Test:BaseTest:MutString(BaseTest) {
 
@@ -1024,7 +1024,7 @@ class Test:BaseTest:All(BaseTest) {
    }
 }
 
-use Test:BaseTest:Weak;
+import Test:BaseTest:Weak;
 
 class Weak {
 
@@ -1044,7 +1044,7 @@ class TestEmit {
   }
 }
 
-use Hi;
+import Hi;
 
 class Hi {
 

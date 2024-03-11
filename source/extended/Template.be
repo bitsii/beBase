@@ -8,14 +8,14 @@
  *
  */
 
-use Math:Int;
-use Container:List;
-use Container:LinkedList;
-use Container:Map;
-use Text:String;
-use Text:String;
-use Logic:Bool;
-use Template:Replace;
+import Math:Int;
+import Container:List;
+import Container:LinkedList;
+import Container:Map;
+import Text:String;
+import Text:String;
+import Logic:Bool;
+import Template:Replace;
 
 class Replace:CallStep {
    
@@ -167,7 +167,7 @@ class Replace:RunStep {
    
 }
 
-use Template:Runner;
+import Template:Runner;
 
 class Runner {
 

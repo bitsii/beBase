@@ -8,9 +8,9 @@
  *
  */
 
-use Container:NodeList;
-use Build:Node;
-use Container:LinkedList:AwareNode;
+import Container:NodeList;
+import Build:Node;
+import Container:LinkedList:AwareNode;
 
 final class Node {
    

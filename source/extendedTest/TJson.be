@@ -8,15 +8,15 @@
  *
  */
 
-use Container:List;
-use Container:Map;
-use System:Parameters;
-use Text:String;
+import Container:List;
+import Container:Map;
+import System:Parameters;
+import Text:String;
 
-use Test:Assertions;
-use Test:Failure;
+import Test:Assertions;
+import Test:Failure;
 
-use class Tests:TestJson(Assertions) {
+import class Tests:TestJson(Assertions) {
     
     main() {
         

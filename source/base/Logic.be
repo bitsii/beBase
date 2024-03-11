@@ -8,8 +8,8 @@
  *
  */
 
-use Logic:Bool;
-use Text:String;
+import Logic:Bool;
+import Text:String;
 
 final class Bool {
 

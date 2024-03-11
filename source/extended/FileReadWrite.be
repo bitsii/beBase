@@ -8,13 +8,13 @@
  *
  */
 
-use IO:File;
-use Text:String;
-use Logic:Bool;
-use Math:Int;
-use Text:Strings;
+import IO:File;
+import Text:String;
+import Logic:Bool;
+import Math:Int;
+import Text:Strings;
 
-use Text:String;
+import Text:String;
 
 emit(cs) {
     """
@@ -23,7 +23,7 @@ using System.IO;
     """
 }
 
-use class IO:ByteReader {
+import class IO:ByteReader {
 
 	readerBufferNew(IO:Reader _reader, String _buf) self {
 		fields {

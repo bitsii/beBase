@@ -8,7 +8,7 @@
  *
  */
 
-use Text:String;
+import Text:String;
 
 class Build:VisitError(System:Exception) {
    

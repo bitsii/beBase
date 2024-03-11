@@ -8,11 +8,11 @@
  *
  */
 
-use Math:Int;
-use Text:String;
-use Logic:Bool;
-use Container:Map;
-use Container:LinkedList;
+import Math:Int;
+import Text:String;
+import Logic:Bool;
+import Container:Map;
+import Container:LinkedList;
 
 class Test:TestFindDup {
    

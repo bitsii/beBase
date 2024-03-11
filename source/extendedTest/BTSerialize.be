@@ -8,20 +8,20 @@
  *
  */
 
-use Container:List;
-use System:Parameters;
-use Math:Int;
-use Text:String;
-use Text:String;
-use System:Serializer;
-use Container:Set;
-use Container:Map;
-use Container:List;
-use Container:LinkedList as LL;
+import Container:List;
+import System:Parameters;
+import Math:Int;
+import Text:String;
+import Text:String;
+import System:Serializer;
+import Container:Set;
+import Container:Map;
+import Container:List;
+import Container:LinkedList as LL;
 
-use Test:BaseTest;
-use Test:Failure;
-use Db:DirStore;
+import Test:BaseTest;
+import Test:Failure;
+import Db:DirStore;
 
 class Test:NotMuch {
 }
@@ -91,7 +91,7 @@ class Test:ToSerialize {
    }
 }
 
-use Test:HasProps;
+import Test:HasProps;
 
 class HasProps {
 
@@ -119,7 +119,7 @@ class HasProps {
 
 }
 
-use Test:SerProps;
+import Test:SerProps;
 
 class SerProps {
 

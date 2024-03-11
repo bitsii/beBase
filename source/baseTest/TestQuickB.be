@@ -8,7 +8,7 @@
  *
  */
 
-use Logic:Bool;
+import Logic:Bool;
 
 class Test:B(Test:A) {
 }

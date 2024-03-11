@@ -8,12 +8,12 @@
  *
  */
 
-use IO:File;
-use Text:String;
-use Logic:Bool;
-use Math:Int;
-use Container:Set;
-use Container:Stack;
+import IO:File;
+import Text:String;
+import Logic:Bool;
+import Math:Int;
+import Container:Set;
+import Container:Stack;
 
 emit(c) {
 """
@@ -557,7 +557,7 @@ void** bevl_mpath;
    
 }
 
-use final class System:Environment {
+import final class System:Environment {
 
     getVariable(String name) String {
         String value;
@@ -596,7 +596,7 @@ use final class System:Environment {
 
 }
 
-use IO:File:DirectoryIterator;
+import IO:File:DirectoryIterator;
 
 final class DirectoryIterator {
 
@@ -805,7 +805,7 @@ final class DirectoryIterator {
 
 }
 
-use Net:Socket:Listener;
+import Net:Socket:Listener;
 
 emit(cs) {
 """
@@ -887,7 +887,7 @@ class Listener {
 
 }
 
-use Net:Socket;
+import Net:Socket;
 
 class Socket {
 
@@ -958,13 +958,13 @@ class Socket {
 
 }
 
-use Net:Socket:Reader as SocketReader;
+import Net:Socket:Reader as SocketReader;
 
 class SocketReader(IO:Reader) {
 
 }
 
-use Net:Socket:Writer as SocketWriter;
+import Net:Socket:Writer as SocketWriter;
 
 class SocketWriter(IO:Writer) {
 

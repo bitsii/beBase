@@ -8,7 +8,7 @@
  *
  */
 
-use Math:Float;
+import Math:Float;
 
 final class Float {
 

@@ -8,14 +8,14 @@
  *
  */
 
-use IO:Log;
-use IO:Logs;
+import IO:Log;
+import IO:Logs;
 
-use Math:Int;
-use Text:String;
-use System:Thread:Lock;
+import Math:Int;
+import Text:String;
+import System:Thread:Lock;
 
-use System:Exceptions as Ex;
+import System:Exceptions as Ex;
 
 class Logs {
   

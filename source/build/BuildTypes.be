@@ -8,8 +8,8 @@
  *
  */
 
-use Build:Node;
-use Build:ClassSyn;
+import Build:Node;
+import Build:ClassSyn;
 
 final class Build:NamePath(System:BasePath) {
    

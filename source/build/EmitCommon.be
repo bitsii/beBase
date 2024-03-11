@@ -8,14 +8,14 @@
  *
  */
 
-use IO:File;
-use Build:VisitError;
-use Build:Visit;
-use Build:EmitException;
-use Build:NamePath;
-use Build:Node;
-use Build:ClassConfig;
-use Test:Assertions;
+import IO:File;
+import Build:VisitError;
+import Build:Visit;
+import Build:EmitException;
+import Build:NamePath;
+import Build:Node;
+import Build:ClassConfig;
+import Test:Assertions;
 
 /*
 
@@ -62,7 +62,7 @@ THREADS
 
 */
 
-use local class Build:EmitCommon(Build:Visit:Visitor) {
+import local class Build:EmitCommon(Build:Visit:Visitor) {
 
     new(Build:Build _build) {
         build = _build;
@@ -2447,7 +2447,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    
 }
 
-use local class Build:ClassConfig {
+import local class Build:ClassConfig {
    
    new(Build:NamePath _np, EmitCommon _emitter, IO:File:Path _emitPath, String _libName) self {
    

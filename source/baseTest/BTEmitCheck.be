@@ -8,17 +8,17 @@
  *
  */
 
-use Container:List;
+import Container:List;
 
-use System:Parameters;
-use Text:String;
-use Text:String;
+import System:Parameters;
+import Text:String;
+import Text:String;
 
-use Test:BaseTest;
-use Test:Failure;
-use Math:Int;
+import Test:BaseTest;
+import Test:Failure;
+import Math:Int;
 
-use Logic:Bool;
+import Logic:Bool;
 
 class Test:BaseTest:EmitCheck {
    
@@ -26,14 +26,14 @@ class Test:BaseTest:EmitCheck {
    
 }
 
-use class Test:BaseTest:ParentClass {
+import class Test:BaseTest:ParentClass {
 
 	aMethod() self { }
 	
 }
 
 
-use class Test:BaseTest:ChildClass(ParentClass) {
+import class Test:BaseTest:ChildClass(ParentClass) {
 
 	aMethod() self { }
 	

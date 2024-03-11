@@ -8,7 +8,7 @@
  *
  */
 
- use System:Random;
+ import System:Random;
  
  emit(cs) {
      """

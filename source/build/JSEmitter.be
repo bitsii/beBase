@@ -8,14 +8,14 @@
  *
  */
 
-use IO:File;
-use Build:Visit;
-use Build:EmitException;
-use Build:Node;
-use Build:ClassConfig;
-use Build:NamePath;
+import IO:File;
+import Build:Visit;
+import Build:EmitException;
+import Build:Node;
+import Build:ClassConfig;
+import Build:NamePath;
 
-use final class Build:JSEmitter(Build:EmitCommon) {
+import final class Build:JSEmitter(Build:EmitCommon) {
 
 
     new(Build:Build _build) {

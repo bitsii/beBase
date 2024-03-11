@@ -8,15 +8,15 @@
  *
  */
 
-use Container:List;
-use System:Parameters;
-use Text:String;
-use Text:String;
-use Math:Int;
+import Container:List;
+import System:Parameters;
+import Text:String;
+import Text:String;
+import Math:Int;
 
-use Test:BaseTest;
-use Test:Assertions;
-use Test:Failure;
+import Test:BaseTest;
+import Test:Assertions;
+import Test:Failure;
 
 class Test:BaseTest:Main(BaseTest) {
    
@@ -66,7 +66,7 @@ class Test:BaseTest:System(BaseTest) {
    
 }
 
-use Container:List;
+import Container:List;
 class Test:BaseTest:Parameters(BaseTest) {
    
    process(String arg) {

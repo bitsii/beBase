@@ -8,16 +8,16 @@
  *
  */
 
-use Container:Set:Relations;
-use Container:Set:SetNode;
-use Container:Set:IdentityRelations;
-use Container:Map;
-use Container:Set;
-use Container:IdentityMap;
-use Container:IdentitySet;
-use Container:Map:MapNode;
-use Container:List;
-use Math:Float;
+import Container:Set:Relations;
+import Container:Set:SetNode;
+import Container:Set:IdentityRelations;
+import Container:Map;
+import Container:Set;
+import Container:IdentityMap;
+import Container:IdentitySet;
+import Container:Map:MapNode;
+import Container:List;
+import Math:Float;
 
 class IdentityRelations(Relations) {
    

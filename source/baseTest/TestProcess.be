@@ -8,8 +8,8 @@
  *
  */
 
-use Math:Int;
-use IO:File;
+import Math:Int;
+import IO:File;
 
 class Test:TestProcess{
    

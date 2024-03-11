@@ -93,7 +93,7 @@ final class Text:Tokenizer {
    
 }
 
-use Container:LinkedList;
-use Container:LinkedList:Node;
-use Container:Stack;
-use Container:Single;
+import Container:LinkedList;
+import Container:LinkedList:Node;
+import Container:Stack;
+import Container:Single;

@@ -33,7 +33,7 @@ class System:Exceptions {
   
 }
 
-use System:Exception;
+import System:Exception;
 
 class System:Exception {
    

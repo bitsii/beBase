@@ -14,9 +14,9 @@
    contributed by Craig Welch
 */
 
-use Benchmark:TreeNode;
-use Benchmark:BinaryTrees;
-use Math:Int;
+import Benchmark:TreeNode;
+import Benchmark:BinaryTrees;
+import Math:Int;
 
 final class TreeNode {
    

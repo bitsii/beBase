@@ -8,9 +8,9 @@
  *
  */
 
-use Container:LinkedList:Iterator as LIter;
+import Container:LinkedList:Iterator as LIter;
 
-use class System:ExceptionTranslator {
+import class System:ExceptionTranslator {
   
   default() self { }
   
@@ -273,6 +273,6 @@ use class System:ExceptionTranslator {
 
 }
 
-use Text:Tokenizer as TT;
-use Container:Single;
-use Container:LinkedList:Node;
+import Text:Tokenizer as TT;
+import Container:Single;
+import Container:LinkedList:Node;

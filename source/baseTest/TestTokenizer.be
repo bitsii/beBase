@@ -8,7 +8,7 @@
  *
  */
 
-use Math:Int;
+import Math:Int;
 
 class Test:TestTokenizer{
    

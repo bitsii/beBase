@@ -8,8 +8,8 @@
  *
  */
 
-use IO:File;
-use Text:Glob;
+import IO:File;
+import Text:Glob;
 
 local class IO:File:Path(System:BasePath) {
    

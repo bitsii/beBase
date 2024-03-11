@@ -8,9 +8,9 @@
  *
  */
 
-use Container:Stack;
-use Container:Queue;
-use Math:Int;
+import Container:Stack;
+import Container:Queue;
+import Math:Int;
 
 class Test:TestStack {
    

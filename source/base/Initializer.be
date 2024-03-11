@@ -8,7 +8,7 @@
  *
  */
 
-use final class System:Initializer {
+import final class System:Initializer {
 
     initializeIfShould(inst) {
         if (inst.can("default", 0)) {

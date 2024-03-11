@@ -8,16 +8,16 @@
  *
  */
 
-use Logic:Bool;
-use Container:Set;
-use Container:LinkedList;
-use Text:String;
-use Text:Glob;
+import Logic:Bool;
+import Container:Set;
+import Container:LinkedList;
+import Text:String;
+import Text:Glob;
 
-use IO:File;
-use IO:File:RecursiveIterator;
-use IO:File:DirectoryIterator;
-use IO:File:FilterIterator;
+import IO:File;
+import IO:File:RecursiveIterator;
+import IO:File:DirectoryIterator;
+import IO:File:FilterIterator;
 
 final RecursiveIterator {
 

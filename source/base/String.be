@@ -14,17 +14,17 @@ UTF-8 is OK
 and strlen (not always ok, embedded nulls) let's decide not to support embedded nulls and to technically only support
 "Modified UTF8" or "javastyle utf8 http://stackoverflow.com/questions/6439766/java-utf-8-differences"
 
-lower and upper are not ok, TODO rename to asciiLower and asciiUpper.  (full internationalization should use an external lib)
+lower and upper are not ok, TODO rename to asciiLower and asciiUpper.  (full internationalization should import an external lib)
 
 Keep the ByteIterator as is - it iterates single bytes at a time.  
 This is only a problem if we want to be able to tokenize where tokens might be multi-byte character strings.  Use multi-byte
-aware byteiterator (MultiByteIterator) and use that by default in tokenizer and string, but use ByteIterator in String (as it is about
+aware byteiterator (MultiByteIterator) and import that by default in tokenizer and string, but import ByteIterator in String (as it is about
 bytes, unaware of String/Characters).
 
 It would be great to have a converter for common other formats (UTF-16, etc) to UTF-8
 It would be nice to support non-ascii names for methods, variables, etc, could convert to escaped versions while generating
 
-(currently, we only use strlen once when building the string and use internal length value the rest of the time,
+(currently, we only import strlen once when building the string and import internal length value the rest of the time,
 there an option to drop independent length value, if we disallow embedded null (modified or js style utf8) then we can just compute length
 whenver needed.  Otherwise we would need to keep a separate notion of length, could be a long/int TWINT prepended to buffer with length...).
 */
@@ -1359,7 +1359,7 @@ local class Text:ByteIterator {
       }
    }
    
-   //trick to allow for use with either iter, for (x in y.biter) or for (x in y.mbiter)
+   //trick to allow for import with either iter, for (x in y.biter) or for (x in y.mbiter)
    iteratorGet() dyn {
       return(self);
    }

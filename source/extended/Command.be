@@ -8,14 +8,14 @@
  *
  */
 
- use Text:String;
- use Logic:Bool;
- use Container:LinkedList;
- use Math:Int;
- use System:Random;
- use System:Identity;
+ import Text:String;
+ import Logic:Bool;
+ import Container:LinkedList;
+ import Math:Int;
+ import System:Random;
+ import System:Identity;
  
-use System:Command;
+import System:Command;
 
 emit(cs) {
 """
@@ -190,7 +190,7 @@ final class Command {
    }
 }
 
-use System:Host;
+import System:Host;
 
 local class Host {
 

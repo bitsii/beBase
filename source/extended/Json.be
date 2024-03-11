@@ -8,34 +8,34 @@
  *
  */
 
-use Container:Map;
-use Container:Set;
-use Container:LinkedList;
-use Container:Pair;
-use Constainer:Stack;
-use Math:Int;
-use Logic:Bool;
-use System:Env;
-use Text:String;
-use Text:String;
-use Web:Request;
-use Web:Requests;
-use Web:StaticHandler;
-use Web:MimeTypes;
-use Web:Cookie;
-use Web:Path;
-use Web:TemplateHandler;
-use System:Env;
-use Encode:Url;
-use Text:Tokenizer;
-use Text:MultiByteIterator;
-use Text:ByteIterator;
-use IO:File;
-use System:Serializer;
-use Container:List;
-use Web:Request:Cgi;
+import Container:Map;
+import Container:Set;
+import Container:LinkedList;
+import Container:Pair;
+import Constainer:Stack;
+import Math:Int;
+import Logic:Bool;
+import System:Env;
+import Text:String;
+import Text:String;
+import Web:Request;
+import Web:Requests;
+import Web:StaticHandler;
+import Web:MimeTypes;
+import Web:Cookie;
+import Web:Path;
+import Web:TemplateHandler;
+import System:Env;
+import Encode:Url;
+import Text:Tokenizer;
+import Text:MultiByteIterator;
+import Text:ByteIterator;
+import IO:File;
+import System:Serializer;
+import Container:List;
+import Web:Request:Cgi;
 
-use class Json:Parser {
+import class Json:Parser {
 
     new() self {
         fields {
@@ -260,7 +260,7 @@ use class Json:Parser {
     
 }
 
-use final class Json:Escapes {
+import final class Json:Escapes {
     create() self { }
     default() self {
         
@@ -289,7 +289,7 @@ use final class Json:Escapes {
 
 }
 
-use class Json:Marshaller {
+import class Json:Marshaller {
 
     new() self {
         fields {
@@ -467,7 +467,7 @@ use class Json:Marshaller {
     
 }
 
-use class Json:Unmarshaller {
+import class Json:Unmarshaller {
 
     new() self {
         fields {
@@ -575,7 +575,7 @@ use class Json:Unmarshaller {
 
 }
 
-use class Json:ParseLog {
+import class Json:ParseLog {
 
     new() self {
         fields {

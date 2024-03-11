@@ -8,10 +8,10 @@
  *
  */
 
-use Container:Pair;
-use System:NonIterator;
-use System:ObjectFieldIterator;
-use System:CustomFieldIterator;
+import Container:Pair;
+import System:NonIterator;
+import System:ObjectFieldIterator;
+import System:CustomFieldIterator;
 
 emit(cs) {
     """

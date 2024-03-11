@@ -8,7 +8,7 @@
  *
  */
 
-use Container:List;
+import Container:List;
 
 class Test:TestInvoke {
    

@@ -8,14 +8,14 @@
  *
  */
 
-use IO:File;
-use Build:EmitData;
-use Build:Visit;
-use Build:JVEmitter;
-use Build:CSEmitter;
-use Build:CCEmitter;
-use Build:JSEmitter;
-use System:Parameters;
+import IO:File;
+import Build:EmitData;
+import Build:Visit;
+import Build:JVEmitter;
+import Build:CSEmitter;
+import Build:CCEmitter;
+import Build:JSEmitter;
+import System:Parameters;
 
 final class Build:Build {
 

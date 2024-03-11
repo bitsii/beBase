@@ -8,7 +8,7 @@
  *
  */
 
-use Logic:Bool;
+import Logic:Bool;
 
 class Test:A {
    hubba3() { "dohubba".print(); }

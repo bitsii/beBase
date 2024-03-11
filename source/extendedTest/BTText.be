@@ -8,19 +8,19 @@
  *
  */
 
-use Container:List;
-use Math:Int;
-use Container:Map;
-use Text:String;
-use Text:Strings;
-use Text:ByteIterator;
-use Text:MultiByteIterator;
+import Container:List;
+import Math:Int;
+import Container:Map;
+import Text:String;
+import Text:Strings;
+import Text:ByteIterator;
+import Text:MultiByteIterator;
 
-use System:Parameters;
-use Text:String;
+import System:Parameters;
+import Text:String;
 
-use Test:BaseTest;
-use Test:Failure;
+import Test:BaseTest;
+import Test:Failure;
 
 emit(c){
 """

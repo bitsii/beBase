@@ -8,9 +8,9 @@
  *
  */
 
-use Container:Stack;
-use Container:Stack:Node;
-use Container:Queue;
+import Container:Stack;
+import Container:Stack:Node;
+import Container:Queue;
 
 local class Node {
 
@@ -183,7 +183,7 @@ class Queue {
    
 }
 
-use Container:BoundedQueue as BQueue;
+import Container:BoundedQueue as BQueue;
 class BQueue(Queue) {
     new() self {
       super.new();
@@ -199,7 +199,7 @@ class BQueue(Queue) {
     }
 }
 
-use System:Test:Extendable;
+import System:Test:Extendable;
 
 class Extendable {
    new() self {
@@ -214,7 +214,7 @@ class Extendable {
    bcall() {  }
 }
 
-use System:Test:InExtending;
+import System:Test:InExtending;
 
 class InExtending(Extendable) {
 

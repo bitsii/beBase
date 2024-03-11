@@ -8,10 +8,10 @@
  *
  */
 
-use Container:Stack;
-use Container:Queue;
-use Math:Int;
-use Test:Speeder;
+import Container:Stack;
+import Container:Queue;
+import Math:Int;
+import Test:Speeder;
 
 class Test:TestCallSpeed {
    

@@ -8,11 +8,11 @@
  *
  */
 
-use System:Parameters;
+import System:Parameters;
 
-use Test:BaseTest;
-use Test:Assertions;
-use Test:Failure;
+import Test:BaseTest;
+import Test:Assertions;
+import Test:Failure;
 
 class Test:ExtendedTest:DefaultDoesLogs {
   default() {

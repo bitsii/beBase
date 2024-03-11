@@ -8,13 +8,13 @@
  *
  */
 
-use Container:LinkedList;
-use Container:Map;
-use Build:Visit;
-use Build:NamePath;
-use Build:VisitError;
-use Logic:Bool;
-use Build:Node;
+import Container:LinkedList;
+import Container:Map;
+import Build:Visit;
+import Build:NamePath;
+import Build:VisitError;
+import Logic:Bool;
+import Build:Node;
 
 final class Build:Visit:Pass10(Build:Visit:Visitor) {
 

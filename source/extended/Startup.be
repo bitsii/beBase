@@ -8,19 +8,19 @@
  *
  */
 
-use System:Startup;
-use System:StartupIfArguments;
-use System:StartupWithArguments;
-use System:StartupWithParameters;
-use System:Parameters;
-use Text:String;
-use Math:Int;
-use Logic:Bool;
-use Container:List;
-use Container:LinkedList;
-use Container:Set;
-use Container:Map;
-use IO:File;
+import System:Startup;
+import System:StartupIfArguments;
+import System:StartupWithArguments;
+import System:StartupWithParameters;
+import System:Parameters;
+import Text:String;
+import Math:Int;
+import Logic:Bool;
+import Container:List;
+import Container:LinkedList;
+import Container:Set;
+import Container:Map;
+import IO:File;
 
 class Startup {
    create() self { }
@@ -309,7 +309,7 @@ local class Parameters {
 //with null in value list, -- leads to whole word added with empty string in value list, --this=that
 //leads to whole word added with post = in value list?  called Config?
 
-use class System:Startup:MainWithParameters {
+import class System:Startup:MainWithParameters {
    
    main() {
       return(main(Parameters.new(System:Process.args)));
@@ -317,7 +317,7 @@ use class System:Startup:MainWithParameters {
    
    main(Parameters params) {
       //Inherit from this class and override this method to have a main which starts off with params and
-      //set that to be main class for the build, or use without override and
+      //set that to be main class for the build, or import without override and
       //pass a class name as the first ordered argument on the command line to invoke it with the params
       dyn x = System:Objects.createInstance(params.ordered[0]).new();
       return(x.main(params));

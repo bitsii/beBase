@@ -8,13 +8,13 @@
  *
  */
 
-use IO:File:Path;
+import IO:File:Path;
 
-use Math:Int;
-use Text:String;
-use System:Thread:Lock;
+import Math:Int;
+import Text:String;
+import System:Thread:Lock;
 
-use class IO:Log:Sink {
+import class IO:Log:Sink {
 
   new() {
     fields {

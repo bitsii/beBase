@@ -8,13 +8,13 @@
  *
  */
 
-use Math:Int;
-use Logic:Bool;
-use IO:File;
-use Text:String;
-use Text:String;
-use Container:List;
-use System:Parameters;
+import Math:Int;
+import Logic:Bool;
+import IO:File;
+import Text:String;
+import Text:String;
+import Container:List;
+import System:Parameters;
 
 class Utility:SRep {
    

@@ -8,19 +8,19 @@
  *
  */
 
-use Container:List;
+import Container:List;
 
-use System:Parameters;
-use Text:String;
-use Text:String;
+import System:Parameters;
+import Text:String;
+import Text:String;
 
-use Test:BaseTest;
-use Test:Failure;
-use Math:Int;
+import Test:BaseTest;
+import Test:Failure;
+import Math:Int;
 
-use Template:Replace;
-use Template:Runner;
-use Test:MyTemplate;
+import Template:Replace;
+import Template:Runner;
+import Test:MyTemplate;
 
 class MyTemplate {
 

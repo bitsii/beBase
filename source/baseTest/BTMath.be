@@ -8,13 +8,13 @@
  *
  */
 
-use Container:List;
-use System:Parameters;
+import Container:List;
+import System:Parameters;
 
-use Test:BaseTest;
-use Test:Failure;
-use Math:Int;
-use Math:Float;
+import Test:BaseTest;
+import Test:Failure;
+import Math:Int;
+import Math:Float;
 
 class Test:BaseTest:Int(BaseTest) {
    

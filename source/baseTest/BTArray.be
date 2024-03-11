@@ -8,15 +8,15 @@
  *
  */
 
-use Container:List;
+import Container:List;
 
-use System:Parameters;
-use Text:String;
-use Text:String;
+import System:Parameters;
+import Text:String;
+import Text:String;
 
-use Test:BaseTest;
-use Test:Failure;
-use Math:Int;
+import Test:BaseTest;
+import Test:Failure;
+import Math:Int;
 
 class Test:BaseTest:List(BaseTest) {
    
@@ -207,11 +207,11 @@ class Test:BaseTest:List(BaseTest) {
    
 }
 
-use Test:CREComPar;
+import Test:CREComPar;
 
 class CREComPar { }
 
-use Test:CREComp;
+import Test:CREComp;
 
 class CREComp(CREComPar) {
    
@@ -220,9 +220,9 @@ class CREComp(CREComPar) {
    yo() CREComp { }
 }
 
-use System:Test:Extendable;
+import System:Test:Extendable;
 
-use System:Test:OutExtending;
+import System:Test:OutExtending;
 
 class OutExtending(Extendable) {
 

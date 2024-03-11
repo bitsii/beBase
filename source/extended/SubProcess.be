@@ -8,16 +8,16 @@
  *
  */
 
-use System:Thing;
-use Container:NodeList;
-use IO:File;
+import System:Thing;
+import Container:NodeList;
+import IO:File;
 
-use Container:List;
-use Text:String;
-use Math:Int;
-use Logic:Bool;
+import Container:List;
+import Text:String;
+import Math:Int;
+import Logic:Bool;
 
-use System:SubProcess;
+import System:SubProcess;
 
 class SubProcess {
    new() self { }

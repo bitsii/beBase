@@ -8,7 +8,7 @@
  *
  */
 
-use Encode:Hex;
+import Encode:Hex;
 
 //in future, could support file reader also
 emit(jv) {
@@ -21,7 +21,7 @@ emit(cs) {
 using System.Security.Cryptography;
 """
 }
-use class Digest:SHA256 {
+import class Digest:SHA256 {
 
    emit(jv) {
    """
@@ -75,7 +75,7 @@ use class Digest:SHA256 {
 
 }
 
-use class Digest:SHA1 {
+import class Digest:SHA1 {
 
    emit(jv) {
    """

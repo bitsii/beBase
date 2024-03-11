@@ -8,19 +8,19 @@
  *
  */
 
-use Container:List;
-use System:Parameters;
-use Math:Int;
-use Text:String;
-use Text:String;
-use System:Serializer;
-use Container:Set;
-use Container:Map;
-use Container:LinkedList;
+import Container:List;
+import System:Parameters;
+import Math:Int;
+import Text:String;
+import Text:String;
+import System:Serializer;
+import Container:Set;
+import Container:Map;
+import Container:LinkedList;
 
-use Test:BaseTest;
-use Test:Failure;
-use Logic:Bool;
+import Test:BaseTest;
+import Test:Failure;
+import Logic:Bool;
 
 class Test:BaseTest:LinkedList(BaseTest) {
    

@@ -8,12 +8,12 @@
  *
  */
 
-use Container:PropertyMap;
-use System:Env;
-use Container:Map;
-use Text:String;
-use Math:Int;
-use IO:File;
+import Container:PropertyMap;
+import System:Env;
+import Container:Map;
+import Text:String;
+import Math:Int;
+import IO:File;
 
 class PropertyMap {
    

@@ -8,12 +8,12 @@
  *
  */
 
-use Container:LinkedList;
-use Container:Map;
-use Build:Visit;
-use Build:NamePath;
-use Build:VisitError;
-use Build:Node;
+import Container:LinkedList;
+import Container:Map;
+import Build:Visit;
+import Build:NamePath;
+import Build:VisitError;
+import Build:Node;
 
 final class Build:Visit:Pass5(Build:Visit:Visitor) {
 
@@ -74,7 +74,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
             
             if (undef(nnode)) {
-               throw(VisitError.new("Error improper use statement, target appears to be missing.", node));
+               throw(VisitError.new("Error improper import statement, target appears to be missing.", node));
             }
             
             if (nnode.typename == ntypes.ID) {
@@ -83,7 +83,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             } elseIf (nnode.typename == ntypes.NAMEPATH) {
                namepath = nnode.held;
             } else {
-               throw(VisitError.new("Error improper use statement, target of incorrect type.", node));
+               throw(VisitError.new("Error improper import statement, target of incorrect type.", node));
             }
             
             String alias = null;
@@ -91,7 +91,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             if (mas.typename == ntypes.AS) {
               nnode = mas.nextPeer;
               if (nnode.typename != ntypes.ID) {
-                throw(VisitError.new("Error improper use statement, alias does not follow -as-.", node));
+                throw(VisitError.new("Error improper import statement, alias does not follow -as-.", node));
               }
               alias = nnode.held;
             }
