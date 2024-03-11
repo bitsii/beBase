@@ -10,8 +10,6 @@
 
 use Container:List;
 use System:Parameters;
-use Text:String;
-use Text:String;
 
 use Test:BaseTest;
 use Test:Failure;
@@ -33,8 +31,8 @@ class Test:BaseTest:Int(BaseTest) {
    }
    
    testShift() {
-       Int i = Int.hexNew("12");
-       Int j = i.shiftLeft(2);
+       int i = Int.hexNew("12");
+       int j = i.shiftLeft(2);
        j.toHexString().print();
        assertEqual(j, 72);
        assertEqual(i.shiftLeftValue(2), j);
@@ -70,7 +68,7 @@ class Test:BaseTest:Int(BaseTest) {
       assertEqual(Int.new("1"), 1);
       
       /*
-      Int b = Int.new();
+      int b = Int.new();
       String one = "1";
       one.print();
       one.size.print();
@@ -102,8 +100,8 @@ class Test:BaseTest:Int(BaseTest) {
       dyn uux = 1;
       dyn uuy = 2;
       
-      Int ttx = 1;
-      Int tty = 2;
+      int ttx = 1;
+      int tty = 2;
       
       assertEquals(uux + uuy, 3);
       assertEquals(ttx + tty, 3);

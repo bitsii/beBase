@@ -18,6 +18,7 @@ use Test:BaseTest;
 use Test:Failure;
 use Math:Int;
 use Function:Mapper;
+use System:Method;
 
 class Tests:Function(BaseTest) {
    main() {

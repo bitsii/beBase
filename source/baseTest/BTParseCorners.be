@@ -70,7 +70,7 @@ class PC(BaseTest) {
       
       assertEquals(x, 2);
       
-      Bool y = 1 + 1 == 2;
+      bool y = 1 + 1 == 2;
       
       assertTrue(y);
       
@@ -127,11 +127,11 @@ class FrontCons {
 
 class Test:FunnyOrs(BaseTest) {
    
-   testA() Bool {
+   testA() bool {
    
-      Bool t = true;
-      Bool f = false;
-      Bool x;
+      bool t = true;
+      bool f = false;
+      bool x;
       
       if (t || f) {
          "doIt".print();
@@ -151,7 +151,7 @@ class Test:FunnyOrs(BaseTest) {
       return(true || false);
    }
    
-   retAlt(Bool x) Bool {
+   retAlt(bool x) bool {
       return(x!);
    }
    
@@ -172,7 +172,7 @@ class Test:FunnyOrs(BaseTest) {
    }
    
    dooBie() {
-      Bool a = retAlt(alCa() || false);
+      bool a = retAlt(alCa() || false);
       ("AAA a is a " + a).print();
    }
    

@@ -13,6 +13,8 @@ use System:Parameters;
 use Test:BaseTest;
 use Test:Failure;
 use Math:Float;
+use System:Method;
+
 
 use Logic:Bool;
 
@@ -42,6 +44,7 @@ static const unsigned char global_s[] = {0x41,0x42,0x43, 0};
 
 use Container:LinkedList;
 use IO:File;
+
 
 
 use Test:BaseTest:Misc(BaseTest) {
