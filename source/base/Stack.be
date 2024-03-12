@@ -35,7 +35,7 @@ class Stack {
       fields {
          Node top;
          Node holder;
-         Int size = 0;
+         Int length = 0;
       }
    
    }
@@ -56,7 +56,7 @@ class Stack {
          top = top.next;
       }
       top.held = item;
-      size = size++;
+      length = length++;
    }
    
    pop() {
@@ -73,7 +73,7 @@ class Stack {
       }
       dyn item = last.held;
       last.held = null;
-      size = size--;
+      length = length--;
       return(item);
    }
    
@@ -118,7 +118,7 @@ class Queue {
          Node top; //top of queue, last of live items where items are enqueued
          Node bottom; //bottom of queue, first of live items where items are dequeued
          Node end; //top of queue where items may or may not be live, where dequeues put nodes for reuse
-         Int size = 0;
+         Int length = 0;
       }
    
    }
@@ -145,7 +145,7 @@ class Queue {
          bottom = top;
       }
       top.held = item;
-      size = size++;
+      length = length++;
    }
    
    dequeue() {
@@ -165,7 +165,7 @@ class Queue {
          end.next = last;
          end = last;
       }
-      size = size--;
+      length = length--;
       return(item);
    }
    
@@ -193,7 +193,7 @@ class BQueue(Queue) {
     }
     enqueue(item) {
       super.enqueue(item);
-      if (size > max) {
+      if (length > max) {
         dequeue();
       }
     }

@@ -94,13 +94,13 @@ void** bevl_llpath;
          }
          emit(jv) {
          """
-         java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+         java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
          bevls_f.delete();
          """
          }
          emit(cs) {
           """
-          string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+          string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int);
           File.Delete(bevls_path);
           """
           }
@@ -171,14 +171,14 @@ void** bevl_frv;
          }
          emit(jv) {
          """
-         java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+         java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
          bevls_f.mkdir();
          """
          }
          emit(cs) {
          """
          Directory.CreateDirectory(
-         System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int)
+         System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int)
          );
          """
          }
@@ -224,7 +224,7 @@ void** bevl_frv;
      
      emit(cs) {
         """
-        string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+        string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int);
         long ctm = (long) (File.GetLastWriteTimeUtc(bevls_path) - BEC_2_4_8_TimeInterval.epochStart).TotalMilliseconds;
         bevl_lu.bevp_secs.bevi_int = (int) (ctm / 1000);
         bevl_lu.bevp_millis.bevi_int = (int) (ctm % 1000);
@@ -233,7 +233,7 @@ void** bevl_frv;
         
       emit(jv) {
         """
-        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
         long ctm = bevls_f.lastModified();
         bevl_lu.bevp_secs.bevi_int = (int) (ctm / 1000);
         bevl_lu.bevp_millis.bevi_int = (int) (ctm % 1000);
@@ -247,7 +247,7 @@ void** bevl_frv;
      
       emit(cs) {
         """
-        string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+        string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int);
         DateTime ts = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         ts = ts.AddSeconds(beva_lu.bevp_secs.bevi_int);
         ts = ts.AddMilliseconds(beva_lu.bevp_millis.bevi_int);
@@ -257,7 +257,7 @@ void** bevl_frv;
     
         emit(jv) {
         """
-        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
         long ts = ((long)(beva_lu.bevp_secs.bevi_int)) * 1000L;
         ts = ts + beva_lu.bevp_millis.bevi_int;
         bevls_f.setLastModified(ts);
@@ -288,7 +288,7 @@ void** bevl_spa;
          }
          emit(jv) {
           """
-          java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+          java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
           if (bevls_f.isDirectory()) {
             bevl_result = be.BECS_Runtime.boolTrue;
           }
@@ -296,7 +296,7 @@ void** bevl_spa;
           }
           emit(cs) {
           """
-          string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+          string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int);
           if (Directory.Exists(bevls_path)) {
             bevl_result = be.BECS_Runtime.boolTrue;
           }
@@ -345,7 +345,7 @@ void** bevl_spa;
          }
          emit(jv) {
           """
-          java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+          java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
           if (bevls_f.isFile()) {
             bevl_result = be.BECS_Runtime.boolTrue;
           }
@@ -353,7 +353,7 @@ void** bevl_spa;
           }
           emit(cs) {
           """
-          string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+          string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int);
           if (File.Exists(bevls_path)) {
             bevl_result = be.BECS_Runtime.boolTrue;
           }
@@ -438,12 +438,12 @@ void** bevl_spa;
       }
    }
    
-   sizeGet() Int {
+   lengthGet() Int {
    
     Int sz = Int.new();
     emit(jv) {
     """
-    java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+    java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
     bevl_sz.bevi_int = (int) bevls_f.length();
     """
     }
@@ -472,7 +472,7 @@ void** bevl_mpath;
       }
       emit(jv) {
       """
-      java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+      java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
       if (bevls_f.exists()) {
         bevl_tvala = be.BECS_Runtime.boolTrue;
       }
@@ -480,7 +480,7 @@ void** bevl_mpath;
       }
       emit(cs) {
       """
-      string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+      string bevls_path = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int);
       if (File.Exists(bevls_path) || Directory.Exists(bevls_path)) {
         bevl_tvala = be.BECS_Runtime.boolTrue;
       }
@@ -529,7 +529,7 @@ void** bevl_mpath;
       ifNotEmit(platDroid) {
         emit(jv) {
         """
-        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
         //bevl_abstr = new $class/Text:String$(bevls_f.toPath().toRealPath().toString());
         bevl_abstr = new $class/Text:String$(bevls_f.getCanonicalPath());
         """

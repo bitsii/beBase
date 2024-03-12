@@ -186,11 +186,11 @@ class Test:ExtendedTest:EC(BaseTest) {
    testVarArgs() {
    
       List va = Lists.from(1, 2, 3, 4);
-      assertEquals(va.size, 4);
+      assertEquals(va.length, 4);
       assertEquals(va[1], 2);
       
       Set sa = Sets.from(5, 6, 7, 8);
-      assertEquals(sa.size, 4);
+      assertEquals(sa.length, 4);
       assertTrue(sa.contains(5));
       assertTrue(sa.contains(8));
       

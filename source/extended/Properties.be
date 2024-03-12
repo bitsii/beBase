@@ -131,7 +131,7 @@ int i;
       }
       Int p = next.find("=");
       String k = next.substring(0, p);
-      String v = next.substring(p + 1, next.size);
+      String v = next.substring(p + 1, next.length);
       map.put(k, v);
       emit(c) {
       """

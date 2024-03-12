@@ -1125,7 +1125,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
        }
        
        if (def(psyn) && nativeCSlots > 0) {
-            nativeCSlots = nativeCSlots - psyn.ptyList.size;
+            nativeCSlots = nativeCSlots - psyn.ptyList.length;
             if (nativeCSlots < 0) {
                 nativeCSlots = 0;
             }
@@ -1392,7 +1392,7 @@ buildClassInfo(String bemBase, String belsBase, String lival) self {
       lstringStartCi(sdec, belsName);
     }
       
-      Int lisz = lival.size;
+      Int lisz = lival.length;
       Int lipos = 0;
       Int bcode = Int.new();
       String hs = String.new(2);
@@ -1405,7 +1405,7 @@ buildClassInfo(String bemBase, String belsBase, String lival) self {
       }
       lstringEndCi(sdec);
     
-    buildClassInfoMethod(bemBase, belsBase, lival.size);
+    buildClassInfoMethod(bemBase, belsBase, lival.length);
 
 }
 
@@ -1539,7 +1539,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
              Int methodsOffset = countLines(methods, lastMethodsSize);
              methodsOffset += lastMethodsLines;
              lastMethodsLines = methodsOffset;
-             lastMethodsSize = methods.size.copy();
+             lastMethodsSize = methods.length.copy();
              
              //get methods offset, go through calls in body, add offset, move body calls to class calls
              //Int methodsOffset = countLines(methods);
@@ -1583,7 +1583,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     Int found = 0;
     Int nlval = nl.getInt(0, Int.new());
     Int cursor = Int.new();
-    Int slen = text.size.copy();
+    Int slen = text.length.copy();
     for (Int i = start.copy();i < slen;i++=;) {
       text.getInt(i, cursor);
       if (cursor == nlval) {
@@ -1712,7 +1712,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       
       Int moreLines = countLines(methodBody, lastMethodBodySize);
       lastMethodBodyLines = lastMethodBodyLines + moreLines;
-      lastMethodBodySize = methodBody.size.copy();
+      lastMethodBodySize = methodBody.length.copy();
       
       node.nlec = lastMethodBodyLines;
       //node.nlec = countLines(methodBody);
@@ -1730,13 +1730,13 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
          return(self);
       } elseIf (node.held.orgName == "assign") {
       
-        if (def(node.second) && def(node.second.contained) && node.second.contained.size == 2 && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.typename == ntypes.VAR && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
+        if (def(node.second) && def(node.second.contained) && node.second.contained.length == 2 && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == intNp && node.second.contained.second.typename == ntypes.VAR && node.second.contained.second.held.isTyped && node.second.contained.second.held.namepath == intNp) {
           Bool isIntish = true;
         } else {
           isIntish = false;
         }
         
-        if (def(node.second) && def(node.second.contained) && node.second.contained.size == 1 && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == boolNp) {
+        if (def(node.second) && def(node.second.contained) && node.second.contained.length == 1 && node.second.contained.first.held.isTyped && node.second.contained.first.held.namepath == boolNp) {
           Bool isBoolish = true;
         } else {
           isBoolish = false;
@@ -1899,9 +1899,9 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       
       Bool sglIntish = false;
       Bool dblIntish = false;
-      if (node.inlined! && def(node.contained) && node.contained.size > 0 && node.contained.first.held.isTyped && node.contained.first.held.namepath == intNp) {
+      if (node.inlined! && def(node.contained) && node.contained.length > 0 && node.contained.first.held.isTyped && node.contained.first.held.namepath == intNp) {
         sglIntish = true;
-        if (node.contained.size > 1 && node.contained.second.typename == ntypes.VAR && node.contained.second.held.isTyped && node.contained.second.held.namepath == intNp) {
+        if (node.contained.length > 1 && node.contained.second.typename == ntypes.VAR && node.contained.second.held.isTyped && node.contained.second.held.namepath == intNp) {
           dblIntish = true;
           String dblIntTarg = formTarg(node.contained.second);
         }
@@ -2010,7 +2010,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                       }
                       if (Text:Strings.notEmpty(exname)) {
                         belsName = exname;
-                        lisz = lival.size;
+                        lisz = lival.length;
                       } else {
                         belsName = "bece_" + classConf.emitName + "_bels_" + cnode.held.belsCount.toString();                        
                         cnode.held.belsCount++=;
@@ -2018,7 +2018,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                         String sdec = String.new();
                         lstringStart(sdec, belsName);
                           
-                          lisz = lival.size;
+                          lisz = lival.length;
                           Int lipos = 0;
                           Int bcode = Int.new();
                           String hs = String.new(2);
@@ -2421,8 +2421,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       for (String step in np.steps) {
          if (pref != "") { pref = pref + "_"; }
          //else { suf = "_"; } //old way, no count of steps, has ambiguous cases
-         else { pref = np.steps.size.toString() + "_"; suf = "_"; }  //new way, prevents ambiguous cases
-         pref = pref + step.size;
+         else { pref = np.steps.length.toString() + "_"; suf = "_"; }  //new way, prevents ambiguous cases
+         pref = pref + step.length;
          suf = suf + step;
       }
       return(pref + suf);

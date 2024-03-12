@@ -147,48 +147,48 @@ class Test:BaseTest:Text(BaseTest) {
       x.print();
       b = MultiByteIterator.new(x).next;
       
-      b.size.print();
+      b.length.print();
       b.print();
       b.getHex(0).print();
       b.getCode(0).print();
       
-      assertEqual(b.size, 1);
+      assertEqual(b.length, 1);
       assertEqual(b.getHex(0), "61");
       
       x = "Â";
       x.print();
       b = MultiByteIterator.new(x).next;
       
-      b.size.print();
+      b.length.print();
       b.print();
       b.getHex(0).print();
       b.getCode(0).print();
       
-      assertEqual(b.size, 2);
+      assertEqual(b.length, 2);
       assertEqual(b.getHex(0), "C3");
       
       x = "あ";
       x.print();
       b = MultiByteIterator.new(x).next;
       
-      b.size.print();
+      b.length.print();
       b.print();
       b.getHex(0).print();
       b.getCode(0).print();
       
-      assertEqual(b.size, 3);
+      assertEqual(b.length, 3);
       assertEqual(b.getHex(0), "E3");
       
       x = "𡇙";
       x.print();
       b = MultiByteIterator.new(x).next;
       
-      b.size.print();
+      b.length.print();
       b.print();
       b.getHex(0).print();
       b.getCode(0).print();
       
-      assertEqual(b.size, 4);
+      assertEqual(b.length, 4);
       assertEqual(b.getHex(0), "F0");
       
    }
@@ -207,10 +207,10 @@ class Test:BaseTest:Text(BaseTest) {
        String a = "abc";
        a.addValue("def");
        a.print();
-       a.size.print();
+       a.length.print();
        a.capacity.print();
        assertEqual(a, "abcdef");
-       assertEqual(a.size, 6);
+       assertEqual(a.length, 6);
    }
    
    testCpVal() {
@@ -222,53 +222,53 @@ class Test:BaseTest:Text(BaseTest) {
    testCpValInner() {
         String t = "abc";
         assertEqual(t, "abc");
-        assertEqual(t.size, 3);
+        assertEqual(t.length, 3);
         assertEqual(t.capacity, 3);
         t.print();
         
         t.copyValue("d", 0, 1, 0).print();
         assertEqual(t, "dbc");
-        assertEqual(t.size, 3);
+        assertEqual(t.length, 3);
         assertEqual(t.capacity, 3);
         
         t.copyValue("e", 0, 1, 1).print();
         assertEqual(t, "dec");
-        assertEqual(t.size, 3);
+        assertEqual(t.length, 3);
         assertEqual(t.capacity, 3);
         
         t.copyValue("f", 0, 1, 2).print();
         assertEqual(t, "def");
-        assertEqual(t.size, 3);
+        assertEqual(t.length, 3);
         assertEqual(t.capacity, 3);
         
         t.copyValue("g", 0, 1, 3).print();
         assertEqual(t, "defg");
-        assertEqual(t.size, 4);
+        assertEqual(t.length, 4);
         assertEqual(t.capacity, 4);
         
         t.copyValue("abcd", 0, 4, 0).print();
         assertEqual(t, "abcd");
-        assertEqual(t.size, 4);
+        assertEqual(t.length, 4);
         assertEqual(t.capacity, 4);
         
         t.copyValue("ef", 0, 2, 0).print();
         assertEqual(t, "efcd");
-        assertEqual(t.size, 4);
+        assertEqual(t.length, 4);
         assertEqual(t.capacity, 4);
         
         t.copyValue("gh", 0, 2, 2).print();
         assertEqual(t, "efgh");
-        assertEqual(t.size, 4);
+        assertEqual(t.length, 4);
         assertEqual(t.capacity, 4);
         
         t.copyValue("ijmn", 0, 2, 0).print();
         assertEqual(t, "ijgh");
-        assertEqual(t.size, 4);
+        assertEqual(t.length, 4);
         assertEqual(t.capacity, 4);
         
         t.copyValue("mnkl", 2, 4, 2).print();
         assertEqual(t, "ijkl");
-        assertEqual(t.size, 4);
+        assertEqual(t.length, 4);
         assertEqual(t.capacity, 4);
    }
    
@@ -324,7 +324,7 @@ class Test:BaseTest:Text(BaseTest) {
        while (mb.hasNext) {
           mb.next(b);
           "step".print();
-          b.size.print();
+          b.length.print();
           b.print();
           if (i == 0) {
             assertEqual(b.toString(), "a");

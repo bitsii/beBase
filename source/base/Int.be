@@ -113,7 +113,7 @@ final class Int {
    
    setStringValue(String str, Int radix, Int max0, Int maxA, Int maxa) self {
       self.setValue(0);
-      Int j = str.size.copy();
+      Int j = str.length.copy();
       j--=;
       Int pow = 1;
       Int ic = Int.new();
@@ -195,25 +195,25 @@ final class Int {
             val += alphaStart
         }
         //add to res
-        if (res.capacity <= res.size) {
+        if (res.capacity <= res.length) {
             res.capacity = res.capacity + 4;
         }
-        res.setIntUnchecked(res.size, val);
-        res.size = res.size + 1;//TODO setValue
+        res.setIntUnchecked(res.length, val);
+        res.length = res.length + 1;//TODO setValue
         ifEmit(c) {
-            res.setIntUnchecked(res.size, 0);
+            res.setIntUnchecked(res.length, 0);
         }
         ts /= radix;
       }
       //if insufficient positions, zero pad
-      while (res.size < zeroPad) {
-        if (res.capacity <= res.size) {
+      while (res.length < zeroPad) {
+        if (res.capacity <= res.length) {
             res.capacity = res.capacity + 4;
         }
-        res.setIntUnchecked(res.size, 48);
-        res.size = res.size + 1;//TODO setValue
+        res.setIntUnchecked(res.length, 48);
+        res.length = res.length + 1;//TODO setValue
         ifEmit(c) {
-            res.setIntUnchecked(res.size, 0);
+            res.setIntUnchecked(res.length, 0);
         }
       }
       if (self < 0) {

@@ -98,7 +98,7 @@ final class Float {
             } else {
                 lhs = 0;
             }
-            if (dec + 1 < si.size) {
+            if (dec + 1 < si.length) {
                 Int rhs = Int.new(si.substring(dec + 1));
             } else {
                 rhs = 0;
@@ -107,7 +107,7 @@ final class Float {
             lhs = Int.new(si);
             rhs = 0;
         }
-        Int divby = 10.power(rhs.toString().size);
+        Int divby = 10.power(rhs.toString().length);
         if (neg) {
             rhs *= -1;
             lhs *= -1;

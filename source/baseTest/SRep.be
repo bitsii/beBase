@@ -33,7 +33,7 @@ class Utility:SRep {
       String contents = fin.reader.open().readString();
       fin.reader.close();
       
-      Int len = contents.size;
+      Int len = contents.length;
       
       String b = String.new();
       dyn it = contents.iterator;
@@ -110,10 +110,10 @@ class Utility:SRep {
                }
             }
          }
-         if (ac1.size > 0) {
+         if (ac1.length > 0) {
             w.write(ac1.extractString());
          }
-         if (ac2.size > 0) {
+         if (ac2.length > 0) {
             w.write(ac2.extractString());
          }
          w.write(s);

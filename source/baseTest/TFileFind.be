@@ -186,7 +186,7 @@ class Test:BaseTest:IO(BaseTest) {
       String nl = Text:Strings.newline;
       
       File tf = File.apNew("test/tmp/tbuf.txt");
-      //("nl size " + nl.size.toString()).print();
+      //("nl length " + nl.length.toString()).print();
       String line01 = "Hi" + nl;
       String line02 = "There" + nl;
       String line03 = "Newcastle" + nl;
@@ -269,7 +269,7 @@ class Test:BaseTest:IO(BaseTest) {
       assertTrue(f.copyFile(f2));
       assertTrue(f2.exists);
       
-      assertEquals(f.size, f2.size);
+      assertEquals(f.length, f2.length);
       
       w = f2.writer.open();
       w.write("x");
@@ -278,7 +278,7 @@ class Test:BaseTest:IO(BaseTest) {
       assertTrue(f.copyFile(f2));
       assertTrue(f2.exists);
       
-      assertEquals(f.size, f2.size);
+      assertEquals(f.length, f2.length);
       
       f.delete();
       f2.delete();
@@ -286,7 +286,7 @@ class Test:BaseTest:IO(BaseTest) {
 	  //File fbig = File.apNew("Base_linux.zip");
 	  //File fbigcp = File.apNew("Base_linux_Copy.zip");
 	  //assertTrue(fbig.copyFile(fbigcp));
-	  //assertEquals(fbig.size, fbigcp.size);
+	  //assertEquals(fbig.length, fbigcp.length);
    }
    
    testTimestamps() {
@@ -321,7 +321,7 @@ class Test:BaseTest:IO(BaseTest) {
       w.write("boo");
       w.close();
       
-      assertTrue(f.size > 0);
+      assertTrue(f.length > 0);
       
       f.delete();
    

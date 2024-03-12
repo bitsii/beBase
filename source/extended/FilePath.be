@@ -27,9 +27,9 @@ local class IO:File:Path(System:BasePath) {
    
    apNew(String spath) self {
       //WARNING assumes X: is a drive letter, may not be the case
-      if (spath.size > 1 && spath.getPoint(1) == ":") {
+      if (spath.length > 1 && spath.getPoint(1) == ":") {
          driveLetter = spath.substring(0, 2);
-         spath = spath.substring(2, spath.size);
+         spath = spath.substring(2, spath.length);
       }
       System:Platform p = System:Process.platform;
       spath = spath.swap(p.otherSeparator, p.separator);

@@ -19,7 +19,7 @@ local class Hex {
     encode(String str) String {
       Int ac = Int.new();
       String cur = String.new(2);
-      Int ssz = str.size;
+      Int ssz = str.length;
       String r = String.new(ssz * 2);
       for (Int pos = 0;pos < ssz;pos++=) {
          str.getCode(pos, ac);
@@ -29,7 +29,7 @@ local class Hex {
    }
    
    decode(String str) String {
-      Int ssz = str.size;
+      Int ssz = str.length;
       if (ssz < 1) {
         return(str);
       }
@@ -38,7 +38,7 @@ local class Hex {
       }
       String cur = String.new(2);
       String r = String.new(ssz / 2);
-      r.size = ssz / 2;
+      r.length = ssz / 2;
       Text:ByteIterator tb = Text:ByteIterator.new(str);
       String pta = String.new(1);
       String ptb = String.new(1);

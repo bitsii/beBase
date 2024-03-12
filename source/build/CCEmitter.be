@@ -475,8 +475,8 @@ import final class Build:CCEmitter(Build:EmitCommon) {
         }
         if (undef(deow)) {
            String libName = build.libName;
-           deon = "BED_" + libName.size + "_" + libName + headExt;
-           heon = "BEH_" + libName.size + "_" + libName + headExt;
+           deon = "BED_" + libName.length + "_" + libName + headExt;
+           heon = "BEH_" + libName.length + "_" + libName + headExt;
            deop = libEmitPath.parent.addStep(deon);
            heop = libEmitPath.parent.addStep(heon);
            if (libEmitPath.parent.file.exists!) {

@@ -168,7 +168,7 @@ class System:Object {
       emit(jv) {
       """
       
-      String name = "" + new String(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int, "UTF-8");
+      String name = "" + new String(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_length.bevi_int, "UTF-8");
       
       BETS_Object bevs_cano = bemc_getType();
       
@@ -181,7 +181,7 @@ class System:Object {
       emit(cs) {
       """
       
-      string name = System.Text.Encoding.UTF8.GetString(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_size.bevi_int);
+      string name = System.Text.Encoding.UTF8.GetString(bevl_cname.bevi_bytes, 0, bevl_cname.bevp_length.bevi_int);
       
       BETS_Object bevs_cano = bemc_getType();
       

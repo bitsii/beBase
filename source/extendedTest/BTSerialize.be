@@ -282,7 +282,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       y.print();
       assertTrue(x[0] == y[0]);
       assertTrue(System:Classes.className(x) == System:Classes.className(y));
-      assertTrue(x.size == y.size);
+      assertTrue(x.length == y.length);
    }
 
    testSet() {

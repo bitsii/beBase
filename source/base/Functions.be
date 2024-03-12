@@ -56,7 +56,7 @@ class System:Method {
   //use apply(args) to call (by convention)
   forwardCall(String name, List args) dyn {
     //"in fc".print();
-    //("fc name " + callName + " fc args " + args.size).print();
+    //("fc name " + callName + " fc args " + args.length).print();
     dyn result = target.invoke(callName, args);
     return(result);
   }

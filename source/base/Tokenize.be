@@ -52,7 +52,7 @@ final class Text:Tokenizer {
          i.next(chi);
          dyn cc = tmap.get(chi);
          if (def(cc)) {
-            if (accum.size > 0) {
+            if (accum.length > 0) {
                acceptor.acceptToken(accum.extractString());
             }
             if (includeTokens) {
@@ -62,7 +62,7 @@ final class Text:Tokenizer {
             accum += chi;
          }
       }
-      if (accum.size > 0) {
+      if (accum.length > 0) {
          acceptor.acceptToken(accum.extractString());
       }
    }
@@ -75,7 +75,7 @@ final class Text:Tokenizer {
          i.next(chi);
          dyn cc = tmap.get(chi);
          if (def(cc)) {
-            if (accum.size > 0) {
+            if (accum.length > 0) {
                splits.addValue(accum.extractString());
             }
             if (includeTokens) {
@@ -85,7 +85,7 @@ final class Text:Tokenizer {
             accum += chi;
          }
       }
-      if (accum.size > 0) {
+      if (accum.length > 0) {
          splits.addValue(accum.extractString());
       }
       return(splits);

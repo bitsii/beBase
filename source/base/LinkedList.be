@@ -309,10 +309,6 @@ local LinkedList {
       return(cnt);
    }
    
-   sizeGet() Int {
-      return(lengthGet());
-   }
-   
    isEmptyGet() Bool {
       if (undef(firstNode)) {
         return(true);

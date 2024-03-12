@@ -55,14 +55,14 @@ import class Digest:SHA256 {
         String res;
         emit(jv) {
         """
-        bevi_md.update(beva_with.bevi_bytes, 0, beva_with.bevp_size.bevi_int);
+        bevi_md.update(beva_with.bevi_bytes, 0, beva_with.bevp_length.bevi_int);
         bevl_res = new $class/Text:String$(bevi_md.digest());
         """
         }
         emit(cs) {
         """
         bevl_res = new $class/Text:String$(
-          bevi_md.ComputeHash(beva_with.bevi_bytes, 0, beva_with.bevp_size.bevi_int)
+          bevi_md.ComputeHash(beva_with.bevi_bytes, 0, beva_with.bevp_length.bevi_int)
         );
         """
         }
@@ -109,14 +109,14 @@ import class Digest:SHA1 {
         String res;
         emit(jv) {
         """
-        bevi_md.update(beva_with.bevi_bytes, 0, beva_with.bevp_size.bevi_int);
+        bevi_md.update(beva_with.bevi_bytes, 0, beva_with.bevp_length.bevi_int);
         bevl_res = new $class/Text:String$(bevi_md.digest());
         """
         }
         emit(cs) {
         """
         bevl_res = new $class/Text:String$(
-          bevi_md.ComputeHash(beva_with.bevi_bytes, 0, beva_with.bevp_size.bevi_int)
+          bevi_md.ComputeHash(beva_with.bevi_bytes, 0, beva_with.bevp_length.bevi_int)
         );
         """
         }
@@ -139,7 +139,7 @@ class Encode:Html {
 
   encode(String str) String {
   
-      String r = String.new(str.size * 2); //?why
+      String r = String.new(str.length * 2); //?why
       Text:ByteIterator tb = Text:ByteIterator.new(str);
       String pt = String.new(2);
       while (tb.hasNext) {

@@ -88,7 +88,7 @@ class Map(Set) {
       multi = 2;
       rel = Relations.new();
       baseNode = MapNode.new();
-      size = 0;
+      length = 0;
    }
    
    serializationIteratorGet() {
@@ -97,7 +97,7 @@ class Map(Set) {
    
    contentsEqual(Set _other) Bool {
       Map other = _other;
-      if (undef(other) || other.size != self.size) {
+      if (undef(other) || other.length != self.length) {
          return(false);
       }
       for (dyn i in self) {
@@ -119,7 +119,7 @@ class Map(Set) {
          buckets = slt;
       } 
       if (innerPutAdded) {
-         size = size++;
+         length = length++;
       }
    }
    
@@ -186,20 +186,20 @@ class Set {
       }
       fields {
          List buckets = List.new(_modu);
-         Int size = 0;
+         Int length = 0;
       }
       
    }
    
    isEmptyGet() Bool {
-      if (size == 0) {
+      if (length == 0) {
         return(true);
       }
       return(false);
    }
    
    notEmptyGet() Bool {
-      if (size == 0) {
+      if (length == 0) {
         return(false);
       }
       return(true);
@@ -231,7 +231,7 @@ class Set {
    
    rehash(List slt) {
       /*"Rehashing now".print();*/
-      Int nbuckets = slt.size * multi + 1;
+      Int nbuckets = slt.length * multi + 1;
       List ninner = List.new(nbuckets);
       while (insertAll(ninner, slt)!) {
          nbuckets = nbuckets++;
@@ -241,7 +241,7 @@ class Set {
    }
    
    contentsEqual(Set other) Bool {
-      if (undef(other) || other.size != self.size) {
+      if (undef(other) || other.length != self.length) {
          return(false);
       }
       for (dyn i in self) {
@@ -251,7 +251,7 @@ class Set {
    }
    
    innerPut(k, v, inode, List slt) {
-      Int modu = slt.size;
+      Int modu = slt.length;
       if (undef(inode)) {
          Int hval = rel.getHash(k);
          if (hval < 0) {
@@ -276,7 +276,7 @@ class Set {
             return(false);
          } elseIf (rel.isEqual(n.key, k)) {
             n.putTo(k, v);
-            //existing equiv, no size++
+            //existing equiv, no length++
             innerPutAdded = false;
             return(true);
          } else {
@@ -298,13 +298,13 @@ class Set {
          buckets = slt;
       }
       if (innerPutAdded) {
-         size = size++;
+         length = length++;
       }
    }
    
    get(k) {
       List slt = buckets;
-      Int modu = slt.size;
+      Int modu = slt.length;
       Int hval = rel.getHash(k);
       if (hval < 0) {
 		hval = hval.abs();
@@ -330,7 +330,7 @@ class Set {
 
    contains(k) Bool {
       List slt = buckets;
-      Int modu = slt.size;
+      Int modu = slt.length;
       Int hval = rel.getHash(k);
       if (hval < 0) {
 			hval = hval.abs();
@@ -356,7 +356,7 @@ class Set {
    
    delete(k) {
       List slt = buckets;
-      Int modu = slt.size;
+      Int modu = slt.length;
       
       Int hval = rel.getHash(k);
       if (hval < 0) {
@@ -372,7 +372,7 @@ class Set {
             return(false);
          } elseIf (rel.isEqual(n.key, k)) {
             slt.put(sl, null);
-            size = size--;
+            length = length--;
             sl = sl++;
             while (sl < modu) {
                n = slt.get(sl);
@@ -410,11 +410,13 @@ class Set {
       return(other);
    }
 
+
+
    
    clear() this {
       buckets.clear();
-      buckets.size = modu;
-      size = 0;
+      buckets.length = modu;
+      length = 0;
    }
    
    iteratorGet() {
@@ -607,7 +609,7 @@ class Container:Set:NodeIterator {
       slots {
          Set set = _set;
          List buckets = set.buckets;
-         Int modu = buckets.size;
+         Int modu = buckets.length;
          Int current = 0;
       }
       
@@ -682,7 +684,7 @@ class Sets {
    }
 
   fromHandler(List list) {
-    Int ssz = list.size * 2;
+    Int ssz = list.length * 2;
     ssz++=;
     Set set = Set.new(ssz);
     for (dyn v in list) {
@@ -712,7 +714,7 @@ class Maps {
    }
 
   fromHandler(List list) {
-    Int ls = list.size;
+    Int ls = list.length;
     Map map = Map.new(ls + 1);
     for (Int i = 0;i < ls;i++=) {
       map.put(list[i], list[i++=]);

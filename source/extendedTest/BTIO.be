@@ -65,7 +65,7 @@ class Test:BaseTest:IO(BaseTest) {
         f.path.print();
         names.put(f.path.name);
       }
-      assertEqual(names.size, 3);
+      assertEqual(names.length, 3);
       assertTrue(names.contains("d2"));
       assertTrue(names.contains("hi"));
       assertTrue(names.contains("there"));
@@ -94,7 +94,7 @@ class Test:BaseTest:IO(BaseTest) {
       String nl = Text:Strings.newline;
       
       File tf = File.apNew("test/tmp/tbuf.txt");
-      //("nl size " + nl.size.toString()).print();
+      //("nl length " + nl.length.toString()).print();
       String line01 = "Hi" + nl;
       String line02 = "There" + nl;
       String line03 = "Newcastle" + nl;
@@ -153,7 +153,7 @@ class Test:BaseTest:IO(BaseTest) {
       dataIn += "Here's some data" += nl;
       dataIn += "And, a bit more" += nl;
       dataIn += "This is all..." += nl;
-      ("dataIn sz after 3 lines " + dataIn.size).print();
+      ("dataIn sz after 3 lines " + dataIn.length).print();
       
       testWRFile("test/tmp/wrfilesmall.txt", dataIn);
       
@@ -161,7 +161,7 @@ class Test:BaseTest:IO(BaseTest) {
       for (Int i = 0;i < 1500;i = i++) {
           dataIn += "_";
       }
-      ("dataIn sz after 1500 _ " + dataIn.size).print();
+      ("dataIn sz after 1500 _ " + dataIn.length).print();
       
       testWRFile("test/tmp/wrfilebig.txt", dataIn);
    }
@@ -181,7 +181,7 @@ class Test:BaseTest:IO(BaseTest) {
       String dataOut = r.readString();
       r.close();
       ("dataOut " + dataOut).print();
-      ("dataIn sz " + dataIn.size + " dataOut sz " + dataOut.size).print();
+      ("dataIn sz " + dataIn.length + " dataOut sz " + dataOut.length).print();
       assertEqual(dataIn, dataOut);
       
    }
@@ -206,7 +206,7 @@ class Test:BaseTest:IO(BaseTest) {
       assertTrue(f.copyFile(f2));
       assertTrue(f2.exists);
       
-      assertEquals(f.size, f2.size);
+      assertEquals(f.length, f2.length);
       
       w = f2.writer.open();
       w.write("x");
@@ -215,7 +215,7 @@ class Test:BaseTest:IO(BaseTest) {
       assertTrue(f.copyFile(f2));
       assertTrue(f2.exists);
       
-      assertEquals(f.size, f2.size);
+      assertEquals(f.length, f2.length);
       
       f.delete();
       f2.delete();
@@ -223,7 +223,7 @@ class Test:BaseTest:IO(BaseTest) {
 	  //File fbig = File.apNew("Base_linux.zip");
 	  //File fbigcp = File.apNew("Base_linux_Copy.zip");
 	  //assertTrue(fbig.copyFile(fbigcp));
-	  //assertEquals(fbig.size, fbigcp.size);
+	  //assertEquals(fbig.length, fbigcp.length);
    }
    
    testSize() {
@@ -234,7 +234,7 @@ class Test:BaseTest:IO(BaseTest) {
       w.write("boo");
       w.close();
       
-      assertTrue(f.size > 0);
+      assertTrue(f.length > 0);
       
       f.delete();
    

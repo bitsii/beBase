@@ -176,8 +176,8 @@ final class ClassSyn {
      allAncestorsClose = true;
      if (undef(superNp)) {
         allAncestorsClose = true;
-        newMbrs = ptyList.size;
-        newMtds = mtdList.size;
+        newMbrs = ptyList.length;
+        newMtds = mtdList.length;
         defMtds = newMtds;
         for (Build:MtdSyn om in mtdList) {
 			build.emitData.methodIndexes.put(Build:MethodIndex.new(self, om));
@@ -188,7 +188,7 @@ final class ClassSyn {
      newMtds = 0;
      defMtds = 0;
      //namepath.print();
-     newMbrs = ptyList.size - psyn.ptyList.size;
+     newMbrs = ptyList.length - psyn.ptyList.length;
      if (psyn.libName == libName) { psyn.integrate(build); }
      if (psyn.isFinal) {
       throw(Build:VisitError.new("Attempting to extend a final class in " + namepath.toString()));

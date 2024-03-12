@@ -22,7 +22,7 @@ local class Url {
    //http://www.w3schools.com/TAGS/ref_urlencode.asp
    
    encode(String str) String {
-      String r = String.new(str.size * 2); //?why
+      String r = String.new(str.length * 2); //?why
       Text:ByteIterator tb = Text:ByteIterator.new(str);
       String pt = String.new(2);
       while (tb.hasNext) {
@@ -42,7 +42,7 @@ local class Url {
    }
    
    decode(String str) String {
-      String r = String.new(str.size);
+      String r = String.new(str.length);
       Int last = 0;
       Int npl;
       Int npe;
@@ -59,7 +59,7 @@ local class Url {
          i = npe;
       }
       
-      Int len = str.size;
+      Int len = str.length;
       while (def(i)) {
          if (i > last) {
             r.addValue(str.substring(last, i));

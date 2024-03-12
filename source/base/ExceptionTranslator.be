@@ -66,7 +66,7 @@ import class System:ExceptionTranslator {
                          //("in start def").print();
                          String inPart = line.substring(start + 3);
                          if (inPart.ends(" ")) {
-                           inPart.size = inPart.size - 1;
+                           inPart.length = inPart.length - 1;
                          }
                          //("in part |" + inPart + "|").print();
                          Int pdelim = inPart.rfind(":");
@@ -143,8 +143,8 @@ import class System:ExceptionTranslator {
                    ("callPart |" + callPart + "|").print();
                    }
                    parts = callPart.split(".");
-                   if (parts.size > 1) {
-                     if (parts.size > 2) {
+                   if (parts.length > 1) {
+                     if (parts.length > 2) {
                        mtd = parts.get(2);
                        klass = parts.get(1);
                      } else {
@@ -241,7 +241,7 @@ import class System:ExceptionTranslator {
        return(klass);
    }
    List kparts = klass.substring(6).split("_");
-   Int kps = kparts.size - 1; //last is the string, rest is the sizes
+   Int kps = kparts.length - 1; //last is the string, rest is the lengths
    String rawkl = kparts.get(kps);
    String bec = String.new();
    Int sofar = 0;
@@ -261,7 +261,7 @@ import class System:ExceptionTranslator {
        return(mtd);
    }
    List mparts = mtd.substring(4).split("_");
-   Int mps = mparts.size - 1; //last is the argnum, rest is the name
+   Int mps = mparts.length - 1; //last is the argnum, rest is the name
    String bem = String.new();
    for (Int i = 0;i < mps;i++=) {
        bem += mparts.get(i);

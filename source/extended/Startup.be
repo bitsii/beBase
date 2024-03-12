@@ -34,7 +34,7 @@ class Startup {
    
    main() {
       args = System:Process.new().args;
-      if (args.size < 1) {
+      if (args.length < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main() method should be called"));
       }
       dyn x = System:Objects.createInstance(args[0]).new();
@@ -54,7 +54,7 @@ class StartupIfArguments {
    
    main() {
       args = System:Process.new().args;
-      if (args.size > 0) {
+      if (args.length > 0) {
          dyn x = System:Objects.createInstance(args[0]).new();
          return(x.main());
       }
@@ -74,7 +74,7 @@ class StartupWithArguments {
    
    main() {
       args = System:Process.new().args;
-      if (args.size < 1) {
+      if (args.length < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args) method should be called"));
       }
       dyn x = System:Objects.createInstance(args[0]).new();
@@ -95,7 +95,7 @@ class StartupWithParameters {
    
    main() {
       args = System:Process.new().args;
-      if (args.size < 1) {
+      if (args.length < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args, Parameters params) method should be called"));
       }
       params = Parameters.new(args);
@@ -172,11 +172,11 @@ local class Parameters {
          String fa = null;
          String fb = null;
          String fc = null;
-         if (i.size > 0) {
+         if (i.length > 0) {
             fa = i.substring(0, 1);
-            if (i.size > 1) {
+            if (i.length > 1) {
                fb = i.substring(0, 2);
-               if (i.size > 2) {
+               if (i.length > 2) {
                   fc = i.substring(0, 3);
                }
             }
@@ -188,9 +188,9 @@ local class Parameters {
             pname = null;
             pnameComment = false;
          } elseIf (def(fb) && fb == "--") {
-            pname = i.substring(2, i.size);
+            pname = i.substring(2, i.length);
          } elseIf (def(fa) && fa == "-") {
-            String par = i.substring(1, i.size);
+            String par = i.substring(1, i.length);
             Int pos = par.find("=");
             if (def(pos)) {
                String key = par.substring(0, pos);
@@ -198,7 +198,7 @@ local class Parameters {
                addParameter(key, value);
             }
          } elseIf (def(fc) && fc == "#--") {
-            pname = i.substring(3, i.size);
+            pname = i.substring(3, i.length);
             pnameComment = true;
          } elseIf ((def(fa) && fa == "#")!) {
             ordered += i;

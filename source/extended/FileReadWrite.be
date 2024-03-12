@@ -107,7 +107,7 @@ void** bevl_fhpatha;
       emit(jv) {
       """
       if (this.bevi_is == null) {
-        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
         this.bevi_is = new java.io.FileInputStream(bevls_f);
       }
       bevp_isClosed = be.BECS_Runtime.boolFalse;
@@ -116,7 +116,7 @@ void** bevl_fhpatha;
       emit(cs) {
       """
       if (this.bevi_is == null) {
-        string bevls_spath = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+        string bevls_spath = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int);
         this.bevi_is = new FileStream(bevls_spath, FileMode.Open);
       }
       bevp_isClosed = be.BECS_Runtime.boolFalse;
@@ -289,7 +289,7 @@ class IO:Reader {
       """
       }
       //("read " + readsz).print();
-      readBuf.size.setValue(readsz);
+      readBuf.length.setValue(readsz);
       return(readsz);
    }
    
@@ -317,8 +317,8 @@ class IO:Reader {
       while (nowAt > at) {
 		    at.setValue(nowAt);
 		    if (builder.capacity - at < 2) {
-          Int nsize = ((at + blockSize + 16) * 3) / 2;
-			    builder.capacitySet(nsize);
+          Int nlength = ((at + blockSize + 16) * 3) / 2;
+			    builder.capacitySet(nlength);
 		    }
         readIntoBuffer(builder, at, nowAt);
       }
@@ -441,7 +441,7 @@ void** bevl_mode;
       emit(jv) {
       """
       if (this.bevi_os == null) {
-        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int, "UTF-8"));
+        java.io.File bevls_f = new java.io.File(new String(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int, "UTF-8"));
         this.bevi_os = new java.io.FileOutputStream(bevls_f, bevl_append.bevi_bool);
       }
       bevp_isClosed = be.BECS_Runtime.boolFalse;
@@ -450,7 +450,7 @@ void** bevl_mode;
       emit(cs) {
       """
       if (this.bevi_os == null) {
-        string bevls_spath = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_size.bevi_int);
+        string bevls_spath = System.Text.Encoding.UTF8.GetString(bevp_path.bevp_path.bevi_bytes, 0, bevp_path.bevp_path.bevp_length.bevi_int);
         if (bevl_append.bevi_bool) {
             this.bevi_os = new FileStream(bevls_spath, FileMode.Append, FileAccess.Write, FileShare.Write, 64);
         } else {
@@ -589,23 +589,23 @@ class IO:Writer {
    write(String stri) {
       emit(jv) {
       """
-      this.bevi_os.write(beva_stri.bevi_bytes, 0, beva_stri.bevp_size.bevi_int);
+      this.bevi_os.write(beva_stri.bevi_bytes, 0, beva_stri.bevp_length.bevi_int);
       """
       }
       emit(cs) {
       """
-      this.bevi_os.Write(beva_stri.bevi_bytes, 0, beva_stri.bevp_size.bevi_int);
+      this.bevi_os.Write(beva_stri.bevi_bytes, 0, beva_stri.bevp_length.bevi_int);
       this.bevi_os.Flush();
       """
       }
       emit(cc) {
       """
-      fwrite(&(beq->beva_stri->bevi_bytes)[0], sizeof(unsigned char), beq->beva_stri->bevp_size->bevi_int, bevi_os);
+      fwrite(&(beq->beva_stri->bevi_bytes)[0], sizeof(unsigned char), beq->beva_stri->bevp_length->bevi_int, bevi_os);
       """
       }
       emit(js) {
       """
-      fs.writeSync(this.bevi_os,new Buffer(beva_stri.bevi_bytes), 0, beva_stri.bevp_size.bevi_int);
+      fs.writeSync(this.bevi_os,new Buffer(beva_stri.bevi_bytes), 0, beva_stri.bevp_length.bevi_int);
       """
       }
    }

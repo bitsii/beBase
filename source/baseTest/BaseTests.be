@@ -219,7 +219,7 @@ class Test:BaseTest:EC(BaseTest) {
        //if (true) { return(self); }
        vs.callIt("boo");
        assertEqual(lastName, "callIt");
-       assertEqual(lastArgs.size, 1);
+       assertEqual(lastArgs.length, 1);
        assertEqual(lastArgs[0], "boo");
        ("testFc done").print();
     }

@@ -108,7 +108,7 @@ void** v_thing;
       String lename;
       
       _args = args;
-      argc = args.size + 1;
+      argc = args.length + 1;
       lklass = klass;
       lplat = System:Process.platform.name;
       argv = Thing.new();

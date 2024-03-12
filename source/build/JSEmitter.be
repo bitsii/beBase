@@ -210,8 +210,8 @@ import final class Build:JSEmitter(Build:EmitCommon) {
         libe.write(smap);
         }
 
-        //("Used lib size " + build.usedLibrarys.size).print();
-        if (build.usedLibrarys.size == 0) {
+        //("Used lib length " + build.usedLibrarys.length).print();
+        if (build.usedLibrarys.length == 0) {
             libInit += "be_BECS_Runtime.prototype.boolTrue = new be_BEC_2_5_4_LogicBool().beml_set_bevi_bool(true);" += nl;
             libInit += "be_BECS_Runtime.prototype.boolFalse = new be_BEC_2_5_4_LogicBool().beml_set_bevi_bool(false);" += nl;
             libInit += "be_BECS_Runtime.prototype.initializer = new be_BEC_2_6_11_SystemInitializer();" += nl;

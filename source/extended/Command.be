@@ -93,7 +93,7 @@ final class Command {
       }
       
       if (def(commands)) {
-        Int cl = commands.size;
+        Int cl = commands.length;
         emit(jv) {
         """
         String[] cmds = new String[bevl_cl.bevi_int]; 

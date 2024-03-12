@@ -108,7 +108,7 @@ class System:Objects {
 
       emit(jv) {
         """
-        String key = new String(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int, "UTF-8");
+        String key = new String(beva_cname.bevi_bytes, 0, beva_cname.bevp_length.bevi_int, "UTF-8");
         BETS_Object ti = be.BECS_Runtime.typeRefs.get(key);
         if (ti != null) {
             bevl_result = ti.bems_createInstance();
@@ -117,7 +117,7 @@ class System:Objects {
       }
       emit(cs) {
         """
-        string key = System.Text.Encoding.UTF8.GetString(beva_cname.bevi_bytes, 0, beva_cname.bevp_size.bevi_int);
+        string key = System.Text.Encoding.UTF8.GetString(beva_cname.bevi_bytes, 0, beva_cname.bevp_length.bevi_int);
         BETS_Object ti = be.BECS_Runtime.typeRefs[key];
         if (ti != null) {
             bevl_result = ti.bems_createInstance();

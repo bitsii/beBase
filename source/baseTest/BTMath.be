@@ -71,7 +71,7 @@ class Test:BaseTest:Int(BaseTest) {
       int b = Int.new();
       String one = "1";
       one.print();
-      one.size.print();
+      one.length.print();
       one.getInt(0, b);
       ("b is " + b).print();
       */

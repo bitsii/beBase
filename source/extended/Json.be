@@ -86,14 +86,14 @@ import class Json:Parser {
     }
     
     jsonUcGetAfterPart(String tok) String {
-      if (tok.size < 6) {
+      if (tok.length < 6) {
         return(null);
       }
       return(tok.substring(5));
     }
     
     jsonUcUnescape(String tok) Int {
-      if (tok.size < 5) {
+      if (tok.length < 5) {
         throw(System:Exception.new("tok too small"));
       }
       return(Int.hexNew(tok.substring(1)));
@@ -101,11 +101,11 @@ import class Json:Parser {
     
     jsonUcAppendValue(Int heldValue, Int value, String accum) {
     
-      if (accum.capacity - accum.size < 4) {
-        accum.capacitySet(accum.size + 4);
+      if (accum.capacity - accum.length < 4) {
+        accum.capacitySet(accum.length + 4);
       }
-      Int sizeNow = accum.size;
-      Int size;
+      Int lengthNow = accum.length;
+      Int length;
       
       if (def(heldValue)) {
           //throw(System:Exception.new("Got a dupl case"));
@@ -119,36 +119,36 @@ import class Json:Parser {
       }
       
     //accum is buffer
-    //start with sizenow
+    //start with lengthnow
     
     if(value < 0) {
-        size = -1;
+        length = -1;
     } elseIf(value < Int.hexNew("80")) {
-        accum.setIntUnchecked(sizeNow, value);
-        size = 1;
+        accum.setIntUnchecked(lengthNow, value);
+        length = 1;
     } elseIf(value < Int.hexNew("800")) {
-        accum.setIntUnchecked(sizeNow, Int.hexNew("C0").add(value.and(Int.hexNew("7C0")).shiftRight(6)));
-        accum.setIntUnchecked(sizeNow + 1, Int.hexNew("80").add(value.and(Int.hexNew("03F"))));
-        size = 2;
+        accum.setIntUnchecked(lengthNow, Int.hexNew("C0").add(value.and(Int.hexNew("7C0")).shiftRight(6)));
+        accum.setIntUnchecked(lengthNow + 1, Int.hexNew("80").add(value.and(Int.hexNew("03F"))));
+        length = 2;
     } elseIf(value < Int.hexNew("10000")) {
-        accum.setIntUnchecked(sizeNow, Int.hexNew("E0").add(value.and(Int.hexNew("F000")).shiftRight(12)));
-        accum.setIntUnchecked(sizeNow + 1, Int.hexNew("80").add(value.and(Int.hexNew("0FC0")).shiftRight(6)));
-        accum.setIntUnchecked(sizeNow + 2, Int.hexNew("80").add(value.and(Int.hexNew("003F"))));
-        size = 3;
+        accum.setIntUnchecked(lengthNow, Int.hexNew("E0").add(value.and(Int.hexNew("F000")).shiftRight(12)));
+        accum.setIntUnchecked(lengthNow + 1, Int.hexNew("80").add(value.and(Int.hexNew("0FC0")).shiftRight(6)));
+        accum.setIntUnchecked(lengthNow + 2, Int.hexNew("80").add(value.and(Int.hexNew("003F"))));
+        length = 3;
     } elseIf(value <= Int.hexNew("10FFFF")) {
-        accum.setIntUnchecked(sizeNow, Int.hexNew("F0").add(value.and(Int.hexNew("1C0000")).shiftRight(18)));
-        accum.setIntUnchecked(sizeNow + 1, Int.hexNew("80").add(value.and(Int.hexNew("03F000")).shiftRight(12)));
-        accum.setIntUnchecked(sizeNow + 2, Int.hexNew("80").add(value.and(Int.hexNew("000FC0")).shiftRight(6)));
-        accum.setIntUnchecked(sizeNow + 3, Int.hexNew("80").add(value.and(Int.hexNew("00003F"))));
-        size = 4;
+        accum.setIntUnchecked(lengthNow, Int.hexNew("F0").add(value.and(Int.hexNew("1C0000")).shiftRight(18)));
+        accum.setIntUnchecked(lengthNow + 1, Int.hexNew("80").add(value.and(Int.hexNew("03F000")).shiftRight(12)));
+        accum.setIntUnchecked(lengthNow + 2, Int.hexNew("80").add(value.and(Int.hexNew("000FC0")).shiftRight(6)));
+        accum.setIntUnchecked(lengthNow + 3, Int.hexNew("80").add(value.and(Int.hexNew("00003F"))));
+        length = 4;
     } else {
-        size = -1;
+        length = -1;
     }
         
-        if (size < 0) {
+        if (length < 0) {
             throw(System:Exception.new("failed during value to buffer convert"));
         }
-        accum.size = accum.size + size;//TODO setValue (addValue)
+        accum.length = accum.length + length;//TODO setValue (addValue)
     }
     
     parseTokens(LinkedList toks, handler) self {
@@ -350,35 +350,35 @@ import class Json:Marshaller {
     
    jsonEscapePoint(String txtpt, String txt) {
       Int rcap = Int.new();
-      Int txtsznow = txt.size;
+      Int txtsznow = txt.length;
       
-      Int size = txtpt.size;
+      Int length = txtpt.length;
       Int value;
 
     Int u = txtpt.getInt(0, Int.new());
-    if(size == 2)
+    if(length == 2)
     {
         value = u & Int.hexNew("1F");
     }
-    elseIf(size == 3)
+    elseIf(length == 3)
     {
         value = u & Int.hexNew("F");
     }
-    elseIf(size == 4)
+    elseIf(length == 4)
     {
         value = u & Int.hexNew("7");
     }
-    if (size > 1) { //redundant?
-        for(Int i = 1; i < size; i++=)
+    if (length > 1) { //redundant?
+        for(Int i = 1; i < length; i++=)
         {
             txtpt.getInt(i, u);
 
             value = value.shiftLeft(6) + u.and(Int.hexNew("3F"));
         }
     }
-    if (size == 0) {
+    if (length == 0) {
         rcap = 0;
-    } elseIf (size == 1) {
+    } elseIf (length == 1) {
         rcap = 2;
     } else {
         if(value < Int.hexNew("10000")) {
@@ -391,7 +391,7 @@ import class Json:Marshaller {
       if (txt.capacity - txtsznow < rcap) {
         txt.capacitySet(txtsznow + rcap);
       }
-      //rcap 0 nothing happens, size stays 0
+      //rcap 0 nothing happens, length stays 0
       if (rcap == 2) {
         //ascii, check for special characters
         Escapes esc = Escapes.new();

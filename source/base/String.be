@@ -36,7 +36,7 @@ using System;
     """
 }
 
-//size is used mutably, capacity is used immutably, the capacity instance can never = the size instance (cannot be same instance, can be
+//length is used mutably, capacity is used immutably, the capacity instance can never = the length instance (cannot be same instance, can be
 //same value, of course)
 final class String {
    
@@ -46,31 +46,31 @@ final class String {
     public byte[] bevi_bytes;
     public $class/Text:String$(byte[] bevi_bytes) {
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new $class/Math:Int$(bevi_bytes.length);
+        bevp_length = new $class/Math:Int$(bevi_bytes.length);
         bevp_capacity = new $class/Math:Int$(bevi_bytes.length);
     }
     public $class/Text:String$(byte[] bevi_bytes, int bevi_length) {
       //do copy, isOnce
       this.bevi_bytes = new byte[bevi_length];
       System.arraycopy( bevi_bytes, 0, this.bevi_bytes, 0, bevi_length );
-      bevp_size = new $class/Math:Int$(bevi_length);
+      bevp_length = new $class/Math:Int$(bevi_length);
       bevp_capacity = new $class/Math:Int$(bevi_length);
     }
     public $class/Text:String$(int bevi_length, byte[] bevi_bytes) {
         //do copy, not isOnce
         this.bevi_bytes = new byte[bevi_length];
         System.arraycopy( bevi_bytes, 0, this.bevi_bytes, 0, bevi_length );
-        bevp_size = new $class/Math:Int$(bevi_length);
+        bevp_length = new $class/Math:Int$(bevi_length);
         bevp_capacity = new $class/Math:Int$(bevi_length);
     }
     public $class/Text:String$(String bevi_string) throws Exception {
         byte[] bevi_bytes = bevi_string.getBytes("UTF-8");
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new $class/Math:Int$(bevi_bytes.length);
+        bevp_length = new $class/Math:Int$(bevi_bytes.length);
         bevp_capacity = new $class/Math:Int$(bevi_bytes.length);
     }
     public String bems_toJvString() throws Exception {
-        String jvString = new String(bevi_bytes, 0, bevp_size.bevi_int, "UTF-8");
+        String jvString = new String(bevi_bytes, 0, bevp_length.bevi_int, "UTF-8");
         return jvString;
     }
     
@@ -83,31 +83,31 @@ final class String {
     public byte[] bevi_bytes;
     public $class/Text:String$(byte[] bevi_bytes) { 
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new $class/Math:Int$(bevi_bytes.Length);
+        bevp_length = new $class/Math:Int$(bevi_bytes.Length);
         bevp_capacity = new $class/Math:Int$(bevi_bytes.Length);
     }
     public $class/Text:String$(byte[] bevi_bytes, int bevi_length) { 
       //do copy, isOnce
       this.bevi_bytes = new byte[bevi_length];
       Array.Copy( bevi_bytes, 0, this.bevi_bytes, 0, bevi_length );
-      bevp_size = new $class/Math:Int$(bevi_length);
+      bevp_length = new $class/Math:Int$(bevi_length);
       bevp_capacity = new $class/Math:Int$(bevi_length);
     }
     public $class/Text:String$(int bevi_length, byte[] bevi_bytes) { 
         //do copy, not isOnce
         this.bevi_bytes = new byte[bevi_length];
         Array.Copy( bevi_bytes, 0, this.bevi_bytes, 0, bevi_length );
-        bevp_size = new $class/Math:Int$(bevi_length);
+        bevp_length = new $class/Math:Int$(bevi_length);
         bevp_capacity = new $class/Math:Int$(bevi_length);
     }
     public $class/Text:String$(string bevi_string) {
         byte[] bevi_bytes = System.Text.Encoding.UTF8.GetBytes(bevi_string);
         this.bevi_bytes = bevi_bytes; 
-        bevp_size = new $class/Math:Int$(bevi_bytes.Length);
+        bevp_length = new $class/Math:Int$(bevi_bytes.Length);
         bevp_capacity = new $class/Math:Int$(bevi_bytes.Length);
     }
     public string bems_toCsString() {
-        string csString = System.Text.Encoding.UTF8.GetString(bevi_bytes, 0, bevp_size.bevi_int);
+        string csString = System.Text.Encoding.UTF8.GetString(bevi_bytes, 0, bevp_length.bevi_int);
         return csString;
     }
     
@@ -142,9 +142,9 @@ final class String {
       BECS_StackFrame bevs_stackFrame(1);
 #endif
       bevi_bytes = a_bevi_bytes;
-      bevp_size = nullptr;
+      bevp_length = nullptr;
       bevp_capacity = nullptr;
-      bevp_size = new BEC_2_4_3_MathInt(bevi_length);
+      bevp_length = new BEC_2_4_3_MathInt(bevi_length);
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
     } //}
     
@@ -159,9 +159,9 @@ final class String {
       BECS_StackFrame bevs_stackFrame(1);
     #endif
           bevi_bytes = a_bevi_bytes;
-          bevp_size = nullptr;
+          bevp_length = nullptr;
           bevp_capacity = nullptr;
-          bevp_size = new BEC_2_4_3_MathInt(bevi_length);
+          bevp_length = new BEC_2_4_3_MathInt(bevi_length);
           bevp_capacity = new BEC_2_4_3_MathInt(bevi_length);
         } //}
     
@@ -174,9 +174,9 @@ final class String {
       BECS_StackFrame bevs_stackFrame(1);
     #endif
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
-      bevp_size = nullptr;
+      bevp_length = nullptr;
       bevp_capacity = nullptr;
-      bevp_size = new BEC_2_4_3_MathInt(bevi_bytes.size());
+      bevp_length = new BEC_2_4_3_MathInt(bevi_bytes.size());
       bevp_capacity = new BEC_2_4_3_MathInt(bevi_bytes.size());
     }
     
@@ -190,14 +190,14 @@ final class String {
    """
    std::string BEC_2_4_6_TextString::bems_toCcString() {
       std::string ccString(bevi_bytes.begin(), bevi_bytes.end());
-      ccString.resize(bevp_size->bevi_int);
+      ccString.resize(bevp_length->bevi_int);
       return ccString;
     }
 
    char* BEC_2_4_6_TextString::bems_c_str(char* buf, int mxlen) {
       int i = 0;
 
-      for (i = 0;i < bevp_size->bevi_int && i < mxlen;i++) {
+      for (i = 0;i < bevp_length->bevi_int && i < mxlen;i++) {
          buf[i] = (char) bevi_bytes[i];
       }
       buf[i] = '\0';
@@ -213,25 +213,25 @@ final class String {
    
     be_$class/Text:String$.prototype.beml_set_bevi_bytes = function(bevi_bytes) {
         this.bevi_bytes = bevi_bytes;
-        this.bevp_size = new be_$class/Math:Int$().beml_set_bevi_int(bevi_bytes.length);
+        this.bevp_length = new be_$class/Math:Int$().beml_set_bevi_int(bevi_bytes.length);
         this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_bytes.length);
         return this;
     }
     be_$class/Text:String$.prototype.beml_set_bevi_bytes_len = function(bevi_bytes, bevi_length) {
         this.bevi_bytes = bevi_bytes.slice(0);
-        this.bevp_size = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_length = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         return this;
     }
     be_$class/Text:String$.prototype.beml_set_bevi_bytes_len_copy = function(bevi_bytes, bevi_length) {
         this.bevi_bytes = bevi_bytes.slice(0);
-        this.bevp_size = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_length = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         return this;
     }
     be_$class/Text:String$.prototype.beml_set_bevi_bytes_len_nocopy = function(bevi_bytes, bevi_length) {
         this.bevi_bytes = bevi_bytes;
-        this.bevp_size = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
+        this.bevp_length = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         this.bevp_capacity = new be_$class/Math:Int$().beml_set_bevi_int(bevi_length);
         return this;
     }
@@ -247,10 +247,10 @@ final class String {
    }
    
    new(Int _capacity) self {
-      size = 0;
+      length = 0;
       capacitySet(_capacity);
       fields {
-         Int size;
+         Int length;
          Int capacity;
       }
    }
@@ -295,19 +295,19 @@ final class String {
       if (this.bevi_bytes == null) {
         this.bevi_bytes = new Array(beva_ncap.bevi_int);
       } else {
-        this.bevi_bytes = this.bevi_bytes.slice(0, Math.min(beva_ncap.bevi_int, this.bevp_size.bevi_int));
+        this.bevi_bytes = this.bevi_bytes.slice(0, Math.min(beva_ncap.bevi_int, this.bevp_length.bevi_int));
       }
       """
       }
-      if (size > ncap) {
-        size.setValue(ncap);
+      if (length > ncap) {
+        length.setValue(ncap);
       }
       capacity.setValue(ncap);
    }
    
    hexNew(String val) self {
      new(1);
-     size.setValue(1);
+     length.setValue(1);
      setHex(0, val);
    }
    
@@ -324,16 +324,16 @@ final class String {
       String str = astr.toString();
       
       Int sizi = Int.new();
-      sizi.setValue(str.size);
-      sizi.addValue(size);
+      sizi.setValue(str.length);
+      sizi.addValue(length);
        //used to add +1 to the right hand of compare, should not be needed
       if (capacity < sizi) { 
-        Int nsize = ((sizi + 16) * 3) / 2;
-        //Int nsize = sizi + (sizi / 2);
-        //nsize += 4;
-        capacitySet(nsize);
+        Int nlength = ((sizi + 16) * 3) / 2;
+        //Int nlength = sizi + (sizi / 2);
+        //nlength += 4;
+        capacitySet(nlength);
       }
-      copyValue(str, TS.zero, str.size, size);
+      copyValue(str, TS.zero, str.length, length);
    }
    
    readBuffer() String {
@@ -356,7 +356,7 @@ final class String {
    
    close() { }
    
-   //sizeSet TODO check vs capacity, set a null at size + 1
+   //lengthSet TODO check vs capacity, set a null at length + 1
    
    extractString() String {
       String str = copy();
@@ -365,32 +365,32 @@ final class String {
    }
    
    clear() this {
-      if (size > 0) {
+      if (length > 0) {
         setIntUnchecked(0, 0);
-        size.setValue(0);
+        length.setValue(0);
       }
    }
    
    codeNew(codei) self {
         new(1);
-        size.setValue(1);
+        length.setValue(1);
         setCodeUnchecked(0, codei);
    }
    
    chomp() String {
       String nl = "\n";
       if (ends(nl)) {
-         return(substring(0, size - nl.size));
+         return(substring(0, length - nl.length));
       }
       nl = "\n";
       if (ends(nl)) {
-         return(substring(0, size - nl.size));
+         return(substring(0, length - nl.length));
       }
       return(self);
    }
    
    copy() self {
-      String c = String.new(size + 1);
+      String c = String.new(length + 1);
       c.addValue(self);
       return(c);
    }
@@ -405,7 +405,7 @@ final class String {
    
    ends(String str) Bool {
       if (undef(str)) { return(false); }
-      Int found = find(str, size - str.size);
+      Int found = find(str, length - str.length);
       if (undef(found)) {
          return(false);
       }
@@ -421,7 +421,7 @@ final class String {
    
    isIntegerGet() Bool {
       Int ic = Int.new();
-      for (Int j = 0;j < size;j++=;) {
+      for (Int j = 0;j < length;j++=;) {
         getInt(j, ic);
         if (j == 0 && (ic == 43 || ic == 45)) {
           //+-ok
@@ -434,7 +434,7 @@ final class String {
    
    isAlphaNumGet() Bool {
       Int ic = Int.new();
-      for (Int j = 0;j < size;j++=;) {
+      for (Int j = 0;j < length;j++=;) {
         getInt(j, ic);
         unless ((ic > 47 && ic < 58) || (ic > 64 && ic < 91) || (ic > 96 && ic < 123)) {
             return(false);
@@ -449,7 +449,7 @@ final class String {
    
    lowerValue() self {
       Int vc = Int.new();
-      for (Int j = 0;j < size;j++=;) {
+      for (Int j = 0;j < length;j++=;) {
         getInt(j, vc);
         if ((vc > 64) && (vc < 91)) {
             vc += 32;
@@ -464,7 +464,7 @@ final class String {
    
    upperValue() self {
       Int vc = Int.new();
-      for (Int j = 0;j < size;j++=;) {
+      for (Int j = 0;j < length;j++=;) {
         getInt(j, vc);
         if ((vc > 96) && (vc < 123)) {
             vc -= 32;
@@ -486,8 +486,8 @@ final class String {
       if (def(nxt)) {
         res += substring(last, nxt);
         res += to;
-        last = nxt + from.size;
-        res += substring(last, self.size);
+        last = nxt + from.length;
+        res += substring(last, self.length);
       } else {
         return(from.copy());
       }
@@ -504,10 +504,10 @@ final class String {
         if (def(nxt)) {
           res += substring(last, nxt);
           res += to;
-          last = nxt + from.size;
+          last = nxt + from.length;
           //("res 1 " + res).print();
         } else {
-          res += substring(last, self.size);
+          res += substring(last, self.length);
           //("res 2 " + res).print();
         }
       }
@@ -528,7 +528,7 @@ final class String {
    hashValue(Int into) Int {
       Int c = Int.new();
       into.setValue(0);
-      for (Int j = 0;j < size;j++=;) {
+      for (Int j = 0;j < length;j++=;) {
         getInt(j, c);
         into *= 31;
         into += c;
@@ -546,7 +546,7 @@ final class String {
    }
    
    getInt(Int pos, Int into) Int {
-      if (pos >= 0 && size > pos) {
+      if (pos >= 0 && length > pos) {
          emit(jv) {
          """
          beva_into.bevi_int = (int) bevi_bytes[beva_pos.bevi_int];
@@ -583,7 +583,7 @@ final class String {
    }
    
    getCode(Int pos, Int into) Int {
-      if (pos >= 0 && size > pos) {
+      if (pos >= 0 && length > pos) {
          emit(jv) {
          """
          beva_into.bevi_int = (int) bevi_bytes[beva_pos.bevi_int];
@@ -614,20 +614,20 @@ final class String {
    }
    
    setInt(Int pos, Int into) self {
-      if (pos >= 0 && size > pos) {
+      if (pos >= 0 && length > pos) {
            setIntUnchecked(pos, into);
       }
    }
    
    setCode(Int pos, Int into) self {
-      if (pos >= 0 && size > pos) {
+      if (pos >= 0 && length > pos) {
            setCodeUnchecked(pos, into);
       }
    }
    
    toAlphaNum() String {
      String input = self;
-     Int insz = input.size.copy();
+     Int insz = input.length.copy();
      String output = String.new(insz);
      Int c = Int.new();
      Int p = 0;
@@ -638,12 +638,12 @@ final class String {
         p++=;
        }
      }
-     output.size = p;
+     output.length = p;
      return(output);
    }
    
    isEmptyGet() Bool {
-    if (size <= 0) {
+    if (length <= 0) {
         return(true);
     }
     return(false);
@@ -719,8 +719,8 @@ final class String {
      Int rpos = copy().reverseBytes().find(str.copy().reverseBytes());
      //("rpos " + rpos).print();
      if (def(rpos)) {
-        rpos += str.size;
-        return(size - rpos);
+        rpos += str.length;
+        return(length - rpos);
      }
      return(null);
    }
@@ -731,20 +731,20 @@ final class String {
    
    find(String str, Int start) Int {
       //naive version
-      //Boyer–Moore if str.size > some value?  all current uses practically speaking are single-char
-      if (undef(str) || undef(start) || start < 0 || start >= size || str.size > size || size == 0 || str.size == 0) {
+      //Boyer–Moore if str.length > some value?  all current uses practically speaking are single-char
+      if (undef(str) || undef(start) || start < 0 || start >= length || str.length > length || length == 0 || str.length == 0) {
          return(null);
       }
       
-      Int end = size;//this should be able to be reduced based on str.size TODO
+      Int end = length;//this should be able to be reduced based on str.length TODO
       Int current = start.copy();
       Int myval = Int.new();
       Int strfirst = Int.new();
       str.getInt(0, strfirst);
       
-      Int strsize = str.size;
+      Int strlength = str.length;
       
-      if (strsize > 1) {
+      if (strlength > 1) {
           Int strval = Int.new();
           Int current2 = Int.new();
           Int end2 = Int.new();
@@ -753,14 +753,14 @@ final class String {
       while (current < end) {
          self.getInt(current, myval);
          if (myval == strfirst) {
-                if (strsize == 1) {
+                if (strlength == 1) {
                     return(current);
                 }
                 current2.setValue(current);
                 current2++=;
                 end2.setValue(current);
-                end2 += str.size;
-                if (end2 > size) {
+                end2 += str.length;
+                if (end2 > length) {
                     return(null);//doesn't fit
                 }
                 currentstr2.setValue(1);
@@ -786,14 +786,14 @@ final class String {
       Container:List splits = Container:List.new();
       Int last = 0;
       Int i = find(delim, last);
-      Int ds = delim.size;
+      Int ds = delim.length;
       while (def(i)) {
             splits.addValue(substring(last, i));
             last = i + ds;
             i = find(delim, last);
       }
-      if (last < size) {
-         splits.addValue(substring(last, size));
+      if (last < length) {
+         splits.addValue(substring(last, length));
       }
       return(splits);
    }
@@ -807,24 +807,24 @@ final class String {
    }
    
     compare(stri) Int {
-        Int mysize;
-        Int osize;
-        Int maxsize;
+        Int mylength;
+        Int olength;
+        Int maxlength;
         Int myret;
         if (undef(stri) || System:Types.otherType(stri, self)) {
             return(null);
         }
-        mysize = size;
-        osize = stri.size;
-        if (mysize > osize) {
-            maxsize = osize;
+        mylength = length;
+        olength = stri.length;
+        if (mylength > olength) {
+            maxlength = olength;
         } else {
-            maxsize = mysize;
+            maxlength = mylength;
         }
         myret = Int.new();
         Int mv = Int.new();
         Int ov = Int.new();
-        for (Int i = 0;i < maxsize;i++=) {
+        for (Int i = 0;i < maxlength;i++=) {
             self.getCode(i, mv);
             stri.getCode(i, ov);
             if (mv != ov) {
@@ -836,9 +836,9 @@ final class String {
             }
         }
         if (myret == 0) {
-            if (mysize > osize) {
+            if (mylength > olength) {
                 myret = 1;
-            } elseIf (osize > mysize) {
+            } elseIf (olength > mylength) {
                 myret = -1;
             }
         }
@@ -865,8 +865,8 @@ final class String {
    emit(jv) {
   """
     $class/Text:String$ bevls_stri = ($class/Text:String$) beva_stri;
-    if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
-       for (int i = 0;i < this.bevp_size.bevi_int;i++) {
+    if (this.bevp_length.bevi_int == bevls_stri.bevp_length.bevi_int) {
+       for (int i = 0;i < this.bevp_length.bevi_int;i++) {
           if (this.bevi_bytes[i] != bevls_stri.bevi_bytes[i]) {
             return be.BECS_Runtime.boolFalse;
           }
@@ -878,8 +878,8 @@ final class String {
   emit(cs) {
   """
   var bevls_stri = beva_stri as $class/Text:String$;
-    if (this.bevp_size.bevi_int == bevls_stri.bevp_size.bevi_int) {
-       for (int i = 0;i < this.bevp_size.bevi_int;i++) {
+    if (this.bevp_length.bevi_int == bevls_stri.bevp_length.bevi_int) {
+       for (int i = 0;i < this.bevp_length.bevi_int;i++) {
           if (this.bevi_bytes[i] != bevls_stri.bevi_bytes[i]) {
             return be.BECS_Runtime.boolFalse;
           }
@@ -896,8 +896,8 @@ final class String {
 #ifdef BEDCC_NORTTI
       BEC_2_4_6_TextString* bevls_stri = static_cast<BEC_2_4_6_TextString*>(beq->beva_stri);
 #endif
-    if (bevp_size->bevi_int == bevls_stri->bevp_size->bevi_int) {
-       for (int32_t i = 0;i < bevp_size->bevi_int;i++) {
+    if (bevp_length->bevi_int == bevls_stri->bevp_length->bevi_int) {
+       for (int32_t i = 0;i < bevp_length->bevi_int;i++) {
           if (bevi_bytes[i] != bevls_stri->bevi_bytes[i]) {
             return BECS_Runtime::boolFalse;
           }
@@ -908,8 +908,8 @@ final class String {
   }
   emit(js) {
    """
-   if (this.bevp_size.bevi_int === beva_stri.bevp_size.bevi_int) {
-       for (var i = 0;i < this.bevp_size.bevi_int;i++) {
+   if (this.bevp_length.bevi_int === beva_stri.bevp_length.bevi_int) {
+       for (var i = 0;i < this.bevp_length.bevi_int;i++) {
           if (this.bevi_bytes[i] !== beva_stri.bevi_bytes[i]) {
             //console.log("diff bytes at " + i);
             //console.log(this.bevi_bytes[i]);
@@ -930,9 +930,9 @@ final class String {
    
     add(astr) String {
         String str = astr.toString();
-        String res = String.new(size + str.size);
-        res.copyValue(self, 0, size, 0);
-        res.copyValue(str, 0, str.size, size);
+        String res = String.new(length + str.length);
+        res.copyValue(self, 0, length, 0);
+        res.copyValue(str, 0, str.length, length);
         return(res);
     }
    
@@ -940,7 +940,7 @@ final class String {
    
    // Reader:readIntoBuffer (buffer, offset)
    copyValue(String org, Int starti, Int endi, Int dstarti) self {
-      if ((starti < TS.zero) || ((starti > org.size) || (endi > org.size))) {
+      if ((starti < TS.zero) || ((starti > org.length) || (endi > org.length))) {
          throw(System:Exception.new("copyValue request out of bounds"));
       } else {
       
@@ -987,18 +987,18 @@ final class String {
          """
          }
          
-         if (sizi > size) {
+         if (sizi > length) {
             ifEmit(c) {
                 setIntUnchecked(sizi, TS.zero);
             }
-            size.setValue(sizi);
+            length.setValue(sizi);
          }
          return(self);
       }
    }
    
    substring(Int starti) String {
-      return(substring(starti, self.size));
+      return(substring(starti, self.length));
    }
    
    substring(Int starti, Int endi) String {
@@ -1051,7 +1051,7 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
 #endif
 
 #ifndef BEDCC_ISIOS
-     std::cout.write(reinterpret_cast<const char*>(&bevi_bytes[0]), bevp_size->bevi_int);
+     std::cout.write(reinterpret_cast<const char*>(&bevi_bytes[0]), bevp_length->bevi_int);
      std::cout << std::endl;
 #endif
      """
@@ -1070,7 +1070,7 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
       
       emit(jv) {
 """
-System.out.write(bevi_bytes, 0, bevp_size.bevi_int);
+System.out.write(bevi_bytes, 0, bevp_length.bevi_int);
 System.out.write('\n');
 """
       }
@@ -1078,7 +1078,7 @@ System.out.write('\n');
       emit(cs) {
 """
 Stream stdout = Console.OpenStandardOutput();
-stdout.Write(bevi_bytes, 0, bevp_size.bevi_int);
+stdout.Write(bevi_bytes, 0, bevp_length.bevi_int);
 stdout.WriteByte(10);
 """
       }
@@ -1135,7 +1135,7 @@ stdout.WriteByte(10);
       if (undef(snw)) {
          self.new();
       } else {
-         self.new(snw.size + 1);
+         self.new(snw.length + 1);
          self.addValue(snw);
       }
    }
@@ -1152,7 +1152,7 @@ stdout.WriteByte(10);
         Int vb = Int.new();
         Int ve = Int.new();
         Int b = 0;
-        Int e = size - 1;
+        Int e = length - 1;
         while (e > b) {
             getInt(b, vb);
             getInt(e, ve);
@@ -1224,7 +1224,7 @@ final class Text:Strings {
          }
       }
       if (foundChar) {
-         String toRet = str.substring(beg, str.size - end);
+         String toRet = str.substring(beg, str.length - end);
       } else {
          toRet = "";
       }
@@ -1233,7 +1233,7 @@ final class Text:Strings {
    
    commonPrefix(String a, String b) String {
       if (undef(a) || undef(b)) { return(null); }
-      Int sz = Math:Ints.min(a.size, b.size);
+      Int sz = Math:Ints.min(a.length, b.length);
       dyn ai = a.biter;
       dyn bi = b.biter;
       String av = String.new();
@@ -1249,14 +1249,14 @@ final class Text:Strings {
    }
    
    isEmpty(String value) Bool {
-     if (undef(value) || value.size < one) {
+     if (undef(value) || value.length < one) {
        return(true);
      }
      return(false);
    }
    
    notEmpty(String value) Bool {
-     if (def(value) && value.size > zero) {
+     if (def(value) && value.length > zero) {
         return(true);
      }
      return(false);
@@ -1264,12 +1264,12 @@ final class Text:Strings {
 
    toAlphaNumSpace(String toCheck) String {
       Int ic = Int.new();
-      Int size = toCheck.size;
-      String ret = String.new(toCheck.size);
-      for (Int j = 0;j < size;j++=;) {
+      Int length = toCheck.length;
+      String ret = String.new(toCheck.length);
+      for (Int j = 0;j < length;j++=;) {
         toCheck.getInt(j, ic);
         if ((ic > 47 && ic < 58) || (ic > 64 && ic < 91) || (ic > 96 && ic < 123) || ic == 32) {
-            ret.size = ret.size++;
+            ret.length = ret.length++;
             ret.setInt(j, ic);
         }
       }
@@ -1307,7 +1307,7 @@ local class Text:ByteIterator {
    }
    
    hasNextGet() Bool {
-      if (str.size > pos) {
+      if (str.length > pos) {
          return(true);
       }
       return(false);
@@ -1318,12 +1318,12 @@ local class Text:ByteIterator {
    }
    
    next(String buf) String {
-      if (str.size > pos) {
+      if (str.length > pos) {
          if (buf.capacity < 1) { //byte + null
             buf.capacitySet(1);
          }
-         if (buf.size != 1) {
-            buf.size.setValue(1);
+         if (buf.length != 1) {
+            buf.length.setValue(1);
          }
          buf.setIntUnchecked(0, str.getInt(pos, vcopy));
          ifEmit(c) {
@@ -1335,7 +1335,7 @@ local class Text:ByteIterator {
    }
    
    nextInt(Int into) Int {
-      if (str.size > pos) {
+      if (str.length > pos) {
          str.getInt(pos, into);
          pos++=;
       }
@@ -1343,7 +1343,7 @@ local class Text:ByteIterator {
    }
    
    currentInt(Int into) Int {
-      if (pos > 0 && str.size >= pos) {
+      if (pos > 0 && str.length >= pos) {
          pos--=;//iterator is pre-increment, this approach saves an alloc at the cost of an extra op (increment, below)
          str.getInt(pos, into);
          pos++=;
@@ -1352,7 +1352,7 @@ local class Text:ByteIterator {
    }
    
    currentIntSet(Int into) self {
-      if (pos > 0 && str.size >= pos) {
+      if (pos > 0 && str.length >= pos) {
          pos--=;//iterator is pre-increment, this approach saves an alloc at the cost of an extra op (increment, below)
          str.setIntUnchecked(pos, into);
          pos++=;
@@ -1381,7 +1381,7 @@ final class Text:MultiByteIterator(Text:ByteIterator) {
    }
    
    next(String buf) String {
-      if (str.size > pos) {
+      if (str.length > pos) {
         str.getInt(pos, ival);
         if (ival >= 0 && ival <= 127) { /* 0x7F 127 */
             bcount = 1;
@@ -1394,8 +1394,8 @@ final class Text:MultiByteIterator(Text:ByteIterator) {
         } else {
             throw(System:Exception.new("Malformed string, utf-8 multibyte sequence is greater than 4 bytes"));
         }
-        if (buf.size != bcount) {
-            buf.size.setValue(bcount);
+        if (buf.length != bcount) {
+            buf.length.setValue(bcount);
         }
         bcount += pos;
         buf.copyValue(str, pos, bcount, 0);

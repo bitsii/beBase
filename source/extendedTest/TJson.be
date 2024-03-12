@@ -150,7 +150,7 @@ import class Tests:TestJson(Assertions) {
         //mar.jsonEscape("""|hi \\ \b \f \n \r \t / "|""").toString().print();
         //("PRINTING THE 3Q").print();
         //"""|hi \\\\ \\b \\f \\n \\r \\t \\/ \\"|""".print();
-        //"""|hi \\\\ \\b \\f \\n \\r \\t \\/ \\"|""".size.print();
+        //"""|hi \\\\ \\b \\f \\n \\r \\t \\/ \\"|""".length.print();
         //("DONE PRINTING THE 3Q").print();
         //assertEqual(mar.jsonEscape("""|hi \\ \b \f \n \r \t / "|""").toString(),
         //"""|hi \\\\ \\b \\f \\n \\r \\t \\/ \\"|""");

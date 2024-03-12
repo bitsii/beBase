@@ -119,21 +119,21 @@ final class Random {
       return(getInt(value).absValue().modulusValue(max));
    }
    
-   getString(Int size) String {
-      return(getString(String.new(size), size));
+   getString(Int length) String {
+      return(getString(String.new(length), length));
    }
    
-   getString(String str, Int size) String {
-      if (str.capacity < size) {
-        str.capacity = size;
+   getString(String str, Int length) String {
+      if (str.capacity < length) {
+        str.capacity = length;
       }
-      str.size = size.copy();
+      str.length = length.copy();
       ifEmit(c) {
-        str.setIntUnchecked(size, 0);
+        str.setIntUnchecked(length, 0);
       }
       //TODO for jv, cs could just call nextBytes
       Int value = Int.new();
-      for (Int i = 0;i < size;i++=) {
+      for (Int i = 0;i < length;i++=) {
           //TODO lc and ints too
           str.setIntUnchecked(i, getIntMax(value, 26).addValue(65));
       }

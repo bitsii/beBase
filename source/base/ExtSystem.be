@@ -127,7 +127,7 @@ class System:BasePath {
    }
    
    isAbsoluteGet() Bool {
-      if (undef(path) || path.toString().size < 1) { return(false); }
+      if (undef(path) || path.toString().length < 1) { return(false); }
       if (path.getPoint(0) == separator) {
          return(true);
       }
@@ -136,7 +136,7 @@ class System:BasePath {
    
    makeNonAbsolute() self {
       if (self.isAbsolute) {
-         path = path.substring(1, path.size);
+         path = path.substring(1, path.length);
       }
    }
    
@@ -173,7 +173,7 @@ class System:BasePath {
       if (undef(fp)) {
          path = Text:Strings.new().empty;
       } else {
-         path = path.substring(fp + 1, path.size);
+         path = path.substring(fp + 1, path.length);
       }
    }
    
@@ -837,11 +837,11 @@ class System:Thread:ContainerLocker {
     }
     return(r);
   }
-  
-  sizeGet() Int {
+
+  lengthGet() Int {
     lock.lock();
     try {
-      Int r = container.size;
+      Int r = container.length;
       lock.unlock();
     } catch (dyn e) {
       lock.unlock();
@@ -1014,7 +1014,7 @@ class Glob {
    
    caseMatch(Node node, String input, Int pos, Single lpos) Bool {
       if (undef(node)) {
-         if (pos == input.size) {
+         if (pos == input.length) {
             return(true);
          } else {
             return(false);
@@ -1026,12 +1026,12 @@ class Glob {
       }
       if (val == "?") {
          pos = pos++;
-         if (pos <= input.size) { return(caseMatch(node.next, input, pos, null)); } else { return(false); }
+         if (pos <= input.length) { return(caseMatch(node.next, input, pos, null)); } else { return(false); }
       }
       Int found = input.find(val, pos);
       if (def(found)) {
          if (found == pos) {
-            return(caseMatch(node.next, input, pos + val.size, null));
+            return(caseMatch(node.next, input, pos + val.length, null));
          } else {
             if (def(lpos)) {
                lpos.first = found;
@@ -1045,7 +1045,7 @@ class Glob {
       Node nx = node.next;
       Single lpos = Single.new();
       //Special optimize for literal case with lpos
-      while (pos <= input.size) {
+      while (pos <= input.length) {
          Bool ok = caseMatch(nx, input, pos, lpos);
          if (ok) { return(true); }
          if (def(lpos.first)) {

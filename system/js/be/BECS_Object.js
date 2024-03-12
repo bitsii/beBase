@@ -25,7 +25,7 @@ be_BECS_Object.prototype.bems_bytesToString_2 = function(arr, len) {
 }
 
 be_BECS_Object.prototype.bems_stringToJsString_1 = function(str) {
-    return (be_BECS_Object.prototype.bems_bytesToString_2(str.bevi_bytes, str.bevp_size.bevi_int));
+    return (be_BECS_Object.prototype.bems_bytesToString_2(str.bevi_bytes, str.bevp_length.bevi_int));
 }
 
 be_BECS_Object.prototype.bems_bytesToString_1 = function(arr) {

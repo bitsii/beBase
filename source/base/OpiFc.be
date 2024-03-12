@@ -27,7 +27,7 @@ final class ObjectFieldIterator {
       Int pos = -1;
       dyn instance = _instance;
       List instFieldNames = System:Types.fieldNames(instance);
-      Int lastidx = instFieldNames.size - 1;
+      Int lastidx = instFieldNames.length - 1;
     }
   }
   

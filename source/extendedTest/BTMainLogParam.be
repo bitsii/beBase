@@ -55,8 +55,8 @@ class Test:BaseTest:System(BaseTest) {
       String b = rand.getString(254);
       a.print();
       b.print();
-      assertEqual(a.size, 255);
-      assertEqual(b.size, 254);
+      assertEqual(a.length, 255);
+      assertEqual(b.length, 254);
       //assertNotEquals(a, b);
       //throw(System:Exception.new(String.new().addValue("A").getCode(0).toString()));
       assertEqual(String.new().addValue("A").getCode(0), 65);

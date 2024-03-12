@@ -151,7 +151,7 @@ final class Build:CEmitter {
       for (String step in np.steps) {
          if (pref != "") { pref = pref + "_"; }
          else { suf = "_"; }
-         pref = pref + step.size;
+         pref = pref + step.length;
          suf = suf + step;
       }
       return(pref + suf);
@@ -359,7 +359,7 @@ final class Build:CEmitter {
    //to find the location of a variable in the object array (used internally to class (hierarchy) of declaration only)
    getPropertyIndexName(Build:PtySyn pi) String {
       Build:ClassInfo ci = getInfoSearch(pi.origin);
-      String pin = "twpi_" + build.libName.size + "_" + ci.midName.size + "_" + build.libName + "_" + ci.midName + "_" + pi.name;
+      String pin = "twpi_" + build.libName.length + "_" + ci.midName.length + "_" + build.libName + "_" + ci.midName + "_" + pi.name;
       return(pin);
    }
    
@@ -368,7 +368,7 @@ final class Build:CEmitter {
    //pointers to methods for the class)
    getMethodIndexName(Build:MtdSyn pi) String {
       Build:ClassInfo ci = getInfoSearch(pi.declaration);
-      String pin = "twmi_" + build.libName.size + "_" + ci.midName.size + "_" + build.libName + "_" + ci.midName + "_" + pi.name;
+      String pin = "twmi_" + build.libName.length + "_" + ci.midName.length + "_" + build.libName + "_" + ci.midName + "_" + pi.name;
       return(pin);
    }
    
@@ -690,7 +690,7 @@ final class Build:CEmitter {
          alibs.addValue(bp.libnameInfo.unitExeLink.toString());
       }
       
-      if (build.linkLibArgs.size > 0) {
+      if (build.linkLibArgs.length > 0) {
          linkLibArgsStr = " " + Text:Strings.new().join(Text:Strings.new().space, build.linkLibArgs);
       } else {
          linkLibArgsStr = "";

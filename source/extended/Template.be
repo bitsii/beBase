@@ -60,7 +60,7 @@ class Replace {
       
       fields {
          LinkedList steps;
-         Int size;
+         Int length;
          Bool append = true;
          Runner runner;
       }
@@ -73,7 +73,7 @@ class Replace {
    
    load(String template, Runner _runner) Replace {
       runner = _runner;
-      size = template.size;
+      length = template.length;
       
       String blStart = "<?tt";
       String blEnd = "?>";
@@ -84,7 +84,7 @@ class Replace {
       Container:LinkedList splits = Container:LinkedList.new();
       Int last = 0;
       Int i = template.find(delim, last);
-      Int ds = delim.size;
+      Int ds = delim.length;
       while (def(i)) {
             if (i > last) {
                if (nextIsCall) {
@@ -111,17 +111,17 @@ class Replace {
             if (onStart) {
                onStart = false;
                delim = blEnd;
-               ds = delim.size;
+               ds = delim.length;
                nextIsCall = true;
             } else {
                onStart = true;
                delim = blStart;
-               ds = delim.size;
+               ds = delim.length;
             }
             i = template.find(delim, last);
       }
-      if (last < size) {
-         splits.addValue(Replace:StringStep.new(template.substring(last, size)));
+      if (last < length) {
+         splits.addValue(Replace:StringStep.new(template.substring(last, length)));
       }
       steps = splits;
    }

@@ -109,7 +109,7 @@ final class System:Process {
             }
           """
           }
-          numArgs = args.size;//do we even need numargs?
+          numArgs = args.length;//do we even need numargs?
         }
       }
    

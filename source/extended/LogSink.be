@@ -68,8 +68,8 @@ import class IO:Log:Sink {
       }
       output.write(msg);
       output.write(nl);
-      logSize += msg.size;
-      logSize += nl.size;
+      logSize += msg.length;
+      logSize += nl.length;
       if (logSize > rotateSize) {
         closeLog();
         logSize.setValue(0);

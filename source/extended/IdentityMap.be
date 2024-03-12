@@ -43,7 +43,7 @@ class IdentityMap(Map) {
       multi = 2;
       rel = IdentityRelations.new();
       baseNode = MapNode.new();
-      size = 0;
+      length = 0;
    }
 }
 
@@ -59,6 +59,6 @@ class IdentitySet(Set) {
       multi = 2;
       rel = IdentityRelations.new();
       baseNode = SetNode.new();
-      size = 0;
+      length = 0;
    }
 }
