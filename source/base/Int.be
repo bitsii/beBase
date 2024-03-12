@@ -253,21 +253,6 @@ bevi_int = beq->beva_xi->bevi_int;
       return(self);
    }
    
-    increment() Int {
-            Int res = Int.new();
-            emit(jv,cs,js) {
-            """
-                bevl_res.bevi_int = this.bevi_int + 1;
-            """
-            }
-            emit(cc) {
-            """
-                beq->bevl_res->bevi_int = bevi_int + 1;
-            """
-            }
-            return(res);
-    }
-   
     decrement() Int {
             Int res = Int.new();
             emit(jv,cs,js) {
@@ -588,7 +573,7 @@ bevi_int = beq->beva_xi->bevi_int;
    power(Int other) Int {
       Int result = 1;
       //2 0 1 2: 1 * 2 * 2 * 2
-      for (Int i = 0; i < other;i++=) {
+      for (Int i = 0; i < other;i++) {
          result *= self;
       }
       return(result);

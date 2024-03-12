@@ -119,7 +119,7 @@ class Map(Set) {
          buckets = slt;
       } 
       if (innerPutAdded) {
-         length = length++;
+         length = length + 1;
       }
    }
    
@@ -234,7 +234,7 @@ class Set {
       Int nbuckets = slt.length * multi + 1;
       List ninner = List.new(nbuckets);
       while (insertAll(ninner, slt)!) {
-         nbuckets = nbuckets++;
+         nbuckets = nbuckets + 1;
          ninner = List.new(nbuckets);
       }
       return(ninner);
@@ -280,7 +280,7 @@ class Set {
             innerPutAdded = false;
             return(true);
          } else {
-            sl = sl++;
+            sl = sl + 1;
             if (sl >= modu) {
                return(false);
             }
@@ -298,7 +298,7 @@ class Set {
          buckets = slt;
       }
       if (innerPutAdded) {
-         length = length++;
+         length = length + 1;
       }
    }
    
@@ -320,7 +320,7 @@ class Set {
          } elseIf (rel.isEqual(n.key, k)) {
             return(n.getFrom());
          } else {
-            sl = sl++;
+            sl = sl + 1;
             if (sl >= modu) {
                return(null);
             }
@@ -346,7 +346,7 @@ class Set {
          } elseIf (rel.isEqual(n.key, k)) {
             return(true);
          } else {
-            sl = sl++;
+            sl = sl + 1;
             if (sl >= modu) {
                return(false);
             }
@@ -373,7 +373,7 @@ class Set {
          } elseIf (rel.isEqual(n.key, k)) {
             slt.put(sl, null);
             length = length--;
-            sl = sl++;
+            sl = sl + 1;
             while (sl < modu) {
                n = slt.get(sl);
                if (undef(n) || n.hval % modu != orgsl) {
@@ -382,11 +382,11 @@ class Set {
                   slt.put(sl - 1, n);
                   slt.put(sl, null);
                }
-               sl = sl++;
+               sl = sl + 1;
             }
             return(true);
          } else {
-            sl = sl++;
+            sl = sl + 1;
             if (sl >= modu) {
                return(false);
             }
@@ -399,7 +399,7 @@ class Set {
       dyn other = create();
       copyTo(other);
       other.buckets = buckets.copy();
-      for (Int i = 0;i < buckets.length;i = i++;) {
+      for (Int i = 0;i < buckets.length;i = i + 1;) {
          SetNode n = buckets.get(i);
          if (def(n)) {
             other.buckets.put(i, baseNode.create().new(n.hval, n.key, n.getFrom()));
@@ -515,7 +515,7 @@ class Container:Set:SerializationIterator(Container:Set:KeyIterator) {
    }
    
    skip(Int multiNullCount) {
-      for (Int mi = 0;mi < multiNullCount;mi = mi++) {
+      for (Int mi = 0;mi < multiNullCount;mi++) {
          self.next = null;
       }
    }
@@ -542,7 +542,7 @@ class Container:Map:SerializationIterator(Container:Map:KeyValueIterator) {
    }
    
    skip(Int multiNullCount) {
-      for (Int mi = 0;mi < multiNullCount;mi = mi++) {
+      for (Int mi = 0;mi < multiNullCount;mi++) {
          self.next = null;
       }
    }
@@ -620,7 +620,7 @@ class Container:Set:NodeIterator {
    }
    
    hasNextGet() Bool {
-      for (Int i = current;i < modu;i = i++;) {
+      for (Int i = current;i < modu;i = i + 1;) {
          if (def(buckets.get(i))) {
             current = i;
             return(true);
@@ -630,7 +630,7 @@ class Container:Set:NodeIterator {
    }
    
    nextGet() {
-      for (Int i = current;i < modu;i = i++;) {
+      for (Int i = current;i < modu;i = i + 1;) {
          SetNode toRet = buckets.get(i);
          if (def(toRet)) {
             current = i + 1;
@@ -685,7 +685,7 @@ class Sets {
 
   fromHandler(List list) {
     Int ssz = list.length * 2;
-    ssz++=;
+    ssz++;
     Set set = Set.new(ssz);
     for (dyn v in list) {
       set.put(v);
@@ -716,8 +716,8 @@ class Maps {
   fromHandler(List list) {
     Int ls = list.length;
     Map map = Map.new(ls + 1);
-    for (Int i = 0;i < ls;i++=) {
-      map.put(list[i], list[i++=]);
+    for (Int i = 0;i < ls;i++) {
+      map.put(list[i], list[i++]);
     }
     return(map);
   }

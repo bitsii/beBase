@@ -131,7 +131,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             Bool isLocal = false;
             Bool isNotNull = false;
             Node prp = node.priorPeer;
-            for (Int prpi = 0;prpi < 2;prpi = prpi++) {
+            for (Int prpi = 0;prpi < 2;prpi++) {
                if (def(prp)) {
                   if (prp.typename == ntypes.DEFMOD) {
                      if (prp.typename == ntypes.DEFMOD && prp.held == "final") {
@@ -207,7 +207,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
          if (node.typename == ntypes.METHOD) {
             node.held = Build:Method.new();
             prp = node.priorPeer;
-            for (prpi = 0;prpi < 2;prpi = prpi++) {
+            for (prpi = 0;prpi < 2;prpi++) {
                if (def(prp)) {
                   if (prp.typename == ntypes.DEFMOD) {
                      if (prp.typename == ntypes.DEFMOD && prp.held == "final") {

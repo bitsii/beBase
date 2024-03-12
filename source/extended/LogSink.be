@@ -73,7 +73,7 @@ import class IO:Log:Sink {
       if (logSize > rotateSize) {
         closeLog();
         logSize.setValue(0);
-        currentLog++=;
+        currentLog++;
         if (currentLog >= maxLogs) {
           currentLog.setValue(0);
         }

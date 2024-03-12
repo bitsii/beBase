@@ -255,7 +255,7 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
          if (node.held.orgName == "assign") {
             dyn c0 = node.contained.first;
             if ((def(c0)) && (c0.typename == ntypes.VAR)) {
-               c0.held.numAssigns++=;
+               c0.held.numAssigns++;
             }
             dyn c1 = node.contained.second;
          }
@@ -460,8 +460,8 @@ final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
          cpos = 0;
       }
       if (node.typename == ntypes.CALL) {
-         node.held.cpos = cpos;
-         cpos = cpos++;
+         node.held.cpos = cpos.copy();
+         cpos++;
          for (Node cci in node.contained) {
             if (cci.typename == ntypes.VAR) {
                cci.held.addCall(node);
@@ -682,7 +682,7 @@ final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
                if (def(mtdc)) {
                List argSyns = mtdc.argSyns;
                Node nnode = targ.nextPeer; //the call argument
-               for (Int i = 1;i < argSyns.length;i = i++;) {
+               for (Int i = 1;i < argSyns.length;i++;) {
                   Build:VarSyn marg = argSyns.get(i);//the method argument (from the syn)
                   if (marg.isTyped) {
                      if (undef(nnode)) {
@@ -694,7 +694,7 @@ final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
                         Build:Var carg = nnode.held;
                         if (carg.isTyped!) {
                            node.held.checkTypes = true;
-                           node.held.argCasts.put(i, marg.namepath);//we need to cast this arg during the call
+                           node.held.argCasts.put(i.copy(), marg.namepath);//we need to cast this arg during the call
                            //("Putting in argcast ").print();
                         } else {
                            ClassSyn argSyn = build.getSynNp(carg.namepath);

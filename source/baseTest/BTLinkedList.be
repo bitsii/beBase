@@ -58,7 +58,7 @@ class Test:BaseTest:LinkedList(BaseTest) {
       
       Int count = 0;
       for (ln in ll) {
-         count = count++;
+         count++;
          //("Found ln " + ln).print();
          assertEquals(ln, "boo");
       }
@@ -67,7 +67,7 @@ class Test:BaseTest:LinkedList(BaseTest) {
    
    testModify() {
       LinkedList ll = LinkedList.new();
-      for (Int i = 0;i < 16;i = i++) {
+      for (Int i = 0;i < 16;i++) {
          ll.addValue(i);
       }
       ("Before " + ll.length.toString()).print();

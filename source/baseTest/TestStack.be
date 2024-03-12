@@ -64,7 +64,7 @@ class Test:TestStack {
       q.enqueue("Four");
       q.enqueue("Five");
       q.enqueue("Six");
-      for (i = 0;i < 5;i = i++) {
+      for (i = 0;i < 5;i++) {
          b = q.dequeue();
          if (undef(b)) {
             "b isnull".print();

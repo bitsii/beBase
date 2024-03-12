@@ -169,10 +169,6 @@ class Test:BaseTest:Float(BaseTest) {
       
       assertEquals(uuw, uuz);
       
-      uuz = uuz++;
-      
-      assertNotEquals(uuw, uuz);
-      
       assertEquals(ttx * tty, 3.75);
       assertEquals(2.5 / 2.0, 1.25);
       assertEquals(2.9++, 3.9);

@@ -64,7 +64,7 @@ class System:Object {
       ifEmit(jv,cs,cc) {
         if (numargs > 7) { 
             List args2 = List.new(numargs - 7); 
-            for (Int i = 7;i < numargs;i++=) {
+            for (Int i = 7;i < numargs;i++) {
                 args2[i - 7] = args[i];
             }
         }

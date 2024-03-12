@@ -122,7 +122,7 @@ final class Build:Build {
       args = _args;
       params = Parameters.new(args);
       Int times = Int.new(params.get("howManyTimes", "1").first);
-      for (Int i = 0;i < times;i++=) {
+      for (Int i = 0;i < times;i++) {
         dyn res = go();
       }
       return(res);
@@ -752,9 +752,9 @@ final class Build:Build {
       for (Container:LinkedList:Iterator i = toks.linkedListIterator;i.hasNext;;) {
          dyn node = Build:Node.new(self);
          node.held = i.next;
-         node.nlc = nlc;
+         node.nlc = nlc.copy();
          if (node.held == nl) {
-            nlc = nlc++;
+            nlc++;
          }
          if (node.held != cr) {
             con.addValue(node);

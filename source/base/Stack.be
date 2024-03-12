@@ -56,7 +56,7 @@ class Stack {
          top = top.next;
       }
       top.held = item;
-      length = length++;
+      length++;
    }
    
    pop() {
@@ -145,7 +145,7 @@ class Queue {
          bottom = top;
       }
       top.held = item;
-      length = length++;
+      length++;
    }
    
    dequeue() {

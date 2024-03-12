@@ -316,7 +316,7 @@ class Test:BaseTest:Text(BaseTest) {
           } else {
             throw(System:Exception.new("too many chars"));
           }
-          i = i++;
+          i++;
        }
        
        i = 0;
@@ -347,7 +347,7 @@ class Test:BaseTest:Text(BaseTest) {
           } else {
             throw(System:Exception.new("too many chars"));
           }
-          i = i++;
+          i++;
        }
    
    }

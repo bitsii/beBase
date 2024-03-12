@@ -20,7 +20,7 @@ class Utility:SRep {
    
    main() {
       ("Utility:SRep:main").print();
-      for (Int i = 0;i < args.length;i = i++) {
+      for (Int i = 0;i < args.length;i++) {
          if (args[i] == System:Classes.className(self)) {
             changeFile(args[i + 1], args[i + 2]);
          }
@@ -45,45 +45,45 @@ class Utility:SRep {
       String ac3 = String.new();
       String s = it.next(b).toString();
       w.write(s);
-      for (Int i = 1;i < len;i = i++) {
+      for (Int i = 1;i < len;i++) {
          s = it.next(b).toString();
          Bool doIt = false;
          if (s == " " || s == "(") {
             ac1.addValue(s);
             s = it.next(b).toString();
-            i = i++;
+            i++;
             if (s == "n") {
                ac2.addValue(s);
                s = it.next(b).toString();
-               i = i++;
+               i++;
                if (s == "e") {
                   ac2.addValue(s);
                   s = it.next(b).toString();
-                  i = i++;
+                  i++;
                   if (s == "w") {
                      ac2.addValue(s);
                      s = it.next(b).toString();
-                     i = i++;
+                     i++;
                      if (s == "(") {
                         ac2.addValue(s);
                         s = it.next(b).toString();
-                        i = i++;
+                        i++;
                         while (s != "," && s != ")") {
                            if (s != " ") {
                               ac3.addValue(s);
                            }
                            s = it.next(b).toString();
-                           i = i++;
+                           i++;
                         }
                         w.write(ac1.extractString());
                         w.write(ac3.extractString());
                         w.write(".new(");
                         if (s == ",") {
                            s = it.next(b).toString();
-                           i = i++;
+                           i++;
                            if (s == " ") {
                               s = it.next(b).toString();
-                              i = i++;
+                              i++;
                            }
                         }
                         ac2.extractString();
@@ -98,15 +98,15 @@ class Utility:SRep {
          if (s == "s") {
             ac1.addValue(s);
             s = it.next(b).toString();
-            i = i++;
+            i++;
             if (s == "u") {
                ac2.addValue(s);
                s = it.next(b).toString();
-               i = i++;
+               i++;
                if (s == "b") {
                   ac2.addValue(s);
                   s = it.next(b).toString();
-                  i = i++;
+                  i++;
                }
             }
          }

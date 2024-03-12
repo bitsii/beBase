@@ -118,7 +118,7 @@ class System:BasePath {
          } else {
             i.next;
          }
-         c = c++;
+         c = c + 1;
       }
       if (self.isAbsolute) {
          rpath.makeAbsolute();
@@ -152,7 +152,7 @@ class System:BasePath {
          LinkedList fpath = self.stepList;
          Node current;
          Node next = fpath.firstNode;
-         for (Int i = 0;i < howMany;i = i++) {
+         for (Int i = 0;i < howMany;i++) {
             if (undef(next)) { break; }
             current = next;
             next = current.next;
@@ -1025,7 +1025,7 @@ class Glob {
          return(starMatch(node, input, pos));
       }
       if (val == "?") {
-         pos = pos++;
+         pos = pos + 1;
          if (pos <= input.length) { return(caseMatch(node.next, input, pos, null)); } else { return(false); }
       }
       Int found = input.find(val, pos);
@@ -1052,7 +1052,7 @@ class Glob {
             pos = lpos.first;
             lpos.first = null;
          } else {
-            pos = pos++;
+            pos = pos + 1;
          }
       }
       return(false);

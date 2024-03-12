@@ -369,7 +369,7 @@ import class Json:Marshaller {
         value = u & Int.hexNew("7");
     }
     if (length > 1) { //redundant?
-        for(Int i = 1; i < length; i++=)
+        for(Int i = 1; i < length; i++)
         {
             txtpt.getInt(i, u);
 

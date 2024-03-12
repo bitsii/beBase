@@ -94,7 +94,7 @@ final class ObjectFieldIterator {
   }
 
   skip(Int multiNullCount) {
-      for (Int mi = 0;mi < multiNullCount;mi++=) {
+      for (Int mi = 0;mi < multiNullCount;mi++) {
          self.next = null;
       }
    }

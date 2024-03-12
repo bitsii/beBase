@@ -421,7 +421,7 @@ final class String {
    
    isIntegerGet() Bool {
       Int ic = Int.new();
-      for (Int j = 0;j < length;j++=;) {
+      for (Int j = 0;j < length;j++;) {
         getInt(j, ic);
         if (j == 0 && (ic == 43 || ic == 45)) {
           //+-ok
@@ -434,7 +434,7 @@ final class String {
    
    isAlphaNumGet() Bool {
       Int ic = Int.new();
-      for (Int j = 0;j < length;j++=;) {
+      for (Int j = 0;j < length;j++;) {
         getInt(j, ic);
         unless ((ic > 47 && ic < 58) || (ic > 64 && ic < 91) || (ic > 96 && ic < 123)) {
             return(false);
@@ -449,7 +449,7 @@ final class String {
    
    lowerValue() self {
       Int vc = Int.new();
-      for (Int j = 0;j < length;j++=;) {
+      for (Int j = 0;j < length;j++;) {
         getInt(j, vc);
         if ((vc > 64) && (vc < 91)) {
             vc += 32;
@@ -464,7 +464,7 @@ final class String {
    
    upperValue() self {
       Int vc = Int.new();
-      for (Int j = 0;j < length;j++=;) {
+      for (Int j = 0;j < length;j++;) {
         getInt(j, vc);
         if ((vc > 96) && (vc < 123)) {
             vc -= 32;
@@ -518,7 +518,7 @@ final class String {
    getPoint(Int posi) String {
       String buf = String.new(2);//Would it be better if this was 4?
       Text:MultiByteIterator j = self.mbiter;
-      for (Int i = 0;i < posi;i++=) {
+      for (Int i = 0;i < posi;i++) {
          j.next(buf);
       }
       String y = j.next(buf).toString();
@@ -528,7 +528,7 @@ final class String {
    hashValue(Int into) Int {
       Int c = Int.new();
       into.setValue(0);
-      for (Int j = 0;j < length;j++=;) {
+      for (Int j = 0;j < length;j++;) {
         getInt(j, c);
         into *= 31;
         into += c;
@@ -631,11 +631,11 @@ final class String {
      String output = String.new(insz);
      Int c = Int.new();
      Int p = 0;
-     for (Int i = 0;i < insz;i++=) {
+     for (Int i = 0;i < insz;i++) {
        input.getInt(i, c);
        if ((c > 64 && c < 91) || (c > 96 && c < 123) || (c > 47 && c < 58)) {
         output.setIntUnchecked(p, c);
-        p++=;
+        p++;
        }
      }
      output.length = p;
@@ -757,7 +757,7 @@ final class String {
                     return(current);
                 }
                 current2.setValue(current);
-                current2++=;
+                current2++;
                 end2.setValue(current);
                 end2 += str.length;
                 if (end2 > length) {
@@ -770,14 +770,14 @@ final class String {
                     if (myval != strval) {
                         break;
                     }
-                    current2++=;
-                    currentstr2++=;
+                    current2++;
+                    currentstr2++;
                 }
                 if (current2 == end2) {
                     return(current);
                 }
          }
-         current++=;
+         current++;
       }
       return(null);
    }
@@ -824,7 +824,7 @@ final class String {
         myret = Int.new();
         Int mv = Int.new();
         Int ov = Int.new();
-        for (Int i = 0;i < maxlength;i++=) {
+        for (Int i = 0;i < maxlength;i++) {
             self.getCode(i, mv);
             stri.getCode(i, ov);
             if (mv != ov) {
@@ -1158,7 +1158,7 @@ stdout.WriteByte(10);
             getInt(e, ve);
             setInt(b, ve);
             setInt(e, vb);
-            b++=;
+            b++;
             e--=;
         }
     }
@@ -1214,9 +1214,9 @@ final class Text:Strings {
          String step = mb.next;
          if (step == space || step == tab || step == cr || step == unixNewline) {
             if (foundChar) {
-               end++=;
+               end++;
             } else {
-               beg++=;
+               beg++;
             }
          } else {
             end.setValue(0);
@@ -1238,7 +1238,7 @@ final class Text:Strings {
       dyn bi = b.biter;
       String av = String.new();
       String bv = String.new();
-      for (Int i = 0;i < sz;i++=) {
+      for (Int i = 0;i < sz;i++) {
         ai.next(av);
         bi.next(bv);
         if (av != bv) {
@@ -1266,10 +1266,10 @@ final class Text:Strings {
       Int ic = Int.new();
       Int length = toCheck.length;
       String ret = String.new(toCheck.length);
-      for (Int j = 0;j < length;j++=;) {
+      for (Int j = 0;j < length;j++;) {
         toCheck.getInt(j, ic);
         if ((ic > 47 && ic < 58) || (ic > 64 && ic < 91) || (ic > 96 && ic < 123) || ic == 32) {
-            ret.length = ret.length++;
+            ret.length = ret.length + 1;
             ret.setInt(j, ic);
         }
       }
@@ -1329,7 +1329,7 @@ local class Text:ByteIterator {
          ifEmit(c) {
             buf.setIntUnchecked(1, 0);
          }
-         pos++=;
+         pos++;
       }
       return(buf);
    }
@@ -1337,7 +1337,7 @@ local class Text:ByteIterator {
    nextInt(Int into) Int {
       if (str.length > pos) {
          str.getInt(pos, into);
-         pos++=;
+         pos++;
       }
       return(into);
    }
@@ -1346,7 +1346,7 @@ local class Text:ByteIterator {
       if (pos > 0 && str.length >= pos) {
          pos--=;//iterator is pre-increment, this approach saves an alloc at the cost of an extra op (increment, below)
          str.getInt(pos, into);
-         pos++=;
+         pos++;
       }
       return(into);
    }
@@ -1355,7 +1355,7 @@ local class Text:ByteIterator {
       if (pos > 0 && str.length >= pos) {
          pos--=;//iterator is pre-increment, this approach saves an alloc at the cost of an extra op (increment, below)
          str.setIntUnchecked(pos, into);
-         pos++=;
+         pos++;
       }
    }
    

@@ -57,9 +57,9 @@ local class Test:BaseTest:Calls(BaseTest) {
      assertEqual(c, 9);
      
      Int d = 5;
-     assertEqual(d++=, 6);
+     assertEqual(d++, 6);
      
-     Int e = d++=;
+     Int e = d++;
      assertEqual(e, 7);
      assertEqual(d, 7);
      
@@ -140,7 +140,7 @@ class Tests:CallArgs(BaseTest) {
             Int seventeen;
         }
         Int count = 0;
-        for (Int i = 1;i <= 15;i = i++) {
+        for (Int i = 1;i <= 15;i++) {
             count = count + i;
         }
         fifteen = count;

@@ -58,7 +58,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
       //("!Visiting " + node.toString()).print();
        if ((typename == ntypes.DIVIDE) && (def(nextPeer)) && (nextPeerTypename == ntypes.MULTIPLY) && (inStr!)) {
          //comment begin, can nest
-         nestComment++=;
+         nestComment++;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          node.delayDelete();
@@ -82,7 +82,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          strqCnt = 1;
          quoteType = node.typename;
          while (def(xn) && xn.typename == quoteType) {
-            strqCnt++=;
+            strqCnt++;
             xn.delayDelete();
             xn = xn.nextPeer;
          }
@@ -110,11 +110,11 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
             xn = node.nextPeer;
             Int fsc = 1;
             while (def(xn) && xn.typename == ntypes.FSLASH) {
-               fsc++=;
+               fsc++;
                xn.delayDelete();
                xn = xn.nextPeer;
             }
-            for (ia = 0;ia < fsc;ia++=) {
+            for (ia = 0;ia < fsc;ia++) {
                goingStr.held = goingStr.held + node.held;
             }
             if (def(xn) && (fsc % 2 == 1) && (xn.typename == quoteType)) {
@@ -128,7 +128,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
             xn = node.nextPeer;
             Int csc = 1;
             while (def(xn) && xn.typename == quoteType) {
-               csc++=;
+               csc++;
                xn.delayDelete();
                xn = xn.nextPeer;
             }
@@ -138,7 +138,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
                goingStr = null;
                inStr = false;
             } else {
-               for (Int ia = 0;ia < csc;ia++=) {
+               for (Int ia = 0;ia < csc;ia++) {
                   goingStr.held = goingStr.held + node.held;
                }
             }
@@ -232,15 +232,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          return(toRet);
        }
        if ((typename == ntypes.ADD) && (def(nextPeer)) && (nextPeerTypename == ntypes.ADD)) {
-         if ((def(node.nextPeer.nextPeer)) && (node.nextPeer.nextPeer.typename == ntypes.ASSIGN)) {
-            node.typename = ntypes.INCREMENT_ASSIGN;
-            node.held = node.held + node.nextPeer.held + node.nextPeer.nextPeer.held;
-            toRet = node.nextPeer.nextPeer.nextDescend;
-            node.nextPeer.delayDelete();
-            node.nextPeer.nextPeer.delayDelete();
-            return(toRet);
-         }
-         node.typename = ntypes.INCREMENT;
+         node.typename = ntypes.INCREMENT_ASSIGN;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();

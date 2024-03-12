@@ -389,7 +389,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
             for (Node cc in classCalls) {
                //("got a classcall!!!!!!!!!!!1").print();
                 cc.nlec += lineCount;
-                cc.nlec++=;
+                cc.nlec++;
                 if (undef(lastNlc) || lastNlc != cc.nlc || lastNlec != cc.nlec) {
                     //("got a nlc!!!!!!!!!!!1").print();
                     //if(emitting("jv") || emitting("cs")) {
@@ -977,7 +977,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
                       besDef += "; ";
                     }
                     isFirstRef = false;
-                    numRefs++=;
+                    numRefs++;
                     //decForVar(besDef, ov.held, true);
 
                     typeDecForVar(besDef, ov.held);
@@ -1004,7 +1004,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
                       besDef += "; ";
                     }
                     isFirstRef = false;
-                    numRefs++=;
+                    numRefs++;
                     decForVar(besDef, ov.held, false);
                     //besDef += " = " += "nullptr";
                     beqAsn += nameForVar(ov.held) += " = nullptr;" += nl;
@@ -1030,7 +1030,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
           //("besDef " += besDef).print();
           //stackframe
           //for hstack numRefs bigger for "this" ref
-          numRefs++=;
+          numRefs++;
           locDecs += "BECS_StackFrame bevs_stackFrame(" += numRefs.toString() += ");" += nl;
         }
         //BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
@@ -1152,7 +1152,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
                       gcMarks += "}" += nl;
                     }
                 }
-                ovcount++=;
+                ovcount++;
             }
         }
         if (node.held.namepath.toString() == "Container:List") {
@@ -1212,7 +1212,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
           while (j < (dnumargs + 1) && j < maxDynArgs) {
               args = args + ", " + objectCc.relEmitName(build.libName) + "* bevd_" + (j - 1);
               superArgs = superArgs + ", " + "bevd_" + (j - 1);
-              j++=;
+              j++;
           }
           if (dnumargs >= maxDynArgs) {
             if (build.emitChecks.contains("ccSgc")) {
@@ -1233,7 +1233,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
                 args = args + ", " + objectCc.relEmitName(build.libName) + " bevd_" + (j - 1);
               }
               superArgs = superArgs + ", " + "bevd_" + (j - 1);
-              j++=;
+              j++;
           }
           if (dnumargs >= maxDynArgs) {
             if (emitting("sw")) {
@@ -1281,7 +1281,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
                         }
                         mcall += vcma += vcast;
                     }
-                    vnumargs++=;
+                    vnumargs++;
                 }
                 mcall += ");" += nl;
                 //("mcall built: " + mcall.toString()).print();
@@ -1401,7 +1401,7 @@ buildClassInfo(String bemBase, String belsBase, String lival) self {
             sdec += ",";
         }
         lstringByte(sdec, lival, lipos, bcode, hs);
-        lipos++=;
+        lipos++;
       }
       lstringEndCi(sdec);
     
@@ -1584,10 +1584,10 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
     Int nlval = nl.getInt(0, Int.new());
     Int cursor = Int.new();
     Int slen = text.length.copy();
-    for (Int i = start.copy();i < slen;i++=;) {
+    for (Int i = start.copy();i < slen;i++;) {
       text.getInt(i, cursor);
       if (cursor == nlval) {
-        found++=;
+        found++;
       }
     }
     return(found);
@@ -1719,7 +1719,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       
       if ((node.held.orgName == "assign") && (node.contained.length != 2)) {
          dyn errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
-         for (Int ei = 0;ei < node.contained.length;ei++=) {
+         for (Int ei = 0;ei < node.contained.length;ei++) {
             errmsg = errmsg + " !!!" + ei + "!! " + node.contained[ei];
          }
          throw(VisitError.new(errmsg, node));
@@ -1953,7 +1953,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                 spillArgs += "bevd_x[" += spillArgPos.toString() += "] = " += formTarg(i) += ";" += nl;
             }
          }
-         numargs = numargs++;
+         numargs++;
       }
       
       //numargs has been incremented higher than the actual number of args by one
@@ -2013,7 +2013,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                         lisz = lival.length;
                       } else {
                         belsName = "bece_" + classConf.emitName + "_bels_" + cnode.held.belsCount.toString();                        
-                        cnode.held.belsCount++=;
+                        cnode.held.belsCount++;
                         belslits.put(lival, belsName);
                         String sdec = String.new();
                         lstringStart(sdec, belsName);
@@ -2027,7 +2027,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
                                 sdec += ",";
                             }
                             lstringByte(sdec, lival, lipos, bcode, hs);
-                            lipos++=;
+                            lipos++;
                           }
                           lstringEnd(sdec);
                         }

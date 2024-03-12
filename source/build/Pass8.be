@@ -22,7 +22,7 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
    
    prepOps() {
       dyn ops = Container:List.new(10);
-      for (dyn i = 0;i < 10;i = i++) {
+      for (dyn i = 0;i < 10;i++) {
          ops.put(i,Container:LinkedList.new());
       }
       return(ops);
@@ -74,11 +74,11 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
             if (i.length > 0) {
                for (dyn mt = i.iterator;mt.hasNext;;) {
                   mo = mt.next;
-                  mo = callFromOper(mo, prec, mo.priorPeer, mo.nextPeer);
+                  mo = callFromOper(mo, prec.copy(), mo.priorPeer, mo.nextPeer);
                   node = mo;
                }
             }
-            prec = prec++;
+            prec++;
          }
          //return(node);
       }

@@ -57,7 +57,7 @@ final class Container:List:Iterator {
       
    hasNextGet() Bool {
       npos.setValue(pos);
-      npos++=;
+      npos++;
       if ((pos >= none) && (npos < list.length)) {
          return(true);
       }
@@ -65,12 +65,12 @@ final class Container:List:Iterator {
    }
       
    nextGet() {
-      pos++=;
+      pos++;
       return(list.get(pos));
    }
    
    nextSet(toSet) {
-      pos++=;
+      pos++;
       return(list.put(pos, toSet));
    }
    
@@ -321,9 +321,9 @@ if (def(length)) {
       if (pos < length) {
          Int fl = length - 1;
          Int j = pos + 1;
-         for (Int i = pos.copy();i < fl;i++=) {
+         for (Int i = pos.copy();i < fl;i++) {
             put(i, get(j));
-            j++=;
+            j++;
          }
          put(fl, null);
          lengthSet(length - 1);
@@ -337,7 +337,7 @@ if (def(length)) {
    }
    
    clear() this {
-      for (Int i = 0;i < length;i++=) {
+      for (Int i = 0;i < length;i++) {
          put(i, null);
       }
       length = 0;
@@ -345,7 +345,7 @@ if (def(length)) {
    
    copy() self {
       List n = create();
-      for (Int i = 0;i < length;i++=) {
+      for (Int i = 0;i < length;i++) {
          n[i] = self[i];
       }
       return(n);
@@ -375,9 +375,9 @@ if (def(length)) {
    }
    
    sortValue(Int start, Int end) self {
-      for (Int i = start.copy();i < end;i++=) {
+      for (Int i = start.copy();i < end;i++) {
          Int c = i.copy();
-         for (Int j = i.copy();j < end;j++=) {
+         for (Int j = i.copy();j < end;j++) {
             if (self[j] < self[c]) {
                c = j.copy();
             }
@@ -399,22 +399,22 @@ if (def(length)) {
             dyn fo = first.get(fi);
             dyn so = second.get(si);
             if (so < fo) {
-               si++=;
+               si++;
                put(i, so);
             } else {
-               fi++=;
+               fi++;
                put(i, fo);
             }
          } elseIf (si < sl) {
             so = second.get(si);
-            si++=;
+            si++;
             put(i, so);
          } elseIf (fi < fl) {
             fo = first.get(fi);
-            fi++=;
+            fi++;
             put(i, fo);
          }
-         i++=;
+         i++;
       }
    }
    
@@ -480,7 +480,7 @@ if (def(length)) {
          bevi_list[bevp_length->bevi_int] = nullptr;
          """
          }
-         length++=;
+         length++;
       }
       length.setValue(newlen);//for length decreasing cases
    }
@@ -511,7 +511,7 @@ if (def(length)) {
        bevi_list[bevp_length->bevi_int] = beq->beva_val;
        """
        }
-       length++=;
+       length++;
      } else {
        //length may change before put completes, must copy
        put(length.copy(), val);
@@ -528,7 +528,7 @@ if (def(length)) {
    
    //find (or has) niavely finds
    find(value) Int {
-     for (Int i = 0;i < length;i++=) {
+     for (Int i = 0;i < length;i++) {
        dyn aval = get(i);
        if (def(aval) && value == aval) {
          return(i);

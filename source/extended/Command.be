@@ -99,7 +99,7 @@ final class Command {
         String[] cmds = new String[bevl_cl.bevi_int]; 
         """
         }
-        for (Int i = 0;i < cl;i++=) {
+        for (Int i = 0;i < cl;i++) {
           String cmdi = commands[i];
           emit(jv) {
           """

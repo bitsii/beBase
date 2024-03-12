@@ -218,12 +218,12 @@ final class ClassSyn {
             if (om != pm) {
                pm.lastDef = false;
                om.isOverride = true;
-               defMtds = defMtds++;
+               defMtds++;
             }
          } else {
             om.isOverride = false;
-            newMtds = newMtds++;
-            defMtds = defMtds++;
+            newMtds++;
+            defMtds++;
             build.emitData.methodIndexes.put(Build:MethodIndex.new(self, om));
          }
       }
@@ -255,7 +255,7 @@ final class ClassSyn {
                throw(Build:VisitError.new("Attempt to override final method " + om.held.name + " " + klass.held.namepath.toString(), om));
             }
             dyn oa = om.contained.first.contained;
-            for (dyn i = 1;i < pm.argSyns.length;i = i++) {
+            for (dyn i = 1;i < pm.argSyns.length;i++) {
                dyn pmr = pm.argSyns.get(i);
                dyn omr = oa.get(i).held;
                //("Checking argtypes").print();
@@ -393,8 +393,8 @@ final class ClassSyn {
 				msyno.declaration = msyno.origin;
 			}
             oma.declaration = msyno.declaration;
-            oma.mtdx = mtdx;
-            mtdx = mtdx++;
+            oma.mtdx = mtdx.copy();
+            mtdx++;
             mtdnList.addValue(oma);
             unq.put(om.name, om.name);
          }
@@ -441,7 +441,7 @@ final class Build:MtdSyn {
       }
       
       dyn args = snode.contained.first.contained;
-      for (dyn i = 0;i < argSyns.length;i = i++;) {
+      for (dyn i = 0;i < argSyns.length;i++;) {
          argSyns.put(i, VarSyn.anyNew(args[i].held));
       }
    }

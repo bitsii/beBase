@@ -244,11 +244,11 @@ MMM'''; //needs to stay unindented
    testIntAssembly() {
    
       Int i = 1;
-      i = i++;
+      i++;
       assertEqual(2, i);
       
       Int j = 1;
-      Int k = j++;
+      Int k = j + 1;
       assertEqual(2, k);
       assertEqual(1, j);
       
@@ -271,11 +271,11 @@ MMM'''; //needs to stay unindented
    testFloatAssembly() {
    
       Float i = 1.0;
-      i = i++;
+      i = i + 1.0;
       assertEqual(2.0, i);
       
       Float j = 1.0;
-      Float k = j++;
+      Float k = j + 1.0;
       assertEqual(2.0, k);
       assertEqual(1.0, j);
       
@@ -345,7 +345,7 @@ MMM'''; //needs to stay unindented
          }
       }
       
-      for (dyn i = 0;x;i = i++) {
+      for (dyn i = 0;x;i++) {
          if (true) {
          throw(System:Exception.new("Entered null for loop"));
          }

@@ -66,7 +66,6 @@ final class Build:NodeTypes {
          Int LESSER = 43;
          Int LESSER_EQUALS = 44;
          Int ADD = 45;
-         Int INCREMENT = 46;
          Int ADD_ASSIGN = 47;
          Int INCREMENT_ASSIGN = 84;
          Int SUBTRACT = 48;

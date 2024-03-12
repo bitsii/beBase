@@ -77,7 +77,7 @@ import final class Build:JVEmitter(Build:EmitCommon) {
     
     acceptCatch(Node node) {
     String catchVar = "beve_" + methodCatch.toString();
-    methodCatch++=;
+    methodCatch++;
     methodBody += " catch (Throwable " += catchVar += ") {" += nl; //}
     
     methodBody += finalAssign(node.contained.first.contained.first, "(be.BECS_ThrowBack.handleThrow(" + catchVar + "))", null, null);

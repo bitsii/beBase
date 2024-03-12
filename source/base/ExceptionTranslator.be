@@ -245,7 +245,7 @@ import class System:ExceptionTranslator {
    String rawkl = kparts.get(kps);
    String bec = String.new();
    Int sofar = 0;
-   for (Int i = 0;i < kps;i++=) {
+   for (Int i = 0;i < kps;i++) {
        Int len = Int.new(kparts.get(i));
        //("got len " + len).print();
        bec += rawkl.substring(sofar, sofar + len);
@@ -263,7 +263,7 @@ import class System:ExceptionTranslator {
    List mparts = mtd.substring(4).split("_");
    Int mps = mparts.length - 1; //last is the argnum, rest is the name
    String bem = String.new();
-   for (Int i = 0;i < mps;i++=) {
+   for (Int i = 0;i < mps;i++) {
        bem += mparts.get(i);
        if (i + 1 < mps) { bem += "_"; }
    }

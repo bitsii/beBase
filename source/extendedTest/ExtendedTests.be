@@ -38,7 +38,7 @@ class Test:ExtendedTest:EC(BaseTest) {
      //innerMain();
      try {
        Int howManyTimes = 3;//90, 1
-       for (Int i = 0;i < howManyTimes;i++=) {
+       for (Int i = 0;i < howManyTimes;i++) {
         innerMain();
       }
      } catch (dyn e) {
@@ -56,7 +56,7 @@ class Test:ExtendedTest:EC(BaseTest) {
    
       ("Test:ExtendedTest:Ec:main").print();
       
-      Test:BaseTest:RunCount.runCount++=;
+      Test:BaseTest:RunCount.runCount++;
       
       emit(cs) {
         """
@@ -295,9 +295,9 @@ class Test:Incr {
   }
   
   main() {
-    for (Int i = 0;i < count;i++=) {
+    for (Int i = 0;i < count;i++) {
       l.lock();
-      toInc++=;
+      toInc++;
       l.unlock();
     }
   }

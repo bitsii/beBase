@@ -21,7 +21,7 @@ class Test:TestLinkedList {
    
    testModify() {
       LinkedList ll = LinkedList.new();
-      for (Int i = 0;i < 16;i = i++) {
+      for (Int i = 0;i < 16;i++) {
          ll.addValue(i);
       }
       ("Before " + ll.length.toString()).print();

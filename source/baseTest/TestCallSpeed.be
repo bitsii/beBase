@@ -24,8 +24,8 @@ class Test:TestCallSpeed {
    testCallSpeed() {
       dyn x = Speeder.new();
       "In TestCallSpeed()".print();
-      for (Int i = 0;i < 200;i = i++) {
-         for (Int j = 0;j < 50000;j = j++) {
+      for (Int i = 0;i < 200;i++) {
+         for (Int j = 0;j < 50000;j++) {
             x.doIt();
          }
       }
@@ -41,7 +41,7 @@ class Speeder {
       }
    }
    doIt() {
-      i = i++;
+      i++;
    }
 }
 

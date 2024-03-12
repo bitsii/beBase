@@ -42,7 +42,7 @@ class Test:BaseTest:List(BaseTest) {
       
       List ts1 = ts.mergeSort();
       for (v in ts1) { if (undef(v)) { "Null".print(); } else { v.print(); } }
-      for (Int i = 0;i < ts1.length;i = i++) { 
+      for (Int i = 0;i < ts1.length;i = i + 1) {
          assertEquals(ts1[i], i);
       }
       
@@ -69,7 +69,7 @@ class Test:BaseTest:List(BaseTest) {
       assertEquals(uux[1], "There");
       assertEquals(uux[4], "Last");
       dyn uuz = uux.copy();
-      for (dyn j = 0;j < uux.length;j = j++) {
+      for (dyn j = 0;j < uux.length;j = j + 1) {
          assertFalse(undef(uux.get(j)) && def(uuz.get(j)));
          if (def(uux[j])) {
             assertFalse(uux.get(j) != uux.get(j));
@@ -99,26 +99,26 @@ class Test:BaseTest:List(BaseTest) {
      
      sf = List.new(5);
      
-     for (i = 0;i < 5;i = i++) {
+     for (i = 0;i < 5;i = i + 1) {
         sf[i] = i;
      }
-     for (i = 0;i < 5;i = i++) {
+     for (i = 0;i < 5;i = i + 1) {
         ("find i " + i).print();
         assertEqual(sf.sortedFind(i), i);
         assertEqual(sf.sortedFind(i, true), i);
      }
-     for (i = -10;i < 0;i = i++) {
+     for (i = -10;i < 0;i = i + 1) {
         assertNull(sf.sortedFind(i));
      }
      
-     for (i = 6;i < 10;i = i++) {
+     for (i = 6;i < 10;i = i + 1) {
         assertNull(sf.sortedFind(i));
      }
      
-     for (i = 0;i < 5;i = i++) {
+     for (i = 0;i < 5;i = i + 1) {
         sf[i] = i * 2;
      }
-     for (i = 0;i < 5;i = i++) {
+     for (i = 0;i < 5;i = i + 1) {
         ("find i " + i).print();
         assertEqual(sf.sortedFind(i * 2), i);
         assertEqual(sf.sortedFind(i * 2, true), i);
@@ -171,11 +171,11 @@ class Test:BaseTest:List(BaseTest) {
       
       assertEquals(x, 5);
       
-      for (i = 0;i < uux.length;i = i++;) {
+      for (i = 0;i < uux.length;i++;) {
          uux.put(i, i.copy()); 
       }
       dyn two = uux.copy();
-      for (x = 0;x < uux.length;x = x++;) {
+      for (x = 0;x < uux.length;x++;) {
          assertEquals(uux.get(x), two.get(x));
       }
       two.put(3, 9);
@@ -199,7 +199,7 @@ class Test:BaseTest:List(BaseTest) {
       ts[9] = 4;
       ts.sortValue();
       for (v in ts) { v.print(); }
-      for (i = 0;i < ts.length;i = i++) { 
+      for (i = 0;i < ts.length;i = i + 1) {
          assertEquals(ts[i], i);
       }
       

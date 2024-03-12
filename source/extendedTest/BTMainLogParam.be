@@ -36,7 +36,7 @@ class Test:BaseTest:System(BaseTest) {
       //can't always be the same
       Bool worked = false;
       Int dr = Int.new();
-      for (Int i = 0;i < 10000;i++=) {
+      for (Int i = 0;i < 10000;i++) {
         rand.getInt(dr);
         if (dr != r) {
           worked = true;

@@ -81,10 +81,6 @@ final class Bool {
       return(0);
    }
    
-   increment() Bool {
-      return(true);
-   }
-   
    decrement() Bool {
       return(false);
    }

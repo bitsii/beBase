@@ -158,7 +158,7 @@ class Test:BaseTest:IO(BaseTest) {
       testWRFile("test/tmp/wrfilesmall.txt", dataIn);
       
       
-      for (Int i = 0;i < 1500;i = i++) {
+      for (Int i = 0;i < 1500;i++) {
           dataIn += "_";
       }
       ("dataIn sz after 1500 _ " + dataIn.length).print();

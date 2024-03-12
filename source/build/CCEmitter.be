@@ -231,7 +231,7 @@ import final class Build:CCEmitter(Build:EmitCommon) {
    
    acceptCatch(Node node) {
     String catchVar = "beve_" + methodCatch.toString();
-    methodCatch++=;
+    methodCatch++;
     methodBody += " catch (BECS_ThrowBack " += catchVar += ") {" += nl; //}
     
     methodBody += finalAssign(node.contained.first.contained.first, "BECS_ThrowBack::handleThrow(" + catchVar + ")", null, null);

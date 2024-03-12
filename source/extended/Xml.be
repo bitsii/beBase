@@ -246,7 +246,7 @@ class TagIterator {
                if (tagName) {
                   nxt = iter.next;
                   while (nxt == " " || nxt == nl) {
-                     if (nxt == nl) { line = line++; }
+                     if (nxt == nl) { line = line + 1; }
                      nxt = iter.next;
                   }
                   if (nxt == "?") {
@@ -270,7 +270,7 @@ class TagIterator {
                         accum += nxt;
                         nxt = iter.next;
                      }
-                     if (nxt == nl) { line = line++; }
+                     if (nxt == nl) { line = line + 1; }
                      tagName = false;
                      if (isStart) {
                         StartElement myElement = StartElement.new();
@@ -300,7 +300,7 @@ class TagIterator {
                if (attributeName) {
                   nxt = iter.next;
                   while (nxt == " " || nxt == nl) {
-                     if (nxt == nl) { line = line++; }
+                     if (nxt == nl) { line = line + 1; }
                      nxt = iter.next;
                   }
                   while (nxt != " " && nxt != nl && nxt != ">" && nxt != "/" && nxt != "=") {
@@ -308,7 +308,7 @@ class TagIterator {
                      nxt = iter.next;
                   }
                   attributeName = false;
-                  if (nxt == nl) { line = line++; }
+                  if (nxt == nl) { line = line + 1; }
                   if (nxt == ">") {
                      attributeValue = false;
                      textNode = true;
@@ -325,7 +325,7 @@ class TagIterator {
                   nxt = iter.next;
                   while (nxt == " " || nxt == nl || nxt == "=") {
                      //Check for = ?
-                     if (nxt == nl) { line = line++; }
+                     if (nxt == nl) { line = line + 1; }
                      nxt = iter.next;
                   }
                   if (nxt != q) {
@@ -333,7 +333,7 @@ class TagIterator {
                   }
                   nxt = iter.next;
                   while (nxt != q) {
-                     if (nxt == nl) { line = line++; }
+                     if (nxt == nl) { line = line + 1; }
                      accum += nxt;
                      nxt = iter.next;
                   }

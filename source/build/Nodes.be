@@ -215,7 +215,7 @@ final class Node {
       Int d = 0;
       Node c = self.container;
       while (def(c)) {
-         d++=;
+         d++;
          c = c.container;
       }
       return(d);
@@ -225,7 +225,7 @@ final class Node {
       Int d = self.depth;
       String p = String.new();
       String q = "  ";
-      for (Int i = 0;i < d;i++=) {
+      for (Int i = 0;i < d;i++) {
          p = p + q;
       }
       return(p);
@@ -245,7 +245,7 @@ final class Node {
           throw(Build:VisitError.new("tmpVar scope not a sub", self));
        }
        dyn tmpanyn = clnode.held.tmpCnt.toString();
-       clnode.held.tmpCnt++=;
+       clnode.held.tmpCnt++;
        dyn tmpany = Build:Var.new();
        tmpany.isTmpVar = true;
        tmpany.autoType = true;

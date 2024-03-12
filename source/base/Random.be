@@ -133,7 +133,7 @@ final class Random {
       }
       //TODO for jv, cs could just call nextBytes
       Int value = Int.new();
-      for (Int i = 0;i < length;i++=) {
+      for (Int i = 0;i < length;i++) {
           //TODO lc and ints too
           str.setIntUnchecked(i, getIntMax(value, 26).addValue(65));
       }

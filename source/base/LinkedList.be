@@ -203,7 +203,7 @@ local LinkedList {
          } else {
             break;
          }
-         i++=;
+         i++;
       }
       if (i != pos) {
          return(null);
@@ -220,7 +220,7 @@ local LinkedList {
          } else {
             break;
          }
-         i++=;
+         i++;
       }
       if (i != pos) {
          return(false);
@@ -260,7 +260,7 @@ local LinkedList {
          } else {
             break;
          }
-         i++=;
+         i++;
       }
       if (i != pos) {
          return(null);
@@ -304,7 +304,7 @@ local LinkedList {
       Int cnt = 0;
       for (Iterator i = self.linkedListIterator;i.hasNext;;) {
          i.next;
-         cnt++=;
+         cnt++;
       }
       return(cnt);
    }
@@ -324,7 +324,7 @@ local LinkedList {
          if (cnt < len) {
             toret.put(cnt, i.nextNode);
          }
-         cnt++=;
+         cnt++;
       }
       return(toret);
    }
@@ -337,7 +337,7 @@ local LinkedList {
          if (cnt < len) {
             toret.put(cnt, i.nextNode.held);
          }
-         cnt++=;
+         cnt++;
       }
       return(toret);
    }
@@ -364,7 +364,7 @@ local LinkedList {
          return(res);
       }
       Iterator iter = self.linkedListIterator;
-      for (Int i = 0;i < end;i++=) {
+      for (Int i = 0;i < end;i++) {
          if (iter.hasNext!) {
             return(res);
          }
@@ -528,7 +528,7 @@ local Iterator {
    }
    
    skip(Int multiNullCount) {
-      for (Int mi = 0;mi < multiNullCount;mi++=) {
+      for (Int mi = 0;mi < multiNullCount;mi++) {
          self.next = null;
       }
    }

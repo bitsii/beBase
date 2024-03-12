@@ -125,7 +125,7 @@ final class Serializer {
             dyn i = iter.next;
             if (undef(i)) {
                //instWriter.write(nullMark);
-               multiNull = multiNull++;
+               multiNull = multiNull + 1;
             } else {
                // Complete multiNullMark
                if (multiNull == 1) {
@@ -502,7 +502,7 @@ final class NamedPropertiesIterator {
    }
    
    skip(Int multiNullCount) {
-      for (Int mi = 0;mi < multiNullCount;mi = mi++) {
+      for (Int mi = 0;mi < multiNullCount;mi++) {
          self.next = null;
       }
    }

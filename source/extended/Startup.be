@@ -161,7 +161,7 @@ local class Parameters {
    
    addArgs(_args) {
       if (def(preProcessor)) {
-         for (Int ii = 0;ii < _args.length;ii = ii++) {
+         for (Int ii = 0;ii < _args.length;ii++) {
             _args[ii] = preProcessor.process(_args[ii]);
          }
       }
@@ -209,12 +209,12 @@ local class Parameters {
    preProcessorSet(dyn _preProcessor) {
       preProcessor = _preProcessor;
       if (def(args)) {
-         for (Int i = 0;i < args.length;i = i++) {
+         for (Int i = 0;i < args.length;i++) {
             args[i] = preProcessor.process(args[i]);
          }
       }
       if (def(ordered)) {
-         for (i = 0;i < ordered.length;i = i++) {
+         for (i = 0;i < ordered.length;i++) {
             ordered[i] = preProcessor.process(ordered[i]);
          }
       }

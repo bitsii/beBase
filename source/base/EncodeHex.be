@@ -21,7 +21,7 @@ local class Hex {
       String cur = String.new(2);
       Int ssz = str.length;
       String r = String.new(ssz * 2);
-      for (Int pos = 0;pos < ssz;pos++=) {
+      for (Int pos = 0;pos < ssz;pos++) {
          str.getCode(pos, ac);
          r += ac.toHexString(cur);
       }
@@ -47,7 +47,7 @@ local class Hex {
          tb.next(pta);
          tb.next(ptb);
          r.setCodeUnchecked(pos, Int.hexNew(pta + ptb));
-         pos++=;
+         pos++;
       }
       return(r)
    }

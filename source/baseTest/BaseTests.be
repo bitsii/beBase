@@ -236,7 +236,7 @@ class Test:BaseTest:EC(BaseTest) {
             } elseIf (i == 1) {
                 assertEqual(v, "a");
             }
-            i = i++;
+            i++;
         }
         
         //if (true) { return(self); }
@@ -248,7 +248,7 @@ class Test:BaseTest:EC(BaseTest) {
             } elseIf (i == 1) {
                 it.next = "b";
             }
-            i = i++;
+            i++;
         }
         assertEqual(p1.one, 2);
         assertEqual(p1.a, "b");
@@ -654,9 +654,9 @@ class Test:BaseTest:EC(BaseTest) {
     
     intMutes() {
        assertEqual(1++, 2);
-       assertEqual(2--, 1);
+       assertEqual(2--=, 1);
        Int i = 99;
-       i++=;
+       i++;
        assertEqual(100, i);
        i--=;
        assertEqual(99, i);
@@ -786,7 +786,7 @@ class Test:BaseTest:MutString(BaseTest) {
             if (j == 2) {
                 assertEqual(i, 99);
             }
-            j++=;
+            j++;
         }
         
         s = "aÂbÆcあd𡇙e";
@@ -844,7 +844,7 @@ class Test:BaseTest:MutString(BaseTest) {
             if (j == 15) {
                 assertEqual(i, 101);
             }
-            j++=;
+            j++;
         }
         
         s = "aÂbÆcあd𡇙e";
@@ -929,7 +929,7 @@ class Test:BaseTest:MutInt(BaseTest) {
         assertEqual(b, 3);
         b.print();
         
-        b++=;
+        b++;
         assertEqual(b, 4);
         b.print();
         
@@ -941,7 +941,7 @@ class Test:BaseTest:MutInt(BaseTest) {
         assertEqual(b, 1);
         b.print();
         
-        b++=;
+        b++;
         b *= 2;
         assertEqual(b, 4);
         b.print();

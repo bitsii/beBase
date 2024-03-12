@@ -259,7 +259,7 @@ class Test:BaseTest:Serialize(BaseTest) {
       Int i = 0;
       for (iter = hp.serializationIterator;iter.hasNext;) {
          iter.next = i.toString();
-         i = i++;
+         i++;
       }
 
       for (iter = hp.serializationIterator;iter.hasNext;) {

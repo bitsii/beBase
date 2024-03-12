@@ -26,7 +26,7 @@ class Replace:CallStep {
         List callArgs = List.new(payloads.length - 1);
       }
    
-      for (Int pi = 1;pi < payloads.length;pi = pi++) {
+      for (Int pi = 1;pi < payloads.length;pi++) {
          callArgs[pi - 1] = payloads[pi];
       }
       

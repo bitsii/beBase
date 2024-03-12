@@ -38,12 +38,12 @@ class Test:TestFindDup {
       LinkedList seeds = LinkedList.new();
       Int start = "A".getCode(0);
       Int end = "Z".getCode(0);
-      for (i = start;i <= end;i = i++) {
+      for (i = start;i <= end;i++) {
          seeds += String.codeNew(i);
       }
       start = "a".getCode(0);
       end = "z".getCode(0);
-      for (i = start;i <= end;i = i++) {
+      for (i = start;i <= end;i++) {
          seeds += String.codeNew(i);
       }
       Map bunch = Map.new();
@@ -55,7 +55,7 @@ class Test:TestFindDup {
          }
          bunch.put(sh, soFar);
       }
-      for (Int j = 0;j < 3;j = j++) {
+      for (Int j = 0;j < 3;j++) {
          LinkedList ll = LinkedList.new();
          for (dyn x = bunch.valueIterator;x.hasNext;) {
             ll += x.next;
