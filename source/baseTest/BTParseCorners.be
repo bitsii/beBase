@@ -71,6 +71,15 @@ class PC(BaseTest) {
       assertEquals(x, 2);
       
       bool y = 1 + 1 == 2;
+
+      assertTrue("hi" != null);
+      assertFalse("hi" == null);
+      assertTrue(1 != null);
+      assertFalse(1 == null);
+      var o = System:Object.new();
+      assertTrue(o != null);
+      assertFalse(o == null);
+      assertTrue(o == o);
       
       assertTrue(y);
       

@@ -316,6 +316,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       ifEmit(c) {
         return(self == xi);
       }
+      if (undef(xi)) { return(false); }
       emit(jv) {
       """
       if (this.bevi_float == (($class/Math:Float$)beva_xi).bevi_float) {
@@ -358,6 +359,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       ifEmit(c) {
         return(self != xi);
       }
+      if (undef(xi)) { return(true); }
       emit(jv) {
       """
       if (this.bevi_float != (($class/Math:Float$)beva_xi).bevi_float) {

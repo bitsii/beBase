@@ -862,6 +862,7 @@ final class String {
    }
    
    equals(stri) Logic:Bool {
+      if (undef(stri)) { return(false); }
    emit(jv) {
   """
     $class/Text:String$ bevls_stri = ($class/Text:String$) beva_stri;

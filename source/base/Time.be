@@ -320,6 +320,7 @@ class Interval {
    }
    
    equals(other) Bool {
+      if (undef(other)) { return(false); }
       if  (System:Classes.sameClass(self, other) && secs == other.secs && millis == other.millis) {
          return(true);
       }
@@ -327,6 +328,7 @@ class Interval {
    }
    
    notEquals(other) Bool {
+      if (undef(other)) { return(true); }
       if (System:Classes.sameClass(self, other)! || secs != other.secs || millis != other.millis) {
          return(true);
       }

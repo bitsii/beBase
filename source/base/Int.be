@@ -583,6 +583,7 @@ bevi_int = beq->beva_xi->bevi_int;
       ifEmit(c) {
         return(self == xi);
       }
+      if (undef(xi)) { return(false); }
       emit(jv) {
       """
       if (this.bevi_int == (($class/Math:Int$)beva_xi).bevi_int) {
@@ -628,6 +629,7 @@ bevi_int = beq->beva_xi->bevi_int;
       ifEmit(c) {
         return(self != xi);
       }
+      if (undef(xi)) { return(true); }
       emit(jv) {
       """
       if (this.bevi_int != (($class/Math:Int$)beva_xi).bevi_int) {
