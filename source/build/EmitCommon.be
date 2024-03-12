@@ -1957,7 +1957,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       }
       
       //numargs has been incremented higher than the actual number of args by one
-      numargs = numargs--;
+      numargs--;
       
       if (isConstruct && isTyped!) {
         throw(VisitError.new("isConstruct but not isTyped", node));

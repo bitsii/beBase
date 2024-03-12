@@ -73,7 +73,7 @@ class Stack {
       }
       dyn item = last.held;
       last.held = null;
-      length = length--;
+      length = length - 1;
       return(item);
    }
    
@@ -165,7 +165,7 @@ class Queue {
          end.next = last;
          end = last;
       }
-      length = length--;
+      length = length - 1;
       return(item);
    }
    

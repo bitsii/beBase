@@ -202,7 +202,7 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
       ifEmit(jv,cs,js,cc) {
             emit(jv,cs,js) {
             """
-                bevi_float = bevi_float + 1;
+                bevi_float = this.bevi_float + 1;
             """
             }
             emit(cc) {
@@ -213,24 +213,19 @@ bevl_int = (BEINT*) (bevl_ii + bercps);
         }
    }
    
-   decrement() Float {
+   decrementValue() Float {
         ifEmit(jv,cs,js,cc) {
-            Float res = Float.new();
             emit(jv,cs,js) {
             """
-                bevl_res.bevi_float = this.bevi_float - 1;
+                bevi_float = this.bevi_float - 1;
             """
             }
             emit(cc) {
             """
-              beq->bevl_res->bevi_float = bevi_float - 1;
+              bevi_float = bevi_float - 1;
             """
             }
-            return(res);
         }
-      ifEmit(c) {
-         return(self--);
-      }
    }
    
    add(Float xi) Float {

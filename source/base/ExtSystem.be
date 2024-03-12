@@ -110,7 +110,7 @@ class System:BasePath {
       System:BasePath rpath = copy();
       rpath.path = String.new();
       Int rpl = fpath.length;
-      rpl = rpl--;
+      rpl = rpl - 1;
       Int c = 0;
       for (LIter i = fpath.linkedListIterator;i.hasNext;;) {
          if (c < rpl) {

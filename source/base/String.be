@@ -1159,7 +1159,7 @@ stdout.WriteByte(10);
             setInt(b, ve);
             setInt(e, vb);
             b++;
-            e--=;
+            e--;
         }
     }
 
@@ -1344,7 +1344,7 @@ local class Text:ByteIterator {
    
    currentInt(Int into) Int {
       if (pos > 0 && str.length >= pos) {
-         pos--=;//iterator is pre-increment, this approach saves an alloc at the cost of an extra op (increment, below)
+         pos--;//iterator is pre-increment, this approach saves an alloc at the cost of an extra op (increment, below)
          str.getInt(pos, into);
          pos++;
       }
@@ -1353,7 +1353,7 @@ local class Text:ByteIterator {
    
    currentIntSet(Int into) self {
       if (pos > 0 && str.length >= pos) {
-         pos--=;//iterator is pre-increment, this approach saves an alloc at the cost of an extra op (increment, below)
+         pos--;//iterator is pre-increment, this approach saves an alloc at the cost of an extra op (increment, below)
          str.setIntUnchecked(pos, into);
          pos++;
       }

@@ -66,7 +66,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
        }
        if ((typename == ntypes.MULTIPLY) && (def(nextPeer)) && (nextPeerTypename == ntypes.DIVIDE) && (inStr!)) {
          //comment end, can nest
-         nestComment--=;
+         nestComment--;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();
          node.delayDelete();
@@ -239,15 +239,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
          return(toRet);
        }
        if ((typename == ntypes.SUBTRACT) && (def(nextPeer)) && (nextPeerTypename == ntypes.SUBTRACT)) {
-         if ((def(node.nextPeer.nextPeer)) && (node.nextPeer.nextPeer.typename == ntypes.ASSIGN)) {
-            node.typename = ntypes.DECREMENT_ASSIGN;
-            node.held = node.held + node.nextPeer.held + node.nextPeer.nextPeer.held;
-            toRet = node.nextPeer.nextPeer.nextDescend;
-            node.nextPeer.delayDelete();
-            node.nextPeer.nextPeer.delayDelete();
-            return(toRet);
-         }
-         node.typename = ntypes.DECREMENT;
+         node.typename = ntypes.DECREMENT_ASSIGN;
          node.held = node.held + node.nextPeer.held;
          toRet = node.nextPeer.nextDescend;
          node.nextPeer.delayDelete();

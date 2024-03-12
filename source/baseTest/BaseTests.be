@@ -654,11 +654,11 @@ class Test:BaseTest:EC(BaseTest) {
     
     intMutes() {
        assertEqual(1++, 2);
-       assertEqual(2--=, 1);
+       assertEqual(2--, 1);
        Int i = 99;
        i++;
        assertEqual(100, i);
-       i--=;
+       i--;
        assertEqual(99, i);
        assertEqual(2 + 5, 7);
        assertEqual(8 += 2, 10);
@@ -933,7 +933,7 @@ class Test:BaseTest:MutInt(BaseTest) {
         assertEqual(b, 4);
         b.print();
         
-        b--=;
+        b--;
         assertEqual(b, 3);
         b.print();
         

@@ -114,7 +114,7 @@ final class Int {
    setStringValue(String str, Int radix, Int max0, Int maxA, Int maxa) self {
       self.setValue(0);
       Int j = str.length.copy();
-      j--=;
+      j--;
       Int pow = 1;
       Int ic = Int.new();
       while (j >= 0) {
@@ -141,7 +141,7 @@ final class Int {
         } else {
             throw(System:Exception.new("String is not an int " + str + " " + ic));
         }
-        j--=;
+        j--;
         pow *= radix;
       }
    }
@@ -252,21 +252,6 @@ bevi_int = beq->beva_xi->bevi_int;
       
       return(self);
    }
-   
-    decrement() Int {
-            Int res = Int.new();
-            emit(jv,cs,js) {
-            """
-                bevl_res.bevi_int = this.bevi_int - 1;
-            """
-            }
-            emit(cc) {
-            """
-                beq->bevl_res->bevi_int = bevi_int - 1;
-            """
-            }
-            return(res);
-    }
    
    incrementValue() Int {
       emit(jv,cs,js) {

@@ -372,7 +372,7 @@ class Set {
             return(false);
          } elseIf (rel.isEqual(n.key, k)) {
             slt.put(sl, null);
-            length = length--;
+            length = length - 1;
             sl = sl + 1;
             while (sl < modu) {
                n = slt.get(sl);

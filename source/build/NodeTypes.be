@@ -69,7 +69,6 @@ final class Build:NodeTypes {
          Int ADD_ASSIGN = 47;
          Int INCREMENT_ASSIGN = 84;
          Int SUBTRACT = 48;
-         Int DECREMENT = 49;
          Int SUBTRACT_ASSIGN = 83;
          Int DECREMENT_ASSIGN = 85;
          Int ID = 50;

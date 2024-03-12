@@ -60,7 +60,7 @@ void** bevl_ix;
       v = (char**) bevl_av[bercps];
       """
       }
-      for (ix = ix--;ix < ac;ix++;) {
+      for (ix = ix - 1;ix < ac;ix++;) {
          emit(c) {
          """
          bevl_ix = $ix&*;

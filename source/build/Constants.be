@@ -43,7 +43,6 @@ final class Build:Constants {
       unwindOk.put("parens", true);
       
       oper.put(ntypes.NOT, 0);
-      oper.put(ntypes.DECREMENT, 0);
       oper.put(ntypes.INCREMENT_ASSIGN, 0);
       oper.put(ntypes.DECREMENT_ASSIGN, 0);
       oper.put(ntypes.MULTIPLY, 1);
@@ -72,7 +71,6 @@ final class Build:Constants {
       oper.put(ntypes.ASSIGN, 9);
       
       operNames.put(ntypes.NOT, "NOT");
-      operNames.put(ntypes.DECREMENT, "DECREMENT");
       operNames.put(ntypes.MULTIPLY, "MULTIPLY");
       operNames.put(ntypes.DIVIDE, "DIVIDE");
       operNames.put(ntypes.MODULUS, "MODULUS");
