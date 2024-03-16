@@ -28,17 +28,17 @@ class Test:TestLinkedList {
       for (i in ll) {
          i.print();
       }
-      ll.firstNode.delete();
+      ll.firstNode.remove();
       ("First " + ll.length.toString()).print();
       for (i in ll) {
          i.print();
       }
-      ll.lastNode.delete();
+      ll.lastNode.remove();
       ("Second " + ll.length.toString()).print();
       for (i in ll) {
          i.print();
       }
-      ll.getNode(6).delete();
+      ll.getNode(6).remove();
       ("Third " + ll.length.toString()).print();
       for (i in ll) {
          i.print();

@@ -317,7 +317,7 @@ if (def(length)) {
       return(val);
    }
    
-   delete(Int pos)  {
+   remove(Int pos)  {
       if (pos < length) {
          Int fl = length - 1;
          Int j = pos + 1;

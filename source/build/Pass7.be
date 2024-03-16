@@ -81,7 +81,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
          } else {
             node.held.name = nnode.held;
             node.addVariable();
-            nnode.delete();
+            nnode.remove();
             //if (def(node.held.namepath)) {
             //   ("Found namepath typed any " + node.held.name + " " + node.held.namepath.toString()).print();
             //}
@@ -99,7 +99,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                }
                for (ii = toremove.iterator;ii.hasNext;;) {
                   i = ii.next;
-                  i.delete();
+                  i.remove();
                }
             }
             dyn pc = nnode;
@@ -107,7 +107,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
             dyn gc = Build:Call.new();
             gc.name = node.held;
             pc.held = gc;
-            node.delete();
+            node.remove();
             node = pc;
             dnode = node.priorPeer;
             if (def(dnode) && (dnode.typename == ntypes.DOT)) {
@@ -141,9 +141,9 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                   throw(VisitError.new("Error, throw cannot be a bound call cannot be called on an object", node));
                }
                //pc.removeAndPrepend(onode)
-               onode.delete();
+               onode.remove();
                pc.prepend(onode);
-               dnode.delete();
+               dnode.remove();
             } else {
                gc.bound = false;
                gc.wasBound = false;
@@ -157,7 +157,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
          if (undef(onode)) {
             throw(VisitError.new("Error, indexed access without call", node));
          }
-         onode.delete();
+         onode.remove();
          node.prepend(onode);
          if (onode.typename == ntypes.NAMEPATH) {
             throw(VisitError.new("Error, incorrect syntax for indexed access, invocation target cannot be a class name", node));
@@ -178,8 +178,8 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                node.typename = ntypes.ACCESSOR;
                dyn ga = Build:Accessor.new();
                ga.name = nnode.held;
-               nnode.delete();
-               onode.delete();
+               nnode.remove();
+               onode.remove();
                node.held = ga;
                node.addValue(onode);
                if (onode.typename == ntypes.NAMEPATH) {

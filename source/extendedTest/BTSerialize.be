@@ -238,12 +238,12 @@ class Test:BaseTest:Serialize(BaseTest) {
 
    dirStoreTest() {
         DirStore ds = DirStore.new("test/tmp/ds");
-        ds.delete("hi");
+        ds.remove("hi");
         assertFalse(ds.contains("hi"));
         ds.put("hi","there");
         assertTrue(ds.contains("hi"));
         assertEqual(ds.get("hi"), "there");
-        ds.delete("hi");
+        ds.remove("hi");
     }
 
    testNamedProperties() {

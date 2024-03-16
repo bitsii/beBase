@@ -69,7 +69,7 @@ local Node {
       }
    }
    
-   delete() {
+   remove() {
       Node p = prior;
       Node n = next;
       next = null;
@@ -188,7 +188,7 @@ local LinkedList {
    }
    
    deleteNode(node) {
-      node.delete();
+      node.remove();
    }
    
    insertBeforeNode(toIns, node) {

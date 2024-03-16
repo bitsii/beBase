@@ -247,7 +247,7 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
                }
             }
             node.held.newNp = newNp.held;
-            newNp.delete();
+            newNp.remove();
          }
          node.held.numargs = node.contained.length - 1;
          node.held.orgName = node.held.name;

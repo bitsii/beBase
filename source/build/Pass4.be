@@ -34,11 +34,11 @@ final class Build:Visit:Pass4(Build:Visit:Visitor) {
          }
          Node nxnn = nxn.nextPeer;
          if (def(first)) {
-            node.delete();
+            node.remove();
          } else {
             Node first = node;
          }
-         nnode.delete();
+         nnode.remove();
          node = nxn;
          nnode = nxnn;
       }
@@ -47,7 +47,7 @@ final class Build:Visit:Pass4(Build:Visit:Visitor) {
          Build:NamePath np = Build:NamePath.new();
          if (def(node) && (node.typename == ntypes.ID)) {
             nps = nps + node.held;
-            node.delete();
+            node.remove();
          }
          np.fromString(nps);
          first.held = np;

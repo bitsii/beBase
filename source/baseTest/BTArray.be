@@ -79,8 +79,8 @@ class Test:BaseTest:List(BaseTest) {
       uux.put(25, "Boo");
       assertEquals(uux[25], "Boo");
       uux.length.print();
-      uux.delete(1);
-      uux.delete(0);
+      uux.remove(1);
+      uux.remove(0);
       assertEquals(uux[2], "Last");
       assertEquals(uux.length, 24);
       

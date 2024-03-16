@@ -44,7 +44,7 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
             if (i.typename == ntypes.PARENS) {
                if (def(i.contained.firstNode)) {
                   i.beforeInsert(i.contained.first);
-                  i.delete();
+                  i.remove();
                } else {
                   dyn estr = "Error, parens length of contained too great " + i.contained.length.toString();
                   throw(VisitError.new(estr, node));
@@ -99,8 +99,8 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
             Node narg2 = ntarg.nextPeer;
             Node narg3 = node.nextPeer;
             
-            narg2.delete();
-            narg3.delete();
+            narg2.remove();
+            narg3.remove();
             
             node.typename = ntarg.typename;
             node.held = ntarg.held;
@@ -254,7 +254,7 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          lnode.typename = ntypes.LOOP;
          node.replaceWith(lnode);
          pnode = node.contained.first;
-         pnode.delete();
+         pnode.remove();
          if (pnode.contained.length < 2) {
             throw(VisitError.new("Insufficient number of for loop arguments, two required", node));
          }
@@ -263,10 +263,10 @@ final class Build:Visit:Pass9(Build:Visit:Visitor) {
          atStep = null;
          if (pnode.contained.length > 2) {
             atStep = pnode.third;
-            atStep.delete();
+            atStep.remove();
          }
-         init.delete();
-         //cond.delete(); //this will drop the conditional in the if
+         init.remove();
+         //cond.remove(); //this will drop the conditional in the if
          node.replaceWith(lnode);
          lnode.beforeInsert(init);
          

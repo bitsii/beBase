@@ -33,7 +33,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
                 //("inline lang is " + lang.held).print();
                 langs += lang.held;
             }
-            langs.delete(",");
+            langs.remove(",");
             dyn doit = true;
             if (doit) {
                doit = false;
@@ -48,13 +48,13 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
                }
             }
             if (doit!) {
-               node.delete();
+               node.remove();
                return(gnext);
             }
             node.contained = null;
             node.held = Build:Emit.new(node.held, langs);
          } else {
-            node.delete();
+            node.remove();
             return(gnext);
          }
          
@@ -64,7 +64,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          }
          
          if (def(snode)) {
-            node.delete();
+            node.remove();
             snode.held.addEmit(node);
          }
         
@@ -77,11 +77,11 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             langs += lang.held;
             toremove.addValue(lang);
          }
-         langs.delete(",");
+         langs.remove(",");
          node.held = Build:IfEmit.new(langs, node.held);
          for (ii = toremove.iterator;ii.hasNext;;) {
             i = ii.next;
-            i.delete();
+            i.remove();
          }
          Bool include = true;
          if (node.held.value == "ifNotEmit") {
@@ -143,11 +143,11 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
                lnode.addValue(enode);
                lnode = inode;
                dyn nxnode = nnode.nextPeer;
-               nnode.delete();
+               nnode.remove();
                nnode = nxnode;
             }
             if (def(nnode) && (nnode.typename == ntypes.ELSE)) {
-               nnode.delete();
+               nnode.remove();
                lnode.addValue(nnode);
             }
          }  
@@ -190,7 +190,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          }
          for (ii = toremove.iterator;ii.hasNext;;) {
             i = ii.next;
-            i.delete();
+            i.remove();
          }
          dyn s = node.held;
          s.numargs = numargs - 1;
@@ -214,7 +214,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
               s.rtype.isTyped = true;
               s.rtype.isSelf = true;
             }
-            i.delete();
+            i.remove();
          } else {
            s.rtype = Build:Var.new();
            s.rtype.isTyped = true;

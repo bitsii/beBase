@@ -37,7 +37,7 @@ final class Build:Visit:Pass11(Build:Visit:Visitor) {
             }
             node.beforeInsert(inode);
          }
-         node.delete();
+         node.remove();
          return(fnode);
       }
       if (node.typename == ntypes.METHOD) {

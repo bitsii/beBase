@@ -38,7 +38,7 @@ class PropertyMap {
    }
    
    unset(String key) {
-      map.delete(key);
+      map.remove(key);
    }
    
    mapGet() Map { return(null); }
@@ -112,7 +112,7 @@ char* bevl_rc;
 #endif
       """
       }
-      map.delete(key);
+      map.remove(key);
    }
    
    load() {

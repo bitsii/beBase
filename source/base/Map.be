@@ -354,7 +354,7 @@ class Set {
       }
    }
    
-   delete(k) {
+   remove(k) {
       List slt = buckets;
       Int modu = slt.length;
       
@@ -640,12 +640,12 @@ class Container:Set:NodeIterator {
       return(null);
    }
    
-   delete() Bool {
+   remove() Bool {
       Int i = current - 1;
       if (i >= 0) {
          SetNode sn = buckets.get(i);
          if (def(sn)) {
-            if (set.delete(sn.key)) {
+            if (set.remove(sn.key)) {
                current = i;
                return(true);
             }

@@ -136,10 +136,10 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
       gc.wasBound = true;
       op.typename = ntypes.CALL;
       op.held = gc;
-      pr.delete();
+      pr.remove();
       op.addValue(pr);
       if (prec > 0) {
-         nx.delete();
+         nx.remove();
          op.addValue(nx);
       }
       return(op);

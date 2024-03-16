@@ -51,8 +51,8 @@ final class Build:Visit:Pass2(Build:Visit:Visitor) {
                         if (nxp2.held.isInteger) {
                            node.held = node.held + nxp.held + nxp2.held;
                            node.typename = ntypes.FLOATL;
-                           nxp2.delete();
-                           nxp.delete();
+                           nxp2.remove();
+                           nxp.remove();
                            return(nxp3);
                         }
                      }

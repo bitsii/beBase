@@ -453,7 +453,7 @@ class DirStore {
       return(false);
    }
    
-   delete(String id) self {
+   remove(String id) self {
       IO:File:Path p = getPath(id);
       p.file.delete();
    }

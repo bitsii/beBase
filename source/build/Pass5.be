@@ -56,7 +56,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             Node lun = node.priorPeer;
             if (def(lun) && (lun.typename == ntypes.DEFMOD) && lun.held == "local") {
                Bool isLocalUse = true;
-               lun.delete();
+               lun.remove();
             } else {
               isLocalUse = false;
             }
@@ -98,12 +98,12 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             
             if (undef(clnode)) {
                dyn gnext = nnode.nextPeer;
-               nnode.delete();
+               nnode.remove();
                
                if (gnext.typename == ntypes.SEMI) {
                   nnode = gnext;
                   gnext = nnode.nextPeer;
-                  nnode.delete();
+                  nnode.remove();
                }
             } else {
                gnext = clnode;
@@ -142,7 +142,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                         isNotNull = true;
                      }
                      Node prptmp = prp.priorPeer;
-                     prp.delete();
+                     prp.remove();
                      prp = prptmp;
                   } else {
                      prp = null;
@@ -165,7 +165,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                node.held.isFinal = isFinal;
                node.held.isLocal = isLocal;
                node.held.isNotNull = isNotNull;
-               m.delete();
+               m.remove();
             } catch (err) {
                err.print();
                throw(VisitError.new("Error improper class statement, target appears to be missing.", node));
@@ -186,12 +186,12 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                      } else {
                         throw(VisitError.new("Error, parent class name type is incorrect", node));
                      }
-                     //m.delete();
+                     //m.remove();
                   } catch (err) {
                      err.print();
                      throw(VisitError.new("Error improper class statement, parent target appears to be missing.", node));
                   }
-                  nnode.delete();
+                  nnode.remove();
                }
             } catch (err) {
                err.print();
@@ -217,7 +217,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                         throw (VisitError.new("Local methods not supported", node));
                      }
                      prptmp = prp.priorPeer;
-                     prp.delete();
+                     prp.remove();
                      prp = prptmp;
                   } else {
                      prp = null;
@@ -250,7 +250,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                      if (node.held.name.getPoint(0).isInteger) {
                         throw(VisitError.new("First character of variables and subroutine names cannot be a numeric digit", node));
                      }
-                     m.delete();
+                     m.remove();
                   } else {
                      throw(VisitError.new("Error, subroutine declaration incomplete 1", node));
                   }
@@ -299,7 +299,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                lpnode.copyLoc(node);
                for (dyn ii = con.iterator;ii.hasNext;;) {
                   dyn i = ii.next;
-                  i.delete();
+                  i.remove();
                   lpnode.addValue(i);
                }
                //nx = Node.new(build);
@@ -307,7 +307,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
                //lpnode.addValue(nx);
                //nx.copyLoc(lpnode);
             } else {
-               node.delete();
+               node.remove();
             }
             return(gnext);
          }

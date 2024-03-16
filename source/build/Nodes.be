@@ -127,12 +127,12 @@ final class Node {
    delayDelete() {
       delayDelete = true;
    }
-   
-   delete() {
+
+   remove() {
       if (undef(heldBy)) {
          return(null);
       }
-      heldBy.delete();
+      heldBy.remove();
       self.container = null;
       heldBy = null;
    }
@@ -404,7 +404,7 @@ final class Node {
    }
    
    deleteAndAppend(Node other) {
-      other.delete();
+      other.remove();
       addValue(other);
    }
    

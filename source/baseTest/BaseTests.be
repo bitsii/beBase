@@ -302,7 +302,7 @@ class Test:BaseTest:EC(BaseTest) {
         m.put("hi","there");
         assertEqual(m.get("hi"), "there");
         
-        m.delete("hi");
+        m.remove("hi");
         
         m = Map.new();
         m.put(2, "two");
@@ -328,7 +328,7 @@ class Test:BaseTest:EC(BaseTest) {
         assertEqual(a[1], "b");
         assertEqual(a[2], "c");
         
-        a.delete(1);
+        a.remove(1);
         //assertNull(a[0]);
         assertEqual(a[0], "a");
         

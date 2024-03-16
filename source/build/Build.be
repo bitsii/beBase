@@ -737,7 +737,7 @@ final class Build:Build {
             dyn ntt = Build:TransUnit.new();
             ntt.emits = tunode.held.emits;
             ntunode.held = ntt;
-            clnode.delete();
+            clnode.remove();
             ntunode.addValue(clnode);
             ntunode.copyLoc(clnode);
          }
@@ -799,7 +799,7 @@ final class Build:Build {
                      ("!!!SIGN Doing for null").print();
                   } */
                   nlc.literalValue = pn.held + nlc.literalValue;
-                  pn.delete();
+                  pn.remove();
                }
                /*if (undef(pn2)) {
                   "!!!SIGN ISNULL pn2".print();

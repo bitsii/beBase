@@ -156,7 +156,7 @@ class System:BasePath {
             if (undef(next)) { break; }
             current = next;
             next = current.next;
-            current.delete();
+            current.remove();
          }
          path = path.join(separator, fpath);
       }
@@ -643,7 +643,7 @@ class System:Thread:ContainerLocker {
     lock.lock();
     try {
       dyn r = container.get(key);
-      container.delete(key);
+      container.remove(key);
       lock.unlock();
     } catch (dyn e) {
       lock.unlock();
@@ -814,10 +814,10 @@ class System:Thread:ContainerLocker {
     }
   }
   
-  delete(key) {
+  remove(key) {
     lock.lock();
     try {
-      dyn r = container.delete(key);
+      dyn r = container.remove(key);
       lock.unlock();
     } catch (dyn e) {
       lock.unlock();
@@ -826,10 +826,10 @@ class System:Thread:ContainerLocker {
     return(r);
   }
   
-  delete(p, k) {
+  remove(p, k) {
     lock.lock();
     try {
-      dyn r = container.delete(p, k);
+      dyn r = container.remove(p, k);
       lock.unlock();
     } catch (dyn e) {
       lock.unlock();
