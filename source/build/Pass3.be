@@ -176,7 +176,7 @@ final class Build:Visit:Pass3(Build:Visit:Visitor) {
             Node pre = vback;
           }
           //if (def(pre)) { pre.typename.print(); }
-          if (undef(pre) || pre.typename == ntypes.COMMA || pre.typename == ntypes.PARENS || const.oper.contains(pre.typename)) {
+          if (undef(pre) || pre.typename == ntypes.COMMA || pre.typename == ntypes.PARENS || const.oper.has(pre.typename)) {
             //("FoundNeg -" + node.nextPeer.held).print();
             //throw(VisitError.new("Found Neg -" + node.nextPeer.held));
             node.nextPeer.held = "-" + node.nextPeer.held;

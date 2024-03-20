@@ -537,7 +537,7 @@ if (def(length)) {
      return(null);
    }
 
-   contains(value) Bool {
+   has(value) Bool {
      if (def(find(value))) {
        return(true);
      }

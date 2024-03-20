@@ -122,7 +122,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                   } else {
                      createImpliedConstruct(onode, gc);  //was gone
                   }
-               } elseIf (onode.typename == ntypes.ID && (node.transUnit.held.aliased.contains(onode.held) || build.emitData.aliased.contains(onode.held))) {
+               } elseIf (onode.typename == ntypes.ID && (node.transUnit.held.aliased.has(onode.held) || build.emitData.aliased.has(onode.held))) {
                   Build:NamePath namepath = Build:NamePath.new();
                   namepath.addStep(onode.held);
                   onode.held = namepath;
@@ -184,7 +184,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                node.addValue(onode);
                if (onode.typename == ntypes.NAMEPATH) {
                   createImpliedConstruct(onode, ga);
-               } elseIf (onode.typename == ntypes.ID && (node.transUnit.held.aliased.contains(onode.held) || build.emitData.aliased.contains(onode.held))) {
+               } elseIf (onode.typename == ntypes.ID && (node.transUnit.held.aliased.has(onode.held) || build.emitData.aliased.has(onode.held))) {
                   namepath = Build:NamePath.new();
                   namepath.addStep(onode.held);
                   onode.held = namepath;

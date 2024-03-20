@@ -161,7 +161,7 @@ final class Build:Build {
       String bkey = "buildFile";
       if (def(params[bkey])) {
       for (istr in params[bkey]) {
-         if (bfiles.contains(istr)!) {
+         if (bfiles.has(istr)!) {
             bfiles.put(istr);
             params.addFile(File.new(istr));
          }
@@ -172,7 +172,7 @@ final class Build:Build {
          params.preProcessor = self;
       }
       libName = params["libraryName"].first;
-      if (params.contains("exeName")) {
+      if (params.has("exeName")) {
          exeName = params["exeName"].first;
       } else {
          exeName = libName;
@@ -324,7 +324,7 @@ final class Build:Build {
       Set toEmit = Set.new();
       for (any ci = emitData.classes.valueIterator;ci.hasNext;;) {
             any clnode = ci.next;
-            if (emitData.shouldEmit.contains(clnode.held.fromFile)) {
+            if (emitData.shouldEmit.has(clnode.held.fromFile)) {
 				toEmit.put(clnode.held.namepath.toString());
 				Set usedBy = emitData.usedBy[clnode.held.namepath.toString()];
 				if (def(usedBy)) {
@@ -342,7 +342,7 @@ final class Build:Build {
       }
       for (ci = emitData.classes.valueIterator;ci.hasNext;;) {
             clnode = ci.next;
-            clnode.held.shouldWrite = toEmit.contains(clnode.held.namepath.toString());
+            clnode.held.shouldWrite = toEmit.has(clnode.held.namepath.toString());
             //("shouldWrite for " + clnode.held.namepath + " is " + clnode.held.shouldWrite).print();
       }
    }
@@ -411,14 +411,14 @@ final class Build:Build {
       Set ulibs = Set.new();
       //librarys is a mispelling TODO spell it right libraries
       for (any ups in usedLibrarysStr) {
-         if (ulibs.contains(ups)!) {
+         if (ulibs.has(ups)!) {
             ulibs.put(ups);
             any pack = Build:Library.new(ups, self);
             usedLibrarys.addValue(pack);
          }
       }
       for (ups in closeLibrariesStr) {
-         if (ulibs.contains(ups)!) {
+         if (ulibs.has(ups)!) {
             ulibs.put(ups);
             pack = Build:Library.new(ups, self);
             usedLibrarys.addValue(pack);
@@ -431,7 +431,7 @@ final class Build:Build {
          for (any i = toBuild.iterator;i.hasNext;;) {
             any tb = i.next;
             //("First Pass, Considering file " + tb.toString() + " ").print();
-            unless (built.contains(tb.toString())) {
+            unless (built.has(tb.toString())) {
               built.put(tb.toString());
               doParse(tb);
             }

@@ -66,9 +66,9 @@ class Test:BaseTest:IO(BaseTest) {
         names.put(f.path.name);
       }
       assertEqual(names.length, 3);
-      assertTrue(names.contains("d2"));
-      assertTrue(names.contains("hi"));
-      assertTrue(names.contains("there"));
+      assertTrue(names.has("d2"));
+      assertTrue(names.has("hi"));
+      assertTrue(names.has("there"));
    }
    
    testFileTypes() {

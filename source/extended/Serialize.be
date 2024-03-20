@@ -444,7 +444,7 @@ class DirStore {
       return(null);
    }
 
-   contains(String id) Bool {
+   has(String id) Bool {
       if (undef(id) || id == "") { return(false); }
       IO:File:Path p = getPath(id);
       if (p.file.exists) {

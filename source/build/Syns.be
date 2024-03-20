@@ -165,7 +165,7 @@ final class ClassSyn {
    }
    
    castsTo(NamePath cto) {
-      return(allTypes.contains(cto));
+      return(allTypes.has(cto));
    }
    
    integrate(Build:Build build) {
@@ -201,12 +201,12 @@ final class ClassSyn {
      }
      for (NamePath pn in superList) {
          Build:ClassSyn pnsyn = build.getSynNp(pn);
-         if (build.closeLibraries.contains(pnsyn.libName)! && pn.toString() != "System:Object") {
+         if (build.closeLibraries.has(pnsyn.libName)! && pn.toString() != "System:Object") {
             //("Not directProperties " + pn.toString() + " " + pnsyn.libName).print();
             directProperties = false;
             directMethods = false;
          }
-         if (build.closeLibraries.contains(pnsyn.libName)!) {
+         if (build.closeLibraries.has(pnsyn.libName)!) {
 			allAncestorsClose = false;
          }
      }
@@ -292,7 +292,7 @@ final class ClassSyn {
             return(self); //both are self typed (return type), OK
          }
          any osyn = build.getSynNp(omr.namepath);
-         if (osyn.allTypes.contains(pmr.namepath)!) {
+         if (osyn.allTypes.has(pmr.namepath)!) {
             throw(Build:VisitError.new("Inheritance type mismatch error, child type does not match parent type namepath " + klass.held.namepath.toString(), om));
          }
       }
@@ -342,7 +342,7 @@ final class ClassSyn {
       
       for (any iv = ptyList.iterator;iv.hasNext;;) {
          any ov = iv.next;
-         if (ptyMap.contains(ov.name)!) {
+         if (ptyMap.has(ov.name)!) {
             //The list should containe only the first property by name and heritage
             ptyMap.put(ov.name, ov);
          }
@@ -352,7 +352,7 @@ final class ClassSyn {
       any mpos = 0;
       for (iv = ptyList.iterator;iv.hasNext;;) {
          ov = iv.next;
-         if (unq.contains(ov.name)!) {
+         if (unq.has(ov.name)!) {
             any nom = ptyMap.get(ov.name);
             nom.mpos = mpos;
             mpos = mpos + 1;
@@ -369,7 +369,7 @@ final class ClassSyn {
          //The list should containe only the last method by name and heritage
          mtdMap.put(om.name, om);
          //This map is to find the origin of an overriden method
-         if (mtdOmap.contains(om.name)!) {
+         if (mtdOmap.has(om.name)!) {
 			mtdOmap.put(om.name, om);
          }
       }
@@ -378,7 +378,7 @@ final class ClassSyn {
       Int mtdx = 0;
       for (im = mtdList.iterator;im.hasNext;;) {
          om = im.next;
-         if (unq.contains(om.name)!) {
+         if (unq.has(om.name)!) {
             any oma = mtdMap.get(om.name);
             //store where mtd was first declared
             //if msyno declaration is null then

@@ -77,7 +77,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        
        classHeadBody.clear();
        
-       unless (build.emitChecks.contains("noSmap")) {
+       unless (build.emitChecks.has("noSmap")) {
         heow.write("virtual BEC_2_4_6_TextString* bemc_clnames();\n");
         heow.write("virtual BEC_2_4_6_TextString* bemc_clfiles();\n");
        }
@@ -87,10 +87,10 @@ use final class Build:CCEmitter(Build:EmitCommon) {
        heow.write("virtual BEC_2_6_6_SystemObject* bemc_getInitial();\n");
        heow.write("virtual void bemg_doMark();\n");
        heow.write("virtual size_t bemg_getSize();\n");
-       unless (build.emitChecks.contains("noRfl") && csyn.hasDefault!) {
+       unless (build.emitChecks.has("noRfl") && csyn.hasDefault!) {
          heow.write("virtual BETS_Object* bemc_getType();\n");
        }
-       unless (build.emitChecks.contains("noSmap")) {
+       unless (build.emitChecks.has("noSmap")) {
         heow.write("static std::vector<int32_t> bevs_smnlc;\n");
         heow.write("static std::vector<int32_t> bevs_smnlec;\n");
        }
@@ -204,7 +204,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    }
       
    handleClassEmit(Node node) {
-      if (node.held.langs.contains("cc_classHead")) {
+      if (node.held.langs.has("cc_classHead")) {
         classHeaders += node.held.text;
       } else {
         super.handleClassEmit(node);
@@ -249,7 +249,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
      if (type == "unchecked") {
        String ccall = "static_cast";
      } else {
-       if (build.emitChecks.contains("ccNoRtti")) {
+       if (build.emitChecks.has("ccNoRtti")) {
          ccall = "static_cast";
        } else {
          ccall = "dynamic_cast";
@@ -271,7 +271,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
   }
    
    lintConstruct(ClassConfig newcc, Node node) String {
-      if (build.emitChecks.contains("ccSgc")) {
+      if (build.emitChecks.has("ccSgc")) {
         String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
       } else {
         newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "))";
@@ -280,7 +280,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    }
    
    lfloatConstruct(ClassConfig newcc, Node node) String {
-      if (build.emitChecks.contains("ccSgc")) {
+      if (build.emitChecks.has("ccSgc")) {
         String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
       } else {
         newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + node.held.literalValue + "f))";
@@ -290,7 +290,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    lstringConstruct(ClassConfig newcc, Node node, String belsName, Int lisz, String sdec) String {
       String litArgs = "" + lisz + ", " + sdec;
-      if (build.emitChecks.contains("ccSgc")) {
+      if (build.emitChecks.has("ccSgc")) {
         String newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
       } else {
         newCall = "(" + newcc.relEmitName(build.libName) + "*) (new " + newcc.relEmitName(build.libName) + "(" + litArgs + "))";
@@ -388,7 +388,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    
    genMark(String mvn) String {
        String bet = String.new();
-       if (build.emitChecks.contains("ccSgc")) {
+       if (build.emitChecks.has("ccSgc")) {
          bet += "if (" += mvn += " != nullptr && " += mvn += "->bevg_gcMark != BECS_Runtime::bevg_currentGcMark) {" += nl;
          bet += mvn += "->bemg_doMark();" += nl;
          bet += "}" += nl;
@@ -411,7 +411,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         String bet = String.new();
         bet += classConf.typeEmitName += "::" += classConf.typeEmitName += "() {\n";
         bet += "std::vector<std::string> bevs_mtnames = { ";
-        unless (build.emitChecks.contains("noRfl")) {
+        unless (build.emitChecks.has("noRfl")) {
           Bool firstmnsyn = true;
           for (Build:MtdSyn mnsyn in csyn.mtdList) {
             if (firstmnsyn) {
@@ -424,12 +424,12 @@ use final class Build:CCEmitter(Build:EmitCommon) {
          }
          bet += " };\n";
          //noRfl
-         unless (build.emitChecks.contains("noRfl")) {
+         unless (build.emitChecks.has("noRfl")) {
            bet += "bems_buildMethodNames(bevs_mtnames);\n";
          }
         
         bet += "bevs_fieldNames = { ";
-        unless (build.emitChecks.contains("noRfl")) {
+        unless (build.emitChecks.has("noRfl")) {
           Bool firstptsyn = true;
           for (Build:PtySyn ptySyn in csyn.ptyList) {
             unless (ptySyn.isSlot) {
@@ -485,7 +485,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             deow = deop.file.writer.open();
             heow = heop.file.writer.open();
             
-            if (build.params.contains("cchImport")) {
+            if (build.params.has("cchImport")) {
                 //("got cchinclude").print();
                 for (p in build.params["cchImport"]) {
                     //("cchinclude " + p).print();
@@ -507,7 +507,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             File jsi;
             String inc;
             //incorporate base file - ext lib
-            if (build.params.contains("ccdInclude")) {
+            if (build.params.has("ccdInclude")) {
                 //("got ccdinclude").print();
                 for (p in build.params["ccdInclude"]) {
                     //("ccdinclude " + p).print();
@@ -518,7 +518,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
                     deow.write(inc);
                 }
             }
-            if (build.params.contains("cchInclude")) {
+            if (build.params.has("cchInclude")) {
                 //("got cchinclude").print();
                 for (p in build.params["cchInclude"]) {
                     //("cchinclude " + p).print();
@@ -548,7 +548,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             //incorporate base file - ext lib
             shlibe.write("#include \"BEH_4_Base.hpp\"\n");
             
-            if (build.params.contains("ccImport")) {
+            if (build.params.has("ccImport")) {
                 //("got cchinclude").print();
                 for (p in build.params["ccImport"]) {
                     //("cchinclude " + p).print();
@@ -562,7 +562,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
             
             shlibe.write("namespace be {\n");//}
             lineCount++;
-            if (build.params.contains("ccInclude")) {
+            if (build.params.has("ccInclude")) {
                 for (String p in build.params["ccInclude"]) {
                     File jsi = IO:File:Path.apNew(p).file;
                     String inc = jsi.reader.open().readString();
@@ -586,7 +586,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         //{
         heow.write("}\n");//end namespace
         
-        if (build.emitChecks.contains("relocMain")) {
+        if (build.emitChecks.has("relocMain")) {
           String mh = String.new();
           mh += "int bems_relocMain(int argc, char **argv);" += nl;
           heow.write(mh); 
@@ -610,7 +610,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
    }
    
    lstringStartCi(String sdec, String belsName) {
-      if (build.emitChecks.contains("ccSgc")) {
+      if (build.emitChecks.has("ccSgc")) {
         sdec += "static std::vector<unsigned char> " += belsName += " = {"; //}
       }
    }
@@ -708,7 +708,7 @@ use final class Build:CCEmitter(Build:EmitCommon) {
         //{
         ccMethods += "}" += nl;
         
-        unless (build.emitChecks.contains("noRfl") && cnode.held.syn.hasDefault!) {
+        unless (build.emitChecks.has("noRfl") && cnode.held.syn.hasDefault!) {
           String tinst = getTypeInst(newcc);
 
           ccMethods += "BETS_Object* " += newcc.emitName += "::bemc_getType() {" += nl;  //}

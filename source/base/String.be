@@ -412,7 +412,7 @@ final class String {
       return(true);
    }
 
-   contains(String str) Bool {
+   has(String str) Bool {
       if (undef(str) || undef(find(str))) {
         return(false);
       }

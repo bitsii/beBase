@@ -29,7 +29,7 @@ class Assertions {
       
    }
    assertHas(v1, v2) {
-     if (v1.contains(v2)!) {
+     if (v1.has(v2)!) {
       String msg = "Value which should have another value does not";
       if (def(v1) && def(v2)) {
         msg += " haver: " += v1 += " havee: " += v2;
@@ -38,7 +38,7 @@ class Assertions {
      }
    }
    assertNotHas(v1, v2) {
-     if (v1.contains(v2)) {
+     if (v1.has(v2)) {
       String msg = "Value which should not have another value does";
       if (def(v1) && def(v2)) {
         msg += " haver: " += v1 += " havee: " += v2;

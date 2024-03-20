@@ -132,14 +132,14 @@ final FilterIterator {
       Bool typeResult = false; //default unfiltered by type
       if (def(includeTypes)) {
          typeResult = true; //if there is an include type filter, default is to filter unless a match is found
-         if (includeTypes.contains("d")) {
+         if (includeTypes.has("d")) {
             if (def(f)) {
                if (f.isDirectory) {
                   typeResult = false;
                }
             }
          }
-         if (includeTypes.contains("f")) {
+         if (includeTypes.has("f")) {
             if (def(f)) {
                if (f.isFile) {
                   typeResult = false;

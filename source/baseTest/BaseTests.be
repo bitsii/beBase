@@ -307,7 +307,7 @@ class Test:BaseTest:EC(BaseTest) {
         m = Map.new();
         m.put(2, "two");
         m.put(3, "three");
-        assertTrue(m.contains(2));
+        assertTrue(m.has(2));
         assertEqual(m.get(3), "three");
         
         

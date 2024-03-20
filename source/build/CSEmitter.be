@@ -123,7 +123,7 @@ use final class Build:CSEmitter(Build:EmitCommon) {
   }
   
   mainStartGet() String {
-        if (build.emitChecks.contains("relocMain")) {
+        if (build.emitChecks.has("relocMain")) {
           ms = "public static void bems_relocMain(string[] args)" + exceptDec + " {" + nl; //}
         } else {
           String ms = "public static void Main(string[] args)" + exceptDec + " {" + nl; //}

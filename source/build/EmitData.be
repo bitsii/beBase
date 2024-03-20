@@ -63,7 +63,7 @@ final class Build:EmitData {
    }
    
    addParsedClass(node) {
-      if (classes.contains(node.held.name)!) {
+      if (classes.has(node.held.name)!) {
         parseOrderClassNames += node.held.name;
       }
       classes.put(node.held.name, node);

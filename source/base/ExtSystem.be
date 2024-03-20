@@ -591,10 +591,10 @@ class System:Thread:ContainerLocker {
     }
   }
   
-  contains(key) Bool {
+  has(key) Bool {
     lock.lock();
     try {
-      Bool r = container.contains(key);
+      Bool r = container.has(key);
       lock.unlock();
     } catch (any e) {
       lock.unlock();
@@ -603,10 +603,10 @@ class System:Thread:ContainerLocker {
     return(r);
   }
 
-  contains(key, key2) Bool {
+  has(key, key2) Bool {
     lock.lock();
     try {
-      Bool r = container.contains(key, key2);
+      Bool r = container.has(key, key2);
       lock.unlock();
     } catch (any e) {
       lock.unlock();
@@ -772,7 +772,7 @@ class System:Thread:ContainerLocker {
   putIfAbsent(key, value) Bool {
     lock.lock();
     try {
-      if (container.contains(key)) {
+      if (container.has(key)) {
         Bool didPut = false;
       } else {
         container.put(key, value);
@@ -789,7 +789,7 @@ class System:Thread:ContainerLocker {
   getOrPut(key, value) {
     lock.lock();
     try {
-      if (container.contains(key)) {
+      if (container.has(key)) {
         any result = container.get(key);
       } else {
         container.put(key, value);

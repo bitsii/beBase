@@ -254,7 +254,7 @@ class Runner {
       any iter = self.stepIter;
       while (iter.hasNext) {
          any s = iter.next;
-         if (def(handOff) && stp.sameType(s, runStep) && handOff.contains(s.str)) {
+         if (def(handOff) && stp.sameType(s, runStep) && handOff.has(s.str)) {
             baton = handOff.get(s.str);
             baton.output = output;
             baton.swap = swap;
@@ -287,7 +287,7 @@ class Runner {
       any iter = self.stepIter;
       while (iter.hasNext) {
          any s = iter.next;
-         if (def(handOff) && stp.sameType(s, runStep) && handOff.contains(s.str)) {
+         if (def(handOff) && stp.sameType(s, runStep) && handOff.has(s.str)) {
             baton = handOff.get(s.str);
             baton.output = output;
             baton.swap = swap;
@@ -314,7 +314,7 @@ class Runner {
       any iter = self.stepIter;
       while (iter.hasNext) {
          any s = iter.next;
-         if (def(handOff) && stp.sameType(s, runStep) && handOff.contains(s.str)) {
+         if (def(handOff) && stp.sameType(s, runStep) && handOff.has(s.str)) {
             baton = handOff.get(s.str);
             baton.output = output;
             baton.swap = swap;

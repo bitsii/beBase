@@ -90,12 +90,12 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          negate = false;
          }
          if (negate) {
-         if (node.held.langs.contains(build.emitLangs.first)) {
+         if (node.held.langs.has(build.emitLangs.first)) {
             include = false;
          }
          if (def(build.emitFlags)) {
             for (String flag in build.emitFlags) {
-               if (node.held.langs.contains(flag)) {
+               if (node.held.langs.has(flag)) {
                include = false;
                }
             }
@@ -104,12 +104,12 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          Bool foundFlag = false;
          if (def(build.emitFlags)) {
             for (flag in build.emitFlags) {
-               if (node.held.langs.contains(flag)) {
+               if (node.held.langs.has(flag)) {
                foundFlag = true;
                }
             }
          }
-         if (foundFlag! && node.held.langs.contains(build.emitLangs.first)!) {
+         if (foundFlag! && node.held.langs.has(build.emitLangs.first)!) {
             include = false;
          }
          }

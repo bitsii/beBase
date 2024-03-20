@@ -45,7 +45,7 @@ class Logs {
       defaultOutputLevel = _defaultOutputLevel;
       defaultLevel = _defaultLevel;
       for (any kv in loggers) {
-        unless (overrides.contains(kv.key)) {
+        unless (overrides.has(kv.key)) {
           kv.value.setLevels(defaultOutputLevel, defaultLevel);
         }
       }
