@@ -8,16 +8,16 @@
  *
  */
 
-import Logic:Bool;
-import Container:Set;
-import Container:LinkedList;
-import Text:String;
-import Text:Glob;
+use Logic:Bool;
+use Container:Set;
+use Container:LinkedList;
+use Text:String;
+use Text:Glob;
 
-import IO:File;
-import IO:File:RecursiveIterator;
-import IO:File:DirectoryIterator;
-import IO:File:FilterIterator;
+use IO:File;
+use IO:File:RecursiveIterator;
+use IO:File:DirectoryIterator;
+use IO:File:FilterIterator;
 
 final RecursiveIterator {
 
@@ -65,7 +65,7 @@ final FilterIterator {
 
    new(_fiter) self {
       fields {
-         dyn fiter = _fiter;
+         any fiter = _fiter;
          Bool needsInit = true;
          File current = null;
          Set includeTypes = null;
@@ -156,7 +156,7 @@ final FilterIterator {
       Bool globResult = false; //default unfiltered by glob
       if (def(includeGlobs)) {
          globResult = true;//if there are a glob includes, one needs to match
-         dyn giter = includeGlobs.iterator;
+         any giter = includeGlobs.iterator;
          //go until we match or get to end
          while (globResult && giter.hasNext) {
             if (giter.next.match(f.path.toString())) {

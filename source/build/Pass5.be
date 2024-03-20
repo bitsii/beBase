@@ -8,20 +8,20 @@
  *
  */
 
-import Container:LinkedList;
-import Container:Map;
-import Build:Visit;
-import Build:NamePath;
-import Build:VisitError;
-import Build:Node;
+use Container:LinkedList;
+use Container:Map;
+use Build:Visit;
+use Build:NamePath;
+use Build:VisitError;
+use Build:Node;
 
 final class Build:Visit:Pass5(Build:Visit:Visitor) {
 
    accept(Build:Node node) Build:Node {
-         dyn err;
-         dyn v;
-         dyn ix;
-         dyn vinp;
+         any err;
+         any v;
+         any ix;
+         any vinp;
          if (node.typename == ntypes.TRANSUNIT) {
             node.held = Build:TransUnit.new();
          }
@@ -62,42 +62,42 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
          
             //get my name
-            dyn nnode = node.nextPeer;
+            any nnode = node.nextPeer;
             while (def(nnode) && (nnode.typename == ntypes.DEFMOD)) {
                nnode = nnode.nextPeer;
             }
             if (def(nnode) && nnode.typename == ntypes.CLASS) {
-               dyn clnode = nnode;
+               any clnode = nnode;
                nnode = clnode.contained.first;
             } else {
                clnode = null;
             }
             
             if (undef(nnode)) {
-               throw(VisitError.new("Error improper import statement, target appears to be missing.", node));
+               throw(VisitError.new("Error improper use statement, target appears to be missing.", node));
             }
             
             if (nnode.typename == ntypes.ID) {
-               dyn namepath = NamePath.new();
+               any namepath = NamePath.new();
                namepath.addStep(nnode.held);
             } elseIf (nnode.typename == ntypes.NAMEPATH) {
                namepath = nnode.held;
             } else {
-               throw(VisitError.new("Error improper import statement, target of incorrect type.", node));
+               throw(VisitError.new("Error improper use statement, target of incorrect type.", node));
             }
             
             String alias = null;
-            dyn mas = nnode.nextPeer;
+            any mas = nnode.nextPeer;
             if (mas.typename == ntypes.AS) {
               nnode = mas.nextPeer;
               if (nnode.typename != ntypes.ID) {
-                throw(VisitError.new("Error improper import statement, alias does not follow -as-.", node));
+                throw(VisitError.new("Error improper use statement, alias does not follow -as-.", node));
               }
               alias = nnode.held;
             }
             
             if (undef(clnode)) {
-               dyn gnext = nnode.nextPeer;
+               any gnext = nnode.nextPeer;
                nnode.remove();
                
                if (gnext.typename == ntypes.SEMI) {
@@ -110,7 +110,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
             node.held = namepath;
             
-            dyn tnode = node.transUnit;
+            any tnode = node.transUnit;
             
             if (undef(tnode)) {
                throw(VisitError.new("Error improper statement, not within translation unit", node));
@@ -152,7 +152,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             node.held = Build:Class.new();
             node.held.fromFile = build.fromFile;
             try {
-               dyn m = node.contained.first;
+               any m = node.contained.first;
                if (m.typename == ntypes.ID) {
                   namepath = NamePath.new();
                   namepath.addStep(m.held);
@@ -227,7 +227,7 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             try {
                m = node.contained.first; //name
                if (def(m)) {
-                  dyn mx = m.nextPeer; //parens
+                  any mx = m.nextPeer; //parens
                   if (def(mx)) {
                      mx = mx.nextPeer; //return type if any
                      if (mx.typename == ntypes.ID || mx.typename == ntypes.NAMEPATH) {
@@ -278,11 +278,11 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             }
          }
          if (node.typename == ntypes.SEMI) {
-            dyn nx = node.priorPeer;
+            any nx = node.priorPeer;
             gnext = node.nextAscend;
             //"semi prior is ".print();
             //nx.print();
-            dyn con;
+            any con;
             while (def(nx) && (nx.typename != ntypes.SEMI) && (nx.typename != ntypes.BRACES) && (nx.typename != ntypes.EXPR)) {
                if (undef(con)) {
                   con = Container:LinkedList.new();
@@ -293,12 +293,12 @@ final class Build:Visit:Pass5(Build:Visit:Visitor) {
             if (def(con)) {
                node.typename = ntypes.EXPR;
                node.held = null;
-               dyn lpnode = Node.new(build);
+               any lpnode = Node.new(build);
                lpnode.typename = ntypes.PARENS;
                node.addValue(lpnode);
                lpnode.copyLoc(node);
-               for (dyn ii = con.iterator;ii.hasNext;;) {
-                  dyn i = ii.next;
+               for (any ii = con.iterator;ii.hasNext;;) {
+                  any i = ii.next;
                   i.remove();
                   lpnode.addValue(i);
                }

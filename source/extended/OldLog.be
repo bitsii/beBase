@@ -8,15 +8,15 @@
  *
  */
 
-import IO:Log;
-import IO:Logs;
-import IO:LogLevels;
-import IO:File;
-import Text:String;
-import Logic:Bool;
-import Math:Int;
-import Container:Map;
-import Container:LinkedList;
+use IO:Log;
+use IO:Logs;
+use IO:LogLevels;
+use IO:File;
+use Text:String;
+use Logic:Bool;
+use Math:Int;
+use Container:Map;
+use Container:LinkedList;
 
 final class Log {
    
@@ -27,7 +27,7 @@ final class Log {
          LinkedList appenders = LinkedList.new();
          LinkedList fappenders = LinkedList.new();
          String nl = Text:Strings.newline;
-         dyn formatter;
+         any formatter;
       }
       
       appenders += IO:File:Writer:Stderr.new();
@@ -65,21 +65,21 @@ final class Log {
       if (def(formatter)) {
          message = formatter.format(message);
       }
-      for (dyn it = appenders.iterator;it.hasNext;) {
-         dyn i = it.next;
+      for (any it = appenders.iterator;it.hasNext;) {
+         any i = it.next;
          i.write(message);
          i.write(nl);
       }
       for (it = fappenders.iterator;it.hasNext;) {
          i = it.next;
-         dyn w = getWriter(i);
+         any w = getWriter(i);
          w.write(message);
          w.write(nl);
       }
    }
    
    getWriter(fappender) {
-      dyn w = fappender.writer;
+      any w = fappender.writer;
       if (w.isClosed) {
          w.openAppend();
       }
@@ -143,7 +143,7 @@ final class Logs {
    default() self {
       
       fields {
-         dyn defaultAppender = IO:File:Writer:Stderr.new();
+         any defaultAppender = IO:File:Writer:Stderr.new();
          Log default = Log.new(LogLevels.new().error, defaultAppender);
          Map logs = Map.new();
       }

@@ -8,19 +8,19 @@
  *
  */
 
-import System:Startup;
-import System:StartupIfArguments;
-import System:StartupWithArguments;
-import System:StartupWithParameters;
-import System:Parameters;
-import Text:String;
-import Math:Int;
-import Logic:Bool;
-import Container:List;
-import Container:LinkedList;
-import Container:Set;
-import Container:Map;
-import IO:File;
+use System:Startup;
+use System:StartupIfArguments;
+use System:StartupWithArguments;
+use System:StartupWithParameters;
+use System:Parameters;
+use Text:String;
+use Math:Int;
+use Logic:Bool;
+use Container:List;
+use Container:LinkedList;
+use Container:Set;
+use Container:Map;
+use IO:File;
 
 class Startup {
    create() self { }
@@ -37,7 +37,7 @@ class Startup {
       if (args.length < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main() method should be called"));
       }
-      dyn x = System:Objects.createInstance(args[0]).new();
+      any x = System:Objects.createInstance(args[0]).new();
       return(x.main());
    }
 }
@@ -55,7 +55,7 @@ class StartupIfArguments {
    main() {
       args = System:Process.new().args;
       if (args.length > 0) {
-         dyn x = System:Objects.createInstance(args[0]).new();
+         any x = System:Objects.createInstance(args[0]).new();
          return(x.main());
       }
       return(self);
@@ -77,7 +77,7 @@ class StartupWithArguments {
       if (args.length < 1) {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args) method should be called"));
       }
-      dyn x = System:Objects.createInstance(args[0]).new();
+      any x = System:Objects.createInstance(args[0]).new();
       return(x.main(args));
    }
 }
@@ -99,7 +99,7 @@ class StartupWithParameters {
          throw(System:Exception.new("Insufficient number of arguments, at least one argument required for Startup, the name of the class whose main(List args, Parameters params) method should be called"));
       }
       params = Parameters.new(args);
-      dyn x = System:Objects.createInstance(args[0]).new();
+      any x = System:Objects.createInstance(args[0]).new();
       return(x.main(args, params));
    }
 }
@@ -115,7 +115,7 @@ local class Parameters {
          Map params = Map.new();
          List ordered = List.new();
          Text:Tokenizer fileTok = Text:Tokenizer.new("\r\n");
-         dyn preProcessor;
+         any preProcessor;
       }
       
    }
@@ -206,7 +206,7 @@ local class Parameters {
       }
    }
    
-   preProcessorSet(dyn _preProcessor) {
+   preProcessorSet(any _preProcessor) {
       preProcessor = _preProcessor;
       if (def(args)) {
          for (Int i = 0;i < args.length;i++) {
@@ -220,7 +220,7 @@ local class Parameters {
       }
       if (def(params)) {
          Map _params = Map.new();
-         for (dyn it = params.keyIterator;it.hasNext;) {
+         for (any it = params.keyIterator;it.hasNext;) {
             String key = it.next;
             LinkedList vals = params[key];
             LinkedList _vals = LinkedList.new();
@@ -293,7 +293,7 @@ local class Parameters {
    }
    
    addFile(File file) {
-      dyn fcontents = file.reader.open().readString();
+      any fcontents = file.reader.open().readString();
       file.reader.close();
       List fargs = fileTok.tokenize(fcontents).toList();
       addArgs(fargs);
@@ -309,7 +309,7 @@ local class Parameters {
 //with null in value list, -- leads to whole word added with empty string in value list, --this=that
 //leads to whole word added with post = in value list?  called Config?
 
-import class System:Startup:MainWithParameters {
+use class System:Startup:MainWithParameters {
    
    main() {
       return(main(Parameters.new(System:Process.args)));
@@ -317,9 +317,9 @@ import class System:Startup:MainWithParameters {
    
    main(Parameters params) {
       //Inherit from this class and override this method to have a main which starts off with params and
-      //set that to be main class for the build, or import without override and
+      //set that to be main class for the build, or use without override and
       //pass a class name as the first ordered argument on the command line to invoke it with the params
-      dyn x = System:Objects.createInstance(params.ordered[0]).new();
+      any x = System:Objects.createInstance(params.ordered[0]).new();
       return(x.main(params));
    }
    

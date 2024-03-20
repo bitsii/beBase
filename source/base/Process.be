@@ -8,9 +8,9 @@
  *
  */
 
-import System:Thing;
-import Container:NodeList;
-import IO:File;
+use System:Thing;
+use Container:NodeList;
+use IO:File;
 
 final class System:Process {
    
@@ -21,11 +21,11 @@ final class System:Process {
       fields {
          Container:List args;
          Math:Int numArgs;
-         dyn execName;
+         any execName;
    
-         dyn target;
-         dyn result;
-         dyn except;
+         any target;
+         any result;
+         any except;
          
          System:CurrentPlatform platform;
       }
@@ -43,17 +43,17 @@ void** bevl_av;
 void** bevl_ix;
       """
       }
-      dyn arg;
-      dyn int = Int.new();
+      any arg;
+      any int = Int.new();
       if (System:Classes.otherClass(ac, int)) {
          throw(System:IncorrectType.new(" Wanted type Math:Int not type " + System:Classes.className(ac));
       }
-      dyn thing = Thing.new();
+      any thing = Thing.new();
       if (System:Classes.otherClass(av, thing)) {
          throw(System:IncorrectType.new(" Wanted type System:Thing not type " + System:Classes.className(av));
       }
       args = Container:List.new(ac - 1);
-      dyn ix = 1;
+      any ix = 1;
       emit(c) {
       """
       bevl_av = $av&*;
@@ -82,7 +82,7 @@ void** bevl_ix;
       target = _target;
       try {
          result = target.main();
-      } catch (dyn e) {
+      } catch (any e) {
          except = e;
          e.print();
          return(1);//return non-0 for main usecases (process exit code)
@@ -91,7 +91,7 @@ void** bevl_ix;
    }
    
    startByName(_name) {
-      dyn t = System:Objects.createInstance(_name).new();
+      any t = System:Objects.createInstance(_name).new();
       return(start(t));
    }
 

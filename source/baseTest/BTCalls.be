@@ -8,14 +8,14 @@
  *
  */
 
-import System:Parameters;
+use System:Parameters;
 
-import Test:BaseTest;
-import Test:Failure;
+use Test:BaseTest;
+use Test:Failure;
 
-import Container:Stack;
-import Test:BaseTest:ImpliedNew;
-import Test:BaseTest:ImpliedNewSingle;
+use Container:Stack;
+use Test:BaseTest:ImpliedNew;
+use Test:BaseTest:ImpliedNewSingle;
 
 local class Test:BaseTest:Calls(BaseTest) {
    
@@ -37,9 +37,9 @@ local class Test:BaseTest:Calls(BaseTest) {
       doIntish();
       Bool caught = false;
       try {
-         dyn x = ImpliedNew.new();
+         any x = ImpliedNew.new();
          x.notAble();
-      } catch (dyn e) {
+      } catch (any e) {
          caught = true;
       }
       assertTrue(caught);
@@ -79,9 +79,9 @@ local class Test:BaseTest:Calls(BaseTest) {
    
    doMNDN() {
       "doing bobo".print();
-      dyn res = self.noWay("BooBoo");
+      any res = self.noWay("BooBoo");
       "bobo done".print();
-      dyn fcall = res.first;
+      any fcall = res.first;
       assertEquals(res.first, "noWay");
       assertEquals(res.second.length, 1);
       assertEquals(res.second[0], "BooBoo");
@@ -90,10 +90,10 @@ local class Test:BaseTest:Calls(BaseTest) {
       assertEquals(res.second.length, 0);
    }
    
-   forwardCall(String name, List args) dyn {
+   forwardCall(String name, List args) any {
       name.print();
       args.length.print();
-      for (dyn i in args) {
+      for (any i in args) {
          ("fcall.arg " + i).print();
       }
       return(Container:Pair.new(name, args));
@@ -157,7 +157,7 @@ class Tests:CallArgs(BaseTest) {
       assertEqual(sixteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), sixteen);
       assertEqual(seventeen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17), seventeen);
             
-      dyn x = self; //for untyped cases
+      any x = self; //for untyped cases
       assertEqual(x.fifteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), fifteen);
       assertEqual(x.sixteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), sixteen);
       assertEqual(x.seventeen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17), seventeen);
@@ -324,13 +324,13 @@ class Tests:Exceptions(BaseTest) {
       Logic:Bool ok = false;
       try {
         thrower();
-      } catch (dyn e) {
+      } catch (any e) {
         if (undef(e.frames)) {
           "frames undef".print();
         } else {
           "frames def".print();
           
-          for (dyn ef in e.frames) {
+          for (any ef in e.frames) {
             if (ef.line > 0) {
               ok = true;
             }
@@ -350,7 +350,7 @@ class Tests:Exceptions(BaseTest) {
       "in testfin".print();
       Bool checka = false;
       Bool checkb = false;
-      dyn ee;
+      any ee;
       try {
         throw(System:Exception.new("testing"));
       } catch (ee) {
@@ -381,7 +381,7 @@ class Tests:Exceptions(BaseTest) {
     testNEType() {
         try {
             throw(NotExcept.new());
-        } catch (dyn e) {
+        } catch (any e) {
             if (System:Classes.sameClass(e, NotExcept.new())!) {
                 ("about to throw after same class").print();
                 throw(System:Exception.new("didn't get nonexcept"));
@@ -396,7 +396,7 @@ class Tests:Exceptions(BaseTest) {
     testEType() {
         try {
             throw(AnExcept.new());
-        } catch (dyn e) {
+        } catch (any e) {
             if (System:Classes.sameClass(e, AnExcept.new())!) {
                 throw(System:Exception.new("didn't get anexcept"));
             }
@@ -409,7 +409,7 @@ class Tests:Exceptions(BaseTest) {
 
 }
 
-import class Test:NotExcept { }
+use class Test:NotExcept { }
 
-import class Test:AnExcept(System:Exception) { }
+use class Test:AnExcept(System:Exception) { }
 

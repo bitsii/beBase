@@ -8,26 +8,26 @@
  *
  */
 
-import Container:List;
-import Math:Int;
-import Text:String;
-import Text:String;
-import System:Serializer;
-import Container:Map;
-import Container:List;
+use Container:List;
+use Math:Int;
+use Text:String;
+use Text:String;
+use System:Serializer;
+use Container:Map;
+use Container:List;
 
 class Test:ToSerialize {
 
    new() self {
       fields {
-         dyn i = 10;
-         dyn s = "Hi";
-         dyn a = List.new(4);
-         dyn n = "Not so null";
-         dyn m = Map.new();
-         dyn v = List.new(3);
-         dyn t = true;
-         dyn f = false;
+         any i = 10;
+         any s = "Hi";
+         any a = List.new(4);
+         any n = "Not so null";
+         any m = Map.new();
+         any v = List.new(3);
+         any t = true;
+         any f = false;
       }
       a[1] = "a2";
       a[3] = "a4";
@@ -45,9 +45,9 @@ class Test:ToSerialize {
       r += "f is " += f.toString() += nl;
       return(r.toString());
    }
-   iteradd(String p, dyn a, String r) {
+   iteradd(String p, any a, String r) {
       String nl = "\n";
-      for (dyn j in a) {
+      for (any j in a) {
          if (undef(j)) {
             r += "next " += p += " is null " += nl;
          } else {
@@ -67,32 +67,32 @@ class Test:TestSerialize {
       //serializeNew(String, "Hi there").print();
       Serializer s = Serializer.new();
       
-      dyn x = Test:ToSerialize.new();
+      any x = Test:ToSerialize.new();
       x.n = null;
-      //dyn x = "Hi";
+      //any x = "Hi";
       
       /*
       x.serializeContents().print();
       1.serializeContents().print();
       */
       
-      dyn sbuf = String.new();
+      any sbuf = String.new();
       "1".print();
       s.serialize(x, sbuf);
       "2".print();
       sbuf.print();
       "3".print();
       
-      dyn y = s.deserialize(sbuf);
+      any y = s.deserialize(sbuf);
       "4".print();
       y.print();
       "5".print();
       sbuf.clear();
-      dyn z = null;
+      any z = null;
       "6".print();
       s.serialize(z, sbuf);
       "7".print();
-      dyn zz = s.deserialize(sbuf);
+      any zz = s.deserialize(sbuf);
       "8".print();
       sbuf.print();
       "9".print();

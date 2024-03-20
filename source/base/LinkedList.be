@@ -8,17 +8,17 @@
  *
  */
 
-import Container:Single;
-import Container:Pair;
-import Container:LinkedList;
-import Container:LinkedList:Node;
-import Container:LinkedList:Iterator;
-import Container:NodeList;
+use Container:Single;
+use Container:Pair;
+use Container:LinkedList;
+use Container:LinkedList:Node;
+use Container:LinkedList:Iterator;
+use Container:NodeList;
 
 Single {
    new() self {
       {
-         dyn first;
+         any first;
       }
    }
    new(_first) self {
@@ -29,8 +29,8 @@ Single {
 Pair {
    new() self {
       {
-         dyn first;
-         dyn second;
+         any first;
+         any second;
       }
    }
    new(_first, _second) self {
@@ -47,7 +47,7 @@ local Node {
       
             Node prior;
             Node next;
-            dyn held = _held;
+            any held = _held;
             LinkedList mylist = _mylist;
       
       }
@@ -269,7 +269,7 @@ local LinkedList {
    }
    
    addValueWhole(held) {
-     dyn nn = newNode(held);
+     any nn = newNode(held);
      appendNode(nn);
    }
    
@@ -296,7 +296,7 @@ local LinkedList {
    }
    
    prepend(held) {
-      dyn nn = newNode(held);
+      any nn = newNode(held);
       prependNode(nn);
    }
    
@@ -368,7 +368,7 @@ local LinkedList {
          if (iter.hasNext!) {
             return(res);
          }
-         dyn x = iter.next;
+         any x = iter.next;
          if (i >= start) {
             res += x;
          }

@@ -8,9 +8,9 @@
  *
  */
 
-import Container:Stack;
-import Container:Stack:Node;
-import Container:Queue;
+use Container:Stack;
+use Container:Stack:Node;
+use Container:Queue;
 
 local class Node {
 
@@ -19,7 +19,7 @@ local class Node {
       fields {
          Node next;
          Node prior;
-         dyn held;
+         any held;
       }
    
    }
@@ -71,7 +71,7 @@ class Stack {
       if (undef(last)) {
          return(null);
       }
-      dyn item = last.held;
+      any item = last.held;
       last.held = null;
       length = length - 1;
       return(item);
@@ -152,7 +152,7 @@ class Queue {
       if (undef(bottom)) {
          return(null);
       }
-      dyn item = bottom.held;
+      any item = bottom.held;
       bottom.held = null;
       if (bottom == top) {
          bottom = null;
@@ -183,7 +183,7 @@ class Queue {
    
 }
 
-import Container:BoundedQueue as BQueue;
+use Container:BoundedQueue as BQueue;
 class BQueue(Queue) {
     new() self {
       super.new();
@@ -199,13 +199,13 @@ class BQueue(Queue) {
     }
 }
 
-import System:Test:Extendable;
+use System:Test:Extendable;
 
 class Extendable {
    new() self {
       fields {
-         dyn propa;
-         dyn propb;
+         any propa;
+         any propb;
       }
    }
    
@@ -214,13 +214,13 @@ class Extendable {
    bcall() {  }
 }
 
-import System:Test:InExtending;
+use System:Test:InExtending;
 
 class InExtending(Extendable) {
 
    new() self {
       fields {
-         dyn prop2a;
+         any prop2a;
       }
    }
    

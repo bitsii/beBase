@@ -8,14 +8,14 @@
  *
  */
 
-import Container:Map;
-import Container:LinkedList;
-import IO:File;
-import Build:Visit;
-import Build:EmitException;
-import Text:String;
-import Text:String;
-import Logic:Bool;
+use Container:Map;
+use Container:LinkedList;
+use IO:File;
+use Build:Visit;
+use Build:EmitException;
+use Text:String;
+use Text:String;
+use Logic:Bool;
 
 class Build:EmitError(Build:VisitError) {
 }
@@ -31,10 +31,10 @@ final class Build:ClassInfo {
       fields {
          
          Build:NamePath np = _np; //name path for class
-         dyn emitter = _emitter; //emitter obj
+         any emitter = _emitter; //emitter obj
          Build:CompilerProfile cpro = emitter.build.compilerProfile; //compiler profile
          Build:NamePath npar = np.parent; //parent namepath
-         dyn nparSteps = npar.steps; //array of steps for parent name path
+         any nparSteps = npar.steps; //array of steps for parent name path
          String clName = np.toString(); //class name as string
          
          String clBase = np.steps.last; //Final name actual name of class
@@ -113,7 +113,7 @@ final class Build:ClassInfo {
    nsDirDo(String _libName) {
       nsDir = IO:File:Path.new();
       nsDir.addStep(_libName);
-      for (dyn i = nparSteps.iterator;i.hasNext;;) {
+      for (any i = nparSteps.iterator;i.hasNext;;) {
          nsDir.addStep(i.next);
       }
    }
@@ -124,18 +124,18 @@ final class Build:CEmitter {
    
    new(Build:Build _build) self {
          fields {
-            dyn classInfo;
-            dyn cEmitF;
-            dyn mainClassNp;
-            dyn mainClassInfo;
-            dyn libnameNp;
+            any classInfo;
+            any cEmitF;
+            any mainClassNp;
+            any mainClassInfo;
+            any libnameNp;
             Build:ClassInfo libnameInfo;
-            dyn allInc;
+            any allInc;
             String ccObjArgsStr;
-            dyn extLib;
+            any extLib;
             String linkLibArgsStr;
             Build:CompilerProfile cprofile;
-            dyn pci;
+            any pci;
             Build:Build build = _build;
             String nl = build.newline;
             Map ciCache = Map.new();
@@ -162,7 +162,7 @@ final class Build:CEmitter {
    }
    
    getInfo(np) Build:ClassInfo {
-      dyn dname = np.toString();
+      any dname = np.toString();
       Build:ClassInfo toRet = ciCache.get(dname);
       if (undef(toRet)) {
          toRet = Build:ClassInfo.new(np, self, build.emitPath, build.libName);
@@ -176,10 +176,10 @@ final class Build:CEmitter {
    }
    
    getInfoSearch(np) {
-      dyn dname = np.toString();
-      dyn toRet = ciCache.get(dname);
+      any dname = np.toString();
+      any toRet = ciCache.get(dname);
       if (undef(toRet)) {
-         for (dyn pack in build.usedLibrarys) {
+         for (any pack in build.usedLibrarys) {
             toRet = Build:ClassInfo.new(np, self, pack.emitPath, pack.libName);
             if (toRet.synSrc.file.exists) {
                ciCache.put(dname, toRet);
@@ -193,8 +193,8 @@ final class Build:CEmitter {
    }
    
    prepBasePath(np) {
-      dyn clinfo = getInfo(np);
-      dyn bp = clinfo.basePath;
+      any clinfo = getInfo(np);
+      any bp = clinfo.basePath;
       if (bp.file.exists!) {
          bp.file.makeDirs();
       }
@@ -202,15 +202,15 @@ final class Build:CEmitter {
    }
    
    loadSyn(np) {
-      dyn clinfo = getInfoSearch(np);
+      any clinfo = getInfoSearch(np);
       if (clinfo.synSrc.file.exists!) {
          //("BAD LOAD SYN " + np.toString()).print();
          throw(Build:EmitError.new("Class synopsis path does not exist for " + np.toString() + ", verify that this is the name of a class in this library or a used library and that the use declaration is present if using an abbreviated name", null));
       }
       
-      dyn ser = System:Serializer.new();
+      any ser = System:Serializer.new();
       
-      dyn syn = ser.deserialize(clinfo.synSrc.file.reader.open());
+      any syn = ser.deserialize(clinfo.synSrc.file.reader.open());
       clinfo.synSrc.file.reader.close();
       syn.postLoad();
       
@@ -218,10 +218,10 @@ final class Build:CEmitter {
    }
    
    saveSyn(syn) {
-      dyn clinfo = getInfo(syn.namepath);
+      any clinfo = getInfo(syn.namepath);
       clinfo.synSrc.file.delete();
       
-      dyn ser = System:Serializer.new();
+      any ser = System:Serializer.new();
       ser.serialize(syn, clinfo.synSrc.file.writer.open());
       clinfo.synSrc.file.writer.close();
       
@@ -236,7 +236,7 @@ final class Build:CEmitter {
    
    emitInitialClass(clgen, emvisit) {
       if (clgen.held.shouldWrite!) { return(self); }
-      dyn emitF;
+      any emitF;
       classInfo = prepBasePath(clgen.held.namepath);
       classInfo.classSrc.file.delete();
       classInfo.classO.file.delete(); //to insure make orders properly, seems not to sometimes
@@ -244,7 +244,7 @@ final class Build:CEmitter {
       if (def(build.emitFileHeader)) {
          emitF.write(build.emitFileHeader);
       }
-      dyn ninc = "#include <" + libnameInfo.namesIncH.toString() + ">" + nl;
+      any ninc = "#include <" + libnameInfo.namesIncH.toString() + ">" + nl;
       emitF.write(ninc);
       emitF.write(emvisit.cincl);
       emvisit.cldefDecs.writeTo(emitF);
@@ -255,10 +255,10 @@ final class Build:CEmitter {
       ("Finishing class " + clgen.held.name).print();
       
       classInfo = getInfo(clgen.held.namepath);
-      dyn trans = Build:Transport.new(build, clgen.transUnit);
+      any trans = Build:Transport.new(build, clgen.transUnit);
       
       
-      dyn emvisit;
+      any emvisit;
       
       if (build.printSteps) {
          ". ".output();
@@ -286,7 +286,7 @@ final class Build:CEmitter {
       trans.traverse(emvisit);
       emvisit.buildCldef();
       
-      dyn emitF;
+      any emitF;
       
       if (clgen.held.shouldWrite!) { return(self); }
       
@@ -303,7 +303,7 @@ final class Build:CEmitter {
       if (def(build.emitFileHeader)) {
          emitF.write(build.emitFileHeader);
       }
-      dyn thedef = self.classInfo.incBlock;
+      any thedef = self.classInfo.incBlock;
       emitF.write("#ifndef " + thedef + nl);
       emitF.write("#define " + thedef + nl);
       emitF.write(emvisit.hincl);
@@ -329,7 +329,7 @@ final class Build:CEmitter {
    
    libnameNpGet() {
       if (undef(libnameNp)) {
-         dyn cun = build.libName;
+         any cun = build.libName;
          if (undef(cun)) {
             throw(Build:EmitError.new("Compile unit is null"));
          }
@@ -385,15 +385,15 @@ final class Build:CEmitter {
    
    emitCUInit() {
       "Emitting names".print();
-      dyn cun = build.libName;
-      dyn cma = ",";
+      any cun = build.libName;
+      any cma = ",";
       if (undef(classInfo)) {
          //I didn't emit anything, no need to emit names
          return(self);
       }
       //"Emit two".print();
       self.libnameInfo;
-      dyn bp = libnameInfo.cuBase;
+      any bp = libnameInfo.cuBase;
       ("Base is " + bp.toString()).print();
       if (bp.file.exists!) {
          "Making base".print();
@@ -402,11 +402,11 @@ final class Build:CEmitter {
       libnameInfo.cuinitH.file.delete();
       libnameInfo.cuinit.file.delete();
       //libnameInfo.libnameName.file.delete();
-      //dyn cunf = libnameInfo.libnameName.file.writer.open();
+      //any cunf = libnameInfo.libnameName.file.writer.open();
       //cunf.write(build.libName + nl);
       //cunf.close();
-      dyn nH = libnameInfo.cuinitH.file.writer.open();
-      dyn nC = libnameInfo.cuinit.file.writer.open();
+      any nH = libnameInfo.cuinitH.file.writer.open();
+      any nC = libnameInfo.cuinit.file.writer.open();
       nC.write("#include <" + libnameInfo.namesIncH.toString() + ">" + nl);
       nH.write("#ifndef TWNI_" + libnameInfo.clBase + nl);
       nH.write("#define TWNI_" + libnameInfo.clBase + nl);
@@ -438,10 +438,10 @@ final class Build:CEmitter {
       Container:Set tkuniq = Container:Set.new();
       Container:Set fkuniq = Container:Set.new();
       Container:Set anuniq = Container:Set.new();
-      for (dyn tckvs = emitData.synClasses.valueIterator;tckvs.hasNext;;) {
+      for (any tckvs = emitData.synClasses.valueIterator;tckvs.hasNext;;) {
          Build:ClassSyn syn = tckvs.next;
          if (syn.libName == build.libName) {
-            for (dyn fkv in syn.foreignClasses) {
+            for (any fkv in syn.foreignClasses) {
                if (fkuniq.contains(fkv.value)!) {
                   fkuniq.put(fkv.value);
                   nuH += "extern BERT_ClassDef* " += fkv.value += ";" += nl;
@@ -449,7 +449,7 @@ final class Build:CEmitter {
                   fkcdget += fkv.value += " = BERF_ClassDef_Get(" += fkv.key.hash.toString() += ", (char*) " += textQuote += fkv.key += textQuote += ");" += nl;
                }
             }
-            for (dyn ankv in syn.allNames) {
+            for (any ankv in syn.allNames) {
                if (anuniq.contains(ankv.key)!) {
                   anuniq.put(ankv.key);
                   String nm = ankv.key;
@@ -549,7 +549,7 @@ final class Build:CEmitter {
       nuC += icalls;
       String nniulc = String.new();
       String nniuld = String.new();
-      for (dyn bpu in build.usedLibrarys) {
+      for (any bpu in build.usedLibrarys) {
          nuCui += "#include <" += bpu.libnameInfo.namesIncH.toString() += ">" += nl;
          nuC += bpu.libnameInfo.libnameInit += "();" += nl;
          cdcC += bpu.libnameInfo.libnameDataClear += "();" += nl;
@@ -562,10 +562,10 @@ final class Build:CEmitter {
       nuC += "BERV_proc_glob->mainCuData = " += libnameInfo.libnameData += ";" += nl;
       nuC += "BERV_proc_glob->mainCuClear = " += libnameInfo.libnameDataClear += ";" += nl;
       nuC += "BERV_proc_glob->mainNotNullInit = " += libnameInfo.libNotNullInit += ";" += nl;
-      for (dyn it = emitData.synClasses.valueIterator;it.hasNext;;) {
-         dyn tsyn = it.next;
+      for (any it = emitData.synClasses.valueIterator;it.hasNext;;) {
+         any tsyn = it.next;
          if (tsyn.libName == build.libName) {
-            dyn clInfo = getInfo(tsyn.namepath);
+            any clInfo = getInfo(tsyn.namepath);
             nuCi += "#include <" += clInfo.classIncH.toString(build.platform.separator) += ">" += nl;
             nuC += "if (" += clInfo.cldefName += " == NULL) { " += clInfo.cldefBuild += "(); }" += nl;
             cddC += "BERF_PrepareClassData( berv_sts, " += clInfo.cldefName += " );" += nl;
@@ -629,15 +629,15 @@ final class Build:CEmitter {
     }
    
    resolveConflicts() {
-      dyn sb = Text:String.new();
-      for (dyn i = emitData.nameEntries.keyIterator;i.hasNext;;) {
-         dyn nm = i.next;
-         dyn xe = emitData.nameEntries.get(nm);
-         dyn conflicts = xe.findConflicts();
+      any sb = Text:String.new();
+      for (any i = emitData.nameEntries.keyIterator;i.hasNext;;) {
+         any nm = i.next;
+         any xe = emitData.nameEntries.get(nm);
+         any conflicts = xe.findConflicts();
          if (def(conflicts)) {
             System:Classes.className(conflicts).print();
-            dyn v = xe.values.first;
-            for (dyn cu in conflicts) {
+            any v = xe.values.first;
+            for (any cu in conflicts) {
                sb = sb + "twnn_" + cu + "_" + nm + " = " + v.toString() + ";";
             }
          }
@@ -650,16 +650,16 @@ final class Build:CEmitter {
    }
    
    run(pack, runArgs) {
-      dyn packClassInfo = Build:ClassInfo.new(self.libnameNp, self, pack.emitPath, pack.libName, pack.exeName);
+      any packClassInfo = Build:ClassInfo.new(self.libnameNp, self, pack.emitPath, pack.libName, pack.exeName);
       String line = packClassInfo.unitExe.toString() + " " + runArgs;
       ("Running " + line).print();
       return(System:Command.new(line).run());
    }
    
    prepMake(pack) {
-      dyn colon = " : ";
-      dyn tab = Text:Strings.new().tab;
-      dyn cpro = build.compilerProfile;
+      any colon = " : ";
+      any tab = Text:Strings.new().tab;
+      any cpro = build.compilerProfile;
       String ccout = cpro.ccout;
       String oext = cpro.oext;
       String smac = cpro.smac;
@@ -667,13 +667,13 @@ final class Build:CEmitter {
       String ccObj = cpro.ccObj + smac + "BENC_" + build.libName + " " + smac + "BENP_" + build.platform.name + " ";
       String ccExe = cpro.ccObj + smac + "BENP_" + build.platform.name + " ";
       
-      dyn psep = build.platform.separator;
+      any psep = build.platform.separator;
       
-      dyn di = " " + cpro.di;
+      any di = " " + cpro.di;
       
       allInc = Text:String.new();
       allInc = cpro.di + build.emitPath.toString() + di + build.includePath.toString();
-      for (dyn it = build.extIncludes.iterator;it.hasNext;;) {
+      for (any it = build.extIncludes.iterator;it.hasNext;;) {
          allInc = allInc + di + it.next;
       }
       
@@ -682,9 +682,9 @@ final class Build:CEmitter {
          ccObjArgsStr = ccObjArgsStr + it.next + " ";
       }
       
-      dyn isBase = true;
-      dyn alibs = build.extLibs.copy();
-      for (dyn bp in build.usedLibrarys) {
+      any isBase = true;
+      any alibs = build.extLibs.copy();
+      for (any bp in build.usedLibrarys) {
          isBase = false;
          allInc = allInc + di + bp.emitPath.toString();
          alibs.addValue(bp.libnameInfo.unitExeLink.toString());
@@ -697,17 +697,17 @@ final class Build:CEmitter {
       }
       extLib = Text:Strings.new().join(Text:Strings.new().space, alibs);
       
-      dyn incPath = build.includePath.toString();
+      any incPath = build.includePath.toString();
       
-      dyn mn = build.mainName;
+      any mn = build.mainName;
       mainClassNp = Build:NamePath.new();
       mainClassNp.fromString(mn);
       mainClassInfo = getInfoNoCache(mainClassNp);
-      dyn packClassInfo = Build:ClassInfo.new(self.libnameNp, self, pack.emitPath, pack.libName, pack.exeName);
+      any packClassInfo = Build:ClassInfo.new(self.libnameNp, self, pack.emitPath, pack.libName, pack.exeName);
       
-      dyn baseBuildObj = Text:String.new();
-      dyn bos = Text:String.new();
-      dyn allos = Text:String.new();
+      any baseBuildObj = Text:String.new();
+      any bos = Text:String.new();
+      any allos = Text:String.new();
       
       if (isBase) {
          baseBuildObj = baseBuildObj + incPath + psep + build.platform.name + psep + "BER_Base" + oext + " : " + incPath + psep + "BER_Base" + cpro.cext + " " + incPath + psep + "BER_Base.h" + nl + tab + ccObj + ccObjArgsStr + allInc + ccout + incPath + psep + build.platform.name + psep + "BER_Base" + oext + " " + incPath + psep + "BER_Base" + cpro.cext + nl;
@@ -726,30 +726,30 @@ final class Build:CEmitter {
       //allos = allos + " " + libnameInfo.namesO.toString();
       for (it = emitData.synClasses.keyIterator;it.hasNext;;) {
          //TODO add superclass h to dependent list
-         dyn sname = it.next;
-         dyn syn = emitData.synClasses.get(sname);
+         any sname = it.next;
+         any syn = emitData.synClasses.get(sname);
          if (syn.libName == build.libName) { //verify same libName
-            dyn clinfo = getInfo(syn.namepath);
+            any clinfo = getInfo(syn.namepath);
             bos = bos + clinfo.classO.toString() + colon + clinfo.classSrc.toString() + nl;
             bos = bos + tab + ccObj + ccObjArgsStr + allInc + ccout + clinfo.classO.toString() + " " + clinfo.classSrc.toString() + nl;
             allos = allos + " " + clinfo.classO.toString();
          }
       }
       bos = bos + baseBuildObj;
-      //dyn libmk = libnameInfo.unitShlib.toString() + colon + allos + " " + libnameInfo.namesO.toString() + nl + tab + cpro.lBuild + libnameInfo.unitShlib.toString();
+      //any libmk = libnameInfo.unitShlib.toString() + colon + allos + " " + libnameInfo.namesO.toString() + nl + tab + cpro.lBuild + libnameInfo.unitShlib.toString();
       //+ tab + cpro.doMakeDirs(packClassInfo.unitShlib.parent.toString()) + nl 
       cpro.doMakeDirs(packClassInfo.unitShlib.parent.toString());
-      dyn libmk = packClassInfo.unitShlib.toString() + colon + allos + " " + libnameInfo.namesO.toString() + nl + tab + cpro.lBuild + packClassInfo.unitShlib.toString();
+      any libmk = packClassInfo.unitShlib.toString() + colon + allos + " " + libnameInfo.namesO.toString() + nl + tab + cpro.lBuild + packClassInfo.unitShlib.toString();
       libmk = libmk + allos + " " + libnameInfo.namesO.toString() + " " + extLib + linkLibArgsStr + nl;
       //libmk = libmk + tab + cpro.doCopy + packClassInfo.unitShlib.toString() + " " + libnameInfo.unitShlib.toString() + nl;
       
-      dyn exmk = packClassInfo.unitExe.toString() + colon + packClassInfo.unitShlib.toString() + " " + mainClassInfo.classExeSrc.toString() + nl;
+      any exmk = packClassInfo.unitExe.toString() + colon + packClassInfo.unitShlib.toString() + " " + mainClassInfo.classExeSrc.toString() + nl;
       exmk = exmk + tab + ccExe + ccObjArgsStr + allInc + ccout + mainClassInfo.classExeO.toString() + " " + mainClassInfo.classExeSrc.toString() + nl;
       exmk = exmk + tab + cpro.lexe + packClassInfo.unitExe.toString() + " " + mainClassInfo.classExeO.toString() + " " + packClassInfo.unitExeLink.toString() + " " + extLib + nl;
       
-      dyn mkfile = mainClassInfo.makeSrc.file;
+      any mkfile = mainClassInfo.makeSrc.file;
       mkfile.delete();
-      dyn emitMk = mkfile.writer.open();
+      any emitMk = mkfile.writer.open();
       //make sure the separator is what make likes
       if (build.makeName == "make") {
          exmk = exmk.swap("\\", "/");
@@ -763,20 +763,20 @@ final class Build:CEmitter {
    }
    
    emitMain() {
-      dyn mn = build.mainName;
+      any mn = build.mainName;
       mainClassNp = Build:NamePath.new();
       mainClassNp.fromString(mn);
       mainClassInfo = getInfoNoCache(mainClassNp);
-      dyn realMcl = getInfoSearch(mainClassNp);
+      any realMcl = getInfoSearch(mainClassNp);
       self.libnameInfo;
       if (def(mainClassInfo)) {
-         dyn bp = mainClassInfo.basePath;
+         any bp = mainClassInfo.basePath;
          if (bp.file.exists!) {
             bp.file.makeDirs();
          }
          mainClassInfo.classExeSrc.file.delete();
-         dyn emitMp = mainClassInfo.classExeSrc.file.writer.open();
-         dyn ms = Text:String.new();
+         any emitMp = mainClassInfo.classExeSrc.file.writer.open();
+         any ms = Text:String.new();
          ms = ms + "#include <BER_Base.h>" + nl;
          ms = ms + "#include <" + realMcl.classIncH.toString(build.platform.separator) + ">" + nl;
          ms = ms + "#include <" + self.libnameInfo.namesIncH.toString() + ">" + nl;
@@ -789,25 +789,25 @@ final class Build:CEmitter {
    }
    
    deployLibrary(pack) {
-      dyn cpro = build.compilerProfile;
+      any cpro = build.compilerProfile;
       String ccout = cpro.ccout;
-      for (dyn it = emitData.synClasses.valueIterator;it.hasNext;;) {
-         dyn tsyn = it.next;
+      for (any it = emitData.synClasses.valueIterator;it.hasNext;;) {
+         any tsyn = it.next;
          //"A".print();
          if (tsyn.libName == build.libName) {
-            dyn np = tsyn.namepath;
+            any np = tsyn.namepath;
             pci = Build:ClassInfo.new(np, self, pack.emitPath, build.libName, build.exeName);
-            dyn lci = getInfo(tsyn.namepath);
+            any lci = getInfo(tsyn.namepath);
             deployFile(lci.classSrcH.file, pci.classSrcH.file);
             deployFile(lci.synSrc.file, pci.synSrc.file);
          }
       }
-      dyn mn = build.mainName;
-      dyn mainClassNp = Build:NamePath.new();
+      any mn = build.mainName;
+      any mainClassNp = Build:NamePath.new();
       mainClassNp.fromString(mn);
       lci = getInfo(mainClassNp);
       pci = Build:ClassInfo.new(mainClassNp, self, pack.emitPath, pack.libName);
-      dyn cuf = self.libnameInfo;
+      any cuf = self.libnameInfo;
       deployFile(cuf.cuinitH.file, pack.libnameInfo.cuinitH.file);
    }
    
@@ -918,7 +918,7 @@ class Build:CompilerProfile {
             exeLibExt = libExt;
          }
       }
-      dyn exeExtOverride = build.params["exeExtOverride_" + build.platform.name];
+      any exeExtOverride = build.params["exeExtOverride_" + build.platform.name];
       if (def(exeExtOverride) && def(exeExtOverride.first)) {
          exeExt = exeExtOverride.first;
       }

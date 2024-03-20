@@ -8,7 +8,7 @@
  *
  */
 
-import final class System:Initializer {
+use final class System:Initializer {
 
     initializeIfShould(inst) {
         if (inst.can("default", 0)) {
@@ -21,7 +21,7 @@ import final class System:Initializer {
     //also, this is one of the "special" calls, it can't reference itself (in c it's called with a null self reference)
     //first pass, just construct and set the class inst
     notNullInitConstruct(inst) {
-      dyn init;
+      any init;
       emit(jv,cs,js) {
       """
       bevl_init = beva_inst.bemc_getInitial();
@@ -50,7 +50,7 @@ import final class System:Initializer {
     
     //second pass - calling default - can only be called on instances which have the method :-)
     notNullInitDefault(inst) {
-      dyn init;
+      any init;
       emit(jv,cs,js) {
       """
       bevl_init = beva_inst.bemc_getInitial();
@@ -73,7 +73,7 @@ import final class System:Initializer {
 BERT_ClassDef* bevl_scldef;
       """
       }
-      dyn init;
+      any init;
       emit(c) {
       """
          bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];
@@ -113,7 +113,7 @@ BERT_ClassDef* bevl_scldef;
 BERT_ClassDef* bevl_scldef;
       """
       }
-      dyn init;
+      any init;
       emit(c) {
       """
          bevl_scldef = (BERT_ClassDef*) $inst&*[berdef];

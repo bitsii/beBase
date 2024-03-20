@@ -8,14 +8,14 @@
  *
  */
 
-import IO:File;
-import Build:Visit;
-import Build:EmitException;
-import Build:Node;
-import Build:ClassConfig;
-import Build:NamePath;
+use IO:File;
+use Build:Visit;
+use Build:EmitException;
+use Build:Node;
+use Build:ClassConfig;
+use Build:NamePath;
 
-import final class Build:JSEmitter(Build:EmitCommon) {
+use final class Build:JSEmitter(Build:EmitCommon) {
 
 
     new(Build:Build _build) {
@@ -174,9 +174,9 @@ import final class Build:JSEmitter(Build:EmitCommon) {
         String libInit = String.new();
         String notNullInitConstruct = String.new();
         String notNullInitDefault = String.new();
-        for (dyn ci = classesInDepthOrder.iterator;ci.hasNext;;) {
+        for (any ci = classesInDepthOrder.iterator;ci.hasNext;;) {
 
-            dyn clnode = ci.next;
+            any clnode = ci.next;
 
             unless (build.emitChecks.contains("noRfl")) {
               notNullInitConstruct += "be_BECS_Runtime.prototype.typeRefs[" += q += clnode.held.namepath.toString() += q += "] = " += getClassConfig(clnode.held.namepath).relEmitName(build.libName) += ".prototype;" += nl;

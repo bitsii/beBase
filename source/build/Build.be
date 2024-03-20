@@ -8,14 +8,14 @@
  *
  */
 
-import IO:File;
-import Build:EmitData;
-import Build:Visit;
-import Build:JVEmitter;
-import Build:CSEmitter;
-import Build:CCEmitter;
-import Build:JSEmitter;
-import System:Parameters;
+use IO:File;
+use Build:EmitData;
+use Build:Visit;
+use Build:JVEmitter;
+use Build:CSEmitter;
+use Build:CCEmitter;
+use Build:JSEmitter;
+use System:Parameters;
 
 final class Build:Build {
 
@@ -24,23 +24,23 @@ final class Build:Build {
          String mainName;
          String libName;
          String exeName;
-         dyn emitFileHeader;
+         any emitFileHeader;
          LinkedList extIncludes;
          LinkedList ccObjArgs;
          LinkedList extLibs;
          LinkedList linkLibArgs;
          LinkedList extLinkObjects;
-         dyn fromFile;
-         dyn platform;
-         dyn outputPlatform;
-         dyn emitLibrary;
-         dyn usedLibrarysStr;
-         dyn closeLibrariesStr;
+         any fromFile;
+         any platform;
+         any outputPlatform;
+         any emitLibrary;
+         any usedLibrarysStr;
+         any closeLibrariesStr;
          LinkedList deployFilesFrom;
          LinkedList deployFilesTo;
          String nl;
          String newline;
-         dyn runArgs;
+         any runArgs;
          Build:CompilerProfile compilerProfile;
          //Build:CCallAssembler cassem;
          List args;
@@ -52,7 +52,7 @@ final class Build:Build {
          Time:Interval parseEmitTime;
          Time:Interval parseEmitCompileTime;
          IO:File:Path buildPath;
-         dyn includePath;
+         any includePath;
          Map built = Map.new();
          LinkedList toBuild;
          Bool printSteps = false;
@@ -69,9 +69,9 @@ final class Build:Build {
          Bool deployUsedLibraries = false;
          Build:EmitData emitData;
          IO:File:Path emitPath;
-         dyn code;
+         any code;
          String estr = Text:String.new();
-         dyn sharedEmitter;
+         any sharedEmitter;
          Build:Constants constants = Build:Constants.new(self);
          Build:NodeTypes ntypes = constants.ntypes;
          Text:Tokenizer twtok = constants.twtok;
@@ -123,7 +123,7 @@ final class Build:Build {
       params = Parameters.new(args);
       Int times = Int.new(params.get("howManyTimes", "1").first);
       for (Int i = 0;i < times;i++) {
-        dyn res = go();
+        any res = go();
       }
       return(res);
    }
@@ -136,7 +136,7 @@ final class Build:Build {
          buildMessage = "Build Incomplete";
          whatResult = doWhat();
          buildMessage = "Build Complete";
-      } catch (dyn e) {
+      } catch (any e) {
          buildMessage = e.toString();
          buildFailed = true;
          buildMessage = "Build Failed with exception " + buildMessage;
@@ -284,12 +284,12 @@ final class Build:Build {
       //add only source files which correspond to our target platform
       //(which is also the current platform unless we are doing a (build4) cross-gen)
       //outLang specific
-      dyn platformSources = params[outLang + "_source_" + platform.name];
+      any platformSources = params[outLang + "_source_" + platform.name];
       if (def(platformSources)) {
 		 params.ordered.addAll(platformSources);
       }
 
-      dyn langSources = params[outLang + "_source"];
+      any langSources = params[outLang + "_source"];
       if (def(langSources)) {
 		 params.ordered.addAll(langSources);
       }
@@ -307,14 +307,14 @@ final class Build:Build {
          emitPath.file.makeDirs();
       }
       if (def(emitFileHeader)) {
-         dyn emr = File.new(emitFileHeader).reader;
+         any emr = File.new(emitFileHeader).reader;
          emitFileHeader = emr.open().readString();
          emr.close();
       }
    }
 
    toString() Text:String {
-      dyn toRet = System:Classes.className(self);
+      any toRet = System:Classes.className(self);
       toRet = toRet + nl + "buildPath is " + buildPath.toString();
       toRet = toRet + nl + "emitPath is " + emitPath.toString();
       return(toRet);
@@ -322,8 +322,8 @@ final class Build:Build {
 
    setClassesToWrite() {
       Set toEmit = Set.new();
-      for (dyn ci = emitData.classes.valueIterator;ci.hasNext;;) {
-            dyn clnode = ci.next;
+      for (any ci = emitData.classes.valueIterator;ci.hasNext;;) {
+            any clnode = ci.next;
             if (emitData.shouldEmit.contains(clnode.held.fromFile)) {
 				toEmit.put(clnode.held.namepath.toString());
 				Set usedBy = emitData.usedBy[clnode.held.namepath.toString()];
@@ -400,7 +400,7 @@ final class Build:Build {
           loadSyns(lsp);
         }
       }
-      dyn em = self.emitter;
+      any em = self.emitter;
       if (def(deployPath)) {
          deployLibrary = Build:Library.new(deployPath, self, libName, exeName);
          closeLibraries.put(libName);
@@ -410,10 +410,10 @@ final class Build:Build {
       }
       Set ulibs = Set.new();
       //librarys is a mispelling TODO spell it right libraries
-      for (dyn ups in usedLibrarysStr) {
+      for (any ups in usedLibrarysStr) {
          if (ulibs.contains(ups)!) {
             ulibs.put(ups);
-            dyn pack = Build:Library.new(ups, self);
+            any pack = Build:Library.new(ups, self);
             usedLibrarys.addValue(pack);
          }
       }
@@ -428,8 +428,8 @@ final class Build:Build {
       if (parse) {
          //"In parse".print();
          Set built = Set.new();
-         for (dyn i = toBuild.iterator;i.hasNext;;) {
-            dyn tb = i.next;
+         for (any i = toBuild.iterator;i.hasNext;;) {
+            any tb = i.next;
             //("First Pass, Considering file " + tb.toString() + " ").print();
             unless (built.contains(tb.toString())) {
               built.put(tb.toString());
@@ -457,8 +457,8 @@ final class Build:Build {
 		 setClassesToWrite();
          em.libnameInfo;
          //cassem = Build:CCallAssembler.new(self);
-         for (dyn ci = emitData.classes.valueIterator;ci.hasNext;;) {
-            dyn clnode = ci.next;
+         for (any ci = emitData.classes.valueIterator;ci.hasNext;;) {
+            any clnode = ci.next;
 			em.doEmit(clnode);
          }
          em.emitMain();
@@ -484,9 +484,9 @@ final class Build:Build {
             em.make(deployLibrary);
             em.deployLibrary(deployLibrary);
             if (deployUsedLibraries) {
-               for (dyn bp in usedLibrarys) {
-                  dyn cpFrom = bp.libnameInfo.unitShlib;
-                  dyn cpTo = deployLibrary.emitPath.copy();
+               for (any bp in usedLibrarys) {
+                  any cpFrom = bp.libnameInfo.unitShlib;
+                  any cpTo = deployLibrary.emitPath.copy();
                   cpTo.addStep(cpFrom.steps.last);
                   if (cpTo.file.exists) {
                      cpTo.file.delete();
@@ -496,8 +496,8 @@ final class Build:Build {
                   }
                }
             }
-            dyn fIter = deployFilesFrom.iterator;
-            dyn tIter = deployFilesTo.iterator;
+            any fIter = deployFilesFrom.iterator;
+            any tIter = deployFilesTo.iterator;
             //("!!!!!!!! deployFiles iter next" + fIter.hasNext + " " + tIter.hasNext).print();
             while (fIter.hasNext && tIter.hasNext) {
                cpFrom = IO:File:Path.apNew(fIter.next);
@@ -534,10 +534,10 @@ final class Build:Build {
    }
 
    buildSyns(em) {
-      for (dyn ci = emitData.justParsed.valueIterator;ci.hasNext;;) {
-         dyn kls = ci.next;
+      for (any ci = emitData.justParsed.valueIterator;ci.hasNext;;) {
+         any kls = ci.next;
          kls.held.libName = libName;
-         dyn syn = getSyn(kls, em);
+         any syn = getSyn(kls, em);
          syn.libName = libName;
       }
       for (ci = emitData.justParsed.valueIterator;ci.hasNext;;) {
@@ -555,10 +555,10 @@ final class Build:Build {
       }
       klass.held.libName = libName;
       if (undef(klass.held.extends)) {
-         dyn syn = Build:ClassSyn.new(klass);
+         any syn = Build:ClassSyn.new(klass);
       } else {
-         dyn pklass = emitData.classes.get(klass.held.extends.toString());
-         dyn psyn;
+         any pklass = emitData.classes.get(klass.held.extends.toString());
+         any psyn;
          if (def(pklass)) {
             pklass.held.libName = libName;
             psyn = getSyn(pklass, em);
@@ -575,13 +575,13 @@ final class Build:Build {
    }
 
    getSynNp(np) Build:ClassSyn {
-      dyn nps = np.toString();
-      dyn syn = emitData.synClasses.get(nps);
+      any nps = np.toString();
+      any syn = emitData.synClasses.get(nps);
       if (def(syn)) {
          return(syn);
       }// else {
          //("Did not find " + nps).print();
-         //for (dyn kv in emitData.synClasses) {
+         //for (any kv in emitData.synClasses) {
          //   ("In synclasses " + kv.key + " " + kv.value.namepath.toString()).print();
          //}
          syn = self.emitter.loadSyn(np);
@@ -601,9 +601,9 @@ final class Build:Build {
 
    doParse(toParse) {
       //"in parse".print();
-      dyn trans = Build:Transport.new(self);
-      dyn blank = String.new();
-      dyn emitter = self.emitter;
+      any trans = Build:Transport.new(self);
+      any blank = String.new();
+      any emitter = self.emitter;
       code = null;
       Bool parseThis = true;
       emitData.shouldEmit.put(toParse);
@@ -613,7 +613,7 @@ final class Build:Build {
         }
          fromFile = toParse;
 
-         dyn src = toParse.file.reader.open().readBuffer(readBuffer);
+         any src = toParse.file.reader.open().readBuffer(readBuffer);
          toParse.file.reader.close();
          //"got src".print();
          //src.print();
@@ -728,13 +728,13 @@ final class Build:Build {
             "printAst post 12".print();
             trans.traverse(Build:Visit:Pass1.new(printAstElements, null));
          }
-         for (dyn ci = emitData.classes.valueIterator;ci.hasNext;;) {
-            dyn clnode = ci.next;
+         for (any ci = emitData.classes.valueIterator;ci.hasNext;;) {
+            any clnode = ci.next;
             //clnode.held.name.print();
-            dyn tunode = clnode.transUnit;
-            dyn ntunode = Build:Node.new(self);
+            any tunode = clnode.transUnit;
+            any ntunode = Build:Node.new(self);
             ntunode.typename = ntypes.TRANSUNIT;
-            dyn ntt = Build:TransUnit.new();
+            any ntt = Build:TransUnit.new();
             ntt.emits = tunode.held.emits;
             ntunode.held = ntt;
             clnode.remove();
@@ -750,7 +750,7 @@ final class Build:Build {
       Int nlc = 1;
       String cr = Text:Strings.new().cr;
       for (Container:LinkedList:Iterator i = toks.linkedListIterator;i.hasNext;;) {
-         dyn node = Build:Node.new(self);
+         any node = Build:Node.new(self);
          node.held = i.next;
          node.nlc = nlc.copy();
          if (node.held == nl) {
@@ -765,15 +765,15 @@ final class Build:Build {
    
    buildLiteral(node, tName) {
          
-         dyn nlnp = Build:NamePath.new();
+         any nlnp = Build:NamePath.new();
          nlnp.fromString(tName);
          
-         dyn nlnpn = Build:Node.new(self);
+         any nlnpn = Build:Node.new(self);
          nlnpn.typename = ntypes.NAMEPATH;
          nlnpn.held = nlnp;
          nlnpn.copyLoc(node);
          
-         dyn nlc = Build:Call.new();
+         any nlc = Build:Call.new();
          nlc.name = "new";
          nlc.wasBound = false;
          nlc.bound = false;
@@ -789,9 +789,9 @@ final class Build:Build {
          nlnpn.resolveNp();
          
          if ((tName == "Math:Int") || (tName == "Math:Float")) {
-            dyn pn = node.priorPeer;
+            any pn = node.priorPeer;
             if (def(pn) && ((pn.typename == ntypes.SUBTRACT) || (pn.typename == ntypes.ADD))) {
-               dyn pn2 = pn.priorPeer;
+               any pn2 = pn.priorPeer;
                if (undef(pn2) || ((pn2.typename != ntypes.CALL) && (pn2.typename != ntypes.ID) && (pn2.typename != ntypes.VAR) && (pn2.typename != ntypes.ACCESSOR))) {
                   /* if (def(pn2)) {
                      ("!!!SIGN Doing for typename " + pn2.typename).print();

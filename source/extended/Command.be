@@ -8,14 +8,14 @@
  *
  */
 
- import Text:String;
- import Logic:Bool;
- import Container:LinkedList;
- import Math:Int;
- import System:Random;
- import System:Identity;
+ use Text:String;
+ use Logic:Bool;
+ use Container:LinkedList;
+ use Math:Int;
+ use System:Random;
+ use System:Identity;
  
-import System:Command;
+use System:Command;
 
 emit(cs) {
 """
@@ -159,7 +159,7 @@ final class Command {
          outputReader.close();
          outputReader = null;
        }
-      } catch (dyn e) { }
+      } catch (any e) { }
    }
    
    close() {
@@ -181,16 +181,16 @@ final class Command {
      try {
        res = self.open().output.readString();
        self.close();
-     } catch (dyn e) {
+     } catch (any e) {
        try {
          self.close();
-       } catch (dyn ee) { }
+       } catch (any ee) { }
      }
      return(res);
    }
 }
 
-import System:Host;
+use System:Host;
 
 local class Host {
 
@@ -203,10 +203,10 @@ local class Host {
    hostnameGet() String {
       //Not cached, could change
       String name;
-      dyn r = IO:File:Reader:Command.new("hostname -s").open();
+      any r = IO:File:Reader:Command.new("hostname -s").open();
       String o = r.readString();
       r.close();
-      dyn l = Text:Tokenizer.new(TS.dosNewline).tokenize(o);
+      any l = Text:Tokenizer.new(TS.dosNewline).tokenize(o);
       name = l.first;
       //("Got name " + name).print();
       return(name);

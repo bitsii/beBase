@@ -8,14 +8,14 @@
  *
  */
 
-import Container:Map;
-import Container:LinkedList;
-import IO:File;
-import Build:Visit;
-import Build:EmitException;
-import Build:Node;
+use Container:Map;
+use Container:LinkedList;
+use IO:File;
+use Build:Visit;
+use Build:EmitException;
+use Build:Node;
 
-import final class Build:JVEmitter(Build:EmitCommon) {
+use final class Build:JVEmitter(Build:EmitCommon) {
 
     
     new(Build:Build _build) {

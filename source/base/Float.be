@@ -8,7 +8,7 @@
  *
  */
 
-import Math:Float;
+use Math:Float;
 
 final class Float {
 
@@ -73,7 +73,7 @@ final class Float {
    new() self { 
    
       fields {
-         //dyn vfloat;
+         //any vfloat;
       }
       
       emit(js) {

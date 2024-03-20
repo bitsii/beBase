@@ -8,20 +8,20 @@
  *
  */
 
-import Container:List;
-import System:Parameters;
-import Math:Int;
-import Text:String;
-import Text:String;
-import System:Serializer;
-import Container:Set;
-import Container:Map;
-import Container:LinkedList;
-import Time:Interval;
-import Time:Sleep;
+use Container:List;
+use System:Parameters;
+use Math:Int;
+use Text:String;
+use Text:String;
+use System:Serializer;
+use Container:Set;
+use Container:Map;
+use Container:LinkedList;
+use Time:Interval;
+use Time:Sleep;
 
-import Test:BaseTest;
-import Test:Failure;
+use Test:BaseTest;
+use Test:Failure;
 
 class Test:BaseTest:Time(BaseTest) {
    

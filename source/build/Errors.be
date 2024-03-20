@@ -8,7 +8,7 @@
  *
  */
 
-import Text:String;
+use Text:String;
 
 class Build:VisitError(System:Exception) {
    
@@ -18,19 +18,19 @@ class Build:VisitError(System:Exception) {
    
    new(msgi, nodei) self {
       fields {
-         dyn msg = msgi;
-         dyn node = nodei;
+         any msg = msgi;
+         any node = nodei;
       }
    }
    
    toString() Text:String {
       
-      dyn toRet = "";
+      any toRet = "";
       if (def(msg)) {
          toRet = toRet + msg + Text:Strings.new().newline;
       }
       if (def(node)) {
-        dyn nc = node;
+        any nc = node;
         while (def(nc)) {
           toRet += nc;
           toRet += Text:Strings.new().newline;

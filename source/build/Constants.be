@@ -8,7 +8,7 @@
  *
  */
 
-import Container:Map;
+use Container:Map;
 
 final class Build:Constants {
     
@@ -144,9 +144,9 @@ final class Build:Constants {
     prepare() {
    
       matchMap = Map.new();
-      dyn space = " ";
+      any space = " ";
       
-      dyn ntok = "/";
+      any ntok = "/";
       twtok = Text:Tokenizer.new(ntok, true);
       matchMap.put(ntok, ntypes.DIVIDE);
       
@@ -284,15 +284,14 @@ final class Build:Constants {
       
       
       rwords = Map.new();
-      rwords.put("import", ntypes.USE);
+      rwords.put("use", ntypes.USE);
       rwords.put("as", ntypes.AS);
       rwords.put("class", ntypes.CLASS);
       rwords.put("method", ntypes.METHOD);
       rwords.put("final", ntypes.DEFMOD);
       rwords.put("local", ntypes.DEFMOD);
       rwords.put("notNull", ntypes.DEFMOD);
-      rwords.put("dyn", ntypes.VAR);
-      rwords.put("dynamic", ntypes.VAR);
+      rwords.put("any", ntypes.VAR);
       rwords.put("var", ntypes.VAR);
       rwords.put("if", ntypes.IF);
       rwords.put("unless", ntypes.IF);

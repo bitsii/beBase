@@ -8,20 +8,20 @@
  *
  */
 
-import Container:List;
-import Container:Set;
-import System:Parameters;
-import Text:String;
-import Text:String;
-import Function:Mapper;
+use Container:List;
+use Container:Set;
+use System:Parameters;
+use Text:String;
+use Text:String;
+use Function:Mapper;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
-import IO:File;
-import IO:File:Path;
-import Time:Timestamp;
-import Logic:Bool;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
+use IO:File;
+use IO:File:Path;
+use Time:Timestamp;
+use Logic:Bool;
 
 class Test:BaseTest:IO(BaseTest) {
 
@@ -159,7 +159,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       if (f.exists && f.writable!) { f.writable = true;f.delete(); }
       
-      dyn w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -192,7 +192,7 @@ class Test:BaseTest:IO(BaseTest) {
       String line03 = "Newcastle" + nl;
       
       if (tf.exists) { tf.delete(); }
-      dyn w = tf.writer.open();
+      any w = tf.writer.open();
       w.write(line01);
       w.write(line02);
       w.write(line03);
@@ -202,7 +202,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       String builder = String.new();
       
-      dyn r = tf.reader.open();
+      any r = tf.reader.open();
       String rl01 = r.readBufferLine(builder);
       assertNotNull(rl01);
       assertEquals(line01, rl01.toString());
@@ -221,7 +221,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       tf.reader.close();
       
-      dyn br = tf.reader.open().byteReader(8);
+      any br = tf.reader.open().byteReader(8);
       String brb = br.next;
       while (br.hasNext) {
          brb.print();
@@ -240,7 +240,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      dyn w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -259,7 +259,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo hiss.txt");
       
-      dyn w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -293,7 +293,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      dyn w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -317,7 +317,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      dyn w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -363,7 +363,7 @@ class Test:BaseTest:IO(BaseTest) {
    }
    
    testReadStdin() {
-      dyn r = File:Reader:Stdin.new();
+      any r = File:Reader:Stdin.new();
       String b = r.readBufferLine();
       b.print();
       b = r.readBufferLine();

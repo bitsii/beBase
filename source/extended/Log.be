@@ -8,14 +8,14 @@
  *
  */
 
-import IO:Log;
-import IO:Logs;
+use IO:Log;
+use IO:Logs;
 
-import Math:Int;
-import Text:String;
-import System:Thread:Lock;
+use Math:Int;
+use Text:String;
+use System:Thread:Lock;
 
-import System:Exceptions as Ex;
+use System:Exceptions as Ex;
 
 class Logs {
   
@@ -33,7 +33,7 @@ class Logs {
       Int defaultOutputLevel = error;
       Int defaultLevel = info;
       
-      dyn sink;
+      any sink;
       
     }
   }
@@ -44,13 +44,13 @@ class Logs {
       lock.lock();
       defaultOutputLevel = _defaultOutputLevel;
       defaultLevel = _defaultLevel;
-      for (dyn kv in loggers) {
+      for (any kv in loggers) {
         unless (overrides.contains(kv.key)) {
           kv.value.setLevels(defaultOutputLevel, defaultLevel);
         }
       }
       lock.unlock();
-    } catch (dyn e) {
+    } catch (any e) {
       lock.unlock();
     }
   }
@@ -69,7 +69,7 @@ class Logs {
         log.outputLevel = outputLevel;
       }
       lock.unlock();
-    } catch (dyn e) {
+    } catch (any e) {
       lock.unlock();
     }
   }
@@ -87,7 +87,7 @@ class Logs {
         loggers.put(key, log);
       }
       lock.unlock();
-    } catch (dyn e) {
+    } catch (any e) {
       lock.unlock();
     }
     return(log);
@@ -103,7 +103,7 @@ class Logs {
       IO:Log log = get(inst);
       putLevels(inst, log.level, log.level);
       lock.unlock();
-    } catch (dyn e) {
+    } catch (any e) {
       lock.unlock();
     }
   }
@@ -112,25 +112,25 @@ class Logs {
     try {
       lock.lock();
       defaultOutputLevel = defaultLevel;
-      for (dyn kv in loggers) {
+      for (any kv in loggers) {
         kv.value.outputLevel = defaultOutputLevel;
         kv.value.level = defaultLevel;
       }
       lock.unlock();
-    } catch (dyn e) {
+    } catch (any e) {
       lock.unlock();
     }
   }
   
-  setAllSinks(dyn _sink) {
+  setAllSinks(any _sink) {
     try {
       lock.lock();
       sink = _sink;
-      for (dyn kv in loggers) {
+      for (any kv in loggers) {
         kv.value.sink = _sink;
       }
       lock.unlock();
-    } catch (dyn e) {
+    } catch (any e) {
       lock.unlock();
     }
   }
@@ -143,7 +143,7 @@ class Log {
     fields {
       Int outputLevel = _outputLevel;
       Int level = _level;
-      dyn sink = _sink;
+      any sink = _sink;
     }
   }
   

@@ -8,19 +8,19 @@
  *
  */
 
-import Container:List;
-import System:Parameters;
-import Math:Int;
-import Text:String;
-import Text:String;
-import System:Serializer;
-import Container:Set;
-import Container:Map;
-import Container:LinkedList;
+use Container:List;
+use System:Parameters;
+use Math:Int;
+use Text:String;
+use Text:String;
+use System:Serializer;
+use Container:Set;
+use Container:Map;
+use Container:LinkedList;
 
-import Test:BaseTest;
-import Test:Failure;
-import Logic:Bool;
+use Test:BaseTest;
+use Test:Failure;
+use Logic:Bool;
 
 class Test:BaseTest:LinkedList(BaseTest) {
    
@@ -50,7 +50,7 @@ class Test:BaseTest:LinkedList(BaseTest) {
       ll += "hi";
       ll += "there";
       
-      dyn i = ll.iterator;
+      any i = ll.iterator;
       while (i.hasNext) {
          i.next = "boo";
       }
@@ -106,7 +106,7 @@ class Test:BaseTest:LinkedList(BaseTest) {
    }
    
    testLinkedList() {
-      dyn uux = LinkedList.new();
+      any uux = LinkedList.new();
       //if (undef(uux.firstItem)) { "isnull first".print(); } else { "notnull first".print(); }
       //return(false);
       if (testIter(uux, 0)) {
@@ -120,9 +120,9 @@ class Test:BaseTest:LinkedList(BaseTest) {
          return(false);
       }
       
-      dyn uuy = uux.copy();
-      dyn ix = uux.iterator;
-      dyn iy = uuy.iterator;
+      any uuy = uux.copy();
+      any ix = uux.iterator;
+      any iy = uuy.iterator;
       while (ix.hasNext) {
          if (ix.next != iy.next) {
             "!FAILED copy 1".print();
@@ -142,10 +142,10 @@ class Test:BaseTest:LinkedList(BaseTest) {
    }
    
    testIter(uux, should) {
-      dyn x = 0;
-      dyn i = uux.iterator;
+      any x = 0;
+      any i = uux.iterator;
       //if (i.hasNext) { "ihasnext".print(); } else { "inothavenext".print(); }
-      for (dyn h;i.hasNext;;) {
+      for (any h;i.hasNext;;) {
          //("In loop " + x.toString()).print();
          //i.next.print();
          i.next;

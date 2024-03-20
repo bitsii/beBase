@@ -8,13 +8,13 @@
  *
  */
 
-import Math:Int;
-import Logic:Bool;
-import IO:File;
-import Text:String;
-import Text:String;
-import Container:List;
-import System:Parameters;
+use Math:Int;
+use Logic:Bool;
+use IO:File;
+use Text:String;
+use Text:String;
+use Container:List;
+use System:Parameters;
 
 class Utility:SRep {
    
@@ -36,10 +36,10 @@ class Utility:SRep {
       Int len = contents.length;
       
       String b = String.new();
-      dyn it = contents.iterator;
+      any it = contents.iterator;
       
       File fout = File.new(pfout);
-      dyn w = fout.writer.open();
+      any w = fout.writer.open();
       String ac1 = String.new();
       String ac2 = String.new();
       String ac3 = String.new();

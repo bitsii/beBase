@@ -14,15 +14,15 @@
    contributed by Craig Welch
 */
 
-import Benchmark:Recursive;
-import Math:Int;
-import Math:Float;
+use Benchmark:Recursive;
+use Math:Int;
+use Math:Float;
    
 final class Recursive {
 
    main() {
       
-      dyn args = System:Process.new().args;
+      any args = System:Process.new().args;
       Int n = Int.new(args[0]) - 1;
       
       ( "Ack(3," + (n + 1) + "): " + ack(3, n + 1) ).print();

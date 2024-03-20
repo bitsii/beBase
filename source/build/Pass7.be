@@ -8,11 +8,11 @@
  *
  */
 
-import Container:LinkedList;
-import Container:Map;
-import Build:Visit;
-import Build:NamePath;
-import Build:VisitError;
+use Container:LinkedList;
+use Container:Map;
+use Build:Visit;
+use Build:NamePath;
+use Build:VisitError;
 
 final class Build:Visit:Pass7(Build:Visit:Visitor) {
 
@@ -24,7 +24,7 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
    }
 
    accept(Build:Node node) Build:Node {
-      //dyn chk = "TypeCheck checking ";
+      //any chk = "TypeCheck checking ";
       //if (def(node.inFile)) {
       //   chk = chk + node.inFile;
       //}
@@ -33,13 +33,13 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
       //}
       //chk.print();
       //node.print();
-      dyn v;
-      dyn np;
-      dyn toremove;
-      dyn i;
-      dyn ii;
-      dyn nnode = node.nextPeer;
-      dyn dnode;
+      any v;
+      any np;
+      any toremove;
+      any i;
+      any ii;
+      any nnode = node.nextPeer;
+      any dnode;
       Build:Node onode;
       if (node.typename == ntypes.CLASS) {
          inClassNp = node.held.namepath;
@@ -102,9 +102,9 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
                   i.remove();
                }
             }
-            dyn pc = nnode;
+            any pc = nnode;
             pc.typename = ntypes.CALL;
-            dyn gc = Build:Call.new();
+            any gc = Build:Call.new();
             gc.name = node.held;
             pc.held = gc;
             node.remove();
@@ -172,11 +172,11 @@ final class Build:Visit:Pass7(Build:Visit:Visitor) {
             throw(VisitError.new("Error, incomplete call or accessor", node));
          }
          if (nnode.typename == ntypes.ID) {
-            dyn pnode = nnode.nextPeer;
+            any pnode = nnode.nextPeer;
             if (undef(pnode) || (pnode.typename != ntypes.PARENS)) {
-               dyn ponode = onode.priorPeer;
+               any ponode = onode.priorPeer;
                node.typename = ntypes.ACCESSOR;
-               dyn ga = Build:Accessor.new();
+               any ga = Build:Accessor.new();
                ga.name = nnode.held;
                nnode.remove();
                onode.remove();

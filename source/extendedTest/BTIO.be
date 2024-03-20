@@ -8,19 +8,19 @@
  *
  */
 
-import Container:List;
-import Container:Set;
-import System:Parameters;
-import Text:String;
-import Text:String;
-import Function:Mapper;
+use Container:List;
+use Container:Set;
+use System:Parameters;
+use Text:String;
+use Text:String;
+use Function:Mapper;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
-import IO:File;
-import IO:File:Path;
-import Logic:Bool;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
+use IO:File;
+use IO:File:Path;
+use Logic:Bool;
 
 class Test:BaseTest:IO(BaseTest) {
 
@@ -101,7 +101,7 @@ class Test:BaseTest:IO(BaseTest) {
       "rbl1".print();
       if (tf.exists) { tf.delete(); }
       "rbl2".print();
-      dyn w = tf.writer.open();
+      any w = tf.writer.open();
       "write".print();
       w.write(line01);
       "write".print();
@@ -115,7 +115,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       String builder = String.new();
       "start read".print();
-      dyn r = tf.reader.open();
+      any r = tf.reader.open();
       String rl01 = r.readBufferLine(builder);
       "after read".print();
       //rl01.print();
@@ -137,7 +137,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       tf.reader.close();
       
-      dyn br = tf.reader.open().byteReader(8);
+      any br = tf.reader.open().byteReader(8);
       String brb = br.next;
       while (br.hasNext) {
          brb.print();
@@ -172,12 +172,12 @@ class Test:BaseTest:IO(BaseTest) {
       
       if (tf.exists) { tf.delete(); }
       
-      dyn w = tf.writer.open();
+      any w = tf.writer.open();
       w.write(dataIn);
       w.close();
       ("dataIn " + dataIn).print();
       
-      dyn r = tf.reader.open();
+      any r = tf.reader.open();
       String dataOut = r.readString();
       r.close();
       ("dataOut " + dataOut).print();
@@ -196,7 +196,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo hiss.txt");
       
-      dyn w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -230,7 +230,7 @@ class Test:BaseTest:IO(BaseTest) {
       
       File f = File.apNew("test/tmp/boo.txt");
       
-      dyn w = f.writer.open();
+      any w = f.writer.open();
       w.write("boo");
       w.close();
       
@@ -276,7 +276,7 @@ class Test:BaseTest:IO(BaseTest) {
    }
    
    testReadStdin() {
-      dyn r = IO:File:Reader:Stdin.new();
+      any r = IO:File:Reader:Stdin.new();
       String b = r.readBufferLine();
       b.print();
       b = r.readBufferLine();
@@ -285,9 +285,9 @@ class Test:BaseTest:IO(BaseTest) {
    
 }
 
-import Net:Socket:Listener;
-import Net:Socket;
-import Net:Socket:Reader as SocketReader;
+use Net:Socket:Listener;
+use Net:Socket;
+use Net:Socket:Reader as SocketReader;
 
 class Util:Net:EchoServer {
 

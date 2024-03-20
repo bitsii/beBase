@@ -8,12 +8,12 @@
  *
  */
 
-import Container:LinkedList;
-import Container:Map;
-import Build:Visit;
-import Build:NamePath;
-import Build:VisitError;
-import Build:Node;
+use Container:LinkedList;
+use Container:Map;
+use Build:Visit;
+use Build:NamePath;
+use Build:VisitError;
+use Build:Node;
 
 final class Build:Visit:Pass3(Build:Visit:Visitor) {
 

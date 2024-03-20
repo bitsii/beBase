@@ -8,10 +8,10 @@
  *
  */
 
-import Container:Map;
-import Build:Visit;
-import Build:NamePath;
-import Build:VisitError;
+use Container:Map;
+use Build:Visit;
+use Build:NamePath;
+use Build:VisitError;
 
 local class Build:Visit:Visitor {
    

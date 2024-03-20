@@ -8,7 +8,7 @@
  *
  */
 
-import System:ObjectFieldIterator;
+use System:ObjectFieldIterator;
 
 
 final class ObjectFieldIterator {
@@ -27,11 +27,11 @@ final class ObjectFieldIterator {
     return(false);
   }
 
-  nextGet() dyn {
+  nextGet() any {
     return(null);
   }
 
-  nextSet(dyn it) {
+  nextSet(any it) {
   }
 }
 
@@ -97,14 +97,14 @@ final class System:Types {
 
 }
 
-import System:Exception;
+use System:Exception;
 
 class System:Exception {
    
    new(descr) self {
       
       fields {
-         dyn description;
+         any description;
       }
       
       description = descr;

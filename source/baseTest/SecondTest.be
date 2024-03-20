@@ -8,24 +8,24 @@
  *
  */
 
-import Container:List;
+use Container:List;
 
-import System:Parameters;
-import Text:String;
-import Text:String;
+use System:Parameters;
+use Text:String;
+use Text:String;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
 
-import Logic:Bool;
+use Logic:Bool;
 
-import Test:FrontCons;
+use Test:FrontCons;
 
-import Container:LinkedList;
-import IO:File;
+use Container:LinkedList;
+use IO:File;
 
-import Test:InheritFrom;
+use Test:InheritFrom;
 
 class Test:SecondTest {
    
@@ -39,7 +39,7 @@ class Test:SecondTest {
 class Test:SecondTest:InheritTo(InheritFrom) {
 
    //new() self { fields {
-   //dyn hi;
+   //any hi;
    //} }
    
 }

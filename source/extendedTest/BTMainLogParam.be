@@ -8,15 +8,15 @@
  *
  */
 
-import Container:List;
-import System:Parameters;
-import Text:String;
-import Text:String;
-import Math:Int;
+use Container:List;
+use System:Parameters;
+use Text:String;
+use Text:String;
+use Math:Int;
 
-import Test:BaseTest;
-import Test:Assertions;
-import Test:Failure;
+use Test:BaseTest;
+use Test:Assertions;
+use Test:Failure;
 
 class Test:BaseTest:Main(BaseTest) {
    
@@ -66,7 +66,7 @@ class Test:BaseTest:System(BaseTest) {
    
 }
 
-import Container:List;
+use Container:List;
 class Test:BaseTest:Parameters(BaseTest) {
    
    process(String arg) {
@@ -114,17 +114,17 @@ class Test:BaseTest:Parameters(BaseTest) {
       assertEquals(p.ordered[0], "hi");
       ("Tested newer params").print();
       
-      dyn cargs = System:Process.args;
+      any cargs = System:Process.args;
       if (def(cargs)) {
         ("process args not null").print();
-        for (dyn carg in cargs) {
+        for (any carg in cargs) {
             ("Got process arg " + carg).print();
         }
       } else {
         ("process args null").print();
       }
       
-      dyn execName = System:Process.execName;
+      any execName = System:Process.execName;
       if (def(execName)) {
         ("got execName " + execName).print();
       } else {

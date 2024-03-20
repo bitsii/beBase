@@ -8,15 +8,15 @@
  *
  */
 
-import Container:List;
-import System:Parameters;
-import Text:String;
-import Text:String;
+use Container:List;
+use System:Parameters;
+use Text:String;
+use Text:String;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
-import Xml:TagIterator;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
+use Xml:TagIterator;
 
 class Test:BaseTest:Xml(BaseTest) {
    
@@ -26,7 +26,7 @@ class Test:BaseTest:Xml(BaseTest) {
       String q = Text:Strings.new().quote;
       
       TagIterator tp = TagIterator.new();
-      dyn e;
+      any e;
       
       tp.xmlString = "<xml></xml>";
       for (e in tp) {

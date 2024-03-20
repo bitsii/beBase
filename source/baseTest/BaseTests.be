@@ -8,14 +8,14 @@
  *
  */
 
-import System:Parameters;
-import System:Object;
+use System:Parameters;
+use System:Object;
 
-import Test:BaseTest;
-import Test:Assertions;
-import Test:Failure;
+use Test:BaseTest;
+use Test:Assertions;
+use Test:Failure;
 
-local import Test:LocalUse;
+local use Test:LocalUse;
 
 class BaseTest(Assertions) {
    
@@ -42,17 +42,17 @@ class Test:BaseTest:CallTests {
     
 }
 
-import class Test:BaseTest:Init {
+use class Test:BaseTest:Init {
     default() self {
       
    }
 }
 
-import notNull class Test:BaseTest:IsNotNullNoDef {
+use notNull class Test:BaseTest:IsNotNullNoDef {
 
 }
 
-import notNull class Test:BaseTest:IsNotNullHasDef {
+use notNull class Test:BaseTest:IsNotNullHasDef {
     default() self {
         fields {
             String hooka = "hooka";
@@ -60,7 +60,7 @@ import notNull class Test:BaseTest:IsNotNullHasDef {
     }
 }
 
-import class Test:Pic {
+use class Test:Pic {
     new() self {
         fields {
             Math:Int one = 1;
@@ -77,7 +77,7 @@ class Test:BaseTest:EC(BaseTest) {
             "start runTests".print();
             runTests();
             "end runTests".print();
-        //} catch (dyn e) {
+        //} catch (any e) {
         //    "got an except".print();
             //e.print();
         //}
@@ -196,10 +196,10 @@ class Test:BaseTest:EC(BaseTest) {
       Hi.new().main();
     }
     
-    forwardCall(String name, List args) dyn {
+    forwardCall(String name, List args) any {
       name.print();
       args.length.print();
-      for (dyn i in args) {
+      for (any i in args) {
          ("fcall.arg " + i).print();
       }
       fields {
@@ -213,7 +213,7 @@ class Test:BaseTest:EC(BaseTest) {
    }
     
     testFc() {
-       dyn vs = self;
+       any vs = self;
        vs.quickOut("1");
        vs.quickOut("2");
        //if (true) { return(self); }
@@ -230,7 +230,7 @@ class Test:BaseTest:EC(BaseTest) {
         assertEqual(p1.a, "a");
         
         Int i = 0;
-        for (dyn v in p1) {
+        for (any v in p1) {
             if (i == 0) {
                 assertEqual(v, 1);
             } elseIf (i == 1) {
@@ -242,7 +242,7 @@ class Test:BaseTest:EC(BaseTest) {
         //if (true) { return(self); }
         
         i = 0;
-        for (dyn it = p1.iterator;it.hasNext) {
+        for (any it = p1.iterator;it.hasNext) {
             if (i == 0) {
                 it.next = 2;
             } elseIf (i == 1) {
@@ -271,11 +271,11 @@ class Test:BaseTest:EC(BaseTest) {
         //if (def(lb)) { }
         //if (undef(lb)) { }
         
-        dyn inn = IsNotNullNoDef.new();
-        dyn inh = IsNotNullHasDef.new();
+        any inn = IsNotNullNoDef.new();
+        any inh = IsNotNullHasDef.new();
         
-        dyn inn2 = IsNotNullNoDef.new();
-        dyn inh2 = IsNotNullHasDef.new();
+        any inn2 = IsNotNullNoDef.new();
+        any inh2 = IsNotNullHasDef.new();
         
         assertNotNull(inn);
         assertNotNull(inh);
@@ -336,7 +336,7 @@ class Test:BaseTest:EC(BaseTest) {
     }
     
     testGi() {
-        dyn i = System:Objects.createInstance("Math:Int").new();
+        any i = System:Objects.createInstance("Math:Int").new();
         assertTrue(System:Classes.sameClass(i, Math:Int.new()));
     }
     
@@ -469,7 +469,7 @@ class Test:BaseTest:EC(BaseTest) {
         ctt.threeArg(1, 2, 3).print();
         assertEqual(ctt.threeArg(1, 2, 3), "threeArg 1 2 3");
     
-        dyn ct = Test:BaseTest:CallTests.new();
+        any ct = Test:BaseTest:CallTests.new();
         ct.noArg().print();
         assertEqual(ctt.noArg(), "noArg");
         ct.oneArg(1).print();
@@ -484,7 +484,7 @@ class Test:BaseTest:EC(BaseTest) {
     
     ("!!!!!!!!!!!!!!!testing clname").print();
     
-        dyn o = Math:Int.new();
+        any o = Math:Int.new();
         String cli = System:Classes.className(o);
         cli.print();
         assertEqual(cli, "Math:Int");
@@ -589,7 +589,7 @@ class Test:BaseTest:EC(BaseTest) {
             if (true) {
                 throw(System:Exception.new("was thrown"));
             }
-        } catch (dyn e) {
+        } catch (any e) {
             ("Caught " + e.toString()).print();
         }
     }
@@ -730,8 +730,8 @@ class Test:BaseTest:Current(BaseTest) {
     }
 }
 
-import Text:ByteIterator;
-import Text:MultiByteIterator;
+use Text:ByteIterator;
+use Text:MultiByteIterator;
 
 class Test:BaseTest:MutString(BaseTest) {
 
@@ -744,7 +744,7 @@ class Test:BaseTest:MutString(BaseTest) {
     }
     
     gi() {
-        dyn x = System:Objects.createInstance("Math:Int").new();
+        any x = System:Objects.createInstance("Math:Int").new();
         x.setValue(10);
         (x + 1).print();
     
@@ -1012,7 +1012,7 @@ class Test:BaseTest:All(BaseTest) {
           Test:BaseTest:Gc.new().main(); 
          //}
          Test:CREComp.new();
-         //} catch (dyn e) {
+         //} catch (any e) {
          //   e.print();
             
          //}
@@ -1024,13 +1024,13 @@ class Test:BaseTest:All(BaseTest) {
    }
 }
 
-import Test:BaseTest:Weak;
+use Test:BaseTest:Weak;
 
 class Weak {
 
-  echo(o) dyn {
+  echo(o) any {
     fields {
-      dyn last = o;
+      any last = o;
     }
     return(o);
   }
@@ -1044,7 +1044,7 @@ class TestEmit {
   }
 }
 
-import Hi;
+use Hi;
 
 class Hi {
 

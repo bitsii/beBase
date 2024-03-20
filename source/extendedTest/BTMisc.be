@@ -8,17 +8,17 @@
  *
  */
 
-import System:Parameters;
+use System:Parameters;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Float;
-import System:Method;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Float;
+use System:Method;
 
 
-import Logic:Bool;
+use Logic:Bool;
 
-import Test:FrontCons;
+use Test:FrontCons;
 
 class LocalUse {
   
@@ -42,12 +42,12 @@ static const unsigned char global_s[] = {0x41,0x42,0x43, 0};
       """
       }
 
-import Container:LinkedList;
-import IO:File;
+use Container:LinkedList;
+use IO:File;
 
 
 
-import Test:BaseTest:Misc(BaseTest) {
+use Test:BaseTest:Misc(BaseTest) {
    
    main() {
       ("Test:BaseTest:Misc:main").print();
@@ -205,8 +205,8 @@ static const unsigned char s[] = {0x41,0x42,0x43, 0};
    
    testNotter() {
       
-      dyn t = true;
-      dyn f = false;
+      any t = true;
+      any f = false;
       assertFalse(t!);
       assertTrue(f!);
       
@@ -257,12 +257,12 @@ MMM'''; //needs to stay unindented
       assertEqual(8, m);
       assertEqual(l, 2);
       
-      dyn n = 1;
-      dyn o = n + 3;
+      any n = 1;
+      any o = n + 3;
       assertEqual(4, o);
       assertEqual(n, 1);
       
-      dyn p = 4;
+      any p = 4;
       Int q = p - 2;
       assertEqual(q, 2);
       assertEqual(4, p);
@@ -284,12 +284,12 @@ MMM'''; //needs to stay unindented
       assertEqual(8.0, m);
       assertEqual(l, 2.0);
       
-      dyn n = 1.0;
-      dyn o = n + 3.0;
+      any n = 1.0;
+      any o = n + 3.0;
       assertEqual(4.0, o);
       assertEqual(n, 1.0);
       
-      dyn p = 4.0;
+      any p = 4.0;
       Float q = p - 2.0;
       assertEqual(q, 2.0);
       assertEqual(4.0, p);
@@ -307,14 +307,14 @@ MMM'''; //needs to stay unindented
    
    testTypeChecks() {
       Misc m = Misc.new();
-      dyn x = m;
+      any x = m;
       Misc y = x;
       
       x = 10;
       Bool caught = false;
       try {
          y = x;
-      } catch (dyn e) {
+      } catch (any e) {
          caught = true;
       }
       assertTrue(caught);
@@ -338,20 +338,20 @@ MMM'''; //needs to stay unindented
    testNullLoop() {
       ("Start null loops").print();
       
-      dyn x = null;
+      any x = null;
       while (x) {
          if (true) {
          throw(System:Exception.new("Entered null while loop"));
          }
       }
       
-      for (dyn i = 0;x;i++) {
+      for (any i = 0;x;i++) {
          if (true) {
          throw(System:Exception.new("Entered null for loop"));
          }
       }
       
-      //for (dyn j in x) {
+      //for (any j in x) {
       //   throw(System:Exception.new("Entered null for loop"));
       //}
       
@@ -361,7 +361,7 @@ MMM'''; //needs to stay unindented
    
    testNullIf() {
    
-      dyn val = null;
+      any val = null;
       if (val) {
          throw(System:Exception.new("IF FOR NULL FAILED"));
       } else {
@@ -466,7 +466,7 @@ MMM'''; //needs to stay unindented
    }
    
    testNPE() {
-      dyn x = null;
+      any x = null;
       x.blowup();
    }
    
@@ -514,16 +514,16 @@ MMM'''; //needs to stay unindented
 }
 
 
-// import class
+// use class
 
-import class MyUsedClass {
+use class MyUsedClass {
 
    fromMyUsedClass(String input) {
       return("Out: " + input);
    }
 }
 
-import final class MyUsedClass2 {
+use final class MyUsedClass2 {
 
    create() self { }
    
@@ -540,14 +540,14 @@ import final class MyUsedClass2 {
    }
 }
 
-import class MyPackage:MyUsedClass3 {
+use class MyPackage:MyUsedClass3 {
 
    fromMyUsedClass(String input) {
       return("Out: " + input);
    }
 }
 
-import class MyPackage:MyUsedClass4 {
+use class MyPackage:MyUsedClass4 {
 
    create() self { }
    
@@ -560,7 +560,7 @@ import class MyPackage:MyUsedClass4 {
    }
 }
 
-import class MyPackage:MyUsedClass5(MyUsedClass) {
+use class MyPackage:MyUsedClass5(MyUsedClass) {
 
    create() self { }
    
@@ -570,10 +570,10 @@ import class MyPackage:MyUsedClass5(MyUsedClass) {
    
 }
 
-import class SelfReturn {
+use class SelfReturn {
 
    myNew() self {
-      dyn x = Int.new();
+      any x = Int.new();
       //return(x);
       //return(Int.new());
    }
@@ -596,9 +596,9 @@ import class SelfReturn {
 
 }
 
-import class SelfReturn3(SelfReturn2) {  }
+use class SelfReturn3(SelfReturn2) {  }
 
-import class SelfReturn2(SelfReturn) {
+use class SelfReturn2(SelfReturn) {
 
    myNew() self {
       return(SelfReturn2.new());
@@ -615,26 +615,26 @@ import class SelfReturn2(SelfReturn) {
    re2() self { ("Hi from re2").print(); }
 }
 
-import class Test:RunTryThings {
+use class Test:RunTryThings {
 
    main() {
       TryThings.new().tryThings();
    }
 }
 
-import class Test:TryThings {
+use class Test:TryThings {
 
    tryThings() self {
-      dyn x = 1;
+      any x = 1;
       x.print();
    }
 
 }
 
-import class Test:InheritFrom {
+use class Test:InheritFrom {
    
    new() self { fields {
-   dyn hi = "wheredef";
+   any hi = "wheredef";
    } }
    
 }

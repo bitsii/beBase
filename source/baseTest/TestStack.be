@@ -8,9 +8,9 @@
  *
  */
 
-import Container:Stack;
-import Container:Queue;
-import Math:Int;
+use Container:Stack;
+use Container:Queue;
+use Math:Int;
 
 class Test:TestStack {
    
@@ -20,7 +20,7 @@ class Test:TestStack {
    }
    
    testStack() {
-      dyn uux = Stack.new();
+      any uux = Stack.new();
       uux.push(1);
       uux.push(2);
       uux.pop().print();
@@ -39,8 +39,8 @@ class Test:TestStack {
    testQueue() {
       Queue q = Queue.new();
       //try en/de 1
-      dyn a;
-      dyn b;
+      any a;
+      any b;
       Int i;
       
       q.enqueue("One");

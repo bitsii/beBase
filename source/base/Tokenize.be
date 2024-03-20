@@ -50,7 +50,7 @@ final class Text:Tokenizer {
       String chi = String.new();
       while (i.hasNext) {
          i.next(chi);
-         dyn cc = tmap.get(chi);
+         any cc = tmap.get(chi);
          if (def(cc)) {
             if (accum.length > 0) {
                acceptor.acceptToken(accum.extractString());
@@ -73,7 +73,7 @@ final class Text:Tokenizer {
       String chi = String.new();
       while (i.hasNext) {
          i.next(chi);
-         dyn cc = tmap.get(chi);
+         any cc = tmap.get(chi);
          if (def(cc)) {
             if (accum.length > 0) {
                splits.addValue(accum.extractString());
@@ -93,7 +93,7 @@ final class Text:Tokenizer {
    
 }
 
-import Container:LinkedList;
-import Container:LinkedList:Node;
-import Container:Stack;
-import Container:Single;
+use Container:LinkedList;
+use Container:LinkedList:Node;
+use Container:Stack;
+use Container:Single;

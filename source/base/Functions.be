@@ -8,7 +8,7 @@
  *
  */
 
-import final class Function:Mapper {
+use final class Function:Mapper {
 
     create() self { }
    
@@ -46,7 +46,7 @@ class System:Method {
   
   new(_target, String _callName, Int _ac) {
       fields {
-          dyn target = _target;
+          any target = _target;
           var callName = _callName;
           var ac = _ac;
           //("new method " + _callName + " " + _ac).print();
@@ -54,10 +54,10 @@ class System:Method {
   }
 
   //use apply(args) to call (by convention)
-  forwardCall(String name, List args) dyn {
+  forwardCall(String name, List args) any {
     //"in fc".print();
     //("fc name " + callName + " fc args " + args.length).print();
-    dyn result = target.invoke(callName, args);
+    any result = target.invoke(callName, args);
     return(result);
   }
 
@@ -67,19 +67,19 @@ class System:Invocation {
 
   new(_target, String _callName, List _args) {
       fields {
-          dyn target = _target;
+          any target = _target;
           var callName = _callName;
           var args = _args;
       }
   }
 
-  invoke() dyn {
-    dyn result = target.invoke(callName, args);
+  invoke() any {
+    any result = target.invoke(callName, args);
     return(result);
   }
   
-  main() dyn {
-    dyn result = target.invoke(callName, args);
+  main() any {
+    any result = target.invoke(callName, args);
     return(result);
   }
 

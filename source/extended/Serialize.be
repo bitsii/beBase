@@ -11,22 +11,22 @@
 // Need to tokenize readers
 // Serialize contents could be more efficient
 
-import System:Serializer;
-import Math:Int;
-import Logic:Bool;
-import Container:Stack;
-import Container:LinkedList;
-import Container:List;
-import Container:Map;
-import Container:Pair;
-import Text:String;
-import Text:String;
-import Text:Tokenizer;
-import Encode:Url;
-import System:Class;
-import IO:File;
+use System:Serializer;
+use Math:Int;
+use Logic:Bool;
+use Container:Stack;
+use Container:LinkedList;
+use Container:List;
+use Container:Map;
+use Container:Pair;
+use Text:String;
+use Text:String;
+use Text:Tokenizer;
+use Encode:Url;
+use System:Class;
+use IO:File;
 
-import System:Serializer:Session;
+use System:Serializer:Session;
 
 class Session {
    new() self {
@@ -35,7 +35,7 @@ class Session {
          Int classTagCount = 1;
          Int serialCount = 1; // Zero reserved for special cases
          Container:IdentityMap unique = Container:IdentityMap.new();
-         dyn instWriter;
+         any instWriter;
       }
    }
    
@@ -112,17 +112,17 @@ final class Serializer {
    }
    
    serializeC(instance, session) {
-      dyn instWriter = session.instWriter;
+      any instWriter = session.instWriter;
       Int multiNull = 0;
       if (instance.can("serializationIteratorGet", 0)) {
-        dyn iter = instance.serializationIterator;
+        any iter = instance.serializationIterator;
       } else {
         iter = instance.iterator;
       }
       if (iter.hasNext) {
          instWriter.write(group);
          while (iter.hasNext) {
-            dyn i = iter.next;
+            any i = iter.next;
             if (undef(i)) {
                //instWriter.write(nullMark);
                multiNull = multiNull + 1;
@@ -179,7 +179,7 @@ final class Serializer {
       Int scount = session.serialCount;
       session.serialCount = scount + 1;
       
-      dyn instWriter = session.instWriter;
+      any instWriter = session.instWriter;
       if (instance.can("deserializeClassNameGet", 0)) {
         String instClass = instance.deserializeClassName;
       } else {
@@ -232,10 +232,10 @@ final class Serializer {
          LinkedList toks = toker.tokenize(instReader.readString());
       }
       Map instances = Map.new();
-      dyn rootInst;
-      dyn groupInstIter;
+      any rootInst;
+      any groupInstIter;
       String defineClassTagName;
-      for (dyn i = toks.linkedListIterator;i.hasNext;) {
+      for (any i = toks.linkedListIterator;i.hasNext;) {
          String token = i.next;
          if (state == 0) {
             if (token == defineReference) {
@@ -297,7 +297,7 @@ final class Serializer {
             } elseIf (state == 8) {
                Int glassTagVal = Int.new(token);
                String klass = session.classTagMap.get(glassTagVal);
-               dyn inst = System:Objects.createInstance(klass);
+               any inst = System:Objects.createInstance(klass);
                if (inst.can("deserializeFromStringNew", 1)) {
                   inst = inst.deserializeFromStringNew(instString);
                }
@@ -354,7 +354,7 @@ final class Serializer {
    
 }
 
-import Db:DirStoreString;
+use Db:DirStoreString;
 
 class DirStoreString(DirStore) {
     
@@ -379,7 +379,7 @@ class DirStoreString(DirStore) {
    
 }
 
-import Db:DirStore;
+use Db:DirStore;
 
 class DirStore {
    
@@ -396,7 +396,7 @@ class DirStore {
       fields {
          Serializer ser = Serializer.new();
          IO:File:Path storageDir = _storageDir;
-         dyn keyEncoder = null;
+         any keyEncoder = null;
       }
    }
    
@@ -436,7 +436,7 @@ class DirStore {
       if (def(id) && id != "") {
          IO:File:Path p = getPath(id);
          if (def(p) && p.file.exists) {
-            dyn object = ser.deserialize(p.file.reader.open());
+            any object = ser.deserialize(p.file.reader.open());
             p.file.reader.close();
             return(object);
          }
@@ -460,15 +460,15 @@ class DirStore {
 
 }
 
-import System:NamedPropertiesIterator;
+use System:NamedPropertiesIterator;
 
 final class NamedPropertiesIterator {
    
-   new(dyn _inst, List _propNames) {
+   new(any _inst, List _propNames) {
       fields {
          List propNames = _propNames;
          Container:List:Iterator subIter;
-         dyn inst = _inst;
+         any inst = _inst;
          List setArgs = List.new(1);
          List getArgs = List.new(0);
       }

@@ -8,15 +8,15 @@
  *
  */
 
-import Container:Map;
-import Container:LinkedList;
-import IO:File;
-import Build:Visit;
-import Build:EmitException;
-import Build:Node;
-import Build:ClassConfig;
+use Container:Map;
+use Container:LinkedList;
+use IO:File;
+use Build:Visit;
+use Build:EmitException;
+use Build:Node;
+use Build:ClassConfig;
 
-import final class Build:CCEmitter(Build:EmitCommon) {
+use final class Build:CCEmitter(Build:EmitCommon) {
 
     
     new(Build:Build _build) {

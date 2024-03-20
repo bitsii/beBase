@@ -8,15 +8,15 @@
  *
  */
 
-import Container:List;
+use Container:List;
 
-import System:Parameters;
-import Text:String;
-import Text:String;
+use System:Parameters;
+use Text:String;
+use Text:String;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
 
 class Test:BaseTest:List(BaseTest) {
    
@@ -51,7 +51,7 @@ class Test:BaseTest:List(BaseTest) {
    
    more() {
       
-      dyn uux = List.new(2);
+      any uux = List.new(2);
       uux.put(0, "Hi");
       uux[1] = "There";
       "asserting on hi".print();
@@ -59,7 +59,7 @@ class Test:BaseTest:List(BaseTest) {
       "afterhi assert".print();
       uux.put(4, "Last");
       Int x = 0;
-      for (dyn i = uux.iterator;i.hasNext;;) {
+      for (any i = uux.iterator;i.hasNext;;) {
          i.next;
          x = x++;
       }
@@ -68,8 +68,8 @@ class Test:BaseTest:List(BaseTest) {
       assertEquals(uux[0], "Hi");
       assertEquals(uux[1], "There");
       assertEquals(uux[4], "Last");
-      dyn uuz = uux.copy();
-      for (dyn j = 0;j < uux.length;j = j + 1) {
+      any uuz = uux.copy();
+      for (any j = 0;j < uux.length;j = j + 1) {
          assertFalse(undef(uux.get(j)) && def(uuz.get(j)));
          if (def(uux[j])) {
             assertFalse(uux.get(j) != uux.get(j));
@@ -159,12 +159,12 @@ class Test:BaseTest:List(BaseTest) {
       ta.put(2, "EE");
       assertEquals(ta[2], "EE");
       
-      dyn uux = List.new(5);
+      any uux = List.new(5);
       uux.put(0, "Hi");
       assertEquals(uux[0], "Hi");
       
       Int x = 0;
-      for (dyn i = uux.iterator;i.hasNext;;) {
+      for (any i = uux.iterator;i.hasNext;;) {
          i.next;
          x = x++;
       }
@@ -174,7 +174,7 @@ class Test:BaseTest:List(BaseTest) {
       for (i = 0;i < uux.length;i++;) {
          uux.put(i, i.copy()); 
       }
-      dyn two = uux.copy();
+      any two = uux.copy();
       for (x = 0;x < uux.length;x++;) {
          assertEquals(uux.get(x), two.get(x));
       }
@@ -184,7 +184,7 @@ class Test:BaseTest:List(BaseTest) {
       assertFalse(two != two);
       
       List ts;
-      dyn v;
+      any v;
       
       ts = List.new(10);
       ts[0] = 6;
@@ -207,11 +207,11 @@ class Test:BaseTest:List(BaseTest) {
    
 }
 
-import Test:CREComPar;
+use Test:CREComPar;
 
 class CREComPar { }
 
-import Test:CREComp;
+use Test:CREComp;
 
 class CREComp(CREComPar) {
    
@@ -220,15 +220,15 @@ class CREComp(CREComPar) {
    yo() CREComp { }
 }
 
-import System:Test:Extendable;
+use System:Test:Extendable;
 
-import System:Test:OutExtending;
+use System:Test:OutExtending;
 
 class OutExtending(Extendable) {
 
    new() self {
       fields {
-         dyn prop2a;
+         any prop2a;
       }
    }
    

@@ -8,8 +8,8 @@
  *
  */
 
-import IO:File;
-import Text:Glob;
+use IO:File;
+use Text:Glob;
 
 local class IO:File:Path(System:BasePath) {
    
@@ -96,7 +96,7 @@ local class IO:File:Path(System:BasePath) {
    }
 
    subPath(Int start, Int end) {
-      dyn res = super.subPath(start, end);
+      any res = super.subPath(start, end);
       res.driveLetter = driveLetter;
       return(res);
    }

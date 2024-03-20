@@ -8,11 +8,11 @@
  *
  */
 
-import Container:LinkedList;
-import Container:Map;
-import Build:Visit;
-import Build:NamePath;
-import Build:VisitError;
+use Container:LinkedList;
+use Container:Map;
+use Build:Visit;
+use Build:NamePath;
+use Build:VisitError;
 
 final class Build:Visit:Pass8(Build:Visit:Visitor) {
 
@@ -21,8 +21,8 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
    }
    
    prepOps() {
-      dyn ops = Container:List.new(10);
-      for (dyn i = 0;i < 10;i++) {
+      any ops = Container:List.new(10);
+      for (any i = 0;i < 10;i++) {
          ops.put(i,Container:LinkedList.new());
       }
       return(ops);
@@ -30,26 +30,26 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
 
    accept(Build:Node node) Build:Node {
       //("Visiting " + node.toString() ).print();
-      dyn i;
-      dyn it;
+      any i;
+      any it;
       if (node.typename == ntypes.CLASS) {
          acceptClass(node);
          return(node.nextDescend);
       }
-      dyn prec = const.oper.get(node.typename);
+      any prec = const.oper.get(node.typename);
       if (def(prec)) {
          //find range
          //det parens depth
          //bin impl parens
          //"Found prec".print();
-         dyn cont = node.container;
-         dyn ops = prepOps();
-         dyn onode = node;
-         dyn mo;
+         any cont = node.container;
+         any ops = prepOps();
+         any onode = node;
+         any mo;
          node = null;
          while (def(onode) && (def(prec)) && (onode.container == cont)) {
             ops.get(prec).addValue(onode);
-            dyn inode = onode.nextPeer;
+            any inode = onode.nextPeer;
             if (def(inode)) {
                inode = inode.nextPeer;
                if (def(inode)) {
@@ -72,7 +72,7 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
          for (it = ops.iterator;it.hasNext;;) {
             i = it.next;
             if (i.length > 0) {
-               for (dyn mt = i.iterator;mt.hasNext;;) {
+               for (any mt = i.iterator;mt.hasNext;;) {
                   mo = mt.next;
                   mo = callFromOper(mo, prec.copy(), mo.priorPeer, mo.nextPeer);
                   node = mo;
@@ -87,7 +87,7 @@ final class Build:Visit:Pass8(Build:Visit:Visitor) {
    }
    
    callFromOper(op, prec, pr, nx) {
-      dyn gc = Build:Call.new();
+      any gc = Build:Call.new();
       gc.wasOper = true;
       gc.name = const.operNames.get(op.typename).lower();
       if (gc.name == "not_equals") {

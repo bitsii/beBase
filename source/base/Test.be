@@ -8,11 +8,11 @@
  *
  */
 
-import System:Parameters;
+use System:Parameters;
 
-import Test:Assertions;
-import Test:Failure;
-import Test:RunMethods;
+use Test:Assertions;
+use Test:Failure;
+use Test:RunMethods;
 
 class Failure (System:Exception) {
    
@@ -107,11 +107,11 @@ RunMethods {
    
    main(List _args, Parameters _params) {
       if (can("argsSet", 1)) {
-         dyn aset = self;
+         any aset = self;
          aset.args = _args;
       }
       if (can("paramsSet", 1)) {
-         dyn pset = self;
+         any pset = self;
          pset.params = _params;
       }
    }

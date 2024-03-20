@@ -14,9 +14,9 @@
    contributed by Craig Welch
 */
 
-import Benchmark:TreeNode;
-import Benchmark:BinaryTrees;
-import Math:Int;
+use Benchmark:TreeNode;
+use Benchmark:BinaryTrees;
+use Math:Int;
 
 final class TreeNode {
    
@@ -41,7 +41,7 @@ final class BinaryTrees {
       Int minDepth = 4;
 		Int n = 0;
       
-      dyn args = System:Process.new().args;
+      any args = System:Process.new().args;
 
 		if (args.length > 0) {
          n = Int.new(args[0]);

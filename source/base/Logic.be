@@ -8,8 +8,8 @@
  *
  */
 
-import Logic:Bool;
-import Text:String;
+use Logic:Bool;
+use Text:String;
 
 final class Bool {
 
@@ -116,7 +116,7 @@ final class Logic:Bools {
       return(false);
    }
    
-   deserializeFromString(String str) dyn {
+   deserializeFromString(String str) any {
       if (str == "1") {
          return(true);
       }

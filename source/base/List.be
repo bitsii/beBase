@@ -8,7 +8,7 @@
  *
  */
 
-import Container:List;
+use Container:List;
 
 emit(cs) {
     """
@@ -301,7 +301,7 @@ if (def(length)) {
    }
    
    get(Int posi) {
-      dyn val;
+      any val;
       if ((posi >= 0) && (posi < length)) {
       emit(jv,cs,js) {
       """
@@ -357,7 +357,7 @@ if (def(length)) {
    
    add(List xi) self {
       List yi = List.new(0, length + xi.length);
-      for (dyn c in self) {
+      for (any c in self) {
          yi.addValueWhole(c);
       }
       for (c in xi) {
@@ -382,7 +382,7 @@ if (def(length)) {
                c = j.copy();
             }
          }
-         dyn hold = self[i];
+         any hold = self[i];
          self[i] = self[c];
          self[c] = hold;
       }
@@ -396,8 +396,8 @@ if (def(length)) {
       Int sl = second.length;
       while (i < length) {
          if (fi < fl && si < sl) {
-            dyn fo = first.get(fi);
-            dyn so = second.get(si);
+            any fo = first.get(fi);
+            any so = second.get(si);
             if (so < fo) {
                si++;
                put(i, so);
@@ -529,7 +529,7 @@ if (def(length)) {
    //find (or has) niavely finds
    find(value) Int {
      for (Int i = 0;i < length;i++) {
-       dyn aval = get(i);
+       any aval = get(i);
        if (def(aval) && value == aval) {
          return(i);
        }
@@ -560,7 +560,7 @@ if (def(length)) {
      
      loop {
        Int mid = ((high - low) / 2) + low;
-       dyn aval = get(mid);
+       any aval = get(mid);
        if (value == aval) {
         return(mid);
        } elseIf (value > aval) {
@@ -589,12 +589,12 @@ class Lists {
 
   default() self { }
 
-  forwardCall(String name, List args) dyn {
+  forwardCall(String name, List args) any {
     name = name + "Handler";
     if (can(name, 1)) {
       List varargs = List.new(1);
       varargs[0] = args;
-      dyn result = invoke(name, varargs);
+      any result = invoke(name, varargs);
     }
     return(result);
    }

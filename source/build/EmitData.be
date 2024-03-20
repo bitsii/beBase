@@ -8,11 +8,11 @@
  *
  */
 
-import Container:Map;
-import Container:Set;
-import Container:LinkedList;
-import Build:ClassSyn;
-import Text:String;
+use Container:Map;
+use Container:Set;
+use Container:LinkedList;
+use Build:ClassSyn;
+use Text:String;
 
 final class Build:EmitData {
    
@@ -29,7 +29,7 @@ final class Build:EmitData {
          Map justParsed = Map.new();
          Map synClasses = Map.new();
          Map midNames = Map.new();
-         //(String, Set) Key is the name of the class, value is the classes which import it
+         //(String, Set) Key is the name of the class, value is the classes which use it
          Map usedBy = Map.new();
          //(String, Set) Key is the name of the class, value is the the classes which subclass it
          Map subClasses = Map.new();
@@ -51,7 +51,7 @@ final class Build:EmitData {
          }
          ub.put(myname);
       }
-      for (dyn iu = syn.superList.iterator;iu.hasNext;;) {
+      for (any iu = syn.superList.iterator;iu.hasNext;;) {
          s = iu.next.toString();
          ub = subClasses[s];
          if (undef(ub)) {

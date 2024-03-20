@@ -8,16 +8,16 @@
  *
  */
 
-import Container:List;
-import System:Parameters;
-import Text:String;
-import Text:String;
+use Container:List;
+use System:Parameters;
+use Text:String;
+use Text:String;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
 
-import Encode:Url;
+use Encode:Url;
 
 class Test:BaseTest:Encode(BaseTest) {
    
@@ -94,7 +94,7 @@ class Test:BaseTest:Encode(BaseTest) {
       
       IO:File.new("test/tmp").makeDirs();
       
-      dyn fout; dyn w;
+      any fout; any w;
       fout = IO:File.apNew("test/tmp/u8.html");
       w = fout.writer.open();
       writeHtmlPre(w);

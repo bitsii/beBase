@@ -8,12 +8,12 @@
  *
  */
 
-import Container:LinkedList;
-import Container:Map;
-import Container:Set;
-import Build:Visit;
-import Build:NamePath;
-import Build:VisitError;
+use Container:LinkedList;
+use Container:Map;
+use Container:Set;
+use Build:Visit;
+use Build:NamePath;
+use Build:VisitError;
 
 final class Build:Visit:Pass1(Build:Visit:Visitor) {
 
@@ -21,7 +21,7 @@ final class Build:Visit:Pass1(Build:Visit:Visitor) {
       fields {
          Set printAstElements;
          Bool allAstElements;
-         dyn f;
+         any f;
       }
    }
    

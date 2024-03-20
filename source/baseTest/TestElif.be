@@ -8,7 +8,7 @@
  *
  */
 
-import Math:Int;
+use Math:Int;
 
 class Test:TestElif {
    

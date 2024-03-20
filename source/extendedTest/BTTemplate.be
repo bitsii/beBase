@@ -8,19 +8,19 @@
  *
  */
 
-import Container:List;
+use Container:List;
 
-import System:Parameters;
-import Text:String;
-import Text:String;
+use System:Parameters;
+use Text:String;
+use Text:String;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
 
-import Template:Replace;
-import Template:Runner;
-import Test:MyTemplate;
+use Template:Replace;
+use Template:Runner;
+use Test:MyTemplate;
 
 class MyTemplate {
 
@@ -55,8 +55,8 @@ class Test:BaseTest:Template(BaseTest) {
    testRunner() {
       String buf = String.new();
       Runner runner;
-      dyn nd;
-      dyn nd2;
+      any nd;
+      any nd2;
       
       buf.clear();
       runner = Runner.new("Yo <?tt yup ?>  nop  <?tt nar ?>", buf);
@@ -172,7 +172,7 @@ class Test:BaseTest:Template(BaseTest) {
       
       r.accept(mt, String.new()).print();
       /*
-      for (dyn s in r.steps) {
+      for (any s in r.steps) {
          ("Step " + s.handle(mt)).print();
       }
       */
@@ -187,7 +187,7 @@ class Test:BaseTest:Template(BaseTest) {
       
       r.accept(mt, String.new()).print();
       /*
-      for (dyn s in r.steps) {
+      for (any s in r.steps) {
          ("Step " + s.handle(mt)).print();
       }
       */

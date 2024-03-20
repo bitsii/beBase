@@ -8,14 +8,14 @@
  *
  */
 
-import IO:File;
-import Build:VisitError;
-import Build:Visit;
-import Build:EmitException;
-import Build:NamePath;
-import Build:Node;
-import Build:ClassConfig;
-import Test:Assertions;
+use IO:File;
+use Build:VisitError;
+use Build:Visit;
+use Build:EmitException;
+use Build:NamePath;
+use Build:Node;
+use Build:ClassConfig;
+use Test:Assertions;
 
 /*
 
@@ -62,7 +62,7 @@ THREADS
 
 */
 
-import local class Build:EmitCommon(Build:Visit:Visitor) {
+use local class Build:EmitCommon(Build:Visit:Visitor) {
 
     new(Build:Build _build) {
         build = _build;
@@ -238,10 +238,10 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
       if (build.printSteps || build.printPlaces) {
         ("Completing class " + clgen.held.name).print();
       }
-      dyn trans = Build:Transport.new(build, clgen.transUnit);
+      any trans = Build:Transport.new(build, clgen.transUnit);
       
       
-      dyn emvisit;
+      any emvisit;
       
       if (build.printSteps) {
          ". ".output();
@@ -288,7 +288,7 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
         //order by depth (of inheritance) to guarantee that a classes ancestors
         //are processed before the class (important for some initialization)
         Map depthClasses = Map.new();
-        for (dyn ci = build.emitData.parseOrderClassNames.iterator;ci.hasNext;;) {
+        for (any ci = build.emitData.parseOrderClassNames.iterator;ci.hasNext;;) {
             String clName = ci.next;
             
             Node clnode = build.emitData.classes.get(clName);
@@ -716,9 +716,9 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
           initRef = "be.BECS_Runtime.initializer.";
         }
         
-        for (dyn ci = classesInDepthOrder.iterator;ci.hasNext;;) {
+        for (any ci = classesInDepthOrder.iterator;ci.hasNext;;) {
         
-            dyn clnode = ci.next;
+            any clnode = ci.next;
             
             if (def(clnode.held.extends)) {
               Build:ClassSyn psyn = build.getSynNp(clnode.held.extends);
@@ -1100,10 +1100,10 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
         Map belslits = Map.new();
      }
      
-     dyn te = node.transUnit.held.emits;
+     any te = node.transUnit.held.emits;
       if (def(te)) {
          for (te = te.iterator;te.hasNext;;) {
-            dyn jn = te.next;
+            any jn = te.next;
             handleTransEmit(jn);
          }
       }
@@ -1134,8 +1134,8 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
        //Create property declarations
        //>= natives
        Int ovcount = 0;
-       for (dyn ii = node.held.orderedVars.iterator;ii.hasNext;;) {
-            dyn i = ii.next.held;
+       for (any ii = node.held.orderedVars.iterator;ii.hasNext;;) {
+            any i = ii.next.held;
             if (i.isDeclared) {
                 if (ovcount >= nativeCSlots) {
                     propertyDecs += self.propDec;
@@ -1313,10 +1313,10 @@ import local class Build:EmitCommon(Build:Visit:Visitor) {
   
   getNativeCSlots(String text) Int {
     Int nativeSlots = 0;
-    dyn ll = text.split("/");
-      dyn isfn = false;
-      dyn nextIsNativeSlots = false;
-      for (dyn i in ll) {
+    any ll = text.split("/");
+      any isfn = false;
+      any nextIsNativeSlots = false;
+      for (any i in ll) {
          if (nextIsNativeSlots) {
             nextIsNativeSlots = false;
             nativeSlots = Int.new(i);
@@ -1506,8 +1506,8 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
   
   acceptRbraces(Node node) {
      if (def(node.container) && def(node.container.container)) {
-        dyn nct = node.container.container;
-        dyn typename = nct.typename;
+        any nct = node.container.container;
+        any typename = nct.typename;
         if (typename == ntypes.METHOD) {
            if (def(mnode)) {
              if (undef(lastCall) || lastCall.held.orgName != "return") {
@@ -1718,7 +1718,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       //node.nlec = countLines(methodBody);
       
       if ((node.held.orgName == "assign") && (node.contained.length != 2)) {
-         dyn errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
+         any errmsg = "assignment call with incorrect number of arguments " + node.contained.length.toString();
          for (Int ei = 0;ei < node.contained.length;ei++) {
             errmsg = errmsg + " !!!" + ei + "!! " + node.contained[ei];
          }
@@ -1914,11 +1914,11 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
       String spillArgs = String.new();
       
       Int numargs = 0;
-      for (dyn it = node.contained.iterator;it.hasNext;;) {
+      for (any it = node.contained.iterator;it.hasNext;;) {
          List argCasts = node.held.argCasts;
-         dyn i = it.next;
+         any i = it.next;
          if (numargs == 0) {
-            //dyn targetOrg = i.held.name;
+            //any targetOrg = i.held.name;
             String target = formTarg(i);
             String callTarget = formCallTarg(i);
             Node targetNode = i;
@@ -2447,7 +2447,7 @@ buildClassInfoMethod(String bemBase, String belsBase, Int len) {
    
 }
 
-import local class Build:ClassConfig {
+use local class Build:ClassConfig {
    
    new(Build:NamePath _np, EmitCommon _emitter, IO:File:Path _emitPath, String _libName) self {
    

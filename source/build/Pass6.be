@@ -8,12 +8,12 @@
  *
  */
 
-import Container:LinkedList;
-import Container:Map;
-import Build:Visit;
-import Build:NamePath;
-import Build:VisitError;
-import Build:Node;
+use Container:LinkedList;
+use Container:Map;
+use Build:Visit;
+use Build:NamePath;
+use Build:VisitError;
+use Build:Node;
  
 final class Build:Visit:Pass6(Build:Visit:Visitor) {
 
@@ -21,11 +21,11 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
       //also nests ifs
       //("Visiting " + node.toString()).print();
       node.resolveNp();
-      dyn i;
-      dyn v;
-      dyn nnode = node.nextPeer;
+      any i;
+      any v;
+      any nnode = node.nextPeer;
       if (node.typename == ntypes.EMIT) {
-         dyn gnext = node.nextAscend;
+         any gnext = node.nextAscend;
          if (def(node.contained) && (node.contained.length > 1) && def(node.contained.first.contained) && (node.contained.first.contained.length > 0) && (node.second.contained.length > 0)) {
             //("inline first held is " + node.contained.first.first.held).print();
             Container:Set langs = Container:Set.new();
@@ -34,11 +34,11 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
                 langs += lang.held;
             }
             langs.remove(",");
-            dyn doit = true;
+            any doit = true;
             if (doit) {
                doit = false;
                for (i = node.second.contained.iterator;i.hasNext;;) {
-                  dyn si = i.next;
+                  any si = i.next;
                   if (si.typename == ntypes.STRINGL) {
                      node.held = si.held;
                      //"found inline".print();
@@ -58,7 +58,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             return(gnext);
          }
          
-         dyn snode = node.scope;
+         any snode = node.scope;
          if (snode.typename == ntypes.METHOD) {
             snode = null;
          }
@@ -118,15 +118,15 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
         }
       } elseIf (node.typename == ntypes.IF) {
          if (def(nnode)) {
-            dyn lnode = node;
+            any lnode = node;
             while (def(nnode) && (nnode.typename == ntypes.ELIF)) {
-               dyn enode = Node.new(build);
+               any enode = Node.new(build);
                enode.typename = ntypes.ELSE;
                enode.copyLoc(node);
-               dyn brnode = Node.new(build);
+               any brnode = Node.new(build);
                brnode.copyLoc(node);
                brnode.typename = ntypes.BRACES;
-               dyn inode = Node.new(build);
+               any inode = Node.new(build);
                inode.copyLoc(node);
                inode.typename = ntypes.IF;
                brnode.addValue(inode);
@@ -136,13 +136,13 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
                      inode.addValue(i.next);
                   }
                }
-               //dyn rbrnode = Node.new(build);
+               //any rbrnode = Node.new(build);
                //rbrnode.typename = ntypes.RBRACES;
                //brnode.addValue(rbrnode);
                //rbrnode.copyLoc(node);
                lnode.addValue(enode);
                lnode = inode;
-               dyn nxnode = nnode.nextPeer;
+               any nxnode = nnode.nextPeer;
                nnode.remove();
                nnode = nxnode;
             }
@@ -153,19 +153,19 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
          }  
          return(node.nextDescend);
       } elseIf (node.typename == ntypes.METHOD) {
-         dyn parens = node.contained.first;
-         dyn nd = Node.new(build);
+         any parens = node.contained.first;
+         any nd = Node.new(build);
          nd.copyLoc(node);
          nd.typename = ntypes.ID;
          nd.held = "self";
          parens.prepend(nd);
-         dyn toremove = LinkedList.new();
-         dyn numargs = 0;
-         for (dyn ii = parens.contained.iterator;ii.hasNext;;) {
+         any toremove = LinkedList.new();
+         any numargs = 0;
+         for (any ii = parens.contained.iterator;ii.hasNext;;) {
             i = ii.next;
-            dyn ix = i.nextPeer;
-            dyn vid;
-            dyn vinp;
+            any ix = i.nextPeer;
+            any vid;
+            any vinp;
             if (i.typename == ntypes.COMMA) {
                toremove.addValue(i);
             } elseIf (i.typename == ntypes.ID) {
@@ -192,7 +192,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             i = ii.next;
             i.remove();
          }
-         dyn s = node.held;
+         any s = node.held;
          s.numargs = numargs - 1;
          s.orgName = s.name;
          s.name = s.name + "_" + s.numargs.toString();
@@ -202,7 +202,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
             //("!!!!!!Found return type " + i.held.name).print();
             s.rtype = i.held;
             if (undef(s.rtype.namepath)) {
-              //"FOUND UNDEF RTYPE".print();// (will be "dyn")
+              //"FOUND UNDEF RTYPE".print();// (will be "any")
               s.rtype = null;
             } elseIf (s.rtype.namepath.toString() == "this") {
               //"FOUND THIS RTYPE".print();
@@ -223,7 +223,7 @@ final class Build:Visit:Pass6(Build:Visit:Visitor) {
            s.rtype.implied = true;
            s.rtype.namepath = Build:NamePath.new("self");
          }
-         dyn clnode = node.classGet();
+         any clnode = node.classGet();
          clnode.held.methods.put(s.name, node); //TODO check to see if already exists
          clnode.held.orderedMethods.addValue(node);
       }

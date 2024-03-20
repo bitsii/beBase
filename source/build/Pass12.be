@@ -8,11 +8,11 @@
  *
  */
 
-import Build:Visit;
-import Build:NamePath;
-import Build:VisitError;
-import Build:Node;
-import Build:ClassSyn;
+use Build:Visit;
+use Build:NamePath;
+use Build:VisitError;
+use Build:Node;
+use Build:ClassSyn;
 
 local class Build:Visit:ChkIfEmit(Build:Visit:Visitor) {
 
@@ -65,25 +65,25 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
    }
    
    getAccessor(node) {
-      dyn myselfn = Node.new(build);
+      any myselfn = Node.new(build);
       myselfn.typename = ntypes.VAR;
-      dyn myself = Build:Var.new();
+      any myself = Build:Var.new();
       myself.name = "self";
       myself.isTyped = true;
       myself.namepath = classnp;
       myself.isArg = true;
       myselfn.held = myself;
-      dyn mtdmyn = Node.new(build);
+      any mtdmyn = Node.new(build);
       mtdmyn.typename = ntypes.METHOD;
-      dyn mtdmy = Build:Method.new();
+      any mtdmy = Build:Method.new();
       mtdmy.isGenAccessor = true;
       mtdmyn.held = mtdmy;
-      dyn myparn = Node.new(build);
+      any myparn = Node.new(build);
       myparn.typename = ntypes.PARENS;
       myparn.addValue(myselfn);
       mtdmyn.addValue(myparn);
       myselfn.addVariable();
-      dyn mybr = Node.new(build);
+      any mybr = Node.new(build);
       mybr.typename = ntypes.BRACES;
       mtdmyn.addValue(mybr);
       mtdmy.rtype = Build:Var.new();
@@ -95,12 +95,12 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
    }
       
    getRetNode(node) {
-      dyn retnoden = Node.new(build);
+      any retnoden = Node.new(build);
       retnoden.typename = ntypes.CALL;
-      dyn retnode = Build:Call.new();
+      any retnode = Build:Call.new();
       retnode.name = "return";
       retnoden.held = retnode;
-      dyn sn = Node.new(build);
+      any sn = Node.new(build);
       sn.typename = ntypes.VAR;
       sn.held = "self";
       retnoden.addValue(sn);
@@ -108,9 +108,9 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
    }
       
    getAsNode(selfnode) {
-      dyn asnoden = Node.new(build);
+      any asnoden = Node.new(build);
       asnoden.typename = ntypes.CALL;
-      dyn asnode = Build:Call.new();
+      any asnode = Build:Call.new();
       asnode.name = "assign";
       asnoden.held = asnode;
       return(asnoden);
@@ -119,13 +119,13 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
    
    accept(Node node) Node {
       //if ((node.typename == ntypes.VAR) && (def(node.held.namepath))) {
-      //   ("Found namepath typed dyn again " + node.held.name + " " + node.held.namepath.toString()).print();
+      //   ("Found namepath typed any again " + node.held.name + " " + node.held.namepath.toString()).print();
       //}
       if (node.typename == ntypes.IFEMIT) {
          return(acceptIfEmit(node));
       }
       if (node.typename == ntypes.METHOD) {
-         dyn ia = node.contained.first.contained.first; //self
+         any ia = node.contained.first.contained.first; //self
          ia.held.isTyped = true;
          ia.held.namepath = classnp;
          //if (def(node.held.rtype) && node.held.rtype.isThis) {
@@ -133,18 +133,18 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
          //}
       } elseIf (node.typename == ntypes.CLASS) {
          classnp = node.held.namepath;
-         dyn tst = Build:Call.new();
-         for (dyn ii = node.held.orderedVars.iterator;ii.hasNext;;) {
-            dyn i = ii.next.held;
-            dyn ename;
-            dyn anode;
-            dyn rettnode;
-            dyn rin;
+         any tst = Build:Call.new();
+         for (any ii = node.held.orderedVars.iterator;ii.hasNext;;) {
+            any i = ii.next.held;
+            any ename;
+            any anode;
+            any rettnode;
+            any rin;
             
-            dyn sv;
-            dyn svn;
-            dyn svn2;
-            dyn asn;
+            any sv;
+            any svn;
+            any svn2;
+            any asn;
             
             //reg get
             tst.name = i.name.copy();
@@ -233,13 +233,13 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
             throw(Build:VisitError.new("Call held is null", node));
          }
          if (node.held.isConstruct && undef(node.held.newNp)) {
-            dyn newNp = node.contained.first;
+            any newNp = node.contained.first;
             if (newNp.typename != ntypes.NAMEPATH) {
                if ((newNp.typename == ntypes.VAR) && (newNp.held.name == "self")) {
                   newNp = node.second;
                   if (newNp.typename != ntypes.NAMEPATH) {
                      ("Incorrect first argument for new, second try, first argument is " + newNp.toString()).print();
-                     throw(Build:VisitError.new("Incorrectly formed new, second try, namepath not first argument, namepath probably does not exist, verify name and import declarations", node));
+                     throw(Build:VisitError.new("Incorrectly formed new, second try, namepath not first argument, namepath probably does not exist, verify name and use declarations", node));
                   }
                } else {
                   ("Incorrect first argument for new, first argument is " + newNp.toString()).print();
@@ -253,14 +253,14 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
          node.held.orgName = node.held.name;
          node.held.name = node.held.name + "_" + node.held.numargs.toString();
          if (node.held.orgName == "assign") {
-            dyn c0 = node.contained.first;
+            any c0 = node.contained.first;
             if ((def(c0)) && (c0.typename == ntypes.VAR)) {
                c0.held.numAssigns++;
             }
-            dyn c1 = node.contained.second;
+            any c1 = node.contained.second;
          }
       } elseIf (node.typename == ntypes.BRACES) {
-         dyn bn = Node.new(build);
+         any bn = Node.new(build);
          if (def(node.contained) && def(node.contained.last)) {
             bn.nlc = node.contained.last.nlc;
          } else {
@@ -269,7 +269,7 @@ final class Build:Visit:Pass12(Build:Visit:ChkIfEmit) {
          bn.typename = ntypes.RBRACES;
          node.addValue(bn);
       } elseIf (node.typename == ntypes.PARENS) {
-         dyn pn = Node.new(build);
+         any pn = Node.new(build);
          if (def(node.contained) && def(node.contained.last)) {
             pn.nlc = node.contained.last.nlc;
          } else {
@@ -287,13 +287,13 @@ final class Build:Visit:Rewind(Build:Visit:ChkIfEmit) {
 
    new() self {
       fields {
-         dyn tvmap;
-         dyn rmap;
-         dyn inClass;
-         dyn inClassNp;
-         dyn inClassSyn;
-         dyn nl;
-         dyn emitter;
+         any tvmap;
+         any rmap;
+         any inClass;
+         any inClassNp;
+         any inClassSyn;
+         any nl;
+         any emitter;
       }
    }
    
@@ -330,7 +330,7 @@ final class Build:Visit:Rewind(Build:Visit:ChkIfEmit) {
          rmap = Map.new();
       } elseIf ((node.typename == ntypes.VAR) && node.held.autoType) {
          tvmap.put(node.held.name, node.held);
-         dyn ll = rmap.get(node.held.name);
+         any ll = rmap.get(node.held.name);
          if (undef(ll)) {
             ll = Container:LinkedList.new();
             rmap.put(node.held.name, ll)
@@ -344,25 +344,25 @@ final class Build:Visit:Rewind(Build:Visit:ChkIfEmit) {
    }
    
    processTmps() {
-      dyn foundone = true;
-      dyn targ;
-      dyn tany;
-      dyn tcall;
+      any foundone = true;
+      any targ;
+      any tany;
+      any tcall;
       ClassSyn syn;
-      dyn targNp;
-      dyn mtdc;
-      dyn oany;
+      any targNp;
+      any mtdc;
+      any oany;
       while (foundone) {
          foundone = false;
-         for (dyn i = tvmap.valueIterator;i.hasNext;) {
-            dyn nv = i.next;
+         for (any i = tvmap.valueIterator;i.hasNext;) {
+            any nv = i.next;
             //("!!!Toplevel checking isTyped " + nv.name).print();
             if (nv.isTyped!) {
                //("!!!notTyped " + nv.name).print();
                //if it is typed it has already been found
-               dyn nvname = nv.name;
-               dyn ll = rmap.get(nvname);
-               for (dyn k in ll) {
+               any nvname = nv.name;
+               any ll = rmap.get(nvname);
+               for (any k in ll) {
                   if (k.isFirst && k.container.typename == ntypes.CALL && k.container.held.orgName == "assign" && k.container.second.typename == ntypes.CALL) {
                      //("!!!Found to be first arg to assign").print();
                      tcall = k.container.second;
@@ -434,10 +434,10 @@ final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
    
    new() self {
       fields {
-         dyn emitter;
+         any emitter;
          Node inClass;
-         dyn inClassNp;
-         dyn inClassSyn;
+         any inClassNp;
+         any inClassSyn;
          Int cpos;
       }
    }
@@ -468,13 +468,13 @@ final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
             }
          }
          Node targ;
-         dyn tany;
-         dyn oany;
+         any tany;
+         any oany;
          ClassSyn syn;
-         dyn mtdmy;
+         any mtdmy;
          Node ctarg;
-         dyn cany;
-         dyn mtdc;
+         any cany;
+         any mtdc;
          if (node.held.orgName == "assign") {
             targ = node.contained.first;
             if (targ.held.isDeclared) {
@@ -494,7 +494,7 @@ final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
                   if (org.typename == ntypes.VAR) {
                      if (org.held.isDeclared) {
                         oany = org.held;
-                     } else { //TODO fix import of reserved word here
+                     } else { //TODO fix use of reserved word here
                         //targ.held.name.print();
                         oany = inClassSyn.ptyMap.get(org.held.name).memSyn; //all non-declared mmbers caught
                         //in syn generation
@@ -560,7 +560,7 @@ final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
                         node.held.checkTypes = false;
                      } else {
                         if (oany.isSelf) {
-                           dyn ovnp = syn.namepath;
+                           any ovnp = syn.namepath;
                         } else {
                            ovnp = oany.namepath;
                         }
@@ -618,7 +618,7 @@ final class Build:Visit:TypeCheck(Build:Visit:ChkIfEmit) {
                            if (mtdmy.held.rtype.isThis) {
                              throw(Build:VisitError.new("Incorrect type on return, can only return(self); (actual self reference) for \"this\" return typed methods", node));
                            }
-                           dyn targsyn = build.getSynNp(tany.namepath);
+                           any targsyn = build.getSynNp(tany.namepath);
                            if (inClassSyn.castsTo(tany.namepath) || targsyn.castsTo(inClassSyn.namepath)) {
                               //("Found non-self return for self rtype, CHECK " + node.toString();).print();
                               node.held.checkTypes = true;

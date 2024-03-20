@@ -8,17 +8,17 @@
  *
  */
 
-import Container:List;
-import System:Parameters;
-import Text:String;
-import Text:String;
+use Container:List;
+use System:Parameters;
+use Text:String;
+use Text:String;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
 
-import Container:PropertyMap;
-import System:Env;
+use Container:PropertyMap;
+use System:Env;
 
 class Test:BaseTest:PropertyMap(BaseTest) {
    
@@ -31,7 +31,7 @@ class Test:BaseTest:PropertyMap(BaseTest) {
       p.get("PATH").print();
       
       Env e = Env.new();
-      for (dyn kv in e) {
+      for (any kv in e) {
          ("Found " + kv.key + " = " + kv.value).print();
       }
    }

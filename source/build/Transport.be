@@ -8,12 +8,12 @@
  *
  */
 
-import Container:LinkedList;
-import Container:LinkedList:Iterator as LIter;
-import Container:Map;
-import Build:VisitError;
-import Build:Node;
-import Build:NodeTypes;
+use Container:LinkedList;
+use Container:LinkedList:Iterator as LIter;
+use Container:Map;
+use Build:VisitError;
+use Build:Node;
+use Build:NodeTypes;
 
 final class Build:Transport {
    
@@ -47,14 +47,14 @@ final class Build:Transport {
          }
          
          visitor.end(self);
-      } catch (dyn e) {
+      } catch (any e) {
          if (def(node)) {
             ("Caught exception during visit to node").print();
             ("Exception:").print();
             e.print();
             ("Node:").print();
             node.print();
-            dyn nc = node.container;
+            any nc = node.container;
             while (def(nc)) {
               "contained by".print();
               nc.print();

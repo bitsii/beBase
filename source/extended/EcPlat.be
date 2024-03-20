@@ -8,12 +8,12 @@
  *
  */
 
-import IO:File;
-import Text:String;
-import Logic:Bool;
-import Math:Int;
-import Container:Set;
-import Container:Stack;
+use IO:File;
+use Text:String;
+use Logic:Bool;
+use Math:Int;
+use Container:Set;
+use Container:Stack;
 
 emit(c) {
 """
@@ -42,8 +42,8 @@ local class File {
       
       fields {
          IO:File:Path path;
-         dyn reader;
-         dyn writer;
+         any reader;
+         any writer;
       }
       
    }
@@ -83,7 +83,7 @@ void** bevl_llpath;
       }
       ifEmit(c) {
         llpath = String.new(); //to prime String
-        dyn llpath = path.toString();
+        any llpath = path.toString();
       }
       if (self.exists) {
          emit(c) {
@@ -152,9 +152,9 @@ void** bevl_frv;
       String frs = path.toString();
       Bool r = false;
       Bool t = true;
-      dyn strn = Text:Strings.new();
+      any strn = Text:Strings.new();
       if ((path.toString() != strn.empty) && (self.exists!)) {
-         dyn parentpath = path.parent;
+         any parentpath = path.parent;
          if (path == parentpath) {
             //We're at the top and it doesn't exist
             return(self);
@@ -274,7 +274,7 @@ struct stat sa;
 void** bevl_spa;
       """
       }
-      dyn spa;
+      any spa;
       Bool result = false;
       spa = path.toString();
       if (self.exists) {
@@ -331,7 +331,7 @@ struct stat sa;
 void** bevl_spa;
       """
       }
-      dyn spa;
+      any spa;
       Bool result = false;
       spa = path.toString();
       if (self.exists) {
@@ -405,7 +405,7 @@ void** bevl_spa;
         }
       }
       ifNotEmit(apwk) {
-        dyn r = self.reader;
+        any r = self.reader;
         r.open();
         res = r.readString();
         r.close();
@@ -431,7 +431,7 @@ void** bevl_spa;
         }
       }
       ifNotEmit(apwk) {
-        dyn w = self.writer;
+        any w = self.writer;
         w.open();
         w.write(contents);
         w.close();
@@ -460,7 +460,7 @@ void** bevl_mpath;
       """
       }
       Bool tvala = false;
-      dyn mpath = path.toString();
+      any mpath = path.toString();
       emit(c) {
       """
       bevl_mpath = $mpath&*;
@@ -557,7 +557,7 @@ void** bevl_mpath;
    
 }
 
-import final class System:Environment {
+use final class System:Environment {
 
     getVariable(String name) String {
         String value;
@@ -596,7 +596,7 @@ import final class System:Environment {
 
 }
 
-import IO:File:DirectoryIterator;
+use IO:File:DirectoryIterator;
 
 final class DirectoryIterator {
 
@@ -628,7 +628,7 @@ final class DirectoryIterator {
          Bool opened = false;
          Bool closed = false;
          File current = null;
-         dyn jsiter = null;
+         any jsiter = null;
       }
    }
    
@@ -805,7 +805,7 @@ final class DirectoryIterator {
 
 }
 
-import Net:Socket:Listener;
+use Net:Socket:Listener;
 
 emit(cs) {
 """
@@ -887,7 +887,7 @@ class Listener {
 
 }
 
-import Net:Socket;
+use Net:Socket;
 
 class Socket {
 
@@ -958,13 +958,13 @@ class Socket {
 
 }
 
-import Net:Socket:Reader as SocketReader;
+use Net:Socket:Reader as SocketReader;
 
 class SocketReader(IO:Reader) {
 
 }
 
-import Net:Socket:Writer as SocketWriter;
+use Net:Socket:Writer as SocketWriter;
 
 class SocketWriter(IO:Writer) {
 

@@ -8,16 +8,16 @@
  *
  */
 
-import System:Thing;
-import Container:NodeList;
-import IO:File;
+use System:Thing;
+use Container:NodeList;
+use IO:File;
 
-import Container:List;
-import Text:String;
-import Math:Int;
-import Logic:Bool;
+use Container:List;
+use Text:String;
+use Math:Int;
+use Logic:Bool;
 
-import System:SubProcess;
+use System:SubProcess;
 
 class SubProcess {
    new() self { }
@@ -28,7 +28,7 @@ class SubProcess {
          String execName = _execName;
          String klass = _klass;
          Bool isOpen = false;
-         dyn heldBy;
+         any heldBy;
       }
    }
       

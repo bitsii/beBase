@@ -8,7 +8,7 @@
  *
  */
 
-import Time:Interval;
+use Time:Interval;
 
 emit(c) {
 """

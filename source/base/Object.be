@@ -8,10 +8,10 @@
  *
  */
 
-import Container:Pair;
-import System:NonIterator;
-import System:ObjectFieldIterator;
-import System:CustomFieldIterator;
+use Container:Pair;
+use System:NonIterator;
+use System:ObjectFieldIterator;
+use System:CustomFieldIterator;
 
 emit(cs) {
     """
@@ -32,13 +32,13 @@ class System:Object {
       return(true);
    }
    
-   methodNotDefined(String name, List args) dyn {
+   methodNotDefined(String name, List args) any {
      if(true) {
        throw(System:MethodNotDefined.new("Method: " + name + " not defined"));
      }
    }
    
-   forwardCall(String name, List args) dyn {
+   forwardCall(String name, List args) any {
      if(true) {
        throw(System:MethodNotDefined.new("Method: " + name + " not defined"));
      }
@@ -46,7 +46,7 @@ class System:Object {
    
    final invoke(String name, List args) {
       String cname;
-      dyn rval;
+      any rval;
       Int numargs;
       
       if (undef(name)) {
@@ -155,7 +155,7 @@ class System:Object {
    final can(String name, Int numargs) Bool {
       String cname;
       Int chash;
-      dyn rval;
+      any rval;
       
       if (undef(name)) {
          throw(System:InvocationException.new("can() name is null"));
@@ -309,12 +309,12 @@ class System:Object {
         }
     }
 
-   iteratorGet() dyn {
+   iteratorGet() any {
       return(System:ObjectFieldIterator.new(self));
    }
    
    create() self {
-   dyn copy;
+   any copy;
       emit(jv,cs,js) {
       """
       bevl_copy = this.bemc_create();

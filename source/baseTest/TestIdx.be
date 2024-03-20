@@ -8,15 +8,15 @@
  *
  */
 
-import Test:TestIdx;
-import Math:Int;
-import Container:List;
+use Test:TestIdx;
+use Math:Int;
+use Container:List;
 
 class TestIdx {
    
    new() self {
       fields {
-         dyn outermem;
+         any outermem;
       }
    }
    
@@ -32,7 +32,7 @@ class TestIdx {
       m[1 + 1] = 2 + 7;
       m[9 - 7].print();
       
-      dyn x = Container:Map.new();
+      any x = Container:Map.new();
       x["hi bird"] = "foo";
       x["hi bird"].print();
    }

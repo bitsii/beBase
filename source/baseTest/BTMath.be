@@ -8,13 +8,13 @@
  *
  */
 
-import Container:List;
-import System:Parameters;
+use Container:List;
+use System:Parameters;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
-import Math:Float;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
+use Math:Float;
 
 class Test:BaseTest:Int(BaseTest) {
    
@@ -31,8 +31,8 @@ class Test:BaseTest:Int(BaseTest) {
    }
    
    testShift() {
-       int i = Int.hexNew("12");
-       int j = i.shiftLeft(2);
+       Int i = Int.hexNew("12");
+       Int j = i.shiftLeft(2);
        j.toHexString().print();
        assertEqual(j, 72);
        assertEqual(i.shiftLeftValue(2), j);
@@ -68,7 +68,7 @@ class Test:BaseTest:Int(BaseTest) {
       assertEqual(Int.new("1"), 1);
       
       /*
-      int b = Int.new();
+      Int b = Int.new();
       String one = "1";
       one.print();
       one.length.print();
@@ -97,11 +97,11 @@ class Test:BaseTest:Int(BaseTest) {
       
       
    testMost() {
-      dyn uux = 1;
-      dyn uuy = 2;
+      any uux = 1;
+      any uuy = 2;
       
-      int ttx = 1;
-      int tty = 2;
+      Int ttx = 1;
+      Int tty = 2;
       
       assertEquals(uux + uuy, 3);
       assertEquals(ttx + tty, 3);
@@ -111,11 +111,11 @@ class Test:BaseTest:Int(BaseTest) {
       assertEquals(uuy - uux, 1);
       assertEquals(tty - ttx, 1);     
       
-      dyn uuz = Int.new("4");
+      any uuz = Int.new("4");
       
       assertEquals(uuz, 4);
       
-      dyn uuw = uuz.copy();
+      any uuw = uuz.copy();
       
       assertEquals(uuw, uuz);
       
@@ -139,8 +139,8 @@ class Test:BaseTest:Float(BaseTest) {
    
    main() {
       ("Test:BaseTest:Float:main").print();
-      dyn uux = 1.5;
-      dyn uuy = 2.5;
+      any uux = 1.5;
+      any uuy = 2.5;
       
       Float ttx = 1.5;
       Float tty = 2.5;
@@ -161,11 +161,11 @@ class Test:BaseTest:Float(BaseTest) {
       
       assertEquals(uuz, 0.0 - 2.4);   
       
-      dyn uuz = Float.new("4.5");
+      any uuz = Float.new("4.5");
       
       assertEquals(uuz, 4.5);
       
-      dyn uuw = uuz.copy();
+      any uuw = uuz.copy();
       
       assertEquals(uuw, uuz);
       

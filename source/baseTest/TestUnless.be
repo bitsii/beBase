@@ -8,7 +8,7 @@
  *
  */
 
-import Container:List;
+use Container:List;
 
 class Test:TestUnless {
    
@@ -22,7 +22,7 @@ class Test:TestUnless {
       } else {
          "Second".print();
       }
-      dyn x = 0;
+      any x = 0;
       until(x == 1) {
          "Iter".print();
          x = x++;

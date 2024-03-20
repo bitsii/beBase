@@ -8,16 +8,16 @@
  *
  */
 
-import Math:Int;
-import Text:String;
-import Logic:Bool;
-import Container:Map;
-import Container:LinkedList;
+use Math:Int;
+use Text:String;
+use Logic:Bool;
+use Container:Map;
+use Container:LinkedList;
 
 class Test:TestFindDup {
    
    main() {
-      dyn x = self;
+      any x = self;
       aa("3");
       bB("4");
       x.aa("1");
@@ -57,7 +57,7 @@ class Test:TestFindDup {
       }
       for (Int j = 0;j < 3;j++) {
          LinkedList ll = LinkedList.new();
-         for (dyn x = bunch.valueIterator;x.hasNext;) {
+         for (any x = bunch.valueIterator;x.hasNext;) {
             ll += x.next;
          }
          for (String toAdd in seeds) {

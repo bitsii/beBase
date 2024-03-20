@@ -8,18 +8,16 @@
  *
  */
 
-local import System:Object;
-local import Math:Int;
-local import Math:Int as int;
-local import Logic:Bool;
-local import Logic:Bool as bool;
-local import Text:String;
-local import Container:List;
-local import Container:Map;
-local import Container:Set;
-local import Container:Lists;
-local import Container:Maps;
-local import Container:Sets;
-local import Container:LinkedList;
-local import System:Exception;
-local import Text:Strings as TS;
+local use System:Object;
+local use Math:Int;
+local use Logic:Bool;
+local use Text:String;
+local use Container:List;
+local use Container:Map;
+local use Container:Set;
+local use Container:Lists;
+local use Container:Maps;
+local use Container:Sets;
+local use Container:LinkedList;
+local use System:Exception;
+local use Text:Strings as TS;

@@ -8,10 +8,10 @@
  *
  */
 
-import Container:Pair;
-import System:NonIterator;
-import System:ObjectFieldIterator;
-import System:CustomFieldIterator;
+use Container:Pair;
+use System:NonIterator;
+use System:ObjectFieldIterator;
+use System:CustomFieldIterator;
 
 
 final class ObjectFieldIterator {
@@ -25,7 +25,7 @@ final class ObjectFieldIterator {
   new(_instance, Bool forceFirstSlot) ObjectFieldIterator {
     slots {
       Int pos = -1;
-      dyn instance = _instance;
+      any instance = _instance;
       List instFieldNames = System:Types.fieldNames(instance);
       Int lastidx = instFieldNames.length - 1;
     }
@@ -63,16 +63,16 @@ final class ObjectFieldIterator {
     return(null);
   }
 
-  nextGet() dyn {
+  nextGet() any {
     advance();
     return(self.current);
   }
   
-  currentGet() dyn {
+  currentGet() any {
     if (self.hasCurrent) {
       String currentName = self.currentName;
       String invokeName = currentName + "Get";
-      dyn res = instance.invoke(invokeName, List.new());
+      any res = instance.invoke(invokeName, List.new());
       return(res);
     }
     return(null);

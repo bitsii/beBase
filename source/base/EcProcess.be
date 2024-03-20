@@ -8,9 +8,9 @@
  *
  */
 
-import System:Thing;
-import Container:NodeList;
-import IO:File;
+use System:Thing;
+use Container:NodeList;
+use IO:File;
 
 emit(cs) {
     """
@@ -28,11 +28,11 @@ final class System:Process {
       fields {
          Container:List args;
          Math:Int numArgs;
-         dyn execName;
+         any execName;
    
-         dyn target;
-         dyn result;
-         dyn except;
+         any target;
+         any result;
+         any except;
          
          System:CurrentPlatform platform = System:CurrentPlatform.new();
       }
@@ -59,7 +59,7 @@ final class System:Process {
   
   fullExecNameGet() {
     fields {
-        dyn fullExecName;
+        any fullExecName;
     }
     if (undef(fullExecName)) {
         emit(cs) {
@@ -141,7 +141,7 @@ final class System:Process {
       target = _target;
       try {
          result = target.main();
-      } catch (dyn e) {
+      } catch (any e) {
          except = e;
          e.print();
          return(1);//return non-0 for main usecases (process exit code)
@@ -150,7 +150,7 @@ final class System:Process {
    }
    
    startByName(_name) {
-      dyn t = System:Objects.createInstance(_name).new();
+      any t = System:Objects.createInstance(_name).new();
       return(start(t));
    }
 

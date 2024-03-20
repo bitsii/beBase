@@ -8,20 +8,20 @@
  *
  */
 
-import Container:List;
+use Container:List;
 
-import System:Parameters;
-import Text:String;
-import Text:String;
+use System:Parameters;
+use Text:String;
+use Text:String;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
 
-import Logic:Bool;
+use Logic:Bool;
 
-import Test:DirectInvoke;
-import Test:HasFields;
+use Test:DirectInvoke;
+use Test:HasFields;
 
 class Test:BaseTest:Invoke(BaseTest) {
    
@@ -43,7 +43,7 @@ class Test:BaseTest:Invoke(BaseTest) {
    }
    
    testDirectInvoke() {
-      dyn x = DirectInvoke.new();
+      any x = DirectInvoke.new();
       List diarg = List.new(2);
       diarg[0] = 3;
       diarg[1] = 2;

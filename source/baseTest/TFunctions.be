@@ -8,17 +8,17 @@
  *
  */
 
-import Container:List;
+use Container:List;
 
-import System:Parameters;
-import Text:String;
-import Text:String;
+use System:Parameters;
+use Text:String;
+use Text:String;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
-import Function:Mapper;
-import System:Method;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
+use Function:Mapper;
+use System:Method;
 
 class Tests:Function(BaseTest) {
    main() {

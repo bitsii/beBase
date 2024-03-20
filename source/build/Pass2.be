@@ -8,12 +8,12 @@
  *
  */
 
-import Container:LinkedList;
-import Container:Map;
-import Build:Visit;
-import Build:NamePath;
-import Build:VisitError;
-import Build:Node;
+use Container:LinkedList;
+use Container:Map;
+use Build:Visit;
+use Build:NamePath;
+use Build:VisitError;
+use Build:Node;
 
 final class Build:Visit:Pass2(Build:Visit:Visitor) {
    
@@ -33,9 +33,9 @@ final class Build:Visit:Pass2(Build:Visit:Visitor) {
       if (node.typename == ntypes.TRANSUNIT) {
          return(node.nextDescend);
       }
-      dyn held = node.held;
+      any held = node.held;
       if (def(held)) {
-         dyn type = matchMap.get(held);
+         any type = matchMap.get(held);
          if (def(type)) {
             //("Found type " + type.toString()).print();
             node.typename = type;

@@ -8,7 +8,7 @@
  *
  */
 
-import Container:List;
+use Container:List;
 
 class Test:TestInvoke {
    
@@ -24,8 +24,8 @@ class Test:TestInvoke {
       List args1 = List.new(1);
       List args0 = List.new(0);
       
-      dyn x;
-      dyn i;
+      any x;
+      any i;
       
       i = 5;
       "First".print();

@@ -8,20 +8,20 @@
  *
  */
 
-import Container:LinkedList:Iterator as LIter;
+use Container:LinkedList:Iterator as LIter;
 
-import class System:ExceptionTranslator {
+use class System:ExceptionTranslator {
   
   default() self { }
   
   translateEmittedException(Exception tt) {
     try {
       translateEmittedExceptionInner(tt);
-    } catch(dyn e) {
+    } catch(any e) {
       ("Exception translation failed").print();
       if (def(e) && e.can("getDescription", 0)) {
         e.description.print();
-        //try { e.print(); } catch (dyn ee) { }
+        //try { e.print(); } catch (any ee) { }
       }
     }
   }
@@ -211,7 +211,7 @@ import class System:ExceptionTranslator {
   
    getSourceFileName(String klassName) String {
      //("getting source file name for " + klassName).print();
-     dyn i = System:Objects.createInstance(klassName, false);
+     any i = System:Objects.createInstance(klassName, false);
      if (def(i)) {
        //("is def").print();
        return(System:Objects.sourceFileName(i));
@@ -230,7 +230,7 @@ import class System:ExceptionTranslator {
   extractKlass(String klass) String {
     try {
       return(extractKlassInner(klass));
-    } catch (dyn e) {
+    } catch (any e) {
       
     }
     return(klass);
@@ -273,6 +273,6 @@ import class System:ExceptionTranslator {
 
 }
 
-import Text:Tokenizer as TT;
-import Container:Single;
-import Container:LinkedList:Node;
+use Text:Tokenizer as TT;
+use Container:Single;
+use Container:LinkedList:Node;

@@ -8,10 +8,10 @@
  *
  */
 
-import Container:Stack;
-import Container:Queue;
-import Math:Int;
-import Test:Speeder;
+use Container:Stack;
+use Container:Queue;
+use Math:Int;
+use Test:Speeder;
 
 class Test:TestCallSpeed {
    
@@ -22,7 +22,7 @@ class Test:TestCallSpeed {
    }
    
    testCallSpeed() {
-      dyn x = Speeder.new();
+      any x = Speeder.new();
       "In TestCallSpeed()".print();
       for (Int i = 0;i < 200;i++) {
          for (Int j = 0;j < 50000;j++) {

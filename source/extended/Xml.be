@@ -8,22 +8,22 @@
  *
  */
 
-import Xml:TagIterator;
-import Xml:TagIteratorException;
-import Xml:XTokenizer;
-import Xml:Tag;
-import Xml:StartElement;
-import Xml:EndElement;
-import Xml:TextNode;
-import Xml:ProcessingInstruction;
-import Xml:Comment;
-import Text:String;
-import Text:Tokenizer;
-import Text:String;
-import Math:Int;
-import Logic:Bool;
-import Container:LinkedList;
-import Container:Map;
+use Xml:TagIterator;
+use Xml:TagIteratorException;
+use Xml:XTokenizer;
+use Xml:Tag;
+use Xml:StartElement;
+use Xml:EndElement;
+use Xml:TextNode;
+use Xml:ProcessingInstruction;
+use Xml:Comment;
+use Text:String;
+use Text:Tokenizer;
+use Text:String;
+use Math:Int;
+use Logic:Bool;
+use Container:LinkedList;
+use Container:Map;
 
 class Tag {
 }
@@ -58,7 +58,7 @@ class StartElement(Tag) {
       accum += "<" += name;
       if (def(attributes)) {
          String q = Text:Strings.new().quote;
-         for (dyn entry in attributes) {
+         for (any entry in attributes) {
             accum += " " += entry.key += "=" += q += entry.value += q;
          }
       }
@@ -143,7 +143,7 @@ class TagIterator {
          Bool started = false;
          XTokenizer xt = XTokenizer.new();
          LinkedList res = null;
-         dyn iter = null;
+         any iter = null;
          Bool textNode = false;
          Int line = 1;
          Bool skip = false;
@@ -160,7 +160,7 @@ class TagIterator {
       self.new();
    }
    
-   iteratorGet() dyn {
+   iteratorGet() any {
       return(self);
    }
    

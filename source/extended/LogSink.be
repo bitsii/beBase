@@ -8,13 +8,13 @@
  *
  */
 
-import IO:File:Path;
+use IO:File:Path;
 
-import Math:Int;
-import Text:String;
-import System:Thread:Lock;
+use Math:Int;
+use Text:String;
+use System:Thread:Lock;
 
-import class IO:Log:Sink {
+use class IO:Log:Sink {
 
   new() {
     fields {
@@ -54,7 +54,7 @@ import class IO:Log:Sink {
       if (def(output)) {
         output.close();
       }
-    } catch (dyn e) {
+    } catch (any e) {
     
     }
     output = null;
@@ -80,7 +80,7 @@ import class IO:Log:Sink {
         openLog();
       }
       wl.unlock();
-    } catch (dyn e) {
+    } catch (any e) {
       wl.unlock();
     }
   }

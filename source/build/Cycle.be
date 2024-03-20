@@ -8,11 +8,11 @@
  *
  */
 
-import System:Command;
-import IO:File:Path;
-import IO:File;
+use System:Command;
+use IO:File:Path;
+use IO:File;
 
-import final class Build:Cycle:Main {
+use final class Build:Cycle:Main {
    
    main() {
         ("Beginning build test cycle").print();

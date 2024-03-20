@@ -8,13 +8,13 @@
  *
  */
 
-import Container:Set:Relations;
-import Container:Set:SetNode;
-import Container:Map;
-import Container:Set;
-import Container:Map:MapNode;
-import Container:List;
-import Math:Float;
+use Container:Set:Relations;
+use Container:Set:SetNode;
+use Container:Map;
+use Container:Set;
+use Container:Map:MapNode;
+use Container:List;
+use Math:Float;
 
 class SetNode {
    
@@ -22,7 +22,7 @@ class SetNode {
    
       fields {
          Int hval = _hval;
-         dyn key = _key;
+         any key = _key;
       }
       
    }
@@ -43,7 +43,7 @@ class MapNode(SetNode) {
       super.new(_hval, _key, _value);
       
       fields {
-         dyn value = _value;
+         any value = _value;
       }
       
    }
@@ -100,8 +100,8 @@ class Map(Set) {
       if (undef(other) || other.length != self.length) {
          return(false);
       }
-      for (dyn i in self) {
-         dyn v = other.get(i.key);
+      for (any i in self) {
+         any v = other.get(i.key);
          if (def(i.value) && undef(v)) { return(false); }
          if (def(v) && undef(i.value)) { return(false); }
          if (def(v) && def(i.value) && i.value != v) { return(false); }
@@ -147,7 +147,7 @@ class Map(Set) {
       if (def(other)) {
         if (System:Types.sameType(other, self)) {
 		 Map otherMap = other; //could support adding sets to maps... by keys
-         for (dyn x in otherMap) {
+         for (any x in otherMap) {
             put(x.key, x.value);
          }
          } elseIf (System:Types.sameType(other, baseNode)) {
@@ -160,7 +160,7 @@ class Map(Set) {
    
    getMap(String prefix) Map {
      Map toRet = Map.new();
-     for (dyn x in self) {
+     for (any x in self) {
       if (x.key.begins(prefix)) {
         toRet.put(x.key, x.value);
       }
@@ -244,7 +244,7 @@ class Set {
       if (undef(other) || other.length != self.length) {
          return(false);
       }
-      for (dyn i in self) {
+      for (any i in self) {
          if (other.contains(i)!) { return(false); }
       }
       return(true);
@@ -396,7 +396,7 @@ class Set {
    
    copy() self {
       //this is wrong due to ints being changed in place
-      dyn other = create();
+      any other = create();
       copyTo(other);
       other.buckets = buckets.copy();
       for (Int i = 0;i < buckets.length;i = i + 1;) {
@@ -446,7 +446,7 @@ class Set {
    intersection(Set other) Set {
       Set i = Set.new();
       if (def(other)) {
-         for (dyn x in self) {
+         for (any x in self) {
             if (other.contains(x)) {
                i.put(x);
             }
@@ -457,7 +457,7 @@ class Set {
    
    union(Set other) Set {
       Set i = Set.new();
-      for (dyn x in self) {
+      for (any x in self) {
          i.put(x);
       }
       if (def(other)) {
@@ -477,7 +477,7 @@ class Set {
    addValue(other) self {
       if (def(other)) {
          if (System:Types.sameType(other, self)) {
-             for (dyn x in other) {
+             for (any x in other) {
                 put(x);
              }
          } elseIf (System:Types.sameType(other, baseNode)) {
@@ -493,7 +493,7 @@ class Set {
 class Container:Set:KeyIterator(Container:Set:NodeIterator) {
    
    nextGet() {
-      dyn tr = super.nextGet();
+      any tr = super.nextGet();
       if (def(tr)) {
          return(tr.key);
       }
@@ -521,7 +521,7 @@ class Container:Set:SerializationIterator(Container:Set:KeyIterator) {
    }
    
    postDeserialize() {
-      for (dyn value in contents) {
+      for (any value in contents) {
          set.put(value);
       }
    }
@@ -549,10 +549,10 @@ class Container:Map:SerializationIterator(Container:Map:KeyValueIterator) {
    
    postDeserialize() {
       Map map = set;
-      dyn iter = contents.iterator;
+      any iter = contents.iterator;
       while (iter.hasNext) {
-         dyn key = iter.next;
-         dyn value = iter.next;
+         any key = iter.next;
+         any value = iter.next;
          map.put(key, value);
       }
    }
@@ -563,7 +563,7 @@ class Container:Map:KeyValueIterator(Container:Set:NodeIterator) {
    
    new(Set _set) Container:Map:KeyValueIterator {
       slots {
-         dyn onNode;
+         any onNode;
       }
       super.new(_set);
    }
@@ -577,7 +577,7 @@ class Container:Map:KeyValueIterator(Container:Set:NodeIterator) {
    
    nextGet() {
       if (def(onNode)) {
-         dyn toRet = onNode.value;
+         any toRet = onNode.value;
          onNode = null;
          return(toRet);
       }
@@ -593,7 +593,7 @@ class Container:Map:KeyValueIterator(Container:Set:NodeIterator) {
 class Container:Map:ValueIterator(Container:Set:NodeIterator) {
    
    nextGet() {
-      dyn tr = super.nextGet();
+      any tr = super.nextGet();
       if (def(tr)) {
          return(tr.value);
       }
@@ -655,7 +655,7 @@ class Container:Set:NodeIterator {
    }
    
    //to enable for for other iterators than the default, for b in map.blahiterator
-   iteratorGet() dyn {
+   iteratorGet() any {
       return(self);
    }
    
@@ -669,12 +669,12 @@ class Sets {
 
   default() self { }
 
-  forwardCall(String name, List args) dyn {
+  forwardCall(String name, List args) any {
     name = name + "Handler";
     if (can(name, 1)) {
       List varargs = List.new(1);
       varargs[0] = args;
-      dyn result = invoke(name, varargs);
+      any result = invoke(name, varargs);
     }
     return(result);
    }
@@ -687,7 +687,7 @@ class Sets {
     Int ssz = list.length * 2;
     ssz++;
     Set set = Set.new(ssz);
-    for (dyn v in list) {
+    for (any v in list) {
       set.put(v);
     }
     return(set);
@@ -699,12 +699,12 @@ class Maps {
 
   default() self { }
 
-  forwardCall(String name, List args) dyn {
+  forwardCall(String name, List args) any {
     name = name + "Handler";
     if (can(name, 1)) {
       List varargs = List.new(1);
       varargs[0] = args;
-      dyn result = invoke(name, varargs);
+      any result = invoke(name, varargs);
     }
     return(result);
    }
@@ -722,15 +722,15 @@ class Maps {
     return(map);
   }
 
-  fieldsIntoMap(dyn inst, Map res) Map {
-    for (dyn i = System:ObjectFieldIterator.new(inst);i.hasNext;) {
+  fieldsIntoMap(any inst, Map res) Map {
+    for (any i = System:ObjectFieldIterator.new(inst);i.hasNext;) {
       res.put(i.nextName, i.current);
     }
     return(res);
   }
 
-  mapIntoFields(Map from, dyn inst) dyn {
-    for (dyn i = System:ObjectFieldIterator.new(inst);i.hasNext;) {
+  mapIntoFields(Map from, any inst) any {
+    for (any i = System:ObjectFieldIterator.new(inst);i.hasNext;) {
       i.current = from.get(i.nextName);
     }
     return(inst);

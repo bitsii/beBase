@@ -8,19 +8,19 @@
  *
  */
 
-import Container:List;
+use Container:List;
 
-import System:Parameters;
-import Text:String;
-import Text:String;
+use System:Parameters;
+use Text:String;
+use Text:String;
 
-import Test:BaseTest;
-import Test:Failure;
-import Math:Int;
+use Test:BaseTest;
+use Test:Failure;
+use Math:Int;
 
-import Logic:Bool;
+use Logic:Bool;
 
-import Test:FrontCons;
+use Test:FrontCons;
 
 class Test:FinalsNC {
 
@@ -46,11 +46,11 @@ final class Test:FinalsFC {
 
 }
 
-import Test:BaseTest:ParseCorners as PC;
+use Test:BaseTest:ParseCorners as PC;
 
 class PC(BaseTest) {
 
-   amtd() dyn {
+   amtd() any {
    
    }
    
@@ -70,7 +70,7 @@ class PC(BaseTest) {
       
       assertEquals(x, 2);
       
-      bool y = 1 + 1 == 2;
+      Bool y = 1 + 1 == 2;
 
       assertTrue("hi" != null);
       assertFalse("hi" == null);
@@ -136,11 +136,11 @@ class FrontCons {
 
 class Test:FunnyOrs(BaseTest) {
    
-   testA() bool {
+   testA() Bool {
    
-      bool t = true;
-      bool f = false;
-      bool x;
+      Bool t = true;
+      Bool f = false;
+      Bool x;
       
       if (t || f) {
          "doIt".print();
@@ -160,7 +160,7 @@ class Test:FunnyOrs(BaseTest) {
       return(true || false);
    }
    
-   retAlt(bool x) bool {
+   retAlt(Bool x) Bool {
       return(x!);
    }
    
@@ -181,7 +181,7 @@ class Test:FunnyOrs(BaseTest) {
    }
    
    dooBie() {
-      bool a = retAlt(alCa() || false);
+      Bool a = retAlt(alCa() || false);
       ("AAA a is a " + a).print();
    }
    
