@@ -449,7 +449,7 @@ final class Build:MtdSyn {
    toString() Text:String {
       //("MtdSyn toString for " + name).print();
       any nl = Text:Strings.new().newline;
-      any toRet = "method" + nl + "name" + nl + name + nl + "orgName" + nl + orgName + nl + "numargs" + nl + numargs.toString() + nl;
+      any toRet = "sub" + nl + "name" + nl + name + nl + "orgName" + nl + orgName + nl + "numargs" + nl + numargs.toString() + nl;
       toRet = toRet + "origin" + nl + origin.toString() + nl;
       toRet = toRet + "lastDef" + nl + lastDef.toString() + nl;
       toRet = toRet + "isFinal" + nl + isFinal.toString() + nl;

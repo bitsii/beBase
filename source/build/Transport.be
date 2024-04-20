@@ -101,7 +101,7 @@ final class Build:Transport {
                //("Found new method").print();
                Node mnode = Node.new(build);
                mnode.typename = ntypes.METHOD;
-               mnode.held = "method";
+               mnode.held = "sub";
                curr.addValue(mnode);
                curr = mnode;
             }

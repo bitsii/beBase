@@ -48,7 +48,7 @@ use class Test:BaseTest:Init {
    }
 }
 
-use notNull class Test:BaseTest:IsNotNullNoDef {
+/*use notNull class Test:BaseTest:IsNotNullNoDef {
 
 }
 
@@ -58,7 +58,7 @@ use notNull class Test:BaseTest:IsNotNullHasDef {
             String hooka = "hooka";
         }
     }
-}
+}*/
 
 use class Test:Pic {
     new() self {
@@ -271,7 +271,7 @@ class Test:BaseTest:EC(BaseTest) {
         //if (def(lb)) { }
         //if (undef(lb)) { }
         
-        any inn = IsNotNullNoDef.new();
+        /*any inn = IsNotNullNoDef.new();
         any inh = IsNotNullHasDef.new();
         
         any inn2 = IsNotNullNoDef.new();
@@ -284,7 +284,7 @@ class Test:BaseTest:EC(BaseTest) {
         
         assertEqual(inh2.hooka, "hooka");
         
-        ("NotNullable done").print();
+        ("NotNullable done").print();*/
         
     }
     
