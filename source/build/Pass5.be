@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2023, the Brace Authors.
+ * Copyright (c) 2006-2023, the Beysant Authors.
  *
  * SPDX-License-Identifier: BSD-2-Clause
  *
