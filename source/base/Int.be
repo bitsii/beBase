@@ -34,7 +34,7 @@ final class Int {
         struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
         BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
         bes* beq = (bes*) bevs_myStack->bevs_hs;
-        beq->bevr_this = this;
+        BEQP(bevr_this) = this;
         BECS_StackFrame bevs_stackFrame(1);
     #endif
     }
@@ -43,7 +43,7 @@ final class Int {
         struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
         BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
         bes* beq = (bes*) bevs_myStack->bevs_hs;
-        beq->bevr_this = this;
+        BEQP(bevr_this) = this;
         BECS_StackFrame bevs_stackFrame(1);
     #endif
       bevi_int = a_bevi_int; 
@@ -246,7 +246,7 @@ this.bevi_int = beva_xi.bevi_int;
       }
       emit(cc) {
 """
-bevi_int = beq->beva_xi->bevi_int;
+bevi_int = BEQP(beva_xi)->bevi_int;
 """
       }
       
@@ -290,7 +290,7 @@ bevi_int = beq->beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                beq->bevl_res->bevi_int = bevi_int + beq->beva_xi->bevi_int;
+                BEQP(bevl_res)->bevi_int = bevi_int + BEQP(beva_xi)->bevi_int;
             """
             }
             return(res);
@@ -304,7 +304,7 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      this->bevi_int += beq->beva_xi->bevi_int;
+      this->bevi_int += BEQP(beva_xi)->bevi_int;
       """
       }
       return(self);
@@ -319,7 +319,7 @@ bevi_int = beq->beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                beq->bevl_res->bevi_int = bevi_int - beq->beva_xi->bevi_int;
+                BEQP(bevl_res)->bevi_int = bevi_int - BEQP(beva_xi)->bevi_int;
             """
             }
             return(res);
@@ -333,7 +333,7 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      bevi_int -= beq->beva_xi->bevi_int;
+      bevi_int -= BEQP(beva_xi)->bevi_int;
       """
       }
       return(self);
@@ -348,7 +348,7 @@ bevi_int = beq->beva_xi->bevi_int;
         }
         emit(cc) {
         """
-            beq->bevl_res->bevi_int = bevi_int * beq->beva_xi->bevi_int;
+            BEQP(bevl_res)->bevi_int = bevi_int * BEQP(beva_xi)->bevi_int;
         """
         }
         return(res);
@@ -362,7 +362,7 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      bevi_int *= beq->beva_xi->bevi_int;
+      bevi_int *= BEQP(beva_xi)->bevi_int;
       """
       }
       return(self);
@@ -377,7 +377,7 @@ bevi_int = beq->beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                beq->bevl_res->bevi_int = bevi_int / beq->beva_xi->bevi_int;
+                BEQP(bevl_res)->bevi_int = bevi_int / BEQP(beva_xi)->bevi_int;
             """
             }
             emit(js) {
@@ -397,7 +397,7 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      bevi_int /= beq->beva_xi->bevi_int;
+      bevi_int /= BEQP(beva_xi)->bevi_int;
       """
       }
       emit(js) {
@@ -418,7 +418,7 @@ bevi_int = beq->beva_xi->bevi_int;
             }
             emit(cc) {
             """
-                beq->bevl_res->bevi_int = bevi_int % beq->beva_xi->bevi_int;
+                BEQP(bevl_res)->bevi_int = bevi_int % BEQP(beva_xi)->bevi_int;
             """
             }
             return(res);
@@ -432,7 +432,7 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      bevi_int %= beq->beva_xi->bevi_int;
+      bevi_int %= BEQP(beva_xi)->bevi_int;
       """
       }
       return(self);
@@ -447,7 +447,7 @@ bevi_int = beq->beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        beq->bevl_toReti->bevi_int = bevi_int & beq->beva_xi->bevi_int;
+        BEQP(bevl_toReti)->bevi_int = bevi_int & BEQP(beva_xi)->bevi_int;
     """
     }
     return(toReti);
@@ -461,7 +461,7 @@ bevi_int = beq->beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        bevi_int &= beq->beva_xi->bevi_int;
+        bevi_int &= BEQP(beva_xi)->bevi_int;
     """
     }
       return(self);
@@ -476,7 +476,7 @@ bevi_int = beq->beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        beq->bevl_toReti->bevi_int = bevi_int | beq->beva_xi->bevi_int;
+        BEQP(bevl_toReti)->bevi_int = bevi_int | BEQP(beva_xi)->bevi_int;
     """
     }
       return(toReti);
@@ -490,7 +490,7 @@ bevi_int = beq->beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        bevi_int |= beq->beva_xi->bevi_int;
+        bevi_int |= BEQP(beva_xi)->bevi_int;
     """
     }
       return(self);
@@ -505,7 +505,7 @@ bevi_int = beq->beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        beq->bevl_toReti->bevi_int = bevi_int << beq->beva_xi->bevi_int;
+        BEQP(bevl_toReti)->bevi_int = bevi_int << BEQP(beva_xi)->bevi_int;
     """
     }
       return(toReti);
@@ -519,7 +519,7 @@ bevi_int = beq->beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        bevi_int <<= beq->beva_xi->bevi_int;
+        bevi_int <<= BEQP(beva_xi)->bevi_int;
     """
     }
       return(self);
@@ -534,7 +534,7 @@ bevi_int = beq->beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        beq->bevl_toReti->bevi_int = bevi_int >> beq->beva_xi->bevi_int;
+        BEQP(bevl_toReti)->bevi_int = bevi_int >> BEQP(beva_xi)->bevi_int;
     """
     }
       return(toReti);
@@ -548,7 +548,7 @@ bevi_int = beq->beva_xi->bevi_int;
     }
     emit(cc) {
     """
-        bevi_int >>= beq->beva_xi->bevi_int;
+        bevi_int >>= BEQP(beva_xi)->bevi_int;
     """
     }
       return(self);
@@ -612,10 +612,10 @@ bevi_int = beq->beva_xi->bevi_int;
       emit(cc) {
       """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_3_MathInt* bevls_xi = dynamic_cast<BEC_2_4_3_MathInt*>(beq->beva_xi);
+      BEC_2_4_3_MathInt* bevls_xi = dynamic_cast<BEC_2_4_3_MathInt*>(BEQP(beva_xi));
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_3_MathInt* bevls_xi = static_cast<BEC_2_4_3_MathInt*>(beq->beva_xi);
+      BEC_2_4_3_MathInt* bevls_xi = static_cast<BEC_2_4_3_MathInt*>(BEQP(beva_xi));
 #endif
       if (bevi_int == bevls_xi->bevi_int) {
         return BECS_Runtime::boolTrue;
@@ -655,10 +655,10 @@ bevi_int = beq->beva_xi->bevi_int;
       emit(cc) {
       """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_3_MathInt* bevls_xi = dynamic_cast<BEC_2_4_3_MathInt*>(beq->beva_xi);
+      BEC_2_4_3_MathInt* bevls_xi = dynamic_cast<BEC_2_4_3_MathInt*>(BEQP(beva_xi));
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_3_MathInt* bevls_xi = static_cast<BEC_2_4_3_MathInt*>(beq->beva_xi);
+      BEC_2_4_3_MathInt* bevls_xi = static_cast<BEC_2_4_3_MathInt*>(BEQP(beva_xi));
 #endif
       if (bevi_int != bevls_xi ->bevi_int) {
         return BECS_Runtime::boolTrue;
@@ -688,7 +688,7 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      if (bevi_int > beq->beva_xi->bevi_int) {
+      if (bevi_int > BEQP(beva_xi)->bevi_int) {
         return BECS_Runtime::boolTrue;
       }
       """
@@ -716,7 +716,7 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      if (bevi_int < beq->beva_xi->bevi_int) {
+      if (bevi_int < BEQP(beva_xi)->bevi_int) {
         return BECS_Runtime::boolTrue;
       }
       """
@@ -744,7 +744,7 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      if (bevi_int >= beq->beva_xi->bevi_int) {
+      if (bevi_int >= BEQP(beva_xi)->bevi_int) {
         return BECS_Runtime::boolTrue;
       }
       """
@@ -772,7 +772,7 @@ bevi_int = beq->beva_xi->bevi_int;
       }
       emit(cc) {
       """
-      if (bevi_int <= beq->beva_xi->bevi_int) {
+      if (bevi_int <= BEQP(beva_xi)->bevi_int) {
         return BECS_Runtime::boolTrue;
       }
       """
@@ -818,8 +818,8 @@ final class Math:Ints {
       }
       emit(cc) {
       """
-      beq->bevl__max->bevi_int = std::numeric_limits<int32_t>::max();
-      beq->bevl__min->bevi_int = std::numeric_limits<int32_t>::min();
+      BEQP(bevl__max)->bevi_int = std::numeric_limits<int32_t>::max();
+      BEQP(bevl__min)->bevi_int = std::numeric_limits<int32_t>::min();
       """
       }
       fields {

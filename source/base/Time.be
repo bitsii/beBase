@@ -85,7 +85,7 @@ void** bevl_msecs;
       emit(cc) {
       """
       BECS_Runtime::bemg_enterBlocking();
-      std::this_thread::sleep_for(std::chrono::milliseconds(beq->beva_msecs->bevi_int));
+      std::this_thread::sleep_for(std::chrono::milliseconds(BEQP(beva_msecs)->bevi_int));
       BECS_Runtime::bemg_exitBlocking();
       """
       }

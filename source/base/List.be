@@ -142,7 +142,7 @@ final class List {
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
-      beq->bevr_this = this;
+      BEQP(bevr_this) = this;
       BECS_StackFrame bevs_stackFrame(1);
 #endif
    }
@@ -154,7 +154,7 @@ final class List {
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
-      beq->bevr_this = this;
+      BEQP(bevr_this) = this;
       BECS_StackFrame bevs_stackFrame(1);
 #endif
         bevi_list = a_bevi_list;
@@ -173,7 +173,7 @@ final class List {
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
-      beq->bevr_this = this;
+      BEQP(bevr_this) = this;
       BECS_StackFrame bevs_stackFrame(1);
 #endif
         bevi_list = a_bevi_list;
@@ -245,7 +245,7 @@ if (def(length)) {
       if (bevi_list.size() > 0) {
         bevi_list.resize(0); //the others clear in this case, this preps for that
       }
-      bevi_list.resize(beq->beva_capi->bevi_int);
+      bevi_list.resize(BEQP(beva_capi)->bevi_int);
       """
       }
       
@@ -295,7 +295,7 @@ if (def(length)) {
       }
       emit(cc) {
       """
-      bevi_list[beq->beva_posi->bevi_int] = beq->beva_val;
+      bevi_list[BEQP(beva_posi)->bevi_int] = BEQP(beva_val);
       """
       }
    }
@@ -310,7 +310,7 @@ if (def(length)) {
       }
       emit(cc) {
       """
-      beq->bevl_val = bevi_list[beq->beva_posi->bevi_int];
+      BEQP(bevl_val) = bevi_list[BEQP(beva_posi)->bevi_int];
       """
       }
       }
@@ -463,7 +463,7 @@ if (def(length)) {
          }
          emit(cc) {
          """
-         bevi_list.resize(beq->bevl_newcap->bevi_int);
+         bevi_list.resize(BEQP(bevl_newcap)->bevi_int);
          """
          }
          capacity = newcap;
@@ -508,7 +508,7 @@ if (def(length)) {
        }
        emit(cc) {
        """
-       bevi_list[bevp_length->bevi_int] = beq->beva_val;
+       bevi_list[bevp_length->bevi_int] = BEQP(beva_val);
        """
        }
        length++;

@@ -73,10 +73,10 @@ final class System:Types {
       ifNotEmit(noRfl) {
       emit(cc) {
       """
-      if (beq->beva_other != nullptr) {
+      if (BEQP(beva_other) != nullptr) {
         //if the other type is same or parent type of mine
-        BETS_Object* bevs_mt = beq->beva_org->bemc_getType();
-        BETS_Object* bevs_ot = beq->beva_other->bemc_getType();
+        BETS_Object* bevs_mt = BEQP(beva_org)->bemc_getType();
+        BETS_Object* bevs_ot = BEQP(beva_other)->bemc_getType();
         while (bevs_mt != NULL) {
           if (bevs_mt == bevs_ot) {
             return BECS_Runtime::boolTrue;

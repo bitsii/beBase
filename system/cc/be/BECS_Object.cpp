@@ -98,16 +98,16 @@ size_t BECS_Object::bemg_getSize() {
   struct bes {  BEC_2_9_4_ContainerList* beArgs; BEC_2_4_6_TextString* beCallId; BEC_2_6_6_SystemObject* bevr_this;  };
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bes* beq = (bes*) bevs_myStack->bevs_hs;
-  beq->beArgs = nullptr;
-  beq->beCallId = nullptr;
-  beq->bevr_this = soo;
+  BEQP(beArgs) = nullptr;
+  BEQP(beCallId) = nullptr;
+  BEQP(bevr_this) = soo;
   BECS_StackFrame bevs_stackFrame(3);
 
 #endif
 
-  beq->beArgs = new BEC_2_9_4_ContainerList(args);
-  beq->beCallId = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
-  return beq->bevr_this->bem_methodNotDefined_2(beq->beCallId, beq->beArgs);
+  BEQP(beArgs) = new BEC_2_9_4_ContainerList(args);
+  BEQP(beCallId) = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
+  return BEQP(bevr_this)->bem_methodNotDefined_2(BEQP(beCallId), BEQP(beArgs));
 }
 
 //bemds

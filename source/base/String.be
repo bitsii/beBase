@@ -126,7 +126,7 @@ final class String {
    struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
    BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
    bes* beq = (bes*) bevs_myStack->bevs_hs;
-   beq->bevr_this = this;
+   BEQP(bevr_this) = this;
    BECS_StackFrame bevs_stackFrame(1);
 #endif
    }
@@ -138,7 +138,7 @@ final class String {
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
-      beq->bevr_this = this;
+      BEQP(bevr_this) = this;
       BECS_StackFrame bevs_stackFrame(1);
 #endif
       bevi_bytes = a_bevi_bytes;
@@ -155,7 +155,7 @@ final class String {
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
-      beq->bevr_this = this;
+      BEQP(bevr_this) = this;
       BECS_StackFrame bevs_stackFrame(1);
     #endif
           bevi_bytes = a_bevi_bytes;
@@ -170,7 +170,7 @@ final class String {
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
-      beq->bevr_this = this;
+      BEQP(bevr_this) = this;
       BECS_StackFrame bevs_stackFrame(1);
     #endif
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
@@ -287,7 +287,7 @@ final class String {
       }
       emit(cc) {
       """
-        bevi_bytes.resize(beq->beva_ncap->bevi_int, 0);
+        bevi_bytes.resize(BEQP(beva_ncap)->bevi_int, 0);
       """
       }
       emit(js) {
@@ -570,9 +570,9 @@ final class String {
          }
          emit(cc) {
          """
-         beq->beva_into->bevi_int = (int32_t) bevi_bytes[beq->beva_pos->bevi_int];
-         if (beq->beva_into->bevi_int > 127) {
-            beq->beva_into->bevi_int -= 256;
+         BEQP(beva_into)->bevi_int = (int32_t) bevi_bytes[BEQP(beva_pos)->bevi_int];
+         if (BEQP(beva_into)->bevi_int > 127) {
+            BEQP(beva_into)->bevi_int -= 256;
          }
          """
          }
@@ -604,7 +604,7 @@ final class String {
          }
          emit(cc) {
          """
-         beq->beva_into->bevi_int = bevi_bytes[beq->beva_pos->bevi_int];
+         BEQP(beva_into)->bevi_int = bevi_bytes[BEQP(beva_pos)->bevi_int];
          """
          }
       } else {
@@ -676,11 +676,11 @@ final class String {
      }
      emit(cc) {
      """
-     int32_t twvls_b = beq->beva_into->bevi_int;
+     int32_t twvls_b = BEQP(beva_into)->bevi_int;
      if (twvls_b < 0) {
         twvls_b += 256;
      }
-     bevi_bytes[beq->beva_pos->bevi_int] = (unsigned char) twvls_b;
+     bevi_bytes[BEQP(beva_pos)->bevi_int] = (unsigned char) twvls_b;
      """
      }
    }
@@ -708,7 +708,7 @@ final class String {
      }
      emit(cc) {
      """
-     bevi_bytes[beq->beva_pos->bevi_int] = (unsigned char) beq->beva_into->bevi_int;
+     bevi_bytes[BEQP(beva_pos)->bevi_int] = (unsigned char) BEQP(beva_into)->bevi_int;
      """
      }
    }
@@ -892,10 +892,10 @@ final class String {
   emit(cc) {
   """
 #ifndef BEDCC_NORTTI
-      BEC_2_4_6_TextString* bevls_stri = dynamic_cast<BEC_2_4_6_TextString*>(beq->beva_stri);
+      BEC_2_4_6_TextString* bevls_stri = dynamic_cast<BEC_2_4_6_TextString*>(BEQP(beva_stri));
 #endif
 #ifdef BEDCC_NORTTI
-      BEC_2_4_6_TextString* bevls_stri = static_cast<BEC_2_4_6_TextString*>(beq->beva_stri);
+      BEC_2_4_6_TextString* bevls_stri = static_cast<BEC_2_4_6_TextString*>(BEQP(beva_stri));
 #endif
     if (bevp_length->bevi_int == bevls_stri->bevp_length->bevi_int) {
        for (int32_t i = 0;i < bevp_length->bevi_int;i++) {
@@ -974,8 +974,8 @@ final class String {
          
          emit(cc) {
          """
-         for (int32_t i = 0; i < beq->bevl_mleni->bevi_int;i++) {
-            bevi_bytes[i + beq->beva_dstarti->bevi_int] = beq->beva_org->bevi_bytes[i + beq->beva_starti->bevi_int];
+         for (int32_t i = 0; i < BEQP(bevl_mleni)->bevi_int;i++) {
+            bevi_bytes[i + BEQP(beva_dstarti)->bevi_int] = BEQP(beva_org)->bevi_bytes[i + BEQP(beva_starti)->bevi_int];
          }
          """
          }

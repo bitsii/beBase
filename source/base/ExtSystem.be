@@ -274,7 +274,7 @@ final class System:CurrentPlatform (System:Platform) {
                 ifNotEmit(embPlat) {
                 emit(cc) {
                 """
-                    beq->bevl_platformName = new BEC_2_4_6_TextString(BECS_Runtime::platformName);
+                    BEQP(bevl_platformName) = new BEC_2_4_6_TextString(BECS_Runtime::platformName);
                 """
                 }
                 }

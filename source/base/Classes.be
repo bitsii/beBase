@@ -38,8 +38,8 @@ class System:Classes {
       }
       emit(cc) {
       """
-      if (beq->beva_org != nullptr && beq->beva_other != nullptr) {
-        if (beq->beva_org->bemc_getType() == beq->beva_other->bemc_getType()) {
+      if (BEQP(beva_org) != nullptr && BEQP(beva_other) != nullptr) {
+        if (BEQP(beva_org)->bemc_getType() == BEQP(beva_other)->bemc_getType()) {
           return BECS_Runtime::boolTrue;
         }
       }
@@ -67,7 +67,7 @@ class System:Classes {
       ifNotEmit(noSmap) {
       emit(cc) {
       """
-      beq->bevl_xi = beq->beva_org->bemc_clnames();
+      BEQP(bevl_xi) = BEQP(beva_org)->bemc_clnames();
       """
       }
       }

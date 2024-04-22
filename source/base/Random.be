@@ -71,7 +71,7 @@ final class Random {
    seed(Int seed) Random {
       emit(cc) {
       """
-      srand(beq->beva_seed->bevi_int);
+      srand(BEQP(beva_seed)->bevi_int);
       """
       }
    }
@@ -100,7 +100,7 @@ final class Random {
       }
       emit(cc) {
       """
-      beq->beva_value->bevi_int = rand();
+      BEQP(beva_value)->bevi_int = rand();
       """
       }
       emit(js) {

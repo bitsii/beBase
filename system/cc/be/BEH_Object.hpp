@@ -240,7 +240,7 @@ class BECS_Object {
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
-      beq->bevr_this = thisoo;
+      BEQP(bevr_this) = thisoo;
       BECS_StackFrame bevs_stackFrame(1);
 #endif
 

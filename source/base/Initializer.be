@@ -29,7 +29,7 @@ use final class System:Initializer {
       }
       emit(cc) {
       """
-      beq->bevl_init = beq->beva_inst->bemc_getInitial();
+      BEQP(bevl_init) = BEQP(beva_inst)->bemc_getInitial();
       """
       }
       if (undef(init)) {
@@ -41,7 +41,7 @@ use final class System:Initializer {
           }
           emit(cc) {
           """
-          beq->beva_inst->bemc_setInitial(beq->bevl_init);
+          BEQP(beva_inst)->bemc_setInitial(BEQP(bevl_init));
           """
           }
       }
@@ -58,7 +58,7 @@ use final class System:Initializer {
       }
       emit(cc) {
       """
-      beq->bevl_init = beq->beva_inst->bemc_getInitial();
+      BEQP(bevl_init) = BEQP(beva_inst)->bemc_getInitial();
       """
       }
       init.default();
