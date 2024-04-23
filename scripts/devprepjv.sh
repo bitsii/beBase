@@ -48,4 +48,4 @@ fi
 
 echo "then you should be ready to go. test builds:"
 echo "./script/extec5jv.sh"
-echo "./script/cyclejv5.sh"
+echo "./script/cycle5jv.sh"

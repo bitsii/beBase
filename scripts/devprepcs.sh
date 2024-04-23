@@ -47,5 +47,5 @@ if [ "$OSTYPE" == "Darwin" ]; then
 fi
 
 echo "then you should be ready to go. test builds:"
-echo "./script/extec5mcs.sh"
-echo "./script/cyclemcs5.sh"
+echo "./script/extec5cs.sh"
+echo "./script/cycle5cs.sh"

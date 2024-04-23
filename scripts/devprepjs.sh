@@ -21,4 +21,4 @@ if [ "$OSTYPE" == "Darwin" ]; then
 fi
 
 echo "then you should be ready to go - test builds:"
-echo "./script/extec5mcsjs.sh"
+echo "./script/extec5js.sh"

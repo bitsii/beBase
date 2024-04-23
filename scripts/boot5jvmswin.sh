@@ -25,5 +25,5 @@ cd ../../../..
 find system -name "*.class" -exec rm {} \;
 find target5 -name "*.class" -exec rm {} \;
 
-./scripts/bld4from5jv.sh
-./scripts/bld5from4jv.sh
+./scripts/bld4jv.sh
+./scripts/bld5jv.sh
