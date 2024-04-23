@@ -1,5 +1,5 @@
 //allocsPerGc 0-4,294,967,295 :: 10000000 >>6000000<< OKish bld, 1000000 extec, diff is 1 0
-#define BEDCC_GCAPERGC 666666
+#define BEDCC_GCAPERGC 666666 //conservative norm
 //#define BEDCC_GCAPERGC 10000000
 //#define BEDCC_GCAPERGC 6666666 //norm
 //to really test gc

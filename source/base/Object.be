@@ -375,7 +375,13 @@ emit(cc) {
 #endif  
 
 #ifdef BEDCC_SGC
-
+#ifdef BECC_SS
+  BEC_2_4_6_TextString* name = nullptr;
+  BEC_2_9_4_ContainerList* args = nullptr;
+  BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &name, (BEC_2_6_6_SystemObject**) &args };
+  BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, this);
+#endif
+#ifdef BECC_HS
   struct bes {  BEC_2_4_6_TextString* name; BEC_2_9_4_ContainerList* args; BEC_2_6_6_SystemObject* bevr_this;  };
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bes* beq = (bes*) bevs_myStack->bevs_hs;
@@ -383,7 +389,7 @@ emit(cc) {
   BEQP(args) = nullptr;
   BEQP(bevr_this) = this;
   BECS_StackFrame bevs_stackFrame(3);
-
+#endif
 #endif
 
   //cout << "in sfwdcall " << endl;

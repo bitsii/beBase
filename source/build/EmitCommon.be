@@ -151,6 +151,17 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
           Map idToName = Map.new();
           Build:Class inClass;
         }
+
+        slots {
+          Bool ccHs = false;
+          Bool ccSs = false;
+        }
+        if (build.emitChecks.has("ccHs")) {
+          ccHs = true;
+        }
+        if (build.emitChecks.has("ccSs")) {
+          ccSs = true;
+        }
         
         if (build.saveIds) {
           loadIds();
@@ -956,8 +967,13 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       //  lookatComp(ovlc);
       //}
       
-      String besDef = String.new();
-      String beqAsn = String.new();
+      if (ccSs) {
+        String stackRefs = String.new();
+      }
+      if (ccHs) {
+        String besDef = String.new();
+        String beqAsn = String.new();
+      }
       Bool isFirstRef = true;
       Int numRefs = 0;
       
@@ -974,40 +990,62 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
                  }
                  if(emitting("cc")) {
                     unless(isFirstRef) {
-                      besDef += "; ";
+                      if (ccSs) {
+                        stackRefs += ", ";
+                      }
+                      if (ccHs) {
+                        besDef += "; ";
+                      }
                     }
                     isFirstRef = false;
-                    numRefs++;
-                    //decForVar(besDef, ov.held, true);
-
-                    typeDecForVar(besDef, ov.held);
-                    besDef += " ";
-                    if (ov.held.isTmpVar) {
-                      besDef += "bevt_" += ov.held.name;
-                    } else {
-                      besDef += "beva_" += ov.held.name;
+                    if (ccSs) {
+                      stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
                     }
+                    numRefs++;
+                    if (ccHs) {
+                      //decForVar(besDef, ov.held, true);
 
-                    //besDef += " = " += nameForVar(ov.held);
-                    beqAsn += nameForVar(ov.held) += " = " += decNameForVar(ov.held) += ";" += nl;
+                      typeDecForVar(besDef, ov.held);
+                      besDef += " ";
+                      if (ov.held.isTmpVar) {
+                        besDef += "bevt_" += ov.held.name;
+                      } else {
+                        besDef += "beva_" += ov.held.name;
+                      }
+
+                      //besDef += " = " += nameForVar(ov.held);
+                      beqAsn += nameForVar(ov.held) += " = " += decNameForVar(ov.held) += ";" += nl;
+                    }
                  }
                 decForVar(argDecs, ov.held, true);
              } else {
-                unless(emitting("cc")) {
+                unless(ccHs) {
                   decForVar(locDecs, ov.held, false);
                 }
                 if(emitting("js")) {
                     locDecs += ";" += nl;
                 } elseIf(emitting("cc")) {
-                    //locDecs += " = nullptr;" += nl;
+                    if (ccSs) {
+                      locDecs += " = nullptr;" += nl;
+                    }
                     unless(isFirstRef) {
-                      besDef += "; ";
+                      if (ccSs) {
+                        stackRefs += ", ";
+                      }
+                      if (ccHs) {
+                        besDef += "; ";
+                      }
                     }
                     isFirstRef = false;
+                    if (ccSs) {
+                      stackRefs += "(BEC_2_6_6_SystemObject**) &" += nameForVar(ov.held);
+                    }
                     numRefs++;
-                    decForVar(besDef, ov.held, false);
-                    //besDef += " = " += "nullptr";
-                    beqAsn += nameForVar(ov.held) += " = nullptr;" += nl;
+                    if (ccHs) {
+                      decForVar(besDef, ov.held, false);
+                      //besDef += " = " += "nullptr";
+                      beqAsn += nameForVar(ov.held) += " = nullptr;" += nl;
+                    }
                 } elseIf(emitting("sw")) {
                     locDecs += " = nil;" += nl;
                 } else  {
@@ -1020,18 +1058,24 @@ use local class Build:EmitCommon(Build:Visit:Visitor) {
       
       if(emitting("cc")) {
         if (build.emitChecks.has("ccSgc")) {
-          if (Text:Strings.notEmpty(besDef)) { besDef += ";" }
-          besDef += " BEC_2_6_6_SystemObject* bevr_this; ";
-          locDecs += "struct bes { " += besDef += " };" += nl;
-          locDecs += "BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;" += nl;
-          locDecs += "bes* beq = (bes*) bevs_myStack->bevs_hs;" += nl;
-          locDecs += beqAsn;
-          locDecs += "beq->bevr_this = this;" += nl;
-          //("besDef " += besDef).print();
-          //stackframe
-          //for hstack numRefs bigger for "this" ref
-          numRefs++;
-          locDecs += "BECS_StackFrame bevs_stackFrame(" += numRefs.toString() += ");" += nl;
+          if (ccSs) {
+            locDecs += "BEC_2_6_6_SystemObject** bevls_stackRefs[" += numRefs.toString() += "] = { " += stackRefs += " };" += nl;
+            locDecs += "BECS_StackFrame bevs_stackFrame(bevls_stackRefs, " += numRefs.toString() += ", this);" += nl;
+          }
+          if (ccHs) {
+            if (Text:Strings.notEmpty(besDef)) { besDef += ";" }
+            besDef += " BEC_2_6_6_SystemObject* bevr_this; ";
+            locDecs += "struct bes { " += besDef += " };" += nl;
+            locDecs += "BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;" += nl;
+            locDecs += "bes* beq = (bes*) bevs_myStack->bevs_hs;" += nl;
+            locDecs += beqAsn;
+            locDecs += "beq->bevr_this = this;" += nl;
+            //("besDef " += besDef).print();
+            //stackframe
+            //for hstack numRefs bigger for "this" ref
+            numRefs++;
+            locDecs += "BECS_StackFrame bevs_stackFrame(" += numRefs.toString() += ");" += nl;
+          }
         }
         //BEC_2_4_3_MathInt** xa[2] = { &bevl_x0, &bevl_x1 };
       }

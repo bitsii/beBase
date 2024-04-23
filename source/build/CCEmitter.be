@@ -163,13 +163,28 @@ use final class Build:CCEmitter(Build:EmitCommon) {
 
       String prefix;
       if (v.isTmpVar) {
-        prefix = "beq->bevt_";
+        if (ccHs) {
+          prefix = "beq->bevt_";
+        }
+        if (ccSs) {
+          prefix = "bevt_";
+        }
       } elseIf (v.isProperty) {
         prefix = "bevp_";
       } elseIf (v.isArg) {
-        prefix = "beq->beva_";
+        if (ccHs) {
+          prefix = "beq->beva_";
+        }
+        if (ccSs) {
+          prefix = "beva_";
+        }
       } else {
-        prefix = "beq->bevl_";
+        if (ccHs) {
+          prefix = "beq->bevl_";
+        }
+        if (ccSs) {
+          prefix = "bevl_";
+        }
       }
       return(prefix + v.name);//weak here?
 
@@ -183,7 +198,12 @@ use final class Build:CCEmitter(Build:EmitCommon) {
       } elseIf (v.isProperty) {
         prefix = "bevp_";
       } elseIf (v.isArg) {
-        prefix = "bevk_";
+        if (ccSs) {
+          prefix = "beva_";
+        }
+        if (ccHs) {
+          prefix = "bevk_";
+        }
       } else {
         prefix = "bevl_";
       }

@@ -270,8 +270,8 @@ class IO:Reader {
       }
       emit(cc) {
       """
-       int bevls_read = fread(&(beq->beva_readBuf->bevi_bytes[beq->beva_at->bevi_int]), sizeof(unsigned char), beq->beva_readBuf->bevi_bytes.size() - beq->beva_at->bevi_int, bevi_is);
-       beq->beva_readsz->bevi_int = bevls_read + beq->beva_at->bevi_int;
+       int bevls_read = fread(&(BEQP(beva_readBuf)->bevi_bytes[BEQP(beva_at)->bevi_int]), sizeof(unsigned char), BEQP(beva_readBuf)->bevi_bytes.size() - BEQP(beva_at)->bevi_int, bevi_is);
+       BEQP(beva_readsz)->bevi_int = bevls_read + BEQP(beva_at)->bevi_int;
       """
       }
       emit(js) {
@@ -463,7 +463,7 @@ void** bevl_mode;
       emit(cc) {
       """
          if (bevi_os == NULL) {
-           bevi_os = fopen(bevp_path->bevp_path->bems_toCcString().c_str(), beq->beva_mode->bems_toCcString().c_str());
+           bevi_os = fopen(bevp_path->bevp_path->bems_toCcString().c_str(), BEQP(beva_mode)->bems_toCcString().c_str());
            //cout << "opened f" << endl;
          }
       """
@@ -600,7 +600,7 @@ class IO:Writer {
       }
       emit(cc) {
       """
-      fwrite(&(beq->beva_stri->bevi_bytes)[0], sizeof(unsigned char), beq->beva_stri->bevp_length->bevi_int, bevi_os);
+      fwrite(&(BEQP(beva_stri)->bevi_bytes)[0], sizeof(unsigned char), BEQP(beva_stri)->bevp_length->bevi_int, bevi_os);
       """
       }
       emit(js) {

@@ -123,11 +123,17 @@ final class String {
 
    BEC_2_4_6_TextString() {  
 #ifdef BEDCC_SGC
+#ifdef BECC_SS
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+#endif
+#ifdef BECC_HS
    struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
    BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
    bes* beq = (bes*) bevs_myStack->bevs_hs;
    BEQP(bevr_this) = this;
    BECS_StackFrame bevs_stackFrame(1);
+#endif
 #endif
    }
 
@@ -135,11 +141,17 @@ final class String {
     BEC_2_4_6_TextString(int32_t bevi_length, std::vector<unsigned char>& a_bevi_bytes) { 
 #endif 
 #ifdef BEDCC_SGC
+#ifdef BECC_SS
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+#endif
+#ifdef BECC_HS
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
       BEQP(bevr_this) = this;
       BECS_StackFrame bevs_stackFrame(1);
+#endif
 #endif
       bevi_bytes = a_bevi_bytes;
       bevp_length = nullptr;
@@ -152,11 +164,17 @@ final class String {
         BEC_2_4_6_TextString(int32_t bevi_length, std::initializer_list<unsigned char> a_bevi_bytes) { 
     #endif 
     #ifdef BEDCC_SGC
+#ifdef BECC_SS
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+#endif
+#ifdef BECC_HS
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
       BEQP(bevr_this) = this;
       BECS_StackFrame bevs_stackFrame(1);
+#endif
     #endif
           bevi_bytes = a_bevi_bytes;
           bevp_length = nullptr;
@@ -167,11 +185,17 @@ final class String {
     
     BEC_2_4_6_TextString(std::string bevi_string) {
     #ifdef BEDCC_SGC
+#ifdef BECC_SS
+      BEC_2_6_6_SystemObject** bevls_stackRefs[0] = { };
+      BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 0, this);
+#endif
+#ifdef BECC_HS
       struct bes {  BEC_2_6_6_SystemObject* bevr_this;  };
       BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
       bes* beq = (bes*) bevs_myStack->bevs_hs;
       BEQP(bevr_this) = this;
       BECS_StackFrame bevs_stackFrame(1);
+#endif
     #endif
       bevi_bytes.insert(bevi_bytes.begin(), bevi_string.begin(), bevi_string.end());
       bevp_length = nullptr;

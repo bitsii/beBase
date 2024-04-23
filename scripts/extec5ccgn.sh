@@ -14,7 +14,7 @@ esac
 #start with "perf record" to profile, see results with "perf report"
 #gdb --args ...
 
-time target5/BEX_E_gn.exe -cchImport=system/cc/be/BEH_SGCBEQ.hpp --buildFile build/extendedEc.txt --emitLang cc --singleCC true --saveIds false --emitFlag ccSgc
+time target5/BEX_E_gn.exe -cchImport=system/cc/be/BEH_SGC.hpp --emitFlag ccSs --buildFile build/extendedEc.txt --emitLang cc --singleCC true --saveIds false --emitFlag ccSgc
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 

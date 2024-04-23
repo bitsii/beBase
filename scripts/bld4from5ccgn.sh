@@ -15,7 +15,7 @@ esac
 #catch throw
 #run
 
-time ./target5/BEX_E_gn.exe -cchImport=system/cc/be/BEH_SGCBEQ.hpp --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy4 --buildPath target4 --emitFlag ccSgc
+time ./target5/BEX_E_gn.exe -cchImport=system/cc/be/BEH_SGC.hpp --emitFlag ccSs --buildFile build/buildbuild.txt --emitLang cc --singleCC true --saveIds false --deployPath deploy4 --buildPath target4 --emitFlag ccSgc
 
 #sudo apt-get install valgrind kcachegrind graphviz
 #after just run kcachegrind

@@ -92,9 +92,25 @@ size_t BECS_Object::bemg_getSize() {
     BEC_2_6_6_SystemObject* BECS_Object::bems_methodNotDefined(int32_t callId, std::vector<BEC_2_6_6_SystemObject*> args) {
 #endif  
 
+#ifdef BECC_SS
+  BEC_2_6_6_SystemObject* so = static_cast<BEC_2_6_6_SystemObject*>(this);
+
+  BEC_2_9_4_ContainerList* beArgs = nullptr;
+  BEC_2_4_6_TextString* beCallId = nullptr;
+#endif
+#ifdef BECC_HS
   BEC_2_6_6_SystemObject* soo = static_cast<BEC_2_6_6_SystemObject*>(this);
+#endif
 
 #ifdef BEDCC_SGC
+#ifdef BECC_SS
+  BEC_2_6_6_SystemObject** bevls_stackRefs[2] = { (BEC_2_6_6_SystemObject**) &beArgs, (BEC_2_6_6_SystemObject**) &beCallId };
+  BECS_StackFrame bevs_stackFrame(bevls_stackRefs, 2, so);
+  beArgs = new BEC_2_9_4_ContainerList(args);
+  beCallId = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
+  return so->bem_methodNotDefined_2(beCallId, beArgs);
+#endif
+#ifdef BECC_HS
   struct bes {  BEC_2_9_4_ContainerList* beArgs; BEC_2_4_6_TextString* beCallId; BEC_2_6_6_SystemObject* bevr_this;  };
   BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
   bes* beq = (bes*) bevs_myStack->bevs_hs;
@@ -102,12 +118,12 @@ size_t BECS_Object::bemg_getSize() {
   BEQP(beCallId) = nullptr;
   BEQP(bevr_this) = soo;
   BECS_StackFrame bevs_stackFrame(3);
-
-#endif
-
   BEQP(beArgs) = new BEC_2_9_4_ContainerList(args);
   BEQP(beCallId) = new BEC_2_4_6_TextString(BECS_Ids::idCalls[callId]);
   return BEQP(bevr_this)->bem_methodNotDefined_2(BEQP(beCallId), BEQP(beArgs));
+#endif
+#endif
+
 }
 
 //bemds
@@ -209,8 +225,14 @@ void BECS_Runtime::init() {
     if (isInitted) { return; }
     isInitted = true;
     BECS_FrameStack* bevs_myStack = &BECS_Runtime::bevs_currentStack;
+#ifdef BECC_SS
+    BECS_StackFrame* bevs_currFrame = bevs_myStack->bevs_lastFrame;
+    BEC_2_6_6_SystemObject* bevg_le = nullptr;
+#endif
+#ifdef BECC_HS
     bevs_myStack->bevs_ohs = (BECS_Object**) malloc(BEDCC_GCHSS * sizeof(BECS_Object*));
     bevs_myStack->bevs_hs = bevs_myStack->bevs_ohs;
+#endif
     BECS_Runtime::boolTrue = new BEC_2_5_4_LogicBool(true);
     BECS_Runtime::boolFalse = new BEC_2_5_4_LogicBool(false);
     BECS_Runtime::initializer = new BEC_2_6_11_SystemInitializer();
@@ -338,10 +360,12 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
   
 #ifdef BEDCC_SGC
 
+#ifdef BECC_HS
+  //new pass
+
   //decls
   BECS_Object* bevg_leo;
 
-  //new pass
   BECS_Object** bevs_ohs = bevs_myStack->bevs_ohs;
   BECS_Object** bevs_hs = bevs_myStack->bevs_hs;
   bevg_leo = nullptr;
@@ -361,9 +385,12 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
   }
 #endif
 
+#endif
+
+#ifdef BECC_SS
   //old pass
-  /*bevs_currFrame = bevs_myStack->bevs_lastFrame;
-  bevg_le = nullptr;
+  BECS_StackFrame* bevs_currFrame = bevs_myStack->bevs_lastFrame;
+  BEC_2_6_6_SystemObject* bevg_le = nullptr;
   while (bevs_currFrame != nullptr) {
     for (size_t i = 0; i < bevs_currFrame->bevs_numVars; i++) {
       bevg_le = *(bevs_currFrame->bevs_localVars[i]);
@@ -377,8 +404,10 @@ void BECS_Runtime::bemg_markStack(BECS_FrameStack* bevs_myStack) {
     }
     bevs_currFrame = bevs_currFrame->bevs_priorFrame;
   }
-  bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;*/
-  
+  bevs_myStack->bevs_nextReuse = bevs_myStack->bevs_lastInst;
+
+#endif
+
 #endif
 
 }
