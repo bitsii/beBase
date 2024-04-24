@@ -3,7 +3,7 @@
 . scripts/bld5env.sh
 
 rm -rf targetEc/Base/target/cs
-rm -f targetEc/bin
+rm -rf targetEc/bin
 
 $BEBLDR --buildFile build/extendedEc.txt --emitLang cs
 

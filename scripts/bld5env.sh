@@ -8,6 +8,8 @@ BEBLDR="java -XX:-UsePerfData -XX:TieredStopAtLevel=1 -XX:+UseSerialGC be.BEL_Ba
 
 #BEBLDR="time node target5/Base/target/js/be/BEL_Base.js"
 
+#BEBLDR="./target5/bin/Debug/net8.0/BEX_DN"
+
 export CC=g++
 export CPFLAGS="-std=c++11 -Wfatal-errors -ggdb"
 #export CPFLAGS="-DBEDCC_PT=1 -pthread -std=c++11 -Wfatal-errors -ggdb"
