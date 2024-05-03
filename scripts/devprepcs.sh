@@ -19,13 +19,12 @@ fi
 
 if [ "$OSTYPE" == "Linux" ]; then
   echo "Linux"
-  sudo apt-get install mono-complete mono-devel mono-mcs
+  sudo apt-get install dotnet8
   sudo apt-get install git
   sudo apt-get install git-gui
-  #sudo apt-get install clang
-  echo "make sure you are in the beBase checked out directory"
-  echo "(you likely are right now)"
-  echo "and run ./scripts/boot5mcslinux.sh"
+  #echo "make sure you are in the beBase checked out directory"
+  #echo "(you likely are right now)"
+  #echo "and run ./scripts/boot5cslinux.sh"
 fi
 
 if [ "$OSTYPE" == "Darwin" ]; then
