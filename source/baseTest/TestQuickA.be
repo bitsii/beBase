@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2023, the Beysant Authors.
+ * Copyright (c) 2016-2023, the Bennt Authors.
  *
  * SPDX-License-Identifier: BSD-2-Clause
  *
