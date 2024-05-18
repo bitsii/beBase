@@ -19,7 +19,7 @@ fi
 
 if [ "$OSTYPE" == "Linux" ]; then
   echo "Linux"
-  sudo apt-get install openjdk-11-jdk-headless
+  sudo apt-get install openjdk-21-jdk-headless
   sudo apt-get install git
   sudo apt-get install git-gui
   echo "make sure you are in the beBase checked out directory"
@@ -37,8 +37,8 @@ if [ "$OSTYPE" == "Darwin" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
   brew tap homebrew/cask-versions
-  brew install openjdk@11
-  brew link --force openjdk@11
+  brew install openjdk@21
+  brew link --force openjdk@21
   brew install git
   brew install git-gui
   echo "make sure you are in the beBase checked out directory"
