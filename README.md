@@ -1,4 +1,13 @@
 
+# Beysant
+
+<br />
+<div align="center">
+  <a href="https://github.com/github_username/repo_name">
+    <img src="images/beysant.jpg" alt="Logo" width="80" height="80">
+  </a>
+  </div>
+
 Quick Getting Started for Development! (more about Beysant below...)
 
 First, install git for your platform (if not already done)
