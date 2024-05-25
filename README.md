@@ -8,7 +8,11 @@
   </a>
   </div>
 
-Quick Getting Started for Development! (more about Beysant below...)
+Beysant is a general purpose object oriented programming language with an emphasis on simplicity and practicality.  There is an implementation as a self-hosted source-to-source translator targeting Java, C++, JavaScript, and C#/.Net with a standard base library, all licensed under the [BSD-2-Clause](https://opensource.org/licenses/BSD-2-Clause) open source license.  The language takes inspiration from Perl, Java, and Python.  One of the features is to be able to write core code once and use it in a hybrid application targeting the major platforms - Linux, Windows, or Mac desktop application, an IOS or Android app, or a hosted application as a website - see [beApp](https://gitlab.com/bitsii/beApp).  There is also support for Arduino (especially esp8266) via C++ - see [beEmb](https://github.com/bitsii/beEmb).
+
+The language borrows automatic memory management via garbage collection from it's host runtimes (usually - C++ has a custom collector, the SGC) and supports both statically and dynamically typed variables (is "gradually typed" ).  Everything is an object, including primitive data types.  Single-Parent inheritance is supported and all classes derive from a base class System:Object.  Operator overloading is supported via method naming conventions and operator expression are translated to method calls.  There is also built - in support for accessors, default accessors are created for all "field" member variables but can be overriden to modify their behavior (and "virtual" members can be created simply by implementing properly named methods).  "slot" member variables do not have auto-generated accessors.  try/catch exception handling syntax is supported.  All variables must be declared and are either member variables (declared in field or slot scopes) or method-scope local variables (ala Python).  Support for global state is only available through a built in singleton behavior activated by implementing a default() { } method for a class.
+
+Quick Getting Started for Development!
 
 First, install git for your platform (if not already done)
 
@@ -55,10 +59,6 @@ for that.
 C++ is as well, but really only for embedded development.  More info in the beEmb
 
 End of Getting Started for Development!
-
-Beysant is a general purpose programming language with an emphasis on simplicity and practicality, with a translator and base library licensed under the [BSD-2-Clause](https://opensource.org/licenses/BSD-2-Clause) open source license.  It is implemented as a self-hosted source-to-source translator targeting Java, C++, JavaScript, and C#/.Net.  The language takes inspiration from Python, Perl, Java, C#, and C++.  One of the features is to be able to write core code once and use it in a hybrid application targeting the major platforms - a Linux, Windows, or Mac application, a hosted application as a website, and Android and IOS mobile applications ( see [beApp](https://gitlab.com/bitsii/beApp) ).  Another is support for Arduino (especially esp8266) via C++ ( see [beEmb](https://github.com/bitsii/beEmb) )
-
-The language borrows automatic memory management via garbage collection from it's host runtimes (usually - C++ has a custom collector, the SGC) and supports both statically and dynamically typed variables (is "gradually typed" ).  All values are references to instances of classes and all calls are method invocations on an instance of a class.  Single-Parent inheritance is supported and all classes derive from a base class System:Object.  Operator overloading is supported (operations are translated to method call names by convention).  There is also built - in support for accessors, default accessors are created for all "field" member variables but can be overriden to modify their behavior (and "virtual" members can be created simply by implementing properly named methods).  "slot" member variables do not have auto-generated accessors.  try/catch exception handling syntax is supported.  All variables are either member variables (accomplished by enclosing their declaration in a fields { } or slots { }block) or method-scope local variables (ala Python).  Support for global state is available through a built in singleton behavior activated by implementing a default() { } method for a class.
 
 An example: 
 
