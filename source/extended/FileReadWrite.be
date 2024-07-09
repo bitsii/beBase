@@ -279,7 +279,7 @@ class IO:Reader {
       var bevls_bytes = beva_readBuf.bevi_bytes;
       var bevls_at = beva_at.bevi_int;
       var bevls_rlen = beva_readBuf.bevp_capacity.bevi_int - bevls_at;
-      var bevls_rbuf = new Buffer(bevls_rlen);
+      var bevls_rbuf = Buffer.alloc(bevls_rlen);
       beva_readsz.bevi_int = fs.readSync(this.bevi_is, bevls_rbuf, 0, bevls_rlen) + bevls_at;
       //console.log("read this:");
       //console.log(bevls_rbuf.toString());
@@ -605,7 +605,7 @@ class IO:Writer {
       }
       emit(js) {
       """
-      fs.writeSync(this.bevi_os,new Buffer(beva_stri.bevi_bytes), 0, beva_stri.bevp_length.bevi_int);
+      fs.writeSync(this.bevi_os,Buffer.from(beva_stri.bevi_bytes), 0, beva_stri.bevp_length.bevi_int);
       """
       }
    }
