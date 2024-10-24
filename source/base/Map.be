@@ -167,6 +167,14 @@ class Map(Set) {
      }
      return(toRet);
    }
+
+   copy() self {
+      any other = create().new(modu);
+      for (any kv in self) {
+        other.put(kv.key, kv.value);
+      }
+      return(other);
+   }
 }
 
 class Set {
@@ -395,17 +403,9 @@ class Set {
    }
    
    copy() self {
-      //this is wrong due to ints being changed in place
-      any other = create();
-      copyTo(other);
-      other.buckets = buckets.copy();
-      for (Int i = 0;i < buckets.length;i = i + 1;) {
-         SetNode n = buckets.get(i);
-         if (def(n)) {
-            other.buckets.put(i, baseNode.create().new(n.hval, n.key, n.getFrom()));
-         } else {
-            other.buckets.put(i, null);
-         }
+      any other = create().new(modu);
+      for (any x in self) {
+        other.put(x);
       }
       return(other);
    }

@@ -141,6 +141,7 @@ class Test:BaseTest:List(BaseTest) {
       more();
       mergeSort();
       sortedFind();
+      testSetMap();
       //return(self);
       
       List tcr = List.new(1);
@@ -203,6 +204,30 @@ class Test:BaseTest:List(BaseTest) {
          assertEquals(ts[i], i);
       }
       
+   }
+
+   testSetMap() {
+      var s = Set.new();
+      s.copy();
+      s.put("hi");
+      s.put("there");
+      var ss = s.copy();
+      assertTrue(ss.has("hi"));
+      assertTrue(ss.has("there"));
+      assertEquals(ss.length, 2);
+
+      //if (true) { throw(Exception.new("failed")); }
+
+      var m = Map.new();
+      m.copy();
+      m.put("hi", "there");
+      m.put("yo", "adrian");
+      var mm = m.copy();
+      assertTrue(mm.has("hi"));
+      assertTrue(mm.has("yo"));
+      assertEquals(mm["hi"], m["hi"]);
+      assertEquals(mm.length, 2);
+
    }
    
 }
