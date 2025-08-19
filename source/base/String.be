@@ -1083,6 +1083,7 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
      }
 
      ifEmit (embPlat) {
+        ifEmit (tcCon) {
         any pl = Embedded:App.plugin;
         if (def(pl)) {
           any concon = pl.concon;
@@ -1090,6 +1091,7 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
             concon.write(self);
             concon.write(Text:Strings.unixNewline);
           }
+        }
         }
      }
       
