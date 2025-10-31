@@ -1076,8 +1076,14 @@ stdout.Write(bevi_bytes, 0, bevi_bytes.Length - 1);
 #endif
 
 #ifndef BEDCC_ISIOS
+#ifndef BEDCC_ARDSER
      std::cout.write(reinterpret_cast<const char*>(&bevi_bytes[0]), bevp_length->bevi_int);
      std::cout << std::endl;
+#endif
+#endif
+
+#ifdef BEDCC_ARDSER
+    Serial.println(this->bems_toCcString().c_str());
 #endif
      """
      }
