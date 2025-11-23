@@ -272,6 +272,10 @@ local LinkedList {
      any nn = newNode(held);
      appendNode(nn);
    }
+
+   append(held) {
+     addValueWhole(held);
+   }
    
    addValue(held) {
       if (def(held) && System:Types.sameType(held, self)) {
