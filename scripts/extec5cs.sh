@@ -19,6 +19,6 @@ lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi
 mv bin ../../../..
 cd ../../../../..
 
-./targetEc/bin/Debug/net8.0/BEX_DN
+./targetEc/bin/Debug/net10.0/BEX_DN
 
 lae=$?;if [[ $lae -ne 0 ]]; then exit $lae; fi

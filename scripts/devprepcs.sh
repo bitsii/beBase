@@ -19,7 +19,7 @@ fi
 
 if [ "$OSTYPE" == "Linux" ]; then
   echo "Linux"
-  sudo apt-get install dotnet8
+  sudo apt-get install dotnet-sdk-10.0
   sudo apt-get install git
   sudo apt-get install git-gui
   #echo "make sure you are in the beBase checked out directory"
@@ -46,5 +46,5 @@ if [ "$OSTYPE" == "Darwin" ]; then
 fi
 
 echo "then you should be ready to go. test builds:"
-echo "./script/extec5cs.sh"
-echo "./script/cycle5cs.sh"
+echo "./scripts/extec5cs.sh"
+echo "./scripts/cycle5cs.sh"
